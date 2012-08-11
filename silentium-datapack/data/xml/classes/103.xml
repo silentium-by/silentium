@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+	<class id="103" parentId="27">
+		<set name="className" val="Mystic Muse"/>
+		<set name="raceId" val="1"/>
+		<set name="baseSTR" val="21"/>
+		<set name="baseCON" val="25"/>
+		<set name="baseDEX" val="24"/>
+		<set name="baseINT" val="37"/>
+		<set name="baseWIT" val="23"/>
+		<set name="baseMEN" val="40"/>
+		<set name="basePAtk" val="3"/>
+		<set name="basePDef" val="54"/>
+		<set name="baseMAtk" val="6"/>
+		<set name="baseMDef" val="41"/>
+		<set name="basePAtkSpd" val="300"/>
+		<set name="baseMAtkSpd" val="333"/>
+		<set name="baseCritRate" val="4"/>
+		<set name="baseRunSpd" val="122"/>
+		<set name="spawnX" val="46182"/>
+		<set name="spawnY" val="41198"/>
+		<set name="spawnZ" val="-3440"/>
+		<set name="collision_radius" val="7"/>
+		<set name="collision_height" val="24"/>
+		<set name="baseHpMax" val="3013.1"/>
+		<set name="lvlHpAdd" val="61.42"/>
+		<set name="lvlHpMod" val="0.37"/>
+		<set name="baseCpMax" val="1807.8"/>
+		<set name="lvlCpAdd" val="36.85"/>
+		<set name="lvlCpMod" val="0.22"/>
+		<set name="baseMpMax" val="1540.8"/>
+		<set name="lvlMpAdd" val="30.71"/>
+		<set name="lvlMpMod" val="0.22"/>
+		<set name="baseLvl" val="76"/>
+		<skillTrees>
+			<!-- Wisdom -->
+			<skill skillId="328" skillLvl="1" sp="12500000" minLvl="76"/>
+			<!-- Skill Mastery -->
+			<skill skillId="331" skillLvl="1" sp="14670000" minLvl="77"/>
+			<!-- Arcane Power -->
+			<skill skillId="337" skillLvl="1" sp="21340000" minLvl="78"/>
+			<!-- Spell Force -->
+			<skill skillId="427" skillLvl="1" sp="14670000" minLvl="77"/>
+			<!-- Arcane Roar -->
+			<skill skillId="433" skillLvl="1" sp="21340000" minLvl="78"/>
+			<!-- Arcane Chaos -->
+			<skill skillId="1338" skillLvl="1" sp="21340000" minLvl="78"/>
+			<!-- Ice Vortex -->
+			<skill skillId="1340" skillLvl="1" sp="14670000" minLvl="77"/>
+			<!-- Light Vortex -->
+			<skill skillId="1342" skillLvl="1" sp="12500000" minLvl="76"/>
+			<!-- Divine Inspiration -->
+			<skill skillId="1405" skillLvl="3" sp="0" minLvl="76"/>
+			<skill skillId="1405" skillLvl="4" sp="0" minLvl="76"/>
+			<!-- Raging Waves -->
+			<skill skillId="1421" skillLvl="1" sp="150000000" minLvl="80"/>
+		</skillTrees>
+	</class>
+</list>

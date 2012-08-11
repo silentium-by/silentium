@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+	<class id="96" parentId="14">
+		<set name="className" val="Arcana Lord"/>
+		<set name="raceId" val="0"/>
+		<set name="baseSTR" val="22"/>
+		<set name="baseCON" val="27"/>
+		<set name="baseDEX" val="21"/>
+		<set name="baseINT" val="41"/>
+		<set name="baseWIT" val="20"/>
+		<set name="baseMEN" val="39"/>
+		<set name="basePAtk" val="3"/>
+		<set name="basePDef" val="54"/>
+		<set name="baseMAtk" val="6"/>
+		<set name="baseMDef" val="41"/>
+		<set name="basePAtkSpd" val="300"/>
+		<set name="baseMAtkSpd" val="333"/>
+		<set name="baseCritRate" val="4"/>
+		<set name="baseRunSpd" val="120"/>
+		<set name="spawnX" val="-90890"/>
+		<set name="spawnY" val="248027"/>
+		<set name="spawnZ" val="-3570"/>
+		<set name="collision_radius" val="7"/>
+		<set name="collision_height" val="22"/>
+		<set name="baseHpMax" val="3039.3"/>
+		<set name="lvlHpAdd" val="63.08"/>
+		<set name="lvlHpMod" val="0.37"/>
+		<set name="baseCpMax" val="1823.5"/>
+		<set name="lvlCpAdd" val="37.85"/>
+		<set name="lvlCpMod" val="0.22"/>
+		<set name="baseMpMax" val="1540.8"/>
+		<set name="lvlMpAdd" val="37.85"/>
+		<set name="lvlMpMod" val="0.22"/>
+		<set name="baseLvl" val="76"/>
+		<skillTrees>
+			<!-- Wisdom -->
+			<skill skillId="328" skillLvl="1" sp="10000000" minLvl="76"/>
+			<!-- Skill Mastery -->
+			<skill skillId="331" skillLvl="1" sp="12250000" minLvl="77"/>
+			<!-- Arcane Agility -->
+			<skill skillId="338" skillLvl="1" sp="21340000" minLvl="78"/>
+			<!-- Spell Force -->
+			<skill skillId="427" skillLvl="1" sp="12250000" minLvl="77"/>
+			<!-- Summon Lore -->
+			<skill skillId="435" skillLvl="1" sp="21340000" minLvl="78"/>
+			<!-- Warrior Servitor -->
+			<skill skillId="1346" skillLvl="1" sp="12250000" minLvl="77"/>
+			<!-- Final Servitor -->
+			<skill skillId="1349" skillLvl="1" sp="21340000" minLvl="78"/>
+			<!-- Warrior Bane -->
+			<skill skillId="1350" skillLvl="1" sp="10000000" minLvl="76"/>
+			<!-- Mage Bane -->
+			<skill skillId="1351" skillLvl="1" sp="12250000" minLvl="77"/>
+			<!-- Divine Inspiration -->
+			<skill skillId="1405" skillLvl="3" sp="0" minLvl="76"/>
+			<skill skillId="1405" skillLvl="4" sp="0" minLvl="76"/>
+			<!-- Summon Feline King -->
+			<skill skillId="1406" skillLvl="1" sp="80000000" minLvl="79"/>
+			<!-- Anti-Summoning Field -->
+			<skill skillId="1424" skillLvl="1" sp="150000000" minLvl="80"/>
+		</skillTrees>
+	</class>
+</list>

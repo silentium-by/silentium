@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+	<class id="47" parentId="44">
+		<set name="className" val="Monk"/>
+		<set name="raceId" val="3"/>
+		<set name="baseSTR" val="40"/>
+		<set name="baseCON" val="47"/>
+		<set name="baseDEX" val="26"/>
+		<set name="baseINT" val="18"/>
+		<set name="baseWIT" val="12"/>
+		<set name="baseMEN" val="27"/>
+		<set name="basePAtk" val="4"/>
+		<set name="basePDef" val="80"/>
+		<set name="baseMAtk" val="6"/>
+		<set name="baseMDef" val="41"/>
+		<set name="basePAtkSpd" val="300"/>
+		<set name="baseMAtkSpd" val="333"/>
+		<set name="baseCritRate" val="4"/>
+		<set name="baseRunSpd" val="117"/>
+		<set name="spawnX" val="-56682"/>
+		<set name="spawnY" val="-113610"/>
+		<set name="spawnZ" val="-690"/>
+		<set name="collision_radius" val="11"/>
+		<set name="collision_height" val="28"/>
+		<set name="baseHpMax" val="346.0"/>
+		<set name="lvlHpAdd" val="32.9"/>
+		<set name="lvlHpMod" val="0.37"/>
+		<set name="baseCpMax" val="173.0"/>
+		<set name="lvlCpAdd" val="16.4"/>
+		<set name="lvlCpMod" val="0.22"/>
+		<set name="baseMpMax" val="144.0"/>
+		<set name="lvlMpAdd" val="16.4"/>
+		<set name="lvlMpMod" val="0.22"/>
+		<set name="baseLvl" val="20"/>
+		<skillTrees>
+			<!-- Iron Punch -->
+			<skill skillId="29" skillLvl="10" sp="2600" minLvl="20"/>
+			<skill skillId="29" skillLvl="11" sp="2600" minLvl="20"/>
+			<skill skillId="29" skillLvl="12" sp="2600" minLvl="20"/>
+			<skill skillId="29" skillLvl="13" sp="3300" minLvl="24"/>
+			<skill skillId="29" skillLvl="14" sp="3300" minLvl="24"/>
+			<skill skillId="29" skillLvl="15" sp="3300" minLvl="24"/>
+			<skill skillId="29" skillLvl="16" sp="5700" minLvl="28"/>
+			<skill skillId="29" skillLvl="17" sp="5700" minLvl="28"/>
+			<skill skillId="29" skillLvl="18" sp="5700" minLvl="28"/>
+			<skill skillId="29" skillLvl="19" sp="9500" minLvl="32"/>
+			<skill skillId="29" skillLvl="20" sp="9500" minLvl="32"/>
+			<skill skillId="29" skillLvl="21" sp="9500" minLvl="32"/>
+			<skill skillId="29" skillLvl="22" sp="13000" minLvl="36"/>
+			<skill skillId="29" skillLvl="23" sp="13000" minLvl="36"/>
+			<skill skillId="29" skillLvl="24" sp="13000" minLvl="36"/>
+			<!-- Focused Force -->
+			<skill skillId="50" skillLvl="1" sp="10000" minLvl="24"/>
+			<skill skillId="50" skillLvl="2" sp="29000" minLvl="32"/>
+			<!-- Force Blaster -->
+			<skill skillId="54" skillLvl="1" sp="3300" minLvl="24"/>
+			<skill skillId="54" skillLvl="2" sp="3300" minLvl="24"/>
+			<skill skillId="54" skillLvl="3" sp="3300" minLvl="24"/>
+			<skill skillId="54" skillLvl="4" sp="5700" minLvl="28"/>
+			<skill skillId="54" skillLvl="5" sp="5700" minLvl="28"/>
+			<skill skillId="54" skillLvl="6" sp="5700" minLvl="28"/>
+			<skill skillId="54" skillLvl="7" sp="9500" minLvl="32"/>
+			<skill skillId="54" skillLvl="8" sp="9500" minLvl="32"/>
+			<skill skillId="54" skillLvl="9" sp="9500" minLvl="32"/>
+			<skill skillId="54" skillLvl="10" sp="13000" minLvl="36"/>
+			<skill skillId="54" skillLvl="11" sp="13000" minLvl="36"/>
+			<skill skillId="54" skillLvl="12" sp="13000" minLvl="36"/>
+			<!-- Bear Spirit Totem -->
+			<skill skillId="76" skillLvl="1" sp="17000" minLvl="28"/>
+			<!-- Wolf Spirit Totem -->
+			<skill skillId="83" skillLvl="1" sp="5300" minLvl="20"/>
+			<!-- Cripple -->
+			<skill skillId="95" skillLvl="1" sp="5300" minLvl="20"/>
+			<skill skillId="95" skillLvl="2" sp="10000" minLvl="24"/>
+			<skill skillId="95" skillLvl="3" sp="17000" minLvl="28"/>
+			<skill skillId="95" skillLvl="4" sp="29000" minLvl="32"/>
+			<skill skillId="95" skillLvl="5" sp="39000" minLvl="36"/>
+			<!-- Stunning Fist -->
+			<skill skillId="120" skillLvl="1" sp="2600" minLvl="20"/>
+			<skill skillId="120" skillLvl="2" sp="2600" minLvl="20"/>
+			<skill skillId="120" skillLvl="3" sp="2600" minLvl="20"/>
+			<skill skillId="120" skillLvl="4" sp="3300" minLvl="24"/>
+			<skill skillId="120" skillLvl="5" sp="3300" minLvl="24"/>
+			<skill skillId="120" skillLvl="6" sp="3300" minLvl="24"/>
+			<skill skillId="120" skillLvl="7" sp="5700" minLvl="28"/>
+			<skill skillId="120" skillLvl="8" sp="5700" minLvl="28"/>
+			<skill skillId="120" skillLvl="9" sp="5700" minLvl="28"/>
+			<skill skillId="120" skillLvl="10" sp="9500" minLvl="32"/>
+			<skill skillId="120" skillLvl="11" sp="9500" minLvl="32"/>
+			<skill skillId="120" skillLvl="12" sp="9500" minLvl="32"/>
+			<skill skillId="120" skillLvl="13" sp="13000" minLvl="36"/>
+			<skill skillId="120" skillLvl="14" sp="13000" minLvl="36"/>
+			<skill skillId="120" skillLvl="15" sp="13000" minLvl="36"/>
+			<!-- Boost Attack Speed -->
+			<skill skillId="168" skillLvl="1" sp="39000" minLvl="36"/>
+			<!-- Fist Weapon Mastery -->
+			<skill skillId="210" skillLvl="1" sp="5300" minLvl="20"/>
+			<skill skillId="210" skillLvl="2" sp="10000" minLvl="24"/>
+			<skill skillId="210" skillLvl="3" sp="8600" minLvl="28"/>
+			<skill skillId="210" skillLvl="4" sp="8600" minLvl="28"/>
+			<skill skillId="210" skillLvl="5" sp="14000" minLvl="32"/>
+			<skill skillId="210" skillLvl="6" sp="14000" minLvl="32"/>
+			<skill skillId="210" skillLvl="7" sp="19000" minLvl="36"/>
+			<skill skillId="210" skillLvl="8" sp="19000" minLvl="36"/>
+			<!-- Light Armor Mastery -->
+			<skill skillId="233" skillLvl="1" sp="2600" minLvl="20"/>
+			<skill skillId="233" skillLvl="2" sp="2600" minLvl="20"/>
+			<skill skillId="233" skillLvl="3" sp="5000" minLvl="24"/>
+			<skill skillId="233" skillLvl="4" sp="5000" minLvl="24"/>
+			<skill skillId="233" skillLvl="5" sp="8600" minLvl="28"/>
+			<skill skillId="233" skillLvl="6" sp="8600" minLvl="28"/>
+			<skill skillId="233" skillLvl="7" sp="14000" minLvl="32"/>
+			<skill skillId="233" skillLvl="8" sp="14000" minLvl="32"/>
+			<skill skillId="233" skillLvl="9" sp="19000" minLvl="36"/>
+			<skill skillId="233" skillLvl="10" sp="19000" minLvl="36"/>
+			<!-- Hurricane Assault -->
+			<skill skillId="284" skillLvl="1" sp="13000" minLvl="36"/>
+			<skill skillId="284" skillLvl="2" sp="13000" minLvl="36"/>
+			<skill skillId="284" skillLvl="3" sp="13000" minLvl="36"/>
+			<!-- Agile Movement -->
+			<skill skillId="319" skillLvl="1" sp="5300" minLvl="20"/>
+		</skillTrees>
+	</class>
+</list>

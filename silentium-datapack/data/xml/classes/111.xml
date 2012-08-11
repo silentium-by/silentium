@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+	<class id="111" parentId="41">
+		<set name="className" val="Spectral Master"/>
+		<set name="raceId" val="2"/>
+		<set name="baseSTR" val="23"/>
+		<set name="baseCON" val="24"/>
+		<set name="baseDEX" val="23"/>
+		<set name="baseINT" val="44"/>
+		<set name="baseWIT" val="19"/>
+		<set name="baseMEN" val="37"/>
+		<set name="basePAtk" val="3"/>
+		<set name="basePDef" val="54"/>
+		<set name="baseMAtk" val="6"/>
+		<set name="baseMDef" val="41"/>
+		<set name="basePAtkSpd" val="300"/>
+		<set name="baseMAtkSpd" val="333"/>
+		<set name="baseCritRate" val="4"/>
+		<set name="baseRunSpd" val="122"/>
+		<set name="spawnX" val="28295"/>
+		<set name="spawnY" val="11063"/>
+		<set name="spawnZ" val="-4224"/>
+		<set name="collision_radius" val="7"/>
+		<set name="collision_height" val="24"/>
+		<set name="baseHpMax" val="3198.3"/>
+		<set name="lvlHpAdd" val="66.4"/>
+		<set name="lvlHpMod" val="0.37"/>
+		<set name="baseCpMax" val="1918.9"/>
+		<set name="lvlCpAdd" val="39.84"/>
+		<set name="lvlCpMod" val="0.22"/>
+		<set name="baseMpMax" val="1540.8"/>
+		<set name="lvlMpAdd" val="39.84"/>
+		<set name="lvlMpMod" val="0.22"/>
+		<set name="baseLvl" val="76"/>
+		<skillTrees>
+			<!-- Wisdom -->
+			<skill skillId="328" skillLvl="1" sp="10000000" minLvl="76"/>
+			<!-- Health -->
+			<skill skillId="329" skillLvl="1" sp="10000000" minLvl="76"/>
+			<!-- Skill Mastery -->
+			<skill skillId="331" skillLvl="1" sp="12250000" minLvl="77"/>
+			<!-- Arcane Agility -->
+			<skill skillId="338" skillLvl="1" sp="21340000" minLvl="78"/>
+			<!-- Spell Force -->
+			<skill skillId="427" skillLvl="1" sp="12250000" minLvl="77"/>
+			<!-- Summon Lore -->
+			<skill skillId="435" skillLvl="1" sp="21340000" minLvl="78"/>
+			<!-- Assassin Servitor -->
+			<skill skillId="1348" skillLvl="1" sp="12250000" minLvl="77"/>
+			<!-- Final Servitor -->
+			<skill skillId="1349" skillLvl="1" sp="21340000" minLvl="78"/>
+			<!-- Mage Bane -->
+			<skill skillId="1351" skillLvl="1" sp="12250000" minLvl="77"/>
+			<!-- Divine Inspiration -->
+			<skill skillId="1405" skillLvl="3" sp="0" minLvl="76"/>
+			<skill skillId="1405" skillLvl="4" sp="0" minLvl="76"/>
+			<!-- Summon Spectral Lord -->
+			<skill skillId="1408" skillLvl="1" sp="80000000" minLvl="79"/>
+			<!-- Anti-Summoning Field -->
+			<skill skillId="1424" skillLvl="1" sp="150000000" minLvl="80"/>
+		</skillTrees>
+	</class>
+</list>

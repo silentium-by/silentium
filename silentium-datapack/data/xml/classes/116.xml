@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+	<class id="116" parentId="52">
+		<set name="className" val="Doomcryer"/>
+		<set name="raceId" val="3"/>
+		<set name="baseSTR" val="27"/>
+		<set name="baseCON" val="31"/>
+		<set name="baseDEX" val="24"/>
+		<set name="baseINT" val="31"/>
+		<set name="baseWIT" val="15"/>
+		<set name="baseMEN" val="42"/>
+		<set name="basePAtk" val="3"/>
+		<set name="basePDef" val="54"/>
+		<set name="baseMAtk" val="6"/>
+		<set name="baseMDef" val="41"/>
+		<set name="basePAtkSpd" val="300"/>
+		<set name="baseMAtkSpd" val="333"/>
+		<set name="baseCritRate" val="4"/>
+		<set name="baseRunSpd" val="121"/>
+		<set name="spawnX" val="-56682"/>
+		<set name="spawnY" val="-113730"/>
+		<set name="spawnZ" val="-690"/>
+		<set name="collision_radius" val="7"/>
+		<set name="collision_height" val="27"/>
+		<set name="baseHpMax" val="3359.9"/>
+		<set name="lvlHpAdd" val="67.96"/>
+		<set name="lvlHpMod" val="0.37"/>
+		<set name="baseCpMax" val="1679.9"/>
+		<set name="lvlCpAdd" val="33.93"/>
+		<set name="lvlCpMod" val="0.22"/>
+		<set name="baseMpMax" val="1540.8"/>
+		<set name="lvlMpAdd" val="33.93"/>
+		<set name="lvlMpMod" val="0.22"/>
+		<set name="baseLvl" val="76"/>
+		<skillTrees>
+			<!-- Wisdom -->
+			<skill skillId="328" skillLvl="1" sp="12500000" minLvl="76"/>
+			<!-- Health -->
+			<skill skillId="329" skillLvl="1" sp="12500000" minLvl="76"/>
+			<!-- Skill Mastery -->
+			<skill skillId="331" skillLvl="1" sp="14670000" minLvl="77"/>
+			<!-- Arcane Wisdom -->
+			<skill skillId="336" skillLvl="1" sp="16000000" minLvl="78"/>
+			<!-- Spell Force -->
+			<skill skillId="427" skillLvl="1" sp="14670000" minLvl="77"/>
+			<!-- Divine Lore -->
+			<skill skillId="436" skillLvl="1" sp="16000000" minLvl="78"/>
+			<!-- Chant of Spirit -->
+			<skill skillId="1362" skillLvl="1" skillName="Chant of Spirit" sp="14670000" minLvl="77"/>
+			<!-- Chant of Victory -->
+			<skill skillId="1363" skillLvl="1" skillName="Chant of Victory" sp="16000000" minLvl="78"/>
+			<!-- Divine Inspiration -->
+			<skill skillId="1405" skillLvl="3" sp="0" minLvl="76"/>
+			<skill skillId="1405" skillLvl="4" sp="0" minLvl="76"/>
+			<!-- Magnus" Chant -->
+			<skill skillId="1413" skillLvl="1" skillName="Magnus Chant" sp="80000000" minLvl="79"/>
+			<!-- Gate Chant -->
+			<skill skillId="1429" skillLvl="1" skillName="Gate Chant" sp="16000000" minLvl="78"/>
+		</skillTrees>
+	</class>
+</list>

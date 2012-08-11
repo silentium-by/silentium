@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<autochat npcId="31093,31172,31174,31176,31178,31180,31182,31184,31186,31188,31190,31192,31194,31196,31198,31200" chatDelay="-1"> <!-- Preacher of Doom -->
+		<chatText msg="%player_cabal_loser%! All is lost! Prepare to meet the goddess of death! $ %player_cabal_loser%! You bring an ill wind! $ %player_cabal_loser%! You might as well give up! $ A curse upon you! $ All is lost! Prepare to meet the goddess of death! $ All is lost! The prophecy of destruction has been fulfilled! $ The prophecy of doom has awoken! $ This world will soon be annihilated!"/>
+	</autochat>
+	<autochat npcId="31094,31173,31175,31177,31179,31181,31183,31185,31187,31189,31191,31193,31195,31197,31199,31201" chatDelay="-1"> <!-- Orator of Revelations -->
+		<chatText msg="%player_cabal_winner%! I bestow on you the authority of the abyss! $ %player_cabal_winner%, Darkness shall be banished forever! $ %player_cabal_winner%, the time for glory is at hand! $ All hail the eternal twilight! $ As foretold in the prophecy of darkness, the era of chaos has begun! $ The day of judgment is near! $ The prophecy of darkness has been fulfilled! $ The prophecy of darkness has come to pass!"/>
+	</autochat>
+</list>

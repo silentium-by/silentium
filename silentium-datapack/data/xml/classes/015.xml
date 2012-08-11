@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+	<class id="15" parentId="10">
+		<set name="className" val="Cleric"/>
+		<set name="raceId" val="0"/>
+		<set name="baseSTR" val="22"/>
+		<set name="baseCON" val="27"/>
+		<set name="baseDEX" val="21"/>
+		<set name="baseINT" val="41"/>
+		<set name="baseWIT" val="20"/>
+		<set name="baseMEN" val="39"/>
+		<set name="basePAtk" val="3"/>
+		<set name="basePDef" val="54"/>
+		<set name="baseMAtk" val="6"/>
+		<set name="baseMDef" val="41"/>
+		<set name="basePAtkSpd" val="300"/>
+		<set name="baseMAtkSpd" val="333"/>
+		<set name="baseCritRate" val="4"/>
+		<set name="baseRunSpd" val="120"/>
+		<set name="spawnX" val="-90890"/>
+		<set name="spawnY" val="248027"/>
+		<set name="spawnZ" val="-3570"/>
+		<set name="collision_radius" val="7"/>
+		<set name="collision_height" val="22"/>
+		<set name="baseHpMax" val="424.0"/>
+		<set name="lvlHpAdd" val="34.2"/>
+		<set name="lvlHpMod" val="0.37"/>
+		<set name="baseCpMax" val="212.0"/>
+		<set name="lvlCpAdd" val="17.15"/>
+		<set name="lvlCpMod" val="0.22"/>
+		<set name="baseMpMax" val="192.0"/>
+		<set name="lvlMpAdd" val="17.15"/>
+		<set name="lvlMpMod" val="0.22"/>
+		<set name="baseLvl" val="20"/>
+		<skillTrees>
+			<!-- Anti Magic -->
+			<skill skillId="146" skillLvl="5" sp="1600" minLvl="20"/>
+			<skill skillId="146" skillLvl="6" sp="1600" minLvl="20"/>
+			<skill skillId="146" skillLvl="7" sp="3400" minLvl="25"/>
+			<skill skillId="146" skillLvl="8" sp="3400" minLvl="25"/>
+			<skill skillId="146" skillLvl="9" sp="6600" minLvl="30"/>
+			<skill skillId="146" skillLvl="10" sp="6600" minLvl="30"/>
+			<skill skillId="146" skillLvl="11" sp="11000" minLvl="35"/>
+			<skill skillId="146" skillLvl="12" sp="11000" minLvl="35"/>
+			<!-- Quick Recovery -->
+			<skill skillId="164" skillLvl="1" sp="3300" minLvl="20"/>
+			<skill skillId="164" skillLvl="2" sp="13000" minLvl="30"/>
+			<!-- Fast HP Recovery -->
+			<skill skillId="212" skillLvl="1" sp="21000" minLvl="35"/>
+			<!-- Boost Mana -->
+			<skill skillId="213" skillLvl="1" sp="3300" minLvl="20"/>
+			<skill skillId="213" skillLvl="2" sp="13000" minLvl="30"/>
+			<!-- Fast Spell Casting -->
+			<skill skillId="228" skillLvl="1" sp="6900" minLvl="25"/>
+			<!-- Fast Mana Recovery -->
+			<skill skillId="229" skillLvl="1" sp="6900" minLvl="25"/>
+			<skill skillId="229" skillLvl="2" sp="21000" minLvl="35"/>
+			<!-- Robe Mastery -->
+			<skill skillId="235" skillLvl="1" sp="1600" minLvl="20"/>
+			<skill skillId="235" skillLvl="2" sp="1600" minLvl="20"/>
+			<skill skillId="235" skillLvl="3" sp="3400" minLvl="25"/>
+			<skill skillId="235" skillLvl="4" sp="3400" minLvl="25"/>
+			<skill skillId="235" skillLvl="5" sp="6600" minLvl="30"/>
+			<skill skillId="235" skillLvl="6" sp="6600" minLvl="30"/>
+			<skill skillId="235" skillLvl="7" sp="11000" minLvl="35"/>
+			<skill skillId="235" skillLvl="8" sp="11000" minLvl="35"/>
+			<!-- Light Armor Mastery -->
+			<skill skillId="236" skillLvl="1" sp="1600" minLvl="20"/>
+			<skill skillId="236" skillLvl="2" sp="1600" minLvl="20"/>
+			<skill skillId="236" skillLvl="3" sp="3400" minLvl="25"/>
+			<skill skillId="236" skillLvl="4" sp="3400" minLvl="25"/>
+			<skill skillId="236" skillLvl="5" sp="6600" minLvl="30"/>
+			<skill skillId="236" skillLvl="6" sp="6600" minLvl="30"/>
+			<skill skillId="236" skillLvl="7" sp="11000" minLvl="35"/>
+			<skill skillId="236" skillLvl="8" sp="11000" minLvl="35"/>
+			<!-- Weapon Mastery -->
+			<skill skillId="249" skillLvl="3" sp="3300" minLvl="20"/>
+			<skill skillId="249" skillLvl="4" sp="3400" minLvl="25"/>
+			<skill skillId="249" skillLvl="5" sp="3400" minLvl="25"/>
+			<skill skillId="249" skillLvl="6" sp="6600" minLvl="30"/>
+			<skill skillId="249" skillLvl="7" sp="6600" minLvl="30"/>
+			<skill skillId="249" skillLvl="8" sp="11000" minLvl="35"/>
+			<skill skillId="249" skillLvl="9" sp="11000" minLvl="35"/>
+			<!-- Heal -->
+			<skill skillId="1011" skillLvl="7" sp="1100" minLvl="20"/>
+			<skill skillId="1011" skillLvl="8" sp="1100" minLvl="20"/>
+			<skill skillId="1011" skillLvl="9" sp="1100" minLvl="20"/>
+			<skill skillId="1011" skillLvl="10" sp="2300" minLvl="25"/>
+			<skill skillId="1011" skillLvl="11" sp="2300" minLvl="25"/>
+			<skill skillId="1011" skillLvl="12" sp="2300" minLvl="25"/>
+			<skill skillId="1011" skillLvl="13" sp="4400" minLvl="30"/>
+			<skill skillId="1011" skillLvl="14" sp="4400" minLvl="30"/>
+			<skill skillId="1011" skillLvl="15" sp="4400" minLvl="30"/>
+			<skill skillId="1011" skillLvl="16" sp="7300" minLvl="35"/>
+			<skill skillId="1011" skillLvl="17" sp="7300" minLvl="35"/>
+			<skill skillId="1011" skillLvl="18" sp="7300" minLvl="35"/>
+			<!-- Cure Poison -->
+			<skill skillId="1012" skillLvl="2" sp="21000" minLvl="35"/>
+			<!-- Battle Heal -->
+			<skill skillId="1015" skillLvl="4" sp="1100" minLvl="20"/>
+			<skill skillId="1015" skillLvl="5" sp="1100" minLvl="20"/>
+			<skill skillId="1015" skillLvl="6" sp="1100" minLvl="20"/>
+			<skill skillId="1015" skillLvl="7" sp="2300" minLvl="25"/>
+			<skill skillId="1015" skillLvl="8" sp="2300" minLvl="25"/>
+			<skill skillId="1015" skillLvl="9" sp="2300" minLvl="25"/>
+			<skill skillId="1015" skillLvl="10" sp="4400" minLvl="30"/>
+			<skill skillId="1015" skillLvl="11" sp="4400" minLvl="30"/>
+			<skill skillId="1015" skillLvl="12" sp="4400" minLvl="30"/>
+			<skill skillId="1015" skillLvl="13" sp="7300" minLvl="35"/>
+			<skill skillId="1015" skillLvl="14" sp="7300" minLvl="35"/>
+			<skill skillId="1015" skillLvl="15" sp="7300" minLvl="35"/>
+			<!-- Resurrection -->
+			<skill skillId="1016" skillLvl="1" sp="3300" minLvl="20"/>
+			<skill skillId="1016" skillLvl="2" sp="13000" minLvl="30"/>
+			<!-- Group Heal -->
+			<skill skillId="1027" skillLvl="4" sp="1100" minLvl="20"/>
+			<skill skillId="1027" skillLvl="5" sp="1100" minLvl="20"/>
+			<skill skillId="1027" skillLvl="6" sp="1100" minLvl="20"/>
+			<skill skillId="1027" skillLvl="7" sp="2300" minLvl="25"/>
+			<skill skillId="1027" skillLvl="8" sp="2300" minLvl="25"/>
+			<skill skillId="1027" skillLvl="9" sp="2300" minLvl="25"/>
+			<skill skillId="1027" skillLvl="10" sp="4400" minLvl="30"/>
+			<skill skillId="1027" skillLvl="11" sp="4400" minLvl="30"/>
+			<skill skillId="1027" skillLvl="12" sp="4400" minLvl="30"/>
+			<skill skillId="1027" skillLvl="13" sp="7300" minLvl="35"/>
+			<skill skillId="1027" skillLvl="14" sp="7300" minLvl="35"/>
+			<skill skillId="1027" skillLvl="15" sp="7300" minLvl="35"/>
+			<!-- Disrupt Undead -->
+			<skill skillId="1031" skillLvl="1" sp="1600" minLvl="20"/>
+			<skill skillId="1031" skillLvl="2" sp="1600" minLvl="20"/>
+			<skill skillId="1031" skillLvl="3" sp="3400" minLvl="25"/>
+			<skill skillId="1031" skillLvl="4" sp="3400" minLvl="25"/>
+			<skill skillId="1031" skillLvl="5" sp="6600" minLvl="30"/>
+			<skill skillId="1031" skillLvl="6" sp="6600" minLvl="30"/>
+			<skill skillId="1031" skillLvl="7" sp="11000" minLvl="35"/>
+			<skill skillId="1031" skillLvl="8" sp="11000" minLvl="35"/>
+			<!-- Mental Shield -->
+			<skill skillId="1035" skillLvl="1" sp="6900" minLvl="25"/>
+			<!-- Shield -->
+			<skill skillId="1040" skillLvl="2" sp="6900" minLvl="25"/>
+			<!-- Holy Weapon -->
+			<skill skillId="1043" skillLvl="1" sp="6900" minLvl="25"/>
+			<!-- Regeneration -->
+			<skill skillId="1044" skillLvl="1" sp="21000" minLvl="35"/>
+			<!-- Berserker Spirit -->
+			<skill skillId="1062" skillLvl="1" sp="21000" minLvl="35"/>
+			<!-- Might -->
+			<skill skillId="1068" skillLvl="2" sp="3300" minLvl="20"/>
+			<!-- Sleep -->
+			<skill skillId="1069" skillLvl="1" sp="2300" minLvl="25"/>
+			<skill skillId="1069" skillLvl="2" sp="2300" minLvl="25"/>
+			<skill skillId="1069" skillLvl="3" sp="2300" minLvl="25"/>
+			<skill skillId="1069" skillLvl="4" sp="4400" minLvl="30"/>
+			<skill skillId="1069" skillLvl="5" sp="4400" minLvl="30"/>
+			<skill skillId="1069" skillLvl="6" sp="4400" minLvl="30"/>
+			<skill skillId="1069" skillLvl="7" sp="7300" minLvl="35"/>
+			<skill skillId="1069" skillLvl="8" sp="7300" minLvl="35"/>
+			<skill skillId="1069" skillLvl="9" sp="7300" minLvl="35"/>
+			<!-- Kiss of Eva -->
+			<skill skillId="1073" skillLvl="1" sp="3300" minLvl="20"/>
+			<!-- Peace -->
+			<skill skillId="1075" skillLvl="1" sp="21000" minLvl="35"/>
+			<!-- Focus -->
+			<skill skillId="1077" skillLvl="1" sp="6900" minLvl="25"/>
+			<!-- Concentration -->
+			<skill skillId="1078" skillLvl="1" sp="3300" minLvl="20"/>
+			<skill skillId="1078" skillLvl="2" sp="13000" minLvl="30"/>
+			<!-- Acumen -->
+			<skill skillId="1085" skillLvl="1" sp="3300" minLvl="20"/>
+			<skill skillId="1085" skillLvl="2" sp="21000" minLvl="35"/>
+			<!-- Resist Fire -->
+			<skill skillId="1191" skillLvl="1" sp="13000" minLvl="30"/>
+			<!-- Dryad Root -->
+			<skill skillId="1201" skillLvl="1" sp="2300" minLvl="25"/>
+			<skill skillId="1201" skillLvl="2" sp="2300" minLvl="25"/>
+			<skill skillId="1201" skillLvl="3" sp="2300" minLvl="25"/>
+			<skill skillId="1201" skillLvl="4" sp="4400" minLvl="30"/>
+			<skill skillId="1201" skillLvl="5" sp="4400" minLvl="30"/>
+			<skill skillId="1201" skillLvl="6" sp="4400" minLvl="30"/>
+			<skill skillId="1201" skillLvl="7" sp="7300" minLvl="35"/>
+			<skill skillId="1201" skillLvl="8" sp="7300" minLvl="35"/>
+			<skill skillId="1201" skillLvl="9" sp="7300" minLvl="35"/>
+			<!-- Wind Walk -->
+			<skill skillId="1204" skillLvl="1" sp="3300" minLvl="20"/>
+			<skill skillId="1204" skillLvl="2" sp="13000" minLvl="30"/>
+		</skillTrees>
+	</class>
+</list>

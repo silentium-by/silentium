@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+	<class id="115" parentId="51">
+		<set name="className" val="Dominator"/>
+		<set name="raceId" val="3"/>
+		<set name="baseSTR" val="27"/>
+		<set name="baseCON" val="31"/>
+		<set name="baseDEX" val="24"/>
+		<set name="baseINT" val="31"/>
+		<set name="baseWIT" val="15"/>
+		<set name="baseMEN" val="42"/>
+		<set name="basePAtk" val="3"/>
+		<set name="basePDef" val="54"/>
+		<set name="baseMAtk" val="6"/>
+		<set name="baseMDef" val="41"/>
+		<set name="basePAtkSpd" val="300"/>
+		<set name="baseMAtkSpd" val="333"/>
+		<set name="baseCritRate" val="4"/>
+		<set name="baseRunSpd" val="121"/>
+		<set name="spawnX" val="-56682"/>
+		<set name="spawnY" val="-113730"/>
+		<set name="spawnZ" val="-690"/>
+		<set name="collision_radius" val="7"/>
+		<set name="collision_height" val="27"/>
+		<set name="baseHpMax" val="3359.9"/>
+		<set name="lvlHpAdd" val="67.96"/>
+		<set name="lvlHpMod" val="0.37"/>
+		<set name="baseCpMax" val="3037.3"/>
+		<set name="lvlCpAdd" val="61.42"/>
+		<set name="lvlCpMod" val="0.22"/>
+		<set name="baseMpMax" val="1540.8"/>
+		<set name="lvlMpAdd" val="54.35"/>
+		<set name="lvlMpMod" val="0.22"/>
+		<set name="baseLvl" val="76"/>
+		<skillTrees>
+			<!-- Wisdom -->
+			<skill skillId="328" skillLvl="1" sp="8340000" minLvl="76"/>
+			<!-- Health -->
+			<skill skillId="329" skillLvl="1" sp="8340000" minLvl="76"/>
+			<!-- Skill Mastery -->
+			<skill skillId="331" skillLvl="1" sp="11000000" minLvl="77"/>
+			<!-- Arcane Power -->
+			<skill skillId="337" skillLvl="1" sp="16000000" minLvl="78"/>
+			<!-- Spell Force -->
+			<skill skillId="427" skillLvl="1" sp="11000000" minLvl="77"/>
+			<!-- Divine Lore -->
+			<skill skillId="436" skillLvl="1" sp="16000000" minLvl="78"/>
+			<!-- Eye of Pa"agrio -->
+			<skill skillId="1364" skillLvl="1" sp="11000000" minLvl="77"/>
+			<!-- Soul of Pa"agrio -->
+			<skill skillId="1365" skillLvl="1" sp="11000000" minLvl="77"/>
+			<!-- Seal of Despair -->
+			<skill skillId="1366" skillLvl="1" sp="16000000" minLvl="78"/>
+			<!-- Seal of Disease -->
+			<skill skillId="1367" skillLvl="1" sp="8340000" minLvl="76"/>
+			<!-- Divine Inspiration -->
+			<skill skillId="1405" skillLvl="3" sp="0" minLvl="76"/>
+			<skill skillId="1405" skillLvl="4" sp="0" minLvl="76"/>
+			<!-- Victory of Pa"agrio -->
+			<skill skillId="1414" skillLvl="1" sp="80000000" minLvl="79"/>
+			<!-- Pa"agrio"s Emblem -->
+			<skill skillId="1415" skillLvl="1" sp="16000000" minLvl="78"/>
+			<!-- Pa"agrio"s Fist -->
+			<skill skillId="1416" skillLvl="1" sp="80000000" minLvl="79"/>
+			<!-- Flames of Invincibility -->
+			<skill skillId="1427" skillLvl="1" sp="150000000" minLvl="80"/>
+		</skillTrees>
+	</class>
+</list>

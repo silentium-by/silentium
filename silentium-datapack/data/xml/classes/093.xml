@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+	<class id="93" parentId="8">
+		<set name="className" val="Adventurer"/>
+		<set name="raceId" val="0"/>
+		<set name="baseSTR" val="40"/>
+		<set name="baseCON" val="43"/>
+		<set name="baseDEX" val="30"/>
+		<set name="baseINT" val="21"/>
+		<set name="baseWIT" val="11"/>
+		<set name="baseMEN" val="25"/>
+		<set name="basePAtk" val="4"/>
+		<set name="basePDef" val="80"/>
+		<set name="baseMAtk" val="6"/>
+		<set name="baseMDef" val="41"/>
+		<set name="basePAtkSpd" val="300"/>
+		<set name="baseMAtkSpd" val="333"/>
+		<set name="baseCritRate" val="4"/>
+		<set name="baseRunSpd" val="115"/>
+		<set name="spawnX" val="-71338"/>
+		<set name="spawnY" val="258271"/>
+		<set name="spawnZ" val="-3104"/>
+		<set name="collision_radius" val="9"/>
+		<set name="collision_height" val="23"/>
+		<set name="baseHpMax" val="2623.7"/>
+		<set name="lvlHpAdd" val="53.12"/>
+		<set name="lvlHpMod" val="0.37"/>
+		<set name="baseCpMax" val="1443.0"/>
+		<set name="lvlCpAdd" val="28.80"/>
+		<set name="lvlCpMod" val="0.22"/>
+		<set name="baseMpMax" val="1155.6"/>
+		<set name="lvlMpAdd" val="28.1"/>
+		<set name="lvlMpMod" val="0.22"/>
+		<set name="baseLvl" val="76"/>
+		<skillTrees>
+			<!-- Wisdom -->
+			<skill skillId="328" skillLvl="1" sp="12500000" minLvl="76"/>
+			<!-- Skill Mastery -->
+			<skill skillId="330" skillLvl="1" sp="14670000" minLvl="77"/>
+			<!-- Focus Skill Mastery -->
+			<skill skillId="334" skillLvl="1" sp="16000000" minLvl="78"/>
+			<!-- Lethal Blow -->
+			<skill skillId="344" skillLvl="1" sp="12500000" minLvl="76"/>
+			<!-- Focus Chance -->
+			<skill skillId="356" skillLvl="1" sp="16000000" minLvl="78"/>
+			<!-- Focus Power -->
+			<skill skillId="357" skillLvl="1" sp="16000000" minLvl="78"/>
+			<!-- Bluff -->
+			<skill skillId="358" skillLvl="1" sp="14670000" minLvl="77"/>
+			<!-- Battle Force -->
+			<skill skillId="426" skillLvl="1" sp="14670000" minLvl="77"/>
+			<!-- Assassination -->
+			<skill skillId="432" skillLvl="1" sp="16000000" minLvl="78"/>
+			<!-- Mirage -->
+			<skill skillId="445" skillLvl="1" sp="80000000" minLvl="79"/>
+			<!-- Symbol of the Assassin -->
+			<skill skillId="460" skillLvl="1" sp="150000000" minLvl="80"/>
+			<!-- Divine Inspiration -->
+			<skill skillId="1405" skillLvl="3" sp="0" minLvl="76"/>
+			<skill skillId="1405" skillLvl="4" sp="0" minLvl="76"/>
+		</skillTrees>
+	</class>
+</list>

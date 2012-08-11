@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+	<class id="44" parentId="-1">
+		<set name="className" val="Orc Fighter"/>
+		<set name="raceId" val="3"/>
+		<set name="baseSTR" val="40"/>
+		<set name="baseCON" val="47"/>
+		<set name="baseDEX" val="26"/>
+		<set name="baseINT" val="18"/>
+		<set name="baseWIT" val="12"/>
+		<set name="baseMEN" val="27"/>
+		<set name="basePAtk" val="4"/>
+		<set name="basePDef" val="80"/>
+		<set name="baseMAtk" val="6"/>
+		<set name="baseMDef" val="41"/>
+		<set name="basePAtkSpd" val="300"/>
+		<set name="baseMAtkSpd" val="333"/>
+		<set name="baseCritRate" val="4"/>
+		<set name="baseRunSpd" val="117"/>
+		<set name="spawnX" val="-56693"/>
+		<set name="spawnY" val="-113610"/>
+		<set name="spawnZ" val="-690"/>
+		<set name="collision_radius" val="11"/>
+		<set name="collision_height" val="28"/>
+		<set name="baseHpMax" val="80.0"/>
+		<set name="lvlHpAdd" val="12.64"/>
+		<set name="lvlHpMod" val="0.37"/>
+		<set name="baseCpMax" val="40.0"/>
+		<set name="lvlCpAdd" val="6.27"/>
+		<set name="lvlCpMod" val="0.22"/>
+		<set name="baseMpMax" val="30.0"/>
+		<set name="lvlMpAdd" val="6.27"/>
+		<set name="lvlMpMod" val="0.22"/>
+		<set name="baseLvl" val="1"/>
+		<skillTrees>
+			<!-- Power Strike -->
+			<skill skillId="3" skillLvl="1" sp="60" minLvl="5"/>
+			<skill skillId="3" skillLvl="2" sp="60" minLvl="5"/>
+			<skill skillId="3" skillLvl="3" sp="60" minLvl="5"/>
+			<skill skillId="3" skillLvl="4" sp="460" minLvl="10"/>
+			<skill skillId="3" skillLvl="5" sp="460" minLvl="10"/>
+			<skill skillId="3" skillLvl="6" sp="460" minLvl="10"/>
+			<skill skillId="3" skillLvl="7" sp="1300" minLvl="15"/>
+			<skill skillId="3" skillLvl="8" sp="1300" minLvl="15"/>
+			<skill skillId="3" skillLvl="9" sp="1300" minLvl="15"/>
+			<!-- Iron Punch -->
+			<skill skillId="29" skillLvl="1" sp="60" minLvl="5"/>
+			<skill skillId="29" skillLvl="2" sp="60" minLvl="5"/>
+			<skill skillId="29" skillLvl="3" sp="60" minLvl="5"/>
+			<skill skillId="29" skillLvl="4" sp="460" minLvl="10"/>
+			<skill skillId="29" skillLvl="5" sp="460" minLvl="10"/>
+			<skill skillId="29" skillLvl="6" sp="460" minLvl="10"/>
+			<skill skillId="29" skillLvl="7" sp="1300" minLvl="15"/>
+			<skill skillId="29" skillLvl="8" sp="1300" minLvl="15"/>
+			<skill skillId="29" skillLvl="9" sp="1300" minLvl="15"/>
+			<!-- Toughness -->
+			<skill skillId="134" skillLvl="1" sp="0" minLvl="1"/>
+			<!-- Weapon Mastery -->
+			<skill skillId="141" skillLvl="1" sp="190" minLvl="5"/>
+			<skill skillId="141" skillLvl="2" sp="1300" minLvl="10"/>
+			<skill skillId="141" skillLvl="3" sp="4000" minLvl="15"/>
+			<!-- Armor Mastery -->
+			<skill skillId="142" skillLvl="1" sp="190" minLvl="5"/>
+			<skill skillId="142" skillLvl="2" sp="690" minLvl="10"/>
+			<skill skillId="142" skillLvl="3" sp="690" minLvl="10"/>
+			<skill skillId="142" skillLvl="4" sp="2000" minLvl="15"/>
+			<skill skillId="142" skillLvl="5" sp="2000" minLvl="15"/>
+			<!-- Lucky -->
+			<skill skillId="194" skillLvl="1" sp="0" minLvl="1"/>
+			<!-- Relax -->
+			<skill skillId="226" skillLvl="1" sp="190" minLvl="5"/>
+			<!-- Expertises -->
+			<skill skillId="239" skillLvl="1" sp="0" minLvl="20"/>
+			<skill skillId="239" skillLvl="2" sp="0" minLvl="40"/>
+			<skill skillId="239" skillLvl="3" sp="0" minLvl="52"/>
+			<skill skillId="239" skillLvl="4" sp="0" minLvl="61"/>
+			<skill skillId="239" skillLvl="5" sp="0" minLvl="76"/>
+			<!-- Iron Body -->
+			<skill skillId="295" skillLvl="1" sp="4000" minLvl="15"/>
+			<!-- Create Common Item -->
+			<skill skillId="1320" skillLvl="1" sp="0" minLvl="1"/>
+			<skill skillId="1320" skillLvl="2" sp="0" minLvl="20"/>
+			<skill skillId="1320" skillLvl="3" sp="0" minLvl="28"/>
+			<skill skillId="1320" skillLvl="4" sp="0" minLvl="36"/>
+			<skill skillId="1320" skillLvl="5" sp="0" minLvl="43"/>
+			<skill skillId="1320" skillLvl="6" sp="0" minLvl="49"/>
+			<skill skillId="1320" skillLvl="7" sp="0" minLvl="55"/>
+			<skill skillId="1320" skillLvl="8" sp="0" minLvl="62"/>
+			<skill skillId="1320" skillLvl="9" sp="0" minLvl="70"/>
+			<!-- Common Craft -->
+			<skill skillId="1322" skillLvl="1" sp="0" minLvl="1"/>
+		</skillTrees>
+		<items val="1147;1146;2368;2369;5588"/>
+	</class>
+</list>

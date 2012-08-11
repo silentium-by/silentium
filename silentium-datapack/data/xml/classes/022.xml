@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+	<class id="22" parentId="18">
+		<set name="className" val="Scout"/>
+		<set name="raceId" val="1"/>
+		<set name="baseSTR" val="36"/>
+		<set name="baseCON" val="36"/>
+		<set name="baseDEX" val="35"/>
+		<set name="baseINT" val="23"/>
+		<set name="baseWIT" val="14"/>
+		<set name="baseMEN" val="26"/>
+		<set name="basePAtk" val="4"/>
+		<set name="basePDef" val="80"/>
+		<set name="baseMAtk" val="6"/>
+		<set name="baseMDef" val="41"/>
+		<set name="basePAtkSpd" val="300"/>
+		<set name="baseMAtkSpd" val="333"/>
+		<set name="baseCritRate" val="4"/>
+		<set name="baseRunSpd" val="125"/>
+		<set name="spawnX" val="45978"/>
+		<set name="spawnY" val="41196"/>
+		<set name="spawnZ" val="-3440"/>
+		<set name="collision_radius" val="7"/>
+		<set name="collision_height" val="24"/>
+		<set name="baseHpMax" val="355.0"/>
+		<set name="lvlHpAdd" val="30.8"/>
+		<set name="lvlHpMod" val="0.37"/>
+		<set name="baseCpMax" val="177.5"/>
+		<set name="lvlCpAdd" val="14.40"/>
+		<set name="lvlCpMod" val="0.22"/>
+		<set name="baseMpMax" val="144.0"/>
+		<set name="lvlMpAdd" val="12.32"/>
+		<set name="lvlMpMod" val="0.22"/>
+		<set name="baseLvl" val="20"/>
+		<skillTrees>
+			<!-- Charm -->
+			<skill skillId="15" skillLvl="1" sp="950" minLvl="20"/>
+			<skill skillId="15" skillLvl="2" sp="950" minLvl="20"/>
+			<skill skillId="15" skillLvl="3" sp="950" minLvl="20"/>
+			<skill skillId="15" skillLvl="4" sp="1700" minLvl="24"/>
+			<skill skillId="15" skillLvl="5" sp="1700" minLvl="24"/>
+			<skill skillId="15" skillLvl="6" sp="1700" minLvl="24"/>
+			<skill skillId="15" skillLvl="7" sp="3100" minLvl="28"/>
+			<skill skillId="15" skillLvl="8" sp="3100" minLvl="28"/>
+			<skill skillId="15" skillLvl="9" sp="3100" minLvl="28"/>
+			<skill skillId="15" skillLvl="10" sp="5100" minLvl="32"/>
+			<skill skillId="15" skillLvl="11" sp="5100" minLvl="32"/>
+			<skill skillId="15" skillLvl="12" sp="5100" minLvl="32"/>
+			<skill skillId="15" skillLvl="13" sp="8600" minLvl="36"/>
+			<skill skillId="15" skillLvl="14" sp="8600" minLvl="36"/>
+			<skill skillId="15" skillLvl="15" sp="8600" minLvl="36"/>
+			<!-- Mortal Blow -->
+			<skill skillId="16" skillLvl="10" sp="1200" minLvl="20"/>
+			<skill skillId="16" skillLvl="11" sp="1200" minLvl="20"/>
+			<skill skillId="16" skillLvl="12" sp="1200" minLvl="20"/>
+			<skill skillId="16" skillLvl="13" sp="1700" minLvl="24"/>
+			<skill skillId="16" skillLvl="14" sp="1700" minLvl="24"/>
+			<skill skillId="16" skillLvl="15" sp="1700" minLvl="24"/>
+			<skill skillId="16" skillLvl="16" sp="3100" minLvl="28"/>
+			<skill skillId="16" skillLvl="17" sp="3100" minLvl="28"/>
+			<skill skillId="16" skillLvl="18" sp="3100" minLvl="28"/>
+			<skill skillId="16" skillLvl="19" sp="5100" minLvl="32"/>
+			<skill skillId="16" skillLvl="20" sp="5100" minLvl="32"/>
+			<skill skillId="16" skillLvl="21" sp="5100" minLvl="32"/>
+			<skill skillId="16" skillLvl="22" sp="8600" minLvl="36"/>
+			<skill skillId="16" skillLvl="23" sp="8600" minLvl="36"/>
+			<skill skillId="16" skillLvl="24" sp="8600" minLvl="36"/>
+			<!-- Poison Recovery -->
+			<skill skillId="21" skillLvl="1" sp="5000" minLvl="24"/>
+			<!-- Unlock -->
+			<skill skillId="27" skillLvl="1" sp="2800" minLvl="20"/>
+			<skill skillId="27" skillLvl="2" sp="5000" minLvl="24"/>
+			<skill skillId="27" skillLvl="3" sp="9200" minLvl="28"/>
+			<skill skillId="27" skillLvl="4" sp="15000" minLvl="32"/>
+			<skill skillId="27" skillLvl="5" sp="26000" minLvl="36"/>
+			<!-- Power Shot -->
+			<skill skillId="56" skillLvl="10" sp="1200" minLvl="20"/>
+			<skill skillId="56" skillLvl="11" sp="1200" minLvl="20"/>
+			<skill skillId="56" skillLvl="12" sp="1200" minLvl="20"/>
+			<skill skillId="56" skillLvl="13" sp="1700" minLvl="24"/>
+			<skill skillId="56" skillLvl="14" sp="1700" minLvl="24"/>
+			<skill skillId="56" skillLvl="15" sp="1700" minLvl="24"/>
+			<skill skillId="56" skillLvl="16" sp="3100" minLvl="28"/>
+			<skill skillId="56" skillLvl="17" sp="3100" minLvl="28"/>
+			<skill skillId="56" skillLvl="18" sp="3100" minLvl="28"/>
+			<skill skillId="56" skillLvl="19" sp="5100" minLvl="32"/>
+			<skill skillId="56" skillLvl="20" sp="5100" minLvl="32"/>
+			<skill skillId="56" skillLvl="21" sp="5100" minLvl="32"/>
+			<skill skillId="56" skillLvl="22" sp="8600" minLvl="36"/>
+			<skill skillId="56" skillLvl="23" sp="8600" minLvl="36"/>
+			<skill skillId="56" skillLvl="24" sp="8600" minLvl="36"/>
+			<!-- Elemental Heal -->
+			<skill skillId="58" skillLvl="4" sp="1200" minLvl="20"/>
+			<skill skillId="58" skillLvl="5" sp="1200" minLvl="20"/>
+			<skill skillId="58" skillLvl="6" sp="1200" minLvl="20"/>
+			<skill skillId="58" skillLvl="7" sp="1700" minLvl="24"/>
+			<skill skillId="58" skillLvl="8" sp="1700" minLvl="24"/>
+			<skill skillId="58" skillLvl="9" sp="1700" minLvl="24"/>
+			<skill skillId="58" skillLvl="10" sp="3100" minLvl="28"/>
+			<skill skillId="58" skillLvl="11" sp="3100" minLvl="28"/>
+			<skill skillId="58" skillLvl="12" sp="3100" minLvl="28"/>
+			<skill skillId="58" skillLvl="13" sp="5100" minLvl="32"/>
+			<skill skillId="58" skillLvl="14" sp="5100" minLvl="32"/>
+			<skill skillId="58" skillLvl="15" sp="5100" minLvl="32"/>
+			<skill skillId="58" skillLvl="16" sp="8600" minLvl="36"/>
+			<skill skillId="58" skillLvl="17" sp="8600" minLvl="36"/>
+			<skill skillId="58" skillLvl="18" sp="8600" minLvl="36"/>
+			<!-- Cure Bleeding -->
+			<skill skillId="61" skillLvl="1" sp="5000" minLvl="24"/>
+			<!-- Attack Aura -->
+			<skill skillId="77" skillLvl="2" sp="9200" minLvl="28"/>
+			<!-- Defense Aura -->
+			<skill skillId="91" skillLvl="2" sp="2800" minLvl="20"/>
+			<!-- Bleed -->
+			<skill skillId="96" skillLvl="1" sp="5000" minLvl="24"/>
+			<skill skillId="96" skillLvl="2" sp="15000" minLvl="32"/>
+			<!-- Rapid Shot -->
+			<skill skillId="99" skillLvl="1" sp="15000" minLvl="32"/>
+			<!-- Stunning Shot -->
+			<skill skillId="101" skillLvl="1" sp="8600" minLvl="36"/>
+			<skill skillId="101" skillLvl="2" sp="8600" minLvl="36"/>
+			<skill skillId="101" skillLvl="3" sp="8600" minLvl="36"/>
+			<!-- Entangle -->
+			<skill skillId="102" skillLvl="1" sp="26000" minLvl="36"/>
+			<!-- Ultimate Evasion -->
+			<skill skillId="111" skillLvl="1" sp="9200" minLvl="28"/>
+			<!-- Long Shot -->
+			<skill skillId="113" skillLvl="1" sp="2800" minLvl="20"/>
+			<!-- Critical Chance -->
+			<skill skillId="137" skillLvl="1" sp="15000" minLvl="32"/>
+			<!-- Quick Step -->
+			<skill skillId="169" skillLvl="1" sp="9200" minLvl="28"/>
+			<!-- Esprit -->
+			<skill skillId="171" skillLvl="1" sp="26000" minLvl="36"/>
+			<!-- Acrobatics -->
+			<skill skillId="173" skillLvl="1" sp="2800" minLvl="20"/>
+			<!-- Breath Boost -->
+			<skill skillId="195" skillLvl="1" sp="2800" minLvl="20"/>
+			<!-- Boost Evasion -->
+			<skill skillId="198" skillLvl="1" sp="5000" minLvl="24"/>
+			<!-- Bow Mastery -->
+			<skill skillId="208" skillLvl="1" sp="950" minLvl="20"/>
+			<skill skillId="208" skillLvl="2" sp="950" minLvl="20"/>
+			<skill skillId="208" skillLvl="3" sp="950" minLvl="20"/>
+			<skill skillId="208" skillLvl="4" sp="1700" minLvl="24"/>
+			<skill skillId="208" skillLvl="5" sp="1700" minLvl="24"/>
+			<skill skillId="208" skillLvl="6" sp="1700" minLvl="24"/>
+			<skill skillId="208" skillLvl="7" sp="3100" minLvl="28"/>
+			<skill skillId="208" skillLvl="8" sp="3100" minLvl="28"/>
+			<skill skillId="208" skillLvl="9" sp="3100" minLvl="28"/>
+			<skill skillId="208" skillLvl="10" sp="5100" minLvl="32"/>
+			<skill skillId="208" skillLvl="11" sp="5100" minLvl="32"/>
+			<skill skillId="208" skillLvl="12" sp="5100" minLvl="32"/>
+			<skill skillId="208" skillLvl="13" sp="8600" minLvl="36"/>
+			<skill skillId="208" skillLvl="14" sp="8600" minLvl="36"/>
+			<skill skillId="208" skillLvl="15" sp="8600" minLvl="36"/>
+			<!-- Dagger Mastery -->
+			<skill skillId="209" skillLvl="1" sp="2800" minLvl="20"/>
+			<skill skillId="209" skillLvl="2" sp="5000" minLvl="24"/>
+			<skill skillId="209" skillLvl="3" sp="4600" minLvl="28"/>
+			<skill skillId="209" skillLvl="4" sp="4600" minLvl="28"/>
+			<skill skillId="209" skillLvl="5" sp="7700" minLvl="32"/>
+			<skill skillId="209" skillLvl="6" sp="7700" minLvl="32"/>
+			<skill skillId="209" skillLvl="7" sp="13000" minLvl="36"/>
+			<skill skillId="209" skillLvl="8" sp="13000" minLvl="36"/>
+			<!-- Acrobatic Move -->
+			<skill skillId="225" skillLvl="1" sp="9200" minLvl="28"/>
+			<!-- Sprint -->
+			<skill skillId="230" skillLvl="1" sp="15000" minLvl="32"/>
+			<!-- Light Armor Mastery -->
+			<skill skillId="233" skillLvl="1" sp="1400" minLvl="20"/>
+			<skill skillId="233" skillLvl="2" sp="1400" minLvl="20"/>
+			<skill skillId="233" skillLvl="3" sp="2500" minLvl="24"/>
+			<skill skillId="233" skillLvl="4" sp="2500" minLvl="24"/>
+			<skill skillId="233" skillLvl="5" sp="4600" minLvl="28"/>
+			<skill skillId="233" skillLvl="6" sp="4600" minLvl="28"/>
+			<skill skillId="233" skillLvl="7" sp="7700" minLvl="32"/>
+			<skill skillId="233" skillLvl="8" sp="7700" minLvl="32"/>
+			<skill skillId="233" skillLvl="9" sp="13000" minLvl="36"/>
+			<skill skillId="233" skillLvl="10" sp="13000" minLvl="36"/>
+			<!-- Accuracy -->
+			<skill skillId="256" skillLvl="1" sp="5000" minLvl="24"/>
+			<!-- Vicious Stance -->
+			<skill skillId="312" skillLvl="1" sp="2800" minLvl="20"/>
+			<skill skillId="312" skillLvl="2" sp="5000" minLvl="24"/>
+			<skill skillId="312" skillLvl="3" sp="9200" minLvl="28"/>
+			<skill skillId="312" skillLvl="4" sp="15000" minLvl="32"/>
+			<skill skillId="312" skillLvl="5" sp="26000" minLvl="36"/>
+		</skillTrees>
+	</class>
+</list>

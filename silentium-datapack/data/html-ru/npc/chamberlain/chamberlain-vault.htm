@@ -1,0 +1,18 @@
+﻿<html><body><center><font color="LEVEL">[Управление казной замка]</font></center><br>
+На данный момент в казну поступило <font color="00ffff">%tax_income% Аден</font>.<br>
+<br>
+Введите количество, которое вы хотите положить или забрать из казны.<br>
+<center>
+<table height=27 width=280 bgColor="cccccc">
+<tbody><tr>
+<td align=middle width=50>Количество</td>
+<td align=left width=180><edit width="160" var="amount" type="number"></td>
+<td align=left width=40>Аден</td>
+</tr></tbody>
+</table><br>
+<br>
+<button value="Забрать" action="bypass -h npc_%objectId%_manage_vault withdraw $amount" width=74 height=21 back="L2UI_CH3.Btn1_normalOn" fore="L2UI_CH3.Btn1_normal">
+<button value="Положить" action="bypass -h npc_%objectId%_manage_vault deposit $amount" width=74 height=21 back="L2UI_CH3.Btn1_normalOn" fore="L2UI_CH3.Btn1_normal">
+<button value="Отмена" action="bypass -h npc_%objectId%_Link chamberlain/chamberlain.htm" width=74 height=21 back="L2UI_CH3.Btn1_normalOn" fore="L2UI_CH3.Btn1_normal">
+</center>
+</body></html>

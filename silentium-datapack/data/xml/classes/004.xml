@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+	<class id="4" parentId="0">
+		<set name="className" val="Human Knight"/>
+		<set name="raceId" val="0"/>
+		<set name="baseSTR" val="40"/>
+		<set name="baseCON" val="43"/>
+		<set name="baseDEX" val="30"/>
+		<set name="baseINT" val="21"/>
+		<set name="baseWIT" val="11"/>
+		<set name="baseMEN" val="25"/>
+		<set name="basePAtk" val="4"/>
+		<set name="basePDef" val="80"/>
+		<set name="baseMAtk" val="6"/>
+		<set name="baseMDef" val="41"/>
+		<set name="basePAtkSpd" val="300"/>
+		<set name="baseMAtkSpd" val="333"/>
+		<set name="baseCritRate" val="4"/>
+		<set name="baseRunSpd" val="115"/>
+		<set name="spawnX" val="-71338"/>
+		<set name="spawnY" val="258271"/>
+		<set name="spawnZ" val="-3104"/>
+		<set name="collision_radius" val="9"/>
+		<set name="collision_height" val="23"/>
+		<set name="baseHpMax" val="327.0"/>
+		<set name="lvlHpAdd" val="29.7"/>
+		<set name="lvlHpMod" val="0.37"/>
+		<set name="baseCpMax" val="196.2"/>
+		<set name="lvlCpAdd" val="17.82"/>
+		<set name="lvlCpMod" val="0.22"/>
+		<set name="baseMpMax" val="144.0"/>
+		<set name="lvlMpAdd" val="17.82"/>
+		<set name="lvlMpMod" val="0.22"/>
+		<set name="baseLvl" val="20"/>
+		<skillTrees>
+			<!-- Aggression -->
+			<skill skillId="28" skillLvl="1" sp="3300" minLvl="24"/>
+			<skill skillId="28" skillLvl="2" sp="3300" minLvl="24"/>
+			<skill skillId="28" skillLvl="3" sp="3300" minLvl="24"/>
+			<skill skillId="28" skillLvl="4" sp="4000" minLvl="28"/>
+			<skill skillId="28" skillLvl="5" sp="4000" minLvl="28"/>
+			<skill skillId="28" skillLvl="6" sp="4000" minLvl="28"/>
+			<skill skillId="28" skillLvl="7" sp="8300" minLvl="32"/>
+			<skill skillId="28" skillLvl="8" sp="8300" minLvl="32"/>
+			<skill skillId="28" skillLvl="9" sp="8300" minLvl="32"/>
+			<skill skillId="28" skillLvl="10" sp="13000" minLvl="36"/>
+			<skill skillId="28" skillLvl="11" sp="13000" minLvl="36"/>
+			<skill skillId="28" skillLvl="12" sp="13000" minLvl="36"/>
+			<!-- Divine Heal -->
+			<skill skillId="45" skillLvl="1" sp="4000" minLvl="28"/>
+			<skill skillId="45" skillLvl="2" sp="4000" minLvl="28"/>
+			<skill skillId="45" skillLvl="3" sp="4000" minLvl="28"/>
+			<skill skillId="45" skillLvl="4" sp="8300" minLvl="32"/>
+			<skill skillId="45" skillLvl="5" sp="8300" minLvl="32"/>
+			<skill skillId="45" skillLvl="6" sp="8300" minLvl="32"/>
+			<skill skillId="45" skillLvl="7" sp="13000" minLvl="36"/>
+			<skill skillId="45" skillLvl="8" sp="13000" minLvl="36"/>
+			<skill skillId="45" skillLvl="9" sp="13000" minLvl="36"/>
+			<!-- Drain Health -->
+			<skill skillId="70" skillLvl="1" sp="2300" minLvl="20"/>
+			<skill skillId="70" skillLvl="2" sp="2300" minLvl="20"/>
+			<skill skillId="70" skillLvl="3" sp="5000" minLvl="24"/>
+			<skill skillId="70" skillLvl="4" sp="5000" minLvl="24"/>
+			<skill skillId="70" skillLvl="5" sp="4000" minLvl="28"/>
+			<skill skillId="70" skillLvl="6" sp="4000" minLvl="28"/>
+			<skill skillId="70" skillLvl="7" sp="4000" minLvl="28"/>
+			<skill skillId="70" skillLvl="8" sp="8300" minLvl="32"/>
+			<skill skillId="70" skillLvl="9" sp="8300" minLvl="32"/>
+			<skill skillId="70" skillLvl="10" sp="8300" minLvl="32"/>
+			<skill skillId="70" skillLvl="11" sp="13000" minLvl="36"/>
+			<skill skillId="70" skillLvl="12" sp="13000" minLvl="36"/>
+			<skill skillId="70" skillLvl="13" sp="13000" minLvl="36"/>
+			<!-- Majesty -->
+			<skill skillId="82" skillLvl="1" sp="4700" minLvl="20"/>
+			<!-- Shield Stun -->
+			<skill skillId="92" skillLvl="1" sp="1500" minLvl="20"/>
+			<skill skillId="92" skillLvl="2" sp="1500" minLvl="20"/>
+			<skill skillId="92" skillLvl="3" sp="1500" minLvl="20"/>
+			<skill skillId="92" skillLvl="4" sp="3300" minLvl="24"/>
+			<skill skillId="92" skillLvl="5" sp="3300" minLvl="24"/>
+			<skill skillId="92" skillLvl="6" sp="3300" minLvl="24"/>
+			<skill skillId="92" skillLvl="7" sp="4000" minLvl="28"/>
+			<skill skillId="92" skillLvl="8" sp="4000" minLvl="28"/>
+			<skill skillId="92" skillLvl="9" sp="4000" minLvl="28"/>
+			<skill skillId="92" skillLvl="10" sp="8300" minLvl="32"/>
+			<skill skillId="92" skillLvl="11" sp="8300" minLvl="32"/>
+			<skill skillId="92" skillLvl="12" sp="8300" minLvl="32"/>
+			<skill skillId="92" skillLvl="13" sp="13000" minLvl="36"/>
+			<skill skillId="92" skillLvl="14" sp="13000" minLvl="36"/>
+			<skill skillId="92" skillLvl="15" sp="13000" minLvl="36"/>
+			<!-- Ultimate Defense -->
+			<skill skillId="110" skillLvl="1" sp="4700" minLvl="20"/>
+			<!-- Deflect Arrow -->
+			<skill skillId="112" skillLvl="1" sp="10000" minLvl="24"/>
+			<skill skillId="112" skillLvl="2" sp="25000" minLvl="32"/>
+			<!-- Magic Resistance -->
+			<skill skillId="147" skillLvl="1" sp="2300" minLvl="20"/>
+			<skill skillId="147" skillLvl="2" sp="2300" minLvl="20"/>
+			<skill skillId="147" skillLvl="3" sp="3300" minLvl="24"/>
+			<skill skillId="147" skillLvl="4" sp="3300" minLvl="24"/>
+			<skill skillId="147" skillLvl="5" sp="3300" minLvl="24"/>
+			<skill skillId="147" skillLvl="6" sp="4000" minLvl="28"/>
+			<skill skillId="147" skillLvl="7" sp="4000" minLvl="28"/>
+			<skill skillId="147" skillLvl="8" sp="4000" minLvl="28"/>
+			<skill skillId="147" skillLvl="9" sp="8300" minLvl="32"/>
+			<skill skillId="147" skillLvl="10" sp="8300" minLvl="32"/>
+			<skill skillId="147" skillLvl="11" sp="8300" minLvl="32"/>
+			<skill skillId="147" skillLvl="12" sp="13000" minLvl="36"/>
+			<skill skillId="147" skillLvl="13" sp="13000" minLvl="36"/>
+			<skill skillId="147" skillLvl="14" sp="13000" minLvl="36"/>
+			<!-- Shield Mastery -->
+			<skill skillId="153" skillLvl="1" sp="4700" minLvl="20"/>
+			<skill skillId="153" skillLvl="2" sp="12000" minLvl="28"/>
+			<!-- Focus Mind -->
+			<skill skillId="191" skillLvl="1" sp="39000" minLvl="36"/>
+			<!-- Sword/Blunt Weapon Mastery -->
+			<skill skillId="217" skillLvl="1" sp="4700" minLvl="20"/>
+			<skill skillId="217" skillLvl="2" sp="10000" minLvl="24"/>
+			<skill skillId="217" skillLvl="3" sp="6000" minLvl="28"/>
+			<skill skillId="217" skillLvl="4" sp="6000" minLvl="28"/>
+			<skill skillId="217" skillLvl="5" sp="13000" minLvl="32"/>
+			<skill skillId="217" skillLvl="6" sp="13000" minLvl="32"/>
+			<skill skillId="217" skillLvl="7" sp="19000" minLvl="36"/>
+			<skill skillId="217" skillLvl="8" sp="19000" minLvl="36"/>
+			<!-- Heavy Armor Mastery -->
+			<skill skillId="232" skillLvl="1" sp="1500" minLvl="20"/>
+			<skill skillId="232" skillLvl="2" sp="1500" minLvl="20"/>
+			<skill skillId="232" skillLvl="3" sp="1500" minLvl="20"/>
+			<skill skillId="232" skillLvl="4" sp="3300" minLvl="24"/>
+			<skill skillId="232" skillLvl="5" sp="3300" minLvl="24"/>
+			<skill skillId="232" skillLvl="6" sp="3300" minLvl="24"/>
+			<skill skillId="232" skillLvl="7" sp="4000" minLvl="28"/>
+			<skill skillId="232" skillLvl="8" sp="4000" minLvl="28"/>
+			<skill skillId="232" skillLvl="9" sp="4000" minLvl="28"/>
+			<skill skillId="232" skillLvl="10" sp="8300" minLvl="32"/>
+			<skill skillId="232" skillLvl="11" sp="8300" minLvl="32"/>
+			<skill skillId="232" skillLvl="12" sp="8300" minLvl="32"/>
+			<skill skillId="232" skillLvl="13" sp="13000" minLvl="36"/>
+			<skill skillId="232" skillLvl="14" sp="13000" minLvl="36"/>
+			<skill skillId="232" skillLvl="15" sp="13000" minLvl="36"/>
+		</skillTrees>
+	</class>
+</list>

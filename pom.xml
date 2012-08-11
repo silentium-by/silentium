@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>silentium</groupId>
+    <artifactId>silentium</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0</version>
+
+    <modules>
+        <module>silentium-commons</module>
+        <module>silentium-authserver</module>
+        <module>silentium-gameserver</module>
+        <module>silentium-scripts</module>
+        <module>silentium-datapack</module>
+    </modules>
+
+    <build>
+        <defaultGoal>install</defaultGoal>
+        <finalName>${project.artifactId}-${project.version}</finalName>
+
+        <pluginManagement>
+
+            <plugins>
+                <plugin>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>2.5</version>
+                    <executions>
+                        <execution>
+                            <id>auto-clean</id>
+                            <phase>validate</phase>
+                            <goals>
+                                <goal>clean</goal>
+                            </goals>
+                            <configuration>
+                                <filesets>
+                                    <fileset>
+                                        <directory>${project.build.outputDirectory}</directory>
+                                        <includes>
+                                            <include>**/*.jar</include>
+                                        </includes>
+                                    </fileset>
+                                </filesets>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>buildnumber-maven-plugin</artifactId>
+                    <version>1.1</version>
+                    <configuration>
+                        <getRevisionOnlyOnce>true</getRevisionOnlyOnce>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <phase>validate</phase>
+                            <goals>
+                                <goal>create</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>2.4</version>
+                    <configuration>
+                        <archive>
+                            <manifest>
+                                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            </manifest>
+                            <manifestEntries>
+                                <Implementation-Build>${buildNumber}</Implementation-Build>
+                                <Implementation-Time>${timestamp}</Implementation-Time>
+                            </manifestEntries>
+                        </archive>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.12</version>
+                    <configuration>
+                        <skipTests>true</skipTests>
+                        <forkMode>pertest</forkMode>
+                        <argLine>-enableassertions</argLine>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>2.5.1</version>
+                    <configuration>
+                        <source>1.7</source>
+                        <target>1.7</target>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>2.5</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-eclipse-plugin</artifactId>
+                    <version>2.9</version>
+                    <configuration>
+                        <addGroupIdToProjectName>true</addGroupIdToProjectName>
+                        <downloadSources>true</downloadSources>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>2.8.1</version>
+                    <configuration>
+                        <skip>false</skip>
+                        <quiet>false</quiet>
+
+                        <javadocVersion>1.7</javadocVersion>
+                        <charset>UTF-8</charset>
+                        <docencoding>UTF-8</docencoding>
+                        <!-- <encoding /> is derived from project.build.sourceEncoding -->
+                        <locale>en_US</locale>
+                        <!-- detectOfflineLinks -->
+                        <includeDependencySources>true</includeDependencySources>
+
+                        <detectJavaApiLink>true</detectJavaApiLink>
+                        <detectLinks>true</detectLinks>
+                        <!-- Not maintained -->
+                        <validateLinks>true</validateLinks>
+                        <links>
+                            <!-- TODO fix links -->
+                            <link>http://javolution.org/target/site/apidocs</link>
+                            <link>http://www.mchange.com/projects/c3p0/apidocs</link>
+                            <link>http://commons.apache.org/lang/api</link>
+                            <link>http://commons.apache.org/io/apidocs</link>
+                        </links>
+
+                        <author>true</author>
+                        <keywords>true</keywords>
+                        <linkSource>false</linkSource>
+                        <!-- Just for testing, specify 'private' along with it -->
+                        <show>private</show>
+                        <nohelp>false</nohelp>
+                        <excludePackageNames>com.sun.*</excludePackageNames>
+
+                        <doctitle>Silentium ${project.version} r${buildNumber} documentation</doctitle>
+                        <windowtitle>Silentium ${project.version} r${buildNumber} documentation</windowtitle>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>2.4</version>
+                    <executions>
+                        <execution>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>sources</goal>
+                            </goals>
+                            <configuration>
+                                <silent>true</silent>
+<!--                                <markersDirectory>../bnsworld-main/target/dependency-maven-plugin-markers
+                                </markersDirectory>-->
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>2.2.1</version>
+                    <configuration>
+                        <descriptors>
+                            <descriptor>src/main/assembly/distribution.xml</descriptor>
+                        </descriptors>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>single</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>2.1.2</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>jar-no-fork</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>findbugs-maven-plugin</artifactId>
+                    <version>2.5.1</version>
+                </plugin>
+            </plugins>
+
+        </pluginManagement>
+
+    </build>
+
+    <reporting>
+
+        <plugins>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>2.5.1</version>
+                <configuration>
+                    <xmlOutput>true</xmlOutput>
+                </configuration>
+            </plugin>
+
+        </plugins>
+
+    </reporting>
+
+    <scm>
+        <connection>scm:svn:http://subversion.assembla.com/svn/silentium_/trunk/</connection>
+        <developerConnection>scm:svn:http://subversion.assembla.com/svn/silentium_/trunk/</developerConnection>
+    </scm>
+
+</project>

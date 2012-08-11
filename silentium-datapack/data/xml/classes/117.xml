@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+	<class id="117" parentId="55">
+		<set name="className" val="Fortune Seeker"/>
+		<set name="raceId" val="4"/>
+		<set name="baseSTR" val="39"/>
+		<set name="baseCON" val="45"/>
+		<set name="baseDEX" val="29"/>
+		<set name="baseINT" val="20"/>
+		<set name="baseWIT" val="10"/>
+		<set name="baseMEN" val="27"/>
+		<set name="basePAtk" val="4"/>
+		<set name="basePDef" val="80"/>
+		<set name="baseMAtk" val="6"/>
+		<set name="baseMDef" val="41"/>
+		<set name="basePAtkSpd" val="300"/>
+		<set name="baseMAtkSpd" val="333"/>
+		<set name="baseCritRate" val="4"/>
+		<set name="baseRunSpd" val="115"/>
+		<set name="spawnX" val="108512"/>
+		<set name="spawnY" val="-174026"/>
+		<set name="spawnZ" val="-400"/>
+		<set name="collision_radius" val="9"/>
+		<set name="collision_height" val="18"/>
+		<set name="baseHpMax" val="3447.2"/>
+		<set name="lvlHpAdd" val="72.94"/>
+		<set name="lvlHpMod" val="0.37"/>
+		<set name="baseCpMax" val="2413.0"/>
+		<set name="lvlCpAdd" val="51.03"/>
+		<set name="lvlCpMod" val="0.22"/>
+		<set name="baseMpMax" val="1155.6"/>
+		<set name="lvlMpAdd" val="51.03"/>
+		<set name="lvlMpMod" val="0.22"/>
+		<set name="baseLvl" val="76"/>
+		<skillTrees>
+			<!-- Wisdom -->
+			<skill skillId="328" skillLvl="1" sp="8340000" minLvl="76"/>
+			<!-- Health -->
+			<skill skillId="329" skillLvl="1" sp="8340000" minLvl="76"/>
+			<!-- Skill Mastery -->
+			<skill skillId="330" skillLvl="1" sp="11000000" minLvl="77"/>
+			<!-- Parry Stance -->
+			<skill skillId="339" skillLvl="1" sp="16000000" minLvl="78"/>
+			<!-- Riposte Stance -->
+			<skill skillId="340" skillLvl="1" sp="11000000" minLvl="77"/>
+			<!-- Earthquake -->
+			<skill skillId="347" skillLvl="1" sp="16000000" minLvl="78"/>
+			<!-- Spoil Crush -->
+			<skill skillId="348" skillLvl="1" sp="8340000" minLvl="76"/>
+			<!-- Armor Crush -->
+			<skill skillId="362" skillLvl="1" sp="11000000" minLvl="77"/>
+			<!-- Battle Force -->
+			<skill skillId="426" skillLvl="1" sp="11000000" minLvl="77"/>
+			<!-- Master of Combat -->
+			<skill skillId="430" skillLvl="1" sp="16000000" minLvl="78"/>
+			<!-- Braveheart -->
+			<skill skillId="440" skillLvl="1" sp="16000000" minLvl="78"/>
+			<!-- Symbol of Resistance -->
+			<skill skillId="456" skillLvl="1" sp="150000000" minLvl="80"/>
+			<!-- Divine Inspiration -->
+			<skill skillId="1405" skillLvl="3" sp="0" minLvl="76"/>
+			<skill skillId="1405" skillLvl="4" sp="0" minLvl="76"/>
+		</skillTrees>
+	</class>
+</list>

@@ -1,0 +1,86 @@
+<configuration>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="silentium.commons.utils.logging.ConsoleLogLayout"/>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>log/java.log</file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>java_%d{yyyy-MM-dd}.log</fileNamePattern>
+        </rollingPolicy>
+
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="silentium.commons.utils.logging.ConsoleLogLayout"/>
+        </encoder>
+    </appender>
+
+    <appender name="CHAT" class="ch.qos.logback.core.FileAppender">
+        <filter class="silentium.gameserver.utils.logging.ChatFilter"/>
+
+        <file>log/chat.log</file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>chat_%d{yyyy-MM-dd}.log</fileNamePattern>
+        </rollingPolicy>
+
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="silentium.commons.utils.logging.ConsoleLogLayout"/>
+        </encoder>
+    </appender>
+
+    <appender name="ITEM" class="ch.qos.logback.core.FileAppender">
+        <filter class="silentium.gameserver.utils.logging.ItemFilter"/>
+
+        <file>log/item.log</file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>item_%d{yyyy-MM-dd}.log</fileNamePattern>
+        </rollingPolicy>
+
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="silentium.commons.utils.logging.ConsoleLogLayout"/>
+        </encoder>
+    </appender>
+
+    <appender name="GMAUDIT" class="ch.qos.logback.core.FileAppender">
+        <filter class="silentium.gameserver.utils.logging.GMAuditFilter"/>
+
+        <file>log/gmaudit.log</file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>gmaudit_%d{yyyy-MM-dd}.log</fileNamePattern>
+        </rollingPolicy>
+
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="silentium.commons.utils.logging.ConsoleLogLayout"/>
+        </encoder>
+    </appender>
+
+    <appender name="AUDIT" class="ch.qos.logback.core.FileAppender">
+        <filter class="silentium.gameserver.utils.logging.AuditFilter"/>
+
+        <file>log/audit.log</file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>audit_%d{yyyy-MM-dd}.log</fileNamePattern>
+        </rollingPolicy>
+
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="silentium.commons.utils.logging.ConsoleLogLayout"/>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="CHAT"/>
+        <appender-ref ref="ITEM"/>
+        <appender-ref ref="GMAUDIT"/>
+        <appender-ref ref="AUDIT"/>
+    </root>
+
+</configuration>

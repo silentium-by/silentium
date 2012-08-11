@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+	<class id="50" parentId="49">
+		<set name="className" val="Shaman"/>
+		<set name="raceId" val="3"/>
+		<set name="baseSTR" val="27"/>
+		<set name="baseCON" val="31"/>
+		<set name="baseDEX" val="24"/>
+		<set name="baseINT" val="31"/>
+		<set name="baseWIT" val="15"/>
+		<set name="baseMEN" val="42"/>
+		<set name="basePAtk" val="3"/>
+		<set name="basePDef" val="54"/>
+		<set name="baseMAtk" val="6"/>
+		<set name="baseMDef" val="41"/>
+		<set name="basePAtkSpd" val="300"/>
+		<set name="baseMAtkSpd" val="333"/>
+		<set name="baseCritRate" val="4"/>
+		<set name="baseRunSpd" val="121"/>
+		<set name="spawnX" val="-56682"/>
+		<set name="spawnY" val="-113730"/>
+		<set name="spawnZ" val="-690"/>
+		<set name="collision_radius" val="7"/>
+		<set name="collision_height" val="27"/>
+		<set name="baseHpMax" val="418.0"/>
+		<set name="lvlHpAdd" val="35.2"/>
+		<set name="lvlHpMod" val="0.37"/>
+		<set name="baseCpMax" val="209.0"/>
+		<set name="lvlCpAdd" val="17.6"/>
+		<set name="lvlCpMod" val="0.22"/>
+		<set name="baseMpMax" val="192.0"/>
+		<set name="lvlMpAdd" val="17.6"/>
+		<set name="lvlMpMod" val="0.22"/>
+		<set name="baseLvl" val="20"/>
+		<skillTrees>
+			<!-- Stun Attack -->
+			<skill skillId="100" skillLvl="1" sp="960" minLvl="20"/>
+			<skill skillId="100" skillLvl="2" sp="960" minLvl="20"/>
+			<skill skillId="100" skillLvl="3" sp="960" minLvl="20"/>
+			<skill skillId="100" skillLvl="4" sp="1900" minLvl="25"/>
+			<skill skillId="100" skillLvl="5" sp="1900" minLvl="25"/>
+			<skill skillId="100" skillLvl="6" sp="1900" minLvl="25"/>
+			<skill skillId="100" skillLvl="7" sp="3500" minLvl="30"/>
+			<skill skillId="100" skillLvl="8" sp="3500" minLvl="30"/>
+			<skill skillId="100" skillLvl="9" sp="3500" minLvl="30"/>
+			<skill skillId="100" skillLvl="10" sp="5900" minLvl="35"/>
+			<skill skillId="100" skillLvl="11" sp="5900" minLvl="35"/>
+			<skill skillId="100" skillLvl="12" sp="5900" minLvl="35"/>
+			<!-- Anti Magic -->
+			<skill skillId="146" skillLvl="5" sp="1400" minLvl="20"/>
+			<skill skillId="146" skillLvl="6" sp="1400" minLvl="20"/>
+			<skill skillId="146" skillLvl="7" sp="2900" minLvl="25"/>
+			<skill skillId="146" skillLvl="8" sp="2900" minLvl="25"/>
+			<skill skillId="146" skillLvl="9" sp="5300" minLvl="30"/>
+			<skill skillId="146" skillLvl="10" sp="5300" minLvl="30"/>
+			<skill skillId="146" skillLvl="11" sp="8800" minLvl="35"/>
+			<skill skillId="146" skillLvl="12" sp="8800" minLvl="35"/>
+			<!-- Quick Recovery -->
+			<skill skillId="164" skillLvl="1" sp="2900" minLvl="20"/>
+			<skill skillId="164" skillLvl="2" sp="11000" minLvl="30"/>
+			<!-- Fast HP Recovery -->
+			<skill skillId="212" skillLvl="1" sp="18000" minLvl="35"/>
+			<!-- Boost Mana -->
+			<skill skillId="213" skillLvl="1" sp="2900" minLvl="20"/>
+			<skill skillId="213" skillLvl="2" sp="11000" minLvl="30"/>
+			<!-- Fast Spell Casting -->
+			<skill skillId="228" skillLvl="1" sp="5800" minLvl="25"/>
+			<!-- Fast Mana Recovery -->
+			<skill skillId="229" skillLvl="1" sp="5800" minLvl="25"/>
+			<skill skillId="229" skillLvl="2" sp="18000" minLvl="35"/>
+			<!-- Weapon Mastery -->
+			<skill skillId="250" skillLvl="3" sp="2900" minLvl="20"/>
+			<skill skillId="250" skillLvl="4" sp="2900" minLvl="25"/>
+			<skill skillId="250" skillLvl="5" sp="2900" minLvl="25"/>
+			<skill skillId="250" skillLvl="6" sp="5300" minLvl="30"/>
+			<skill skillId="250" skillLvl="7" sp="5300" minLvl="30"/>
+			<skill skillId="250" skillLvl="8" sp="8800" minLvl="35"/>
+			<skill skillId="250" skillLvl="9" sp="8800" minLvl="35"/>
+			<!-- Robe Mastery -->
+			<skill skillId="251" skillLvl="5" sp="1400" minLvl="20"/>
+			<skill skillId="251" skillLvl="6" sp="1400" minLvl="20"/>
+			<skill skillId="251" skillLvl="7" sp="2900" minLvl="25"/>
+			<skill skillId="251" skillLvl="8" sp="2900" minLvl="25"/>
+			<skill skillId="251" skillLvl="9" sp="5300" minLvl="30"/>
+			<skill skillId="251" skillLvl="10" sp="5300" minLvl="30"/>
+			<skill skillId="251" skillLvl="11" sp="8800" minLvl="35"/>
+			<skill skillId="251" skillLvl="12" sp="8800" minLvl="35"/>
+			<!-- Light Armor Mastery -->
+			<skill skillId="252" skillLvl="5" sp="1400" minLvl="20"/>
+			<skill skillId="252" skillLvl="6" sp="1400" minLvl="20"/>
+			<skill skillId="252" skillLvl="7" sp="2900" minLvl="25"/>
+			<skill skillId="252" skillLvl="8" sp="2900" minLvl="25"/>
+			<skill skillId="252" skillLvl="9" sp="5300" minLvl="30"/>
+			<skill skillId="252" skillLvl="10" sp="5300" minLvl="30"/>
+			<skill skillId="252" skillLvl="11" sp="8800" minLvl="35"/>
+			<skill skillId="252" skillLvl="12" sp="8800" minLvl="35"/>
+			<!-- Heavy Armor Mastery -->
+			<skill skillId="253" skillLvl="3" sp="1400" minLvl="20"/>
+			<skill skillId="253" skillLvl="4" sp="1400" minLvl="20"/>
+			<skill skillId="253" skillLvl="5" sp="2900" minLvl="25"/>
+			<skill skillId="253" skillLvl="6" sp="2900" minLvl="25"/>
+			<skill skillId="253" skillLvl="7" sp="5300" minLvl="30"/>
+			<skill skillId="253" skillLvl="8" sp="5300" minLvl="30"/>
+			<skill skillId="253" skillLvl="9" sp="8800" minLvl="35"/>
+			<skill skillId="253" skillLvl="10" sp="8800" minLvl="35"/>
+			<!-- Soul Cry -->
+			<skill skillId="1001" skillLvl="3" sp="5800" minLvl="25"/>
+			<skill skillId="1001" skillLvl="4" sp="18000" minLvl="35"/>
+			<!-- Flame Chant -->
+			<skill skillId="1002" skillLvl="1" sp="11000" minLvl="30"/>
+			<!-- Pa"agrian Gift -->
+			<skill skillId="1003" skillLvl="1" sp="11000" minLvl="30"/>
+			<!-- Blessings of Pa"agrio -->
+			<skill skillId="1005" skillLvl="1" sp="18000" minLvl="35"/>
+			<!-- Chant of Fire -->
+			<skill skillId="1006" skillLvl="1" sp="2900" minLvl="20"/>
+			<!-- Chant of Battle -->
+			<skill skillId="1007" skillLvl="2" sp="5800" minLvl="25"/>
+			<!-- Chant of Shielding -->
+			<skill skillId="1009" skillLvl="1" sp="2900" minLvl="20"/>
+			<skill skillId="1009" skillLvl="2" sp="11000" minLvl="30"/>
+			<!-- Soul Shield -->
+			<skill skillId="1010" skillLvl="2" sp="5800" minLvl="25"/>
+			<skill skillId="1010" skillLvl="3" sp="18000" minLvl="35"/>
+			<!-- Life Drain -->
+			<skill skillId="1090" skillLvl="3" sp="2900" minLvl="20"/>
+			<skill skillId="1090" skillLvl="4" sp="5800" minLvl="25"/>
+			<skill skillId="1090" skillLvl="5" sp="11000" minLvl="30"/>
+			<skill skillId="1090" skillLvl="6" sp="18000" minLvl="35"/>
+			<!-- Fear -->
+			<skill skillId="1092" skillLvl="2" sp="2900" minLvl="20"/>
+			<skill skillId="1092" skillLvl="3" sp="5800" minLvl="25"/>
+			<skill skillId="1092" skillLvl="4" sp="11000" minLvl="30"/>
+			<skill skillId="1092" skillLvl="5" sp="18000" minLvl="35"/>
+			<!-- Venom -->
+			<skill skillId="1095" skillLvl="3" sp="2900" minLvl="20"/>
+			<!-- Seal of Chaos -->
+			<skill skillId="1096" skillLvl="1" sp="11000" minLvl="30"/>
+			<skill skillId="1096" skillLvl="2" sp="18000" minLvl="35"/>
+			<!-- Dreaming Spirit -->
+			<skill skillId="1097" skillLvl="3" sp="2900" minLvl="20"/>
+			<skill skillId="1097" skillLvl="4" sp="5800" minLvl="25"/>
+			<skill skillId="1097" skillLvl="5" sp="11000" minLvl="30"/>
+			<skill skillId="1097" skillLvl="6" sp="18000" minLvl="35"/>
+			<!-- Seal of Slow -->
+			<skill skillId="1099" skillLvl="1" sp="18000" minLvl="35"/>
+			<!-- Blaze Quake -->
+			<skill skillId="1101" skillLvl="1" sp="5800" minLvl="25"/>
+			<skill skillId="1101" skillLvl="2" sp="18000" minLvl="35"/>
+			<!-- Aura Sink -->
+			<skill skillId="1102" skillLvl="1" sp="5800" minLvl="25"/>
+			<skill skillId="1102" skillLvl="2" sp="18000" minLvl="35"/>
+			<!-- Madness -->
+			<skill skillId="1105" skillLvl="1" sp="2900" minLvl="20"/>
+			<skill skillId="1105" skillLvl="2" sp="5800" minLvl="25"/>
+			<skill skillId="1105" skillLvl="3" sp="11000" minLvl="30"/>
+			<skill skillId="1105" skillLvl="4" sp="18000" minLvl="35"/>
+			<!-- Frost Flame -->
+			<skill skillId="1107" skillLvl="1" sp="2900" minLvl="20"/>
+			<skill skillId="1107" skillLvl="2" sp="11000" minLvl="30"/>
+			<!-- Seal of Binding -->
+			<skill skillId="1208" skillLvl="1" sp="5800" minLvl="25"/>
+			<skill skillId="1208" skillLvl="2" sp="11000" minLvl="30"/>
+			<skill skillId="1208" skillLvl="3" sp="18000" minLvl="35"/>
+			<!-- Seal of Poison -->
+			<skill skillId="1209" skillLvl="1" sp="2900" minLvl="20"/>
+			<skill skillId="1209" skillLvl="2" sp="11000" minLvl="30"/>
+			<!-- Chant of Life -->
+			<skill skillId="1229" skillLvl="1" sp="2900" minLvl="20"/>
+			<skill skillId="1229" skillLvl="2" sp="5800" minLvl="25"/>
+			<skill skillId="1229" skillLvl="3" sp="11000" minLvl="30"/>
+			<skill skillId="1229" skillLvl="4" sp="18000" minLvl="35"/>
+		</skillTrees>
+	</class>
+</list>

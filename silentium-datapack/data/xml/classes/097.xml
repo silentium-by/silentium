@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+	<class id="97" parentId="16">
+		<set name="className" val="Cardinal"/>
+		<set name="raceId" val="0"/>
+		<set name="baseSTR" val="22"/>
+		<set name="baseCON" val="27"/>
+		<set name="baseDEX" val="21"/>
+		<set name="baseINT" val="41"/>
+		<set name="baseWIT" val="20"/>
+		<set name="baseMEN" val="39"/>
+		<set name="basePAtk" val="3"/>
+		<set name="basePDef" val="54"/>
+		<set name="baseMAtk" val="6"/>
+		<set name="baseMDef" val="41"/>
+		<set name="basePAtkSpd" val="300"/>
+		<set name="baseMAtkSpd" val="333"/>
+		<set name="baseCritRate" val="4"/>
+		<set name="baseRunSpd" val="120"/>
+		<set name="spawnX" val="-90890"/>
+		<set name="spawnY" val="248027"/>
+		<set name="spawnZ" val="-3570"/>
+		<set name="collision_radius" val="7"/>
+		<set name="collision_height" val="22"/>
+		<set name="baseHpMax" val="3182.7"/>
+		<set name="lvlHpAdd" val="63.08"/>
+		<set name="lvlHpMod" val="0.37"/>
+		<set name="baseCpMax" val="2873.9"/>
+		<set name="lvlCpAdd" val="56.97"/>
+		<set name="lvlCpMod" val="0.22"/>
+		<set name="baseMpMax" val="1540.8"/>
+		<set name="lvlMpAdd" val="44.16"/>
+		<set name="lvlMpMod" val="0.22"/>
+		<set name="baseLvl" val="76"/>
+		<skillTrees>
+			<!-- Wisdom -->
+			<skill skillId="328" skillLvl="1" sp="8340000" minLvl="76"/>
+			<!-- Health -->
+			<skill skillId="329" skillLvl="1" sp="8340000" minLvl="76"/>
+			<!-- Skill Mastery -->
+			<skill skillId="331" skillLvl="1" sp="11000000" minLvl="77"/>
+			<!-- Arcane Wisdom -->
+			<skill skillId="336" skillLvl="1" sp="16000000" minLvl="78"/>
+			<!-- Spell Force -->
+			<skill skillId="427" skillLvl="1" sp="11000000" minLvl="77"/>
+			<!-- Divine Lore -->
+			<skill skillId="436" skillLvl="1" sp="16000000" minLvl="78"/>
+			<!-- Balance Life -->
+			<skill skillId="1335" skillLvl="1" sp="8340000" minLvl="76"/>
+			<!-- Divine Protection -->
+			<skill skillId="1353" skillLvl="1" sp="11000000" minLvl="77"/>
+			<!-- Mass Block Shield -->
+			<skill skillId="1360" skillLvl="1" sp="11000000" minLvl="77"/>
+			<!-- Mass Block Wind Walk -->
+			<skill skillId="1361" skillLvl="1" sp="16000000" minLvl="78"/>
+			<!-- Divine Inspiration -->
+			<skill skillId="1405" skillLvl="3" sp="0" minLvl="76"/>
+			<skill skillId="1405" skillLvl="4" sp="0" minLvl="76"/>
+			<!-- Cleanse -->
+			<skill skillId="1409" skillLvl="1" sp="16000000" minLvl="78"/>
+			<!-- Salvation -->
+			<skill skillId="1410" skillLvl="1" sp="80000000" minLvl="79"/>
+			<!-- Purification Field -->
+			<skill skillId="1425" skillLvl="1" sp="150000000" minLvl="80"/>
+			<!-- Miracle -->
+			<skill skillId="1426" skillLvl="1" sp="150000000" minLvl="80"/>
+		</skillTrees>
+	</class>
+</list>

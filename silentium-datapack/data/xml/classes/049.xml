@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+	<class id="49" parentId="-1">
+		<set name="className" val="Orc Mage"/>
+		<set name="raceId" val="3"/>
+		<set name="baseSTR" val="27"/>
+		<set name="baseCON" val="31"/>
+		<set name="baseDEX" val="24"/>
+		<set name="baseINT" val="31"/>
+		<set name="baseWIT" val="15"/>
+		<set name="baseMEN" val="42"/>
+		<set name="basePAtk" val="3"/>
+		<set name="basePDef" val="54"/>
+		<set name="baseMAtk" val="6"/>
+		<set name="baseMDef" val="41"/>
+		<set name="basePAtkSpd" val="300"/>
+		<set name="baseMAtkSpd" val="333"/>
+		<set name="baseCritRate" val="4"/>
+		<set name="baseRunSpd" val="121"/>
+		<set name="spawnX" val="-56682"/>
+		<set name="spawnY" val="-113730"/>
+		<set name="spawnZ" val="-690"/>
+		<set name="collision_radius" val="7"/>
+		<set name="collision_height" val="27"/>
+		<set name="baseHpMax" val="95.0"/>
+		<set name="lvlHpAdd" val="15.47"/>
+		<set name="lvlHpMod" val="0.37"/>
+		<set name="baseCpMax" val="47.5"/>
+		<set name="lvlCpAdd" val="7.74"/>
+		<set name="lvlCpMod" val="0.22"/>
+		<set name="baseMpMax" val="40.0"/>
+		<set name="lvlMpAdd" val="7.74"/>
+		<set name="lvlMpMod" val="0.22"/>
+		<set name="baseLvl" val="1"/>
+		<skillTrees>
+			<!-- Magician"s Movement -->
+			<skill skillId="118" skillLvl="1" sp="0" minLvl="1"/>
+			<!-- Toughness -->
+			<skill skillId="134" skillLvl="1" sp="0" minLvl="1"/>
+			<!-- Anti Magic -->
+			<skill skillId="146" skillLvl="1" sp="260" minLvl="7"/>
+			<skill skillId="146" skillLvl="2" sp="260" minLvl="7"/>
+			<skill skillId="146" skillLvl="3" sp="880" minLvl="14"/>
+			<skill skillId="146" skillLvl="4" sp="880" minLvl="14"/>
+			<!-- Spellcraft -->
+			<skill skillId="163" skillLvl="1" sp="0" minLvl="1"/>
+			<!-- Lucky -->
+			<skill skillId="194" skillLvl="1" sp="0" minLvl="1"/>
+			<!-- Mana Recovery -->
+			<skill skillId="214" skillLvl="1" sp="0" minLvl="1"/>
+			<!-- Expertises -->
+			<skill skillId="239" skillLvl="1" sp="0" minLvl="20"/>
+			<skill skillId="239" skillLvl="2" sp="0" minLvl="40"/>
+			<skill skillId="239" skillLvl="3" sp="0" minLvl="52"/>
+			<skill skillId="239" skillLvl="4" sp="0" minLvl="61"/>
+			<skill skillId="239" skillLvl="5" sp="0" minLvl="76"/>
+			<!-- Weapon Mastery -->
+			<skill skillId="250" skillLvl="1" sp="520" minLvl="7"/>
+			<skill skillId="250" skillLvl="2" sp="1800" minLvl="14"/>
+			<!-- Robe Mastery -->
+			<skill skillId="251" skillLvl="1" sp="260" minLvl="7"/>
+			<skill skillId="251" skillLvl="2" sp="260" minLvl="7"/>
+			<skill skillId="251" skillLvl="3" sp="880" minLvl="14"/>
+			<skill skillId="251" skillLvl="4" sp="880" minLvl="14"/>
+			<!-- Light Armor Mastery -->
+			<skill skillId="252" skillLvl="1" sp="260" minLvl="7"/>
+			<skill skillId="252" skillLvl="2" sp="260" minLvl="7"/>
+			<skill skillId="252" skillLvl="3" sp="880" minLvl="14"/>
+			<skill skillId="252" skillLvl="4" sp="880" minLvl="14"/>
+			<!-- Heavy Armor Mastery -->
+			<skill skillId="253" skillLvl="1" sp="880" minLvl="14"/>
+			<skill skillId="253" skillLvl="2" sp="880" minLvl="14"/>
+			<!-- Soul Cry -->
+			<skill skillId="1001" skillLvl="1" sp="0" minLvl="1"/>
+			<skill skillId="1001" skillLvl="2" sp="1800" minLvl="14"/>
+			<!-- Chant of Battle -->
+			<skill skillId="1007" skillLvl="1" sp="1800" minLvl="14"/>
+			<!-- Soul Shield -->
+			<skill skillId="1010" skillLvl="1" sp="520" minLvl="7"/>
+			<!-- Life Drain -->
+			<skill skillId="1090" skillLvl="1" sp="520" minLvl="7"/>
+			<skill skillId="1090" skillLvl="2" sp="1800" minLvl="14"/>
+			<!-- Fear -->
+			<skill skillId="1092" skillLvl="1" sp="1800" minLvl="14"/>
+			<!-- Venom -->
+			<skill skillId="1095" skillLvl="1" sp="520" minLvl="7"/>
+			<skill skillId="1095" skillLvl="2" sp="1800" minLvl="14"/>
+			<!-- Dreaming Spirit -->
+			<skill skillId="1097" skillLvl="1" sp="520" minLvl="7"/>
+			<skill skillId="1097" skillLvl="2" sp="1800" minLvl="14"/>
+			<!-- Chill Flame -->
+			<skill skillId="1100" skillLvl="1" sp="520" minLvl="7"/>
+			<skill skillId="1100" skillLvl="2" sp="1800" minLvl="14"/>
+			<!-- Create Common Item -->
+			<skill skillId="1320" skillLvl="1" sp="0" minLvl="1"/>
+			<skill skillId="1320" skillLvl="2" sp="0" minLvl="20"/>
+			<skill skillId="1320" skillLvl="3" sp="0" minLvl="28"/>
+			<skill skillId="1320" skillLvl="4" sp="0" minLvl="36"/>
+			<skill skillId="1320" skillLvl="5" sp="0" minLvl="43"/>
+			<skill skillId="1320" skillLvl="6" sp="0" minLvl="49"/>
+			<skill skillId="1320" skillLvl="7" sp="0" minLvl="55"/>
+			<skill skillId="1320" skillLvl="8" sp="0" minLvl="62"/>
+			<skill skillId="1320" skillLvl="9" sp="0" minLvl="70"/>
+			<!-- Common Craft -->
+			<skill skillId="1322" skillLvl="1" sp="0" minLvl="1"/>
+		</skillTrees>
+		<items val="425;461;2368;5588"/>
+	</class>
+</list>

@@ -1,0 +1,18 @@
+Автоматические эвенты:
+- ТВТ
+- ДМ
+- ЦТФ
+- Бойцовский клуб
+
+
+Команды:
+.menu
+.autoloot [on/off]
+.exp [on/off]
+.lang [en/ru]
+.premium [1/3/7/14/31 с разными ценами]
+.noblesse
+.bindip
+.bindhwid
+.offline [оффтрейд]
+.restore

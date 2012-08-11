@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+	<class id="104" parentId="28">
+		<set name="className" val="Elemental Master"/>
+		<set name="raceId" val="1"/>
+		<set name="baseSTR" val="21"/>
+		<set name="baseCON" val="25"/>
+		<set name="baseDEX" val="24"/>
+		<set name="baseINT" val="37"/>
+		<set name="baseWIT" val="23"/>
+		<set name="baseMEN" val="40"/>
+		<set name="basePAtk" val="3"/>
+		<set name="basePDef" val="54"/>
+		<set name="baseMAtk" val="6"/>
+		<set name="baseMDef" val="41"/>
+		<set name="basePAtkSpd" val="300"/>
+		<set name="baseMAtkSpd" val="333"/>
+		<set name="baseCritRate" val="4"/>
+		<set name="baseRunSpd" val="122"/>
+		<set name="spawnX" val="46182"/>
+		<set name="spawnY" val="41198"/>
+		<set name="spawnZ" val="-3440"/>
+		<set name="collision_radius" val="7"/>
+		<set name="collision_height" val="24"/>
+		<set name="baseHpMax" val="3119.3"/>
+		<set name="lvlHpAdd" val="64.74"/>
+		<set name="lvlHpMod" val="0.37"/>
+		<set name="baseCpMax" val="1871.5"/>
+		<set name="lvlCpAdd" val="38.84"/>
+		<set name="lvlCpMod" val="0.22"/>
+		<set name="baseMpMax" val="1540.8"/>
+		<set name="lvlMpAdd" val="38.84"/>
+		<set name="lvlMpMod" val="0.22"/>
+		<set name="baseLvl" val="76"/>
+		<skillTrees>
+			<!-- Wisdom -->
+			<skill skillId="328" skillLvl="1" sp="12500000" minLvl="76"/>
+			<!-- Skill Mastery -->
+			<skill skillId="331" skillLvl="1" sp="14670000" minLvl="77"/>
+			<!-- Arcane Agility -->
+			<skill skillId="338" skillLvl="1" sp="21340000" minLvl="78"/>
+			<!-- Spell Force -->
+			<skill skillId="427" skillLvl="1" sp="14670000" minLvl="77"/>
+			<!-- Summon Lore -->
+			<skill skillId="435" skillLvl="1" sp="21340000" minLvl="78"/>
+			<!-- Wizard Servitor -->
+			<skill skillId="1347" skillLvl="1" sp="14670000" minLvl="77"/>
+			<!-- Final Servitor -->
+			<skill skillId="1349" skillLvl="1" sp="21340000" minLvl="78"/>
+			<!-- Warrior Bane -->
+			<skill skillId="1350" skillLvl="1" sp="12500000" minLvl="76"/>
+			<!-- Divine Inspiration -->
+			<skill skillId="1405" skillLvl="3" sp="0" minLvl="76"/>
+			<skill skillId="1405" skillLvl="4" sp="0" minLvl="76"/>
+			<!-- Summon Magnus the Unicorn -->
+			<skill skillId="1407" skillLvl="1" sp="80000000" minLvl="79"/>
+			<!-- Anti-Summoning Field -->
+			<skill skillId="1424" skillLvl="1" sp="150000000" minLvl="80"/>
+		</skillTrees>
+	</class>
+</list>

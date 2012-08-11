@@ -1,0 +1,154 @@
+﻿<html><title>Edit Npc</title><body>
+	<center>Edit NPC Informations (%npcId%)</center><br>
+	<table width=270>
+		<tr>
+			<td width=150>Template ID (%templateId%):</td>
+			<td><edit var="tId" width=85></td>
+			<td><button value="Set" width=35 action="bypass -h admin_save_npc %npcId% templateId $tId" height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+		</tr><tr>
+			<td>Name (%name%):</td>
+			<td><edit var="n" width=85></td>
+			<td><button value="Set" width=35 action="bypass -h admin_save_npc %npcId% name $n" height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+		</tr><tr>
+			<td>Server Side Name (%serverSideName%):</td>
+			<td><edit var="sSN" width=85></td>
+			<td><button value="Set" width=35 action="bypass -h admin_save_npc %npcId% serverSideName $sSN" height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+		</tr><tr>
+			<td>Title (%title%):</td>
+			<td><edit var="t" width=85></td>
+			<td><button value="Set" width=35 action="bypass -h admin_save_npc %npcId% title $t" height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+		</tr><tr>
+			<td>Server Side Title (%serverSideTitle%):</td>
+			<td><edit var="sST" width=85></td>
+			<td><button value="Set" width=35 action="bypass -h admin_save_npc %npcId% serverSideTitle $sST" height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+		</tr><tr>
+			<td>Collision Radius (%collisionRadius%):</td>
+			<td><edit var="cR" width=85></td>
+			<td><button value="Set" width=35 action="bypass -h admin_save_npc %npcId% collisionRadius $cR" height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+		</tr><tr>
+			<td>Collision Height (%collisionHeight%):</td>
+			<td><edit var="cH" width=85></td>
+			<td><button value="Set" width=35 action="bypass -h admin_save_npc %npcId% collisionHeight $cH" height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+		</tr><tr>
+			<td>Level (%level%):</td>
+			<td><edit var="lv" width=85></td>
+			<td><button value="Set" width=35 action="bypass -h admin_save_npc %npcId% level $lv" height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+		</tr><tr>
+			<td>Sex (%sex%):</td>
+			<td><edit var="sex" width=85></td>
+			<td><button value="Set" width=35 action="bypass -h admin_save_npc %npcId% sex $sex" height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+		</tr><tr>
+			<td>Type (%type%):</td>
+			<td><edit var="type" width=85></td>
+			<td><button value="Set" width=35 action="bypass -h admin_save_npc %npcId% type $type" height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+		</tr><tr>
+			<td>Attack Range (%attackRange%):</td>
+			<td><edit var="atkR" width=85></td>
+			<td><button value="Set" width=35 action="bypass -h admin_save_npc %npcId% attackRange $atkR" height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+		</tr><tr>
+			<td>HP (%hp%):</td>
+			<td><edit var="hp" width=85></td>
+			<td><button value="Set" width=35 action="bypass -h admin_save_npc %npcId% hp $hp" height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+		</tr><tr>
+			<td>MP (%mp%):</td>
+			<td><edit var="mp" width=85></td>
+			<td><button value="Set" width=35 action="bypass -h admin_save_npc %npcId% mp $mp" height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+		</tr><tr>
+			<td>HP Regen. (%hpRegen%):</td>
+			<td><edit var="hpR" width=85></td>
+			<td><button value="Set" width=35 action="bypass -h admin_save_npc %npcId% hpRegen $hpR" height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+		</tr><tr>
+			<td>MP Regen. (%mpRegen%):</td>
+			<td><edit var="mpR" width=85></td>
+			<td><button value="Set" width=35 action="bypass -h admin_save_npc %npcId% mpRegen $mpR" height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+		</tr><tr>
+			<td>Str. :</td>
+			<td>%str%</td>
+			<td></td>
+		</tr><tr>
+			<td>Con. :</td>
+			<td>%con%</td>
+			<td></td>
+		</tr><tr>
+			<td>Dex. :</td>
+			<td>%dex%</td>
+			<td></td>
+		</tr><tr>
+			<td>Int. :</td>
+			<td>%int%</td>
+			<td></td>
+		</tr><tr>
+			<td>Wit. :</td>
+			<td>%wit%</td>
+			<td></td>
+		</tr><tr>
+			<td>Men. :</td>
+			<td>%men%</td>
+			<td></td>
+		</tr><tr>
+			<td>EXP (%exp%):</td>
+			<td><edit var="exp" width=85></td>
+			<td><button value="Set" width=35 action="bypass -h admin_save_npc %npcId% exp $exp" height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+		</tr><tr>
+			<td>SP (%sp%):</td>
+			<td><edit var="sp" width=85></td>
+			<td><button value="Set" width=35 action="bypass -h admin_save_npc %npcId% sp $sp" height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+		</tr><tr>
+			<td>P. Atk. (%pAtk%):</td>
+			<td><edit var="pAtk" width=85></td>
+			<td><button value="Set" width=35 action="bypass -h admin_save_npc %npcId% pAtk $pAtk" height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+		</tr><tr>
+			<td>P. Def. (%pDef%):</td>
+			<td><edit var="pDef" width=85></td>
+			<td><button value="Set" width=35 action="bypass -h admin_save_npc %npcId% pDef $pDef" height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+		</tr><tr>
+			<td>M. Atk. (%mAtk%):</td>
+			<td><edit var="mAtk" width=85></td>
+			<td><button value="Set" width=35 action="bypass -h admin_save_npc %npcId% mAtk $mAtk" height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+		</tr><tr>
+			<td>M. Def. (%mDef%):</td>
+			<td><edit var="mDef" width=85></td>
+			<td><button value="Set" width=35 action="bypass -h admin_save_npc %npcId% mDef $mDef" height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+		</tr><tr>
+			<td>P. Atk. Spd. (%pAtkSpd%):</td>
+			<td><edit var="pS" width=85></td>
+			<td><button value="Set" width=35 action="bypass -h admin_save_npc %npcId% pAtkSpd $pS" height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+		</tr><tr>
+			<td>Aggro (%aggro%):</td>
+			<td><edit var="ag" width=85></td>
+			<td><button value="Set" width=35 action="bypass -h admin_save_npc %npcId% aggro $ag" height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+		</tr><tr>
+			<td>M. Atk. Spd. (%mAtkSpd%):</td>
+			<td><edit var="mS" width=85></td>
+			<td><button value="Set" width=35 action="bypass -h admin_save_npc %npcId% mAtkSpd $mS" height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+		</tr><tr>
+			<td>R Hand (%rHand%):</td>
+			<td><edit var="rH" width=85></td>
+			<td><button value="Set" width=35 action="bypass -h admin_save_npc %npcId% rHand $rH" height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+		</tr><tr>
+			<td>L Hand (%lHand%):</td>
+			<td><edit var="lH" width=85></td>
+			<td><button value="Set" width=35 action="bypass -h admin_save_npc %npcId% lHand $lH" height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+		</tr><tr>
+			<td>Enchant (%enchant%):</td>
+			<td><edit var="en" width=85></td>
+			<td><button value="Set" width=35 action="bypass -h admin_save_npc %npcId% enchant $en" height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+		</tr><tr>
+			<td>Walk Spd. :</td>
+			<td>%walkSpd%</td>
+			<td></td>
+		</tr><tr>
+			<td>Run Spd. (%runSpd%):</td>
+			<td><edit var="rSd" width=85></td>
+			<td><button value="Set" width=35 action="bypass -h admin_save_npc %npcId% runSpd $rSd" height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+		</tr><tr>
+			<td>Faction ID (%factionId%):</td>
+			<td><edit var="fId" width=85></td>
+			<td><button value="Set" width=35 action="bypass -h admin_save_npc %npcId% factionId $fId" height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+		</tr><tr>
+			<td>Faction Range (%factionRange%):</td>
+			<td><edit var="factionRange" width=85></td>
+			<td><button value="Set" width=35 action="bypass -h admin_save_npc %npcId% factionRange $factionRange" height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+		</tr>
+	</table>
+</body></html>

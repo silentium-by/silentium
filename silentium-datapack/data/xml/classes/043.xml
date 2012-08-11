@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+	<class id="43" parentId="42">
+		<set name="className" val="Shillien Elder"/>
+		<set name="raceId" val="2"/>
+		<set name="baseSTR" val="23"/>
+		<set name="baseCON" val="24"/>
+		<set name="baseDEX" val="23"/>
+		<set name="baseINT" val="44"/>
+		<set name="baseWIT" val="19"/>
+		<set name="baseMEN" val="37"/>
+		<set name="basePAtk" val="3"/>
+		<set name="basePDef" val="54"/>
+		<set name="baseMAtk" val="6"/>
+		<set name="baseMDef" val="41"/>
+		<set name="basePAtkSpd" val="300"/>
+		<set name="baseMAtkSpd" val="333"/>
+		<set name="baseCritRate" val="4"/>
+		<set name="baseRunSpd" val="122"/>
+		<set name="spawnX" val="28295"/>
+		<set name="spawnY" val="11063"/>
+		<set name="spawnZ" val="-4224"/>
+		<set name="collision_radius" val="7"/>
+		<set name="collision_height" val="24"/>
+		<set name="baseHpMax" val="1217.7"/>
+		<set name="lvlHpAdd" val="54.7"/>
+		<set name="lvlHpMod" val="0.37"/>
+		<set name="baseCpMax" val="1095.8"/>
+		<set name="lvlCpAdd" val="49.32"/>
+		<set name="lvlCpMod" val="0.22"/>
+		<set name="baseMpMax" val="478.8"/>
+		<set name="lvlMpAdd" val="27.4"/>
+		<set name="lvlMpMod" val="0.22"/>
+		<set name="baseLvl" val="40"/>
+		<skillTrees>
+			<!-- Anti Magic -->
+			<skill skillId="146" skillLvl="13" sp="13000" minLvl="40"/>
+			<skill skillId="146" skillLvl="14" sp="13000" minLvl="40"/>
+			<skill skillId="146" skillLvl="15" sp="13000" minLvl="40"/>
+			<skill skillId="146" skillLvl="16" sp="15000" minLvl="44"/>
+			<skill skillId="146" skillLvl="17" sp="15000" minLvl="44"/>
+			<skill skillId="146" skillLvl="18" sp="15000" minLvl="44"/>
+			<skill skillId="146" skillLvl="19" sp="29000" minLvl="48"/>
+			<skill skillId="146" skillLvl="20" sp="29000" minLvl="48"/>
+			<skill skillId="146" skillLvl="21" sp="29000" minLvl="48"/>
+			<skill skillId="146" skillLvl="22" sp="38000" minLvl="52"/>
+			<skill skillId="146" skillLvl="23" sp="38000" minLvl="52"/>
+			<skill skillId="146" skillLvl="24" sp="38000" minLvl="52"/>
+			<skill skillId="146" skillLvl="25" sp="42000" minLvl="56"/>
+			<skill skillId="146" skillLvl="26" sp="42000" minLvl="56"/>
+			<skill skillId="146" skillLvl="27" sp="42000" minLvl="56"/>
+			<skill skillId="146" skillLvl="28" sp="73000" minLvl="58"/>
+			<skill skillId="146" skillLvl="29" sp="73000" minLvl="58"/>
+			<skill skillId="146" skillLvl="30" sp="107000" minLvl="60"/>
+			<skill skillId="146" skillLvl="31" sp="107000" minLvl="60"/>
+			<skill skillId="146" skillLvl="32" sp="150000" minLvl="62"/>
+			<skill skillId="146" skillLvl="33" sp="150000" minLvl="62"/>
+			<skill skillId="146" skillLvl="34" sp="200000" minLvl="64"/>
+			<skill skillId="146" skillLvl="35" sp="200000" minLvl="64"/>
+			<skill skillId="146" skillLvl="36" sp="270000" minLvl="66"/>
+			<skill skillId="146" skillLvl="37" sp="270000" minLvl="66"/>
+			<skill skillId="146" skillLvl="38" sp="300000" minLvl="68"/>
+			<skill skillId="146" skillLvl="39" sp="300000" minLvl="68"/>
+			<skill skillId="146" skillLvl="40" sp="390000" minLvl="70"/>
+			<skill skillId="146" skillLvl="41" sp="390000" minLvl="70"/>
+			<skill skillId="146" skillLvl="42" sp="580000" minLvl="72"/>
+			<skill skillId="146" skillLvl="43" sp="580000" minLvl="72"/>
+			<skill skillId="146" skillLvl="44" sp="820000" minLvl="74"/>
+			<skill skillId="146" skillLvl="45" sp="820000" minLvl="74"/>
+			<!-- Quick Recovery -->
+			<skill skillId="164" skillLvl="3" sp="86000" minLvl="48"/>
+			<!-- Fast HP Recovery -->
+			<skill skillId="212" skillLvl="2" sp="44000" minLvl="44"/>
+			<skill skillId="212" skillLvl="3" sp="113000" minLvl="52"/>
+			<skill skillId="212" skillLvl="4" sp="147000" minLvl="58"/>
+			<skill skillId="212" skillLvl="5" sp="400000" minLvl="64"/>
+			<skill skillId="212" skillLvl="6" sp="1640000" minLvl="74"/>
+			<!-- Boost Mana -->
+			<skill skillId="213" skillLvl="3" sp="39000" minLvl="40"/>
+			<skill skillId="213" skillLvl="4" sp="86000" minLvl="48"/>
+			<skill skillId="213" skillLvl="5" sp="125000" minLvl="56"/>
+			<skill skillId="213" skillLvl="6" sp="214000" minLvl="60"/>
+			<skill skillId="213" skillLvl="7" sp="540000" minLvl="66"/>
+			<skill skillId="213" skillLvl="8" sp="1150000" minLvl="72"/>
+			<!-- Fast Spell Casting -->
+			<skill skillId="228" skillLvl="2" sp="39000" minLvl="40"/>
+			<skill skillId="228" skillLvl="3" sp="125000" minLvl="56"/>
+			<!-- Fast Mana Recovery -->
+			<skill skillId="229" skillLvl="3" sp="44000" minLvl="44"/>
+			<skill skillId="229" skillLvl="4" sp="113000" minLvl="52"/>
+			<skill skillId="229" skillLvl="5" sp="214000" minLvl="60"/>
+			<skill skillId="229" skillLvl="6" sp="590000" minLvl="68"/>
+			<skill skillId="229" skillLvl="7" sp="1640000" minLvl="74"/>
+			<!-- Robe Mastery -->
+			<skill skillId="235" skillLvl="9" sp="13000" minLvl="40"/>
+			<skill skillId="235" skillLvl="10" sp="13000" minLvl="40"/>
+			<skill skillId="235" skillLvl="11" sp="13000" minLvl="40"/>
+			<skill skillId="235" skillLvl="12" sp="15000" minLvl="44"/>
+			<skill skillId="235" skillLvl="13" sp="15000" minLvl="44"/>
+			<skill skillId="235" skillLvl="14" sp="15000" minLvl="44"/>
+			<skill skillId="235" skillLvl="15" sp="29000" minLvl="48"/>
+			<skill skillId="235" skillLvl="16" sp="29000" minLvl="48"/>
+			<skill skillId="235" skillLvl="17" sp="29000" minLvl="48"/>
+			<skill skillId="235" skillLvl="18" sp="38000" minLvl="52"/>
+			<skill skillId="235" skillLvl="19" sp="38000" minLvl="52"/>
+			<skill skillId="235" skillLvl="20" sp="38000" minLvl="52"/>
+			<skill skillId="235" skillLvl="21" sp="42000" minLvl="56"/>
+			<skill skillId="235" skillLvl="22" sp="42000" minLvl="56"/>
+			<skill skillId="235" skillLvl="23" sp="42000" minLvl="56"/>
+			<skill skillId="235" skillLvl="24" sp="73000" minLvl="58"/>
+			<skill skillId="235" skillLvl="25" sp="73000" minLvl="58"/>
+			<skill skillId="235" skillLvl="26" sp="107000" minLvl="60"/>
+			<skill skillId="235" skillLvl="27" sp="107000" minLvl="60"/>
+			<skill skillId="235" skillLvl="28" sp="150000" minLvl="62"/>
+			<skill skillId="235" skillLvl="29" sp="150000" minLvl="62"/>
+			<skill skillId="235" skillLvl="30" sp="200000" minLvl="64"/>
+			<skill skillId="235" skillLvl="31" sp="200000" minLvl="64"/>
+			<skill skillId="235" skillLvl="32" sp="270000" minLvl="66"/>
+			<skill skillId="235" skillLvl="33" sp="270000" minLvl="66"/>
+			<skill skillId="235" skillLvl="34" sp="300000" minLvl="68"/>
+			<skill skillId="235" skillLvl="35" sp="300000" minLvl="68"/>
+			<skill skillId="235" skillLvl="36" sp="390000" minLvl="70"/>
+			<skill skillId="235" skillLvl="37" sp="390000" minLvl="70"/>
+			<skill skillId="235" skillLvl="38" sp="580000" minLvl="72"/>
+			<skill skillId="235" skillLvl="39" sp="580000" minLvl="72"/>
+			<skill skillId="235" skillLvl="40" sp="820000" minLvl="74"/>
+			<skill skillId="235" skillLvl="41" sp="820000" minLvl="74"/>
+			<!-- Light Armor Mastery -->
+			<skill skillId="236" skillLvl="9" sp="13000" minLvl="40"/>
+			<skill skillId="236" skillLvl="10" sp="13000" minLvl="40"/>
+			<skill skillId="236" skillLvl="11" sp="13000" minLvl="40"/>
+			<skill skillId="236" skillLvl="12" sp="15000" minLvl="44"/>
+			<skill skillId="236" skillLvl="13" sp="15000" minLvl="44"/>
+			<skill skillId="236" skillLvl="14" sp="15000" minLvl="44"/>
+			<skill skillId="236" skillLvl="15" sp="29000" minLvl="48"/>
+			<skill skillId="236" skillLvl="16" sp="29000" minLvl="48"/>
+			<skill skillId="236" skillLvl="17" sp="29000" minLvl="48"/>
+			<skill skillId="236" skillLvl="18" sp="38000" minLvl="52"/>
+			<skill skillId="236" skillLvl="19" sp="38000" minLvl="52"/>
+			<skill skillId="236" skillLvl="20" sp="38000" minLvl="52"/>
+			<skill skillId="236" skillLvl="21" sp="42000" minLvl="56"/>
+			<skill skillId="236" skillLvl="22" sp="42000" minLvl="56"/>
+			<skill skillId="236" skillLvl="23" sp="42000" minLvl="56"/>
+			<skill skillId="236" skillLvl="24" sp="73000" minLvl="58"/>
+			<skill skillId="236" skillLvl="25" sp="73000" minLvl="58"/>
+			<skill skillId="236" skillLvl="26" sp="107000" minLvl="60"/>
+			<skill skillId="236" skillLvl="27" sp="107000" minLvl="60"/>
+			<skill skillId="236" skillLvl="28" sp="150000" minLvl="62"/>
+			<skill skillId="236" skillLvl="29" sp="150000" minLvl="62"/>
+			<skill skillId="236" skillLvl="30" sp="200000" minLvl="64"/>
+			<skill skillId="236" skillLvl="31" sp="200000" minLvl="64"/>
+			<skill skillId="236" skillLvl="32" sp="270000" minLvl="66"/>
+			<skill skillId="236" skillLvl="33" sp="270000" minLvl="66"/>
+			<skill skillId="236" skillLvl="34" sp="300000" minLvl="68"/>
+			<skill skillId="236" skillLvl="35" sp="300000" minLvl="68"/>
+			<skill skillId="236" skillLvl="36" sp="390000" minLvl="70"/>
+			<skill skillId="236" skillLvl="37" sp="390000" minLvl="70"/>
+			<skill skillId="236" skillLvl="38" sp="580000" minLvl="72"/>
+			<skill skillId="236" skillLvl="39" sp="580000" minLvl="72"/>
+			<skill skillId="236" skillLvl="40" sp="820000" minLvl="74"/>
+			<skill skillId="236" skillLvl="41" sp="820000" minLvl="74"/>
+			<!-- Weapon Mastery -->
+			<skill skillId="249" skillLvl="10" sp="13000" minLvl="40"/>
+			<skill skillId="249" skillLvl="11" sp="13000" minLvl="40"/>
+			<skill skillId="249" skillLvl="12" sp="13000" minLvl="40"/>
+			<skill skillId="249" skillLvl="13" sp="15000" minLvl="44"/>
+			<skill skillId="249" skillLvl="14" sp="15000" minLvl="44"/>
+			<skill skillId="249" skillLvl="15" sp="15000" minLvl="44"/>
+			<skill skillId="249" skillLvl="16" sp="29000" minLvl="48"/>
+			<skill skillId="249" skillLvl="17" sp="29000" minLvl="48"/>
+			<skill skillId="249" skillLvl="18" sp="29000" minLvl="48"/>
+			<skill skillId="249" skillLvl="19" sp="38000" minLvl="52"/>
+			<skill skillId="249" skillLvl="20" sp="38000" minLvl="52"/>
+			<skill skillId="249" skillLvl="21" sp="38000" minLvl="52"/>
+			<skill skillId="249" skillLvl="22" sp="42000" minLvl="56"/>
+			<skill skillId="249" skillLvl="23" sp="42000" minLvl="56"/>
+			<skill skillId="249" skillLvl="24" sp="42000" minLvl="56"/>
+			<skill skillId="249" skillLvl="25" sp="73000" minLvl="58"/>
+			<skill skillId="249" skillLvl="26" sp="73000" minLvl="58"/>
+			<skill skillId="249" skillLvl="27" sp="107000" minLvl="60"/>
+			<skill skillId="249" skillLvl="28" sp="107000" minLvl="60"/>
+			<skill skillId="249" skillLvl="29" sp="150000" minLvl="62"/>
+			<skill skillId="249" skillLvl="30" sp="150000" minLvl="62"/>
+			<skill skillId="249" skillLvl="31" sp="200000" minLvl="64"/>
+			<skill skillId="249" skillLvl="32" sp="200000" minLvl="64"/>
+			<skill skillId="249" skillLvl="33" sp="270000" minLvl="66"/>
+			<skill skillId="249" skillLvl="34" sp="270000" minLvl="66"/>
+			<skill skillId="249" skillLvl="35" sp="300000" minLvl="68"/>
+			<skill skillId="249" skillLvl="36" sp="300000" minLvl="68"/>
+			<skill skillId="249" skillLvl="37" sp="390000" minLvl="70"/>
+			<skill skillId="249" skillLvl="38" sp="390000" minLvl="70"/>
+			<skill skillId="249" skillLvl="39" sp="580000" minLvl="72"/>
+			<skill skillId="249" skillLvl="40" sp="580000" minLvl="72"/>
+			<skill skillId="249" skillLvl="41" sp="820000" minLvl="74"/>
+			<skill skillId="249" skillLvl="42" sp="820000" minLvl="74"/>
+			<!-- Cure Poison -->
+			<skill skillId="1012" skillLvl="3" sp="147000" minLvl="58"/>
+			<!-- Recharge -->
+			<skill skillId="1013" skillLvl="5" sp="19000" minLvl="40"/>
+			<skill skillId="1013" skillLvl="6" sp="19000" minLvl="40"/>
+			<skill skillId="1013" skillLvl="7" sp="22000" minLvl="44"/>
+			<skill skillId="1013" skillLvl="8" sp="22000" minLvl="44"/>
+			<skill skillId="1013" skillLvl="9" sp="43000" minLvl="48"/>
+			<skill skillId="1013" skillLvl="10" sp="43000" minLvl="48"/>
+			<skill skillId="1013" skillLvl="11" sp="56000" minLvl="52"/>
+			<skill skillId="1013" skillLvl="12" sp="56000" minLvl="52"/>
+			<skill skillId="1013" skillLvl="13" sp="63000" minLvl="56"/>
+			<skill skillId="1013" skillLvl="14" sp="63000" minLvl="56"/>
+			<skill skillId="1013" skillLvl="15" sp="73000" minLvl="58"/>
+			<skill skillId="1013" skillLvl="16" sp="73000" minLvl="58"/>
+			<skill skillId="1013" skillLvl="17" sp="107000" minLvl="60"/>
+			<skill skillId="1013" skillLvl="18" sp="107000" minLvl="60"/>
+			<skill skillId="1013" skillLvl="19" sp="150000" minLvl="62"/>
+			<skill skillId="1013" skillLvl="20" sp="150000" minLvl="62"/>
+			<skill skillId="1013" skillLvl="21" sp="200000" minLvl="64"/>
+			<skill skillId="1013" skillLvl="22" sp="200000" minLvl="64"/>
+			<skill skillId="1013" skillLvl="23" sp="270000" minLvl="66"/>
+			<skill skillId="1013" skillLvl="24" sp="270000" minLvl="66"/>
+			<skill skillId="1013" skillLvl="25" sp="300000" minLvl="68"/>
+			<skill skillId="1013" skillLvl="26" sp="300000" minLvl="68"/>
+			<skill skillId="1013" skillLvl="27" sp="390000" minLvl="70"/>
+			<skill skillId="1013" skillLvl="28" sp="390000" minLvl="70"/>
+			<skill skillId="1013" skillLvl="29" sp="580000" minLvl="72"/>
+			<skill skillId="1013" skillLvl="30" sp="580000" minLvl="72"/>
+			<skill skillId="1013" skillLvl="31" sp="820000" minLvl="74"/>
+			<skill skillId="1013" skillLvl="32" sp="820000" minLvl="74"/>
+			<!-- Purify -->
+			<skill skillId="1018" skillLvl="1" sp="44000" minLvl="44"/>
+			<skill skillId="1018" skillLvl="2" sp="113000" minLvl="52"/>
+			<skill skillId="1018" skillLvl="3" sp="310000" minLvl="62"/>
+			<!-- Mental Shield -->
+			<skill skillId="1035" skillLvl="2" sp="39000" minLvl="40"/>
+			<skill skillId="1035" skillLvl="3" sp="86000" minLvl="48"/>
+			<skill skillId="1035" skillLvl="4" sp="125000" minLvl="56"/>
+			<!-- Shield -->
+			<skill skillId="1040" skillLvl="3" sp="44000" minLvl="44"/>
+			<!-- Empower -->
+			<skill skillId="1059" skillLvl="2" sp="44000" minLvl="44"/>
+			<skill skillId="1059" skillLvl="3" sp="113000" minLvl="52"/>
+			<!-- Might -->
+			<skill skillId="1068" skillLvl="3" sp="39000" minLvl="40"/>
+			<!-- Kiss of Eva -->
+			<skill skillId="1073" skillLvl="2" sp="113000" minLvl="52"/>
+			<!-- Focus -->
+			<skill skillId="1077" skillLvl="2" sp="44000" minLvl="44"/>
+			<skill skillId="1077" skillLvl="3" sp="113000" minLvl="52"/>
+			<!-- Concentration -->
+			<skill skillId="1078" skillLvl="3" sp="44000" minLvl="44"/>
+			<skill skillId="1078" skillLvl="4" sp="113000" minLvl="52"/>
+			<skill skillId="1078" skillLvl="5" sp="214000" minLvl="60"/>
+			<skill skillId="1078" skillLvl="6" sp="590000" minLvl="68"/>
+			<!-- Resist Wind -->
+			<skill skillId="1189" skillLvl="2" sp="39000" minLvl="40"/>
+			<skill skillId="1189" skillLvl="3" sp="44000" minLvl="44"/>
+			<!-- Dryad Root -->
+			<skill skillId="1201" skillLvl="10" sp="13000" minLvl="40"/>
+			<skill skillId="1201" skillLvl="11" sp="13000" minLvl="40"/>
+			<skill skillId="1201" skillLvl="12" sp="13000" minLvl="40"/>
+			<skill skillId="1201" skillLvl="13" sp="15000" minLvl="44"/>
+			<skill skillId="1201" skillLvl="14" sp="15000" minLvl="44"/>
+			<skill skillId="1201" skillLvl="15" sp="15000" minLvl="44"/>
+			<skill skillId="1201" skillLvl="16" sp="29000" minLvl="48"/>
+			<skill skillId="1201" skillLvl="17" sp="29000" minLvl="48"/>
+			<skill skillId="1201" skillLvl="18" sp="29000" minLvl="48"/>
+			<skill skillId="1201" skillLvl="19" sp="38000" minLvl="52"/>
+			<skill skillId="1201" skillLvl="20" sp="38000" minLvl="52"/>
+			<skill skillId="1201" skillLvl="21" sp="38000" minLvl="52"/>
+			<skill skillId="1201" skillLvl="22" sp="42000" minLvl="56"/>
+			<skill skillId="1201" skillLvl="23" sp="42000" minLvl="56"/>
+			<skill skillId="1201" skillLvl="24" sp="42000" minLvl="56"/>
+			<skill skillId="1201" skillLvl="25" sp="147000" minLvl="58"/>
+			<skill skillId="1201" skillLvl="26" sp="214000" minLvl="60"/>
+			<skill skillId="1201" skillLvl="27" sp="310000" minLvl="62"/>
+			<skill skillId="1201" skillLvl="28" sp="400000" minLvl="64"/>
+			<skill skillId="1201" skillLvl="29" sp="540000" minLvl="66"/>
+			<skill skillId="1201" skillLvl="30" sp="590000" minLvl="68"/>
+			<skill skillId="1201" skillLvl="31" sp="780000" minLvl="70"/>
+			<skill skillId="1201" skillLvl="32" sp="1150000" minLvl="72"/>
+			<skill skillId="1201" skillLvl="33" sp="1640000" minLvl="74"/>
+			<!-- Wind Shackle -->
+			<skill skillId="1206" skillLvl="6" sp="39000" minLvl="40"/>
+			<skill skillId="1206" skillLvl="7" sp="44000" minLvl="44"/>
+			<skill skillId="1206" skillLvl="8" sp="86000" minLvl="48"/>
+			<skill skillId="1206" skillLvl="9" sp="113000" minLvl="52"/>
+			<skill skillId="1206" skillLvl="10" sp="125000" minLvl="56"/>
+			<skill skillId="1206" skillLvl="11" sp="147000" minLvl="58"/>
+			<skill skillId="1206" skillLvl="12" sp="214000" minLvl="60"/>
+			<skill skillId="1206" skillLvl="13" sp="310000" minLvl="62"/>
+			<skill skillId="1206" skillLvl="14" sp="400000" minLvl="64"/>
+			<skill skillId="1206" skillLvl="15" sp="540000" minLvl="66"/>
+			<skill skillId="1206" skillLvl="16" sp="590000" minLvl="68"/>
+			<skill skillId="1206" skillLvl="17" sp="780000" minLvl="70"/>
+			<skill skillId="1206" skillLvl="18" sp="1150000" minLvl="72"/>
+			<skill skillId="1206" skillLvl="19" sp="1640000" minLvl="74"/>
+			<!-- Greater Heal -->
+			<skill skillId="1217" skillLvl="1" sp="29000" minLvl="48"/>
+			<skill skillId="1217" skillLvl="2" sp="29000" minLvl="48"/>
+			<skill skillId="1217" skillLvl="3" sp="29000" minLvl="48"/>
+			<skill skillId="1217" skillLvl="4" sp="38000" minLvl="52"/>
+			<skill skillId="1217" skillLvl="5" sp="38000" minLvl="52"/>
+			<skill skillId="1217" skillLvl="6" sp="38000" minLvl="52"/>
+			<skill skillId="1217" skillLvl="7" sp="42000" minLvl="56"/>
+			<skill skillId="1217" skillLvl="8" sp="42000" minLvl="56"/>
+			<skill skillId="1217" skillLvl="9" sp="42000" minLvl="56"/>
+			<skill skillId="1217" skillLvl="10" sp="49000" minLvl="58"/>
+			<skill skillId="1217" skillLvl="11" sp="49000" minLvl="58"/>
+			<skill skillId="1217" skillLvl="12" sp="49000" minLvl="58"/>
+			<skill skillId="1217" skillLvl="13" sp="71000" minLvl="60"/>
+			<skill skillId="1217" skillLvl="14" sp="71000" minLvl="60"/>
+			<skill skillId="1217" skillLvl="15" sp="71000" minLvl="60"/>
+			<skill skillId="1217" skillLvl="16" sp="150000" minLvl="62"/>
+			<skill skillId="1217" skillLvl="17" sp="150000" minLvl="62"/>
+			<skill skillId="1217" skillLvl="18" sp="200000" minLvl="64"/>
+			<skill skillId="1217" skillLvl="19" sp="200000" minLvl="64"/>
+			<skill skillId="1217" skillLvl="20" sp="270000" minLvl="66"/>
+			<skill skillId="1217" skillLvl="21" sp="270000" minLvl="66"/>
+			<skill skillId="1217" skillLvl="22" sp="300000" minLvl="68"/>
+			<skill skillId="1217" skillLvl="23" sp="300000" minLvl="68"/>
+			<skill skillId="1217" skillLvl="24" sp="390000" minLvl="70"/>
+			<skill skillId="1217" skillLvl="25" sp="390000" minLvl="70"/>
+			<skill skillId="1217" skillLvl="26" sp="580000" minLvl="72"/>
+			<skill skillId="1217" skillLvl="27" sp="580000" minLvl="72"/>
+			<skill skillId="1217" skillLvl="28" sp="820000" minLvl="74"/>
+			<skill skillId="1217" skillLvl="29" sp="820000" minLvl="74"/>
+			<!-- Greater Group Heal -->
+			<skill skillId="1219" skillLvl="1" sp="29000" minLvl="48"/>
+			<skill skillId="1219" skillLvl="2" sp="29000" minLvl="48"/>
+			<skill skillId="1219" skillLvl="3" sp="29000" minLvl="48"/>
+			<skill skillId="1219" skillLvl="4" sp="38000" minLvl="52"/>
+			<skill skillId="1219" skillLvl="5" sp="38000" minLvl="52"/>
+			<skill skillId="1219" skillLvl="6" sp="38000" minLvl="52"/>
+			<skill skillId="1219" skillLvl="7" sp="42000" minLvl="56"/>
+			<skill skillId="1219" skillLvl="8" sp="42000" minLvl="56"/>
+			<skill skillId="1219" skillLvl="9" sp="42000" minLvl="56"/>
+			<skill skillId="1219" skillLvl="10" sp="49000" minLvl="58"/>
+			<skill skillId="1219" skillLvl="11" sp="49000" minLvl="58"/>
+			<skill skillId="1219" skillLvl="12" sp="49000" minLvl="58"/>
+			<skill skillId="1219" skillLvl="13" sp="71000" minLvl="60"/>
+			<skill skillId="1219" skillLvl="14" sp="71000" minLvl="60"/>
+			<skill skillId="1219" skillLvl="15" sp="71000" minLvl="60"/>
+			<skill skillId="1219" skillLvl="16" sp="150000" minLvl="62"/>
+			<skill skillId="1219" skillLvl="17" sp="150000" minLvl="62"/>
+			<skill skillId="1219" skillLvl="18" sp="200000" minLvl="64"/>
+			<skill skillId="1219" skillLvl="19" sp="200000" minLvl="64"/>
+			<skill skillId="1219" skillLvl="20" sp="270000" minLvl="66"/>
+			<skill skillId="1219" skillLvl="21" sp="270000" minLvl="66"/>
+			<skill skillId="1219" skillLvl="22" sp="300000" minLvl="68"/>
+			<skill skillId="1219" skillLvl="23" sp="300000" minLvl="68"/>
+			<skill skillId="1219" skillLvl="24" sp="390000" minLvl="70"/>
+			<skill skillId="1219" skillLvl="25" sp="390000" minLvl="70"/>
+			<skill skillId="1219" skillLvl="26" sp="580000" minLvl="72"/>
+			<skill skillId="1219" skillLvl="27" sp="580000" minLvl="72"/>
+			<skill skillId="1219" skillLvl="28" sp="820000" minLvl="74"/>
+			<skill skillId="1219" skillLvl="29" sp="820000" minLvl="74"/>
+			<!-- Guidance -->
+			<skill skillId="1240" skillLvl="1" sp="39000" minLvl="40"/>
+			<skill skillId="1240" skillLvl="2" sp="86000" minLvl="48"/>
+			<skill skillId="1240" skillLvl="3" sp="125000" minLvl="56"/>
+			<!-- Death Whisper -->
+			<skill skillId="1242" skillLvl="1" sp="39000" minLvl="40"/>
+			<skill skillId="1242" skillLvl="2" sp="86000" minLvl="48"/>
+			<skill skillId="1242" skillLvl="3" sp="125000" minLvl="56"/>
+			<!-- Vampiric Rage -->
+			<skill skillId="1268" skillLvl="2" sp="44000" minLvl="44"/>
+			<skill skillId="1268" skillLvl="3" sp="147000" minLvl="58"/>
+			<skill skillId="1268" skillLvl="4" sp="1150000" minLvl="72"/>
+			<!-- Wild Magic -->
+			<skill skillId="1303" skillLvl="1" sp="310000" minLvl="62"/>
+			<skill skillId="1303" skillLvl="2" sp="780000" minLvl="70"/>
+			<!-- Holy Resistance -->
+			<skill skillId="1392" skillLvl="1" sp="147000" minLvl="58"/>
+			<skill skillId="1392" skillLvl="2" sp="540000" minLvl="66"/>
+			<skill skillId="1392" skillLvl="3" sp="1640000" minLvl="74"/>
+			<!-- Erase -->
+			<skill skillId="1395" skillLvl="1" sp="125000" minLvl="56"/>
+			<skill skillId="1395" skillLvl="2" sp="147000" minLvl="58"/>
+			<skill skillId="1395" skillLvl="3" sp="214000" minLvl="60"/>
+			<skill skillId="1395" skillLvl="4" sp="310000" minLvl="62"/>
+			<skill skillId="1395" skillLvl="5" sp="400000" minLvl="64"/>
+			<skill skillId="1395" skillLvl="6" sp="540000" minLvl="66"/>
+			<skill skillId="1395" skillLvl="7" sp="590000" minLvl="68"/>
+			<skill skillId="1395" skillLvl="8" sp="780000" minLvl="70"/>
+			<skill skillId="1395" skillLvl="9" sp="1150000" minLvl="72"/>
+			<skill skillId="1395" skillLvl="10" sp="1640000" minLvl="74"/>
+			<!-- Mana Burn -->
+			<skill skillId="1398" skillLvl="1" sp="125000" minLvl="56"/>
+			<skill skillId="1398" skillLvl="2" sp="147000" minLvl="58"/>
+			<skill skillId="1398" skillLvl="3" sp="214000" minLvl="60"/>
+			<skill skillId="1398" skillLvl="4" sp="310000" minLvl="62"/>
+			<skill skillId="1398" skillLvl="5" sp="400000" minLvl="64"/>
+			<skill skillId="1398" skillLvl="6" sp="540000" minLvl="66"/>
+			<skill skillId="1398" skillLvl="7" sp="590000" minLvl="68"/>
+			<skill skillId="1398" skillLvl="8" sp="780000" minLvl="70"/>
+			<skill skillId="1398" skillLvl="9" sp="1150000" minLvl="72"/>
+			<skill skillId="1398" skillLvl="10" sp="1640000" minLvl="74"/>
+			<!-- Divine Inspiration -->
+			<skill skillId="1405" skillLvl="1" sp="0" minLvl="52"/>
+			<skill skillId="1405" skillLvl="2" sp="0" minLvl="61"/>
+			<!-- Invocation -->
+			<skill skillId="1430" skillLvl="1" sp="118000" minLvl="56"/>
+			<skill skillId="1430" skillLvl="2" sp="200000" minLvl="60"/>
+			<skill skillId="1430" skillLvl="3" sp="370000" minLvl="64"/>
+			<skill skillId="1430" skillLvl="4" sp="550000" minLvl="68"/>
+			<skill skillId="1430" skillLvl="5" sp="1070000" minLvl="72"/>
+		</skillTrees>
+	</class>
+</list>

@@ -1,0 +1,23 @@
+﻿<html>
+	<body>
+		<table width=260>
+			<tr>
+			<td width=40><button value="Main" action="bypass -h admin_admin" width=40 height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+			<td width=180><center>Announcements Menu</center></td>
+			<td width=40><button value="Back" action="bypass -h admin_admin4" width=40 height=15 back="sek.cbui94" fore="sek.cbui92"></td></tr>
+		</table>
+		<br><br>
+		<center>New announcement:
+		<multiedit var="new_announcement" width=240 height=30><br>
+		<table>
+			<tr>
+				<td><button value="Announce" action="bypass -h admin_announce_menu $new_announcement" width=70 height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+				<td><button value="Add to .txt" action="bypass -h admin_add_announcement $new_announcement" width=70 height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+				<td><button value="Reload .txt" action="bypass -h admin_announce_announcements" width=70 height=15 back="sek.cbui94" fore="sek.cbui92"></td> 
+			</tr>
+		</table>
+		<br><img src="L2UI_CH3.herotower_deco" align="center" width="256" height="32"><br></center>
+		<font color="LEVEL">Current Annoucements.txt content :</font>
+		%announces%
+	</body>
+</html>

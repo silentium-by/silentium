@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+	<class id="106" parentId="33">
+		<set name="className" val="Shillien Templar"/>
+		<set name="raceId" val="2"/>
+		<set name="baseSTR" val="41"/>
+		<set name="baseCON" val="32"/>
+		<set name="baseDEX" val="34"/>
+		<set name="baseINT" val="25"/>
+		<set name="baseWIT" val="12"/>
+		<set name="baseMEN" val="26"/>
+		<set name="basePAtk" val="4"/>
+		<set name="basePDef" val="80"/>
+		<set name="baseMAtk" val="6"/>
+		<set name="baseMDef" val="41"/>
+		<set name="basePAtkSpd" val="300"/>
+		<set name="baseMAtkSpd" val="333"/>
+		<set name="baseCritRate" val="4"/>
+		<set name="baseRunSpd" val="122"/>
+		<set name="spawnX" val="28377"/>
+		<set name="spawnY" val="10916"/>
+		<set name="spawnZ" val="-4224"/>
+		<set name="collision_radius" val="7"/>
+		<set name="collision_height" val="24"/>
+		<set name="baseHpMax" val="3374.0"/>
+		<set name="lvlHpAdd" val="69.72"/>
+		<set name="lvlHpMod" val="0.37"/>
+		<set name="baseCpMax" val="2024.4"/>
+		<set name="lvlCpAdd" val="41.83"/>
+		<set name="lvlCpMod" val="0.22"/>
+		<set name="baseMpMax" val="1155.6"/>
+		<set name="lvlMpAdd" val="41.83"/>
+		<set name="lvlMpMod" val="0.22"/>
+		<set name="baseLvl" val="76"/>
+		<skillTrees>
+			<!-- Wisdom -->
+			<skill skillId="328" skillLvl="1" sp="10000000" minLvl="76"/>
+			<!-- Health -->
+			<skill skillId="329" skillLvl="1" sp="10000000" minLvl="76"/>
+			<!-- Fortitude -->
+			<skill skillId="335" skillLvl="1" sp="10000000" minLvl="76"/>
+			<!-- Touch of Death -->
+			<skill skillId="342" skillLvl="1" sp="21340000" minLvl="78"/>
+			<!-- Magical Mirror -->
+			<skill skillId="351" skillLvl="1" sp="21340000" minLvl="78"/>
+			<!-- Shield Bash -->
+			<skill skillId="352" skillLvl="1" sp="13000000" minLvl="77"/>
+			<!-- Vengeance -->
+			<skill skillId="368" skillLvl="1" sp="13000000" minLvl="77"/>
+			<!-- Battle Force -->
+			<skill skillId="426" skillLvl="1" sp="13000000" minLvl="77"/>
+			<!-- Knighthood -->
+			<skill skillId="429" skillLvl="1" sp="21340000" minLvl="78"/>
+			<!-- Symbol of Defense -->
+			<skill skillId="454" skillLvl="1" sp="150000000" minLvl="80"/>
+			<!-- Divine Inspiration -->
+			<skill skillId="1405" skillLvl="3" sp="0" minLvl="76"/>
+			<skill skillId="1405" skillLvl="4" sp="0" minLvl="76"/>
+		</skillTrees>
+	</class>
+</list>

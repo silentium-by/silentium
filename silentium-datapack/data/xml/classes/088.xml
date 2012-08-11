@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+	<class id="88" parentId="2">
+		<set name="className" val="Duelist"/>
+		<set name="raceId" val="0"/>
+		<set name="baseSTR" val="40"/>
+		<set name="baseCON" val="43"/>
+		<set name="baseDEX" val="30"/>
+		<set name="baseINT" val="21"/>
+		<set name="baseWIT" val="11"/>
+		<set name="baseMEN" val="25"/>
+		<set name="basePAtk" val="4"/>
+		<set name="basePDef" val="80"/>
+		<set name="baseMAtk" val="6"/>
+		<set name="baseMDef" val="41"/>
+		<set name="basePAtkSpd" val="300"/>
+		<set name="baseMAtkSpd" val="333"/>
+		<set name="baseCritRate" val="4"/>
+		<set name="baseRunSpd" val="115"/>
+		<set name="spawnX" val="-71338"/>
+		<set name="spawnY" val="258271"/>
+		<set name="spawnZ" val="-3104"/>
+		<set name="collision_radius" val="9"/>
+		<set name="collision_height" val="23"/>
+		<set name="baseHpMax" val="3061.8"/>
+		<set name="lvlHpAdd" val="63.08"/>
+		<set name="lvlHpMod" val="0.37"/>
+		<set name="baseCpMax" val="2755.6"/>
+		<set name="lvlCpAdd" val="56.77"/>
+		<set name="lvlCpMod" val="0.22"/>
+		<set name="baseMpMax" val="1155.6"/>
+		<set name="lvlMpAdd" val="56.77"/>
+		<set name="lvlMpMod" val="0.22"/>
+		<set name="baseLvl" val="76"/>
+		<skillTrees>
+			<!-- Wisdom -->
+			<skill skillId="328" skillLvl="1" sp="10000000" minLvl="76"/>
+			<!-- Health -->
+			<skill skillId="329" skillLvl="1" sp="10000000" minLvl="76"/>
+			<!-- Skill Mastery -->
+			<skill skillId="330" skillLvl="1" sp="12250000" minLvl="77"/>
+			<!-- Riposte Stance -->
+			<skill skillId="340" skillLvl="1" sp="12250000" minLvl="77"/>
+			<!-- Sonic Rage -->
+			<skill skillId="345" skillLvl="1" sp="16000000" minLvl="78"/>
+			<!-- Eye of Hunter -->
+			<skill skillId="359" skillLvl="1" sp="12250000" minLvl="77"/>
+			<!-- Eye of Slayer -->
+			<skill skillId="360" skillLvl="1" sp="16000000" minLvl="78"/>
+			<!-- Battle Force -->
+			<skill skillId="426" skillLvl="1" sp="12250000" minLvl="77"/>
+			<!-- Master of Combat -->
+			<skill skillId="430" skillLvl="1" sp="16000000" minLvl="78"/>
+			<!-- Braveheart -->
+			<skill skillId="440" skillLvl="1" sp="12800000" minLvl="78"/>
+			<!-- Sonic Barrier -->
+			<skill skillId="442" skillLvl="1" sp="80000000" minLvl="79"/>
+			<!-- Symbol of Energy -->
+			<skill skillId="458" skillLvl="1" sp="150000000" minLvl="80"/>
+			<!-- Divine Inspiration -->
+			<skill skillId="1405" skillLvl="3" sp="0" minLvl="76"/>
+			<skill skillId="1405" skillLvl="4" sp="0" minLvl="76"/>
+		</skillTrees>
+	</class>
+</list>

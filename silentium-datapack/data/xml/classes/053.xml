@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+	<class id="53" parentId="-1">
+		<set name="className" val="Dwarf Fighter"/>
+		<set name="raceId" val="4"/>
+		<set name="baseSTR" val="39"/>
+		<set name="baseCON" val="45"/>
+		<set name="baseDEX" val="29"/>
+		<set name="baseINT" val="20"/>
+		<set name="baseWIT" val="10"/>
+		<set name="baseMEN" val="27"/>
+		<set name="basePAtk" val="4"/>
+		<set name="basePDef" val="80"/>
+		<set name="baseMAtk" val="6"/>
+		<set name="baseMDef" val="41"/>
+		<set name="basePAtkSpd" val="300"/>
+		<set name="baseMAtkSpd" val="333"/>
+		<set name="baseCritRate" val="4"/>
+		<set name="baseRunSpd" val="115"/>
+		<set name="spawnX" val="108512"/>
+		<set name="spawnY" val="-174026"/>
+		<set name="spawnZ" val="-400"/>
+		<set name="collision_radius" val="9"/>
+		<set name="collision_height" val="18"/>
+		<set name="baseHpMax" val="80.0"/>
+		<set name="lvlHpAdd" val="12.64"/>
+		<set name="lvlHpMod" val="0.37"/>
+		<set name="baseCpMax" val="56.0"/>
+		<set name="lvlCpAdd" val="8.82"/>
+		<set name="lvlCpMod" val="0.22"/>
+		<set name="baseMpMax" val="30.0"/>
+		<set name="lvlMpAdd" val="8.82"/>
+		<set name="lvlMpMod" val="0.22"/>
+		<set name="baseLvl" val="1"/>
+		<skillTrees>
+			<!-- Sweeper -->
+			<skill skillId="42" skillLvl="1" sp="1100" minLvl="10"/>
+			<!-- Weapon Mastery -->
+			<skill skillId="141" skillLvl="1" sp="310" minLvl="5"/>
+			<skill skillId="141" skillLvl="2" sp="1100" minLvl="10"/>
+			<skill skillId="141" skillLvl="3" sp="6700" minLvl="15"/>
+			<!-- Armor Mastery -->
+			<skill skillId="142" skillLvl="1" sp="310" minLvl="5"/>
+			<skill skillId="142" skillLvl="2" sp="550" minLvl="10"/>
+			<skill skillId="142" skillLvl="3" sp="550" minLvl="10"/>
+			<skill skillId="142" skillLvl="4" sp="3300" minLvl="15"/>
+			<skill skillId="142" skillLvl="5" sp="3300" minLvl="15"/>
+			<!-- Weight Limit -->
+			<skill skillId="150" skillLvl="1" sp="1100" minLvl="10"/>
+			<!-- Create Item -->
+			<skill skillId="172" skillLvl="1" sp="310" minLvl="5"/>
+			<!-- Lucky -->
+			<skill skillId="194" skillLvl="1" sp="0" minLvl="1"/>
+			<!-- Expertises -->
+			<skill skillId="239" skillLvl="1" sp="0" minLvl="20"/>
+			<skill skillId="239" skillLvl="2" sp="0" minLvl="40"/>
+			<skill skillId="239" skillLvl="3" sp="0" minLvl="52"/>
+			<skill skillId="239" skillLvl="4" sp="0" minLvl="61"/>
+			<skill skillId="239" skillLvl="5" sp="0" minLvl="76"/>
+			<!-- Spoil -->
+			<skill skillId="254" skillLvl="1" sp="1100" minLvl="10"/>
+			<!-- Create Common Item -->
+			<skill skillId="1320" skillLvl="1" sp="0" minLvl="1"/>
+			<skill skillId="1320" skillLvl="2" sp="0" minLvl="20"/>
+			<skill skillId="1320" skillLvl="3" sp="0" minLvl="28"/>
+			<skill skillId="1320" skillLvl="4" sp="0" minLvl="36"/>
+			<skill skillId="1320" skillLvl="5" sp="0" minLvl="43"/>
+			<skill skillId="1320" skillLvl="6" sp="0" minLvl="49"/>
+			<skill skillId="1320" skillLvl="7" sp="0" minLvl="55"/>
+			<skill skillId="1320" skillLvl="8" sp="0" minLvl="62"/>
+			<skill skillId="1320" skillLvl="9" sp="0" minLvl="70"/>
+			<!-- Dwarven Craft -->
+			<skill skillId="1321" skillLvl="1" sp="0" minLvl="1"/>
+			<!-- Common Craft -->
+			<skill skillId="1322" skillLvl="1" sp="0" minLvl="1"/>
+		</skillTrees>
+		<items val="1147;1146;10;2370;5588"/>
+	</class>
+</list>

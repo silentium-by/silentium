@@ -1,0 +1,564 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<armorset>
+		<set name='chest' val='23'/>
+		<set name='legs' val='2386'/>
+		<set name='head' val='43'/>
+		<set name='gloves' val='0'/>
+		<set name='feet' val='0'/>
+		<set name='skill_id' val='3500'/>
+		<set name='shield' val='0'/>
+		<set name='shield_skill_id' val='0'/>
+		<set name='enchant6skill' val='0'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='1101'/>
+		<set name='legs' val='1104'/>
+		<set name='head' val='44'/>
+		<set name='gloves' val='0'/>
+		<set name='feet' val='0'/>
+		<set name='skill_id' val='3501'/>
+		<set name='shield' val='0'/>
+		<set name='shield_skill_id' val='0'/>
+		<set name='enchant6skill' val='0'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='58'/>
+		<set name='legs' val='59'/>
+		<set name='head' val='47'/>
+		<set name='gloves' val='0'/>
+		<set name='feet' val='0'/>
+		<set name='skill_id' val='3502'/>
+		<set name='shield' val='628'/>
+		<set name='shield_skill_id' val='3543'/>
+		<set name='enchant6skill' val='3611'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='352'/>
+		<set name='legs' val='2378'/>
+		<set name='head' val='2411'/>
+		<set name='gloves' val='0'/>
+		<set name='feet' val='0'/>
+		<set name='skill_id' val='3506'/>
+		<set name='shield' val='2493'/>
+		<set name='shield_skill_id' val='3544'/>
+		<set name='enchant6skill' val='3611'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='394'/>
+		<set name='legs' val='416'/>
+		<set name='head' val='0'/>
+		<set name='gloves' val='0'/>
+		<set name='feet' val='2422'/>
+		<set name='skill_id' val='3503'/>
+		<set name='shield' val='0'/>
+		<set name='shield_skill_id' val='0'/>
+		<set name='enchant6skill' val='3612'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='395'/>
+		<set name='legs' val='417'/>
+		<set name='head' val='0'/>
+		<set name='gloves' val='0'/>
+		<set name='feet' val='2424'/>
+		<set name='skill_id' val='3505'/>
+		<set name='shield' val='0'/>
+		<set name='shield_skill_id' val='0'/>
+		<set name='enchant6skill' val='3612'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='436'/>
+		<set name='legs' val='469'/>
+		<set name='head' val='0'/>
+		<set name='gloves' val='2447'/>
+		<set name='feet' val='0'/>
+		<set name='skill_id' val='3504'/>
+		<set name='shield' val='0'/>
+		<set name='shield_skill_id' val='0'/>
+		<set name='enchant6skill' val='3613'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='437'/>
+		<set name='legs' val='470'/>
+		<set name='head' val='0'/>
+		<set name='gloves' val='2450'/>
+		<set name='feet' val='0'/>
+		<set name='skill_id' val='3507'/>
+		<set name='shield' val='0'/>
+		<set name='shield_skill_id' val='0'/>
+		<set name='enchant6skill' val='3613'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='354'/>
+		<set name='legs' val='381'/>
+		<set name='head' val='2413'/>
+		<set name='gloves' val='0'/>
+		<set name='feet' val='0'/>
+		<set name='skill_id' val='3509'/>
+		<set name='shield' val='2495'/>
+		<set name='shield_skill_id' val='3545'/>
+		<set name='enchant6skill' val='3614'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='60'/>
+		<set name='legs' val='0'/>
+		<set name='head' val='517'/>
+		<set name='gloves' val='0'/>
+		<set name='feet' val='0'/>
+		<set name='skill_id' val='3512'/>
+		<set name='shield' val='107'/>
+		<set name='shield_skill_id' val='3546'/>
+		<set name='enchant6skill' val='3614'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='356'/>
+		<set name='legs' val='0'/>
+		<set name='head' val='2414'/>
+		<set name='gloves' val='0'/>
+		<set name='feet' val='0'/>
+		<set name='skill_id' val='3516'/>
+		<set name='shield' val='2497'/>
+		<set name='shield_skill_id' val='3547'/>
+		<set name='enchant6skill' val='3614'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='397'/>
+		<set name='legs' val='2387'/>
+		<set name='head' val='0'/>
+		<set name='gloves' val='0'/>
+		<set name='feet' val='62'/>
+		<set name='skill_id' val='3508'/>
+		<set name='shield' val='0'/>
+		<set name='shield_skill_id' val='0'/>
+		<set name='enchant6skill' val='3615'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='398'/>
+		<set name='legs' val='418'/>
+		<set name='head' val='0'/>
+		<set name='gloves' val='0'/>
+		<set name='feet' val='2431'/>
+		<set name='skill_id' val='3511'/>
+		<set name='shield' val='0'/>
+		<set name='shield_skill_id' val='0'/>
+		<set name='enchant6skill' val='3615'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='400'/>
+		<set name='legs' val='420'/>
+		<set name='head' val='0'/>
+		<set name='gloves' val='0'/>
+		<set name='feet' val='2436'/>
+		<set name='skill_id' val='3514'/>
+		<set name='shield' val='0'/>
+		<set name='shield_skill_id' val='0'/>
+		<set name='enchant6skill' val='3615'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='401'/>
+		<set name='legs' val='0'/>
+		<set name='head' val='0'/>
+		<set name='gloves' val='0'/>
+		<set name='feet' val='2437'/>
+		<set name='skill_id' val='3515'/>
+		<set name='shield' val='0'/>
+		<set name='shield_skill_id' val='0'/>
+		<set name='enchant6skill' val='3615'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='439'/>
+		<set name='legs' val='471'/>
+		<set name='head' val='0'/>
+		<set name='gloves' val='2454'/>
+		<set name='feet' val='0'/>
+		<set name='skill_id' val='3510'/>
+		<set name='shield' val='0'/>
+		<set name='shield_skill_id' val='0'/>
+		<set name='enchant6skill' val='3616'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='441'/>
+		<set name='legs' val='472'/>
+		<set name='head' val='0'/>
+		<set name='gloves' val='2459'/>
+		<set name='feet' val='0'/>
+		<set name='skill_id' val='3513'/>
+		<set name='shield' val='0'/>
+		<set name='shield_skill_id' val='0'/>
+		<set name='enchant6skill' val='3616'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='442'/>
+		<set name='legs' val='473'/>
+		<set name='head' val='0'/>
+		<set name='gloves' val='2463'/>
+		<set name='feet' val='0'/>
+		<set name='skill_id' val='3517'/>
+		<set name='shield' val='0'/>
+		<set name='shield_skill_id' val='0'/>
+		<set name='enchant6skill' val='3616'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='357'/>
+		<set name='legs' val='383'/>
+		<set name='head' val='503'/>
+		<set name='gloves' val='5710'/>
+		<set name='feet' val='5726'/>
+		<set name='skill_id' val='3518'/>
+		<set name='shield' val='0'/>
+		<set name='shield_skill_id' val='0'/>
+		<set name='enchant6skill' val='3617'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='2384'/>
+		<set name='legs' val='2388'/>
+		<set name='head' val='503'/>
+		<set name='gloves' val='5711'/>
+		<set name='feet' val='5727'/>
+		<set name='skill_id' val='3520'/>
+		<set name='shield' val='0'/>
+		<set name='shield_skill_id' val='0'/>
+		<set name='enchant6skill' val='3618'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='2397'/>
+		<set name='legs' val='2402'/>
+		<set name='head' val='503'/>
+		<set name='gloves' val='5712'/>
+		<set name='feet' val='5728'/>
+		<set name='skill_id' val='3522'/>
+		<set name='shield' val='0'/>
+		<set name='shield_skill_id' val='0'/>
+		<set name='enchant6skill' val='3619'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='2376'/>
+		<set name='legs' val='2379'/>
+		<set name='head' val='2415'/>
+		<set name='gloves' val='5714'/>
+		<set name='feet' val='5730'/>
+		<set name='skill_id' val='3519'/>
+		<set name='shield' val='673'/>
+		<set name='shield_skill_id' val='3548'/>
+		<set name='enchant6skill' val='3617'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='2390'/>
+		<set name='legs' val='0'/>
+		<set name='head' val='2415'/>
+		<set name='gloves' val='5715'/>
+		<set name='feet' val='5731'/>
+		<set name='skill_id' val='3521'/>
+		<set name='shield' val='0'/>
+		<set name='shield_skill_id' val='0'/>
+		<set name='enchant6skill' val='3618'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='2406'/>
+		<set name='legs' val='0'/>
+		<set name='head' val='2415'/>
+		<set name='gloves' val='5716'/>
+		<set name='feet' val='5732'/>
+		<set name='skill_id' val='3523'/>
+		<set name='shield' val='0'/>
+		<set name='shield_skill_id' val='0'/>
+		<set name='enchant6skill' val='3619'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='358'/>
+		<set name='legs' val='2380'/>
+		<set name='head' val='2416'/>
+		<set name='gloves' val='5718'/>
+		<set name='feet' val='5734'/>
+		<set name='skill_id' val='3524'/>
+		<set name='shield' val='0'/>
+		<set name='shield_skill_id' val='0'/>
+		<set name='enchant6skill' val='3617'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='2391'/>
+		<set name='legs' val='0'/>
+		<set name='head' val='2416'/>
+		<set name='gloves' val='5719'/>
+		<set name='feet' val='5735'/>
+		<set name='skill_id' val='3526'/>
+		<set name='shield' val='0'/>
+		<set name='shield_skill_id' val='0'/>
+		<set name='enchant6skill' val='3618'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='2398'/>
+		<set name='legs' val='2403'/>
+		<set name='head' val='2416'/>
+		<set name='gloves' val='5720'/>
+		<set name='feet' val='5736'/>
+		<set name='skill_id' val='3528'/>
+		<set name='shield' val='0'/>
+		<set name='shield_skill_id' val='0'/>
+		<set name='enchant6skill' val='3619'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='2381'/>
+		<set name='legs' val='0'/>
+		<set name='head' val='2417'/>
+		<set name='gloves' val='5722'/>
+		<set name='feet' val='5738'/>
+		<set name='skill_id' val='3525'/>
+		<set name='shield' val='110'/>
+		<set name='shield_skill_id' val='3549'/>
+		<set name='enchant6skill' val='3617'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='2392'/>
+		<set name='legs' val='0'/>
+		<set name='head' val='2417'/>
+		<set name='gloves' val='5723'/>
+		<set name='feet' val='5739'/>
+		<set name='skill_id' val='3527'/>
+		<set name='shield' val='0'/>
+		<set name='shield_skill_id' val='0'/>
+		<set name='enchant6skill' val='3618'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='2399'/>
+		<set name='legs' val='2404'/>
+		<set name='head' val='2417'/>
+		<set name='gloves' val='5724'/>
+		<set name='feet' val='5740'/>
+		<set name='skill_id' val='3529'/>
+		<set name='shield' val='0'/>
+		<set name='shield_skill_id' val='0'/>
+		<set name='enchant6skill' val='3619'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='365'/>
+		<set name='legs' val='388'/>
+		<set name='head' val='512'/>
+		<set name='gloves' val='5765'/>
+		<set name='feet' val='5777'/>
+		<set name='skill_id' val='3530'/>
+		<set name='shield' val='641'/>
+		<set name='shield_skill_id' val='3550'/>
+		<set name='enchant6skill' val='3620'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='2385'/>
+		<set name='legs' val='2389'/>
+		<set name='head' val='512'/>
+		<set name='gloves' val='5766'/>
+		<set name='feet' val='5778'/>
+		<set name='skill_id' val='3532'/>
+		<set name='shield' val='0'/>
+		<set name='shield_skill_id' val='0'/>
+		<set name='enchant6skill' val='3621'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='2407'/>
+		<set name='legs' val='0'/>
+		<set name='head' val='512'/>
+		<set name='gloves' val='5767'/>
+		<set name='feet' val='5779'/>
+		<set name='skill_id' val='3535'/>
+		<set name='shield' val='0'/>
+		<set name='shield_skill_id' val='0'/>
+		<set name='enchant6skill' val='3622'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='2382'/>
+		<set name='legs' val='0'/>
+		<set name='head' val='547'/>
+		<set name='gloves' val='5768'/>
+		<set name='feet' val='5780'/>
+		<set name='skill_id' val='3531'/>
+		<set name='shield' val='0'/>
+		<set name='shield_skill_id' val='0'/>
+		<set name='enchant6skill' val='3620'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='2393'/>
+		<set name='legs' val='0'/>
+		<set name='head' val='547'/>
+		<set name='gloves' val='5769'/>
+		<set name='feet' val='5781'/>
+		<set name='skill_id' val='3533'/>
+		<set name='shield' val='0'/>
+		<set name='shield_skill_id' val='0'/>
+		<set name='enchant6skill' val='3621'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='2400'/>
+		<set name='legs' val='2405'/>
+		<set name='head' val='547'/>
+		<set name='gloves' val='5770'/>
+		<set name='feet' val='5782'/>
+		<set name='skill_id' val='3534'/>
+		<set name='shield' val='0'/>
+		<set name='shield_skill_id' val='0'/>
+		<set name='enchant6skill' val='3622'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='374'/>
+		<set name='legs' val='0'/>
+		<set name='head' val='2418'/>
+		<set name='gloves' val='5771'/>
+		<set name='feet' val='5783'/>
+		<set name='skill_id' val='3536'/>
+		<set name='shield' val='2498'/>
+		<set name='shield_skill_id' val='3551'/>
+		<set name='enchant6skill' val='3620'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='2394'/>
+		<set name='legs' val='0'/>
+		<set name='head' val='2418'/>
+		<set name='gloves' val='5772'/>
+		<set name='feet' val='5784'/>
+		<set name='skill_id' val='3538'/>
+		<set name='shield' val='0'/>
+		<set name='shield_skill_id' val='0'/>
+		<set name='enchant6skill' val='3621'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='2408'/>
+		<set name='legs' val='0'/>
+		<set name='head' val='2418'/>
+		<set name='gloves' val='5773'/>
+		<set name='feet' val='5785'/>
+		<set name='skill_id' val='3540'/>
+		<set name='shield' val='0'/>
+		<set name='shield_skill_id' val='0'/>
+		<set name='enchant6skill' val='3622'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='2383'/>
+		<set name='legs' val='0'/>
+		<set name='head' val='2419'/>
+		<set name='gloves' val='5774'/>
+		<set name='feet' val='5786'/>
+		<set name='skill_id' val='3537'/>
+		<set name='shield' val='0'/>
+		<set name='shield_skill_id' val='0'/>
+		<set name='enchant6skill' val='3620'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='2395'/>
+		<set name='legs' val='0'/>
+		<set name='head' val='2419'/>
+		<set name='gloves' val='5775'/>
+		<set name='feet' val='5787'/>
+		<set name='skill_id' val='3539'/>
+		<set name='shield' val='0'/>
+		<set name='shield_skill_id' val='0'/>
+		<set name='enchant6skill' val='3621'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='2409'/>
+		<set name='legs' val='0'/>
+		<set name='head' val='2419'/>
+		<set name='gloves' val='5776'/>
+		<set name='feet' val='5788'/>
+		<set name='skill_id' val='3541'/>
+		<set name='shield' val='0'/>
+		<set name='shield_skill_id' val='0'/>
+		<set name='enchant6skill' val='3622'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='6373'/>
+		<set name='legs' val='6374'/>
+		<set name='head' val='6378'/>
+		<set name='gloves' val='6375'/>
+		<set name='feet' val='6376'/>
+		<set name='skill_id' val='3553'/>
+		<set name='shield' val='6377'/>
+		<set name='shield_skill_id' val='3554'/>
+		<set name='enchant6skill' val='3623'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='6379'/>
+		<set name='legs' val='0'/>
+		<set name='head' val='6382'/>
+		<set name='gloves' val='6380'/>
+		<set name='feet' val='6381'/>
+		<set name='skill_id' val='3555'/>
+		<set name='shield' val='0'/>
+		<set name='shield_skill_id' val='0'/>
+		<set name='enchant6skill' val='3624'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='6383'/>
+		<set name='legs' val='0'/>
+		<set name='head' val='6386'/>
+		<set name='gloves' val='6384'/>
+		<set name='feet' val='6385'/>
+		<set name='skill_id' val='3556'/>
+		<set name='shield' val='0'/>
+		<set name='shield_skill_id' val='0'/>
+		<set name='enchant6skill' val='3625'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='7851'/>
+		<set name='legs' val='0'/>
+		<set name='head' val='7850'/>
+		<set name='gloves' val='7852'/>
+		<set name='feet' val='7853'/>
+		<set name='skill_id' val='3605'/>
+		<set name='shield' val='0'/>
+		<set name='shield_skill_id' val='0'/>
+		<set name='enchant6skill' val='3611'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='7854'/>
+		<set name='legs' val='0'/>
+		<set name='head' val='7850'/>
+		<set name='gloves' val='7855'/>
+		<set name='feet' val='7856'/>
+		<set name='skill_id' val='3606'/>
+		<set name='shield' val='0'/>
+		<set name='shield_skill_id' val='0'/>
+		<set name='enchant6skill' val='3612'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='7857'/>
+		<set name='legs' val='0'/>
+		<set name='head' val='7850'/>
+		<set name='gloves' val='7858'/>
+		<set name='feet' val='7859'/>
+		<set name='skill_id' val='3607'/>
+		<set name='shield' val='0'/>
+		<set name='shield_skill_id' val='0'/>
+		<set name='enchant6skill' val='3613'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='7861'/>
+		<set name='legs' val='0'/>
+		<set name='head' val='7860'/>
+		<set name='gloves' val='7862'/>
+		<set name='feet' val='7863'/>
+		<set name='skill_id' val='3608'/>
+		<set name='shield' val='0'/>
+		<set name='shield_skill_id' val='0'/>
+		<set name='enchant6skill' val='3620'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='7864'/>
+		<set name='legs' val='0'/>
+		<set name='head' val='7860'/>
+		<set name='gloves' val='7865'/>
+		<set name='feet' val='7866'/>
+		<set name='skill_id' val='3609'/>
+		<set name='shield' val='0'/>
+		<set name='shield_skill_id' val='0'/>
+		<set name='enchant6skill' val='3621'/>
+	</armorset>
+	<armorset>
+		<set name='chest' val='7867'/>
+		<set name='legs' val='0'/>
+		<set name='head' val='7860'/>
+		<set name='gloves' val='7868'/>
+		<set name='feet' val='7869'/>
+		<set name='skill_id' val='3610'/>
+		<set name='shield' val='0'/>
+		<set name='shield_skill_id' val='0'/>
+		<set name='enchant6skill' val='3622'/>
+	</armorset>
+</list>

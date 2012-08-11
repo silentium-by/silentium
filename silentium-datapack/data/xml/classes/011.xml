@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+	<class id="11" parentId="10">
+		<set name="className" val="Human Wizard"/>
+		<set name="raceId" val="0"/>
+		<set name="baseSTR" val="22"/>
+		<set name="baseCON" val="27"/>
+		<set name="baseDEX" val="21"/>
+		<set name="baseINT" val="41"/>
+		<set name="baseWIT" val="20"/>
+		<set name="baseMEN" val="39"/>
+		<set name="basePAtk" val="3"/>
+		<set name="basePDef" val="54"/>
+		<set name="baseMAtk" val="6"/>
+		<set name="baseMDef" val="41"/>
+		<set name="basePAtkSpd" val="300"/>
+		<set name="baseMAtkSpd" val="333"/>
+		<set name="baseCritRate" val="4"/>
+		<set name="baseRunSpd" val="120"/>
+		<set name="spawnX" val="-90890"/>
+		<set name="spawnY" val="248027"/>
+		<set name="spawnZ" val="-3570"/>
+		<set name="collision_radius" val="7"/>
+		<set name="collision_height" val="22"/>
+		<set name="baseHpMax" val="424.0"/>
+		<set name="lvlHpAdd" val="27.6"/>
+		<set name="lvlHpMod" val="0.37"/>
+		<set name="baseCpMax" val="212.0"/>
+		<set name="lvlCpAdd" val="13.85"/>
+		<set name="lvlCpMod" val="0.22"/>
+		<set name="baseMpMax" val="192.0"/>
+		<set name="lvlMpAdd" val="13.85"/>
+		<set name="lvlMpMod" val="0.22"/>
+		<set name="baseLvl" val="20"/>
+		<skillTrees>
+			<!-- Anti Magic -->
+			<skill skillId="146" skillLvl="5" sp="1400" minLvl="20"/>
+			<skill skillId="146" skillLvl="6" sp="1400" minLvl="20"/>
+			<skill skillId="146" skillLvl="7" sp="2800" minLvl="25"/>
+			<skill skillId="146" skillLvl="8" sp="2800" minLvl="25"/>
+			<skill skillId="146" skillLvl="9" sp="5300" minLvl="30"/>
+			<skill skillId="146" skillLvl="10" sp="5300" minLvl="30"/>
+			<skill skillId="146" skillLvl="11" sp="8800" minLvl="35"/>
+			<skill skillId="146" skillLvl="12" sp="8800" minLvl="35"/>
+			<!-- Quick Recovery -->
+			<skill skillId="164" skillLvl="1" sp="2900" minLvl="20"/>
+			<skill skillId="164" skillLvl="2" sp="11000" minLvl="30"/>
+			<!-- Fast HP Recovery -->
+			<skill skillId="212" skillLvl="1" sp="18000" minLvl="35"/>
+			<!-- Boost Mana -->
+			<skill skillId="213" skillLvl="1" sp="2900" minLvl="20"/>
+			<skill skillId="213" skillLvl="2" sp="11000" minLvl="30"/>
+			<!-- Fast Spell Casting -->
+			<skill skillId="228" skillLvl="1" sp="5500" minLvl="25"/>
+			<!-- Fast Mana Recovery -->
+			<skill skillId="229" skillLvl="1" sp="5500" minLvl="25"/>
+			<skill skillId="229" skillLvl="2" sp="18000" minLvl="35"/>
+			<!-- Robe Mastery -->
+			<skill skillId="234" skillLvl="1" sp="1400" minLvl="20"/>
+			<skill skillId="234" skillLvl="2" sp="1400" minLvl="20"/>
+			<skill skillId="234" skillLvl="3" sp="2800" minLvl="25"/>
+			<skill skillId="234" skillLvl="4" sp="2800" minLvl="25"/>
+			<skill skillId="234" skillLvl="5" sp="5300" minLvl="30"/>
+			<skill skillId="234" skillLvl="6" sp="5300" minLvl="30"/>
+			<skill skillId="234" skillLvl="7" sp="8800" minLvl="35"/>
+			<skill skillId="234" skillLvl="8" sp="8800" minLvl="35"/>
+			<!-- Weapon Mastery -->
+			<skill skillId="249" skillLvl="3" sp="2900" minLvl="20"/>
+			<skill skillId="249" skillLvl="4" sp="2800" minLvl="25"/>
+			<skill skillId="249" skillLvl="5" sp="2800" minLvl="25"/>
+			<skill skillId="249" skillLvl="6" sp="5300" minLvl="30"/>
+			<skill skillId="249" skillLvl="7" sp="5300" minLvl="30"/>
+			<skill skillId="249" skillLvl="8" sp="8800" minLvl="35"/>
+			<skill skillId="249" skillLvl="9" sp="8800" minLvl="35"/>
+			<!-- Higher Mana Gain -->
+			<skill skillId="285" skillLvl="1" sp="1400" minLvl="20"/>
+			<skill skillId="285" skillLvl="2" sp="1400" minLvl="20"/>
+			<skill skillId="285" skillLvl="3" sp="2800" minLvl="25"/>
+			<skill skillId="285" skillLvl="4" sp="2800" minLvl="25"/>
+			<skill skillId="285" skillLvl="5" sp="5300" minLvl="30"/>
+			<skill skillId="285" skillLvl="6" sp="5300" minLvl="30"/>
+			<skill skillId="285" skillLvl="7" sp="8800" minLvl="35"/>
+			<skill skillId="285" skillLvl="8" sp="8800" minLvl="35"/>
+			<!-- Sleep -->
+			<skill skillId="1069" skillLvl="1" sp="1800" minLvl="25"/>
+			<skill skillId="1069" skillLvl="2" sp="1800" minLvl="25"/>
+			<skill skillId="1069" skillLvl="3" sp="1800" minLvl="25"/>
+			<skill skillId="1069" skillLvl="4" sp="3500" minLvl="30"/>
+			<skill skillId="1069" skillLvl="5" sp="3500" minLvl="30"/>
+			<skill skillId="1069" skillLvl="6" sp="3500" minLvl="30"/>
+			<skill skillId="1069" skillLvl="7" sp="5900" minLvl="35"/>
+			<skill skillId="1069" skillLvl="8" sp="5900" minLvl="35"/>
+			<skill skillId="1069" skillLvl="9" sp="5900" minLvl="35"/>
+			<!-- Concentration -->
+			<skill skillId="1078" skillLvl="1" sp="2900" minLvl="20"/>
+			<skill skillId="1078" skillLvl="2" sp="11000" minLvl="30"/>
+			<!-- Surrender To Fire -->
+			<skill skillId="1083" skillLvl="1" sp="5500" minLvl="25"/>
+			<skill skillId="1083" skillLvl="2" sp="11000" minLvl="30"/>
+			<skill skillId="1083" skillLvl="3" sp="18000" minLvl="35"/>
+			<!-- Summon Kat the Cat -->
+			<skill skillId="1111" skillLvl="1" sp="2900" minLvl="20"/>
+			<skill skillId="1111" skillLvl="2" sp="5500" minLvl="25"/>
+			<skill skillId="1111" skillLvl="3" sp="11000" minLvl="30"/>
+			<skill skillId="1111" skillLvl="4" sp="18000" minLvl="35"/>
+			<!-- Servitor Recharge -->
+			<skill skillId="1126" skillLvl="1" sp="2800" minLvl="25"/>
+			<skill skillId="1126" skillLvl="2" sp="2800" minLvl="25"/>
+			<skill skillId="1126" skillLvl="3" sp="5300" minLvl="30"/>
+			<skill skillId="1126" skillLvl="4" sp="5300" minLvl="30"/>
+			<skill skillId="1126" skillLvl="5" sp="8800" minLvl="35"/>
+			<skill skillId="1126" skillLvl="6" sp="8800" minLvl="35"/>
+			<!-- Servitor Heal -->
+			<skill skillId="1127" skillLvl="1" sp="960" minLvl="20"/>
+			<skill skillId="1127" skillLvl="2" sp="960" minLvl="20"/>
+			<skill skillId="1127" skillLvl="3" sp="960" minLvl="20"/>
+			<skill skillId="1127" skillLvl="4" sp="1800" minLvl="25"/>
+			<skill skillId="1127" skillLvl="5" sp="1800" minLvl="25"/>
+			<skill skillId="1127" skillLvl="6" sp="1800" minLvl="25"/>
+			<skill skillId="1127" skillLvl="7" sp="3500" minLvl="30"/>
+			<skill skillId="1127" skillLvl="8" sp="3500" minLvl="30"/>
+			<skill skillId="1127" skillLvl="9" sp="3500" minLvl="30"/>
+			<skill skillId="1127" skillLvl="10" sp="5900" minLvl="35"/>
+			<skill skillId="1127" skillLvl="11" sp="5900" minLvl="35"/>
+			<skill skillId="1127" skillLvl="12" sp="5900" minLvl="35"/>
+			<!-- Servitor Wind Walk -->
+			<skill skillId="1144" skillLvl="1" sp="18000" minLvl="35"/>
+			<!-- Vampiric Touch -->
+			<skill skillId="1147" skillLvl="3" sp="1400" minLvl="20"/>
+			<skill skillId="1147" skillLvl="4" sp="1400" minLvl="20"/>
+			<skill skillId="1147" skillLvl="5" sp="2800" minLvl="25"/>
+			<skill skillId="1147" skillLvl="6" sp="2800" minLvl="25"/>
+			<!-- Corpse Life Drain -->
+			<skill skillId="1151" skillLvl="1" sp="11000" minLvl="30"/>
+			<skill skillId="1151" skillLvl="2" sp="18000" minLvl="35"/>
+			<!-- Body To Mind -->
+			<skill skillId="1157" skillLvl="1" sp="5500" minLvl="25"/>
+			<!-- Slow -->
+			<skill skillId="1160" skillLvl="1" sp="18000" minLvl="35"/>
+			<!-- Curse: Weakness -->
+			<skill skillId="1164" skillLvl="2" sp="2900" minLvl="20"/>
+			<skill skillId="1164" skillLvl="3" sp="5500" minLvl="25"/>
+			<skill skillId="1164" skillLvl="4" sp="11000" minLvl="30"/>
+			<skill skillId="1164" skillLvl="5" sp="18000" minLvl="35"/>
+			<!-- Poisonous Cloud -->
+			<skill skillId="1167" skillLvl="1" sp="5500" minLvl="25"/>
+			<skill skillId="1167" skillLvl="2" sp="18000" minLvl="35"/>
+			<!-- Curse: Poison -->
+			<skill skillId="1168" skillLvl="2" sp="2900" minLvl="20"/>
+			<skill skillId="1168" skillLvl="3" sp="11000" minLvl="30"/>
+			<!-- Aura Burn -->
+			<skill skillId="1172" skillLvl="1" sp="1400" minLvl="20"/>
+			<skill skillId="1172" skillLvl="2" sp="1400" minLvl="20"/>
+			<skill skillId="1172" skillLvl="3" sp="2800" minLvl="25"/>
+			<skill skillId="1172" skillLvl="4" sp="2800" minLvl="25"/>
+			<skill skillId="1172" skillLvl="5" sp="5300" minLvl="30"/>
+			<skill skillId="1172" skillLvl="6" sp="5300" minLvl="30"/>
+			<skill skillId="1172" skillLvl="7" sp="8800" minLvl="35"/>
+			<skill skillId="1172" skillLvl="8" sp="8800" minLvl="35"/>
+			<!-- Flame Strike -->
+			<skill skillId="1181" skillLvl="1" sp="2900" minLvl="20"/>
+			<skill skillId="1181" skillLvl="2" sp="5500" minLvl="25"/>
+			<skill skillId="1181" skillLvl="3" sp="11000" minLvl="30"/>
+			<!-- Ice Bolt -->
+			<skill skillId="1184" skillLvl="5" sp="1400" minLvl="20"/>
+			<skill skillId="1184" skillLvl="6" sp="1400" minLvl="20"/>
+			<!-- Blaze -->
+			<skill skillId="1220" skillLvl="1" sp="1400" minLvl="20"/>
+			<skill skillId="1220" skillLvl="2" sp="1400" minLvl="20"/>
+			<skill skillId="1220" skillLvl="3" sp="2800" minLvl="25"/>
+			<skill skillId="1220" skillLvl="4" sp="2800" minLvl="25"/>
+			<skill skillId="1220" skillLvl="5" sp="5300" minLvl="30"/>
+			<skill skillId="1220" skillLvl="6" sp="5300" minLvl="30"/>
+			<skill skillId="1220" skillLvl="7" sp="8800" minLvl="35"/>
+			<skill skillId="1220" skillLvl="8" sp="8800" minLvl="35"/>
+			<!-- Curse Chaos -->
+			<skill skillId="1222" skillLvl="1" sp="18000" minLvl="35"/>
+			<!-- Summon Mew the Cat -->
+			<skill skillId="1225" skillLvl="1" sp="2900" minLvl="20"/>
+			<skill skillId="1225" skillLvl="2" sp="5500" minLvl="25"/>
+			<skill skillId="1225" skillLvl="3" sp="11000" minLvl="30"/>
+			<skill skillId="1225" skillLvl="4" sp="18000" minLvl="35"/>
+			<!-- Energy Bolt -->
+			<skill skillId="1274" skillLvl="1" sp="2900" minLvl="20"/>
+			<skill skillId="1274" skillLvl="2" sp="5500" minLvl="25"/>
+			<skill skillId="1274" skillLvl="3" sp="11000" minLvl="30"/>
+			<skill skillId="1274" skillLvl="4" sp="18000" minLvl="35"/>
+		</skillTrees>
+	</class>
+</list>

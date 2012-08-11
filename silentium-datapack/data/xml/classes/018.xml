@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+	<class id="18" parentId="-1">
+		<set name="className" val="Elf Fighter"/>
+		<set name="raceId" val="1"/>
+		<set name="baseSTR" val="36"/>
+		<set name="baseCON" val="36"/>
+		<set name="baseDEX" val="35"/>
+		<set name="baseINT" val="23"/>
+		<set name="baseWIT" val="14"/>
+		<set name="baseMEN" val="26"/>
+		<set name="basePAtk" val="4"/>
+		<set name="basePDef" val="80"/>
+		<set name="baseMAtk" val="6"/>
+		<set name="baseMDef" val="41"/>
+		<set name="basePAtkSpd" val="300"/>
+		<set name="baseMAtkSpd" val="333"/>
+		<set name="baseCritRate" val="4"/>
+		<set name="baseRunSpd" val="125"/>
+		<set name="spawnX" val="45978"/>
+		<set name="spawnY" val="41196"/>
+		<set name="spawnZ" val="-3440"/>
+		<set name="collision_radius" val="7"/>
+		<set name="collision_height" val="24"/>
+		<set name="baseHpMax" val="89.0"/>
+		<set name="lvlHpAdd" val="12.74"/>
+		<set name="lvlHpMod" val="0.37"/>
+		<set name="baseCpMax" val="36.1"/>
+		<set name="lvlCpAdd" val="3.38"/>
+		<set name="lvlCpMod" val="0.22"/>
+		<set name="baseMpMax" val="30.0"/>
+		<set name="lvlMpAdd" val="5.0"/>
+		<set name="lvlMpMod" val="0.22"/>
+		<set name="baseLvl" val="1"/>
+		<skillTrees>
+			<!-- Power Strike -->
+			<skill skillId="3" skillLvl="1" sp="50" minLvl="5"/>
+			<skill skillId="3" skillLvl="2" sp="50" minLvl="5"/>
+			<skill skillId="3" skillLvl="3" sp="50" minLvl="5"/>
+			<skill skillId="3" skillLvl="4" sp="310" minLvl="10"/>
+			<skill skillId="3" skillLvl="5" sp="310" minLvl="10"/>
+			<skill skillId="3" skillLvl="6" sp="310" minLvl="10"/>
+			<skill skillId="3" skillLvl="7" sp="1100" minLvl="15"/>
+			<skill skillId="3" skillLvl="8" sp="1100" minLvl="15"/>
+			<skill skillId="3" skillLvl="9" sp="1100" minLvl="15"/>
+			<!-- Mortal Blow -->
+			<skill skillId="16" skillLvl="1" sp="50" minLvl="5"/>
+			<skill skillId="16" skillLvl="2" sp="50" minLvl="5"/>
+			<skill skillId="16" skillLvl="3" sp="50" minLvl="5"/>
+			<skill skillId="16" skillLvl="4" sp="310" minLvl="10"/>
+			<skill skillId="16" skillLvl="5" sp="310" minLvl="10"/>
+			<skill skillId="16" skillLvl="6" sp="310" minLvl="10"/>
+			<skill skillId="16" skillLvl="7" sp="1100" minLvl="15"/>
+			<skill skillId="16" skillLvl="8" sp="1100" minLvl="15"/>
+			<skill skillId="16" skillLvl="9" sp="1100" minLvl="15"/>
+			<!-- Power Shot -->
+			<skill skillId="56" skillLvl="1" sp="50" minLvl="5"/>
+			<skill skillId="56" skillLvl="2" sp="50" minLvl="5"/>
+			<skill skillId="56" skillLvl="3" sp="50" minLvl="5"/>
+			<skill skillId="56" skillLvl="4" sp="310" minLvl="10"/>
+			<skill skillId="56" skillLvl="5" sp="310" minLvl="10"/>
+			<skill skillId="56" skillLvl="6" sp="310" minLvl="10"/>
+			<skill skillId="56" skillLvl="7" sp="1100" minLvl="15"/>
+			<skill skillId="56" skillLvl="8" sp="1100" minLvl="15"/>
+			<skill skillId="56" skillLvl="9" sp="1100" minLvl="15"/>
+			<!-- Elemental Heal -->
+			<skill skillId="58" skillLvl="1" sp="1100" minLvl="15"/>
+			<skill skillId="58" skillLvl="2" sp="1100" minLvl="15"/>
+			<skill skillId="58" skillLvl="3" sp="1100" minLvl="15"/>
+			<!-- Attack Aura -->
+			<skill skillId="77" skillLvl="1" sp="910" minLvl="10"/>
+			<!-- Defense Aura -->
+			<skill skillId="91" skillLvl="1" sp="160" minLvl="5"/>
+			<!-- Weapon Mastery -->
+			<skill skillId="141" skillLvl="1" sp="160" minLvl="5"/>
+			<skill skillId="141" skillLvl="2" sp="910" minLvl="10"/>
+			<skill skillId="141" skillLvl="3" sp="3300" minLvl="15"/>
+			<!-- Armor Mastery -->
+			<skill skillId="142" skillLvl="1" sp="160" minLvl="5"/>
+			<skill skillId="142" skillLvl="2" sp="460" minLvl="10"/>
+			<skill skillId="142" skillLvl="3" sp="460" minLvl="10"/>
+			<skill skillId="142" skillLvl="4" sp="1700" minLvl="15"/>
+			<skill skillId="142" skillLvl="5" sp="1700" minLvl="15"/>
+			<!-- Lucky -->
+			<skill skillId="194" skillLvl="1" sp="0" minLvl="1"/>
+			<!-- Expertises -->
+			<skill skillId="239" skillLvl="1" sp="0" minLvl="20"/>
+			<skill skillId="239" skillLvl="2" sp="0" minLvl="40"/>
+			<skill skillId="239" skillLvl="3" sp="0" minLvl="52"/>
+			<skill skillId="239" skillLvl="4" sp="0" minLvl="61"/>
+			<skill skillId="239" skillLvl="5" sp="0" minLvl="76"/>
+			<!-- Create Common Item -->
+			<skill skillId="1320" skillLvl="1" sp="0" minLvl="1"/>
+			<skill skillId="1320" skillLvl="2" sp="0" minLvl="20"/>
+			<skill skillId="1320" skillLvl="3" sp="0" minLvl="28"/>
+			<skill skillId="1320" skillLvl="4" sp="0" minLvl="36"/>
+			<skill skillId="1320" skillLvl="5" sp="0" minLvl="43"/>
+			<skill skillId="1320" skillLvl="6" sp="0" minLvl="49"/>
+			<skill skillId="1320" skillLvl="7" sp="0" minLvl="55"/>
+			<skill skillId="1320" skillLvl="8" sp="0" minLvl="62"/>
+			<skill skillId="1320" skillLvl="9" sp="0" minLvl="70"/>
+			<!-- Common Craft -->
+			<skill skillId="1322" skillLvl="1" sp="0" minLvl="1"/>
+		</skillTrees>
+		<items val="1147;1146;10;2369;5588"/>
+	</class>
+</list>
