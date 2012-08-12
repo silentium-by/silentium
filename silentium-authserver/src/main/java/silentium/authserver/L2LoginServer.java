@@ -27,8 +27,7 @@ import java.net.UnknownHostException;
 /**
  * @author KenM
  */
-public class L2LoginServer
-{
+public class L2LoginServer {
 	public static final int PROTOCOL_REV = 0x0102;
 
 	private static L2LoginServer loginServer;
@@ -36,22 +35,19 @@ public class L2LoginServer
 	private GameServerListener _gameServerListener;
 	private SelectorThread<L2LoginClient> _selectorThread;
 
-	public static void main(String[] args) throws Exception
-	{
+	public static void main(String[] args) throws Exception {
 		loginServer = new L2LoginServer();
 	}
 
-	public static L2LoginServer getInstance()
-	{
+	public static L2LoginServer getInstance() {
 		return loginServer;
 	}
 
-	public L2LoginServer() throws Exception
-	{
+	public L2LoginServer() throws Exception {
 		ServerType.serverMode = ServerType.MODE_LOGINSERVER;
 
 		// Create log folder
-		final File logFolder = new File(MainConfig.DATAPACK_ROOT, "log");
+		final File logFolder = new File("./log");
 		logFolder.mkdir();
 
 		Util.printSection("L2J");
@@ -72,14 +68,10 @@ public class L2LoginServer
 
 		Util.printSection("IP, Ports & Socket infos");
 		InetAddress bindAddress = null;
-		if (!MainConfig.LOGIN_BIND_ADDRESS.equals("*"))
-		{
-			try
-			{
+		if (!MainConfig.LOGIN_BIND_ADDRESS.equals("*")) {
+			try {
 				bindAddress = InetAddress.getByName(MainConfig.LOGIN_BIND_ADDRESS);
-			}
-			catch (UnknownHostException e1)
-			{
+			} catch (UnknownHostException e1) {
 				_log.error("WARNING: The LoginServer bind address is invalid, using all available IPs. Reason: " + e1.getMessage());
 				if (MainConfig.DEVELOPER)
 					e1.printStackTrace();
@@ -94,12 +86,9 @@ public class L2LoginServer
 
 		final L2LoginPacketHandler lph = new L2LoginPacketHandler();
 		final SelectorHelper sh = new SelectorHelper();
-		try
-		{
+		try {
 			_selectorThread = new SelectorThread<>(sc, sh, lph, sh, sh);
-		}
-		catch (IOException e)
-		{
+		} catch (IOException e) {
 			_log.error("FATAL: Failed to open selector. Reason: " + e.getMessage());
 			if (MainConfig.DEVELOPER)
 				e.printStackTrace();
@@ -107,14 +96,11 @@ public class L2LoginServer
 			System.exit(1);
 		}
 
-		try
-		{
+		try {
 			_gameServerListener = new GameServerListener();
 			_gameServerListener.start();
 			_log.info("Listening for gameservers on " + MainConfig.GAME_SERVER_LOGIN_HOST + ":" + MainConfig.GAME_SERVER_LOGIN_PORT);
-		}
-		catch (IOException e)
-		{
+		} catch (IOException e) {
 			_log.error("FATAL: Failed to start the gameserver listener. Reason: " + e.getMessage());
 			if (MainConfig.DEVELOPER)
 				e.printStackTrace();
@@ -122,12 +108,9 @@ public class L2LoginServer
 			System.exit(1);
 		}
 
-		try
-		{
+		try {
 			_selectorThread.openServerSocket(bindAddress, MainConfig.PORT_LOGIN);
-		}
-		catch (IOException e)
-		{
+		} catch (IOException e) {
 			_log.error("FATAL: Failed to open server socket. Reason: " + e.getMessage());
 			if (MainConfig.DEVELOPER)
 				e.printStackTrace();
@@ -140,29 +123,23 @@ public class L2LoginServer
 		Util.printSection("Waiting for gameserver answer");
 	}
 
-	public GameServerListener getGameServerListener()
-	{
+	public GameServerListener getGameServerListener() {
 		return _gameServerListener;
 	}
 
-	private void loadBanFile()
-	{
+	private void loadBanFile() {
 		File banFile = new File("config/banned_ip.cfg");
-		if (banFile.exists() && banFile.isFile())
-		{
+		if (banFile.exists() && banFile.isFile()) {
 			LineNumberReader reader = null;
-			try
-			{
+			try {
 				String line;
 				String[] parts;
 				reader = new LineNumberReader(new FileReader(banFile));
 
-				while ((line = reader.readLine()) != null)
-				{
+				while ((line = reader.readLine()) != null) {
 					line = line.trim();
 					// check if this line isnt a comment line
-					if (line.length() > 0 && line.charAt(0) != '#')
-					{
+					if (line.length() > 0 && line.charAt(0) != '#') {
 						// split comments if any
 						parts = line.split("#");
 
@@ -173,44 +150,33 @@ public class L2LoginServer
 						String address = parts[0];
 						long duration = 0;
 
-						if (parts.length > 1)
-						{
-							try
-							{
+						if (parts.length > 1) {
+							try {
 								duration = Long.parseLong(parts[1]);
-							}
-							catch (NumberFormatException e)
-							{
+							} catch (NumberFormatException e) {
 								_log.warn("Skipped: Incorrect ban duration (" + parts[1] + ") on banned_ip.cfg. Line: " + reader.getLineNumber());
 								continue;
 							}
 						}
 
-						try
-						{
+						try {
 							LoginController.getInstance().addBanForAddress(address, duration);
-						}
-						catch (UnknownHostException e)
-						{
+						} catch (UnknownHostException e) {
 							_log.warn("Skipped: Invalid address (" + parts[0] + ") on banned_ip.cfg. Line: " + reader.getLineNumber());
 						}
 					}
 				}
-			}
-			catch (IOException e)
-			{
+			} catch (IOException e) {
 				_log.warn("Error while reading banned_ip.cfg. Details: " + e.getMessage());
 				if (MainConfig.DEVELOPER)
 					e.printStackTrace();
 			}
 			_log.info("Loaded " + LoginController.getInstance().getBannedIps().size() + " IP(s) from banned_ip.cfg.");
-		}
-		else
+		} else
 			_log.warn("banned_ip.cfg is missing. Ban listing is skipped.");
 	}
 
-	public void shutdown(boolean restart)
-	{
+	public void shutdown(boolean restart) {
 		Runtime.getRuntime().exit(restart ? 2 : 0);
 	}
 }
