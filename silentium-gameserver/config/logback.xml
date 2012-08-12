@@ -6,7 +6,7 @@
         </encoder>
     </appender>
 
-    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>log/java.log</file>
 
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
@@ -18,7 +18,7 @@
         </encoder>
     </appender>
 
-    <appender name="CHAT" class="ch.qos.logback.core.FileAppender">
+    <appender name="CHAT" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <filter class="silentium.gameserver.utils.logging.ChatFilter"/>
 
         <file>log/chat.log</file>
@@ -32,7 +32,7 @@
         </encoder>
     </appender>
 
-    <appender name="ITEM" class="ch.qos.logback.core.FileAppender">
+    <appender name="ITEM" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <filter class="silentium.gameserver.utils.logging.ItemFilter"/>
 
         <file>log/item.log</file>
@@ -46,7 +46,7 @@
         </encoder>
     </appender>
 
-    <appender name="GMAUDIT" class="ch.qos.logback.core.FileAppender">
+    <appender name="GMAUDIT" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <filter class="silentium.gameserver.utils.logging.GMAuditFilter"/>
 
         <file>log/gmaudit.log</file>
@@ -60,7 +60,7 @@
         </encoder>
     </appender>
 
-    <appender name="AUDIT" class="ch.qos.logback.core.FileAppender">
+    <appender name="AUDIT" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <filter class="silentium.gameserver.utils.logging.AuditFilter"/>
 
         <file>log/audit.log</file>

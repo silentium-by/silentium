@@ -6,7 +6,7 @@
         </encoder>
     </appender>
 
-    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>log/java.log</file>
 
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
@@ -18,7 +18,7 @@
         </encoder>
     </appender>
 
-    <appender name="AUTH" class="ch.qos.logback.core.FileAppender">
+    <appender name="AUTH" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <filter class="silentium.authserver.utils.logging.AuthFilter"/>
 
         <file>log/auth.log</file>
