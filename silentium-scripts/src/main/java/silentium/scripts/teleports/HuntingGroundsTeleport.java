@@ -7,9 +7,9 @@
  */
 package silentium.scripts.teleports;
 
-import silentium.gameserver.SevenSigns;
 import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
+import silentium.gameserver.model.entity.sevensigns.SevenSigns;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.utils.Util;
 

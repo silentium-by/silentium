@@ -8,11 +8,11 @@
 package silentium.gameserver.model.actor.instance;
 
 import silentium.commons.utils.StringUtil;
-import silentium.gameserver.SevenSigns;
 import silentium.gameserver.data.html.StaticHtmPath;
 import silentium.gameserver.instancemanager.CastleManager;
 import silentium.gameserver.instancemanager.CastleManorManager;
 import silentium.gameserver.model.L2Clan;
+import silentium.gameserver.model.entity.sevensigns.SevenSigns;
 import silentium.gameserver.network.SystemMessageId;
 import silentium.gameserver.network.serverpackets.*;
 import silentium.gameserver.tables.ClanTable;

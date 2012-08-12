@@ -7,25 +7,18 @@
  */
 package silentium.gameserver.model.actor.instance;
 
-import java.util.List;
-
 import javolution.util.FastList;
-import silentium.gameserver.MonsterRace;
 import silentium.gameserver.ThreadPoolManager;
 import silentium.gameserver.idfactory.IdFactory;
 import silentium.gameserver.model.L2ItemInstance;
 import silentium.gameserver.model.actor.knownlist.RaceManagerKnownList;
+import silentium.gameserver.model.entity.MonsterRace;
 import silentium.gameserver.network.SystemMessageId;
-import silentium.gameserver.network.serverpackets.ActionFailed;
-import silentium.gameserver.network.serverpackets.DeleteObject;
-import silentium.gameserver.network.serverpackets.InventoryUpdate;
-import silentium.gameserver.network.serverpackets.L2GameServerPacket;
-import silentium.gameserver.network.serverpackets.MonRaceInfo;
-import silentium.gameserver.network.serverpackets.NpcHtmlMessage;
-import silentium.gameserver.network.serverpackets.PlaySound;
-import silentium.gameserver.network.serverpackets.SystemMessage;
+import silentium.gameserver.network.serverpackets.*;
 import silentium.gameserver.templates.chars.L2NpcTemplate;
 import silentium.gameserver.utils.Broadcast;
+
+import java.util.List;
 
 public class L2RaceManagerInstance extends L2NpcInstance
 {

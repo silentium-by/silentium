@@ -7,22 +7,22 @@
  */
 package silentium.scripts.handlers.admin;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import silentium.gameserver.SevenSigns;
 import silentium.gameserver.handler.IAdminCommandHandler;
 import silentium.gameserver.model.AutoSpawnHandler;
 import silentium.gameserver.model.AutoSpawnHandler.AutoSpawnInstance;
 import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
+import silentium.gameserver.model.entity.sevensigns.SevenSigns;
 import silentium.gameserver.network.serverpackets.SystemMessage;
 import silentium.gameserver.tables.NpcTable;
 import silentium.gameserver.tables.SpawnTable;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Admin Command Handler for Mammon NPCs
- * 
+ *
  * @author Tempy
  */
 public class AdminMammon implements IAdminCommandHandler

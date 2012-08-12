@@ -9,9 +9,8 @@ package silentium.gameserver.taskmanager.tasks;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import silentium.gameserver.SevenSigns;
-import silentium.gameserver.SevenSignsFestival;
+import silentium.gameserver.model.entity.sevensigns.SevenSigns;
+import silentium.gameserver.model.entity.sevensigns.SevenSignsFestival;
 import silentium.gameserver.taskmanager.Task;
 import silentium.gameserver.taskmanager.TaskManager;
 import silentium.gameserver.taskmanager.TaskManager.ExecutedTask;
@@ -19,7 +18,7 @@ import silentium.gameserver.taskmanager.TaskTypes;
 
 /**
  * Updates all data for the Seven Signs and Festival of Darkness engines, when time is elapsed.
- * 
+ *
  * @author Tempy
  */
 public class TaskSevenSignsUpdate extends Task

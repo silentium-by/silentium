@@ -5,12 +5,13 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
  * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package silentium.gameserver;
+package silentium.gameserver.model.entity.sevensigns;
 
 import javolution.util.FastMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import silentium.commons.database.DatabaseFactory;
+import silentium.gameserver.ThreadPoolManager;
 import silentium.gameserver.configs.EventsConfig;
 import silentium.gameserver.configs.NPCConfig;
 import silentium.gameserver.data.html.StaticHtmPath;

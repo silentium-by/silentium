@@ -5,19 +5,17 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
  * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package silentium.gameserver;
+package silentium.gameserver.model.entity;
 
-import java.lang.reflect.Constructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import silentium.commons.utils.Rnd;
 import silentium.gameserver.idfactory.IdFactory;
 import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.tables.NpcTable;
 import silentium.gameserver.templates.chars.L2NpcTemplate;
+
+import java.lang.reflect.Constructor;
 
 public class MonsterRace
 {

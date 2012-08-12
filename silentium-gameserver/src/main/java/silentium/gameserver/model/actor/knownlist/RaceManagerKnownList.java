@@ -7,10 +7,10 @@
  */
 package silentium.gameserver.model.actor.knownlist;
 
-import silentium.gameserver.MonsterRace;
 import silentium.gameserver.model.L2Object;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.actor.instance.L2RaceManagerInstance;
+import silentium.gameserver.model.entity.MonsterRace;
 import silentium.gameserver.network.serverpackets.DeleteObject;
 
 public class RaceManagerKnownList extends NpcKnownList

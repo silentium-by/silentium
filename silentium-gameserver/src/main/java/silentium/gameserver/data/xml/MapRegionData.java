@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
-import silentium.gameserver.SevenSigns;
 import silentium.gameserver.configs.MainConfig;
 import silentium.gameserver.data.xml.parsers.XMLDocumentFactory;
 import silentium.gameserver.instancemanager.CastleManager;
@@ -24,6 +23,7 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.entity.Castle;
 import silentium.gameserver.model.entity.ClanHall;
+import silentium.gameserver.model.entity.sevensigns.SevenSigns;
 import silentium.gameserver.model.zone.type.L2ArenaZone;
 import silentium.gameserver.model.zone.type.L2ClanHallZone;
 

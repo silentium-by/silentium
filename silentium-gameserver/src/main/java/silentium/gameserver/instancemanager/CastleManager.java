@@ -7,24 +7,22 @@
  */
 package silentium.gameserver.instancemanager;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import silentium.commons.database.DatabaseFactory;
-import silentium.gameserver.SevenSigns;
 import silentium.gameserver.model.L2Clan;
 import silentium.gameserver.model.L2ClanMember;
 import silentium.gameserver.model.L2ItemInstance;
 import silentium.gameserver.model.L2Object;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.entity.Castle;
+import silentium.gameserver.model.entity.sevensigns.SevenSigns;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class CastleManager
 {

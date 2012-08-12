@@ -41,6 +41,8 @@ import silentium.gameserver.model.actor.stat.PcStat;
 import silentium.gameserver.model.actor.status.PcStatus;
 import silentium.gameserver.model.base.*;
 import silentium.gameserver.model.entity.*;
+import silentium.gameserver.model.entity.sevensigns.SevenSigns;
+import silentium.gameserver.model.entity.sevensigns.SevenSignsFestival;
 import silentium.gameserver.model.itemcontainer.*;
 import silentium.gameserver.model.olympiad.OlympiadGameManager;
 import silentium.gameserver.model.olympiad.OlympiadGameTask;

@@ -7,21 +7,21 @@
  */
 package silentium.gameserver.model.actor.instance;
 
-import java.util.Calendar;
-import java.util.List;
-
 import javolution.text.TextBuilder;
 import silentium.gameserver.configs.EventsConfig;
-import silentium.gameserver.SevenSigns;
-import silentium.gameserver.SevenSignsFestival;
 import silentium.gameserver.model.L2ItemInstance;
 import silentium.gameserver.model.L2Party;
+import silentium.gameserver.model.entity.sevensigns.SevenSigns;
+import silentium.gameserver.model.entity.sevensigns.SevenSignsFestival;
 import silentium.gameserver.network.SystemMessageId;
 import silentium.gameserver.network.serverpackets.ActionFailed;
 import silentium.gameserver.network.serverpackets.NpcHtmlMessage;
 import silentium.gameserver.network.serverpackets.SystemMessage;
 import silentium.gameserver.templates.StatsSet;
 import silentium.gameserver.templates.chars.L2NpcTemplate;
+
+import java.util.Calendar;
+import java.util.List;
 
 /**
  * Festival of Darkness Guide (Seven Signs)

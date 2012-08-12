@@ -7,8 +7,8 @@
  */
 package silentium.gameserver.network.serverpackets;
 
-import silentium.gameserver.SevenSigns;
-import silentium.gameserver.SevenSignsFestival;
+import silentium.gameserver.model.entity.sevensigns.SevenSigns;
+import silentium.gameserver.model.entity.sevensigns.SevenSignsFestival;
 import silentium.gameserver.network.SystemMessageId;
 import silentium.gameserver.templates.StatsSet;
 

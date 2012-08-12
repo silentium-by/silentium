@@ -7,10 +7,10 @@
  */
 package silentium.gameserver.model.actor.instance;
 
-import silentium.gameserver.SevenSigns;
 import silentium.gameserver.data.html.StaticHtmPath;
 import silentium.gameserver.model.actor.L2Character;
 import silentium.gameserver.model.entity.TvTEvent;
+import silentium.gameserver.model.entity.sevensigns.SevenSigns;
 import silentium.gameserver.network.serverpackets.ActionFailed;
 import silentium.gameserver.network.serverpackets.NpcHtmlMessage;
 import silentium.gameserver.templates.chars.L2NpcTemplate;

@@ -7,7 +7,6 @@
  */
 package silentium.scripts.handlers.item;
 
-import silentium.gameserver.SevenSigns;
 import silentium.gameserver.handler.IItemHandler;
 import silentium.gameserver.instancemanager.CastleManager;
 import silentium.gameserver.instancemanager.MercTicketManager;
@@ -15,6 +14,7 @@ import silentium.gameserver.model.L2ItemInstance;
 import silentium.gameserver.model.actor.L2Playable;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.entity.Castle;
+import silentium.gameserver.model.entity.sevensigns.SevenSigns;
 import silentium.gameserver.network.SystemMessageId;
 import silentium.gameserver.network.serverpackets.SystemMessage;
 

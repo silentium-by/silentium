@@ -8,9 +8,10 @@
 package silentium.gameserver.model.entity;
 
 import gnu.trove.map.hash.TIntIntHashMap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import silentium.commons.database.DatabaseFactory;
 import silentium.gameserver.CastleUpdater;
-import silentium.gameserver.SevenSigns;
 import silentium.gameserver.ThreadPoolManager;
 import silentium.gameserver.configs.ClansConfig;
 import silentium.gameserver.data.xml.DoorData;
@@ -25,6 +26,7 @@ import silentium.gameserver.model.L2Object;
 import silentium.gameserver.model.actor.instance.L2ArtefactInstance;
 import silentium.gameserver.model.actor.instance.L2DoorInstance;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
+import silentium.gameserver.model.entity.sevensigns.SevenSigns;
 import silentium.gameserver.model.zone.type.L2CastleTeleportZone;
 import silentium.gameserver.model.zone.type.L2CastleZone;
 import silentium.gameserver.model.zone.type.L2SiegeZone;
@@ -40,10 +42,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class Castle
 {

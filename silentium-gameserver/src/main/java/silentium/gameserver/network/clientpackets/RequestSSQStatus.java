@@ -7,13 +7,13 @@
  */
 package silentium.gameserver.network.clientpackets;
 
-import silentium.gameserver.SevenSigns;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
+import silentium.gameserver.model.entity.sevensigns.SevenSigns;
 import silentium.gameserver.network.serverpackets.SSQStatus;
 
 /**
  * Seven Signs Record Update Request packet type id 0xc7 format: cc
- * 
+ *
  * @author Tempy
  */
 public final class RequestSSQStatus extends L2GameClientPacket

@@ -7,7 +7,7 @@
  */
 package silentium.gameserver.network.serverpackets;
 
-import silentium.gameserver.SevenSigns;
+import silentium.gameserver.model.entity.sevensigns.SevenSigns;
 
 public class ShowMiniMap extends L2GameServerPacket
 {

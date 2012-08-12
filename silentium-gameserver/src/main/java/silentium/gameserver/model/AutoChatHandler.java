@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import silentium.commons.utils.Rnd;
-import silentium.gameserver.SevenSigns;
 import silentium.gameserver.ThreadPoolManager;
 import silentium.gameserver.configs.MainConfig;
 import silentium.gameserver.data.xml.parsers.XMLDocumentFactory;
@@ -21,6 +20,7 @@ import silentium.gameserver.model.actor.L2Character;
 import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.actor.instance.L2SiegeGuardInstance;
+import silentium.gameserver.model.entity.sevensigns.SevenSigns;
 import silentium.gameserver.network.clientpackets.Say2;
 import silentium.gameserver.network.serverpackets.CreatureSay;
 

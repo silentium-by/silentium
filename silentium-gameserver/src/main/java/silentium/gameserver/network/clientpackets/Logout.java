@@ -7,10 +7,10 @@
  */
 package silentium.gameserver.network.clientpackets;
 
-import silentium.gameserver.SevenSignsFestival;
 import silentium.gameserver.model.L2Party;
 import silentium.gameserver.model.actor.L2Character;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
+import silentium.gameserver.model.entity.sevensigns.SevenSignsFestival;
 import silentium.gameserver.network.SystemMessageId;
 import silentium.gameserver.network.serverpackets.ActionFailed;
 import silentium.gameserver.network.serverpackets.SystemMessage;

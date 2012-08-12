@@ -8,8 +8,8 @@
 package silentium.gameserver.model.actor.instance;
 
 import silentium.gameserver.configs.NPCConfig;
-import silentium.gameserver.SevenSigns;
 import silentium.gameserver.data.html.StaticHtmPath;
+import silentium.gameserver.model.entity.sevensigns.SevenSigns;
 import silentium.gameserver.network.SystemMessageId;
 import silentium.gameserver.network.serverpackets.ActionFailed;
 import silentium.gameserver.network.serverpackets.NpcHtmlMessage;

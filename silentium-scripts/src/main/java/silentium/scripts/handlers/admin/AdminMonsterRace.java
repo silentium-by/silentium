@@ -7,10 +7,10 @@
  */
 package silentium.scripts.handlers.admin;
 
-import silentium.gameserver.MonsterRace;
 import silentium.gameserver.ThreadPoolManager;
 import silentium.gameserver.handler.IAdminCommandHandler;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
+import silentium.gameserver.model.entity.MonsterRace;
 import silentium.gameserver.network.SystemMessageId;
 import silentium.gameserver.network.serverpackets.DeleteObject;
 import silentium.gameserver.network.serverpackets.MonRaceInfo;

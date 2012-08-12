@@ -7,16 +7,16 @@
  */
 package silentium.gameserver.model.actor.instance;
 
-import java.util.StringTokenizer;
-
-import silentium.gameserver.SevenSigns;
 import silentium.gameserver.data.html.StaticHtmPath;
 import silentium.gameserver.data.xml.TeleportLocationData;
 import silentium.gameserver.model.L2TeleportLocation;
+import silentium.gameserver.model.entity.sevensigns.SevenSigns;
 import silentium.gameserver.network.SystemMessageId;
 import silentium.gameserver.network.serverpackets.ActionFailed;
 import silentium.gameserver.network.serverpackets.NpcHtmlMessage;
 import silentium.gameserver.templates.chars.L2NpcTemplate;
+
+import java.util.StringTokenizer;
 
 public class L2DungeonGatekeeperInstance extends L2NpcInstance
 {

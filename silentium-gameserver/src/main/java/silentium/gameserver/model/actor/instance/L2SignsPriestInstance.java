@@ -7,21 +7,19 @@
  */
 package silentium.gameserver.model.actor.instance;
 
-import java.util.StringTokenizer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javolution.text.TextBuilder;
 import silentium.gameserver.configs.EventsConfig;
-import silentium.gameserver.SevenSigns;
 import silentium.gameserver.data.html.HtmCache;
 import silentium.gameserver.model.L2ItemInstance;
+import silentium.gameserver.model.entity.sevensigns.SevenSigns;
 import silentium.gameserver.model.itemcontainer.PcInventory;
 import silentium.gameserver.network.SystemMessageId;
 import silentium.gameserver.network.serverpackets.ActionFailed;
 import silentium.gameserver.network.serverpackets.NpcHtmlMessage;
 import silentium.gameserver.network.serverpackets.SystemMessage;
 import silentium.gameserver.templates.chars.L2NpcTemplate;
+
+import java.util.StringTokenizer;
 
 /**
  * Dawn/Dusk Seven Signs Priest Instance
