@@ -1,0 +1,83 @@
+<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+    <id>gameserver</id>
+
+    <formats>
+        <format>zip</format>
+    </formats>
+
+    <includeBaseDirectory>false</includeBaseDirectory>
+
+    <moduleSets>
+
+        <moduleSet>
+            <!-- Enable access to all projects in the current multimodule build! -->
+            <useAllReactorProjects>true</useAllReactorProjects>
+
+            <!-- Now, select which projects to include in this module-set. -->
+            <includes>
+                <include>silentium:silentium-gameserver</include>
+            </includes>
+            <binaries>
+                <outputDirectory>/gameserver</outputDirectory>
+                <unpack>false</unpack>
+            </binaries>
+        </moduleSet>
+
+        <moduleSet>
+            <!-- Enable access to all projects in the current multimodule build! -->
+            <useAllReactorProjects>true</useAllReactorProjects>
+
+            <!-- Now, select which projects to include in this module-set. -->
+            <includes>
+                <include>silentium:silentium-scripts</include>
+            </includes>
+            <binaries>
+                <outputDirectory>/gameserver/lib</outputDirectory>
+                <unpack>false</unpack>
+            </binaries>
+        </moduleSet>
+
+    </moduleSets>
+
+    <dependencySets>
+
+        <dependencySet>
+            <outputDirectory>/gameserver/lib</outputDirectory>
+            <excludes>
+                <exclude>${groupId}:${artifactId}</exclude>
+            </excludes>
+        </dependencySet>
+
+    </dependencySets>
+
+    <fileSets>
+
+        <fileSet>
+            <directory>../silentium-gameserver/dist</directory>
+            <outputDirectory>/gameserver</outputDirectory>
+            <includes>
+                <include>*.sh</include>
+                <include>*.bat</include>
+            </includes>
+        </fileSet>
+
+        <fileSet>
+            <directory>../silentium-gameserver/config</directory>
+            <outputDirectory>/gameserver/config</outputDirectory>
+        </fileSet>
+
+        <fileSet>
+            <directory>../silentium-datapack/data</directory>
+            <outputDirectory>/gameserver/data</outputDirectory>
+        </fileSet>
+
+        <fileSet>
+            <directory>../silentium-datapack/sql</directory>
+            <outputDirectory>/sql</outputDirectory>
+        </fileSet>
+
+    </fileSets>
+
+</assembly>
