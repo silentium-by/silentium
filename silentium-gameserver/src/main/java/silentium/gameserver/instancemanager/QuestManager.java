@@ -31,55 +31,6 @@ public class QuestManager extends ScriptManager<Quest>
 	{
 	}
 
-	public final boolean reload(String questFolder)
-	{
-		Quest q = getQuest(questFolder);
-		if (q == null)
-			return false;
-
-		return q.reload();
-	}
-
-	/**
-	 * Reloads a the quest given by questId.<BR>
-	 * <B>NOTICE: Will only work if the quest name is equal the quest folder name</B>
-	 *
-	 * @param questId
-	 *            The id of the quest to be reloaded
-	 * @return true if reload was successful, false otherwise
-	 */
-	public final boolean reload(int questId)
-	{
-		Quest q = this.getQuest(questId);
-		if (q == null)
-			return false;
-
-		return q.reload();
-	}
-
-	public final void reloadAllQuests()
-	{
-		_log.info("QuestManager: Reloading scripts.");
-		try
-		{
-			// unload all scripts
-			for (Quest quest : _quests.values())
-			{
-				if (quest != null)
-					quest.unload(false);
-			}
-
-			_quests.clear();
-			// now load all scripts
-			L2ScriptEngineManager.getInstance().initializeScripts();
-			QuestManager.getInstance().report();
-		}
-		catch (Exception ioe)
-		{
-			_log.error("QuestManager: Failed reloading scripts.");
-		}
-	}
-
 	public final void report()
 	{
 		_log.info("QuestManager: Loaded " + _quests.size() + " quests.");
@@ -111,9 +62,7 @@ public class QuestManager extends ScriptManager<Quest>
 	public final void addQuest(Quest newQuest)
 	{
 		if (newQuest == null)
-		{
 			throw new IllegalArgumentException("Quest argument cannot be null");
-		}
 		Quest old = _quests.get(newQuest.getName());
 
 		// FIXME: unloading the old quest at this point is a tad too late.
@@ -126,11 +75,7 @@ public class QuestManager extends ScriptManager<Quest>
 		// the current solution properly closes the running tasks of the old quest but
 		// ignores the data; perhaps the least of all evils...
 		if (old != null)
-		{
-			old.unload();
 			_log.info("QuestManager: Replaced: (" + old.getName() + ") with a new version (" + newQuest.getName() + ").");
-
-		}
 		_quests.put(newQuest.getName(), newQuest);
 	}
 
@@ -146,16 +91,6 @@ public class QuestManager extends ScriptManager<Quest>
 	public Iterable<Quest> getAllManagedScripts()
 	{
 		return _quests.values();
-	}
-
-	/**
-	 * @see silentium.gameserver.scripting.ScriptManager#unload(silentium.gameserver.scripting.ManagedScript)
-	 */
-	@Override
-	public boolean unload(Quest ms)
-	{
-		ms.saveGlobalData();
-		return removeQuest(ms);
 	}
 
 	/**

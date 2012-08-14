@@ -26,27 +26,6 @@ public abstract class ManagedScript
 		setLastLoadTime(System.currentTimeMillis());
 	}
 
-	/**
-	 * Attempts to reload this script and to refresh the necessary bindings with it ScriptControler.<BR>
-	 * Subclasses of this class should override this method to properly refresh their bindings when necessary.
-	 *
-	 * @return true if and only if the scrip was reloaded, false otherwise.
-	 */
-	public boolean reload()
-	{
-		try
-		{
-			L2ScriptEngineManager.getInstance().initializeScripts();
-			return true;
-		}
-		catch (Exception e)
-		{
-			return false;
-		}
-	}
-
-	public abstract boolean unload();
-
 	public void setActive(boolean status)
 	{
 		_isActive = status;
@@ -83,6 +62,5 @@ public abstract class ManagedScript
 	}
 
 	public abstract String getScriptName();
-
 	public abstract ScriptManager<?> getScriptManager();
 }

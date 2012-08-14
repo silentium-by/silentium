@@ -921,27 +921,6 @@ public class SagasSuperClass extends Quest
 		return super.onKill(npc, player, isPet);
 	}
 
-	@Override
-	public boolean unload()
-	{
-		// if sub classes aren't loaded, just unload superclass
-		if (_scripts.isEmpty())
-			return super.unload();
-
-		// unload all subclasses
-		for (int index = 0; index < _scripts.size(); index++)
-		{
-			if (_scripts.get(index) == null)
-				continue;
-
-			QuestManager.getInstance().removeQuest(_scripts.get(index));
-		}
-		_scripts.clear();
-
-		// now unload superclass
-		return super.unload();
-	}
-
 	public static void main(String[] args)
 	{
 		// initialize superclass

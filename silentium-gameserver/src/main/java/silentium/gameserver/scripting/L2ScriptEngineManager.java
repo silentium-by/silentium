@@ -120,7 +120,7 @@ public final class L2ScriptEngineManager {
 		registerHandlers();
 	}
 
-	public static void registerHandlers() {
+	private static void registerHandlers() {
 		try {
 			Reflections reflections = new Reflections("silentium.scripts.handlers.admin");
 			for (Class<? extends IAdminCommandHandler> handler : reflections.getSubTypesOf(IAdminCommandHandler.class))

@@ -154,24 +154,6 @@ public class AdminAdmin implements IAdminCommandHandler
 					NpcWalkerRoutesData.getInstance().reload();
 					activeChar.sendMessage("NPCwalkers' routes have been reloaded.");
 				}
-				else if (type.startsWith("quest"))
-				{
-					if (st.hasMoreTokens())
-					{
-						int qId = Integer.parseInt(st.nextToken());
-						if (QuestManager.getInstance().reload(qId))
-							activeChar.sendMessage("Quest " + qId + " has been reloaded.");
-						else
-							activeChar.sendMessage("Quest " + qId + " failed reloading.");
-					}
-					else
-						activeChar.sendMessage("Usage : //reload quest questNumber.");
-				}
-				else if (type.startsWith("scripts"))
-				{
-					QuestManager.getInstance().reloadAllQuests();
-					activeChar.sendMessage("All scripts have been reloaded.");
-				}
 				else if (type.startsWith("skill"))
 				{
 					SkillTable.getInstance().reload();
