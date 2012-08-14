@@ -33,13 +33,13 @@
 		<property name="partitionCount">1</property>
 
 		<!-- Sets the JDBC connection URL. -->
-		<property name="jdbcUrl">(null or no default value)</property>
+		<property name="jdbcUrl">jdbc:mysql://localhost:3306/l2j</property>
 
 		<!-- Sets username to use for connections. -->
-		<property name="username">(null or no default value)</property>
+		<property name="username">root</property>
 
 		<!-- Sets password to use for connections. -->
-		<property name="password">(null or no default value)</property>
+		<property name="password">root</property>
 
 		<!-- Sets the idleConnectionTestPeriod.  This sets the time (in minutes), for a connection
 		     to remain idle before sending a test query to the DB. This is
