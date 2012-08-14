@@ -48,8 +48,6 @@ public final class Say2 extends L2GameClientPacket {
 	private final static String[] CHAT_NAMES = { "ALL", "SHOUT", "TELL", "PARTY", "CLAN", "GM", "PETITION_PLAYER", "PETITION_GM", "TRADE", "ALLIANCE", "ANNOUNCEMENT", // 10
 			"BOAT", "WILLCRASHCLIENT:)", "FAKEALL?", "PARTYMATCH_ROOM", "PARTYROOM_COMMANDER", "PARTYROOM_ALL", "HERO_VOICE" };
 
-	private static final String[] WALKER_COMMAND_LIST = { "USESKILL", "USEITEM", "BUYITEM", "SELLITEM", "SAVEITEM", "LOADITEM", "MSG", "DELAY", "LABEL", "JMP", "CALL", "RETURN", "MOVETO", "NPCSEL", "NPCDLG", "DLGSEL", "CHARSTATUS", "POSOUTRANGE", "POSINRANGE", "GOHOME", "SAY", "EXIT", "PAUSE", "STRINDLG", "STRNOTINDLG", "CHANGEWAITTYPE", "FORCEATTACK", "ISMEMBER", "REQUESTJOINPARTY", "REQUESTOUTPARTY", "QUITPARTY", "MEMBERSTATUS", "CHARBUFFS", "ITEMCOUNT", "FOLLOWTELEPORT" };
-
 	private String _text;
 	private int _type;
 	private String _target;
@@ -86,11 +84,6 @@ public final class Say2 extends L2GameClientPacket {
 		if (_text.length() >= 100)
 			return;
 
-		if (MainConfig.L2WALKER_PROTECTION && _type == TELL && checkBot(_text)) {
-			Util.handleIllegalPlayerAction(activeChar, "Client Emulator Detect: " + activeChar.getName() + " is using L2Walker.", MainConfig.DEFAULT_PUNISH);
-			return;
-		}
-
 		if (!activeChar.isGM() && _type == ANNOUNCEMENT) {
 			Util.handleIllegalPlayerAction(activeChar, activeChar.getName() + " tried to announce without GM statut.", IllegalPlayerAction.PUNISH_BROADCAST);
 			log.warn(activeChar.getName() + " tried to use announcements without GM statut.");
@@ -119,14 +112,6 @@ public final class Say2 extends L2GameClientPacket {
 						CHAT_NAMES[_type]);
 		} else
 			log.warn(activeChar.getName() + " tried to use unregistred chathandler type: " + _type + ".");
-	}
-
-	private static boolean checkBot(String text) {
-		for (String botCommand : WALKER_COMMAND_LIST) {
-			if (text.startsWith(botCommand))
-				return true;
-		}
-		return false;
 	}
 
 	private void checkText() {

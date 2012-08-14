@@ -9,18 +9,17 @@ package silentium.gameserver.data.html;
 
 import com.google.common.base.Charsets;
 import com.google.common.base.Strings;
-import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import com.google.common.io.Files;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import silentium.commons.io.filters.HtmFilter;
-import silentium.gameserver.configs.MainConfig;
-import silentium.gameserver.utils.Util;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
@@ -36,10 +35,15 @@ public final class HtmCache {
 	private static final Pattern LFCR_PATTERN = Pattern.compile("\r\n");
 	private static final int MAX_HTML_LENGTH = 8096;
 
-	private final Cache<Integer, String> cache = CacheBuilder.newBuilder()
+	private final LoadingCache<String, String> cache = CacheBuilder.newBuilder()
 			.maximumSize(5000L)
 			.expireAfterAccess(1L, TimeUnit.HOURS)
-			.build();
+			.build(new CacheLoader<String, String>() {
+				@Override
+				public String load(final String key) throws Exception {
+					return loadFile(key);
+				}
+			});
 
 	public static HtmCache getInstance() {
 		return SingletonHolder.INSTANCE;
@@ -68,13 +72,15 @@ public final class HtmCache {
 			if (file.isDirectory())
 				parseDir(file);
 			else
-				loadFile(file);
+				loadFile(file.getPath());
 		}
 	}
 
+	private String loadFile(final String path) {
+		return loadFile(new File(path));
+	}
+
 	public String loadFile(final File file) {
-		final String relpath = Util.getRelativePath(MainConfig.DATAPACK_ROOT, file);
-		final int hashcode = relpath.hashCode();
 		final StringBuilder stringBuilder = new StringBuilder(MAX_HTML_LENGTH);
 
 		try {
@@ -88,10 +94,10 @@ public final class HtmCache {
 			String content = stringBuilder.toString();
 			content = LFCR_PATTERN.matcher(content).replaceAll("\n");
 
-			cache.put(hashcode, content);
+			cache.put(file.getPath(), content);
 
 			return content;
-		} catch (Exception e) {
+		} catch (IOException e) {
 			log.warn("Problem with htm file '{}':{}", file.getName(), e.getLocalizedMessage());
 		} finally {
 			stringBuilder.setLength(0);
@@ -115,10 +121,9 @@ public final class HtmCache {
 		if (Strings.isNullOrEmpty(path))
 			return ""; // avoid possible NPE
 
-		final int hashCode = path.hashCode();
 		String content = "";
 		try {
-			content = cache.get(hashCode, new LoadFileCallable(path));
+			content = cache.get(path);
 		} catch (ExecutionException e) {
 			log.warn(e.getLocalizedMessage(), e);
 		}
@@ -127,7 +132,7 @@ public final class HtmCache {
 	}
 
 	public boolean contains(final String path) {
-		return cache.getIfPresent(path.hashCode()) != null;
+		return cache.getIfPresent(path) != null;
 	}
 
 	/**
@@ -144,18 +149,5 @@ public final class HtmCache {
 
 	private static class SingletonHolder {
 		static final HtmCache INSTANCE = new HtmCache();
-	}
-
-	private class LoadFileCallable implements Callable<String> {
-		private final String path;
-
-		LoadFileCallable(final String path) {
-			this.path = path;
-		}
-
-		@Override
-		public String call() throws Exception {
-			return loadFile(new File(MainConfig.DATAPACK_ROOT, path));
-		}
 	}
 }

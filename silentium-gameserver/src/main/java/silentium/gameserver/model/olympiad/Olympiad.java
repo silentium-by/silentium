@@ -13,8 +13,9 @@ package silentium.gameserver.model.olympiad;
 
 import gnu.trove.map.hash.TIntIntHashMap;
 import javolution.util.FastMap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import silentium.commons.database.DatabaseFactory;
-import silentium.commons.utils.L2FastList;
 import silentium.gameserver.Announcements;
 import silentium.gameserver.ThreadPoolManager;
 import silentium.gameserver.configs.EventsConfig;
@@ -29,20 +30,17 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ScheduledFuture;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-public class Olympiad
-{
+public class Olympiad {
 	protected static final Logger _log = LoggerFactory.getLogger(Olympiad.class.getName());
 
 	private static Map<Integer, StatsSet> _nobles;
-	protected static L2FastList<StatsSet> _heroesToBe;
+	protected static List<StatsSet> _heroesToBe;
 	private static final TIntIntHashMap _noblesRank = new TIntIntHashMap();
 
 	private static final String OLYMPIAD_LOAD_DATA = "SELECT current_cycle, period, olympiad_end, validation_end, next_weekly_change FROM olympiad_data WHERE id = 0";
@@ -103,31 +101,26 @@ public class Olympiad
 	protected ScheduledFuture<?> _gameManager = null;
 	protected ScheduledFuture<?> _gameAnnouncer = null;
 
-	public static Olympiad getInstance()
-	{
+	public static Olympiad getInstance() {
 		return SingletonHolder._instance;
 	}
 
-	protected Olympiad()
-	{
+	protected Olympiad() {
 		load();
 
 		if (_period == 0)
 			init();
 	}
 
-	private void load()
-	{
+	private void load() {
 		_nobles = new FastMap<>();
 
 		boolean loaded = false;
-		try (Connection con = DatabaseFactory.getConnection())
-		{
+		try (Connection con = DatabaseFactory.getConnection()) {
 			PreparedStatement statement = con.prepareStatement(OLYMPIAD_LOAD_DATA);
 			ResultSet rset = statement.executeQuery();
 
-			while (rset.next())
-			{
+			while (rset.next()) {
 				_currentCycle = rset.getInt("current_cycle");
 				_period = rset.getInt("period");
 				_olympiadEnd = rset.getLong("olympiad_end");
@@ -138,14 +131,11 @@ public class Olympiad
 
 			rset.close();
 			statement.close();
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			_log.warn("Olympiad System: Error loading olympiad data from database: ", e);
 		}
 
-		if (!loaded)
-		{
+		if (!loaded) {
 			_log.info("Olympiad System: failed to load data from database, default values are used.");
 
 			_currentCycle = 1;
@@ -155,8 +145,7 @@ public class Olympiad
 			_nextWeeklyChange = 0;
 		}
 
-		switch (_period)
-		{
+		switch (_period) {
 			case 0:
 				if (_olympiadEnd == 0 || _olympiadEnd < Calendar.getInstance().getTimeInMillis())
 					setNewOlympiadEnd();
@@ -164,13 +153,10 @@ public class Olympiad
 					scheduleWeeklyChange();
 				break;
 			case 1:
-				if (_validationEnd > Calendar.getInstance().getTimeInMillis())
-				{
+				if (_validationEnd > Calendar.getInstance().getTimeInMillis()) {
 					loadNoblesRank();
 					_scheduledValdationTask = ThreadPoolManager.getInstance().scheduleGeneral(new ValidationEndTask(), getMillisToValidationEnd());
-				}
-				else
-				{
+				} else {
 					_currentCycle++;
 					_period = 0;
 					deleteNobles();
@@ -182,14 +168,12 @@ public class Olympiad
 				return;
 		}
 
-		try (Connection con = DatabaseFactory.getConnection())
-		{
+		try (Connection con = DatabaseFactory.getConnection()) {
 			PreparedStatement statement = con.prepareStatement(OLYMPIAD_LOAD_NOBLES);
 			ResultSet rset = statement.executeQuery();
 			StatsSet statData;
 
-			while (rset.next())
-			{
+			while (rset.next()) {
 				statData = new StatsSet();
 				statData.set(CLASS_ID, rset.getInt(CLASS_ID));
 				statData.set(CHAR_NAME, rset.getString(CHAR_NAME));
@@ -205,14 +189,11 @@ public class Olympiad
 
 			rset.close();
 			statement.close();
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			_log.warn("Olympiad System: Error loading noblesse data from database: ", e);
 		}
 
-		synchronized (this)
-		{
+		synchronized (this) {
 			_log.info("Olympiad System: Loading Olympiad system....");
 			if (_period == 0)
 				_log.info("Olympiad System: Currently in Competition period.");
@@ -227,8 +208,7 @@ public class Olympiad
 
 			_log.info("Olympiad System: " + Math.round(milliToEnd / 60000) + " minutes until period ends.");
 
-			if (_period == 0)
-			{
+			if (_period == 0) {
 				milliToEnd = getMillisToWeekChange();
 				_log.info("Olympiad System: Next weekly change is in " + Math.round(milliToEnd / 60000) + " minutes.");
 			}
@@ -237,27 +217,22 @@ public class Olympiad
 		_log.info("Olympiad System: Loaded " + _nobles.size() + " nobles.");
 	}
 
-	public void loadNoblesRank()
-	{
+	public void loadNoblesRank() {
 		_noblesRank.clear();
 		TIntIntHashMap tmpPlace = new TIntIntHashMap();
 
-		try (Connection con = DatabaseFactory.getConnection())
-		{
+		try (Connection con = DatabaseFactory.getConnection()) {
 			PreparedStatement statement = con.prepareStatement(GET_ALL_CLASSIFIED_NOBLESS);
 			ResultSet rset = statement.executeQuery();
 
 			int place = 1;
-			while (rset.next())
-			{
+			while (rset.next()) {
 				tmpPlace.put(rset.getInt(CHAR_ID), place++);
 			}
 
 			rset.close();
 			statement.close();
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			_log.warn("Olympiad System: Error loading noblesse data from database for Ranking: ", e);
 		}
 
@@ -265,16 +240,14 @@ public class Olympiad
 		int rank2 = (int) Math.round(tmpPlace.size() * 0.10);
 		int rank3 = (int) Math.round(tmpPlace.size() * 0.25);
 		int rank4 = (int) Math.round(tmpPlace.size() * 0.50);
-		if (rank1 == 0)
-		{
+		if (rank1 == 0) {
 			rank1 = 1;
 			rank2++;
 			rank3++;
 			rank4++;
 		}
 
-		for (int charId : tmpPlace.keys())
-		{
+		for (int charId : tmpPlace.keys()) {
 			if (tmpPlace.get(charId) <= rank1)
 				_noblesRank.put(charId, 1);
 			else if (tmpPlace.get(charId) <= rank2)
@@ -288,8 +261,7 @@ public class Olympiad
 		}
 	}
 
-	protected void init()
-	{
+	protected void init() {
 		if (_period == 1)
 			return;
 
@@ -306,11 +278,9 @@ public class Olympiad
 		updateCompStatus();
 	}
 
-	protected class OlympiadEndTask implements Runnable
-	{
+	protected class OlympiadEndTask implements Runnable {
 		@Override
-		public void run()
-		{
+		public void run() {
 			Announcements.announceToAll(SystemMessage.getSystemMessage(SystemMessageId.OLYMPIAD_PERIOD_S1_HAS_ENDED).addNumber(_currentCycle));
 
 			if (_scheduledWeeklyTask != null)
@@ -334,11 +304,9 @@ public class Olympiad
 		}
 	}
 
-	protected class ValidationEndTask implements Runnable
-	{
+	protected class ValidationEndTask implements Runnable {
 		@Override
-		public void run()
-		{
+		public void run() {
 			_period = 0;
 			_currentCycle++;
 
@@ -348,20 +316,16 @@ public class Olympiad
 		}
 	}
 
-	protected static int getNobleCount()
-	{
+	protected static int getNobleCount() {
 		return _nobles.size();
 	}
 
-	protected static StatsSet getNobleStats(int playerId)
-	{
+	protected static StatsSet getNobleStats(int playerId) {
 		return _nobles.get(playerId);
 	}
 
-	private void updateCompStatus()
-	{
-		synchronized (this)
-		{
+	private void updateCompStatus() {
+		synchronized (this) {
 			long milliToStart = getMillisToCompBegin();
 
 			double numSecs = (milliToStart / 1000) % 60;
@@ -375,11 +339,9 @@ public class Olympiad
 			_log.info("Olympiad System: Event starts/started : " + _compStart.getTime());
 		}
 
-		_scheduledCompStart = ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
-		{
+		_scheduledCompStart = ThreadPoolManager.getInstance().scheduleGeneral(new Runnable() {
 			@Override
-			public void run()
-			{
+			public void run() {
 				if (isOlympiadEnd())
 					return;
 
@@ -393,23 +355,18 @@ public class Olympiad
 					_gameAnnouncer = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new OlympiadAnnouncer(), 30000, 500);
 
 				long regEnd = getMillisToCompEnd() - 600000;
-				if (regEnd > 0)
-				{
-					ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
-					{
+				if (regEnd > 0) {
+					ThreadPoolManager.getInstance().scheduleGeneral(new Runnable() {
 						@Override
-						public void run()
-						{
+						public void run() {
 							Announcements.announceToAll(SystemMessage.getSystemMessage(SystemMessageId.OLYMPIAD_REGISTRATION_PERIOD_ENDED));
 						}
 					}, regEnd);
 				}
 
-				_scheduledCompEnd = ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
-				{
+				_scheduledCompEnd = ThreadPoolManager.getInstance().scheduleGeneral(new Runnable() {
 					@Override
-					public void run()
-					{
+					public void run() {
 						if (isOlympiadEnd())
 							return;
 
@@ -420,23 +377,18 @@ public class Olympiad
 						while (OlympiadGameManager.getInstance().isBattleStarted()) // cleared in game manager
 						{
 							// wait 1 minutes for end of pendings games
-							try
-							{
+							try {
 								Thread.sleep(60000);
-							}
-							catch (InterruptedException e)
-							{
+							} catch (InterruptedException e) {
 							}
 						}
 
-						if (_gameManager != null)
-						{
+						if (_gameManager != null) {
 							_gameManager.cancel(false);
 							_gameManager = null;
 						}
 
-						if (_gameAnnouncer != null)
-						{
+						if (_gameAnnouncer != null) {
 							_gameAnnouncer.cancel(false);
 							_gameAnnouncer = null;
 						}
@@ -450,34 +402,29 @@ public class Olympiad
 		}, getMillisToCompBegin());
 	}
 
-	private long getMillisToOlympiadEnd()
-	{
+	private long getMillisToOlympiadEnd() {
 		return (_olympiadEnd - Calendar.getInstance().getTimeInMillis());
 	}
 
-	public void manualSelectHeroes()
-	{
+	public void manualSelectHeroes() {
 		if (_scheduledOlympiadEnd != null)
 			_scheduledOlympiadEnd.cancel(true);
 
 		_scheduledOlympiadEnd = ThreadPoolManager.getInstance().scheduleGeneral(new OlympiadEndTask(), 0);
 	}
 
-	protected long getMillisToValidationEnd()
-	{
+	protected long getMillisToValidationEnd() {
 		if (_validationEnd > Calendar.getInstance().getTimeInMillis())
 			return (_validationEnd - Calendar.getInstance().getTimeInMillis());
 
 		return 10L;
 	}
 
-	public boolean isOlympiadEnd()
-	{
+	public boolean isOlympiadEnd() {
 		return (_period != 0);
 	}
 
-	protected void setNewOlympiadEnd()
-	{
+	protected void setNewOlympiadEnd() {
 		Announcements.announceToAll(SystemMessage.getSystemMessage(SystemMessageId.OLYMPIAD_PERIOD_S1_HAS_STARTED).addNumber(_currentCycle));
 
 		Calendar currentTime = Calendar.getInstance();
@@ -494,13 +441,11 @@ public class Olympiad
 		scheduleWeeklyChange();
 	}
 
-	public boolean inCompPeriod()
-	{
+	public boolean inCompPeriod() {
 		return _inCompPeriod;
 	}
 
-	private long getMillisToCompBegin()
-	{
+	private long getMillisToCompBegin() {
 		if (_compStart.getTimeInMillis() < Calendar.getInstance().getTimeInMillis() && _compEnd > Calendar.getInstance().getTimeInMillis())
 			return 10L;
 
@@ -510,8 +455,7 @@ public class Olympiad
 		return setNewCompBegin();
 	}
 
-	private long setNewCompBegin()
-	{
+	private long setNewCompBegin() {
 		_compStart = Calendar.getInstance();
 		_compStart.set(Calendar.HOUR_OF_DAY, COMP_START);
 		_compStart.set(Calendar.MINUTE, COMP_MIN);
@@ -523,26 +467,21 @@ public class Olympiad
 		return (_compStart.getTimeInMillis() - Calendar.getInstance().getTimeInMillis());
 	}
 
-	protected long getMillisToCompEnd()
-	{
+	protected long getMillisToCompEnd() {
 		return (_compEnd - Calendar.getInstance().getTimeInMillis());
 	}
 
-	private long getMillisToWeekChange()
-	{
+	private long getMillisToWeekChange() {
 		if (_nextWeeklyChange > Calendar.getInstance().getTimeInMillis())
 			return (_nextWeeklyChange - Calendar.getInstance().getTimeInMillis());
 
 		return 10L;
 	}
 
-	private void scheduleWeeklyChange()
-	{
-		_scheduledWeeklyTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new Runnable()
-		{
+	private void scheduleWeeklyChange() {
+		_scheduledWeeklyTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new Runnable() {
 			@Override
-			public void run()
-			{
+			public void run() {
 				addWeeklyPoints();
 				_log.info("Olympiad System: Added weekly points to nobles.");
 
@@ -552,43 +491,36 @@ public class Olympiad
 		}, getMillisToWeekChange(), WEEKLY_PERIOD);
 	}
 
-	protected synchronized void addWeeklyPoints()
-	{
+	protected synchronized void addWeeklyPoints() {
 		if (_period == 1)
 			return;
 
 		int currentPoints;
-		for (StatsSet nobleInfo : _nobles.values())
-		{
+		for (StatsSet nobleInfo : _nobles.values()) {
 			currentPoints = nobleInfo.getInteger(POINTS);
 			currentPoints += WEEKLY_POINTS;
 			nobleInfo.set(POINTS, currentPoints);
 		}
 	}
 
-	public int getCurrentCycle()
-	{
+	public int getCurrentCycle() {
 		return _currentCycle;
 	}
 
-	public boolean playerInStadia(L2PcInstance player)
-	{
+	public boolean playerInStadia(L2PcInstance player) {
 		return ZoneManager.getOlympiadStadium(player) != null;
 	}
 
 	/**
 	 * Save noblesse data to database
 	 */
-	protected synchronized void saveNobleData()
-	{
+	protected synchronized void saveNobleData() {
 		if (_nobles == null || _nobles.isEmpty())
 			return;
 
-		try (Connection con = DatabaseFactory.getConnection())
-		{
+		try (Connection con = DatabaseFactory.getConnection()) {
 			PreparedStatement statement;
-			for (int nobleId : _nobles.keySet())
-			{
+			for (int nobleId : _nobles.keySet()) {
 				StatsSet nobleInfo = _nobles.get(nobleId);
 
 				if (nobleInfo == null)
@@ -603,8 +535,7 @@ public class Olympiad
 				int compDrawn = nobleInfo.getInteger(COMP_DRAWN);
 				boolean toSave = nobleInfo.getBool("to_save");
 
-				if (toSave)
-				{
+				if (toSave) {
 					statement = con.prepareStatement(OLYMPIAD_SAVE_NOBLES);
 					statement.setInt(1, charId);
 					statement.setInt(2, classId);
@@ -615,9 +546,7 @@ public class Olympiad
 					statement.setInt(7, compDrawn);
 
 					nobleInfo.set("to_save", false);
-				}
-				else
-				{
+				} else {
 					statement = con.prepareStatement(OLYMPIAD_UPDATE_NOBLES);
 					statement.setInt(1, points);
 					statement.setInt(2, compDone);
@@ -629,9 +558,7 @@ public class Olympiad
 				statement.execute();
 				statement.close();
 			}
-		}
-		catch (SQLException e)
-		{
+		} catch (SQLException e) {
 			_log.error("Olympiad System: Failed to save noblesse data to database: ", e);
 		}
 	}
@@ -639,12 +566,10 @@ public class Olympiad
 	/**
 	 * Save current olympiad status and update noblesse table in database
 	 */
-	public void saveOlympiadStatus()
-	{
+	public void saveOlympiadStatus() {
 		saveNobleData();
 
-		try (Connection con = DatabaseFactory.getConnection())
-		{
+		try (Connection con = DatabaseFactory.getConnection()) {
 			final PreparedStatement statement = con.prepareStatement(OLYMPIAD_SAVE_DATA);
 
 			statement.setInt(1, _currentCycle);
@@ -660,60 +585,48 @@ public class Olympiad
 
 			statement.execute();
 			statement.close();
-		}
-		catch (SQLException e)
-		{
+		} catch (SQLException e) {
 			_log.error("Olympiad System: Failed to save olympiad data to database: ", e);
 		}
 	}
 
-	protected void updateMonthlyData()
-	{
-		try (Connection con = DatabaseFactory.getConnection())
-		{
+	protected void updateMonthlyData() {
+		try (Connection con = DatabaseFactory.getConnection()) {
 			PreparedStatement statement = con.prepareStatement(OLYMPIAD_MONTH_CLEAR);
 			statement.execute();
 			statement.close();
 			statement = con.prepareStatement(OLYMPIAD_MONTH_CREATE);
 			statement.execute();
 			statement.close();
-		}
-		catch (SQLException e)
-		{
+		} catch (SQLException e) {
 			_log.error("Olympiad System: Failed to update monthly noblese data: ", e);
 		}
 	}
 
-	protected void sortHerosToBe()
-	{
+	protected void sortHerosToBe() {
 		if (_period != 1)
 			return;
 
-		if (_nobles != null)
-		{
-			for (Integer nobleId : _nobles.keySet())
-			{
+		if (_nobles != null) {
+			for (Integer nobleId : _nobles.keySet()) {
 				StatsSet nobleInfo = _nobles.get(nobleId);
 				if (nobleInfo == null)
 					continue;
 			}
 		}
 
-		_heroesToBe = new L2FastList<>();
+		_heroesToBe = new ArrayList<>();
 
-		try (Connection con = DatabaseFactory.getConnection())
-		{
+		try (Connection con = DatabaseFactory.getConnection()) {
 			PreparedStatement statement = con.prepareStatement(OLYMPIAD_GET_HEROS);
 			ResultSet rset;
 			StatsSet hero;
-			for (int element : HERO_IDS)
-			{
+			for (int element : HERO_IDS) {
 				statement.setInt(1, element);
 				rset = statement.executeQuery();
 				statement.clearParameters();
 
-				if (rset.next())
-				{
+				if (rset.next()) {
 					hero = new StatsSet();
 					hero.set(CLASS_ID, element);
 					hero.set(CHAR_ID, rset.getInt(CHAR_ID));
@@ -724,38 +637,30 @@ public class Olympiad
 				rset.close();
 			}
 			statement.close();
-		}
-		catch (SQLException e)
-		{
+		} catch (SQLException e) {
 			_log.warn("Olympiad System: Couldnt load heros from DB");
 		}
 	}
 
-	public L2FastList<String> getClassLeaderBoard(int classId)
-	{
-		final L2FastList<String> names = new L2FastList<>();
-		try (Connection con = DatabaseFactory.getConnection())
-		{
+	public List<String> getClassLeaderBoard(int classId) {
+		final List<String> names = new ArrayList<>();
+		try (Connection con = DatabaseFactory.getConnection()) {
 			final PreparedStatement statement = con.prepareStatement(GET_EACH_CLASS_LEADER);
 
 			statement.setInt(1, classId);
 			final ResultSet rset = statement.executeQuery();
-			while (rset.next())
-			{
+			while (rset.next()) {
 				names.add(rset.getString(CHAR_NAME));
 			}
 			statement.close();
 			rset.close();
-		}
-		catch (SQLException e)
-		{
+		} catch (SQLException e) {
 			_log.warn("Olympiad System: Couldn't load olympiad leaders from DB!");
 		}
 		return names;
 	}
 
-	public int getNoblessePasses(L2PcInstance player, boolean clear)
-	{
+	public int getNoblessePasses(L2PcInstance player, boolean clear) {
 		if ((player == null) || (_period != 1) || _noblesRank.isEmpty())
 			return 0;
 
@@ -769,8 +674,7 @@ public class Olympiad
 
 		final int rank = _noblesRank.get(objId);
 		int points = (player.isHero() ? EventsConfig.ALT_OLY_HERO_POINTS : 0);
-		switch (rank)
-		{
+		switch (rank) {
 			case 1:
 				points += EventsConfig.ALT_OLY_RANK1_POINTS;
 				break;
@@ -794,19 +698,16 @@ public class Olympiad
 		return points;
 	}
 
-	public int getNoblePoints(int objId)
-	{
+	public int getNoblePoints(int objId) {
 		if ((_nobles == null) || !_nobles.containsKey(objId))
 			return 0;
 
 		return _nobles.get(objId).getInteger(POINTS);
 	}
 
-	public int getLastNobleOlympiadPoints(int objId)
-	{
+	public int getLastNobleOlympiadPoints(int objId) {
 		int result = 0;
-		try (Connection con = DatabaseFactory.getConnection())
-		{
+		try (Connection con = DatabaseFactory.getConnection()) {
 			final PreparedStatement statement = con.prepareStatement("SELECT olympiad_points FROM olympiad_nobles_eom WHERE char_id = ?");
 			statement.setInt(1, objId);
 			final ResultSet rs = statement.executeQuery();
@@ -814,67 +715,54 @@ public class Olympiad
 				result = rs.getInt(1);
 			rs.close();
 			statement.close();
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			_log.warn("Could not load last olympiad points:", e);
 		}
 		return result;
 	}
 
-	public int getCompetitionDone(int objId)
-	{
+	public int getCompetitionDone(int objId) {
 		if ((_nobles == null) || !_nobles.containsKey(objId))
 			return 0;
 
 		return _nobles.get(objId).getInteger(COMP_DONE);
 	}
 
-	public int getCompetitionWon(int objId)
-	{
+	public int getCompetitionWon(int objId) {
 		if ((_nobles == null) || !_nobles.containsKey(objId))
 			return 0;
 
 		return _nobles.get(objId).getInteger(COMP_WON);
 	}
 
-	public int getCompetitionLost(int objId)
-	{
+	public int getCompetitionLost(int objId) {
 		if ((_nobles == null) || !_nobles.containsKey(objId))
 			return 0;
 
 		return _nobles.get(objId).getInteger(COMP_LOST);
 	}
 
-	protected void deleteNobles()
-	{
-		try (Connection con = DatabaseFactory.getConnection())
-		{
+	protected void deleteNobles() {
+		try (Connection con = DatabaseFactory.getConnection()) {
 			final PreparedStatement statement = con.prepareStatement(OLYMPIAD_DELETE_ALL);
 			statement.execute();
 			statement.close();
-		}
-		catch (SQLException e)
-		{
+		} catch (SQLException e) {
 			_log.warn("Olympiad System: Couldn't delete nobles from DB!");
 		}
 		_nobles.clear();
 	}
 
 	/**
-	 * @param charId
-	 *            the noble object Id.
-	 * @param data
-	 *            the stats set data to add.
+	 * @param charId the noble object Id.
+	 * @param data   the stats set data to add.
 	 * @return the old stats set if the noble is already present, null otherwise.
 	 */
-	protected static StatsSet addNobleStats(int charId, StatsSet data)
-	{
+	protected static StatsSet addNobleStats(int charId, StatsSet data) {
 		return _nobles.put(Integer.valueOf(charId), data);
 	}
 
-	private static class SingletonHolder
-	{
+	private static class SingletonHolder {
 		protected static final Olympiad _instance = new Olympiad();
 	}
 }
