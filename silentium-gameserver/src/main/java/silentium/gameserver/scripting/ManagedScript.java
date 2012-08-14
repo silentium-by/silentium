@@ -7,60 +7,51 @@
  */
 package silentium.gameserver.scripting;
 
-import java.io.File;
-
 /**
  * Abstract class for classes that are meant to be implemented by scripts.<BR>
  *
  * @author KenM
  */
-public abstract class ManagedScript
-{
-	private final File _scriptFile;
+public abstract class ManagedScript {
+	private final Class<? extends ScriptFile> _scriptFile;
 	private long _lastLoadTime;
 	private boolean _isActive;
 
-	public ManagedScript()
-	{
+	public ManagedScript() {
 		_scriptFile = L2ScriptEngineManager.getInstance().getCurrentLoadingScript();
 		setLastLoadTime(System.currentTimeMillis());
 	}
 
-	public void setActive(boolean status)
-	{
+	public void setActive(boolean status) {
 		_isActive = status;
 	}
 
-	public boolean isActive()
-	{
+	public boolean isActive() {
 		return _isActive;
 	}
 
 	/**
 	 * @return Returns the scriptFile.
 	 */
-	public File getScriptFile()
-	{
+	public Class<? extends ScriptFile> getScriptFile() {
 		return _scriptFile;
 	}
 
 	/**
-	 * @param lastLoadTime
-	 *            The lastLoadTime to set.
+	 * @param lastLoadTime The lastLoadTime to set.
 	 */
-	protected void setLastLoadTime(long lastLoadTime)
-	{
+	protected void setLastLoadTime(long lastLoadTime) {
 		_lastLoadTime = lastLoadTime;
 	}
 
 	/**
 	 * @return Returns the lastLoadTime.
 	 */
-	protected long getLastLoadTime()
-	{
+	protected long getLastLoadTime() {
 		return _lastLoadTime;
 	}
 
 	public abstract String getScriptName();
+
 	public abstract ScriptManager<?> getScriptManager();
 }
