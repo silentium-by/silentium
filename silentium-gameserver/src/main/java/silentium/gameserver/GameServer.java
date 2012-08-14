@@ -190,7 +190,6 @@ public class GameServer {
 		MonsterRace.getInstance();
 
 		Util.printSection("Handlers");
-		HandlerRegisterManager.registerHandlers();
 		_log.info("AutoSpawnHandler: Loaded " + AutoSpawnHandler.getInstance().size() + " handlers.");
 		_log.info("AutoChatHandler: Loaded " + AutoChatHandler.getInstance().size() + " handlers.");
 		_log.info("AdminCommandHandler: Loaded " + AdminCommandHandler.getInstance().size() + " handlers.");

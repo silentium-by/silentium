@@ -16,6 +16,8 @@ import org.reflections.util.ConfigurationBuilder;
 import org.reflections.util.FilterBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import silentium.gameserver.ai.DefaultMonsterAI;
+import silentium.gameserver.handler.*;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineFactory;
@@ -36,12 +38,10 @@ import static org.reflections.ReflectionUtils.withName;
  *
  * @author KenM
  */
-public final class L2ScriptEngineManager
-{
+public final class L2ScriptEngineManager {
 	private static final Logger _log = LoggerFactory.getLogger(L2ScriptEngineManager.class.getName());
 
-	public static L2ScriptEngineManager getInstance()
-	{
+	public static L2ScriptEngineManager getInstance() {
 		return SingletonHolder._instance;
 	}
 
@@ -51,41 +51,21 @@ public final class L2ScriptEngineManager
 
 	private File _currentLoadingScript;
 
-	// Configs
-	// TODO move to config file
-	/**
-	 * Informs(logs) the scripts being loaded.<BR>
-	 * Apply only when executing script from files.<BR>
-	 */
-	private final boolean VERBOSE_LOADING = false;
-
-	/**
-	 * Clean an previous error log(if such exists) for the script being loaded before trying to load.<BR>
-	 * Apply only when executing script from files.<BR>
-	 */
-	private final boolean PURGE_ERROR_LOG = true;
-
-	protected L2ScriptEngineManager()
-	{
+	protected L2ScriptEngineManager() {
 		ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
 		List<ScriptEngineFactory> factories = scriptEngineManager.getEngineFactories();
 
-		for (ScriptEngineFactory factory : factories)
-		{
-			try
-			{
+		for (ScriptEngineFactory factory : factories) {
+			try {
 				ScriptEngine engine = factory.getScriptEngine();
-				for (String name : factory.getNames())
-				{
+				for (String name : factory.getNames()) {
 					ScriptEngine existentEngine = _nameEngines.get(name);
 
-					if (existentEngine != null)
-					{
+					if (existentEngine != null) {
 						double engineVer = Double.parseDouble(factory.getEngineVersion());
 						double existentEngVer = Double.parseDouble(existentEngine.getFactory().getEngineVersion());
 
-						if (engineVer <= existentEngVer)
-						{
+						if (engineVer <= existentEngVer) {
 							continue;
 						}
 					}
@@ -93,34 +73,27 @@ public final class L2ScriptEngineManager
 					_nameEngines.put(name, engine);
 				}
 
-				for (String ext : factory.getExtensions())
-				{
-					if (!ext.equals("java") || factory.getLanguageName().equals("java"))
-					{
+				for (String ext : factory.getExtensions()) {
+					if (!ext.equals("java") || factory.getLanguageName().equals("java")) {
 						_extEngines.put(ext, engine);
 					}
 				}
-			}
-			catch (Exception e)
-			{
+			} catch (Exception e) {
 				_log.warn("Failed initializing factory. ");
 				e.printStackTrace();
 			}
 		}
 	}
 
-	private ScriptEngine getEngineByName(String name)
-	{
+	private ScriptEngine getEngineByName(String name) {
 		return _nameEngines.get(name);
 	}
 
-	private ScriptEngine getEngineByExtension(String ext)
-	{
+	private ScriptEngine getEngineByExtension(String ext) {
 		return _extEngines.get(ext);
 	}
 
-	public void initializeScripts()
-	{
+	public void initializeScripts() {
 		final Reflections reflections = new Reflections(new ConfigurationBuilder()
 				.setUrls(ClasspathHelper.forPackage("silentium.scripts"))
 				.filterInputsBy(new FilterBuilder().exclude("silentium.scripts.handlers"))
@@ -133,52 +106,80 @@ public final class L2ScriptEngineManager
 
 		final String[] stringArray = { "tatanka rules." };
 
+		DefaultMonsterAI.main(stringArray);
+
 		// TODO нормально обрабатывать ошибки.
-		for (final Method main : mainMethods)
-		{
+		for (final Method main : mainMethods) {
 			try {
 				main.invoke(null, (Object) stringArray);
 			} catch (IllegalAccessException | InvocationTargetException e) {
 				_log.warn("Script can't be initialized.");
 			}
 		}
+
+		registerHandlers();
 	}
 
-	public void registerScriptManager(ScriptManager<?> manager)
-	{
+	public static void registerHandlers() {
+		try {
+			Reflections reflections = new Reflections("silentium.scripts.handlers.admin");
+			for (Class<? extends IAdminCommandHandler> handler : reflections.getSubTypesOf(IAdminCommandHandler.class))
+				AdminCommandHandler.getInstance().registerAdminCommandHandler(handler.newInstance());
+
+			reflections = new Reflections("silentium.scripts.handlers.chat");
+			for (Class<? extends IChatHandler> chatHandler : reflections.getSubTypesOf(IChatHandler.class))
+				ChatHandler.getInstance().registerChatHandler(chatHandler.newInstance());
+
+			reflections = new Reflections("silentium.scripts.handlers.item");
+			for (Class<? extends IItemHandler> itemHandler : reflections.getSubTypesOf(IItemHandler.class))
+				ItemHandler.getInstance().registerItemHandler(itemHandler.newInstance());
+
+			reflections = new Reflections("silentium.scripts.handlers.skill");
+			for (Class<? extends ISkillHandler> skillHandler : reflections.getSubTypesOf(ISkillHandler.class))
+				SkillHandler.getInstance().registerSkillHandler(skillHandler.newInstance());
+
+			reflections = new Reflections("silentium.scripts.handlers.user");
+			for (Class<? extends IUserCommandHandler> userCommandHandler : reflections.getSubTypesOf
+					(IUserCommandHandler.class))
+				UserCommandHandler.getInstance().registerUserCommandHandler(userCommandHandler.newInstance());
+
+			reflections = new Reflections("silentium.scripts.handlers.voiced");
+			for (Class<? extends IVoicedCommandHandler> voicedCommandHandler : reflections.getSubTypesOf
+					(IVoicedCommandHandler.class))
+				VoicedCommandHandler.getInstance().registerHandler(voicedCommandHandler.newInstance());
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void registerScriptManager(ScriptManager<?> manager) {
 		_scriptManagers.add(manager);
 	}
 
-	public void removeScriptManager(ScriptManager<?> manager)
-	{
+	public void removeScriptManager(ScriptManager<?> manager) {
 		_scriptManagers.remove(manager);
 	}
 
-	public List<ScriptManager<?>> getScriptManagers()
-	{
+	public List<ScriptManager<?>> getScriptManagers() {
 		return _scriptManagers;
 
 	}
 
 	/**
-	 * @param currentLoadingScript
-	 *            The currentLoadingScript to set.
+	 * @param currentLoadingScript The currentLoadingScript to set.
 	 */
-	protected void setCurrentLoadingScript(File currentLoadingScript)
-	{
+	protected void setCurrentLoadingScript(File currentLoadingScript) {
 		_currentLoadingScript = currentLoadingScript;
 	}
 
 	/**
 	 * @return Returns the currentLoadingScript.
 	 */
-	protected File getCurrentLoadingScript()
-	{
+	protected File getCurrentLoadingScript() {
 		return _currentLoadingScript;
 	}
 
-	private static class SingletonHolder
-	{
+	private static class SingletonHolder {
 		protected static final L2ScriptEngineManager _instance = new L2ScriptEngineManager();
 	}
 }
