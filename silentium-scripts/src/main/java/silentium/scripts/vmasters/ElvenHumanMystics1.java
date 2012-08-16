@@ -9,32 +9,27 @@ package silentium.scripts.vmasters;
 
 import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class ElvenHumanMystics1 extends OccupationEngine
-{
-	public ElvenHumanMystics1(int id, String name, String descr)
-	{
+public class ElvenHumanMystics1 extends OccupationEngine implements ScriptFile {
+	public ElvenHumanMystics1(int id, String name, String descr) {
 		super(id, name, descr);
 
-		for (int i : new int[] { 30070, 30289, 30037 })
-		{
+		for (int i : new int[] { 30070, 30289, 30037 }) {
 			addStartNpc(i);
 			addTalkId(i);
 		}
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new ElvenHumanMystics1(-1, "ElvenHumanMystics1", "vmasters");
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		if (player.isSubClassActive())
 			return null;
-		if (player.getRace().ordinal() == 0 || player.getRace().ordinal() == 1)
-		{
+		if (player.getRace().ordinal() == 0 || player.getRace().ordinal() == 1) {
 			if (player.getClassId().level() == 1) // first occupation change already made
 				return npc.getNpcId() + "-31.htm";
 			else if (player.getClassId().level() >= 2) // second/third occupation change already made
@@ -45,8 +40,7 @@ public class ElvenHumanMystics1 extends OccupationEngine
 				return npc.getNpcId() + "-08.htm";
 			else
 				return npc.getNpcId() + "-33.htm"; // mages
-		}
-		else
+		} else
 			return npc.getNpcId() + "-33.htm"; // other races
 	}
 }

@@ -11,20 +11,19 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
 /**
  * The onKill section of that quest is directly written on Q611.
  */
-public class Q612_WarWithKetraOrcs extends Quest
-{
+public class Q612_WarWithKetraOrcs extends Quest implements ScriptFile {
 	private final static String qn = "Q612_WarWithKetraOrcs";
 
 	// Items
 	private static final int Seed = 7187;
 	private static final int Molar = 7234;
 
-	public Q612_WarWithKetraOrcs(int questId, String name, String descr)
-	{
+	public Q612_WarWithKetraOrcs(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { Molar };
@@ -33,46 +32,34 @@ public class Q612_WarWithKetraOrcs extends Quest
 		addTalkId(31377);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q612_WarWithKetraOrcs(612, "Q612_WarWithKetraOrcs", "War with Ketra Orcs");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("31377-03.htm"))
-		{
-			if (player.getLevel() >= 74 && player.getAllianceWithVarkaKetra() <= -1)
-			{
+		if (event.equalsIgnoreCase("31377-03.htm")) {
+			if (player.getLevel() >= 74 && player.getAllianceWithVarkaKetra() <= -1) {
 				st.set("cond", "1");
 				st.setState(QuestState.STARTED);
 				st.playSound(QuestState.SOUND_ACCEPT);
-			}
-			else
-			{
+			} else {
 				htmltext = "31377-02.htm";
 				st.exitQuest(true);
 			}
-		}
-		else if (event.equalsIgnoreCase("31377-07.htm"))
-		{
-			if (st.getQuestItemsCount(Molar) >= 100)
-			{
+		} else if (event.equalsIgnoreCase("31377-07.htm")) {
+			if (st.getQuestItemsCount(Molar) >= 100) {
 				st.takeItems(Molar, 100);
 				st.giveItems(Seed, 20);
 				st.playSound(QuestState.SOUND_ITEMGET);
-			}
-			else
+			} else
 				htmltext = "31377-08.htm";
-		}
-		else if (event.equalsIgnoreCase("31377-09.htm"))
-		{
+		} else if (event.equalsIgnoreCase("31377-09.htm")) {
 			st.takeItems(Molar, -1);
 			st.exitQuest(true);
 		}
@@ -81,15 +68,13 @@ public class Q612_WarWithKetraOrcs extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		String htmltext = Quest.getNoQuestMsg();
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				htmltext = "31377-01.htm";
 				break;

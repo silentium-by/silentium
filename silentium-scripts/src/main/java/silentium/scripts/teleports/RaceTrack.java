@@ -7,20 +7,21 @@
  */
 package silentium.scripts.teleports;
 
-import java.util.Map;
-
 import javolution.util.FastMap;
 import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.model.quest.State;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class RaceTrack extends Quest
-{
+import java.util.Map;
+
+public class RaceTrack extends Quest implements ScriptFile {
 	private final static int RACE_MANAGER = 30995;
 
 	private final static Map<Integer, Integer> data = new FastMap<>();
+
 	{
 		data.put(30320, 1); // RICHLIN
 		data.put(30256, 2); // BELLA
@@ -38,17 +39,15 @@ public class RaceTrack extends Quest
 
 	private final static int[][] RETURN_LOCS = { { -80826, 149775, -3043 }, { -12672, 122776, -3116 }, { 15670, 142983, -2705 }, { 83400, 147943, -3404 },
 
-	{ 111409, 219364, -3545 }, { 82956, 53162, -1495 }, { 146331, 25762, -2018 }, { 116819, 76994, -2714 },
+			{ 111409, 219364, -3545 }, { 82956, 53162, -1495 }, { 146331, 25762, -2018 }, { 116819, 76994, -2714 },
 
-	{ 43835, -47749, -792 }, { 147930, -55281, -2728 }, { 87386, -143246, -1293 }, { 12882, 181053, -3560 } };
+			{ 43835, -47749, -792 }, { 147930, -55281, -2728 }, { 87386, -143246, -1293 }, { 12882, 181053, -3560 } };
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new RaceTrack(-1, "RaceTrack", "teleports");
 	}
 
-	public RaceTrack(int questId, String name, String descr)
-	{
+	public RaceTrack(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		addStartNpc(30320, 30256, 30059, 30080, 30899, 30177, 30848, 30233, 31320, 31275, 31964, 31210);
@@ -56,18 +55,14 @@ public class RaceTrack extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		QuestState st = player.getQuestState(getName());
 		int npcId = npc.getNpcId();
-		if (data.containsKey(npcId))
-		{
+		if (data.containsKey(npcId)) {
 			player.teleToLocation(12661, 181687, -3560);
 			st.setState(State.STARTED);
 			st.set("id", String.valueOf(data.get(npcId)));
-		}
-		else if (st.isStarted() && npcId == RACE_MANAGER)
-		{
+		} else if (st.isStarted() && npcId == RACE_MANAGER) {
 			// back to start location
 			int return_id = st.getInt("id") - 1;
 			player.teleToLocation(RETURN_LOCS[return_id][0], RETURN_LOCS[return_id][1], RETURN_LOCS[return_id][2]);

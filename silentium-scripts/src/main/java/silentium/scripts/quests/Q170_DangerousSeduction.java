@@ -11,9 +11,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q170_DangerousSeduction extends Quest
-{
+public class Q170_DangerousSeduction extends Quest implements ScriptFile {
 	private final static String qn = "Q170_DangerousSeduction";
 
 	// Item
@@ -25,8 +25,7 @@ public class Q170_DangerousSeduction extends Quest
 	// Mob
 	private static final int MERKENIS = 27022;
 
-	public Q170_DangerousSeduction(int questId, String name, String descr)
-	{
+	public Q170_DangerousSeduction(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { NIGHTMARE_CRYSTAL };
@@ -37,21 +36,18 @@ public class Q170_DangerousSeduction extends Quest
 		addKillId(MERKENIS);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q170_DangerousSeduction(170, "Q170_DangerousSeduction", "Dangerous Seduction");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30305-04.htm"))
-		{
+		if (event.equalsIgnoreCase("30305-04.htm")) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
@@ -61,43 +57,35 @@ public class Q170_DangerousSeduction extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		String htmltext = Quest.getNoQuestMsg();
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
-				if (player.getRace().ordinal() == 2)
-				{
+				if (player.getRace().ordinal() == 2) {
 					if (player.getLevel() >= 21 && player.getLevel() <= 26)
 						htmltext = "30305-03.htm";
-					else
-					{
+					else {
 						htmltext = "30305-02.htm";
 						st.exitQuest(true);
 					}
-				}
-				else
-				{
+				} else {
 					htmltext = "30305-00.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				if (st.getQuestItemsCount(NIGHTMARE_CRYSTAL) > 0)
-				{
+				if (st.getQuestItemsCount(NIGHTMARE_CRYSTAL) > 0) {
 					htmltext = "30305-06.htm";
 					st.takeItems(NIGHTMARE_CRYSTAL, -1);
 					st.rewardItems(57, 102680);
 					st.playSound(QuestState.SOUND_FINISH);
 					st.exitQuest(false);
-				}
-				else
+				} else
 					htmltext = "30305-05.htm";
 				break;
 
@@ -110,14 +98,12 @@ public class Q170_DangerousSeduction extends Quest
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 
-		if (st.getInt("cond") == 1)
-		{
+		if (st.getInt("cond") == 1) {
 			st.set("cond", "2");
 			st.giveItems(NIGHTMARE_CRYSTAL, 1);
 			st.playSound(QuestState.SOUND_MIDDLE);

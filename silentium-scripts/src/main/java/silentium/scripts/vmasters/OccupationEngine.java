@@ -7,19 +7,18 @@
  */
 package silentium.scripts.vmasters;
 
-import java.util.HashMap;
-
 import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class OccupationEngine extends Quest
-{
+import java.util.HashMap;
+
+public class OccupationEngine extends Quest implements ScriptFile {
 	public HashMap<String, Classes> classList = new HashMap<String, Classes>();
 
-	public OccupationEngine(int questId, String name, String descr)
-	{
+	public OccupationEngine(int questId, String name, String descr) {
 		super(questId, name, descr);
 		classList.put("1", new Classes(1, 0, 0, "26", "27", "28", "29", new int[] { 1145 }, true));
 		classList.put("11", new Classes(11, 10, 0, "23", "24", "25", "26", new int[] { 1292 }, true));
@@ -68,20 +67,17 @@ public class OccupationEngine extends Quest
 		classList.put("9", new Classes(9, 7, 0, "56", "57", "58", "59", new int[] { 2673, 2734, 3293 }, false));
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new OccupationEngine(-1, "OccupationEngine", "vmasters");
 	}
 
-	public class Classes
-	{
+	public class Classes {
 		public int newClass, reqClass, reqRace;
 		public String low_ni, low_i, ok_ni, ok_i;
 		public int[] reqItems;
 		public boolean first;
 
-		public Classes(int _newClass, int _reqClass, int _reqRace, String _low_ni, String _low_i, String _ok_ni, String _ok_i, int[] _reqItems, boolean _first)
-		{
+		public Classes(int _newClass, int _reqClass, int _reqRace, String _low_ni, String _low_i, String _ok_ni, String _ok_i, int[] _reqItems, boolean _first) {
 			newClass = _newClass;
 			reqClass = _reqClass;
 			reqRace = _reqRace;
@@ -95,36 +91,28 @@ public class OccupationEngine extends Quest
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		QuestState st = player.getQuestState(getName());
 		if (event.endsWith(".htm"))
 			return event;
 		String htmltext = getNoQuestMsg();
 		String suffix = "";
-		if (classList.containsKey(event))
-		{
+		if (classList.containsKey(event)) {
 			Classes val = classList.get(event);
-			if (player.getRace().ordinal() == val.reqRace && player.getClassId().getId() == val.reqClass)
-			{
+			if (player.getRace().ordinal() == val.reqRace && player.getClassId().getId() == val.reqClass) {
 				boolean item = true;
-				for (int i : val.reqItems)
-				{
+				for (int i : val.reqItems) {
 					if (player.getItemsCount(i) == 0)
 						item = false;
 				}
-				if ((player.getLevel() < 40 && !val.first) || (player.getLevel() < 20 && val.first))
-				{
+				if ((player.getLevel() < 40 && !val.first) || (player.getLevel() < 20 && val.first)) {
 					suffix = val.low_i;
 					if (!item)
 						suffix = val.low_ni;
-				}
-				else
-				{
+				} else {
 					if (!item)
 						suffix = val.ok_ni;
-					else
-					{
+					else {
 						suffix = val.ok_i;
 						if (val.first)
 							st.giveItems(8869, 15);
@@ -154,8 +142,7 @@ public class OccupationEngine extends Quest
 		return htmltext;
 	}
 
-	public static void change(L2PcInstance player, int newclass, int[] items)
-	{
+	public static void change(L2PcInstance player, int newclass, int[] items) {
 		for (int item : items)
 			player.takeItems(item, 1);
 		player.setClassId(newclass);

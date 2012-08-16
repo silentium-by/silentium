@@ -11,9 +11,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q432_BirthdayPartySong extends Quest
-{
+public class Q432_BirthdayPartySong extends Quest implements ScriptFile {
 	private static final String qn = "Q432_BirthdayPartySong";
 
 	// NPC
@@ -22,8 +22,7 @@ public class Q432_BirthdayPartySong extends Quest
 	// Item
 	private static final int RED_CRYSTAL = 7541;
 
-	public Q432_BirthdayPartySong(int questId, String name, String descr)
-	{
+	public Q432_BirthdayPartySong(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { RED_CRYSTAL };
@@ -34,29 +33,23 @@ public class Q432_BirthdayPartySong extends Quest
 		addKillId(21103);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q432_BirthdayPartySong(432, "Q432_BirthdayPartySong", "Birthday Party Song");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("31043-02.htm"))
-		{
+		if (event.equalsIgnoreCase("31043-02.htm")) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("31043-06.htm"))
-		{
-			if (st.getQuestItemsCount(RED_CRYSTAL) == 50)
-			{
+		} else if (event.equalsIgnoreCase("31043-06.htm")) {
+			if (st.getQuestItemsCount(RED_CRYSTAL) == 50) {
 				htmltext = "31043-05.htm";
 				st.takeItems(RED_CRYSTAL, -1);
 				st.rewardItems(7061, 25);
@@ -69,20 +62,17 @@ public class Q432_BirthdayPartySong extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 31 && player.getLevel() <= 36)
 					htmltext = "31043-01.htm";
-				else
-				{
+				else {
 					htmltext = "31043-00.htm";
 					st.exitQuest(true);
 				}
@@ -100,8 +90,7 @@ public class Q432_BirthdayPartySong extends Quest
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
 		L2PcInstance partyMember = getRandomPartyMember(player, npc, "1");
 		if (partyMember == null)
 			return null;

@@ -168,8 +168,8 @@ public class DefaultMonsterAI extends Quest {
 		return null;
 	}
 
-	public static void main(String[] args) {
-		DefaultMonsterAI ai = new DefaultMonsterAI(-1, "DefaultMonsterAI", "DefaultMonsterAI");
+	public static void initialize() {
+		final DefaultMonsterAI ai = new DefaultMonsterAI(-1, "DefaultMonsterAI", "DefaultMonsterAI");
 
 		// register all mobs here...
 		for (int level = 1; level < 100; level++) {
@@ -177,12 +177,12 @@ public class DefaultMonsterAI extends Quest {
 			for (L2NpcTemplate t : templates) {
 				try {
 					if (L2Attackable.class.isAssignableFrom(Class.forName("silentium.gameserver.model.actor.instance." + t.getType() + "Instance"))) {
-						ai.addEventId(t.getNpcId(), Quest.QuestEventType.ON_ATTACK);
-						ai.addEventId(t.getNpcId(), Quest.QuestEventType.ON_KILL);
-						ai.addEventId(t.getNpcId(), Quest.QuestEventType.ON_SPAWN);
-						ai.addEventId(t.getNpcId(), Quest.QuestEventType.ON_SKILL_SEE);
-						ai.addEventId(t.getNpcId(), Quest.QuestEventType.ON_FACTION_CALL);
-						ai.addEventId(t.getNpcId(), Quest.QuestEventType.ON_AGGRO_RANGE_ENTER);
+						ai.addEventId(t.getNpcId(), QuestEventType.ON_ATTACK);
+						ai.addEventId(t.getNpcId(), QuestEventType.ON_KILL);
+						ai.addEventId(t.getNpcId(), QuestEventType.ON_SPAWN);
+						ai.addEventId(t.getNpcId(), QuestEventType.ON_SKILL_SEE);
+						ai.addEventId(t.getNpcId(), QuestEventType.ON_FACTION_CALL);
+						ai.addEventId(t.getNpcId(), QuestEventType.ON_AGGRO_RANGE_ENTER);
 					}
 				} catch (ClassNotFoundException ex) {
 					_log.info("Class not found: " + t.getType() + "Instance");

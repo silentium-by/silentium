@@ -12,8 +12,7 @@ import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 
-public class Q023_LidiasHeart extends Quest
-{
+public class Q023_LidiasHeart extends Quest {
 	private final static String qn = "Q023_LidiasHeart";
 
 	// NPCs
@@ -34,8 +33,7 @@ public class Q023_LidiasHeart extends Quest
 	private static final int LidiaDiary = 7064;
 	private static final int SilverSpear = 7150;
 
-	public Q023_LidiasHeart(int questId, String name, String descr)
-	{
+	public Q023_LidiasHeart(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { MapForestofDeadman, SilverKey, LidiaDiary, SilverSpear };
@@ -44,111 +42,78 @@ public class Q023_LidiasHeart extends Quest
 		addTalkId(Innocentin, BrokenBookshelf, GhostofvonHellmann, Violet, Box, Tombstone);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void main(String[] args) {
 		new Q023_LidiasHeart(23, "Q023_LidiasHeart", "Lidia's Heart");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("31328-02.htm"))
-		{
+		if (event.equalsIgnoreCase("31328-02.htm")) {
 			st.set("cond", "1");
 			st.playSound(QuestState.SOUND_ACCEPT);
 			st.setState(QuestState.STARTED);
 
 			st.giveItems(MapForestofDeadman, 1);
 			st.giveItems(SilverKey, 1);
-		}
-		else if (event.equalsIgnoreCase("31328-06.htm"))
-		{
+		} else if (event.equalsIgnoreCase("31328-06.htm")) {
 			st.set("cond", "2");
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("31526-05.htm"))
-		{
-			if (st.getQuestItemsCount(LidiaHairPin) == 0)
-			{
+		} else if (event.equalsIgnoreCase("31526-05.htm")) {
+			if (st.getQuestItemsCount(LidiaHairPin) == 0) {
 				st.giveItems(LidiaHairPin, 1);
-				if (st.getQuestItemsCount(LidiaDiary) >= 1)
-				{
+				if (st.getQuestItemsCount(LidiaDiary) >= 1) {
 					st.set("cond", "4");
 					st.playSound(QuestState.SOUND_MIDDLE);
-				}
-				else
+				} else
 					st.playSound(QuestState.SOUND_ITEMGET);
 			}
-		}
-		else if (event.equalsIgnoreCase("31526-11.htm"))
-		{
-			if (st.getQuestItemsCount(LidiaDiary) == 0)
-			{
+		} else if (event.equalsIgnoreCase("31526-11.htm")) {
+			if (st.getQuestItemsCount(LidiaDiary) == 0) {
 				st.giveItems(LidiaDiary, 1);
-				if (st.getQuestItemsCount(LidiaHairPin) >= 1)
-				{
+				if (st.getQuestItemsCount(LidiaHairPin) >= 1) {
 					st.set("cond", "4");
 					st.playSound(QuestState.SOUND_MIDDLE);
-				}
-				else
+				} else
 					st.playSound(QuestState.SOUND_ITEMGET);
 			}
-		}
-		else if (event.equalsIgnoreCase("31328-11.htm"))
-		{
-			if (st.getInt("cond") < 5)
-			{
+		} else if (event.equalsIgnoreCase("31328-11.htm")) {
+			if (st.getInt("cond") < 5) {
 				st.set("cond", "5");
 				st.playSound(QuestState.SOUND_MIDDLE);
 			}
-		}
-		else if (event.equalsIgnoreCase("31328-19.htm"))
-		{
+		} else if (event.equalsIgnoreCase("31328-19.htm")) {
 			st.set("cond", "6");
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("31524-04.htm"))
-		{
+		} else if (event.equalsIgnoreCase("31524-04.htm")) {
 			st.set("cond", "7");
 			st.playSound(QuestState.SOUND_MIDDLE);
 			st.takeItems(LidiaDiary, -1);
-		}
-		else if (event.equalsIgnoreCase("31523-02.htm"))
-		{
-			if (ghost == null)
-			{
+		} else if (event.equalsIgnoreCase("31523-02.htm")) {
+			if (ghost == null) {
 				ghost = st.addSpawn(31524, 51432, -54570, -3136, 60000);
 				ghost.broadcastNpcSay("Who awoke me?");
 				st.startQuestTimer("ghost_cleanup", 58000);
 			}
-		}
-		else if (event.equalsIgnoreCase("31523-05.htm"))
-		{
+		} else if (event.equalsIgnoreCase("31523-05.htm")) {
 			// Don't launch twice the same task...
 			if (st.getQuestTimer("tomb_digger") == null)
 				st.startQuestTimer("tomb_digger", 10000);
-		}
-		else if (event.equalsIgnoreCase("tomb_digger"))
-		{
+		} else if (event.equalsIgnoreCase("tomb_digger")) {
 			st.set("cond", "8");
 			htmltext = "31523-06.htm";
 			st.playSound(QuestState.SOUND_MIDDLE);
 			st.giveItems(SilverKey, 1);
-		}
-		else if (event.equalsIgnoreCase("31530-02.htm"))
-		{
+		} else if (event.equalsIgnoreCase("31530-02.htm")) {
 			st.set("cond", "10");
 			st.playSound(QuestState.SOUND_MIDDLE);
 			st.takeItems(SilverKey, -1);
 			st.giveItems(SilverSpear, 1);
-		}
-		else if (event.equalsIgnoreCase("ghost_cleanup"))
-		{
+		} else if (event.equalsIgnoreCase("ghost_cleanup")) {
 			ghost = null;
 			return null;
 		}
@@ -156,29 +121,23 @@ public class Q023_LidiasHeart extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		String htmltext = Quest.getNoQuestMsg();
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				QuestState st2 = player.getQuestState("Q022_TragedyInVonHellmannForest");
-				if (st2 != null && st2.isCompleted())
-				{
+				if (st2 != null && st2.isCompleted()) {
 					if (player.getLevel() >= 64)
 						htmltext = "31328-01.htm";
-					else
-					{
+					else {
 						htmltext = "31328-00a.htm";
 						st.exitQuest(true);
 					}
-				}
-				else
-				{
+				} else {
 					htmltext = "31328-00.htm";
 					st.exitQuest(true);
 				}
@@ -186,8 +145,7 @@ public class Q023_LidiasHeart extends Quest
 
 			case QuestState.STARTED:
 				int cond = st.getInt("cond");
-				switch (npc.getNpcId())
-				{
+				switch (npc.getNpcId()) {
 					case Innocentin:
 						if (cond == 1)
 							htmltext = "31328-03.htm";
@@ -200,22 +158,18 @@ public class Q023_LidiasHeart extends Quest
 						break;
 
 					case BrokenBookshelf:
-						if (cond == 2)
-						{
+						if (cond == 2) {
 							htmltext = "31526-00.htm";
 							st.set("cond", "3");
 							st.playSound(QuestState.SOUND_MIDDLE);
-						}
-						else if (cond == 3)
-						{
+						} else if (cond == 3) {
 							if (st.getQuestItemsCount(LidiaHairPin) == 0 && st.getQuestItemsCount(LidiaDiary) == 0)
 								htmltext = "31526-02.htm";
 							else if (st.getQuestItemsCount(LidiaHairPin) != 0 && st.getQuestItemsCount(LidiaDiary) == 0)
 								htmltext = "31526-06.htm";
 							else if (st.getQuestItemsCount(LidiaHairPin) == 0 && st.getQuestItemsCount(LidiaDiary) != 0)
 								htmltext = "31526-12.htm";
-						}
-						else if (cond >= 4)
+						} else if (cond >= 4)
 							htmltext = "31526-13.htm";
 						break;
 
@@ -227,40 +181,32 @@ public class Q023_LidiasHeart extends Quest
 						break;
 
 					case Tombstone:
-						if (cond == 6)
-						{
+						if (cond == 6) {
 							if (ghost != null)
 								htmltext = "31523-03.htm";
 							else
 								htmltext = "31523-01.htm";
-						}
-						else if (cond == 7)
+						} else if (cond == 7)
 							htmltext = "31523-04.htm";
 						else if (cond >= 8)
 							htmltext = "31523-06.htm";
 						break;
 
 					case Violet:
-						if (cond == 8)
-						{
+						if (cond == 8) {
 							st.set("cond", "9");
 							htmltext = "31386-01.htm";
 							st.playSound(QuestState.SOUND_MIDDLE);
-						}
-						else if (cond == 9)
+						} else if (cond == 9)
 							htmltext = "31386-02.htm";
-						else if (cond == 10)
-						{
-							if (st.getQuestItemsCount(SilverSpear) > 0)
-							{
+						else if (cond == 10) {
+							if (st.getQuestItemsCount(SilverSpear) > 0) {
 								htmltext = "31386-03.htm";
 								st.takeItems(SilverSpear, -1);
 								st.rewardItems(57, 100000);
 								st.exitQuest(false);
 								st.playSound(QuestState.SOUND_FINISH);
-							}
-							else
-							{
+							} else {
 								st.set("cond", "9");
 								htmltext = "31386-02.htm";
 							}

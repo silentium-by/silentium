@@ -13,9 +13,9 @@ import silentium.gameserver.model.itemcontainer.Inventory;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.network.serverpackets.SocialAction;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q403_PathToARogue extends Quest
-{
+public class Q403_PathToARogue extends Quest implements ScriptFile {
 	private static final String qn = "Q403_PathToARogue";
 
 	// Items
@@ -35,8 +35,7 @@ public class Q403_PathToARogue extends Quest
 	private static final int Bezique = 30379;
 	private static final int Neti = 30425;
 
-	public Q403_PathToARogue(int questId, String name, String descr)
-	{
+	public Q403_PathToARogue(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { Letter, Bones, Horseshoe, Bill, StolenJewelry, StolenTomes, StolenRing, StolenNecklace, NetisBow, NetisDagger };
@@ -47,57 +46,41 @@ public class Q403_PathToARogue extends Quest
 		addKillId(20035, 20042, 20045, 20051, 20054, 20060, 27038);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q403_PathToARogue(403, "Q403_PathToARogue", "Path to a Rogue");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30379-05.htm"))
-		{
-			if (player.getClassId().getId() == 0x00)
-			{
-				if (player.getLevel() >= 19)
-				{
-					if (st.getQuestItemsCount(Recommendation) == 1)
-					{
+		if (event.equalsIgnoreCase("30379-05.htm")) {
+			if (player.getClassId().getId() == 0x00) {
+				if (player.getLevel() >= 19) {
+					if (st.getQuestItemsCount(Recommendation) == 1) {
 						htmltext = "30379-04.htm";
 						st.exitQuest(true);
 					}
-				}
-				else
-				{
+				} else {
 					htmltext = "30379-02.htm";
 					st.exitQuest(true);
 				}
-			}
-			else if (player.getClassId().getId() == 0x07)
-			{
+			} else if (player.getClassId().getId() == 0x07) {
 				htmltext = "30379-02a.htm";
 				st.exitQuest(true);
-			}
-			else
-			{
+			} else {
 				htmltext = "30379-02.htm";
 				st.exitQuest(true);
 			}
-		}
-		else if (event.equalsIgnoreCase("30379-06.htm"))
-		{
+		} else if (event.equalsIgnoreCase("30379-06.htm")) {
 			st.setState(QuestState.STARTED);
 			st.set("cond", "1");
 			st.giveItems(Letter, 1);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("30425-05.htm"))
-		{
+		} else if (event.equalsIgnoreCase("30425-05.htm")) {
 			st.set("cond", "2");
 			st.giveItems(NetisBow, 1);
 			st.giveItems(NetisDagger, 1);
@@ -108,40 +91,34 @@ public class Q403_PathToARogue extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		String htmltext = getNoQuestMsg();
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				htmltext = "30379-01.htm";
 				break;
 
 			case QuestState.STARTED:
 				int cond = st.getInt("cond");
-				switch (npc.getNpcId())
-				{
+				switch (npc.getNpcId()) {
 					case Bezique:
 						if (cond == 1)
 							htmltext = "30379-07.htm";
 						else if (cond == 2 || cond == 3)
 							htmltext = "30379-10.htm";
-						else if (cond == 4)
-						{
+						else if (cond == 4) {
 							st.set("cond", "5");
 							htmltext = "30379-08.htm";
 							st.takeItems(Horseshoe, 1);
 							st.giveItems(Bill, 1);
 							st.playSound(QuestState.SOUND_MIDDLE);
-						}
-						else if (cond == 5)
+						} else if (cond == 5)
 							htmltext = "30379-11.htm";
-						else if (cond == 6)
-						{
+						else if (cond == 6) {
 							htmltext = "30379-09.htm";
 							st.takeItems(StolenRing, 1);
 							st.takeItems(StolenNecklace, 1);
@@ -164,15 +141,13 @@ public class Q403_PathToARogue extends Quest
 							htmltext = "30425-01.htm";
 						else if (cond == 2)
 							htmltext = "30425-06.htm";
-						else if (cond == 3)
-						{
+						else if (cond == 3) {
 							st.set("cond", "4");
 							htmltext = "30425-07.htm";
 							st.playSound(QuestState.SOUND_MIDDLE);
 							st.takeItems(Bones, 10);
 							st.giveItems(Horseshoe, 1);
-						}
-						else if (cond >= 4)
+						} else if (cond >= 4)
 							htmltext = "30425-08.htm";
 						break;
 				}
@@ -182,14 +157,12 @@ public class Q403_PathToARogue extends Quest
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
 		QuestState st = player.getQuestState(qn);
 		if (st == null || !st.isStarted())
 			return null;
 
-		switch (npc.getNpcId())
-		{
+		switch (npc.getNpcId()) {
 			case 20035:
 			case 20042:
 			case 20045:
@@ -202,25 +175,17 @@ public class Q403_PathToARogue extends Quest
 				break;
 
 			case 27038:
-				if (st.getInt("cond") == 5 && (st.getItemEquipped(Inventory.PAPERDOLL_RHAND) == NetisBow || st.getItemEquipped(Inventory.PAPERDOLL_RHAND) == NetisDagger))
-				{
-					if (st.getQuestItemsCount(StolenRing) == 0)
-					{
+				if (st.getInt("cond") == 5 && (st.getItemEquipped(Inventory.PAPERDOLL_RHAND) == NetisBow || st.getItemEquipped(Inventory.PAPERDOLL_RHAND) == NetisDagger)) {
+					if (st.getQuestItemsCount(StolenRing) == 0) {
 						st.giveItems(StolenRing, 1);
 						st.playSound(QuestState.SOUND_ITEMGET);
-					}
-					else if (st.getQuestItemsCount(StolenRing) == 1 && st.getQuestItemsCount(StolenNecklace) == 0)
-					{
+					} else if (st.getQuestItemsCount(StolenRing) == 1 && st.getQuestItemsCount(StolenNecklace) == 0) {
 						st.giveItems(StolenNecklace, 1);
 						st.playSound(QuestState.SOUND_ITEMGET);
-					}
-					else if (st.getQuestItemsCount(StolenRing) == 1 && st.getQuestItemsCount(StolenNecklace) == 1 && st.getQuestItemsCount(StolenTomes) == 0)
-					{
+					} else if (st.getQuestItemsCount(StolenRing) == 1 && st.getQuestItemsCount(StolenNecklace) == 1 && st.getQuestItemsCount(StolenTomes) == 0) {
 						st.giveItems(StolenTomes, 1);
 						st.playSound(QuestState.SOUND_ITEMGET);
-					}
-					else if (st.getQuestItemsCount(StolenRing) == 1 && st.getQuestItemsCount(StolenNecklace) == 1 && st.getQuestItemsCount(StolenTomes) == 1 && st.getQuestItemsCount(StolenJewelry) == 0)
-					{
+					} else if (st.getQuestItemsCount(StolenRing) == 1 && st.getQuestItemsCount(StolenNecklace) == 1 && st.getQuestItemsCount(StolenTomes) == 1 && st.getQuestItemsCount(StolenJewelry) == 0) {
 						st.set("cond", "6");
 						st.giveItems(StolenJewelry, 1);
 						st.playSound(QuestState.SOUND_MIDDLE);

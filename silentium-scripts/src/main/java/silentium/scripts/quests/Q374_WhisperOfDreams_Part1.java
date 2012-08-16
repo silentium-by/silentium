@@ -12,9 +12,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q374_WhisperOfDreams_Part1 extends Quest
-{
+public class Q374_WhisperOfDreams_Part1 extends Quest implements ScriptFile {
 	private static final String qn = "Q374_WhisperOfDreams_Part1";
 
 	private static final String condition = "condStone";
@@ -39,11 +39,10 @@ public class Q374_WhisperOfDreams_Part1 extends Quest
 			{ 5488, 2, 18050 }, // Majestic, 2x, 18050 adena
 			{ 5485, 4, 10450 }, // Tallum Tunic, 4, 10450 adena
 			{ 5489, 6, 15550 }
-	// Tallum Stockings, 6, 15550 adena
+			// Tallum Stockings, 6, 15550 adena
 	};
 
-	public Q374_WhisperOfDreams_Part1(int questId, String name, String descr)
-	{
+	public Q374_WhisperOfDreams_Part1(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { DEATH_WAVE_LIGHT, CAVE_BEAST_TOOTH, SEALED_MYSTERIOUS_STONE, MYSTERIOUS_STONE };
@@ -54,31 +53,25 @@ public class Q374_WhisperOfDreams_Part1 extends Quest
 		addKillId(CAVE_BEAST, DEATH_WAVE);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q374_WhisperOfDreams_Part1(374, "Q374_WhisperOfDreams_Part1", "Whisper of Dreams, Part 1");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
 		// Manakia
-		if (event.equalsIgnoreCase("30515-03.htm"))
-		{
+		if (event.equalsIgnoreCase("30515-03.htm")) {
 			st.set("cond", "1");
 			st.set(condition, "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.startsWith("30515-06-"))
-		{
-			if (st.getQuestItemsCount(CAVE_BEAST_TOOTH) >= 65 && st.getQuestItemsCount(DEATH_WAVE_LIGHT) >= 65)
-			{
+		} else if (event.startsWith("30515-06-")) {
+			if (st.getQuestItemsCount(CAVE_BEAST_TOOTH) >= 65 && st.getQuestItemsCount(DEATH_WAVE_LIGHT) >= 65) {
 				htmltext = "30515-06.htm";
 				int[] reward = REWARDS[Integer.parseInt(event.substring(9, 10))];
 
@@ -89,72 +82,56 @@ public class Q374_WhisperOfDreams_Part1 extends Quest
 				st.giveItems(reward[0], reward[1]);
 
 				st.playSound(QuestState.SOUND_MIDDLE);
-			}
-			else
+			} else
 				htmltext = "30515-07.htm";
-		}
-		else if (event.equalsIgnoreCase("30515-08.htm"))
-		{
+		} else if (event.equalsIgnoreCase("30515-08.htm")) {
 			st.playSound(QuestState.SOUND_FINISH);
 			st.exitQuest(true);
 		}
 		// Torai
-		else if (event.equalsIgnoreCase("30557-02.htm"))
-		{
-			if (st.getInt("cond") == 2 && st.hasQuestItems(SEALED_MYSTERIOUS_STONE))
-			{
+		else if (event.equalsIgnoreCase("30557-02.htm")) {
+			if (st.getInt("cond") == 2 && st.hasQuestItems(SEALED_MYSTERIOUS_STONE)) {
 				st.set("cond", "3");
 				st.takeItems(SEALED_MYSTERIOUS_STONE, -1);
 				st.giveItems(MYSTERIOUS_STONE, 1);
 				st.playSound(QuestState.SOUND_MIDDLE);
-			}
-			else
+			} else
 				htmltext = "30557-03.htm";
 		}
 		return htmltext;
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		String htmltext = getNoQuestMsg();
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
-				if (player.getLevel() < 56 || player.getLevel() > 66)
-				{
+				if (player.getLevel() < 56 || player.getLevel() > 66) {
 					st.exitQuest(true);
 					htmltext = "30515-01.htm";
-				}
-				else
+				} else
 					htmltext = "30515-02.htm";
 				break;
 
 			case QuestState.STARTED:
 				int cond = st.getInt("cond");
-				switch (npc.getNpcId())
-				{
+				switch (npc.getNpcId()) {
 					case MANAKIA:
-						if (!(st.hasQuestItems(SEALED_MYSTERIOUS_STONE)))
-						{
+						if (!(st.hasQuestItems(SEALED_MYSTERIOUS_STONE))) {
 							if (st.getQuestItemsCount(CAVE_BEAST_TOOTH) >= 65 && st.getQuestItemsCount(DEATH_WAVE_LIGHT) >= 65)
 								htmltext = "30515-05.htm";
 							else
 								htmltext = "30515-04.htm";
-						}
-						else
-						{
-							if (cond == 1)
-							{
+						} else {
+							if (cond == 1) {
 								st.set("cond", "2");
 								st.playSound(QuestState.SOUND_MIDDLE);
 								htmltext = "30515-09.htm";
-							}
-							else
+							} else
 								htmltext = "30515-10.htm";
 						}
 						break;
@@ -171,8 +148,7 @@ public class Q374_WhisperOfDreams_Part1 extends Quest
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
 		// Drop tooth or light to anyone.
 		L2PcInstance partyMember = getRandomPartyMemberState(player, npc, QuestState.STARTED);
 		if (partyMember == null)
@@ -180,8 +156,7 @@ public class Q374_WhisperOfDreams_Part1 extends Quest
 
 		QuestState st = partyMember.getQuestState(qn);
 
-		switch (npc.getNpcId())
-		{
+		switch (npc.getNpcId()) {
 			case CAVE_BEAST:
 				st.dropQuestItems(CAVE_BEAST_TOOTH, 1, 65, 200000);
 				break;
@@ -198,8 +173,7 @@ public class Q374_WhisperOfDreams_Part1 extends Quest
 
 		st = partyMember.getQuestState(qn);
 
-		if (Rnd.get(1000000) < 4000)
-		{
+		if (Rnd.get(1000000) < 4000) {
 			st.unset(condition);
 			st.giveItems(SEALED_MYSTERIOUS_STONE, 1);
 			st.playSound(QuestState.SOUND_ITEMGET);

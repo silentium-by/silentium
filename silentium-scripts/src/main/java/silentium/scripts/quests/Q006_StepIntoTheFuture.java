@@ -11,9 +11,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q006_StepIntoTheFuture extends Quest
-{
+public class Q006_StepIntoTheFuture extends Quest implements ScriptFile {
 	private static final String qn = "Q006_StepIntoTheFuture";
 
 	// NPCs
@@ -28,8 +28,7 @@ public class Q006_StepIntoTheFuture extends Quest
 	private final static int MARK_TRAVELER = 7570;
 	private final static int SCROLL_GIRAN = 7559;
 
-	public Q006_StepIntoTheFuture(int questId, String name, String descr)
-	{
+	public Q006_StepIntoTheFuture(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { BAULRO_LETTER };
@@ -38,39 +37,30 @@ public class Q006_StepIntoTheFuture extends Quest
 		addTalkId(ROXXY, BAULRO, SIR_COLLIN);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q006_StepIntoTheFuture(6, "Q006_StepIntoTheFuture", "Step into the Future");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30006-03.htm"))
-		{
+		if (event.equalsIgnoreCase("30006-03.htm")) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("30033-02.htm"))
-		{
+		} else if (event.equalsIgnoreCase("30033-02.htm")) {
 			st.set("cond", "2");
 			st.giveItems(BAULRO_LETTER, 1);
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("30311-02.htm"))
-		{
+		} else if (event.equalsIgnoreCase("30311-02.htm")) {
 			st.set("cond", "3");
 			st.takeItems(BAULRO_LETTER, 1);
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("30006-06.htm"))
-		{
+		} else if (event.equalsIgnoreCase("30006-06.htm")) {
 			st.giveItems(MARK_TRAVELER, 1);
 			st.rewardItems(SCROLL_GIRAN, 1);
 			st.playSound(QuestState.SOUND_FINISH);
@@ -81,25 +71,20 @@ public class Q006_StepIntoTheFuture extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
-				if (player.getRace().ordinal() != 0)
-				{
+				if (player.getRace().ordinal() != 0) {
 					htmltext = "30006-01.htm";
 					st.exitQuest(true);
-				}
-				else if (player.getLevel() >= 3 && player.getLevel() <= 10)
+				} else if (player.getLevel() >= 3 && player.getLevel() <= 10)
 					htmltext = "30006-02.htm";
-				else
-				{
+				else {
 					htmltext = "30006-01.htm";
 					st.exitQuest(true);
 				}
@@ -107,8 +92,7 @@ public class Q006_StepIntoTheFuture extends Quest
 
 			case QuestState.STARTED:
 				int cond = st.getInt("cond");
-				switch (npc.getNpcId())
-				{
+				switch (npc.getNpcId()) {
 					case ROXXY:
 						if (cond == 1 || cond == 2)
 							htmltext = "30006-04.htm";

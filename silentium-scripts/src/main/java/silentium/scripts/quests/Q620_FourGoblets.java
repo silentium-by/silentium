@@ -7,18 +7,18 @@
  */
 package silentium.scripts.quests;
 
-import java.util.Arrays;
-
 import silentium.commons.utils.Rnd;
 import silentium.gameserver.instancemanager.FourSepulchersManager;
 import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 import silentium.gameserver.utils.Util;
 
-public class Q620_FourGoblets extends Quest
-{
+import java.util.Arrays;
+
+public class Q620_FourGoblets extends Quest implements ScriptFile {
 	private static final String qn = "Q620_FourGoblets";
 
 	// NPCs
@@ -45,8 +45,7 @@ public class Q620_FourGoblets extends Quest
 	private static int ANTIQUE_BROOCH = 7262;
 	private static int[] RCP_REWARDS = new int[] { 6881, 6883, 6885, 6887, 6891, 6893, 6895, 6897, 6899, 7580 };
 
-	public Q620_FourGoblets(int questId, String name, String descr)
-	{
+	public Q620_FourGoblets(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { SEALED_BOX, GRAVE_PASS, 7256, 7257, 7258, 7259 };
@@ -73,63 +72,47 @@ public class Q620_FourGoblets extends Quest
 			addKillId(id);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q620_FourGoblets(620, "Q620_FourGoblets", "Four Goblets");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
 		int cond = st.getInt("cond");
-		if (event.equalsIgnoreCase("Enter"))
-		{
+		if (event.equalsIgnoreCase("Enter")) {
 			FourSepulchersManager.getInstance().tryEntry(npc, player);
 			return null;
-		}
-		else if (event.equalsIgnoreCase("accept"))
-		{
-			if (cond == 0)
-			{
-				if (st.getPlayer().getLevel() >= 74)
-				{
+		} else if (event.equalsIgnoreCase("accept")) {
+			if (cond == 0) {
+				if (st.getPlayer().getLevel() >= 74) {
 					st.setState(QuestState.STARTED);
 					st.playSound(QuestState.SOUND_ACCEPT);
 					htmltext = "31453-13.htm";
 					st.set("cond", "1");
-				}
-				else
-				{
+				} else {
 					htmltext = "31453-12.htm";
 					st.exitQuest(true);
 				}
 			}
-		}
-		else if (event.equalsIgnoreCase("11"))
-		{
-			if (st.getQuestItemsCount(SEALED_BOX) >= 1)
-			{
+		} else if (event.equalsIgnoreCase("11")) {
+			if (st.getQuestItemsCount(SEALED_BOX) >= 1) {
 				htmltext = "31454-13.htm";
 				st.takeItems(SEALED_BOX, 1);
 
-				if (!calculateBoxReward(st))
-				{
+				if (!calculateBoxReward(st)) {
 					if (Rnd.get(2) == 0)
 						htmltext = "31454-14.htm";
 					else
 						htmltext = "31454-15.htm";
 				}
 			}
-		}
-		else if (event.equalsIgnoreCase("12"))
-		{
-			if (st.getQuestItemsCount(GOBLETS[0]) >= 1 && st.getQuestItemsCount(GOBLETS[1]) >= 1 && st.getQuestItemsCount(GOBLETS[2]) >= 1 && st.getQuestItemsCount(GOBLETS[3]) >= 1)
-			{
+		} else if (event.equalsIgnoreCase("12")) {
+			if (st.getQuestItemsCount(GOBLETS[0]) >= 1 && st.getQuestItemsCount(GOBLETS[1]) >= 1 && st.getQuestItemsCount(GOBLETS[2]) >= 1 && st.getQuestItemsCount(GOBLETS[3]) >= 1) {
 				st.takeItems(GOBLETS[0], -1);
 				st.takeItems(GOBLETS[1], -1);
 				st.takeItems(GOBLETS[2], -1);
@@ -138,103 +121,77 @@ public class Q620_FourGoblets extends Quest
 				st.set("cond", "2");
 				st.playSound(QuestState.SOUND_FINISH);
 				htmltext = "31453-16.htm";
-			}
-			else
+			} else
 				htmltext = "31453-14.htm";
-		}
-		else if (event.equalsIgnoreCase("31453-18.htm"))
-		{
+		} else if (event.equalsIgnoreCase("31453-18.htm")) {
 			st.playSound(QuestState.SOUND_FINISH);
 			st.exitQuest(true);
-		}
-		else if (event.equalsIgnoreCase("14"))
-		{
+		} else if (event.equalsIgnoreCase("14")) {
 			htmltext = "31453-13.htm";
 
 			if (cond == 2)
 				htmltext = "31453-19.htm";
 		}
 		// Ghost Chamberlain of Elmoreden: Teleport to 4th sepulcher
-		else if (event.equalsIgnoreCase("15"))
-		{
-			if (st.getQuestItemsCount(ANTIQUE_BROOCH) >= 1)
-			{
+		else if (event.equalsIgnoreCase("15")) {
+			if (st.getQuestItemsCount(ANTIQUE_BROOCH) >= 1) {
 				st.getPlayer().teleToLocation(178298, -84574, -7216);
 				htmltext = null;
-			}
-			else if (st.getQuestItemsCount(GRAVE_PASS) >= 1)
-			{
+			} else if (st.getQuestItemsCount(GRAVE_PASS) >= 1) {
 				st.takeItems(GRAVE_PASS, 1);
 				st.getPlayer().teleToLocation(178298, -84574, -7216);
 				htmltext = null;
-			}
-			else
+			} else
 				htmltext = npc.getNpcId() + "-0.htm";
 		}
 		// Ghost Chamberlain of Elmoreden: Teleport to Imperial Tomb entrance
-		else if (event.equalsIgnoreCase("16"))
-		{
-			if (st.getQuestItemsCount(ANTIQUE_BROOCH) >= 1)
-			{
+		else if (event.equalsIgnoreCase("16")) {
+			if (st.getQuestItemsCount(ANTIQUE_BROOCH) >= 1) {
 				st.getPlayer().teleToLocation(186942, -75602, -2834);
 				htmltext = null;
-			}
-			else if (st.getQuestItemsCount(GRAVE_PASS) >= 1)
-			{
+			} else if (st.getQuestItemsCount(GRAVE_PASS) >= 1) {
 				st.takeItems(GRAVE_PASS, 1);
 				st.getPlayer().teleToLocation(186942, -75602, -2834);
 				htmltext = null;
-			}
-			else
+			} else
 				htmltext = npc.getNpcId() + "-0.htm";
 		}
 		// Teleport to Pilgrims Temple
-		else if (event.equalsIgnoreCase("17"))
-		{
+		else if (event.equalsIgnoreCase("17")) {
 			if (st.getQuestItemsCount(ANTIQUE_BROOCH) >= 1)
 				st.getPlayer().teleToLocation(169590, -90218, -2914);
-			else
-			{
+			else {
 				st.takeItems(GRAVE_PASS, 1);
 				st.getPlayer().teleToLocation(169590, -90218, -2914);
 			}
 			htmltext = "31452-6.htm";
-		}
-		else if (event.equalsIgnoreCase("18"))
-		{
+		} else if (event.equalsIgnoreCase("18")) {
 			if (st.getQuestItemsCount(GOBLETS[0]) + st.getQuestItemsCount(GOBLETS[1]) + st.getQuestItemsCount(GOBLETS[2]) + st.getQuestItemsCount(GOBLETS[3]) < 3)
 				htmltext = "31452-3.htm";
 			else if (st.getQuestItemsCount(GOBLETS[0]) + st.getQuestItemsCount(GOBLETS[1]) + st.getQuestItemsCount(GOBLETS[2]) + st.getQuestItemsCount(GOBLETS[3]) == 3)
 				htmltext = "31452-4.htm";
 			else if (st.getQuestItemsCount(GOBLETS[0]) + st.getQuestItemsCount(GOBLETS[1]) + st.getQuestItemsCount(GOBLETS[2]) + st.getQuestItemsCount(GOBLETS[3]) >= 4)
 				htmltext = "31452-5.htm";
-		}
-		else if (event.equalsIgnoreCase("19"))
-		{
-			if (st.getQuestItemsCount(SEALED_BOX) >= 1)
-			{
+		} else if (event.equalsIgnoreCase("19")) {
+			if (st.getQuestItemsCount(SEALED_BOX) >= 1) {
 				htmltext = "31919-3.htm";
 				st.takeItems(SEALED_BOX, 1);
 
-				if (!calculateBoxReward(st))
-				{
+				if (!calculateBoxReward(st)) {
 					if (Rnd.get(2) == 0)
 						htmltext = "31919-4.htm";
 					else
 						htmltext = "31919-5.htm";
 				}
-			}
-			else
+			} else
 				htmltext = "31919-6.htm";
 		}
 		// If event is a simple digit, parse it to get an integer form, then test the reward list
-		else if (Util.isDigit(event))
-		{
+		else if (Util.isDigit(event)) {
 			int id = Integer.parseInt(event);
 			Arrays.sort(RCP_REWARDS);
 
-			if (Arrays.binarySearch(RCP_REWARDS, id) > 0)
-			{
+			if (Arrays.binarySearch(RCP_REWARDS, id) > 0) {
 				st.takeItems(RELIC, 1000);
 				st.giveItems(id, 1);
 				return "31454-17.htm";
@@ -244,8 +201,7 @@ public class Q620_FourGoblets extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
@@ -258,30 +214,22 @@ public class Q620_FourGoblets extends Quest
 		if (id == QuestState.CREATED)
 			st.set("cond", "0");
 
-		if (npcId == NAMELESS_SPIRIT)
-		{
-			if (cond == 0)
-			{
+		if (npcId == NAMELESS_SPIRIT) {
+			if (cond == 0) {
 				if (st.getPlayer().getLevel() >= 74)
 					htmltext = "31453-1.htm";
-				else
-				{
+				else {
 					htmltext = "31453-12.htm";
 					st.exitQuest(true);
 				}
-			}
-			else if (cond == 1)
-			{
+			} else if (cond == 1) {
 				if (st.getQuestItemsCount(GOBLETS[0]) >= 1 && st.getQuestItemsCount(GOBLETS[1]) >= 1 && st.getQuestItemsCount(GOBLETS[2]) >= 1 && st.getQuestItemsCount(GOBLETS[3]) >= 1)
 					htmltext = "31453-15.htm";
 				else
 					htmltext = "31453-14.htm";
-			}
-			else if (cond == 2)
+			} else if (cond == 2)
 				htmltext = "31453-17.htm";
-		}
-		else if (npcId == GHOST_OF_WIGOTH_1)
-		{
+		} else if (npcId == GHOST_OF_WIGOTH_1) {
 			if (cond == 2)
 				htmltext = "31452-2.htm";
 			else if (cond == 1)
@@ -289,9 +237,7 @@ public class Q620_FourGoblets extends Quest
 					htmltext = "31452-1.htm";
 				else if (st.getQuestItemsCount(GOBLETS[0]) + st.getQuestItemsCount(GOBLETS[1]) + st.getQuestItemsCount(GOBLETS[2]) + st.getQuestItemsCount(GOBLETS[3]) > 1)
 					htmltext = "31452-2.htm";
-		}
-		else if (npcId == GHOST_OF_WIGOTH_2)
-		{
+		} else if (npcId == GHOST_OF_WIGOTH_2) {
 			if (st.getQuestItemsCount(RELIC) >= 1000)
 				if (st.getQuestItemsCount(SEALED_BOX) >= 1)
 					if (st.getQuestItemsCount(GOBLETS[0]) >= 1 && st.getQuestItemsCount(GOBLETS[1]) >= 1 && st.getQuestItemsCount(GOBLETS[2]) >= 1 && st.getQuestItemsCount(GOBLETS[3]) >= 1)
@@ -319,8 +265,7 @@ public class Q620_FourGoblets extends Quest
 				htmltext = "31454-5.htm";
 			else
 				htmltext = "31454-9.htm";
-		}
-		else if (npcId == CONQ_SM)
+		} else if (npcId == CONQ_SM)
 			htmltext = "31921-E.htm";
 		else if (npcId == EMPER_SM)
 			htmltext = "31922-E.htm";
@@ -335,14 +280,12 @@ public class Q620_FourGoblets extends Quest
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
 		L2PcInstance partyMember = getRandomPartyMemberState(player, npc, QuestState.STARTED);
 		if (partyMember == null)
 			return null;
 
-		if (Rnd.get(100) < 30)
-		{
+		if (Rnd.get(100) < 30) {
 			QuestState st = partyMember.getQuestState(qn);
 
 			st.giveItems(SEALED_BOX, 1);
@@ -355,24 +298,18 @@ public class Q620_FourGoblets extends Quest
 	/**
 	 * Calculate boxes rewards, then return if there was a reward.
 	 *
-	 * @param st
-	 *            the QuestState of the player, used to reward him.
+	 * @param st the QuestState of the player, used to reward him.
 	 * @return true if there was a reward, false if not (used to call a "no-reward" html)
 	 */
-	private boolean calculateBoxReward(QuestState st)
-	{
+	private boolean calculateBoxReward(QuestState st) {
 		boolean reward = false;
 		int rnd = Rnd.get(5);
 
-		if (rnd == 0)
-		{
+		if (rnd == 0) {
 			st.giveItems(57, 10000);
 			reward = true;
-		}
-		else if (rnd == 1)
-		{
-			if (Rnd.get(1000) < 848)
-			{
+		} else if (rnd == 1) {
+			if (Rnd.get(1000) < 848) {
 				reward = true;
 				int i = Rnd.get(1000);
 
@@ -398,8 +335,7 @@ public class Q620_FourGoblets extends Quest
 					st.giveItems(4043, 1);
 			}
 
-			if (Rnd.get(1000) < 323)
-			{
+			if (Rnd.get(1000) < 323) {
 				reward = true;
 				int i = Rnd.get(1000);
 
@@ -418,11 +354,8 @@ public class Q620_FourGoblets extends Quest
 				else
 					st.giveItems(4048, 1);
 			}
-		}
-		else if (rnd == 2)
-		{
-			if (Rnd.get(1000) < 847)
-			{
+		} else if (rnd == 2) {
+			if (Rnd.get(1000) < 847) {
 				reward = true;
 				int i = Rnd.get(1000);
 
@@ -448,8 +381,7 @@ public class Q620_FourGoblets extends Quest
 					st.giveItems(4044, 1);
 			}
 
-			if (Rnd.get(1000) < 251)
-			{
+			if (Rnd.get(1000) < 251) {
 				reward = true;
 				int i = Rnd.get(1000);
 
@@ -468,11 +400,8 @@ public class Q620_FourGoblets extends Quest
 				else
 					st.giveItems(4047, 1);
 			}
-		}
-		else if (rnd == 3)
-		{
-			if (Rnd.get(1000) < 31)
-			{
+		} else if (rnd == 3) {
+			if (Rnd.get(1000) < 31) {
 				reward = true;
 				int i = Rnd.get(1000);
 
@@ -484,8 +413,7 @@ public class Q620_FourGoblets extends Quest
 					st.giveItems(960, 1);
 			}
 
-			if (Rnd.get(1000) < 5)
-			{
+			if (Rnd.get(1000) < 5) {
 				reward = true;
 				int i = Rnd.get(1000);
 
@@ -496,11 +424,8 @@ public class Q620_FourGoblets extends Quest
 				else
 					st.giveItems(959, 1);
 			}
-		}
-		else if (rnd == 4)
-		{
-			if (Rnd.get(1000) < 329)
-			{
+		} else if (rnd == 4) {
+			if (Rnd.get(1000) < 329) {
 				reward = true;
 				int i = Rnd.get(1000);
 
@@ -540,8 +465,7 @@ public class Q620_FourGoblets extends Quest
 					st.giveItems(6714, 1);
 			}
 
-			if (Rnd.get(1000) < 54)
-			{
+			if (Rnd.get(1000) < 54) {
 				reward = true;
 				int i = Rnd.get(1000);
 

@@ -12,16 +12,15 @@ import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.base.Race;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q320_BonesTellTheFuture extends Quest
-{
+public class Q320_BonesTellTheFuture extends Quest implements ScriptFile {
 	private final static String qn = "Q320_BonesTellTheFuture";
 
 	// Quest item
 	private final int BONE_FRAGMENT = 809;
 
-	public Q320_BonesTellTheFuture(int questId, String name, String descr)
-	{
+	public Q320_BonesTellTheFuture(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { BONE_FRAGMENT };
@@ -32,21 +31,18 @@ public class Q320_BonesTellTheFuture extends Quest
 		addKillId(20517, 20518, 20022, 20455);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q320_BonesTellTheFuture(320, "Q320_BonesTellTheFuture", "Bones Tell the Future");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30359-04.htm"))
-		{
+		if (event.equalsIgnoreCase("30359-04.htm")) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
@@ -56,25 +52,20 @@ public class Q320_BonesTellTheFuture extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
-				if (st.getPlayer().getRace() != Race.DarkElf)
-				{
+				if (st.getPlayer().getRace() != Race.DarkElf) {
 					htmltext = "30359-00.htm";
 					st.exitQuest(true);
-				}
-				else if (player.getLevel() >= 10 && player.getLevel() <= 18)
+				} else if (player.getLevel() >= 10 && player.getLevel() <= 18)
 					htmltext = "30359-03.htm";
-				else
-				{
+				else {
 					htmltext = "30359-02.htm";
 					st.exitQuest(true);
 				}
@@ -83,8 +74,7 @@ public class Q320_BonesTellTheFuture extends Quest
 			case QuestState.STARTED:
 				if (st.getQuestItemsCount(BONE_FRAGMENT) < 10)
 					htmltext = "30359-05.htm";
-				else
-				{
+				else {
 					htmltext = "30359-06.htm";
 					st.takeItems(BONE_FRAGMENT, -1);
 					st.rewardItems(57, 8470);
@@ -98,8 +88,7 @@ public class Q320_BonesTellTheFuture extends Quest
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;

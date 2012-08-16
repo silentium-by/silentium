@@ -9,32 +9,27 @@ package silentium.scripts.vmasters;
 
 import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class DarkElvenChange1 extends OccupationEngine
-{
-	public DarkElvenChange1(int id, String name, String descr)
-	{
+public class DarkElvenChange1 extends OccupationEngine implements ScriptFile {
+	public DarkElvenChange1(int id, String name, String descr) {
 		super(id, name, descr);
 
-		for (int i : new int[] { 30290, 30297, 30462, 32160 })
-		{
+		for (int i : new int[] { 30290, 30297, 30462, 32160 }) {
 			addStartNpc(i);
 			addTalkId(i);
 		}
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new DarkElvenChange1(-1, "DarkElvenChange1", "vmasters");
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		if (player.isSubClassActive())
 			return null;
-		if (player.getRace().ordinal() == 2)
-		{
+		if (player.getRace().ordinal() == 2) {
 			if (player.getClassId().level() == 1) // first occupation change already made
 				return npc.getNpcId() + "-32.htm";
 			else if (player.getClassId().level() >= 2) // second/third occupation change already made
@@ -43,8 +38,7 @@ public class DarkElvenChange1 extends OccupationEngine
 				return npc.getNpcId() + "-01.htm";
 			else if (player.getClassId().getId() == 38) // DE Mystic
 				return npc.getNpcId() + "-08.htm";
-		}
-		else
+		} else
 			return npc.getNpcId() + "-33.htm"; // other races
 		return null;
 	}

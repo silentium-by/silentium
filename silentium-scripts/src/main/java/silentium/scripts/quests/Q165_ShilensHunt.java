@@ -11,9 +11,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q165_ShilensHunt extends Quest
-{
+public class Q165_ShilensHunt extends Quest implements ScriptFile {
 	private final static String qn = "Q165_ShilensHunt";
 
 	// Items
@@ -23,8 +23,7 @@ public class Q165_ShilensHunt extends Quest
 	// NPC
 	private static final int NELSYA = 30348;
 
-	public Q165_ShilensHunt(int questId, String name, String descr)
-	{
+	public Q165_ShilensHunt(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { DARK_BEZOAR };
@@ -35,21 +34,18 @@ public class Q165_ShilensHunt extends Quest
 		addKillId(20456, 20529, 20532, 20536);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q165_ShilensHunt(165, "Q165_ShilensHunt", "Shilen's Hunt");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30348-03.htm"))
-		{
+		if (event.equalsIgnoreCase("30348-03.htm")) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
@@ -59,44 +55,36 @@ public class Q165_ShilensHunt extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		String htmltext = Quest.getNoQuestMsg();
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
-				if (player.getRace().ordinal() == 2)
-				{
+				if (player.getRace().ordinal() == 2) {
 					if (player.getLevel() >= 3 && player.getLevel() <= 7)
 						htmltext = "30348-02.htm";
-					else
-					{
+					else {
 						htmltext = "30348-01.htm";
 						st.exitQuest(true);
 					}
-				}
-				else
-				{
+				} else {
 					htmltext = "30348-00.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				if (st.getQuestItemsCount(DARK_BEZOAR) >= 13)
-				{
+				if (st.getQuestItemsCount(DARK_BEZOAR) >= 13) {
 					htmltext = "30348-05.htm";
 					st.takeItems(DARK_BEZOAR, -1);
 					st.rewardItems(LESSER_HEALING_POTION, 5);
 					st.addExpAndSp(1000, 0);
 					st.exitQuest(false);
 					st.playSound(QuestState.SOUND_FINISH);
-				}
-				else
+				} else
 					htmltext = "30348-04.htm";
 				break;
 
@@ -109,8 +97,7 @@ public class Q165_ShilensHunt extends Quest
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;

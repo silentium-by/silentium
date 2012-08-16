@@ -12,9 +12,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q329_CuriosityOfADwarf extends Quest
-{
+public class Q329_CuriosityOfADwarf extends Quest implements ScriptFile {
 	private static final String qn = "Q329_CuriosityOfADwarf";
 
 	// NPC
@@ -24,8 +24,7 @@ public class Q329_CuriosityOfADwarf extends Quest
 	private static final int Golem_Heartstone = 1346;
 	private static final int Broken_Heartstone = 1365;
 
-	public Q329_CuriosityOfADwarf(int questId, String name, String descr)
-	{
+	public Q329_CuriosityOfADwarf(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		addStartNpc(Rolento);
@@ -34,27 +33,22 @@ public class Q329_CuriosityOfADwarf extends Quest
 		addKillId(20083, 20085); // Granite golem, Puncher
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q329_CuriosityOfADwarf(329, "Q329_CuriosityOfADwarf", "Curiosity of a Dwarf");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30437-03.htm"))
-		{
+		if (event.equalsIgnoreCase("30437-03.htm")) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("30437-06.htm"))
-		{
+		} else if (event.equalsIgnoreCase("30437-06.htm")) {
 			st.playSound(QuestState.SOUND_FINISH);
 			st.exitQuest(true);
 		}
@@ -63,20 +57,17 @@ public class Q329_CuriosityOfADwarf extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 33 && player.getLevel() <= 38)
 					htmltext = "30437-02.htm";
-				else
-				{
+				else {
 					htmltext = "30437-01.htm";
 					st.exitQuest(true);
 				}
@@ -88,8 +79,7 @@ public class Q329_CuriosityOfADwarf extends Quest
 
 				if (golem + broken == 0)
 					htmltext = "30437-04.htm";
-				else
-				{
+				else {
 					htmltext = "30437-05.htm";
 					st.takeItems(Golem_Heartstone, -1);
 					st.takeItems(Broken_Heartstone, -1);
@@ -102,22 +92,17 @@ public class Q329_CuriosityOfADwarf extends Quest
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 
-		if (st.isStarted())
-		{
+		if (st.isStarted()) {
 			int chance = Rnd.get(100);
-			if (chance < 15)
-			{
+			if (chance < 15) {
 				st.giveItems(Golem_Heartstone, 1);
 				st.playSound(QuestState.SOUND_ITEMGET);
-			}
-			else if (chance < 65)
-			{
+			} else if (chance < 65) {
 				st.giveItems(Broken_Heartstone, 1);
 				st.playSound(QuestState.SOUND_ITEMGET);
 			}

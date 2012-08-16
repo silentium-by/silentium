@@ -11,9 +11,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q626_ADarkTwilight extends Quest
-{
+public class Q626_ADarkTwilight extends Quest implements ScriptFile {
 	private final static String qn = "Q626_ADarkTwilight";
 
 	// Items
@@ -23,8 +23,7 @@ public class Q626_ADarkTwilight extends Quest
 	// NPC
 	private final static int Hierarch = 31517;
 
-	public Q626_ADarkTwilight(int questId, String name, String descr)
-	{
+	public Q626_ADarkTwilight(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { BloodOfSaint };
@@ -35,69 +34,55 @@ public class Q626_ADarkTwilight extends Quest
 		addKillId(21520, 21523, 21524, 21526, 21529, 21530, 21531, 21532, 21535, 21536, 21539, 21540);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q626_ADarkTwilight(626, "Q626_ADarkTwilight", "A Dark Twilight");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("31517-03.htm"))
-		{
+		if (event.equalsIgnoreCase("31517-03.htm")) {
 			st.setState(QuestState.STARTED);
 			st.set("cond", "1");
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("reward1"))
-		{
-			if (st.getQuestItemsCount(BloodOfSaint) == 300)
-			{
+		} else if (event.equalsIgnoreCase("reward1")) {
+			if (st.getQuestItemsCount(BloodOfSaint) == 300) {
 				htmltext = "31517-07.htm";
 				st.takeItems(BloodOfSaint, 300);
 				st.addExpAndSp(162773, 12500);
 				st.playSound(QuestState.SOUND_FINISH);
 				st.exitQuest(false);
-			}
-			else
+			} else
 				htmltext = "31517-08.htm";
-		}
-		else if (event.equalsIgnoreCase("reward2"))
-		{
-			if (st.getQuestItemsCount(BloodOfSaint) == 300)
-			{
+		} else if (event.equalsIgnoreCase("reward2")) {
+			if (st.getQuestItemsCount(BloodOfSaint) == 300) {
 				htmltext = "31517-07.htm";
 				st.takeItems(BloodOfSaint, 300);
 				st.rewardItems(Adena, 100000);
 				st.playSound(QuestState.SOUND_FINISH);
 				st.exitQuest(false);
-			}
-			else
+			} else
 				htmltext = "31517-08.htm";
 		}
 		return htmltext;
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		String htmltext = getNoQuestMsg();
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 60 && player.getLevel() <= 71)
 					htmltext = "31517-01.htm";
-				else
-				{
+				else {
 					htmltext = "31517-02.htm";
 					st.exitQuest(true);
 				}
@@ -120,8 +105,7 @@ public class Q626_ADarkTwilight extends Quest
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;

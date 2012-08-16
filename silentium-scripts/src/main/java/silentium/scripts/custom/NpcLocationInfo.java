@@ -12,14 +12,14 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 import silentium.gameserver.tables.SpawnTable;
 import silentium.gameserver.utils.Util;
 
 /**
  * @authors L2Emu Team (python), Nyaran (java)
  */
-public class NpcLocationInfo extends Quest
-{
+public class NpcLocationInfo extends Quest implements ScriptFile {
 	private static final String qn = "NpcLocationInfo";
 
 	private static final int[] NPCRADAR = {
@@ -197,26 +197,21 @@ public class NpcLocationInfo extends Quest
 	};
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 
 		if (st == null)
 			return htmltext;
 
-		if (Util.isDigit(event))
-		{
+		if (Util.isDigit(event)) {
 			htmltext = null;
 			int npcId = Integer.parseInt(event);
 
-			if (Util.contains(NPCRADAR, npcId))
-			{
+			if (Util.contains(NPCRADAR, npcId)) {
 				int x = 0, y = 0, z = 0;
-				for (L2Spawn spawn : SpawnTable.getInstance().getSpawnTable())
-				{
-					if (npcId == spawn.getNpcId())
-					{
+				for (L2Spawn spawn : SpawnTable.getInstance().getSpawnTable()) {
+					if (npcId == spawn.getNpcId()) {
 						x = spawn.getLocx();
 						y = spawn.getLocy();
 						z = spawn.getLocz();
@@ -232,18 +227,15 @@ public class NpcLocationInfo extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		return String.valueOf(npc.getNpcId()) + ".htm";
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new NpcLocationInfo(-1, "NpcLocationInfo", "custom");
 	}
 
-	public NpcLocationInfo(int id, String name, String descr)
-	{
+	public NpcLocationInfo(int id, String name, String descr) {
 		super(id, name, descr);
 
 		addStartNpc(30598, 30599, 30600, 30601, 30602);

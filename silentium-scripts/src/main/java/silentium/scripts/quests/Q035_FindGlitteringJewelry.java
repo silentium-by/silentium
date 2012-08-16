@@ -11,9 +11,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q035_FindGlitteringJewelry extends Quest
-{
+public class Q035_FindGlitteringJewelry extends Quest implements ScriptFile {
 	private static final String qn = "Q035_FindGlitteringJewelry";
 
 	// NPCs
@@ -32,8 +32,7 @@ public class Q035_FindGlitteringJewelry extends Quest
 	// Reward
 	private static final int JEWEL_BOX = 7077;
 
-	public Q035_FindGlitteringJewelry(int id, String name, String descr)
-	{
+	public Q035_FindGlitteringJewelry(int id, String name, String descr) {
 		super(id, name, descr);
 		questItemIds = new int[] { ROUGH_JEWEL };
 
@@ -43,48 +42,37 @@ public class Q035_FindGlitteringJewelry extends Quest
 		addKillId(ALLIGATOR);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q035_FindGlitteringJewelry(35, "Q035_FindGlitteringJewelry", "Find Glittering Jewelry");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equals("30091-1.htm"))
-		{
+		if (event.equals("30091-1.htm")) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equals("30879-1.htm"))
-		{
+		} else if (event.equals("30879-1.htm")) {
 			st.set("cond", "2");
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equals("30091-3.htm"))
-		{
+		} else if (event.equals("30091-3.htm")) {
 			st.takeItems(ROUGH_JEWEL, 10);
 			st.set("cond", "4");
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equals("30091-5.htm"))
-		{
-			if (st.getQuestItemsCount(ORIHARUKON) >= 5 && st.getQuestItemsCount(SILVER_NUGGET) >= 500 && st.getQuestItemsCount(THONS) >= 150)
-			{
+		} else if (event.equals("30091-5.htm")) {
+			if (st.getQuestItemsCount(ORIHARUKON) >= 5 && st.getQuestItemsCount(SILVER_NUGGET) >= 500 && st.getQuestItemsCount(THONS) >= 150) {
 				st.takeItems(ORIHARUKON, 5);
 				st.takeItems(SILVER_NUGGET, 500);
 				st.takeItems(THONS, 150);
 				st.giveItems(JEWEL_BOX, 1);
 				st.playSound(QuestState.SOUND_FINISH);
 				st.exitQuest(false);
-			}
-			else
+			} else
 				htmltext = "30091-4a.htm";
 		}
 
@@ -92,29 +80,23 @@ public class Q035_FindGlitteringJewelry extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
-				if (player.getLevel() >= 60)
-				{
+				if (player.getLevel() >= 60) {
 					QuestState fwear = player.getQuestState("Q037_MakeFormalWear");
 					if (fwear != null && fwear.getInt("cond") == 6)
 						htmltext = "30091-0.htm";
-					else
-					{
+					else {
 						htmltext = "30091-0a.htm";
 						st.exitQuest(true);
 					}
-				}
-				else
-				{
+				} else {
 					htmltext = "30091-0b.htm";
 					st.exitQuest(true);
 				}
@@ -122,15 +104,13 @@ public class Q035_FindGlitteringJewelry extends Quest
 
 			case QuestState.STARTED:
 				int cond = st.getInt("cond");
-				switch (npc.getNpcId())
-				{
+				switch (npc.getNpcId()) {
 					case ELLIE:
 						if (cond == 1 || cond == 2)
 							htmltext = "30091-1a.htm";
 						else if (cond == 3)
 							htmltext = "30091-2.htm";
-						else if (cond == 4)
-						{
+						else if (cond == 4) {
 							if (st.getQuestItemsCount(ORIHARUKON) >= 5 && st.getQuestItemsCount(SILVER_NUGGET) >= 500 && st.getQuestItemsCount(THONS) >= 150)
 								htmltext = "30091-4.htm";
 							else
@@ -156,8 +136,7 @@ public class Q035_FindGlitteringJewelry extends Quest
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;

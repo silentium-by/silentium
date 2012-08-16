@@ -7,18 +7,18 @@
  */
 package silentium.scripts.quests;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import silentium.gameserver.configs.MainConfig;
 import silentium.commons.utils.Rnd;
+import silentium.gameserver.configs.MainConfig;
 import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q646_SignsOfRevolt extends Quest
-{
+import java.util.HashMap;
+import java.util.Map;
+
+public class Q646_SignsOfRevolt extends Quest implements ScriptFile {
 	private static final String qn = "Q646_SignsOfRevolt";
 
 	// NPC
@@ -29,6 +29,7 @@ public class Q646_SignsOfRevolt extends Quest
 
 	// Rewards
 	private static final Map<String, int[]> Rewards = new HashMap<>();
+
 	{
 		Rewards.put("1", new int[] { 1880, 9 });
 		Rewards.put("2", new int[] { 1881, 12 });
@@ -36,8 +37,7 @@ public class Q646_SignsOfRevolt extends Quest
 		Rewards.put("4", new int[] { 57, 21600 });
 	}
 
-	public Q646_SignsOfRevolt(int questId, String name, String descr)
-	{
+	public Q646_SignsOfRevolt(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { CURSED_DOLL };
@@ -48,27 +48,22 @@ public class Q646_SignsOfRevolt extends Quest
 		addKillId(22029, 22030, 22031, 22032, 22033, 22034, 22035, 22036, 22037, 22038, 22039, 22040, 22041, 22042, 22043, 22044, 22045, 22047, 22049);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q646_SignsOfRevolt(646, "Q646_SignsOfRevolt", "Signs Of Revolt");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("32016-03.htm"))
-		{
+		if (event.equalsIgnoreCase("32016-03.htm")) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (Rewards.containsKey(event))
-		{
+		} else if (Rewards.containsKey(event)) {
 			htmltext = "32016-07.htm";
 			st.takeItems(CURSED_DOLL, -1);
 			st.giveItems(Rewards.get(event)[0], Rewards.get(event)[1]);
@@ -80,20 +75,17 @@ public class Q646_SignsOfRevolt extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		String htmltext = Quest.getNoQuestMsg();
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 40 && player.getLevel() <= 51)
 					htmltext = "32016-01.htm";
-				else
-				{
+				else {
 					htmltext = "32016-02.htm";
 					st.exitQuest(true);
 				}
@@ -103,8 +95,7 @@ public class Q646_SignsOfRevolt extends Quest
 				int cond = st.getInt("cond");
 				if (cond == 1)
 					htmltext = "32016-04.htm";
-				else if (cond == 2)
-				{
+				else if (cond == 2) {
 					if (st.getQuestItemsCount(CURSED_DOLL) == 180)
 						htmltext = "32016-05.htm";
 					else
@@ -117,8 +108,7 @@ public class Q646_SignsOfRevolt extends Quest
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
 		L2PcInstance partyMember = getRandomPartyMember(player, npc, "1");
 		if (partyMember == null)
 			return null;
@@ -126,8 +116,7 @@ public class Q646_SignsOfRevolt extends Quest
 		QuestState st = partyMember.getQuestState(qn);
 		int count = st.getQuestItemsCount(CURSED_DOLL);
 
-		if (count < 180)
-		{
+		if (count < 180) {
 			int chance = (int) (75 * MainConfig.RATE_QUEST_DROP);
 			int numItems = chance / 100;
 			chance = chance % 100;
@@ -135,15 +124,12 @@ public class Q646_SignsOfRevolt extends Quest
 			if (Rnd.get(100) < chance)
 				numItems++;
 
-			if (numItems > 0)
-			{
-				if (count + numItems >= 180)
-				{
+			if (numItems > 0) {
+				if (count + numItems >= 180) {
 					numItems = 180 - count;
 					st.playSound(QuestState.SOUND_MIDDLE);
 					st.set("cond", "2");
-				}
-				else
+				} else
 					st.playSound(QuestState.SOUND_ITEMGET);
 
 				st.giveItems(CURSED_DOLL, numItems);

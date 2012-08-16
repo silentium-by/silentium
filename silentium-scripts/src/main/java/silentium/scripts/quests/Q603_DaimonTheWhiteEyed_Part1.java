@@ -11,9 +11,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q603_DaimonTheWhiteEyed_Part1 extends Quest
-{
+public class Q603_DaimonTheWhiteEyed_Part1 extends Quest implements ScriptFile {
 	private static final String qn = "Q603_DaimonTheWhiteEyed_Part1";
 
 	// NPCs
@@ -34,8 +34,7 @@ public class Q603_DaimonTheWhiteEyed_Part1 extends Quest
 	private static final int BROKEN_CRYSTAL = 7191;
 	private static final int UNFINISHED_SUMMON_CRYSTAL = 7192;
 
-	public Q603_DaimonTheWhiteEyed_Part1(int questId, String name, String descr)
-	{
+	public Q603_DaimonTheWhiteEyed_Part1(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { EVIL_SPIRIT_BEADS, BROKEN_CRYSTAL };
@@ -46,79 +45,58 @@ public class Q603_DaimonTheWhiteEyed_Part1 extends Quest
 		addKillId(BUFFALO_SLAVE, GRENDEL_SLAVE, CANYON_BANDERSNATCH_SLAVE);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q603_DaimonTheWhiteEyed_Part1(603, "Q603_DaimonTheWhiteEyed_Part1", "Daimon the White-Eyed - Part 1");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
 		// Eye of Argos
-		if (event.equalsIgnoreCase("31683-03.htm"))
-		{
+		if (event.equalsIgnoreCase("31683-03.htm")) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("31683-06.htm"))
-		{
-			if (st.getQuestItemsCount(BROKEN_CRYSTAL) > 4)
-			{
+		} else if (event.equalsIgnoreCase("31683-06.htm")) {
+			if (st.getQuestItemsCount(BROKEN_CRYSTAL) > 4) {
 				st.set("cond", "7");
 				st.takeItems(BROKEN_CRYSTAL, -1);
 				st.playSound(QuestState.SOUND_MIDDLE);
-			}
-			else
+			} else
 				htmltext = "31683-07.htm";
-		}
-		else if (event.equalsIgnoreCase("31683-10.htm"))
-		{
-			if (st.getQuestItemsCount(EVIL_SPIRIT_BEADS) > 199)
-			{
+		} else if (event.equalsIgnoreCase("31683-10.htm")) {
+			if (st.getQuestItemsCount(EVIL_SPIRIT_BEADS) > 199) {
 				st.takeItems(EVIL_SPIRIT_BEADS, -1);
 				st.giveItems(UNFINISHED_SUMMON_CRYSTAL, 1);
 				st.playSound(QuestState.SOUND_FINISH);
 				st.exitQuest(true);
-			}
-			else
-			{
+			} else {
 				st.set("cond", "7");
 				htmltext = "31683-11.htm";
 			}
 		}
 		// Mysterious tablets
-		else if (event.equalsIgnoreCase("31548-02.htm"))
-		{
+		else if (event.equalsIgnoreCase("31548-02.htm")) {
 			st.set("cond", "2");
 			st.giveItems(BROKEN_CRYSTAL, 1);
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("31549-02.htm"))
-		{
+		} else if (event.equalsIgnoreCase("31549-02.htm")) {
 			st.set("cond", "3");
 			st.giveItems(BROKEN_CRYSTAL, 1);
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("31550-02.htm"))
-		{
+		} else if (event.equalsIgnoreCase("31550-02.htm")) {
 			st.set("cond", "4");
 			st.giveItems(BROKEN_CRYSTAL, 1);
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("31551-02.htm"))
-		{
+		} else if (event.equalsIgnoreCase("31551-02.htm")) {
 			st.set("cond", "5");
 			st.giveItems(BROKEN_CRYSTAL, 1);
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("31552-02.htm"))
-		{
+		} else if (event.equalsIgnoreCase("31552-02.htm")) {
 			st.set("cond", "6");
 			st.giveItems(BROKEN_CRYSTAL, 1);
 			st.playSound(QuestState.SOUND_MIDDLE);
@@ -127,29 +105,24 @@ public class Q603_DaimonTheWhiteEyed_Part1 extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		String htmltext = getNoQuestMsg();
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
-				if (player.getLevel() < 73 || player.getLevel() > 78)
-				{
+				if (player.getLevel() < 73 || player.getLevel() > 78) {
 					htmltext = "31683-02.htm";
 					st.exitQuest(true);
-				}
-				else
+				} else
 					htmltext = "31683-01.htm";
 				break;
 
 			case QuestState.STARTED:
 				int cond = st.getInt("cond");
-				switch (npc.getNpcId())
-				{
+				switch (npc.getNpcId()) {
 					case EYE_OF_ARGOS:
 						if (cond >= 1 && cond <= 5)
 							htmltext = "31683-04.htm";
@@ -203,8 +176,7 @@ public class Q603_DaimonTheWhiteEyed_Part1 extends Quest
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
 		L2PcInstance partyMember = getRandomPartyMember(player, npc, "7");
 		if (partyMember == null)
 			return null;

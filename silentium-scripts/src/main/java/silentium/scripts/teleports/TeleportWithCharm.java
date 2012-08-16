@@ -11,22 +11,20 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class TeleportWithCharm extends Quest
-{
+public class TeleportWithCharm extends Quest implements ScriptFile {
 	private final static int WHIRPY = 30540;
 	private final static int TAMIL = 30576;
 
 	private final static int ORC_GATEKEEPER_CHARM = 1658;
 	private final static int DWARF_GATEKEEPER_TOKEN = 1659;
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new TeleportWithCharm(-1, "TeleportWithCharm", "teleports");
 	}
 
-	public TeleportWithCharm(int questId, String name, String descr)
-	{
+	public TeleportWithCharm(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		addStartNpc(WHIRPY, TAMIL);
@@ -34,30 +32,22 @@ public class TeleportWithCharm extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		QuestState st = player.getQuestState(getName());
 		String htmltext = "";
 
 		int npcId = npc.getNpcId();
-		if (npcId == WHIRPY)
-		{
-			if (st.getQuestItemsCount(DWARF_GATEKEEPER_TOKEN) >= 1)
-			{
+		if (npcId == WHIRPY) {
+			if (st.getQuestItemsCount(DWARF_GATEKEEPER_TOKEN) >= 1) {
 				st.takeItems(DWARF_GATEKEEPER_TOKEN, 1);
 				player.teleToLocation(-80826, 149775, -3043);
-			}
-			else
+			} else
 				htmltext = "30540-01.htm";
-		}
-		else if (npcId == TAMIL)
-		{
-			if (st.getQuestItemsCount(ORC_GATEKEEPER_CHARM) >= 1)
-			{
+		} else if (npcId == TAMIL) {
+			if (st.getQuestItemsCount(ORC_GATEKEEPER_CHARM) >= 1) {
 				st.takeItems(ORC_GATEKEEPER_CHARM, 1);
 				player.teleToLocation(-80826, 149775, -3043);
-			}
-			else
+			} else
 				htmltext = "30576-01.htm";
 		}
 

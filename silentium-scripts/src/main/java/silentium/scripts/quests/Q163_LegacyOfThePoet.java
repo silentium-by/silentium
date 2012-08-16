@@ -12,9 +12,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q163_LegacyOfThePoet extends Quest
-{
+public class Q163_LegacyOfThePoet extends Quest implements ScriptFile {
 	private final static String qn = "Q163_LegacyOfThePoet";
 
 	// NPC
@@ -29,8 +29,7 @@ public class Q163_LegacyOfThePoet extends Quest
 	// Reward
 	private static final int ADENA = 57;
 
-	public Q163_LegacyOfThePoet(int questId, String name, String descr)
-	{
+	public Q163_LegacyOfThePoet(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { RUMIELS_POEM_1, RUMIELS_POEM_2, RUMIELS_POEM_3, RUMIELS_POEM_4 };
@@ -41,21 +40,18 @@ public class Q163_LegacyOfThePoet extends Quest
 		addKillId(20372, 20373);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q163_LegacyOfThePoet(163, "Q163_LegacyOfThePoet", "Legacy of the Poet");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30220-07.htm"))
-		{
+		if (event.equalsIgnoreCase("30220-07.htm")) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
@@ -65,33 +61,27 @@ public class Q163_LegacyOfThePoet extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
-				if (player.getRace().ordinal() == 2)
-				{
+				if (player.getRace().ordinal() == 2) {
 					htmltext = "30220-00.htm";
 					st.exitQuest(true);
-				}
-				else if (player.getLevel() >= 11 && player.getLevel() <= 15)
+				} else if (player.getLevel() >= 11 && player.getLevel() <= 15)
 					htmltext = "30220-03.htm";
-				else
-				{
+				else {
 					htmltext = "30220-02.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				if (st.getQuestItemsCount(RUMIELS_POEM_1) == 1 && st.getQuestItemsCount(RUMIELS_POEM_2) == 1 && st.getQuestItemsCount(RUMIELS_POEM_3) == 1 && st.getQuestItemsCount(RUMIELS_POEM_4) == 1)
-				{
+				if (st.getQuestItemsCount(RUMIELS_POEM_1) == 1 && st.getQuestItemsCount(RUMIELS_POEM_2) == 1 && st.getQuestItemsCount(RUMIELS_POEM_3) == 1 && st.getQuestItemsCount(RUMIELS_POEM_4) == 1) {
 					htmltext = "30220-09.htm";
 					st.takeItems(RUMIELS_POEM_1, 1);
 					st.takeItems(RUMIELS_POEM_2, 1);
@@ -100,8 +90,7 @@ public class Q163_LegacyOfThePoet extends Quest
 					st.rewardItems(ADENA, 13890);
 					st.exitQuest(false);
 					st.playSound(QuestState.SOUND_FINISH);
-				}
-				else
+				} else
 					htmltext = "30220-08.htm";
 				break;
 
@@ -114,60 +103,43 @@ public class Q163_LegacyOfThePoet extends Quest
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 
-		if (st.getInt("cond") == 1)
-		{
-			if (!st.hasQuestItems(RUMIELS_POEM_1) && Rnd.get(10) == 0)
-			{
+		if (st.getInt("cond") == 1) {
+			if (!st.hasQuestItems(RUMIELS_POEM_1) && Rnd.get(10) == 0) {
 				st.giveItems(RUMIELS_POEM_1, 1);
 
-				if (st.hasQuestItems(RUMIELS_POEM_2) && st.hasQuestItems(RUMIELS_POEM_3) && st.hasQuestItems(RUMIELS_POEM_4))
-				{
+				if (st.hasQuestItems(RUMIELS_POEM_2) && st.hasQuestItems(RUMIELS_POEM_3) && st.hasQuestItems(RUMIELS_POEM_4)) {
 					st.set("cond", "2");
 					st.playSound(QuestState.SOUND_MIDDLE);
-				}
-				else
+				} else
 					st.playSound(QuestState.SOUND_ITEMGET);
-			}
-			else if (!st.hasQuestItems(RUMIELS_POEM_2) && Rnd.get(10) > 7)
-			{
+			} else if (!st.hasQuestItems(RUMIELS_POEM_2) && Rnd.get(10) > 7) {
 				st.giveItems(RUMIELS_POEM_2, 1);
 
-				if (st.hasQuestItems(RUMIELS_POEM_1) && st.hasQuestItems(RUMIELS_POEM_3) && st.hasQuestItems(RUMIELS_POEM_4))
-				{
+				if (st.hasQuestItems(RUMIELS_POEM_1) && st.hasQuestItems(RUMIELS_POEM_3) && st.hasQuestItems(RUMIELS_POEM_4)) {
 					st.set("cond", "2");
 					st.playSound(QuestState.SOUND_MIDDLE);
-				}
-				else
+				} else
 					st.playSound(QuestState.SOUND_ITEMGET);
-			}
-			else if (!st.hasQuestItems(RUMIELS_POEM_3) && Rnd.get(10) > 7)
-			{
+			} else if (!st.hasQuestItems(RUMIELS_POEM_3) && Rnd.get(10) > 7) {
 				st.giveItems(RUMIELS_POEM_3, 1);
 
-				if (st.hasQuestItems(RUMIELS_POEM_1) && st.hasQuestItems(RUMIELS_POEM_2) && st.hasQuestItems(RUMIELS_POEM_4))
-				{
+				if (st.hasQuestItems(RUMIELS_POEM_1) && st.hasQuestItems(RUMIELS_POEM_2) && st.hasQuestItems(RUMIELS_POEM_4)) {
 					st.set("cond", "2");
 					st.playSound(QuestState.SOUND_MIDDLE);
-				}
-				else
+				} else
 					st.playSound(QuestState.SOUND_ITEMGET);
-			}
-			else if (!st.hasQuestItems(RUMIELS_POEM_4) && Rnd.get(10) > 5)
-			{
+			} else if (!st.hasQuestItems(RUMIELS_POEM_4) && Rnd.get(10) > 5) {
 				st.giveItems(RUMIELS_POEM_4, 1);
 
-				if (st.hasQuestItems(RUMIELS_POEM_1) && st.hasQuestItems(RUMIELS_POEM_2) && st.hasQuestItems(RUMIELS_POEM_3))
-				{
+				if (st.hasQuestItems(RUMIELS_POEM_1) && st.hasQuestItems(RUMIELS_POEM_2) && st.hasQuestItems(RUMIELS_POEM_3)) {
 					st.set("cond", "2");
 					st.playSound(QuestState.SOUND_MIDDLE);
-				}
-				else
+				} else
 					st.playSound(QuestState.SOUND_ITEMGET);
 			}
 		}

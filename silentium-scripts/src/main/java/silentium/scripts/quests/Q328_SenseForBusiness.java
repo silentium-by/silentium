@@ -12,9 +12,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q328_SenseForBusiness extends Quest
-{
+public class Q328_SenseForBusiness extends Quest implements ScriptFile {
 	private static final String qn = "Q328_SenseForBusiness";
 
 	// NPC
@@ -25,8 +25,7 @@ public class Q328_SenseForBusiness extends Quest
 	private static final int MONSTER_EYE_CARCASS = 1347;
 	private static final int BASILISK_GIZZARD = 1348;
 
-	public Q328_SenseForBusiness(int questId, String name, String descr)
-	{
+	public Q328_SenseForBusiness(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { MONSTER_EYE_LENS, MONSTER_EYE_CARCASS, BASILISK_GIZZARD };
@@ -37,27 +36,22 @@ public class Q328_SenseForBusiness extends Quest
 		addKillId(20055, 20059, 20067, 20068, 20070, 20072);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q328_SenseForBusiness(328, "Q328_SenseForBusiness", "Sense for Business");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30436-03.htm"))
-		{
+		if (event.equalsIgnoreCase("30436-03.htm")) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("30436-06.htm"))
-		{
+		} else if (event.equalsIgnoreCase("30436-06.htm")) {
 			st.playSound(QuestState.SOUND_FINISH);
 			st.exitQuest(true);
 		}
@@ -66,20 +60,17 @@ public class Q328_SenseForBusiness extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 21 && player.getLevel() <= 32)
 					htmltext = "30436-02.htm";
-				else
-				{
+				else {
 					htmltext = "30436-01.htm";
 					st.exitQuest(true);
 				}
@@ -93,8 +84,7 @@ public class Q328_SenseForBusiness extends Quest
 
 				if (all == 0)
 					htmltext = "30436-04.htm";
-				else
-				{
+				else {
 					htmltext = "30436-05.htm";
 					int reward = (25 * carcasses) + (1000 * lenses) + (60 * gizzards) + (all >= 10 ? 618 : 0);
 					st.takeItems(MONSTER_EYE_CARCASS, -1);
@@ -109,28 +99,22 @@ public class Q328_SenseForBusiness extends Quest
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 
-		if (st.isStarted())
-		{
+		if (st.isStarted()) {
 			int chance = Rnd.get(100);
-			switch (npc.getNpcId())
-			{
+			switch (npc.getNpcId()) {
 				case 20055:
 				case 20059:
 				case 20067:
 				case 20068:
-					if (chance < 2)
-					{
+					if (chance < 2) {
 						st.giveItems(MONSTER_EYE_LENS, 1);
 						st.playSound(QuestState.SOUND_ITEMGET);
-					}
-					else if (chance < 35)
-					{
+					} else if (chance < 35) {
 						st.giveItems(MONSTER_EYE_CARCASS, 1);
 						st.playSound(QuestState.SOUND_ITEMGET);
 					}
@@ -138,8 +122,7 @@ public class Q328_SenseForBusiness extends Quest
 
 				case 20070:
 				case 20072:
-					if (chance < 18)
-					{
+					if (chance < 18) {
 						st.giveItems(BASILISK_GIZZARD, 1);
 						st.playSound(QuestState.SOUND_ITEMGET);
 					}

@@ -10,27 +10,24 @@ package silentium.scripts.vmasters;
 import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
+import silentium.gameserver.scripting.ScriptFile;
 
-public final class Reed extends Quest
-{
+public final class Reed extends Quest implements ScriptFile {
 	// Quest NPCs
 	private static final int REED = 30520;
 
-	public Reed(int questId, String name, String descr)
-	{
+	public Reed(int questId, String name, String descr) {
 		super(questId, name, descr);
 		addStartNpc(REED);
 		addTalkId(REED);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Reed(-1, "Reed", "vmasters");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		if (event.contains("-01") || event.contains("-02") || event.contains("-03") || event.contains("-04"))
 			return event;
 		else
@@ -38,10 +35,8 @@ public final class Reed extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance talker)
-	{
-		switch (talker.getClassId())
-		{
+	public String onTalk(L2Npc npc, L2PcInstance talker) {
+		switch (talker.getClassId()) {
 			case dwarvenFighter:
 				return "30520-01.htm";
 			case scavenger:

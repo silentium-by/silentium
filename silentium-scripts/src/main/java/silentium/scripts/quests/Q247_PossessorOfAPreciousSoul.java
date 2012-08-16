@@ -11,9 +11,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q247_PossessorOfAPreciousSoul extends Quest
-{
+public class Q247_PossessorOfAPreciousSoul extends Quest implements ScriptFile {
 	private static final String qn = "Q247_PossessorOfAPreciousSoul";
 
 	// NPCs
@@ -24,43 +24,36 @@ public class Q247_PossessorOfAPreciousSoul extends Quest
 	private static final int CARADINE_LETTER_3 = 7679;
 	private static final int NOBLESS_TIARA = 7694;
 
-	public Q247_PossessorOfAPreciousSoul(int questId, String name, String descr)
-	{
+	public Q247_PossessorOfAPreciousSoul(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		addStartNpc(CARADINE);
 		addTalkId(CARADINE, LADY_OF_THE_LAKE);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q247_PossessorOfAPreciousSoul(247, "Q247_PossessorOfAPreciousSoul", "Possessor of a Precious Soul - 4");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
 		// Caradine
-		if (event.equalsIgnoreCase("31740-03.htm"))
-		{
+		if (event.equalsIgnoreCase("31740-03.htm")) {
 			st.set("cond", "1");
 			st.takeItems(CARADINE_LETTER_3, 1);
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("31740-05.htm"))
-		{
+		} else if (event.equalsIgnoreCase("31740-05.htm")) {
 			st.set("cond", "2");
 			player.teleToLocation(143209, 43968, -3038);
 		}
 		// Lady of the lake
-		else if (event.equalsIgnoreCase("31745-05.htm"))
-		{
+		else if (event.equalsIgnoreCase("31745-05.htm")) {
 			player.setNoble(true, true);
 			st.addExpAndSp(93836, 0);
 			st.giveItems(NOBLESS_TIARA, 1);
@@ -71,24 +64,19 @@ public class Q247_PossessorOfAPreciousSoul extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		String htmltext = getNoQuestMsg();
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
-				if (st.hasQuestItems(CARADINE_LETTER_3))
-				{
-					if (!player.isSubClassActive() || player.getLevel() < 75)
-					{
+				if (st.hasQuestItems(CARADINE_LETTER_3)) {
+					if (!player.isSubClassActive() || player.getLevel() < 75) {
 						htmltext = "31740-02.htm";
 						st.exitQuest(true);
-					}
-					else
+					} else
 						htmltext = "31740-01.htm";
 				}
 				break;
@@ -98,8 +86,7 @@ public class Q247_PossessorOfAPreciousSoul extends Quest
 					break;
 
 				int cond = st.getInt("cond");
-				switch (npc.getNpcId())
-				{
+				switch (npc.getNpcId()) {
 					case CARADINE:
 						if (cond == 1)
 							htmltext = "31740-04.htm";
@@ -108,8 +95,7 @@ public class Q247_PossessorOfAPreciousSoul extends Quest
 						break;
 
 					case LADY_OF_THE_LAKE:
-						if (cond == 2)
-						{
+						if (cond == 2) {
 							if (player.getLevel() < 75)
 								htmltext = "31745-06.htm";
 							else

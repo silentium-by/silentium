@@ -11,9 +11,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q370_AnElderSowsSeeds extends Quest
-{
+public class Q370_AnElderSowsSeeds extends Quest implements ScriptFile {
 	private static final String qn = "Q370_AnElderSowsSeeds";
 
 	// NPC
@@ -26,8 +26,7 @@ public class Q370_AnElderSowsSeeds extends Quest
 	private static final int CHAPTER_OF_WIND = 5919;
 	private static final int CHAPTER_OF_EARTH = 5920;
 
-	public Q370_AnElderSowsSeeds(int questId, String name, String descr)
-	{
+	public Q370_AnElderSowsSeeds(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { SPELLBOOK_PAGE, CHAPTER_OF_FIRE, CHAPTER_OF_WATER, CHAPTER_OF_WIND, CHAPTER_OF_EARTH };
@@ -38,29 +37,23 @@ public class Q370_AnElderSowsSeeds extends Quest
 		addKillId(20082, 20084, 20086, 20089, 20090);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q370_AnElderSowsSeeds(370, "Q370_AnElderSowsSeeds", "An Elder Sows Seeds");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30612-3.htm"))
-		{
+		if (event.equalsIgnoreCase("30612-3.htm")) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("30612-6.htm"))
-		{
-			if (st.getQuestItemsCount(CHAPTER_OF_FIRE) > 0 && st.getQuestItemsCount(CHAPTER_OF_WATER) > 0 && st.getQuestItemsCount(CHAPTER_OF_WIND) > 0 && st.getQuestItemsCount(CHAPTER_OF_EARTH) > 0)
-			{
+		} else if (event.equalsIgnoreCase("30612-6.htm")) {
+			if (st.getQuestItemsCount(CHAPTER_OF_FIRE) > 0 && st.getQuestItemsCount(CHAPTER_OF_WATER) > 0 && st.getQuestItemsCount(CHAPTER_OF_WIND) > 0 && st.getQuestItemsCount(CHAPTER_OF_EARTH) > 0) {
 				htmltext = "30612-8.htm";
 				st.takeItems(CHAPTER_OF_FIRE, 1);
 				st.takeItems(CHAPTER_OF_WATER, 1);
@@ -68,9 +61,7 @@ public class Q370_AnElderSowsSeeds extends Quest
 				st.takeItems(CHAPTER_OF_EARTH, 1);
 				st.rewardItems(57, 3600);
 			}
-		}
-		else if (event.equalsIgnoreCase("30612-9.htm"))
-		{
+		} else if (event.equalsIgnoreCase("30612-9.htm")) {
 			st.playSound(QuestState.SOUND_FINISH);
 			st.exitQuest(true);
 		}
@@ -79,20 +70,17 @@ public class Q370_AnElderSowsSeeds extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		String htmltext = Quest.getNoQuestMsg();
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 28 && player.getLevel() <= 42)
 					htmltext = "30612-0.htm";
-				else
-				{
+				else {
 					htmltext = "30612-0a.htm";
 					st.exitQuest(true);
 				}
@@ -107,8 +95,7 @@ public class Q370_AnElderSowsSeeds extends Quest
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
 		L2PcInstance partyMember = getRandomPartyMemberState(player, npc, QuestState.STARTED);
 		if (partyMember == null)
 			return null;

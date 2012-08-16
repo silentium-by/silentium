@@ -13,9 +13,9 @@ import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.base.Race;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q266_PleasOfPixies extends Quest
-{
+public class Q266_PleasOfPixies extends Quest implements ScriptFile {
 	private static final String qn = "Q266_PleasOfPixies";
 
 	// Items
@@ -27,8 +27,7 @@ public class Q266_PleasOfPixies extends Quest
 	private static final int BLUE_ONYX = 1338;
 	private static final int ONYX = 1339;
 
-	public Q266_PleasOfPixies(int questId, String name, String descr)
-	{
+	public Q266_PleasOfPixies(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { PREDATORS_FANG };
@@ -39,21 +38,18 @@ public class Q266_PleasOfPixies extends Quest
 		addKillId(20525, 20530, 20534, 20537);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q266_PleasOfPixies(266, "Q266_PleasOfPixies", "Pleas of Pixies");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("31852-03.htm"))
-		{
+		if (event.equalsIgnoreCase("31852-03.htm")) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
@@ -63,25 +59,20 @@ public class Q266_PleasOfPixies extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		String htmltext = Quest.getNoQuestMsg();
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
-				if (player.getRace() != Race.Elf)
-				{
+				if (player.getRace() != Race.Elf) {
 					htmltext = "31852-00.htm";
 					st.exitQuest(true);
-				}
-				else if (player.getLevel() >= 3 && player.getLevel() <= 8)
+				} else if (player.getLevel() >= 3 && player.getLevel() <= 8)
 					htmltext = "31852-02.htm";
-				else
-				{
+				else {
 					htmltext = "31852-01.htm";
 					st.exitQuest(true);
 				}
@@ -90,18 +81,15 @@ public class Q266_PleasOfPixies extends Quest
 			case QuestState.STARTED:
 				if (st.getQuestItemsCount(PREDATORS_FANG) < 100)
 					htmltext = "31852-04.htm";
-				else
-				{
+				else {
 					htmltext = "31852-05.htm";
 					st.takeItems(PREDATORS_FANG, -1);
 
 					int n = Rnd.get(100);
-					if (n < 10)
-					{
+					if (n < 10) {
 						st.rewardItems(EMERALD, 1);
 						st.playSound(QuestState.SOUND_JACKPOT);
-					}
-					else if (n < 30)
+					} else if (n < 30)
 						st.rewardItems(BLUE_ONYX, 1);
 					else if (n < 60)
 						st.rewardItems(ONYX, 1);
@@ -118,8 +106,7 @@ public class Q266_PleasOfPixies extends Quest
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;

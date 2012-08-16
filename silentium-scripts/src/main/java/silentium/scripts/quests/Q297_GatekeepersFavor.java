@@ -11,9 +11,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q297_GatekeepersFavor extends Quest
-{
+public class Q297_GatekeepersFavor extends Quest implements ScriptFile {
 	private static final String qn = "Q297_GatekeepersFavor";
 
 	// NPC
@@ -28,8 +28,7 @@ public class Q297_GatekeepersFavor extends Quest
 	// Monster
 	private static final int WHINSTONE_GOLEM = 20521;
 
-	public Q297_GatekeepersFavor(int questId, String name, String descr)
-	{
+	public Q297_GatekeepersFavor(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { STARSTONE };
@@ -39,21 +38,18 @@ public class Q297_GatekeepersFavor extends Quest
 		addKillId(WHINSTONE_GOLEM);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q297_GatekeepersFavor(297, "Q297_GatekeepersFavor", "Gatekeeper's Favor");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30540-03.htm"))
-		{
+		if (event.equalsIgnoreCase("30540-03.htm")) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
@@ -63,20 +59,17 @@ public class Q297_GatekeepersFavor extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 15 && player.getLevel() <= 21)
 					htmltext = "30540-02.htm";
-				else
-				{
+				else {
 					htmltext = "30540-01.htm";
 					st.exitQuest(true);
 				}
@@ -86,17 +79,14 @@ public class Q297_GatekeepersFavor extends Quest
 				int cond = st.getInt("cond");
 				if (cond == 1)
 					htmltext = "30540-04.htm";
-				else if (cond == 2)
-				{
-					if (st.getQuestItemsCount(STARSTONE) == 20)
-					{
+				else if (cond == 2) {
+					if (st.getQuestItemsCount(STARSTONE) == 20) {
 						htmltext = "30540-05.htm";
 						st.takeItems(STARSTONE, 20);
 						st.rewardItems(GATEKEEPER_TOKEN, 2);
 						st.playSound(QuestState.SOUND_FINISH);
 						st.exitQuest(true);
-					}
-					else
+					} else
 						htmltext = "30540-04.htm";
 				}
 				break;
@@ -110,8 +100,7 @@ public class Q297_GatekeepersFavor extends Quest
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;

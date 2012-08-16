@@ -12,9 +12,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q296_TarantulasSpiderSilk extends Quest
-{
+public class Q296_TarantulasSpiderSilk extends Quest implements ScriptFile {
 	private static final String qn = "Q296_TarantulasSpiderSilk";
 
 	// NPCs
@@ -33,8 +33,7 @@ public class Q296_TarantulasSpiderSilk extends Quest
 	private static final int HUNTER_TARANTULA = 20403;
 	private static final int PLUNDER_TARANTULA = 20508;
 
-	public Q296_TarantulasSpiderSilk(int questId, String name, String descr)
-	{
+	public Q296_TarantulasSpiderSilk(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { TARANTULA_SPIDER_SILK, TARANTULA_SPINNERETTE };
@@ -44,67 +43,53 @@ public class Q296_TarantulasSpiderSilk extends Quest
 		addKillId(HUNTER_TARANTULA, PLUNDER_TARANTULA);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q296_TarantulasSpiderSilk(296, "Q296_TarantulasSpiderSilk", "Tarantula's Spider Silk");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30519-03.htm"))
-		{
+		if (event.equalsIgnoreCase("30519-03.htm")) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("30519-06.htm"))
-		{
+		} else if (event.equalsIgnoreCase("30519-06.htm")) {
 			st.takeItems(TARANTULA_SPIDER_SILK, -1);
 			st.takeItems(TARANTULA_SPINNERETTE, -1);
 			st.exitQuest(true);
 			st.playSound(QuestState.SOUND_FINISH);
-		}
-		else if (event.equalsIgnoreCase("30548-02.htm"))
-		{
-			if (st.getQuestItemsCount(TARANTULA_SPINNERETTE) >= 1)
-			{
+		} else if (event.equalsIgnoreCase("30548-02.htm")) {
+			if (st.getQuestItemsCount(TARANTULA_SPINNERETTE) >= 1) {
 				htmltext = "30548-03.htm";
 				st.takeItems(TARANTULA_SPINNERETTE, 1);
 				st.giveItems(TARANTULA_SPIDER_SILK, 15 + Rnd.get(10));
 			}
-		}
-		else if (event.equalsIgnoreCase("30519-09.htm"))
+		} else if (event.equalsIgnoreCase("30519-09.htm"))
 			st.exitQuest(true);
 
 		return htmltext;
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
-				if (player.getLevel() >= 15 && player.getLevel() <= 21)
-				{
+				if (player.getLevel() >= 15 && player.getLevel() <= 21) {
 					if (st.getQuestItemsCount(RING_OF_RACCOON) == 1 || st.getQuestItemsCount(RING_OF_FIREFLY) == 1)
 						htmltext = "30519-02.htm";
 					else
 						htmltext = "30519-08.htm";
-				}
-				else
-				{
+				} else {
 					htmltext = "30519-01.htm";
 					st.exitQuest(true);
 				}
@@ -112,13 +97,11 @@ public class Q296_TarantulasSpiderSilk extends Quest
 
 			case QuestState.STARTED:
 				int count = st.getQuestItemsCount(TARANTULA_SPIDER_SILK);
-				switch (npc.getNpcId())
-				{
+				switch (npc.getNpcId()) {
 					case MION:
 						if (count == 0)
 							htmltext = "30519-04.htm";
-						else
-						{
+						else {
 							htmltext = "30519-05.htm";
 							st.takeItems(TARANTULA_SPIDER_SILK, count);
 							st.rewardItems(57, count * 30);
@@ -135,22 +118,17 @@ public class Q296_TarantulasSpiderSilk extends Quest
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 
-		if (st.isStarted())
-		{
+		if (st.isStarted()) {
 			int n = Rnd.get(100);
-			if (n < 5)
-			{
+			if (n < 5) {
 				st.giveItems(TARANTULA_SPINNERETTE, 1);
 				st.playSound(QuestState.SOUND_MIDDLE);
-			}
-			else if (n < 55)
-			{
+			} else if (n < 55) {
 				st.giveItems(TARANTULA_SPIDER_SILK, 1);
 				st.playSound(QuestState.SOUND_ITEMGET);
 			}

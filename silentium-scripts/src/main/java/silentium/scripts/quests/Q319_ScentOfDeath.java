@@ -11,9 +11,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q319_ScentOfDeath extends Quest
-{
+public class Q319_ScentOfDeath extends Quest implements ScriptFile {
 	private static final String qn = "Q319_ScentOfDeath";
 
 	// NPC
@@ -22,8 +22,7 @@ public class Q319_ScentOfDeath extends Quest
 	// Item
 	private static final int ZOMBIE_SKIN = 1045;
 
-	public Q319_ScentOfDeath(int questId, String name, String descr)
-	{
+	public Q319_ScentOfDeath(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { ZOMBIE_SKIN };
@@ -34,21 +33,18 @@ public class Q319_ScentOfDeath extends Quest
 		addKillId(20015, 20020);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q319_ScentOfDeath(319, "Q319_ScentOfDeath", "Scent of Death");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30138-04.htm"))
-		{
+		if (event.equalsIgnoreCase("30138-04.htm")) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
@@ -58,36 +54,31 @@ public class Q319_ScentOfDeath extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 11 && player.getLevel() <= 18)
 					htmltext = "30138-03.htm";
-				else
-				{
+				else {
 					htmltext = "30138-02.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				if (st.getQuestItemsCount(ZOMBIE_SKIN) == 5)
-				{
+				if (st.getQuestItemsCount(ZOMBIE_SKIN) == 5) {
 					htmltext = "30138-06.htm";
 					st.takeItems(ZOMBIE_SKIN, 5);
 					st.rewardItems(57, 3350);
 					st.rewardItems(1060, 1);
 					st.playSound(QuestState.SOUND_FINISH);
 					st.exitQuest(true);
-				}
-				else
+				} else
 					htmltext = "30138-05.htm";
 				break;
 		}
@@ -95,8 +86,7 @@ public class Q319_ScentOfDeath extends Quest
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;

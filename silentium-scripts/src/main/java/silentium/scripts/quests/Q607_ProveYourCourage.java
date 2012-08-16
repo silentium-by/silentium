@@ -12,9 +12,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q607_ProveYourCourage extends Quest
-{
+public class Q607_ProveYourCourage extends Quest implements ScriptFile {
 	private static final String qn = "Q607_ProveYourCourage";
 
 	// Items
@@ -22,8 +22,7 @@ public class Q607_ProveYourCourage extends Quest
 	private static final int Valor_Totem = 7219;
 	private static final int Ketra_Alliance_Three = 7213;
 
-	public Q607_ProveYourCourage(int questId, String name, String descr)
-	{
+	public Q607_ProveYourCourage(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { Shadith_Head };
@@ -34,53 +33,39 @@ public class Q607_ProveYourCourage extends Quest
 		addKillId(25309); // Shadith
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q607_ProveYourCourage(607, "Q607_ProveYourCourage", "Prove your courage!");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("31370-04.htm"))
-		{
-			if (player.getAllianceWithVarkaKetra() >= 3 && st.getQuestItemsCount(Ketra_Alliance_Three) > 0 && st.getQuestItemsCount(Valor_Totem) == 0)
-			{
-				if (player.getLevel() >= 75)
-				{
+		if (event.equalsIgnoreCase("31370-04.htm")) {
+			if (player.getAllianceWithVarkaKetra() >= 3 && st.getQuestItemsCount(Ketra_Alliance_Three) > 0 && st.getQuestItemsCount(Valor_Totem) == 0) {
+				if (player.getLevel() >= 75) {
 					st.set("cond", "1");
 					st.setState(QuestState.STARTED);
 					st.playSound(QuestState.SOUND_ACCEPT);
-				}
-				else
-				{
+				} else {
 					htmltext = "31370-03.htm";
 					st.exitQuest(true);
 				}
-			}
-			else
-			{
+			} else {
 				htmltext = "31370-02.htm";
 				st.exitQuest(true);
 			}
-		}
-		else if (event.equalsIgnoreCase("31370-07.htm"))
-		{
-			if (st.getQuestItemsCount(Shadith_Head) == 1)
-			{
+		} else if (event.equalsIgnoreCase("31370-07.htm")) {
+			if (st.getQuestItemsCount(Shadith_Head) == 1) {
 				st.takeItems(Shadith_Head, -1);
 				st.giveItems(Valor_Totem, 1);
 				st.addExpAndSp(10000, 0);
 				st.playSound(QuestState.SOUND_FINISH);
 				st.exitQuest(true);
-			}
-			else
-			{
+			} else {
 				htmltext = "31370-06.htm";
 				st.set("cond", "1");
 				st.playSound(QuestState.SOUND_ACCEPT);
@@ -91,15 +76,13 @@ public class Q607_ProveYourCourage extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		String htmltext = Quest.getNoQuestMsg();
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				htmltext = "31370-01.htm";
 				break;
@@ -116,30 +99,23 @@ public class Q607_ProveYourCourage extends Quest
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
 		final L2Party party = player.getParty();
-		if (party != null)
-		{
-			for (L2PcInstance partyMember : party.getPartyMembers())
-			{
+		if (party != null) {
+			for (L2PcInstance partyMember : party.getPartyMembers()) {
 				if (partyMember != null)
 					rewardPlayer(partyMember);
 			}
-		}
-		else
+		} else
 			rewardPlayer(player);
 
 		return null;
 	}
 
-	private static void rewardPlayer(L2PcInstance player)
-	{
-		if (player.getAllianceWithVarkaKetra() >= 3)
-		{
+	private static void rewardPlayer(L2PcInstance player) {
+		if (player.getAllianceWithVarkaKetra() >= 3) {
 			QuestState st = player.getQuestState(qn);
-			if (st.getInt("cond") == 1 && st.getQuestItemsCount(Ketra_Alliance_Three) > 0)
-			{
+			if (st.getInt("cond") == 1 && st.getQuestItemsCount(Ketra_Alliance_Three) > 0) {
 				st.set("cond", "2");
 				st.giveItems(Shadith_Head, 1);
 				st.playSound(QuestState.SOUND_ITEMGET);

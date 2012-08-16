@@ -11,29 +11,26 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.entity.sevensigns.SevenSigns;
 import silentium.gameserver.model.quest.Quest;
+import silentium.gameserver.scripting.ScriptFile;
 import silentium.gameserver.utils.Util;
 
-public class HuntingGroundsTeleport extends Quest
-{
+public class HuntingGroundsTeleport extends Quest implements ScriptFile {
 	private final static int[] PRIESTS = { 31078, 31079, 31080, 31081, 31082, 31083, 31084, 31085, 31086, 31087, 31088, 31089, 31090, 31091, 31168, 31169, 31692, 31693, 31694, 31695, 31997, 31998 };
 
 	private static final int[] DAWN_NPCS = { 31078, 31079, 31080, 31081, 31082, 31083, 31084, 31168, 31692, 31694, 31997 };
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new HuntingGroundsTeleport(-1, "HuntingGroundsTeleport", "teleports");
 	}
 
-	public HuntingGroundsTeleport(int questId, String name, String descr)
-	{
+	public HuntingGroundsTeleport(int questId, String name, String descr) {
 		super(questId, name, descr);
 		addStartNpc(PRIESTS);
 		addTalkId(PRIESTS);
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		final SevenSigns ss = SevenSigns.getInstance();
 		final int playerCabal = ss.getPlayerCabal(player.getObjectId());
 
@@ -43,8 +40,7 @@ public class HuntingGroundsTeleport extends Quest
 		String htmltext = "";
 		final boolean check = ss.isSealValidationPeriod() && (playerCabal == ss.getSealOwner(SevenSigns.SEAL_GNOSIS)) && (ss.getPlayerSeal(player.getObjectId()) == SevenSigns.SEAL_GNOSIS);
 
-		switch (npc.getNpcId())
-		{
+		switch (npc.getNpcId()) {
 			case 31078:
 			case 31085:
 				htmltext = check ? "low_gludin.htm" : "hg_gludin.htm";

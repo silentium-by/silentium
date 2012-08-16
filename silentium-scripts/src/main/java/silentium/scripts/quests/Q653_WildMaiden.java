@@ -13,9 +13,9 @@ import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.network.serverpackets.MagicSkillUse;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q653_WildMaiden extends Quest
-{
+public class Q653_WildMaiden extends Quest implements ScriptFile {
 	private static final String qn = "Q653_WildMaiden";
 
 	// NPCs
@@ -31,8 +31,7 @@ public class Q653_WildMaiden extends Quest
 	// Current position
 	private int _currentPosition = 0;
 
-	public Q653_WildMaiden(int questId, String name, String descr)
-	{
+	public Q653_WildMaiden(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		addStartNpc(SUKI);
@@ -41,23 +40,19 @@ public class Q653_WildMaiden extends Quest
 		addSpawn(SUKI, 66578, 72351, -3731, 0, false, 0);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q653_WildMaiden(653, "Q653_WildMaiden", "Wild Maiden");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("32013-03.htm"))
-		{
-			if (st.hasQuestItems(SOE))
-			{
+		if (event.equalsIgnoreCase("32013-03.htm")) {
+			if (st.hasQuestItems(SOE)) {
 				st.set("cond", "1");
 				st.setState(QuestState.STARTED);
 				st.takeItems(SOE, 1);
@@ -65,15 +60,11 @@ public class Q653_WildMaiden extends Quest
 
 				npc.broadcastPacket(new MagicSkillUse(npc, npc, 2013, 1, 3500, 0));
 				startQuestTimer("apparition_npc", 4000, npc, player);
-			}
-			else
-			{
+			} else {
 				htmltext = "32013-03a.htm";
 				st.exitQuest(true);
 			}
-		}
-		else if (event.equalsIgnoreCase("apparition_npc"))
-		{
+		} else if (event.equalsIgnoreCase("apparition_npc")) {
 			int chance = Rnd.get(4);
 
 			// Loop to avoid to spawn to the same place.
@@ -92,28 +83,24 @@ public class Q653_WildMaiden extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 26)
 					htmltext = "32013-02.htm";
-				else
-				{
+				else {
 					htmltext = "32013-01.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				switch (npc.getNpcId())
-				{
+				switch (npc.getNpcId()) {
 					case GALIBREDO:
 						htmltext = "30181-01.htm";
 						st.rewardItems(57, 2883);

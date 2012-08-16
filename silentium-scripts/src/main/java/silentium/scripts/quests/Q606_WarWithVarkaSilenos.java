@@ -11,20 +11,19 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
 /**
  * The onKill section of that quest is directly written on Q605.
  */
-public class Q606_WarWithVarkaSilenos extends Quest
-{
+public class Q606_WarWithVarkaSilenos extends Quest implements ScriptFile {
 	private final static String qn = "Q606_WarWithVarkaSilenos";
 
 	// Items
 	private static final int Horn = 7186;
 	private static final int Mane = 7233;
 
-	public Q606_WarWithVarkaSilenos(int questId, String name, String descr)
-	{
+	public Q606_WarWithVarkaSilenos(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { Mane };
@@ -33,46 +32,34 @@ public class Q606_WarWithVarkaSilenos extends Quest
 		addTalkId(31370);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q606_WarWithVarkaSilenos(606, "Q606_WarWithVarkaSilenos", "War with Varka Silenos");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("31370-03.htm"))
-		{
-			if (player.getLevel() >= 74 && player.getAllianceWithVarkaKetra() >= 1)
-			{
+		if (event.equalsIgnoreCase("31370-03.htm")) {
+			if (player.getLevel() >= 74 && player.getAllianceWithVarkaKetra() >= 1) {
 				st.set("cond", "1");
 				st.setState(QuestState.STARTED);
 				st.playSound(QuestState.SOUND_ACCEPT);
-			}
-			else
-			{
+			} else {
 				htmltext = "31370-02.htm";
 				st.exitQuest(true);
 			}
-		}
-		else if (event.equalsIgnoreCase("31370-07.htm"))
-		{
-			if (st.getQuestItemsCount(Mane) >= 100)
-			{
+		} else if (event.equalsIgnoreCase("31370-07.htm")) {
+			if (st.getQuestItemsCount(Mane) >= 100) {
 				st.takeItems(Mane, 100);
 				st.giveItems(Horn, 20);
 				st.playSound(QuestState.SOUND_ITEMGET);
-			}
-			else
+			} else
 				htmltext = "31370-08.htm";
-		}
-		else if (event.equalsIgnoreCase("31370-09.htm"))
-		{
+		} else if (event.equalsIgnoreCase("31370-09.htm")) {
 			st.takeItems(Mane, -1);
 			st.exitQuest(true);
 		}
@@ -81,15 +68,13 @@ public class Q606_WarWithVarkaSilenos extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		String htmltext = Quest.getNoQuestMsg();
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				htmltext = "31370-01.htm";
 				break;

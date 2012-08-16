@@ -12,9 +12,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q276_TotemOfTheHestui extends Quest
-{
+public class Q276_TotemOfTheHestui extends Quest implements ScriptFile {
 	private final static String qn = "Q276_TotemOfTheHestui";
 
 	// NPC
@@ -26,8 +26,7 @@ public class Q276_TotemOfTheHestui extends Quest
 	private static final int HESTUIS_TOTEM = 1500;
 	private static final int LEATHER_PANTS = 29;
 
-	public Q276_TotemOfTheHestui(int questId, String name, String descr)
-	{
+	public Q276_TotemOfTheHestui(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { KASHA_PARASITE, KASHA_CRYSTAL };
@@ -38,21 +37,18 @@ public class Q276_TotemOfTheHestui extends Quest
 		addKillId(20479, 27044);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q276_TotemOfTheHestui(276, "Q276_TotemOfTheHestui", "Totem of the Hestui");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30571-03.htm"))
-		{
+		if (event.equalsIgnoreCase("30571-03.htm")) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
@@ -62,28 +58,22 @@ public class Q276_TotemOfTheHestui extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
-				if (player.getRace().ordinal() == 3)
-				{
+				if (player.getRace().ordinal() == 3) {
 					if (player.getLevel() >= 15 && player.getLevel() <= 21)
 						htmltext = "30571-02.htm";
-					else
-					{
+					else {
 						htmltext = "30571-01.htm";
 						st.exitQuest(true);
 					}
-				}
-				else
-				{
+				} else {
 					htmltext = "30571-00.htm";
 					st.exitQuest(true);
 				}
@@ -92,8 +82,7 @@ public class Q276_TotemOfTheHestui extends Quest
 			case QuestState.STARTED:
 				if (st.getQuestItemsCount(KASHA_CRYSTAL) == 0)
 					htmltext = "30571-04.htm";
-				else
-				{
+				else {
 					htmltext = "30571-05.htm";
 					st.takeItems(KASHA_CRYSTAL, -1);
 					st.takeItems(KASHA_PARASITE, -1);
@@ -109,27 +98,21 @@ public class Q276_TotemOfTheHestui extends Quest
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 
-		if (st.getInt("cond") == 1 && !st.hasQuestItems(KASHA_CRYSTAL))
-		{
-			switch (npc.getNpcId())
-			{
+		if (st.getInt("cond") == 1 && !st.hasQuestItems(KASHA_CRYSTAL)) {
+			switch (npc.getNpcId()) {
 				case 20479:
 					int count = st.getQuestItemsCount(KASHA_PARASITE);
 					int random = Rnd.get(100);
 
-					if ((count >= 70 && random < 90) || (count >= 65 && random < 75) || (count >= 60 && random < 60) || (count >= 52 && random < 45) || (count >= 50 && random < 30))
-					{
+					if ((count >= 70 && random < 90) || (count >= 65 && random < 75) || (count >= 60 && random < 60) || (count >= 52 && random < 45) || (count >= 50 && random < 30)) {
 						st.addSpawn(27044, npc);
 						st.takeItems(KASHA_PARASITE, count);
-					}
-					else
-					{
+					} else {
 						st.playSound(QuestState.SOUND_ITEMGET);
 						st.giveItems(KASHA_PARASITE, 1);
 					}

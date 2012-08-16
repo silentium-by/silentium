@@ -11,9 +11,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q112_WalkOfFate extends Quest
-{
+public class Q112_WalkOfFate extends Quest implements ScriptFile {
 	private static final String qn = "Q112_WalkOfFate";
 
 	// NPCs
@@ -24,35 +24,29 @@ public class Q112_WalkOfFate extends Quest
 	private final static int ADENA = 57;
 	private final static int ENCHANT_D = 956;
 
-	public Q112_WalkOfFate(int questId, String name, String descr)
-	{
+	public Q112_WalkOfFate(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		addStartNpc(LIVINA);
 		addTalkId(LIVINA, KARUDA);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q112_WalkOfFate(112, "Q112_WalkOfFate", "Walk of Fate");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30572-02.htm"))
-		{
+		if (event.equalsIgnoreCase("30572-02.htm")) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("32017-02.htm"))
-		{
+		} else if (event.equalsIgnoreCase("32017-02.htm")) {
 			st.rewardItems(ADENA, 4665);
 			st.giveItems(ENCHANT_D, 1);
 			st.exitQuest(false);
@@ -63,28 +57,24 @@ public class Q112_WalkOfFate extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 20 && player.getLevel() <= 36)
 					htmltext = "30572-01.htm";
-				else
-				{
+				else {
 					htmltext = "30572-00.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				switch (npc.getNpcId())
-				{
+				switch (npc.getNpcId()) {
 					case LIVINA:
 						htmltext = "30572-03.htm";
 						break;

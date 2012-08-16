@@ -16,6 +16,7 @@ import silentium.gameserver.model.actor.L2Character;
 import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2ChestInstance;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
+import silentium.gameserver.scripting.ScriptFile;
 import silentium.gameserver.utils.Util;
 
 /**
@@ -23,8 +24,7 @@ import silentium.gameserver.utils.Util;
  *
  * @author Fulminus
  */
-public class Chests extends DefaultMonsterAI
-{
+public class Chests extends DefaultMonsterAI implements ScriptFile {
 	private static final int SKILL_DELUXE_KEY = 2229;
 
 	// Base chance for BOX to be opened
@@ -38,23 +38,19 @@ public class Chests extends DefaultMonsterAI
 
 	private static final int[] NPC_IDS = { 18265, 18266, 18267, 18268, 18269, 18270, 18271, 18272, 18273, 18274, 18275, 18276, 18277, 18278, 18279, 18280, 18281, 18282, 18283, 18284, 18285, 18286, 18287, 18288, 18289, 18290, 18291, 18292, 18293, 18294, 18295, 18296, 18297, 18298, 21671, 21694, 21717, 21740, 21763, 21786, 21801, 21802, 21803, 21804, 21805, 21806, 21807, 21808, 21809, 21810, 21811, 21812, 21813, 21814, 21815, 21816, 21817, 21818, 21819, 21820, 21821, 21822 };
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Chests(-1, "chests", "ai");
 	}
 
-	public Chests(int questId, String name, String descr)
-	{
+	public Chests(int questId, String name, String descr) {
 		// firstly, don't forget to call the parent constructor to prepare the event triggering mechanisms
 		super(questId, name, descr);
 		this.registerMobs(NPC_IDS, QuestEventType.ON_ATTACK, QuestEventType.ON_SKILL_SEE);
 	}
 
 	@Override
-	public String onSkillSee(L2Npc npc, L2PcInstance caster, L2Skill skill, L2Object[] targets, boolean isPet)
-	{
-		if (npc instanceof L2ChestInstance)
-		{
+	public String onSkillSee(L2Npc npc, L2PcInstance caster, L2Skill skill, L2Object[] targets, boolean isPet) {
+		if (npc instanceof L2ChestInstance) {
 			// this behavior is only run when the target of skill is the passed npc (chest)
 			// i.e. when the player is attempting to open the chest using a skill
 			if (!Util.contains(targets, npc))
@@ -71,14 +67,11 @@ public class Chests extends DefaultMonsterAI
 
 			// if this has already been interacted, no further ai decisions are needed
 			// if it's the first interaction, check if this is a box or mimic
-			if (!chest.isInteracted())
-			{
+			if (!chest.isInteracted()) {
 				chest.setInteracted();
-				if (Rnd.get(100) < IS_BOX)
-				{
+				if (Rnd.get(100) < IS_BOX) {
 					// if it's a box, either it will be successfully openned by a proper key, or instantly disappear
-					if (skillId == SKILL_DELUXE_KEY)
-					{
+					if (skillId == SKILL_DELUXE_KEY) {
 						// check the chance to open the box
 						int keyLevelNeeded = chest.getLevel() / 10;
 						keyLevelNeeded -= skillLevel;
@@ -87,8 +80,7 @@ public class Chests extends DefaultMonsterAI
 						int chance = BASE_CHANCE - keyLevelNeeded * LEVEL_DECREASE;
 
 						// success, pretend-death with rewards: chest.reduceCurrentHp(99999999, player)
-						if (Rnd.get(100) < chance)
-						{
+						if (Rnd.get(100) < chance) {
 							chest.setMustRewardExpSp(false);
 							chest.setSpecialDrop();
 							chest.reduceCurrentHp(99999999, caster, null);
@@ -97,9 +89,7 @@ public class Chests extends DefaultMonsterAI
 					}
 					// used a skill other than chest-key, or used a chest-key but failed to open: disappear with no rewards
 					chest.deleteMe();
-				}
-				else
-				{
+				} else {
 					L2Character originalCaster = isPet ? caster.getPet() : caster;
 					chest.setRunning();
 					chest.addDamageHate(originalCaster, 0, 999);
@@ -111,10 +101,8 @@ public class Chests extends DefaultMonsterAI
 	}
 
 	@Override
-	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isPet)
-	{
-		if (npc instanceof L2ChestInstance)
-		{
+	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isPet) {
+		if (npc instanceof L2ChestInstance) {
 			L2ChestInstance chest = ((L2ChestInstance) npc);
 			int npcId = chest.getNpcId();
 			// check if the chest and skills used are valid for this script. Exit if invalid.
@@ -122,13 +110,11 @@ public class Chests extends DefaultMonsterAI
 				return super.onAttack(npc, attacker, damage, isPet);
 
 			// if this was a mimic, set the target, start the skills and become agro
-			if (!chest.isInteracted())
-			{
+			if (!chest.isInteracted()) {
 				chest.setInteracted();
 				if (Rnd.get(100) < IS_BOX)
 					chest.deleteMe();
-				else
-				{
+				else {
 					// if this weren't a box, upon interaction start the mimic behaviors...
 					L2Character originalAttacker = isPet ? attacker.getPet() : attacker;
 					chest.setRunning();

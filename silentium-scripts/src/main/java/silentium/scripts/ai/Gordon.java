@@ -7,8 +7,6 @@
  */
 package silentium.scripts.ai;
 
-import java.util.Collection;
-
 import silentium.gameserver.ai.CtrlIntention;
 import silentium.gameserver.ai.DefaultMonsterAI;
 import silentium.gameserver.model.L2CharPosition;
@@ -16,16 +14,18 @@ import silentium.gameserver.model.L2Spawn;
 import silentium.gameserver.model.actor.L2Attackable;
 import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
+import silentium.gameserver.scripting.ScriptFile;
 import silentium.gameserver.tables.SpawnTable;
+
+import java.util.Collection;
 
 /**
  * Gordon AI
- * 
+ *
  * @author TOFIZ
  * @version $Revision: 1.1 $ $Date: 2008/08/21 $
  */
-public class Gordon extends DefaultMonsterAI
-{
+public class Gordon extends DefaultMonsterAI implements ScriptFile {
 	private static final int GORDON = 29095;
 	private static int _npcMoveX = 0;
 	private static int _npcMoveY = 0;
@@ -43,13 +43,11 @@ public class Gordon extends DefaultMonsterAI
 	private static boolean _isAttacked = false;
 	private static boolean _isSpawned = false;
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Gordon(-1, "gordon", "ai");
 	}
 
-	public Gordon(int id, String name, String descr)
-	{
+	public Gordon(int id, String name, String descr) {
 		super(id, name, descr);
 		int[] mobs = { GORDON };
 		registerMobs(mobs, QuestEventType.ON_ATTACK, QuestEventType.ON_KILL, QuestEventType.ON_SPAWN);
@@ -64,13 +62,10 @@ public class Gordon extends DefaultMonsterAI
 		_npcBlock = 0;
 	}
 
-	public L2Npc findTemplate(int npcId)
-	{
+	public L2Npc findTemplate(int npcId) {
 		L2Npc npc = null;
-		for (L2Spawn spawn : SpawnTable.getInstance().getSpawnTable())
-		{
-			if (spawn != null && spawn.getNpcId() == npcId)
-			{
+		for (L2Spawn spawn : SpawnTable.getInstance().getSpawnTable()) {
+			if (spawn != null && spawn.getNpcId() == npcId) {
 				npc = spawn.getLastSpawn();
 				break;
 			}
@@ -79,49 +74,35 @@ public class Gordon extends DefaultMonsterAI
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		X = WALKS[_isWalkTo - 1][0];
 		Y = WALKS[_isWalkTo - 1][1];
 		Z = WALKS[_isWalkTo - 1][2];
 
-		if (event.equalsIgnoreCase("time_isAttacked"))
-		{
+		if (event.equalsIgnoreCase("time_isAttacked")) {
 			_isAttacked = false;
-			if (npc.getNpcId() == GORDON)
-			{
+			if (npc.getNpcId() == GORDON) {
 				npc.setWalking();
 				npc.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(X, Y, Z, 0));
 			}
-		}
-		else if (event.equalsIgnoreCase("check_ai"))
-		{
+		} else if (event.equalsIgnoreCase("check_ai")) {
 			cancelQuestTimer("check_ai", null, null);
-			if (_isSpawned == false)
-			{
+			if (_isSpawned == false) {
 				L2Npc gordon_ai = findTemplate(GORDON);
-				if (gordon_ai != null)
-				{
+				if (gordon_ai != null) {
 					_isSpawned = true;
 					startQuestTimer("Start", 1000, gordon_ai, null, true);
 					return super.onAdvEvent(event, npc, player);
 				}
 			}
-		}
-		else if (event.equalsIgnoreCase("Start"))
-		{
-			if (npc != null && _isSpawned == true)
-			{
+		} else if (event.equalsIgnoreCase("Start")) {
+			if (npc != null && _isSpawned == true) {
 				// check if player have Cursed Weapon and in radius
-				if (npc.getNpcId() == GORDON)
-				{
+				if (npc.getNpcId() == GORDON) {
 					Collection<L2PcInstance> chars = npc.getKnownList().getKnownPlayers().values();
-					if (chars != null && chars.size() > 0)
-					{
-						for (L2PcInstance pc : chars)
-						{
-							if (pc.isCursedWeaponEquipped() && pc.isInsideRadius(npc, 5000, false, false))
-							{
+					if (chars != null && chars.size() > 0) {
+						for (L2PcInstance pc : chars) {
+							if (pc.isCursedWeaponEquipped() && pc.isInsideRadius(npc, 5000, false, false)) {
 								npc.setRunning();
 								((L2Attackable) npc).addDamageHate(pc, 0, 9999);
 								npc.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, pc);
@@ -138,8 +119,7 @@ public class Gordon extends DefaultMonsterAI
 				if (_isAttacked == true)
 					return super.onAdvEvent(event, npc, player);
 
-				if (npc.getNpcId() == GORDON && (npc.getX() - 50) <= X && (npc.getX() + 50) >= X && (npc.getY() - 50) <= Y && (npc.getY() + 50) >= Y)
-				{
+				if (npc.getNpcId() == GORDON && (npc.getX() - 50) <= X && (npc.getX() + 50) >= X && (npc.getY() - 50) <= Y && (npc.getY() + 50) >= Y) {
 					_isWalkTo++;
 					if (_isWalkTo > 55)
 						_isWalkTo = 1;
@@ -153,17 +133,13 @@ public class Gordon extends DefaultMonsterAI
 				}
 
 				// Test for unblock Npc
-				if (npc.getX() != _npcMoveX && npc.getY() != _npcMoveY)
-				{
+				if (npc.getX() != _npcMoveX && npc.getY() != _npcMoveY) {
 					_npcMoveX = npc.getX();
 					_npcMoveY = npc.getY();
 					_npcBlock = 0;
-				}
-				else if (npc.getNpcId() == GORDON)
-				{
+				} else if (npc.getNpcId() == GORDON) {
 					_npcBlock++;
-					if (_npcBlock > 2)
-					{
+					if (_npcBlock > 2) {
 						npc.teleToLocation(X, Y, Z);
 						return super.onAdvEvent(event, npc, player);
 					}
@@ -178,10 +154,8 @@ public class Gordon extends DefaultMonsterAI
 	}
 
 	@Override
-	public String onSpawn(L2Npc npc)
-	{
-		if (npc.getNpcId() == GORDON && _npcBlock == 0)
-		{
+	public String onSpawn(L2Npc npc) {
+		if (npc.getNpcId() == GORDON && _npcBlock == 0) {
 			_isSpawned = true;
 			_isWalkTo = 1;
 			startQuestTimer("Start", 1000, npc, null, true);
@@ -190,16 +164,13 @@ public class Gordon extends DefaultMonsterAI
 	}
 
 	@Override
-	public String onAttack(L2Npc npc, L2PcInstance player, int damage, boolean isPet)
-	{
-		if (npc.getNpcId() == GORDON)
-		{
+	public String onAttack(L2Npc npc, L2PcInstance player, int damage, boolean isPet) {
+		if (npc.getNpcId() == GORDON) {
 			_isAttacked = true;
 			cancelQuestTimer("time_isAttacked", null, null);
 			startQuestTimer("time_isAttacked", 180000, npc, null);
 
-			if (player != null)
-			{
+			if (player != null) {
 				npc.setRunning();
 				((L2Attackable) npc).addDamageHate(player, 0, 100);
 				npc.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, player);
@@ -209,10 +180,8 @@ public class Gordon extends DefaultMonsterAI
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance killer, boolean isPet)
-	{
-		if (npc.getNpcId() == GORDON)
-		{
+	public String onKill(L2Npc npc, L2PcInstance killer, boolean isPet) {
+		if (npc.getNpcId() == GORDON) {
 			cancelQuestTimer("Start", null, null);
 			cancelQuestTimer("time_isAttacked", null, null);
 			_isSpawned = false;

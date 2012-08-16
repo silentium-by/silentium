@@ -12,9 +12,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q316_DestroyPlagueCarriers extends Quest
-{
+public class Q316_DestroyPlagueCarriers extends Quest implements ScriptFile {
 	private static final String qn = "Q316_DestroyPlagueCarriers";
 
 	// Items
@@ -26,8 +26,7 @@ public class Q316_DestroyPlagueCarriers extends Quest
 	private static final int Sukar_Wererat_Leader = 20047;
 	private static final int Varool_Foulclaw = 27020;
 
-	public Q316_DestroyPlagueCarriers(int questId, String name, String descr)
-	{
+	public Q316_DestroyPlagueCarriers(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { Wererat_Fang, Varool_Foulclaws_Fang };
@@ -38,27 +37,22 @@ public class Q316_DestroyPlagueCarriers extends Quest
 		addKillId(Sukar_Wererat, Sukar_Wererat_Leader, Varool_Foulclaw);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q316_DestroyPlagueCarriers(316, "Q316_DestroyPlagueCarriers", "Destroy Plague Carriers");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30155-04.htm"))
-		{
+		if (event.equalsIgnoreCase("30155-04.htm")) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("30155-08.htm"))
-		{
+		} else if (event.equalsIgnoreCase("30155-08.htm")) {
 			st.playSound(QuestState.SOUND_FINISH);
 			st.exitQuest(true);
 		}
@@ -67,25 +61,20 @@ public class Q316_DestroyPlagueCarriers extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		String htmltext = Quest.getNoQuestMsg();
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
-				if (player.getRace().ordinal() != 1)
-				{
+				if (player.getRace().ordinal() != 1) {
 					htmltext = "30155-00.htm";
 					st.exitQuest(true);
-				}
-				else if (player.getLevel() >= 18 && player.getLevel() <= 24)
+				} else if (player.getLevel() >= 18 && player.getLevel() <= 24)
 					htmltext = "30155-03.htm";
-				else
-				{
+				else {
 					htmltext = "30155-02.htm";
 					st.exitQuest(true);
 				}
@@ -97,8 +86,7 @@ public class Q316_DestroyPlagueCarriers extends Quest
 
 				if (rats + varool == 0)
 					htmltext = "30155-05.htm";
-				else
-				{
+				else {
 					htmltext = "30155-07.htm";
 					st.takeItems(Wererat_Fang, -1);
 					st.takeItems(Varool_Foulclaws_Fang, -1);
@@ -111,28 +99,23 @@ public class Q316_DestroyPlagueCarriers extends Quest
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 
-		if (st.isStarted())
-		{
-			switch (npc.getNpcId())
-			{
+		if (st.isStarted()) {
+			switch (npc.getNpcId()) {
 				case Sukar_Wererat:
 				case Sukar_Wererat_Leader:
-					if (Rnd.get(10) < 6)
-					{
+					if (Rnd.get(10) < 6) {
 						st.giveItems(Wererat_Fang, 1);
 						st.playSound(QuestState.SOUND_ITEMGET);
 					}
 					break;
 
 				case Varool_Foulclaw:
-					if (st.getQuestItemsCount(Varool_Foulclaws_Fang) == 0 && Rnd.get(10) == 0)
-					{
+					if (st.getQuestItemsCount(Varool_Foulclaws_Fang) == 0 && Rnd.get(10) == 0) {
 						st.giveItems(Varool_Foulclaws_Fang, 1);
 						st.playSound(QuestState.SOUND_MIDDLE);
 					}

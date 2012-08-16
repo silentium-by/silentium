@@ -7,18 +7,18 @@
  */
 package silentium.scripts.quests;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import silentium.gameserver.configs.MainConfig;
 import silentium.commons.utils.Rnd;
+import silentium.gameserver.configs.MainConfig;
 import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q039_RedEyedInvaders extends Quest
-{
+import java.util.HashMap;
+import java.util.Map;
+
+public class Q039_RedEyedInvaders extends Quest implements ScriptFile {
 	private final static String qn = "Q039_RedEyedInvaders";
 
 	// NPCs
@@ -39,6 +39,7 @@ public class Q039_RedEyedInvaders extends Quest
 
 	// First droplist
 	private static final Map<Integer, int[]> FIRST_DP = new HashMap<>();
+
 	{
 		FIRST_DP.put(M_LIZARDMAN_GUARD, new int[] { RED_BONE_NECKLACE, 100, BLACK_BONE_NECKLACE, 3, 33 });
 		FIRST_DP.put(M_LIZARDMAN, new int[] { BLACK_BONE_NECKLACE, 100, RED_BONE_NECKLACE, 3, 50 });
@@ -47,6 +48,7 @@ public class Q039_RedEyedInvaders extends Quest
 
 	// Second droplist
 	private static final Map<Integer, int[]> SECOND_DP = new HashMap<>();
+
 	{
 		SECOND_DP.put(ARANEID, new int[] { GEM_OF_MAILLE, 30, INCENSE_POUCH, 5, 25 });
 		SECOND_DP.put(M_LIZARDMAN_GUARD, new int[] { INCENSE_POUCH, 30, GEM_OF_MAILLE, 5, 25 });
@@ -58,8 +60,7 @@ public class Q039_RedEyedInvaders extends Quest
 	private static final int BABY_DUCK_RODE = 6529;
 	private static final int FISHING_SHOT_NG = 6535;
 
-	public Q039_RedEyedInvaders(int questId, String name, String descr)
-	{
+	public Q039_RedEyedInvaders(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { BLACK_BONE_NECKLACE, RED_BONE_NECKLACE, INCENSE_POUCH, GEM_OF_MAILLE };
@@ -70,39 +71,30 @@ public class Q039_RedEyedInvaders extends Quest
 		addKillId(M_LIZARDMAN, M_LIZARDMAN_SCOUT, M_LIZARDMAN_GUARD, ARANEID);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q039_RedEyedInvaders(39, "Q039_RedEyedInvaders", "Red-Eyed Invaders");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30334-1.htm"))
-		{
+		if (event.equalsIgnoreCase("30334-1.htm")) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("30332-1.htm"))
-		{
+		} else if (event.equalsIgnoreCase("30332-1.htm")) {
 			st.set("cond", "2");
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("30332-3.htm"))
-		{
+		} else if (event.equalsIgnoreCase("30332-3.htm")) {
 			st.set("cond", "4");
 			st.takeItems(BLACK_BONE_NECKLACE, -1);
 			st.takeItems(RED_BONE_NECKLACE, -1);
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("30332-5.htm"))
-		{
+		} else if (event.equalsIgnoreCase("30332-5.htm")) {
 			st.takeItems(INCENSE_POUCH, -1);
 			st.takeItems(GEM_OF_MAILLE, -1);
 			st.giveItems(GREEN_COLORED_LURE_HG, 60);
@@ -116,20 +108,17 @@ public class Q039_RedEyedInvaders extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		String htmltext = Quest.getNoQuestMsg();
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 20 && player.getLevel() <= 28)
 					htmltext = "30334-0.htm";
-				else
-				{
+				else {
 					htmltext = "30334-2.htm";
 					st.exitQuest(true);
 				}
@@ -137,8 +126,7 @@ public class Q039_RedEyedInvaders extends Quest
 
 			case QuestState.STARTED:
 				int cond = st.getInt("cond");
-				switch (npc.getNpcId())
-				{
+				switch (npc.getNpcId()) {
 					case BABENCO:
 						if (cond >= 1)
 							htmltext = "30334-3.htm";
@@ -168,13 +156,11 @@ public class Q039_RedEyedInvaders extends Quest
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
 		int npcId = npc.getNpcId();
 
 		L2PcInstance partyMember = getRandomPartyMember(player, npc, "2");
-		if (partyMember != null && npcId != ARANEID)
-		{
+		if (partyMember != null && npcId != ARANEID) {
 			drop(partyMember, FIRST_DP.get(npcId));
 			return null;
 		}
@@ -185,8 +171,7 @@ public class Q039_RedEyedInvaders extends Quest
 		return null;
 	}
 
-	private void drop(L2PcInstance player, int[] list)
-	{
+	private void drop(L2PcInstance player, int[] list) {
 		int item = list[0];
 		int max = list[1];
 		int item2 = list[2];
@@ -206,15 +191,12 @@ public class Q039_RedEyedInvaders extends Quest
 		if (count + numItems >= max)
 			numItems = max - count;
 
-		if (numItems > 0)
-		{
+		if (numItems > 0) {
 			st.giveItems(item, numItems);
-			if (st.getQuestItemsCount(item) == max && st.getQuestItemsCount(item2) == max)
-			{
+			if (st.getQuestItemsCount(item) == max && st.getQuestItemsCount(item2) == max) {
 				st.set("cond", String.valueOf(cond));
 				st.playSound(QuestState.SOUND_MIDDLE);
-			}
-			else
+			} else
 				st.playSound(QuestState.SOUND_ITEMGET);
 		}
 	}

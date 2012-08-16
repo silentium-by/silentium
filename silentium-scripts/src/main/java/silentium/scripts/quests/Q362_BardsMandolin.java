@@ -11,9 +11,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q362_BardsMandolin extends Quest
-{
+public class Q362_BardsMandolin extends Quest implements ScriptFile {
 	private final static String qn = "Q362_BardsMandolin";
 
 	// Items
@@ -26,8 +26,7 @@ public class Q362_BardsMandolin extends Quest
 	private static final int GALION = 30958;
 	private static final int WOODROW = 30837;
 
-	public Q362_BardsMandolin(int questId, String name, String descr)
-	{
+	public Q362_BardsMandolin(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { SWAN_FLUTE, SWAN_LETTER };
@@ -36,27 +35,22 @@ public class Q362_BardsMandolin extends Quest
 		addTalkId(SWAN, NANARIN, GALION, WOODROW);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q362_BardsMandolin(362, "Q362_BardsMandolin", "Bard's Mandolin");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30957-3.htm"))
-		{
+		if (event.equalsIgnoreCase("30957-3.htm")) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("30957-7.htm") || event.equalsIgnoreCase("30957-8.htm"))
-		{
+		} else if (event.equalsIgnoreCase("30957-7.htm") || event.equalsIgnoreCase("30957-8.htm")) {
 			st.rewardItems(57, 10000);
 			st.giveItems(4410, 1);
 			st.playSound(QuestState.SOUND_FINISH);
@@ -67,20 +61,17 @@ public class Q362_BardsMandolin extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		String htmltext = Quest.getNoQuestMsg();
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (st.getPlayer().getLevel() >= 15)
 					htmltext = "30957-1.htm";
-				else
-				{
+				else {
 					htmltext = "30957-2.htm";
 					st.exitQuest(true);
 				}
@@ -88,59 +79,50 @@ public class Q362_BardsMandolin extends Quest
 
 			case QuestState.STARTED:
 				int cond = st.getInt("cond");
-				switch (npc.getNpcId())
-				{
+				switch (npc.getNpcId()) {
 					case SWAN:
 						if (cond == 1 || cond == 2)
 							htmltext = "30957-4.htm";
-						else if (cond == 3)
-						{
+						else if (cond == 3) {
 							htmltext = "30957-5.htm";
 							st.set("cond", "4");
 							st.giveItems(SWAN_LETTER, 1);
 							st.playSound(QuestState.SOUND_MIDDLE);
-						}
-						else if (cond == 4)
+						} else if (cond == 4)
 							htmltext = "30957-5a.htm";
 						else if (cond == 5)
 							htmltext = "30957-6.htm";
 						break;
 
 					case WOODROW:
-						if (cond == 1)
-						{
+						if (cond == 1) {
 							htmltext = "30837-1.htm";
 							st.set("cond", "2");
 							st.playSound(QuestState.SOUND_MIDDLE);
-						}
-						else if (cond == 2)
+						} else if (cond == 2)
 							htmltext = "30837-2.htm";
 						else if (cond > 2)
 							htmltext = "30837-3.htm";
 						break;
 
 					case GALION:
-						if (cond == 2)
-						{
+						if (cond == 2) {
 							htmltext = "30958-1.htm";
 							st.set("cond", "3");
 							st.giveItems(SWAN_FLUTE, 1);
 							st.playSound(QuestState.SOUND_ITEMGET);
-						}
-						else if (cond >= 3)
+						} else if (cond >= 3)
 							htmltext = "30958-2.htm";
 						break;
 
 					case NANARIN:
-						if (cond == 4)
-						{
+						if (cond == 4) {
 							htmltext = "30956-1.htm";
 							st.set("cond", "5");
 							st.takeItems(SWAN_FLUTE, 1);
 							st.takeItems(SWAN_LETTER, 1);
 							st.playSound(QuestState.SOUND_MIDDLE);
-						}
-						else if (cond == 5)
+						} else if (cond == 5)
 							htmltext = "30956-2.htm";
 						break;
 				}

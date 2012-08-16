@@ -11,9 +11,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q044_HelpTheSon extends Quest
-{
+public class Q044_HelpTheSon extends Quest implements ScriptFile {
 	private static final String qn = "Q044_HelpTheSon";
 
 	// Npcs
@@ -30,8 +30,7 @@ public class Q044_HelpTheSon extends Quest
 	private final static int MAILLE_GUARD = 20921;
 	private final static int MAILLE_SCOUT = 20920;
 
-	public Q044_HelpTheSon(int questId, String name, String descr)
-	{
+	public Q044_HelpTheSon(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { GEMSTONE_FRAGMENT, GEMSTONE };
@@ -42,46 +41,35 @@ public class Q044_HelpTheSon extends Quest
 		addKillId(MAILLE_GUARD, MAILLE_SCOUT);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q044_HelpTheSon(44, "Q044_HelpTheSon", "Help the Son!");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30827-01.htm"))
-		{
+		if (event.equalsIgnoreCase("30827-01.htm")) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("30827-03.htm") && st.getQuestItemsCount(WORK_HAMMER) >= 1)
-		{
+		} else if (event.equalsIgnoreCase("30827-03.htm") && st.getQuestItemsCount(WORK_HAMMER) >= 1) {
 			st.set("cond", "2");
 			st.takeItems(WORK_HAMMER, 1);
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("30827-05.htm") && st.getQuestItemsCount(GEMSTONE_FRAGMENT) >= 30)
-		{
+		} else if (event.equalsIgnoreCase("30827-05.htm") && st.getQuestItemsCount(GEMSTONE_FRAGMENT) >= 30) {
 			st.takeItems(GEMSTONE_FRAGMENT, 30);
 			st.giveItems(GEMSTONE, 1);
 			st.set("cond", "4");
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("30505-06.htm") && st.getQuestItemsCount(GEMSTONE) == 1)
-		{
+		} else if (event.equalsIgnoreCase("30505-06.htm") && st.getQuestItemsCount(GEMSTONE) == 1) {
 			st.takeItems(GEMSTONE, 1);
 			st.set("cond", "5");
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("30827-07.htm"))
-		{
+		} else if (event.equalsIgnoreCase("30827-07.htm")) {
 			st.giveItems(PET_TICKET, 1);
 			st.playSound(QuestState.SOUND_FINISH);
 			st.exitQuest(false);
@@ -91,20 +79,17 @@ public class Q044_HelpTheSon extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 24)
 					htmltext = "30827-00.htm";
-				else
-				{
+				else {
 					htmltext = "<html><body>This quest can only be taken by characters that have a minimum level of 24. Return when you are more experienced.</body></html>";
 					st.exitQuest(true);
 				}
@@ -112,8 +97,7 @@ public class Q044_HelpTheSon extends Quest
 
 			case QuestState.STARTED:
 				int cond = st.getInt("cond");
-				switch (npc.getNpcId())
-				{
+				switch (npc.getNpcId()) {
 					case LUNDY:
 						if (cond == 1)
 							if (st.getQuestItemsCount(WORK_HAMMER) == 0)
@@ -148,8 +132,7 @@ public class Q044_HelpTheSon extends Quest
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;

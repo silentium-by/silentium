@@ -10,27 +10,24 @@ package silentium.scripts.vmasters;
 import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
+import silentium.gameserver.scripting.ScriptFile;
 
-public final class Bronk extends Quest
-{
+public final class Bronk extends Quest implements ScriptFile {
 	// Quest NPCs
 	private static final int BRONK = 30525;
 
-	public Bronk(int questId, String name, String descr)
-	{
+	public Bronk(int questId, String name, String descr) {
 		super(questId, name, descr);
 		addStartNpc(BRONK);
 		addTalkId(BRONK);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Bronk(-1, "Bronk", "vmasters");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		if (event.contains("-01") || event.contains("-02") || event.contains("-03") || event.contains("-04"))
 			return event;
 		else
@@ -38,10 +35,8 @@ public final class Bronk extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance talker)
-	{
-		switch (talker.getClassId())
-		{
+	public String onTalk(L2Npc npc, L2PcInstance talker) {
+		switch (talker.getClassId()) {
 			case dwarvenFighter:
 				return "30525-01.htm";
 			case artisan:

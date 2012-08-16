@@ -11,9 +11,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q050_LanoscosSpecialBait extends Quest
-{
+public class Q050_LanoscosSpecialBait extends Quest implements ScriptFile {
 	private static final String qn = "Q050_LanoscosSpecialBait";
 
 	// NPC
@@ -28,8 +28,7 @@ public class Q050_LanoscosSpecialBait extends Quest
 	// Monster
 	private final static int SINGING_WIND = 21026;
 
-	public Q050_LanoscosSpecialBait(int questId, String name, String descr)
-	{
+	public Q050_LanoscosSpecialBait(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { ESSENCE_OF_WIND };
@@ -40,27 +39,22 @@ public class Q050_LanoscosSpecialBait extends Quest
 		addKillId(SINGING_WIND);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q050_LanoscosSpecialBait(50, "Q050_LanoscosSpecialBait", "Lanosco's Special Bait");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("31570-03.htm"))
-		{
+		if (event.equalsIgnoreCase("31570-03.htm")) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("31570-07.htm") && st.getQuestItemsCount(ESSENCE_OF_WIND) == 100)
-		{
+		} else if (event.equalsIgnoreCase("31570-07.htm") && st.getQuestItemsCount(ESSENCE_OF_WIND) == 100) {
 			htmltext = "31570-06.htm";
 			st.rewardItems(WIND_FISHING_LURE, 4);
 			st.takeItems(ESSENCE_OF_WIND, 100);
@@ -71,20 +65,17 @@ public class Q050_LanoscosSpecialBait extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 27 && player.getLevel() <= 29)
 					htmltext = "31570-01.htm";
-				else
-				{
+				else {
 					htmltext = "31570-02.htm";
 					st.exitQuest(true);
 				}
@@ -105,8 +96,7 @@ public class Q050_LanoscosSpecialBait extends Quest
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;

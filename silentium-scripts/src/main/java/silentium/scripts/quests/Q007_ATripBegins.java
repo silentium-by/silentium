@@ -11,9 +11,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q007_ATripBegins extends Quest
-{
+public class Q007_ATripBegins extends Quest implements ScriptFile {
 	private static final String qn = "Q007_ATripBegins";
 
 	// NPCs
@@ -28,8 +28,7 @@ public class Q007_ATripBegins extends Quest
 	private final static int MARK_TRAVELER = 7570;
 	private final static int SCROLL_GIRAN = 7559;
 
-	public Q007_ATripBegins(int questId, String name, String descr)
-	{
+	public Q007_ATripBegins(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { ARIEL_RECO };
@@ -38,39 +37,30 @@ public class Q007_ATripBegins extends Quest
 		addTalkId(MIRABEL, ARIEL, ASTERIOS);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q007_ATripBegins(7, "Q007_ATripBegins", "A Trip Begins");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30146-03.htm"))
-		{
+		if (event.equalsIgnoreCase("30146-03.htm")) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("30148-02.htm"))
-		{
+		} else if (event.equalsIgnoreCase("30148-02.htm")) {
 			st.set("cond", "2");
 			st.giveItems(ARIEL_RECO, 1);
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("30154-02.htm"))
-		{
+		} else if (event.equalsIgnoreCase("30154-02.htm")) {
 			st.set("cond", "3");
 			st.takeItems(ARIEL_RECO, 1);
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("30146-06.htm"))
-		{
+		} else if (event.equalsIgnoreCase("30146-06.htm")) {
 			st.giveItems(MARK_TRAVELER, 1);
 			st.rewardItems(SCROLL_GIRAN, 1);
 			st.playSound(QuestState.SOUND_FINISH);
@@ -81,25 +71,20 @@ public class Q007_ATripBegins extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
-				if (player.getRace().ordinal() != 1)
-				{
+				if (player.getRace().ordinal() != 1) {
 					htmltext = "30146-01.htm";
 					st.exitQuest(true);
-				}
-				else if (player.getLevel() >= 3 && player.getLevel() <= 10)
+				} else if (player.getLevel() >= 3 && player.getLevel() <= 10)
 					htmltext = "30146-02.htm";
-				else
-				{
+				else {
 					htmltext = "30146-01a.htm";
 					st.exitQuest(true);
 				}
@@ -107,8 +92,7 @@ public class Q007_ATripBegins extends Quest
 
 			case QuestState.STARTED:
 				int cond = st.getInt("cond");
-				switch (npc.getNpcId())
-				{
+				switch (npc.getNpcId()) {
 					case MIRABEL:
 						if (cond == 1 || cond == 2)
 							htmltext = "30146-04.htm";

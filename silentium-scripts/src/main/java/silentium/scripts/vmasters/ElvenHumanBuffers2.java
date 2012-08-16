@@ -9,31 +9,26 @@ package silentium.scripts.vmasters;
 
 import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class ElvenHumanBuffers2 extends OccupationEngine
-{
-	public ElvenHumanBuffers2(int id, String name, String descr)
-	{
+public class ElvenHumanBuffers2 extends OccupationEngine implements ScriptFile {
+	public ElvenHumanBuffers2(int id, String name, String descr) {
 		super(id, name, descr);
-		for (int i : new int[] { 30120, 30191, 30857, 30905, 31276, 31321, 31279, 31755, 31968, 32095, 31336 })
-		{
+		for (int i : new int[] { 30120, 30191, 30857, 30905, 31276, 31321, 31279, 31755, 31968, 32095, 31336 }) {
 			addStartNpc(i);
 			addTalkId(i);
 		}
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new ElvenHumanBuffers2(-1, "ElvenHumanBuffers2", "vmasters");
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		if (player.isSubClassActive())
 			return null;
-		if (player.getRace().ordinal() == 0 || player.getRace().ordinal() == 1)
-		{
+		if (player.getRace().ordinal() == 0 || player.getRace().ordinal() == 1) {
 			if (player.getClassId().getId() == 29) // oracle
 				return "30120-01.htm";
 			else if (player.getClassId().getId() == 15) // cleric
@@ -44,8 +39,7 @@ public class ElvenHumanBuffers2 extends OccupationEngine
 				return "30120-25.htm";
 			else
 				return "30120-26.htm"; // other conditions
-		}
-		else
+		} else
 			return "30120-26.htm"; // other races
 	}
 }

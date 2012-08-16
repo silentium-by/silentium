@@ -12,8 +12,7 @@ import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 
-public class Q019_GoToThePastureland extends Quest
-{
+public class Q019_GoToThePastureland extends Quest {
 	private final static String qn = "Q019_GoToThePastureland";
 
 	// Items
@@ -24,8 +23,7 @@ public class Q019_GoToThePastureland extends Quest
 	private final static int Vladimir = 31302;
 	private final static int Tunatun = 31537;
 
-	public Q019_GoToThePastureland(int questId, String name, String descr)
-	{
+	public Q019_GoToThePastureland(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { YoungWildBeastMeat };
@@ -34,52 +32,43 @@ public class Q019_GoToThePastureland extends Quest
 		addTalkId(Vladimir, Tunatun);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void main(String[] args) {
 		new Q019_GoToThePastureland(19, "Q019_GoToThePastureland", "Go to the Pastureland!");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("31302-01.htm"))
-		{
+		if (event.equalsIgnoreCase("31302-01.htm")) {
 			st.setState(QuestState.STARTED);
 			st.set("cond", "1");
 			st.giveItems(YoungWildBeastMeat, 1);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("019_finish"))
-		{
-			if (st.getQuestItemsCount(YoungWildBeastMeat) == 1)
-			{
+		} else if (event.equalsIgnoreCase("019_finish")) {
+			if (st.getQuestItemsCount(YoungWildBeastMeat) == 1) {
 				htmltext = "31537-01.htm";
 				st.takeItems(YoungWildBeastMeat, 1);
 				st.rewardItems(Adena, 30000);
 				st.playSound(QuestState.SOUND_FINISH);
 				st.exitQuest(false);
-			}
-			else
+			} else
 				htmltext = "31537-02.htm";
 		}
 		return htmltext;
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		String htmltext = getNoQuestMsg();
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 63)
 					htmltext = "31302-00.htm";
@@ -88,8 +77,7 @@ public class Q019_GoToThePastureland extends Quest
 				break;
 
 			case QuestState.STARTED:
-				switch (npc.getNpcId())
-				{
+				switch (npc.getNpcId()) {
 					case Vladimir:
 						htmltext = "31302-02.htm";
 						break;

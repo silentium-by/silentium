@@ -7,27 +7,25 @@
  */
 package silentium.scripts.quests;
 
-import silentium.gameserver.configs.MainConfig;
 import silentium.commons.utils.Rnd;
+import silentium.gameserver.configs.MainConfig;
 import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q634_InSearchOfFragmentsOfDimension extends Quest
-{
+public class Q634_InSearchOfFragmentsOfDimension extends Quest implements ScriptFile {
 	private final static String qn = "Q634_InSearchOfFragmentsOfDimension";
 
 	// Items
 	private static final int DIMENSION_FRAGMENT = 7079;
 
-	public Q634_InSearchOfFragmentsOfDimension(int questId, String name, String descr)
-	{
+	public Q634_InSearchOfFragmentsOfDimension(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		// Dimensional Gate Keepers.
-		for (int i = 31494; i < 31508; i++)
-		{
+		for (int i = 31494; i < 31508; i++) {
 			addStartNpc(i);
 			addTalkId(i);
 		}
@@ -37,27 +35,22 @@ public class Q634_InSearchOfFragmentsOfDimension extends Quest
 			addKillId(i);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q634_InSearchOfFragmentsOfDimension(634, "Q634_InSearchOfFragmentsOfDimension", "In Search of Fragments of Dimension");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("02.htm"))
-		{
+		if (event.equalsIgnoreCase("02.htm")) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("05.htm"))
-		{
+		} else if (event.equalsIgnoreCase("05.htm")) {
 			st.playSound(QuestState.SOUND_FINISH);
 			st.exitQuest(true);
 		}
@@ -65,20 +58,17 @@ public class Q634_InSearchOfFragmentsOfDimension extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (st.getPlayer().getLevel() >= 20)
 					htmltext = "01.htm";
-				else
-				{
+				else {
 					htmltext = "01a.htm";
 					st.exitQuest(true);
 				}
@@ -93,8 +83,7 @@ public class Q634_InSearchOfFragmentsOfDimension extends Quest
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
 		L2PcInstance partyMember = getRandomPartyMemberState(player, npc, QuestState.STARTED);
 		if (partyMember == null)
 			return null;
@@ -108,8 +97,7 @@ public class Q634_InSearchOfFragmentsOfDimension extends Quest
 			itemMultiplier++;
 
 		int numItems = (int) (itemMultiplier * (npc.getLevel() * 0.15 + 1.6));
-		if (numItems > 0)
-		{
+		if (numItems > 0) {
 			st.giveItems(DIMENSION_FRAGMENT, numItems);
 			st.playSound(QuestState.SOUND_ITEMGET);
 		}

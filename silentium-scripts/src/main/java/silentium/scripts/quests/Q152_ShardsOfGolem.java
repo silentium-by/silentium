@@ -11,9 +11,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q152_ShardsOfGolem extends Quest
-{
+public class Q152_ShardsOfGolem extends Quest implements ScriptFile {
 	private final static String qn = "Q152_ShardsOfGolem";
 
 	// Items
@@ -32,8 +32,7 @@ public class Q152_ShardsOfGolem extends Quest
 	// Mob
 	private static final int STONE_GOLEM = 20016;
 
-	public Q152_ShardsOfGolem(int questId, String name, String descr)
-	{
+	public Q152_ShardsOfGolem(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { HARRYS_RECEIPT1, HARRYS_RECEIPT2, GOLEM_SHARD, TOOL_BOX };
@@ -44,28 +43,23 @@ public class Q152_ShardsOfGolem extends Quest
 		addKillId(STONE_GOLEM);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q152_ShardsOfGolem(152, "Q152_ShardsOfGolem", "Shards of Golem");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30035-02.htm"))
-		{
+		if (event.equalsIgnoreCase("30035-02.htm")) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
 			st.giveItems(HARRYS_RECEIPT1, 1);
-		}
-		else if (event.equalsIgnoreCase("30283-02.htm"))
-		{
+		} else if (event.equalsIgnoreCase("30283-02.htm")) {
 			st.set("cond", "2");
 			st.takeItems(HARRYS_RECEIPT1, -1);
 			st.giveItems(HARRYS_RECEIPT2, 1);
@@ -76,20 +70,17 @@ public class Q152_ShardsOfGolem extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		String htmltext = getNoQuestMsg();
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 10 && player.getLevel() <= 17)
 					htmltext = "30035-01.htm";
-				else
-				{
+				else {
 					htmltext = "30035-01a.htm";
 					st.exitQuest(true);
 				}
@@ -97,13 +88,11 @@ public class Q152_ShardsOfGolem extends Quest
 
 			case QuestState.STARTED:
 				int cond = st.getInt("cond");
-				switch (npc.getNpcId())
-				{
+				switch (npc.getNpcId()) {
 					case HARRIS:
 						if (cond >= 1 && cond <= 3)
 							htmltext = "30035-03.htm";
-						else if (cond == 4 && st.getQuestItemsCount(TOOL_BOX) == 1)
-						{
+						else if (cond == 4 && st.getQuestItemsCount(TOOL_BOX) == 1) {
 							htmltext = "30035-04.htm";
 							st.takeItems(TOOL_BOX, -1);
 							st.takeItems(HARRYS_RECEIPT2, -1);
@@ -119,18 +108,15 @@ public class Q152_ShardsOfGolem extends Quest
 							htmltext = "30283-01.htm";
 						else if (cond == 2)
 							htmltext = "30283-03.htm";
-						else if (cond == 3)
-						{
-							if (st.getQuestItemsCount(GOLEM_SHARD) >= 5 && st.getQuestItemsCount(TOOL_BOX) == 0)
-							{
+						else if (cond == 3) {
+							if (st.getQuestItemsCount(GOLEM_SHARD) >= 5 && st.getQuestItemsCount(TOOL_BOX) == 0) {
 								st.set("cond", "4");
 								htmltext = "30283-04.htm";
 								st.takeItems(GOLEM_SHARD, -1);
 								st.giveItems(TOOL_BOX, 1);
 								st.playSound(QuestState.SOUND_MIDDLE);
 							}
-						}
-						else if (cond == 4)
+						} else if (cond == 4)
 							htmltext = "30283-05.htm";
 						break;
 				}
@@ -145,8 +131,7 @@ public class Q152_ShardsOfGolem extends Quest
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;

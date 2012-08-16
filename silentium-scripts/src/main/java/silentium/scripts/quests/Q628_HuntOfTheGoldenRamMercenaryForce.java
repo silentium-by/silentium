@@ -7,18 +7,18 @@
  */
 package silentium.scripts.quests;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import silentium.gameserver.configs.MainConfig;
 import silentium.commons.utils.Rnd;
+import silentium.gameserver.configs.MainConfig;
 import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q628_HuntOfTheGoldenRamMercenaryForce extends Quest
-{
+import java.util.HashMap;
+import java.util.Map;
+
+public class Q628_HuntOfTheGoldenRamMercenaryForce extends Quest implements ScriptFile {
 	private final static String qn = "Q628_HuntOfTheGoldenRamMercenaryForce";
 
 	// NPCs
@@ -32,6 +32,7 @@ public class Q628_HuntOfTheGoldenRamMercenaryForce extends Quest
 
 	// Chance to drop a qItem
 	private static final Map<Integer, Integer> chances = new HashMap<>();
+
 	{
 		chances.put(21508, 25);
 		chances.put(21509, 21);
@@ -45,8 +46,7 @@ public class Q628_HuntOfTheGoldenRamMercenaryForce extends Quest
 		chances.put(21517, 37);
 	}
 
-	public Q628_HuntOfTheGoldenRamMercenaryForce(int questId, String name, String descr)
-	{
+	public Q628_HuntOfTheGoldenRamMercenaryForce(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { CHITIN, CHITIN2, RECRUIT, SOLDIER };
@@ -57,27 +57,22 @@ public class Q628_HuntOfTheGoldenRamMercenaryForce extends Quest
 		addKillId(21508, 21509, 21510, 21511, 21512, 21513, 21514, 21515, 21516, 21517);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q628_HuntOfTheGoldenRamMercenaryForce(628, "Q628_HuntOfTheGoldenRamMercenaryForce", "Hunt of the Golden Ram Mercenary Force");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("31554-02.htm"))
-		{
+		if (event.equalsIgnoreCase("31554-02.htm")) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("31554-03a.htm"))
-		{
+		} else if (event.equalsIgnoreCase("31554-03a.htm")) {
 			if (st.getQuestItemsCount(CHITIN) >= 100 && st.getInt("cond") == 1) // Giving Recruit Medals
 			{
 				st.set("cond", "2");
@@ -86,8 +81,7 @@ public class Q628_HuntOfTheGoldenRamMercenaryForce extends Quest
 				htmltext = "31554-04.htm";
 				st.playSound(QuestState.SOUND_MIDDLE);
 			}
-		}
-		else if (event.equalsIgnoreCase("31554-07.htm")) // Cancel Quest
+		} else if (event.equalsIgnoreCase("31554-07.htm")) // Cancel Quest
 		{
 			st.playSound(QuestState.SOUND_GIVEUP);
 			st.exitQuest(true);
@@ -97,20 +91,17 @@ public class Q628_HuntOfTheGoldenRamMercenaryForce extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 66 && player.getLevel() <= 78)
 					htmltext = "31554-01.htm";
-				else
-				{
+				else {
 					htmltext = "31554-01a.htm";
 					st.exitQuest(true);
 				}
@@ -118,17 +109,13 @@ public class Q628_HuntOfTheGoldenRamMercenaryForce extends Quest
 
 			case QuestState.STARTED:
 				int cond = st.getInt("cond");
-				if (cond == 1)
-				{
+				if (cond == 1) {
 					if (st.getQuestItemsCount(CHITIN) >= 100)
 						htmltext = "31554-03.htm";
 					else
 						htmltext = "31554-03a.htm";
-				}
-				else if (cond == 2)
-				{
-					if (st.getQuestItemsCount(CHITIN) >= 100 && st.getQuestItemsCount(CHITIN2) >= 100)
-					{
+				} else if (cond == 2) {
+					if (st.getQuestItemsCount(CHITIN) >= 100 && st.getQuestItemsCount(CHITIN2) >= 100) {
 						htmltext = "31554-05.htm";
 						st.takeItems(CHITIN, -1);
 						st.takeItems(CHITIN2, -1);
@@ -136,13 +123,11 @@ public class Q628_HuntOfTheGoldenRamMercenaryForce extends Quest
 						st.giveItems(SOLDIER, 1);
 						st.set("cond", "3");
 						st.playSound(QuestState.SOUND_FINISH);
-					}
-					else if (!st.hasQuestItems(CHITIN) && !st.hasQuestItems(CHITIN2))
+					} else if (!st.hasQuestItems(CHITIN) && !st.hasQuestItems(CHITIN2))
 						htmltext = "31554-04b.htm";
 					else
 						htmltext = "31554-04a.htm";
-				}
-				else if (cond == 3)
+				} else if (cond == 3)
 					htmltext = "31554-05a.htm";
 				break;
 		}
@@ -151,8 +136,7 @@ public class Q628_HuntOfTheGoldenRamMercenaryForce extends Quest
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
 		// Pickup a random member in the player's party and verify if he got the quest.
 		L2PcInstance partyMember = getRandomPartyMemberState(player, npc, QuestState.STARTED);
 		if (partyMember == null)
@@ -177,8 +161,7 @@ public class Q628_HuntOfTheGoldenRamMercenaryForce extends Quest
 
 		int rewardId = 0;
 
-		switch (npcId)
-		{
+		switch (npcId) {
 			case 21508:
 			case 21509:
 			case 21510:
@@ -198,17 +181,13 @@ public class Q628_HuntOfTheGoldenRamMercenaryForce extends Quest
 				break;
 		}
 
-		if (numItems > 0 && rewardId != 0)
-		{
+		if (numItems > 0 && rewardId != 0) {
 			int prevItems = st.getQuestItemsCount(rewardId);
-			if (100 > prevItems)
-			{
-				if (100 <= (prevItems + numItems))
-				{
+			if (100 > prevItems) {
+				if (100 <= (prevItems + numItems)) {
 					numItems = 100 - prevItems;
 					st.playSound(QuestState.SOUND_MIDDLE);
-				}
-				else
+				} else
 					st.playSound(QuestState.SOUND_ITEMGET);
 
 				st.giveItems(rewardId, numItems);

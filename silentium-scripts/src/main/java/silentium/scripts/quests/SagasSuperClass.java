@@ -22,11 +22,12 @@ import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.network.serverpackets.MagicSkillUse;
+import silentium.gameserver.scripting.ScriptFile;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SagasSuperClass extends Quest {
+public class SagasSuperClass extends Quest implements ScriptFile {
 	private static List<Quest> _scripts = new ArrayList<>();
 	public int qnu;
 
@@ -719,7 +720,7 @@ public class SagasSuperClass extends Quest {
 		return super.onKill(npc, player, isPet);
 	}
 
-	public static void main(String[] args) {
+	public static void onLoad() {
 		// initialize superclass
 		new SagasSuperClass(-1, "SagasSuperClass", "Saga's SuperClass");
 

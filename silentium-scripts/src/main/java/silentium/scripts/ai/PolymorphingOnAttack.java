@@ -17,13 +17,14 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.network.clientpackets.Say2;
 import silentium.gameserver.network.serverpackets.CreatureSay;
+import silentium.gameserver.scripting.ScriptFile;
 
 /**
  * @author Slyce
  */
-public class PolymorphingOnAttack extends DefaultMonsterAI
-{
+public class PolymorphingOnAttack extends DefaultMonsterAI implements ScriptFile {
 	private static final TIntObjectHashMap<Integer[]> MOBSPAWNS = new TIntObjectHashMap<>();
+
 	{
 		MOBSPAWNS.put(21258, new Integer[] { 21259, 100, 100, -1 }); // Fallen Orc Shaman -> Sharp Talon Tiger (always polymorphs)
 		MOBSPAWNS.put(21261, new Integer[] { 21262, 100, 20, 0 }); // Ol Mahum Transcender 1st stage
@@ -42,30 +43,23 @@ public class PolymorphingOnAttack extends DefaultMonsterAI
 
 	protected static final String[][] MOBTEXTS = { new String[] { "Enough fooling around. Get ready to die!", "You idiot! I've just been toying with you!", "Now the fun starts!" }, new String[] { "I must admit, no one makes my blood boil quite like you do!", "Now the battle begins!", "Witness my true power!" }, new String[] { "Prepare to die!", "I'll double my strength!", "You have more skill than I thought" } };
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new PolymorphingOnAttack(-1, "polymorphing_on_attack", "ai");
 	}
 
-	public PolymorphingOnAttack(int questId, String name, String descr)
-	{
+	public PolymorphingOnAttack(int questId, String name, String descr) {
 		super(questId, name, descr);
 		for (int id : MOBSPAWNS.keys())
 			super.addAttackId(id);
 	}
 
 	@Override
-	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isPet)
-	{
-		if (npc.isVisible() && !npc.isDead())
-		{
+	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isPet) {
+		if (npc.isVisible() && !npc.isDead()) {
 			final Integer[] tmp = MOBSPAWNS.get(npc.getNpcId());
-			if (tmp != null)
-			{
-				if (npc.getCurrentHp() <= (npc.getMaxHp() * tmp[1] / 100.0) && Rnd.get(100) < tmp[2])
-				{
-					if (tmp[3] >= 0)
-					{
+			if (tmp != null) {
+				if (npc.getCurrentHp() <= (npc.getMaxHp() * tmp[1] / 100.0) && Rnd.get(100) < tmp[2]) {
+					if (tmp[3] >= 0) {
 						String text = MOBTEXTS[tmp[3]][Rnd.get(MOBTEXTS[tmp[3]].length)];
 						npc.broadcastPacket(new CreatureSay(npc.getObjectId(), Say2.ALL, npc.getName(), text));
 					}

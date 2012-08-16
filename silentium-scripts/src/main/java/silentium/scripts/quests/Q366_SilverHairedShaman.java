@@ -12,9 +12,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q366_SilverHairedShaman extends Quest
-{
+public class Q366_SilverHairedShaman extends Quest implements ScriptFile {
 	private static final String qn = "Q366_SilverHairedShaman";
 
 	// NPC
@@ -23,8 +23,7 @@ public class Q366_SilverHairedShaman extends Quest
 	// Item
 	private static final int HAIR = 5874;
 
-	public Q366_SilverHairedShaman(int questId, String name, String descr)
-	{
+	public Q366_SilverHairedShaman(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { HAIR };
@@ -35,27 +34,22 @@ public class Q366_SilverHairedShaman extends Quest
 		addKillId(20986, 20987, 20988);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q366_SilverHairedShaman(366, "Q366_SilverHairedShaman", "Silver Haired Shaman");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30111-2.htm"))
-		{
+		if (event.equalsIgnoreCase("30111-2.htm")) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("30111-6.htm"))
-		{
+		} else if (event.equalsIgnoreCase("30111-6.htm")) {
 			st.playSound(QuestState.SOUND_FINISH);
 			st.exitQuest(true);
 		}
@@ -64,20 +58,17 @@ public class Q366_SilverHairedShaman extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 48 && player.getLevel() <= 58)
 					htmltext = "30111-1.htm";
-				else
-				{
+				else {
 					htmltext = "30111-0.htm";
 					st.exitQuest(true);
 				}
@@ -87,8 +78,7 @@ public class Q366_SilverHairedShaman extends Quest
 				int count = st.getQuestItemsCount(HAIR);
 				if (count == 0)
 					htmltext = "30111-3.htm";
-				else
-				{
+				else {
 					htmltext = "30111-4.htm";
 					st.takeItems(HAIR, -1);
 					st.rewardItems(57, 12070 + 500 * count);
@@ -100,16 +90,14 @@ public class Q366_SilverHairedShaman extends Quest
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
 		L2PcInstance partyMember = getRandomPartyMemberState(player, npc, QuestState.STARTED);
 		if (partyMember == null)
 			return null;
 
 		QuestState st = partyMember.getQuestState(qn);
 
-		if (Rnd.get(100) < 55)
-		{
+		if (Rnd.get(100) < 55) {
 			st.rewardItems(HAIR, 1);
 			st.playSound(QuestState.SOUND_ITEMGET);
 		}

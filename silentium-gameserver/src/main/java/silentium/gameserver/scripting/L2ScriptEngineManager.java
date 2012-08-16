@@ -18,6 +18,7 @@ import silentium.gameserver.ai.DefaultMonsterAI;
 import silentium.gameserver.handler.*;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Set;
 
 /**
@@ -40,22 +41,20 @@ public final class L2ScriptEngineManager {
 				.filterInputsBy(new FilterBuilder().exclude("silentium.scripts.handlers"))
 				.setScanners(new SubTypesScanner(false))
 				.useParallelExecutor());
-		// TODO сделать общий интерфейс для всех скриптов.
 		final Set<Class<? extends ScriptFile>> classes = reflections.getSubTypesOf(ScriptFile.class);
 
-		final String[] stringArray = { "tatanka rules." };
-
-		DefaultMonsterAI.main(stringArray);
+		DefaultMonsterAI.initialize();
 
 		for (final Class<? extends ScriptFile> scriptClass : classes) {
 			try {
 				currentLoadingScript = scriptClass;
 
-				final ScriptFile script = scriptClass.getConstructor().newInstance();
-				script.onLoad();
-			} catch (InstantiationException | IllegalAccessException | NoSuchMethodException
-					| InvocationTargetException e) {
-				_log.warn("Script {} can't be initialized.", scriptClass.getSimpleName());
+				final Method onLoadMethod = scriptClass.getMethod("onLoad");
+
+				if (onLoadMethod.getDeclaringClass().equals(scriptClass)) // Check for classes like Sagas
+					onLoadMethod.invoke(null);
+			} catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+				_log.warn("Script {} can't be initialized: {}", scriptClass.getSimpleName(), e.getLocalizedMessage());
 			}
 		}
 

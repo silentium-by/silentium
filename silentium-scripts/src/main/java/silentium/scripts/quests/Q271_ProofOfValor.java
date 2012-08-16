@@ -7,15 +7,15 @@
  */
 package silentium.scripts.quests;
 
-import silentium.gameserver.configs.MainConfig;
 import silentium.commons.utils.Rnd;
+import silentium.gameserver.configs.MainConfig;
 import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q271_ProofOfValor extends Quest
-{
+public class Q271_ProofOfValor extends Quest implements ScriptFile {
 	private final static String qn = "Q271_ProofOfValor";
 
 	// Items
@@ -29,8 +29,7 @@ public class Q271_ProofOfValor extends Quest
 	// Mob
 	private static final int KASHA_WOLF = 20475;
 
-	public Q271_ProofOfValor(int questId, String name, String descr)
-	{
+	public Q271_ProofOfValor(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { KASHA_WOLF_FANG };
@@ -41,21 +40,18 @@ public class Q271_ProofOfValor extends Quest
 		addKillId(KASHA_WOLF);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q271_ProofOfValor(271, "Q271_ProofOfValor", "Proof of Valor");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30577-03.htm"))
-		{
+		if (event.equalsIgnoreCase("30577-03.htm")) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
@@ -68,34 +64,26 @@ public class Q271_ProofOfValor extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		String htmltext = Quest.getNoQuestMsg();
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
-				if (player.getRace().ordinal() == 3)
-				{
-					if (player.getLevel() >= 4 && player.getLevel() <= 8)
-					{
+				if (player.getRace().ordinal() == 3) {
+					if (player.getLevel() >= 4 && player.getLevel() <= 8) {
 						// Different HTM if you are repeating the quest.
 						if (st.getQuestItemsCount(NECKLACE_OF_COURAGE) >= 1 || st.getQuestItemsCount(NECKLACE_OF_VALOR) >= 1)
 							htmltext = "30577-06.htm";
 						else
 							htmltext = "30577-02.htm";
-					}
-					else
-					{
+					} else {
 						htmltext = "30577-01.htm";
 						st.exitQuest(true);
 					}
-				}
-				else
-				{
+				} else {
 					htmltext = "30577-00.htm";
 					st.exitQuest(true);
 				}
@@ -103,15 +91,12 @@ public class Q271_ProofOfValor extends Quest
 
 			case QuestState.STARTED:
 				int cond = st.getInt("cond");
-				if (cond == 1)
-				{
+				if (cond == 1) {
 					if (st.getQuestItemsCount(NECKLACE_OF_COURAGE) >= 1 || st.getQuestItemsCount(NECKLACE_OF_VALOR) >= 1)
 						htmltext = "30577-07.htm";
 					else
 						htmltext = "30577-04.htm";
-				}
-				else if (cond == 2)
-				{
+				} else if (cond == 2) {
 					htmltext = "30577-05.htm";
 					st.takeItems(KASHA_WOLF_FANG, -1);
 
@@ -136,14 +121,12 @@ public class Q271_ProofOfValor extends Quest
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 
-		if (st.getInt("cond") == 1)
-		{
+		if (st.getInt("cond") == 1) {
 			int count = st.getQuestItemsCount(KASHA_WOLF_FANG);
 			int chance = (int) (125 * MainConfig.RATE_QUEST_DROP);
 			int numItems = chance / 100;
@@ -152,15 +135,12 @@ public class Q271_ProofOfValor extends Quest
 			if (Rnd.get(100) <= chance)
 				numItems++;
 
-			if (numItems > 0)
-			{
-				if (count + numItems >= 50)
-				{
+			if (numItems > 0) {
+				if (count + numItems >= 50) {
 					st.set("cond", "2");
 					st.playSound(QuestState.SOUND_MIDDLE);
 					numItems = 50 - count;
-				}
-				else
+				} else
 					st.playSound(QuestState.SOUND_ITEMGET);
 
 				st.giveItems(KASHA_WOLF_FANG, numItems);

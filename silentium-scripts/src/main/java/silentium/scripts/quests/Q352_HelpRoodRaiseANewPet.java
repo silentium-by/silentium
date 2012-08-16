@@ -12,9 +12,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q352_HelpRoodRaiseANewPet extends Quest
-{
+public class Q352_HelpRoodRaiseANewPet extends Quest implements ScriptFile {
 	private static final String qn = "Q352_HelpRoodRaiseANewPet";
 
 	// NPCs
@@ -24,8 +24,7 @@ public class Q352_HelpRoodRaiseANewPet extends Quest
 	private static final int LIENRIK_EGG_1 = 5860;
 	private static final int LIENRIK_EGG_2 = 5861;
 
-	public Q352_HelpRoodRaiseANewPet(int questId, String name, String descr)
-	{
+	public Q352_HelpRoodRaiseANewPet(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { LIENRIK_EGG_1, LIENRIK_EGG_2 };
@@ -36,27 +35,22 @@ public class Q352_HelpRoodRaiseANewPet extends Quest
 		addKillId(20786, 20787, 21644, 21645);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q352_HelpRoodRaiseANewPet(352, "Q352_HelpRoodRaiseANewPet", "");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("31067-04.htm"))
-		{
+		if (event.equalsIgnoreCase("31067-04.htm")) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("31067-09.htm"))
-		{
+		} else if (event.equalsIgnoreCase("31067-09.htm")) {
 			st.playSound(QuestState.SOUND_FINISH);
 			st.exitQuest(true);
 		}
@@ -65,20 +59,17 @@ public class Q352_HelpRoodRaiseANewPet extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		String htmltext = Quest.getNoQuestMsg();
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 39 && player.getLevel() <= 44)
 					htmltext = "31067-01.htm";
-				else
-				{
+				else {
 					htmltext = "31067-00.htm";
 					st.exitQuest(true);
 				}
@@ -90,27 +81,21 @@ public class Q352_HelpRoodRaiseANewPet extends Quest
 
 				if (eggs1 + eggs2 == 0)
 					htmltext = "31067-05.htm";
-				else
-				{
+				else {
 					int reward = 2000;
-					if (eggs1 > 0 && eggs2 == 0)
-					{
+					if (eggs1 > 0 && eggs2 == 0) {
 						htmltext = "31067-06.htm";
 						reward += eggs1 * 34;
 
 						st.takeItems(LIENRIK_EGG_1, -1);
 						st.rewardItems(57, reward);
-					}
-					else if (eggs1 == 0 && eggs2 > 0)
-					{
+					} else if (eggs1 == 0 && eggs2 > 0) {
 						htmltext = "31067-08.htm";
 						reward += eggs2 * 1025;
 
 						st.takeItems(LIENRIK_EGG_2, -1);
 						st.rewardItems(57, reward);
-					}
-					else if (eggs1 > 0 && eggs2 > 0)
-					{
+					} else if (eggs1 > 0 && eggs2 > 0) {
 						htmltext = "31067-08.htm";
 						reward += (eggs1 * 34) + (eggs2 * 1025) + 2000;
 
@@ -126,14 +111,12 @@ public class Q352_HelpRoodRaiseANewPet extends Quest
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 
-		if (st.isStarted())
-		{
+		if (st.isStarted()) {
 			st.giveItems((Rnd.get(100) < 3) ? LIENRIK_EGG_2 : LIENRIK_EGG_1, 1);
 			st.playSound(QuestState.SOUND_ITEMGET);
 		}

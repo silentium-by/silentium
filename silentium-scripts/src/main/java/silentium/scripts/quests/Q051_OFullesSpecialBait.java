@@ -11,9 +11,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q051_OFullesSpecialBait extends Quest
-{
+public class Q051_OFullesSpecialBait extends Quest implements ScriptFile {
 	private static final String qn = "Q051_OFullesSpecialBait";
 
 	// NPC
@@ -28,8 +28,7 @@ public class Q051_OFullesSpecialBait extends Quest
 	// Monster
 	private final static int FETTERED_SOUL = 20552;
 
-	public Q051_OFullesSpecialBait(int questId, String name, String descr)
-	{
+	public Q051_OFullesSpecialBait(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { LOST_BAIT };
@@ -40,27 +39,22 @@ public class Q051_OFullesSpecialBait extends Quest
 		addKillId(FETTERED_SOUL);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q051_OFullesSpecialBait(51, "Q051_OFullesSpecialBait", "O'Fulle's Special Bait");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("31572-03.htm"))
-		{
+		if (event.equalsIgnoreCase("31572-03.htm")) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("31572-07.htm") && st.getQuestItemsCount(LOST_BAIT) == 100)
-		{
+		} else if (event.equalsIgnoreCase("31572-07.htm") && st.getQuestItemsCount(LOST_BAIT) == 100) {
 			htmltext = "31572-06.htm";
 			st.rewardItems(ICY_AIR_LURE, 4);
 			st.takeItems(LOST_BAIT, 100);
@@ -72,20 +66,17 @@ public class Q051_OFullesSpecialBait extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 36 && player.getLevel() <= 38)
 					htmltext = "31572-01.htm";
-				else
-				{
+				else {
 					htmltext = "31572-02.htm";
 					st.exitQuest(true);
 				}
@@ -107,8 +98,7 @@ public class Q051_OFullesSpecialBait extends Quest
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;

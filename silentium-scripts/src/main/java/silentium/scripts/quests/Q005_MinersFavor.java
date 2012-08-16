@@ -11,9 +11,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q005_MinersFavor extends Quest
-{
+public class Q005_MinersFavor extends Quest implements ScriptFile {
 	private static final String qn = "Q005_MinersFavor";
 
 	// Npcs
@@ -34,8 +34,7 @@ public class Q005_MinersFavor extends Quest
 	// Reward
 	private final static int NECKLACE = 906;
 
-	public Q005_MinersFavor(int questId, String name, String descr)
-	{
+	public Q005_MinersFavor(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { BOLTERS_LIST, MINING_BOOTS, MINERS_PICK, BOOMBOOM_POWDER, REDSTONE_BEER, BOLTERS_SMELLY_SOCKS };
@@ -44,37 +43,30 @@ public class Q005_MinersFavor extends Quest
 		addTalkId(BOLTER, SHARI, GARITA, REED, BRUNON);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q005_MinersFavor(5, "Q005_MinersFavor", "Miner's Favor");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30554-03.htm"))
-		{
+		if (event.equalsIgnoreCase("30554-03.htm")) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.giveItems(BOLTERS_LIST, 1);
 			st.giveItems(BOLTERS_SMELLY_SOCKS, 1);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("30526-02.htm"))
-		{
+		} else if (event.equalsIgnoreCase("30526-02.htm")) {
 			st.takeItems(BOLTERS_SMELLY_SOCKS, 1);
 			st.giveItems(MINERS_PICK, 1);
-			if (st.getQuestItemsCount(BOLTERS_LIST) > 0 && (st.getQuestItemsCount(MINING_BOOTS) + st.getQuestItemsCount(MINERS_PICK) + st.getQuestItemsCount(BOOMBOOM_POWDER) + st.getQuestItemsCount(REDSTONE_BEER) >= 4))
-			{
+			if (st.getQuestItemsCount(BOLTERS_LIST) > 0 && (st.getQuestItemsCount(MINING_BOOTS) + st.getQuestItemsCount(MINERS_PICK) + st.getQuestItemsCount(BOOMBOOM_POWDER) + st.getQuestItemsCount(REDSTONE_BEER) >= 4)) {
 				st.set("cond", "2");
 				st.playSound(QuestState.SOUND_MIDDLE);
-			}
-			else
+			} else
 				st.playSound(QuestState.SOUND_ITEMGET);
 		}
 
@@ -82,20 +74,17 @@ public class Q005_MinersFavor extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 2 && player.getLevel() <= 5)
 					htmltext = "30554-02.htm";
-				else
-				{
+				else {
 					htmltext = "30554-01.htm";
 					st.exitQuest(true);
 				}
@@ -103,13 +92,11 @@ public class Q005_MinersFavor extends Quest
 
 			case QuestState.STARTED:
 				int cond = st.getInt("cond");
-				switch (npc.getNpcId())
-				{
+				switch (npc.getNpcId()) {
 					case BOLTER:
 						if (cond == 1)
 							htmltext = "30554-04.htm";
-						else if (cond == 2)
-						{
+						else if (cond == 2) {
 							htmltext = "30554-06.htm";
 							st.takeItems(MINING_BOOTS, 1);
 							st.takeItems(MINERS_PICK, 1);
@@ -123,68 +110,53 @@ public class Q005_MinersFavor extends Quest
 						break;
 
 					case SHARI:
-						if (cond == 1 && st.getQuestItemsCount(BOLTERS_LIST) >= 1)
-						{
-							if (st.getQuestItemsCount(BOOMBOOM_POWDER) == 0)
-							{
+						if (cond == 1 && st.getQuestItemsCount(BOLTERS_LIST) >= 1) {
+							if (st.getQuestItemsCount(BOOMBOOM_POWDER) == 0) {
 								htmltext = "30517-01.htm";
 								st.giveItems(BOOMBOOM_POWDER, 1);
 								st.playSound(QuestState.SOUND_ITEMGET);
-							}
-							else
+							} else
 								htmltext = "30517-02.htm";
-						}
-						else if (cond == 2)
+						} else if (cond == 2)
 							htmltext = "30517-02.htm";
 						break;
 
 					case GARITA:
-						if (cond == 1 && st.getQuestItemsCount(BOLTERS_LIST) >= 1)
-						{
-							if (st.getQuestItemsCount(MINING_BOOTS) == 0)
-							{
+						if (cond == 1 && st.getQuestItemsCount(BOLTERS_LIST) >= 1) {
+							if (st.getQuestItemsCount(MINING_BOOTS) == 0) {
 								htmltext = "30518-01.htm";
 								st.giveItems(MINING_BOOTS, 1);
 								st.playSound(QuestState.SOUND_ITEMGET);
-							}
-							else
+							} else
 								htmltext = "30518-02.htm";
-						}
-						else if (cond == 2)
+						} else if (cond == 2)
 							htmltext = "30518-02.htm";
 						break;
 
 					case REED:
-						if (cond == 1 && st.getQuestItemsCount(BOLTERS_LIST) >= 1)
-						{
-							if (st.getQuestItemsCount(REDSTONE_BEER) == 0)
-							{
+						if (cond == 1 && st.getQuestItemsCount(BOLTERS_LIST) >= 1) {
+							if (st.getQuestItemsCount(REDSTONE_BEER) == 0) {
 								htmltext = "30520-01.htm";
 								st.giveItems(REDSTONE_BEER, 1);
 								st.playSound(QuestState.SOUND_ITEMGET);
-							}
-							else
+							} else
 								htmltext = "30520-02.htm";
-						}
-						else if (cond == 2)
+						} else if (cond == 2)
 							htmltext = "30520-02.htm";
 						break;
 
 					case BRUNON:
-						if (cond == 1 && st.getQuestItemsCount(BOLTERS_LIST) >= 1)
-						{
+						if (cond == 1 && st.getQuestItemsCount(BOLTERS_LIST) >= 1) {
 							if (st.getQuestItemsCount(MINERS_PICK) == 0)
 								htmltext = "30526-01.htm";
 							else
 								htmltext = "30526-03.htm";
-						}
-						else if (cond == 2)
+						} else if (cond == 2)
 							htmltext = "30526-03.htm";
 						break;
 				}
 
-				if (cond == 1 && st.getQuestItemsCount(BOLTERS_LIST) >= 1 && (st.getQuestItemsCount(MINING_BOOTS) + st.getQuestItemsCount(MINERS_PICK) + st.getQuestItemsCount(BOOMBOOM_POWDER) + st.getQuestItemsCount(REDSTONE_BEER) >= 4))
-				{
+				if (cond == 1 && st.getQuestItemsCount(BOLTERS_LIST) >= 1 && (st.getQuestItemsCount(MINING_BOOTS) + st.getQuestItemsCount(MINERS_PICK) + st.getQuestItemsCount(BOOMBOOM_POWDER) + st.getQuestItemsCount(REDSTONE_BEER) >= 4)) {
 					st.set("cond", "2");
 					st.playSound(QuestState.SOUND_MIDDLE);
 				}

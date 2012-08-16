@@ -33,11 +33,9 @@ import silentium.gameserver.network.serverpackets.SystemMessage;
  * If allowed, call the MercTicketManager to add the item and spawn in the world.<br>
  * Remove the item from the person's inventory.
  */
-public class MercTicket implements IItemHandler
-{
+public class MercTicket implements IItemHandler {
 	@Override
-	public void useItem(L2Playable playable, L2ItemInstance item, boolean forceUse)
-	{
+	public void useItem(L2Playable playable, L2ItemInstance item, boolean forceUse) {
 		final L2PcInstance activeChar = (L2PcInstance) playable;
 		if (activeChar == null)
 			return;
@@ -50,64 +48,54 @@ public class MercTicket implements IItemHandler
 		final int itemId = item.getItemId();
 
 		// add check that certain tickets can only be placed in certain castles
-		if (MercTicketManager.getInstance().getTicketCastleId(itemId) != castleId)
-		{
+		if (MercTicketManager.getInstance().getTicketCastleId(itemId) != castleId) {
 			activeChar.sendPacket(SystemMessageId.MERCENARIES_CANNOT_BE_POSITIONED_HERE);
 			return;
 		}
 
-		if (!activeChar.isCastleLord(castleId))
-		{
+		if (!activeChar.isCastleLord(castleId)) {
 			activeChar.sendPacket(SystemMessageId.YOU_DO_NOT_HAVE_AUTHORITY_TO_POSITION_MERCENARIES);
 			return;
 		}
 
-		if (castle.getSiege().getIsInProgress())
-		{
+		if (castle.getSiege().getIsInProgress()) {
 			activeChar.sendPacket(SystemMessageId.THIS_MERCENARY_CANNOT_BE_POSITIONED_ANYMORE);
 			return;
 		}
 
 		// Checking Seven Signs Quest Period
-		if (SevenSigns.getInstance().getCurrentPeriod() != SevenSigns.PERIOD_SEAL_VALIDATION)
-		{
+		if (SevenSigns.getInstance().getCurrentPeriod() != SevenSigns.PERIOD_SEAL_VALIDATION) {
 			activeChar.sendPacket(SystemMessageId.THIS_MERCENARY_CANNOT_BE_POSITIONED_ANYMORE);
 			return;
 		}
 
 		// Checking the Seal of Strife status
-		switch (SevenSigns.getInstance().getSealOwner(SevenSigns.SEAL_STRIFE))
-		{
+		switch (SevenSigns.getInstance().getSealOwner(SevenSigns.SEAL_STRIFE)) {
 			case SevenSigns.CABAL_NULL:
-				if (SevenSigns.getInstance().checkIsDawnPostingTicket(itemId))
-				{
+				if (SevenSigns.getInstance().checkIsDawnPostingTicket(itemId)) {
 					activeChar.sendPacket(SystemMessageId.THIS_MERCENARY_CANNOT_BE_POSITIONED_ANYMORE);
 					return;
 				}
 				break;
 
 			case SevenSigns.CABAL_DUSK:
-				if (!SevenSigns.getInstance().checkIsRookiePostingTicket(itemId))
-				{
+				if (!SevenSigns.getInstance().checkIsRookiePostingTicket(itemId)) {
 					activeChar.sendPacket(SystemMessageId.THIS_MERCENARY_CANNOT_BE_POSITIONED_ANYMORE);
 					return;
 				}
 				break;
 		}
 
-		if (MercTicketManager.getInstance().isAtCasleLimit(item.getItemId()))
-		{
+		if (MercTicketManager.getInstance().isAtCasleLimit(item.getItemId())) {
 			activeChar.sendPacket(SystemMessageId.THIS_MERCENARY_CANNOT_BE_POSITIONED_ANYMORE);
 			return;
 		}
 
-		if (MercTicketManager.getInstance().isAtTypeLimit(item.getItemId()))
-		{
+		if (MercTicketManager.getInstance().isAtTypeLimit(item.getItemId())) {
 			activeChar.sendPacket(SystemMessageId.THIS_MERCENARY_CANNOT_BE_POSITIONED_ANYMORE);
 			return;
 		}
-		if (MercTicketManager.getInstance().isTooCloseToAnotherTicket(activeChar.getX(), activeChar.getY(), activeChar.getZ()))
-		{
+		if (MercTicketManager.getInstance().isTooCloseToAnotherTicket(activeChar.getX(), activeChar.getY(), activeChar.getZ())) {
 			activeChar.sendPacket(SystemMessageId.POSITIONING_CANNOT_BE_DONE_BECAUSE_DISTANCE_BETWEEN_MERCENARIES_TOO_SHORT);
 			return;
 		}

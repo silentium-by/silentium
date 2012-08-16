@@ -11,9 +11,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q109_InSearchOfTheNest extends Quest
-{
+public class Q109_InSearchOfTheNest extends Quest implements ScriptFile {
 	private static final String qn = "Q109_InSearchOfTheNest";
 
 	// NPCs
@@ -29,8 +29,7 @@ public class Q109_InSearchOfTheNest extends Quest
 	// Reward
 	private final static int ADENA = 57;
 
-	public Q109_InSearchOfTheNest(int questId, String name, String descr)
-	{
+	public Q109_InSearchOfTheNest(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { SCOUT_MEMO };
@@ -39,39 +38,30 @@ public class Q109_InSearchOfTheNest extends Quest
 		addTalkId(PIERCE, SCOUT_CORPSE, KAHMAN);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q109_InSearchOfTheNest(109, "Q109_InSearchOfTheNest", "In Search of the Nest");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("31553-01.htm"))
-		{
+		if (event.equalsIgnoreCase("31553-01.htm")) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("32015-02.htm"))
-		{
+		} else if (event.equalsIgnoreCase("32015-02.htm")) {
 			st.giveItems(SCOUT_MEMO, 1);
 			st.set("cond", "2");
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("31553-03.htm"))
-		{
+		} else if (event.equalsIgnoreCase("31553-03.htm")) {
 			st.takeItems(SCOUT_MEMO, 1);
 			st.set("cond", "3");
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("31554-02.htm"))
-		{
+		} else if (event.equalsIgnoreCase("31554-02.htm")) {
 			st.rewardItems(ADENA, 5168);
 			st.playSound(QuestState.SOUND_FINISH);
 			st.exitQuest(false);
@@ -81,21 +71,18 @@ public class Q109_InSearchOfTheNest extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				// Must worn one or other Golden Ram Badge in order to be accepted.
 				if (player.getLevel() >= 66 && (st.getQuestItemsCount(RECRUIT_BADGE) > 0 || st.getQuestItemsCount(SOLDIER_BADGE) > 0))
 					htmltext = "31553-00.htm";
-				else
-				{
+				else {
 					htmltext = "31553-00a.htm";
 					st.exitQuest(true);
 				}
@@ -103,8 +90,7 @@ public class Q109_InSearchOfTheNest extends Quest
 
 			case QuestState.STARTED:
 				int cond = st.getInt("cond");
-				switch (npc.getNpcId())
-				{
+				switch (npc.getNpcId()) {
 					case PIERCE:
 						if (cond == 1)
 							htmltext = "31553-01a.htm";

@@ -7,27 +7,27 @@
  */
 package silentium.scripts.ai;
 
-import java.util.List;
-
 import javolution.util.FastList;
-import silentium.gameserver.configs.NPCConfig;
 import silentium.commons.utils.Rnd;
 import silentium.gameserver.ai.DefaultMonsterAI;
+import silentium.gameserver.configs.NPCConfig;
 import silentium.gameserver.instancemanager.GrandBossManager;
 import silentium.gameserver.model.actor.L2Attackable;
 import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2GrandBossInstance;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.network.serverpackets.PlaySound;
+import silentium.gameserver.scripting.ScriptFile;
 import silentium.gameserver.templates.StatsSet;
+
+import java.util.List;
 
 /**
  * Core AI
  *
  * @author DrLecter Revised By Emperorc
  */
-public class Core extends DefaultMonsterAI
-{
+public class Core extends DefaultMonsterAI implements ScriptFile {
 	private static final int CORE = 29006;
 	private static final int DEATH_KNIGHT = 29007;
 	private static final int DOOM_WRAITH = 29008;
@@ -45,13 +45,11 @@ public class Core extends DefaultMonsterAI
 
 	List<L2Attackable> Minions = new FastList<>();
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Core(-1, "core", "ai");
 	}
 
-	public Core(int id, String name, String descr)
-	{
+	public Core(int id, String name, String descr) {
 		super(id, name, descr);
 
 		int[] mobs = { CORE, DEATH_KNIGHT, DOOM_WRAITH, SUSCEPTOR };
@@ -60,24 +58,20 @@ public class Core extends DefaultMonsterAI
 		_FirstAttacked = false;
 		StatsSet info = GrandBossManager.getInstance().getStatsSet(CORE);
 		int status = GrandBossManager.getInstance().getBossStatus(CORE);
-		if (status == DEAD)
-		{
+		if (status == DEAD) {
 			// load the unlock date and time for Core from DB
 			long temp = (info.getLong("respawn_time") - System.currentTimeMillis());
 			// if Core is locked until a certain time, mark it so and start the unlock timer
 			// the unlock time has not yet expired.
 			if (temp > 0)
 				startQuestTimer("core_unlock", temp, null, null);
-			else
-			{
+			else {
 				// the time has already expired while the server was offline. Immediately spawn Core.
 				L2GrandBossInstance core = (L2GrandBossInstance) addSpawn(CORE, 17726, 108915, -6480, 0, false, 0);
 				GrandBossManager.getInstance().setBossStatus(CORE, ALIVE);
 				spawnBoss(core);
 			}
-		}
-		else
-		{
+		} else {
 			String test = loadGlobalQuestVar("Core_Attacked");
 			if (test.equalsIgnoreCase("true"))
 				_FirstAttacked = true;
@@ -95,21 +89,18 @@ public class Core extends DefaultMonsterAI
 	}
 
 	@Override
-	public void saveGlobalData()
-	{
+	public void saveGlobalData() {
 		String val = "" + _FirstAttacked;
 		saveGlobalQuestVar("Core_Attacked", val);
 	}
 
-	public void spawnBoss(L2GrandBossInstance npc)
-	{
+	public void spawnBoss(L2GrandBossInstance npc) {
 		GrandBossManager.getInstance().addBoss(npc);
 		npc.broadcastPacket(new PlaySound(1, "BS01_A", 1, npc.getObjectId(), npc.getX(), npc.getY(), npc.getZ()));
 
 		// Spawn minions
 		L2Attackable mob;
-		for (int i = 0; i < 5; i++)
-		{
+		for (int i = 0; i < 5; i++) {
 			int x = 16800 + i * 360;
 			mob = (L2Attackable) addSpawn(DEATH_KNIGHT, x, 110000, npc.getZ(), 280 + Rnd.get(40), false, 0);
 			mob.setIsRaidMinion(true);
@@ -123,8 +114,7 @@ public class Core extends DefaultMonsterAI
 			Minions.add(mob);
 		}
 
-		for (int i = 0; i < 4; i++)
-		{
+		for (int i = 0; i < 4; i++) {
 			int x = 16800 + i * 450;
 			mob = (L2Attackable) addSpawn(SUSCEPTOR, x, 110300, npc.getZ(), 280 + Rnd.get(40), false, 0);
 			mob.setIsRaidMinion(true);
@@ -133,24 +123,17 @@ public class Core extends DefaultMonsterAI
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		if (event.equalsIgnoreCase("core_unlock"))
-		{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
+		if (event.equalsIgnoreCase("core_unlock")) {
 			L2GrandBossInstance core = (L2GrandBossInstance) addSpawn(CORE, 17726, 108915, -6480, 0, false, 0);
 			GrandBossManager.getInstance().setBossStatus(CORE, ALIVE);
 			spawnBoss(core);
-		}
-		else if (event.equalsIgnoreCase("spawn_minion"))
-		{
+		} else if (event.equalsIgnoreCase("spawn_minion")) {
 			L2Attackable mob = (L2Attackable) addSpawn(npc.getNpcId(), npc.getX(), npc.getY(), npc.getZ(), npc.getHeading(), false, 0);
 			mob.setIsRaidMinion(true);
 			Minions.add(mob);
-		}
-		else if (event.equalsIgnoreCase("despawn_minions"))
-		{
-			for (int i = 0; i < Minions.size(); i++)
-			{
+		} else if (event.equalsIgnoreCase("despawn_minions")) {
+			for (int i = 0; i < Minions.size(); i++) {
 				L2Attackable mob = Minions.get(i);
 				if (mob != null)
 					mob.decayMe();
@@ -161,17 +144,12 @@ public class Core extends DefaultMonsterAI
 	}
 
 	@Override
-	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isPet)
-	{
-		if (npc.getNpcId() == CORE)
-		{
-			if (_FirstAttacked)
-			{
+	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isPet) {
+		if (npc.getNpcId() == CORE) {
+			if (_FirstAttacked) {
 				if (Rnd.get(100) == 0)
 					npc.broadcastNpcSay("Removing intruders.");
-			}
-			else
-			{
+			} else {
 				_FirstAttacked = true;
 				npc.broadcastNpcSay("A non-permitted target has been discovered.");
 				npc.broadcastNpcSay("Starting intruder removal system.");
@@ -181,11 +159,9 @@ public class Core extends DefaultMonsterAI
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance killer, boolean isPet)
-	{
+	public String onKill(L2Npc npc, L2PcInstance killer, boolean isPet) {
 		int npcId = npc.getNpcId();
-		if (npcId == CORE)
-		{
+		if (npcId == CORE) {
 			npc.broadcastPacket(new PlaySound(1, "BS02_D", 1, npc.getObjectId(), npc.getX(), npc.getY(), npc.getZ()));
 			npc.broadcastNpcSay("A fatal error has occurred.");
 			npc.broadcastNpcSay("System is being shut down...");
@@ -207,9 +183,7 @@ public class Core extends DefaultMonsterAI
 			GrandBossManager.getInstance().setStatsSet(CORE, info);
 			this.startQuestTimer("despawn_minions", 20000, null, null);
 			cancelQuestTimers("spawn_minion");
-		}
-		else if (GrandBossManager.getInstance().getBossStatus(CORE) == ALIVE && Minions != null && Minions.contains(npc))
-		{
+		} else if (GrandBossManager.getInstance().getBossStatus(CORE) == ALIVE && Minions != null && Minions.contains(npc)) {
 			Minions.remove(npc);
 			startQuestTimer("spawn_minion", 60000, npc, null);
 		}

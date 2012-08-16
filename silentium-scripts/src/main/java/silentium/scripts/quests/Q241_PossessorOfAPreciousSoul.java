@@ -11,9 +11,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q241_PossessorOfAPreciousSoul extends Quest
-{
+public class Q241_PossessorOfAPreciousSoul extends Quest implements ScriptFile {
 	private final static String qn = "Q241_PossessorOfAPreciousSoul";
 
 	// NPCs
@@ -50,8 +50,7 @@ public class Q241_PossessorOfAPreciousSoul extends Quest
 	private static final int HELLFIRE_OIL = 6033;
 	private static final int VIRGILS_LETTER = 7677;
 
-	public Q241_PossessorOfAPreciousSoul(int questId, String name, String descr)
-	{
+	public Q241_PossessorOfAPreciousSoul(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { LEGEND_OF_SEVENTEEN, MALRUK_SUCCUBUS_CLAW, ECHO_CRYSTAL, POETRY_BOOK, CRIMSON_MOSS, RAHORAKTIS_MEDICINE };
@@ -62,164 +61,129 @@ public class Q241_PossessorOfAPreciousSoul extends Quest
 		addKillId(BARAHAM, MALRUK_SUCCUBUS, MALRUK_SUCCUBUS_TUREN, SPLINTER_STAKATO, SPLINTER_STAKATO_WALKER, SPLINTER_STAKATO_SOLDIER, SPLINTER_STAKATO_DRONE1, SPLINTER_STAKATO_DRONE2);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q241_PossessorOfAPreciousSoul(241, "Q241_PossessorOfAPreciousSoul", "Possessor of a Precious Soul - 1");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
 		// Talien
-		if (event.equalsIgnoreCase("31739-03.htm"))
-		{
+		if (event.equalsIgnoreCase("31739-03.htm")) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("31739-07.htm"))
-		{
+		} else if (event.equalsIgnoreCase("31739-07.htm")) {
 			st.set("cond", "5");
 			st.takeItems(LEGEND_OF_SEVENTEEN, 1);
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("31739-10.htm"))
-		{
+		} else if (event.equalsIgnoreCase("31739-10.htm")) {
 			st.set("cond", "9");
 			st.takeItems(ECHO_CRYSTAL, 1);
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("31739-13.htm"))
-		{
+		} else if (event.equalsIgnoreCase("31739-13.htm")) {
 			st.set("cond", "11");
 			st.takeItems(POETRY_BOOK, 1);
 			st.playSound(QuestState.SOUND_MIDDLE);
 		}
 		// Gabrielle
-		else if (event.equalsIgnoreCase("30753-02.htm"))
-		{
+		else if (event.equalsIgnoreCase("30753-02.htm")) {
 			st.set("cond", "2");
 			st.playSound(QuestState.SOUND_MIDDLE);
 		}
 		// Gilmore
-		else if (event.equalsIgnoreCase("30754-02.htm"))
-		{
+		else if (event.equalsIgnoreCase("30754-02.htm")) {
 			st.set("cond", "3");
 			st.playSound(QuestState.SOUND_MIDDLE);
 		}
 		// Kantabilon
-		else if (event.equalsIgnoreCase("31042-02.htm"))
-		{
+		else if (event.equalsIgnoreCase("31042-02.htm")) {
 			st.set("cond", "6");
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("31042-05.htm"))
-		{
+		} else if (event.equalsIgnoreCase("31042-05.htm")) {
 			st.set("cond", "8");
 			st.takeItems(MALRUK_SUCCUBUS_CLAW, 10);
 			st.giveItems(ECHO_CRYSTAL, 1);
 			st.playSound(QuestState.SOUND_MIDDLE);
 		}
 		// Stedmiel
-		else if (event.equalsIgnoreCase("30692-02.htm"))
-		{
+		else if (event.equalsIgnoreCase("30692-02.htm")) {
 			st.set("cond", "10");
 			st.giveItems(POETRY_BOOK, 1);
 			st.playSound(QuestState.SOUND_MIDDLE);
 		}
 		// Virgil
-		else if (event.equalsIgnoreCase("31742-02.htm"))
-		{
+		else if (event.equalsIgnoreCase("31742-02.htm")) {
 			st.set("cond", "12");
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("31742-05.htm"))
-		{
+		} else if (event.equalsIgnoreCase("31742-05.htm")) {
 			st.set("cond", "18");
 			st.playSound(QuestState.SOUND_MIDDLE);
 		}
 		// Ogmar
-		else if (event.equalsIgnoreCase("31744-02.htm"))
-		{
+		else if (event.equalsIgnoreCase("31744-02.htm")) {
 			st.set("cond", "13");
 			st.playSound(QuestState.SOUND_MIDDLE);
 		}
 		// Rahorakti
-		else if (event.equalsIgnoreCase("31336-02.htm"))
-		{
+		else if (event.equalsIgnoreCase("31336-02.htm")) {
 			st.set("cond", "14");
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("31336-05.htm"))
-		{
+		} else if (event.equalsIgnoreCase("31336-05.htm")) {
 			st.set("cond", "16");
 			st.takeItems(CRIMSON_MOSS, 5);
 			st.giveItems(RAHORAKTIS_MEDICINE, 1);
 			st.playSound(QuestState.SOUND_MIDDLE);
 		}
 		// Kassandra
-		else if (event.equalsIgnoreCase("31743-02.htm"))
-		{
+		else if (event.equalsIgnoreCase("31743-02.htm")) {
 			st.set("cond", "17");
 			st.takeItems(RAHORAKTIS_MEDICINE, 1);
 			st.playSound(QuestState.SOUND_MIDDLE);
 		}
 		// Caradine
-		else if (event.equalsIgnoreCase("31740-02.htm"))
-		{
+		else if (event.equalsIgnoreCase("31740-02.htm")) {
 			st.set("cond", "19");
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("31740-05.htm"))
-		{
+		} else if (event.equalsIgnoreCase("31740-05.htm")) {
 			st.giveItems(VIRGILS_LETTER, 1);
 			st.addExpAndSp(263043, 0);
 			st.playSound(QuestState.SOUND_FINISH);
 			st.exitQuest(false);
 		}
 		// Noel
-		else if (event.equalsIgnoreCase("31272-02.htm"))
-		{
+		else if (event.equalsIgnoreCase("31272-02.htm")) {
 			st.set("cond", "20");
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("31272-05.htm"))
-		{
-			if (st.hasQuestItems(HELLFIRE_OIL) && st.getQuestItemsCount(LUNARGENT) >= 5)
-			{
+		} else if (event.equalsIgnoreCase("31272-05.htm")) {
+			if (st.hasQuestItems(HELLFIRE_OIL) && st.getQuestItemsCount(LUNARGENT) >= 5) {
 				st.takeItems(LUNARGENT, 5);
 				st.takeItems(HELLFIRE_OIL, 1);
 				st.set("cond", "21");
 				st.playSound(QuestState.SOUND_MIDDLE);
-			}
-			else
+			} else
 				htmltext = "31272-07.htm";
 		}
 		return htmltext;
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		String htmltext = getNoQuestMsg();
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
-				if (!player.isSubClassActive() || player.getLevel() < 50)
-				{
+				if (!player.isSubClassActive() || player.getLevel() < 50) {
 					htmltext = "31739-02.htm";
 					st.exitQuest(true);
-				}
-				else
+				} else
 					htmltext = "31739-01.htm";
 				break;
 
@@ -228,8 +192,7 @@ public class Q241_PossessorOfAPreciousSoul extends Quest
 					break;
 
 				int cond = st.getInt("cond");
-				switch (npc.getNpcId())
-				{
+				switch (npc.getNpcId()) {
 					case TALIEN:
 						if (cond == 1)
 							htmltext = "31739-04.htm";
@@ -329,14 +292,12 @@ public class Q241_PossessorOfAPreciousSoul extends Quest
 					case NOEL:
 						if (cond == 19)
 							htmltext = "31272-01.htm";
-						else if (cond == 20)
-						{
+						else if (cond == 20) {
 							if (st.hasQuestItems(HELLFIRE_OIL) && st.getQuestItemsCount(LUNARGENT) >= 5)
 								htmltext = "31272-04.htm";
 							else
 								htmltext = "31272-03.htm";
-						}
-						else if (cond == 21)
+						} else if (cond == 21)
 							htmltext = "31272-06.htm";
 						break;
 				}
@@ -350,17 +311,14 @@ public class Q241_PossessorOfAPreciousSoul extends Quest
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
 		QuestState st = player.getQuestState(qn);
 		if (st == null || !st.isStarted() || !player.isSubClassActive())
 			return null;
 
-		switch (npc.getNpcId())
-		{
+		switch (npc.getNpcId()) {
 			case BARAHAM:
-				if (checkPlayerCondition(player, npc, "cond", "3"))
-				{
+				if (checkPlayerCondition(player, npc, "cond", "3")) {
 					st.set("cond", "4");
 					st.giveItems(LEGEND_OF_SEVENTEEN, 1);
 					st.playSound(QuestState.SOUND_MIDDLE);

@@ -11,9 +11,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class FortuneTelling extends Quest
-{
+public class FortuneTelling extends Quest implements ScriptFile {
 	private static final String qn = "FortuneTelling";
 
 	private final static String BODY = "<html><body>Шаман Мине:<br>Я вижу, что перед Вами возникает изображение... Трудно передать словами то, что я видел.<br>Как я могу поведать это? Хорошо, тогда слушайте:<br><br><center>";
@@ -26,16 +26,14 @@ public class FortuneTelling extends Quest
 			"Мелочи составляют большие вещи, а ценность тривиальные вопросы.", "Вас будут ждать большие ошибки, если Вы будете не в состоянии исправить маленькие.", "На мгновение задержите важное решение.", "Лекарство необходимо для излечения от тяжелой болезни." };
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		QuestState st = player.getQuestState(qn);
 		String htmltext = "";
 		if (st == null)
 			return "";
 		if (st.getQuestItemsCount(57) < 1000)
 			htmltext = "lowadena.htm";
-		else
-		{
+		else {
 			st.takeItems(57, 1000);
 			st.getRandom(45);
 			htmltext = BODY + FORTUNE[st.getRandom(45)] + END;
@@ -44,13 +42,11 @@ public class FortuneTelling extends Quest
 		return htmltext;
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new FortuneTelling(-1, "FortuneTelling", "custom");
 	}
 
-	public FortuneTelling(int id, String name, String desc)
-	{
+	public FortuneTelling(int id, String name, String desc) {
 		super(id, name, desc);
 		addStartNpc(32616);
 		addTalkId(32616);

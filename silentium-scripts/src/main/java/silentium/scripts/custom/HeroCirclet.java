@@ -11,16 +11,14 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class HeroCirclet extends Quest
-{
-	public static void main(String[] args)
-	{
+public class HeroCirclet extends Quest implements ScriptFile {
+	public static void onLoad() {
 		new HeroCirclet(-1, "HeroCirclet", "custom");
 	}
 
-	public HeroCirclet(int questId, String name, String descr)
-	{
+	public HeroCirclet(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		addStartNpc(31690, 31769, 31770, 31771, 31772);
@@ -28,21 +26,18 @@ public class HeroCirclet extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		String htmltext = "";
 		QuestState st = player.getQuestState(getName());
 		if (st == null)
 			st = newQuestState(player);
 
-		if (player.isHero())
-		{
+		if (player.isHero()) {
 			if (player.getInventory().getItemByItemId(6842) == null)
 				st.giveItems(6842, 1);
 			else
 				htmltext = "already_have_circlet.htm";
-		}
-		else
+		} else
 			htmltext = "no_hero.htm";
 
 		st.exitQuest(true);

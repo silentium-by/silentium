@@ -131,10 +131,6 @@ public final class HtmCache {
 		return content;
 	}
 
-	public boolean contains(final String path) {
-		return cache.getIfPresent(path) != null;
-	}
-
 	/**
 	 * Check if an HTM exists and can be loaded
 	 *

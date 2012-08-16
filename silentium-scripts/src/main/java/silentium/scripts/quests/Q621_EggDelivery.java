@@ -12,9 +12,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q621_EggDelivery extends Quest
-{
+public class Q621_EggDelivery extends Quest implements ScriptFile {
 	private final static String qn = "Q621_EggDelivery";
 
 	// Items
@@ -34,8 +34,7 @@ public class Q621_EggDelivery extends Quest
 	private static final int HASTE_POT = 1062;
 	private static final int[] RECIPES = { 6847, 6849, 6851 };
 
-	public Q621_EggDelivery(int questId, String name, String descr)
-	{
+	public Q621_EggDelivery(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { EGG, FEE };
@@ -44,86 +43,63 @@ public class Q621_EggDelivery extends Quest
 		addTalkId(JEREMY, PULIN, NAFF, CROCUS, KUBER, BEOLIN, VALENTINE);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q621_EggDelivery(621, "Q621_EggDelivery", "Egg Delivery");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("31521-02.htm"))
-		{
+		if (event.equalsIgnoreCase("31521-02.htm")) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.giveItems(EGG, 5);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("31543-02.htm"))
-		{
+		} else if (event.equalsIgnoreCase("31543-02.htm")) {
 			st.set("cond", "2");
 			st.takeItems(EGG, 1);
 			st.giveItems(FEE, 1);
 			st.playSound(QuestState.SOUND_ITEMGET);
-		}
-		else if (event.equalsIgnoreCase("31544-02.htm"))
-		{
+		} else if (event.equalsIgnoreCase("31544-02.htm")) {
 			st.set("cond", "3");
 			st.takeItems(EGG, 1);
 			st.giveItems(FEE, 1);
 			st.playSound(QuestState.SOUND_ITEMGET);
-		}
-		else if (event.equalsIgnoreCase("31545-02.htm"))
-		{
+		} else if (event.equalsIgnoreCase("31545-02.htm")) {
 			st.set("cond", "4");
 			st.takeItems(EGG, 1);
 			st.giveItems(FEE, 1);
 			st.playSound(QuestState.SOUND_ITEMGET);
-		}
-		else if (event.equalsIgnoreCase("31546-02.htm"))
-		{
+		} else if (event.equalsIgnoreCase("31546-02.htm")) {
 			st.set("cond", "5");
 			st.takeItems(EGG, 1);
 			st.giveItems(FEE, 1);
 			st.playSound(QuestState.SOUND_ITEMGET);
-		}
-		else if (event.equalsIgnoreCase("31547-02.htm"))
-		{
+		} else if (event.equalsIgnoreCase("31547-02.htm")) {
 			st.set("cond", "6");
 			st.takeItems(EGG, 1);
 			st.giveItems(FEE, 1);
 			st.playSound(QuestState.SOUND_ITEMGET);
-		}
-		else if (event.equalsIgnoreCase("31521-06.htm"))
-		{
-			if (st.getQuestItemsCount(FEE) < 5)
-			{
+		} else if (event.equalsIgnoreCase("31521-06.htm")) {
+			if (st.getQuestItemsCount(FEE) < 5) {
 				htmltext = "31521-08.htm";
 				st.playSound(QuestState.SOUND_GIVEUP);
 				st.exitQuest(true);
-			}
-			else
-			{
+			} else {
 				st.set("cond", "7");
 				st.takeItems(FEE, 5);
 				st.playSound(QuestState.SOUND_MIDDLE);
 			}
-		}
-		else if (event.equalsIgnoreCase("31584-02.htm"))
-		{
-			if (Rnd.get(5) < 1)
-			{
+		} else if (event.equalsIgnoreCase("31584-02.htm")) {
+			if (Rnd.get(5) < 1) {
 				st.rewardItems(RECIPES[Rnd.get(3)], 1);
 				st.playSound(QuestState.SOUND_FINISH);
 				st.exitQuest(true);
-			}
-			else
-			{
+			} else {
 				st.rewardItems(57, 18800);
 				st.rewardItems(HASTE_POT, 1);
 				st.playSound(QuestState.SOUND_FINISH);
@@ -134,15 +110,13 @@ public class Q621_EggDelivery extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		String htmltext = Quest.getNoQuestMsg();
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 68 && player.getLevel() <= 73)
 					htmltext = "31521-01.htm";
@@ -153,8 +127,7 @@ public class Q621_EggDelivery extends Quest
 			case QuestState.STARTED:
 				int cond = st.getInt("cond");
 
-				switch (npc.getNpcId())
-				{
+				switch (npc.getNpcId()) {
 					case JEREMY:
 						if (cond == 1)
 							htmltext = "31521-04.htm";

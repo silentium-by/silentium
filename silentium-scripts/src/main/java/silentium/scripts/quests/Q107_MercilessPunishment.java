@@ -11,13 +11,13 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
 /**
  * @author Demon
  */
 
-public class Q107_MercilessPunishment extends Quest
-{
+public class Q107_MercilessPunishment extends Quest implements ScriptFile {
 	private final static String qn = "Q107_MercilessPunishment";
 
 	private static final int HATOSS_ORDER1_ID = 1553;
@@ -35,8 +35,7 @@ public class Q107_MercilessPunishment extends Quest
 	private static final int CRYSTAL_CELEBRATION = 4416;
 	private static final int SOULSHOT_NO_GRADE_FOR_BEGINNERS_ID = 5789;
 
-	public Q107_MercilessPunishment(int questId, String name, String descr)
-	{
+	public Q107_MercilessPunishment(int questId, String name, String descr) {
 		super(questId, name, descr);
 		addStartNpc(30568);
 		addTalkId(30568, 30580);
@@ -44,30 +43,25 @@ public class Q107_MercilessPunishment extends Quest
 		questItemIds = new int[] { HATOSS_ORDER2_ID, LETTER_TO_DARKELF_ID, LETTER_TO_HUMAN_ID, LETTER_TO_ELF_ID, HATOSS_ORDER1_ID, HATOSS_ORDER3_ID };
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q107_MercilessPunishment(-1, "Q107_MercilessPunishment", "Merciless Punishment");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event == "1")
-		{
+		if (event == "1") {
 			st.set("id", "0");
 			htmltext = "30568-03.htm";
 			st.giveItems(HATOSS_ORDER1_ID, 1);
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound("ItemSound.quest_accept");
-		}
-		else if (event == "30568_1")
-		{
+		} else if (event == "30568_1") {
 			htmltext = "30568-06.htm";
 			st.takeItems(HATOSS_ORDER2_ID, 1);
 			st.takeItems(LETTER_TO_DARKELF_ID, 1);
@@ -77,16 +71,12 @@ public class Q107_MercilessPunishment extends Quest
 			st.takeItems(HATOSS_ORDER3_ID, 1);
 			st.set("cond", "0");
 			st.playSound("ItemSound.quest_giveup");
-		}
-		else if (event == "30568_2")
-		{
+		} else if (event == "30568_2") {
 			htmltext = "30568-07.htm";
 			st.takeItems(HATOSS_ORDER1_ID, 1);
 			if (st.getQuestItemsCount(HATOSS_ORDER2_ID) == 0)
 				st.giveItems(HATOSS_ORDER2_ID, 1);
-		}
-		else if (event == "30568_3")
-		{
+		} else if (event == "30568_3") {
 			htmltext = "30568-06.htm";
 			st.takeItems(HATOSS_ORDER1_ID, 1);
 			st.takeItems(LETTER_TO_DARKELF_ID, 1);
@@ -96,9 +86,7 @@ public class Q107_MercilessPunishment extends Quest
 			st.takeItems(HATOSS_ORDER3_ID, 1);
 			st.set("cond", "0");
 			st.playSound("ItemSound.quest_giveup");
-		}
-		else if (event == "30568_4")
-		{
+		} else if (event == "30568_4") {
 			htmltext = "30568-09.htm";
 			st.takeItems(HATOSS_ORDER2_ID, 1);
 			if (st.getQuestItemsCount(HATOSS_ORDER3_ID) == 0)
@@ -109,8 +97,7 @@ public class Q107_MercilessPunishment extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		String htmltext = getNoQuestMsg();
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
@@ -119,40 +106,29 @@ public class Q107_MercilessPunishment extends Quest
 		int id = st.getState();
 		int npcId = npc.getNpcId();
 
-		if (id == QuestState.CREATED)
-		{
+		if (id == QuestState.CREATED) {
 			st.setState(QuestState.STARTED);
 			st.set("cond", "0");
 			st.set("onlyone", "0");
 			st.set("id", "0");
 		}
-		if (npcId == 30568 && st.getInt("cond") == 0 && st.getInt("onlyone") == 0)
-		{
-			if (st.getInt("cond") < 15)
-			{
-				if (player.getRace().ordinal() != 3)
-				{
+		if (npcId == 30568 && st.getInt("cond") == 0 && st.getInt("onlyone") == 0) {
+			if (st.getInt("cond") < 15) {
+				if (player.getRace().ordinal() != 3) {
 					htmltext = "30568-00.htm";
 					st.exitQuest(true);
-				}
-				else if (player.getLevel() >= 12)
-				{
+				} else if (player.getLevel() >= 12) {
 					htmltext = "30568-02.htm";
 					return htmltext;
-				}
-				else
-				{
+				} else {
 					htmltext = "30568-01.htm";
 					st.exitQuest(true);
 				}
-			}
-			else
-			{
+			} else {
 				htmltext = "30568-01.htm";
 				st.exitQuest(true);
 			}
-		}
-		else if (npcId == 30568 && st.getInt("cond") == 0 && st.getInt("onlyone") == 1)
+		} else if (npcId == 30568 && st.getInt("cond") == 0 && st.getInt("onlyone") == 1)
 			htmltext = "<html><body>This quest has already been completed.</body></html>";
 		else if (npcId == 30568 && st.getInt("cond") == 1 && (st.getQuestItemsCount(HATOSS_ORDER1_ID) > 0 || st.getQuestItemsCount(HATOSS_ORDER2_ID) > 0 || st.getQuestItemsCount(HATOSS_ORDER3_ID) > 0) && ((st.getQuestItemsCount(LETTER_TO_ELF_ID) + st.getQuestItemsCount(LETTER_TO_HUMAN_ID) + st.getQuestItemsCount(LETTER_TO_DARKELF_ID)) == 0))
 			htmltext = "30568-04.htm";
@@ -160,10 +136,8 @@ public class Q107_MercilessPunishment extends Quest
 			htmltext = "30568-05.htm";
 		else if (npcId == 30568 && st.getInt("cond") == 1 && (st.getQuestItemsCount(HATOSS_ORDER1_ID) > 0 || st.getQuestItemsCount(HATOSS_ORDER2_ID) > 0 || st.getQuestItemsCount(HATOSS_ORDER3_ID) > 0) && ((st.getQuestItemsCount(LETTER_TO_ELF_ID) + st.getQuestItemsCount(LETTER_TO_HUMAN_ID) + st.getQuestItemsCount(LETTER_TO_DARKELF_ID)) == 2))
 			htmltext = "30568-08.htm";
-		else if (npcId == 30568 && st.getInt("cond") == 1 && (st.getQuestItemsCount(HATOSS_ORDER1_ID) > 0 || st.getQuestItemsCount(HATOSS_ORDER2_ID) > 0 || st.getQuestItemsCount(HATOSS_ORDER3_ID) > 0) && ((st.getQuestItemsCount(LETTER_TO_ELF_ID) + st.getQuestItemsCount(LETTER_TO_HUMAN_ID) + st.getQuestItemsCount(LETTER_TO_DARKELF_ID)) == 3) && st.getInt("onlyone") == 0)
-		{
-			if (st.getInt("id") != 107)
-			{
+		else if (npcId == 30568 && st.getInt("cond") == 1 && (st.getQuestItemsCount(HATOSS_ORDER1_ID) > 0 || st.getQuestItemsCount(HATOSS_ORDER2_ID) > 0 || st.getQuestItemsCount(HATOSS_ORDER3_ID) > 0) && ((st.getQuestItemsCount(LETTER_TO_ELF_ID) + st.getQuestItemsCount(LETTER_TO_HUMAN_ID) + st.getQuestItemsCount(LETTER_TO_DARKELF_ID)) == 3) && st.getInt("onlyone") == 0) {
+			if (st.getInt("id") != 107) {
 				st.set("id", "107");
 				htmltext = "30568-10.htm";
 				st.takeItems(LETTER_TO_DARKELF_ID, 1);
@@ -184,38 +158,31 @@ public class Q107_MercilessPunishment extends Quest
 				st.playSound("ItemSound.quest_finish");
 				st.set("onlyone", "1");
 			}
-		}
-		else if (npcId == 30580 && st.getInt("cond") == 1 && id == QuestState.STARTED && (st.getQuestItemsCount(HATOSS_ORDER1_ID) > 0 || st.getQuestItemsCount(HATOSS_ORDER2_ID) > 0 || st.getQuestItemsCount(HATOSS_ORDER3_ID) > 0))
+		} else if (npcId == 30580 && st.getInt("cond") == 1 && id == QuestState.STARTED && (st.getQuestItemsCount(HATOSS_ORDER1_ID) > 0 || st.getQuestItemsCount(HATOSS_ORDER2_ID) > 0 || st.getQuestItemsCount(HATOSS_ORDER3_ID) > 0))
 			htmltext = "30580-01.htm";
 
 		return htmltext;
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 
 		int npcId = npc.getNpcId();
-		if (npcId == 27041)
-		{
+		if (npcId == 27041) {
 			st.set("id", "0");
-			if (st.getInt("cond") == 1)
-			{
-				if (st.getQuestItemsCount(HATOSS_ORDER1_ID) > 0 && st.getQuestItemsCount(LETTER_TO_HUMAN_ID) == 0)
-				{
+			if (st.getInt("cond") == 1) {
+				if (st.getQuestItemsCount(HATOSS_ORDER1_ID) > 0 && st.getQuestItemsCount(LETTER_TO_HUMAN_ID) == 0) {
 					st.giveItems(LETTER_TO_HUMAN_ID, 1);
 					st.playSound("ItemSound.quest_itemget");
 				}
-				if (st.getQuestItemsCount(HATOSS_ORDER2_ID) > 0 && st.getQuestItemsCount(LETTER_TO_DARKELF_ID) == 0)
-				{
+				if (st.getQuestItemsCount(HATOSS_ORDER2_ID) > 0 && st.getQuestItemsCount(LETTER_TO_DARKELF_ID) == 0) {
 					st.giveItems(LETTER_TO_DARKELF_ID, 1);
 					st.playSound("ItemSound.quest_itemget");
 				}
-				if (st.getQuestItemsCount(HATOSS_ORDER3_ID) > 0 && st.getQuestItemsCount(LETTER_TO_ELF_ID) == 0)
-				{
+				if (st.getQuestItemsCount(HATOSS_ORDER3_ID) > 0 && st.getQuestItemsCount(LETTER_TO_ELF_ID) == 0) {
 					st.giveItems(LETTER_TO_ELF_ID, 1);
 					st.playSound("ItemSound.quest_itemget");
 				}

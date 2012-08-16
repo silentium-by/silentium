@@ -11,9 +11,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q161_FruitOfTheMotherTree extends Quest
-{
+public class Q161_FruitOfTheMotherTree extends Quest implements ScriptFile {
 	private static final String qn = "Q161_FruitOfTheMotherTree";
 
 	// NPCs
@@ -27,8 +27,7 @@ public class Q161_FruitOfTheMotherTree extends Quest
 	// Reward
 	private final static int ADENA = 57;
 
-	public Q161_FruitOfTheMotherTree(int questId, String name, String descr)
-	{
+	public Q161_FruitOfTheMotherTree(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { ANDELLIA_LETTER, MOTHERTREE_FRUIT };
@@ -37,21 +36,18 @@ public class Q161_FruitOfTheMotherTree extends Quest
 		addTalkId(ANDELLIA, THALIA);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q161_FruitOfTheMotherTree(161, "Q161_FruitOfTheMotherTree", "Fruit of the Mothertree");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30362-04.htm"))
-		{
+		if (event.equalsIgnoreCase("30362-04.htm")) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.giveItems(ANDELLIA_LETTER, 1);
@@ -62,28 +58,22 @@ public class Q161_FruitOfTheMotherTree extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
-				if (player.getRace().ordinal() == 1)
-				{
+				if (player.getRace().ordinal() == 1) {
 					if (player.getLevel() >= 3 && player.getLevel() <= 7)
 						htmltext = "30362-03.htm";
-					else
-					{
+					else {
 						htmltext = "30362-02.htm";
 						st.exitQuest(true);
 					}
-				}
-				else
-				{
+				} else {
 					htmltext = "30362-00.htm";
 					st.exitQuest(true);
 				}
@@ -91,13 +81,11 @@ public class Q161_FruitOfTheMotherTree extends Quest
 
 			case QuestState.STARTED:
 				int cond = st.getInt("cond");
-				switch (npc.getNpcId())
-				{
+				switch (npc.getNpcId()) {
 					case ANDELLIA:
 						if (cond == 1)
 							htmltext = "30362-05.htm";
-						else if (cond == 2 && st.getQuestItemsCount(MOTHERTREE_FRUIT) == 1)
-						{
+						else if (cond == 2 && st.getQuestItemsCount(MOTHERTREE_FRUIT) == 1) {
 							htmltext = "30362-06.htm";
 							st.takeItems(MOTHERTREE_FRUIT, 1);
 							st.rewardItems(ADENA, 1000);
@@ -108,15 +96,13 @@ public class Q161_FruitOfTheMotherTree extends Quest
 						break;
 
 					case THALIA:
-						if (cond == 1 && st.getQuestItemsCount(ANDELLIA_LETTER) == 1)
-						{
+						if (cond == 1 && st.getQuestItemsCount(ANDELLIA_LETTER) == 1) {
 							htmltext = "30371-01.htm";
 							st.takeItems(ANDELLIA_LETTER, 1);
 							st.giveItems(MOTHERTREE_FRUIT, 1);
 							st.set("cond", "2");
 							st.playSound(QuestState.SOUND_MIDDLE);
-						}
-						else if (cond == 2 && st.getQuestItemsCount(MOTHERTREE_FRUIT) == 1)
+						} else if (cond == 2 && st.getQuestItemsCount(MOTHERTREE_FRUIT) == 1)
 							htmltext = "30371-02.htm";
 						break;
 				}

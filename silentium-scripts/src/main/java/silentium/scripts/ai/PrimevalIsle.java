@@ -15,6 +15,7 @@ import silentium.gameserver.model.actor.L2Attackable;
 import silentium.gameserver.model.actor.L2Character;
 import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
+import silentium.gameserver.scripting.ScriptFile;
 import silentium.gameserver.tables.SkillTable;
 import silentium.gameserver.tables.SpawnTable;
 import silentium.gameserver.utils.Util;
@@ -27,8 +28,7 @@ import silentium.gameserver.utils.Util;
  * <li>Pterosaurs and Tyrannosaurus : can see through Silent Move.</li>
  * </ul>
  */
-public class PrimevalIsle extends DefaultMonsterAI
-{
+public class PrimevalIsle extends DefaultMonsterAI implements ScriptFile {
 	private static final int[] _sprigants = { 18345, 18346 };
 
 	private static final int[] MOBIDS = { 22199, 22215, 22216, 22217 };
@@ -38,13 +38,11 @@ public class PrimevalIsle extends DefaultMonsterAI
 	private static final L2Skill ANESTHESIA = SkillTable.getInstance().getInfo(5085, 1);
 	private static final L2Skill POISON = SkillTable.getInstance().getInfo(5086, 1);
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new PrimevalIsle(-1, "PrimevalIsle", "ai/group");
 	}
 
-	public PrimevalIsle(int id, String name, String descr)
-	{
+	public PrimevalIsle(int id, String name, String descr) {
 		super(id, name, descr);
 
 		for (L2Spawn npc : SpawnTable.getInstance().getSpawnTable())
@@ -57,16 +55,13 @@ public class PrimevalIsle extends DefaultMonsterAI
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		if (!(npc instanceof L2Attackable))
 			return null;
 
-		if (event.equalsIgnoreCase("skill"))
-		{
+		if (event.equalsIgnoreCase("skill")) {
 			// If no one is inside aggro range, drop the task.
-			if (npc.getKnownList().getKnownCharactersInRadius(npc.getAggroRange()).isEmpty())
-			{
+			if (npc.getKnownList().getKnownCharactersInRadius(npc.getAggroRange()).isEmpty()) {
 				cancelQuestTimer("skill", npc, null);
 				return null;
 			}
@@ -78,8 +73,7 @@ public class PrimevalIsle extends DefaultMonsterAI
 	}
 
 	@Override
-	public String onAggroRangeEnter(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onAggroRangeEnter(L2Npc npc, L2PcInstance player, boolean isPet) {
 		if (player == null)
 			return null;
 
@@ -95,8 +89,7 @@ public class PrimevalIsle extends DefaultMonsterAI
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance killer, boolean isPet)
-	{
+	public String onKill(L2Npc npc, L2PcInstance killer, boolean isPet) {
 		if (getQuestTimer("skill", npc, null) != null)
 			cancelQuestTimer("skill", npc, null);
 
@@ -104,8 +97,7 @@ public class PrimevalIsle extends DefaultMonsterAI
 	}
 
 	@Override
-	public String onAttack(L2Npc npc, L2PcInstance player, int damage, boolean isPet)
-	{
+	public String onAttack(L2Npc npc, L2PcInstance player, int damage, boolean isPet) {
 		if (player == null)
 			return null;
 
@@ -113,8 +105,7 @@ public class PrimevalIsle extends DefaultMonsterAI
 		final L2Character originalAttacker = (isPet ? player.getPet() : player);
 
 		// Make all mobs found in a radius 2k aggressive towards attacker.
-		for (L2Character obj : player.getKnownList().getKnownCharactersInRadius(2000))
-		{
+		for (L2Character obj : player.getKnownList().getKnownCharactersInRadius(2000)) {
 			if (obj == null || !(obj instanceof L2Attackable) || obj.isDead() || obj == npc)
 				continue;
 
@@ -125,8 +116,7 @@ public class PrimevalIsle extends DefaultMonsterAI
 	}
 
 	@Override
-	public String onSpawn(L2Npc npc)
-	{
+	public String onSpawn(L2Npc npc) {
 		if (npc instanceof L2Attackable)
 			((L2Attackable) npc).seeThroughSilentMove(true);
 

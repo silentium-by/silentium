@@ -11,9 +11,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q110_ToThePrimevalIsle extends Quest
-{
+public class Q110_ToThePrimevalIsle extends Quest implements ScriptFile {
 	private static final String qn = "Q110_ToThePrimevalIsle";
 
 	// NPCs
@@ -26,8 +26,7 @@ public class Q110_ToThePrimevalIsle extends Quest
 	// Reward
 	private final static int ADENA = 57;
 
-	public Q110_ToThePrimevalIsle(int questId, String name, String descr)
-	{
+	public Q110_ToThePrimevalIsle(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { ANCIENT_BOOK };
@@ -36,28 +35,23 @@ public class Q110_ToThePrimevalIsle extends Quest
 		addTalkId(ANTON, MARQUEZ);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q110_ToThePrimevalIsle(110, "Q110_ToThePrimevalIsle", "To the Primeval Isle");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("31338-02.htm"))
-		{
+		if (event.equalsIgnoreCase("31338-02.htm")) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.giveItems(ANCIENT_BOOK, 1);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("32113-03.htm") && st.getQuestItemsCount(ANCIENT_BOOK) == 1)
-		{
+		} else if (event.equalsIgnoreCase("32113-03.htm") && st.getQuestItemsCount(ANCIENT_BOOK) == 1) {
 			st.playSound(QuestState.SOUND_FINISH);
 			st.rewardItems(ADENA, 169380);
 			st.takeItems(ANCIENT_BOOK, 1);
@@ -68,28 +62,24 @@ public class Q110_ToThePrimevalIsle extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 75)
 					htmltext = "31338-01.htm";
-				else
-				{
+				else {
 					htmltext = "31338-00.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				switch (npc.getNpcId())
-				{
+				switch (npc.getNpcId()) {
 					case ANTON:
 						htmltext = "31338-01c.htm";
 						break;

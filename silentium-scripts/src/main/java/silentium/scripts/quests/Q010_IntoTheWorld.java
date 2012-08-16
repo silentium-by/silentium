@@ -11,9 +11,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q010_IntoTheWorld extends Quest
-{
+public class Q010_IntoTheWorld extends Quest implements ScriptFile {
 	private final static String qn = "Q010_IntoTheWorld";
 
 	// Items
@@ -28,8 +28,7 @@ public class Q010_IntoTheWorld extends Quest
 	private final static int Balanki = 30533;
 	private final static int Gerald = 30650;
 
-	public Q010_IntoTheWorld(int questId, String name, String descr)
-	{
+	public Q010_IntoTheWorld(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { VeryExpensiveNecklace };
@@ -38,44 +37,33 @@ public class Q010_IntoTheWorld extends Quest
 		addTalkId(Balanki, Reed, Gerald);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q010_IntoTheWorld(10, "Q010_IntoTheWorld", "Into the World");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30533-02.htm"))
-		{
+		if (event.equalsIgnoreCase("30533-02.htm")) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("30520-02.htm"))
-		{
+		} else if (event.equalsIgnoreCase("30520-02.htm")) {
 			st.set("cond", "2");
 			st.giveItems(VeryExpensiveNecklace, 1);
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("30650-02.htm"))
-		{
+		} else if (event.equalsIgnoreCase("30650-02.htm")) {
 			st.set("cond", "3");
 			st.takeItems(VeryExpensiveNecklace, 1);
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("30520-04.htm"))
-		{
+		} else if (event.equalsIgnoreCase("30520-04.htm")) {
 			st.set("cond", "4");
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("30533-05.htm"))
-		{
+		} else if (event.equalsIgnoreCase("30533-05.htm")) {
 			st.giveItems(ScrollOfEscapeGiran, 1);
 			st.rewardItems(MarkOfTraveler, 1);
 			st.playSound(QuestState.SOUND_FINISH);
@@ -86,15 +74,13 @@ public class Q010_IntoTheWorld extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		String htmltext = getNoQuestMsg();
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if ((player.getLevel() >= 3 && player.getLevel() <= 10) && player.getRace().ordinal() == 4)
 					htmltext = "30533-01.htm";
@@ -104,8 +90,7 @@ public class Q010_IntoTheWorld extends Quest
 
 			case QuestState.STARTED:
 				int cond = st.getInt("cond");
-				switch (npc.getNpcId())
-				{
+				switch (npc.getNpcId()) {
 					case Balanki:
 						if (cond >= 1 && cond <= 3)
 							htmltext = "30533-03.htm";

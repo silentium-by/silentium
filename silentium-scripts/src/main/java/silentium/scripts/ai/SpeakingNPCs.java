@@ -10,6 +10,7 @@ package silentium.scripts.ai;
 import silentium.gameserver.ai.DefaultMonsterAI;
 import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
+import silentium.gameserver.scripting.ScriptFile;
 
 /**
  * Speaking NPCs implementation.<br>
@@ -18,11 +19,10 @@ import silentium.gameserver.model.actor.instance.L2PcInstance;
  * It sends back the good string following the action and the npcId.<br>
  * <br>
  * <font color="red"><b><u>TODO:</b></u> Replace the system of switch by an XML, once a decent amount of NPCs is mapped.</font>
- * 
+ *
  * @author Tryskell
  */
-public class SpeakingNPCs extends DefaultMonsterAI
-{
+public class SpeakingNPCs extends DefaultMonsterAI implements ScriptFile {
 	private static final int[] NPC_IDS = { 18212, //
 			18213, //
 			18214, //
@@ -67,28 +67,24 @@ public class SpeakingNPCs extends DefaultMonsterAI
 			27247, //
 			27249 };
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new SpeakingNPCs(-1, "SpeakingNPCs", "ai");
 	}
 
-	public SpeakingNPCs(int questId, String name, String descr)
-	{
+	public SpeakingNPCs(int questId, String name, String descr) {
 		super(questId, name, descr);
 		this.registerMobs(NPC_IDS, QuestEventType.ON_ATTACK, QuestEventType.ON_KILL);
 	}
 
 	@Override
-	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isPet)
-	{
+	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isPet) {
 		if (npc.hasSpoken())
 			return super.onAttack(npc, attacker, damage, isPet);
 
 		int npcId = npc.getNpcId();
 		String message = "";
 
-		switch (npcId)
-		{
+		switch (npcId) {
 			case 18212:
 			case 18213:
 			case 18214:
@@ -150,13 +146,11 @@ public class SpeakingNPCs extends DefaultMonsterAI
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
 		int npcId = npc.getNpcId();
 		String message = "";
 
-		switch (npcId)
-		{
+		switch (npcId) {
 			case 18212:
 			case 18213:
 			case 18214:

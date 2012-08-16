@@ -17,12 +17,12 @@ import silentium.gameserver.network.SystemMessageId;
 import silentium.gameserver.network.clientpackets.Say2;
 import silentium.gameserver.network.serverpackets.CreatureSay;
 import silentium.gameserver.network.serverpackets.PlaySound;
+import silentium.gameserver.scripting.ScriptFile;
 
 /**
  * @author DS
  */
-public class BoatGludinRune implements Runnable
-{
+public class BoatGludinRune implements Runnable, ScriptFile {
 	private static final Logger _log = LoggerFactory.getLogger(BoatGludinRune.class.getName());
 
 	// Time: 1151s
@@ -69,8 +69,7 @@ public class BoatGludinRune implements Runnable
 	private final PlaySound GLUDIN_SOUND;
 	private final PlaySound RUNE_SOUND;
 
-	public BoatGludinRune(L2BoatInstance boat)
-	{
+	public BoatGludinRune(L2BoatInstance boat) {
 		_boat = boat;
 
 		ARRIVED_AT_GLUDIN = new CreatureSay(0, Say2.BOAT, 801, SystemMessageId.FERRY_ARRIVED_AT_GLUDIN);
@@ -102,12 +101,9 @@ public class BoatGludinRune implements Runnable
 	}
 
 	@Override
-	public void run()
-	{
-		try
-		{
-			switch (_cycle)
-			{
+	public void run() {
+		try {
+			switch (_cycle) {
 				case 0:
 					BoatManager.getInstance().broadcastPacket(GLUDIN_DOCK[0], RUNE_DOCK[0], LEAVE_GLUDIN5);
 					ThreadPoolManager.getInstance().scheduleGeneral(this, 240000);
@@ -144,8 +140,7 @@ public class BoatGludinRune implements Runnable
 					BoatManager.getInstance().broadcastPacket(RUNE_DOCK[0], GLUDIN_DOCK[0], ARRIVAL_RUNE1);
 					break;
 				case 8:
-					if (BoatManager.getInstance().dockBusy(BoatManager.RUNE_HARBOR))
-					{
+					if (BoatManager.getInstance().dockBusy(BoatManager.RUNE_HARBOR)) {
 						if (_shoutCount == 0)
 							BoatManager.getInstance().broadcastPacket(RUNE_DOCK[0], GLUDIN_DOCK[0], BUSY_RUNE);
 
@@ -200,8 +195,7 @@ public class BoatGludinRune implements Runnable
 					BoatManager.getInstance().broadcastPacket(GLUDIN_DOCK[0], RUNE_DOCK[0], ARRIVAL_GLUDIN1);
 					break;
 				case 18:
-					if (BoatManager.getInstance().dockBusy(BoatManager.GLUDIN_HARBOR))
-					{
+					if (BoatManager.getInstance().dockBusy(BoatManager.GLUDIN_HARBOR)) {
 						if (_shoutCount == 0)
 							BoatManager.getInstance().broadcastPacket(GLUDIN_DOCK[0], RUNE_DOCK[0], BUSY_GLUDIN);
 
@@ -225,18 +219,14 @@ public class BoatGludinRune implements Runnable
 			_cycle++;
 			if (_cycle > 19)
 				_cycle = 0;
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			_log.warn(e.getLocalizedMessage(), e);
 		}
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		final L2BoatInstance boat = BoatManager.getInstance().getNewBoat(3, -95686, 150514, -3610, 16723);
-		if (boat != null)
-		{
+		if (boat != null) {
 			boat.registerEngine(new BoatGludinRune(boat));
 			boat.runEngine(180000);
 			BoatManager.getInstance().dockShip(BoatManager.GLUDIN_HARBOR, true);

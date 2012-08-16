@@ -12,9 +12,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q105_SkirmishWithTheOrcs extends Quest
-{
+public class Q105_SkirmishWithTheOrcs extends Quest implements ScriptFile {
 	private static final String qn = "Q105_SkirmishWithTheOrcs";
 
 	// NPCs
@@ -51,8 +51,7 @@ public class Q105_SkirmishWithTheOrcs extends Quest
 	private static final int SOULSHOT_FOR_BEGINNERS = 5789;
 	private static final int crystals[] = { 4412, 4413, 4414, 4415, 4416 };
 
-	public Q105_SkirmishWithTheOrcs(int questId, String name, String descr)
-	{
+	public Q105_SkirmishWithTheOrcs(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { KENDNELLS_ORDER1, KENDNELLS_ORDER2, KENDNELLS_ORDER3, KENDNELLS_ORDER4, KENDNELLS_ORDER5, KENDNELLS_ORDER6, KENDNELLS_ORDER7, KENDNELLS_ORDER8, KABOO_CHIEF_TORC1, KABOO_CHIEF_TORC2 };
@@ -63,21 +62,18 @@ public class Q105_SkirmishWithTheOrcs extends Quest
 		addKillId(KABOO_CHIEF_OUPH, KABOO_CHIEF_KRACHA, KABOO_CHIEF_BATOH, KABOO_CHIEF_TANUKIA, KABOO_CHIEF_TUREL, KABOO_CHIEF_ROKO, KABOO_CHIEF_KAMUT, KABOO_CHIEF_MURTIKA);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q105_SkirmishWithTheOrcs(105, "Q105_SkirmishWithTheOrcs", "Skirmish with the Orcs");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30218-03.htm"))
-		{
+		if (event.equalsIgnoreCase("30218-03.htm")) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
@@ -96,28 +92,22 @@ public class Q105_SkirmishWithTheOrcs extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
-				if (player.getRace().ordinal() == 1)
-				{
+				if (player.getRace().ordinal() == 1) {
 					if (player.getLevel() >= 10 && player.getLevel() <= 15)
 						htmltext = "30218-02.htm";
-					else
-					{
+					else {
 						htmltext = "30221-01.htm";
 						st.exitQuest(true);
 					}
-				}
-				else
-				{
+				} else {
 					htmltext = "30218-00.htm";
 					st.exitQuest(true);
 				}
@@ -127,8 +117,7 @@ public class Q105_SkirmishWithTheOrcs extends Quest
 				int cond = st.getInt("cond");
 				if (cond == 1)
 					htmltext = "30218-05.htm";
-				else if (cond == 2)
-				{
+				else if (cond == 2) {
 					htmltext = "30218-06.htm";
 
 					if (st.getQuestItemsCount(KENDNELLS_ORDER1) == 1)
@@ -154,11 +143,9 @@ public class Q105_SkirmishWithTheOrcs extends Quest
 
 					st.set("cond", "3");
 					st.playSound(QuestState.SOUND_MIDDLE);
-				}
-				else if (cond == 3)
+				} else if (cond == 3)
 					htmltext = "30218-07.htm";
-				else if (cond == 4)
-				{
+				else if (cond == 4) {
 					htmltext = "30218-08.htm";
 
 					if (st.getQuestItemsCount(KENDNELLS_ORDER5) == 1)
@@ -176,16 +163,12 @@ public class Q105_SkirmishWithTheOrcs extends Quest
 					else
 						st.giveItems(RED_SUNSET_SWORD, 1);
 
-					if (player.isNewbie())
-					{
+					if (player.isNewbie()) {
 						st.showQuestionMark(26);
-						if (player.isMageClass())
-						{
+						if (player.isMageClass()) {
 							st.playTutorialVoice("tutorial_voice_027");
 							st.giveItems(SPIRITSHOT_FOR_BEGINNERS, 3000);
-						}
-						else
-						{
+						} else {
 							st.playTutorialVoice("tutorial_voice_026");
 							st.giveItems(SOULSHOT_FOR_BEGINNERS, 7000);
 						}
@@ -206,22 +189,17 @@ public class Q105_SkirmishWithTheOrcs extends Quest
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 
-		if (st.isStarted())
-		{
+		if (st.isStarted()) {
 			int cond = st.getInt("cond");
-			if (cond == 1)
-			{
-				switch (npc.getNpcId())
-				{
+			if (cond == 1) {
+				switch (npc.getNpcId()) {
 					case KABOO_CHIEF_OUPH:
-						if (st.getQuestItemsCount(KENDNELLS_ORDER1) == 1)
-						{
+						if (st.getQuestItemsCount(KENDNELLS_ORDER1) == 1) {
 							st.giveItems(KABOO_CHIEF_TORC1, 1);
 							st.playSound(QuestState.SOUND_MIDDLE);
 							st.set("cond", "2");
@@ -229,8 +207,7 @@ public class Q105_SkirmishWithTheOrcs extends Quest
 						break;
 
 					case KABOO_CHIEF_KRACHA:
-						if (st.getQuestItemsCount(KENDNELLS_ORDER2) == 1)
-						{
+						if (st.getQuestItemsCount(KENDNELLS_ORDER2) == 1) {
 							st.giveItems(KABOO_CHIEF_TORC1, 1);
 							st.playSound(QuestState.SOUND_MIDDLE);
 							st.set("cond", "2");
@@ -238,8 +215,7 @@ public class Q105_SkirmishWithTheOrcs extends Quest
 						break;
 
 					case KABOO_CHIEF_BATOH:
-						if (st.getQuestItemsCount(KENDNELLS_ORDER3) == 1)
-						{
+						if (st.getQuestItemsCount(KENDNELLS_ORDER3) == 1) {
 							st.giveItems(KABOO_CHIEF_TORC1, 1);
 							st.playSound(QuestState.SOUND_MIDDLE);
 							st.set("cond", "2");
@@ -247,22 +223,17 @@ public class Q105_SkirmishWithTheOrcs extends Quest
 						break;
 
 					case KABOO_CHIEF_TANUKIA:
-						if (st.getQuestItemsCount(KENDNELLS_ORDER4) == 1)
-						{
+						if (st.getQuestItemsCount(KENDNELLS_ORDER4) == 1) {
 							st.giveItems(KABOO_CHIEF_TORC1, 1);
 							st.playSound(QuestState.SOUND_MIDDLE);
 							st.set("cond", "2");
 						}
 						break;
 				}
-			}
-			else if (cond == 3)
-			{
-				switch (npc.getNpcId())
-				{
+			} else if (cond == 3) {
+				switch (npc.getNpcId()) {
 					case KABOO_CHIEF_TUREL:
-						if (st.getQuestItemsCount(KENDNELLS_ORDER5) == 1)
-						{
+						if (st.getQuestItemsCount(KENDNELLS_ORDER5) == 1) {
 							st.giveItems(KABOO_CHIEF_TORC2, 1);
 							st.playSound(QuestState.SOUND_MIDDLE);
 							st.set("cond", "4");
@@ -270,8 +241,7 @@ public class Q105_SkirmishWithTheOrcs extends Quest
 						break;
 
 					case KABOO_CHIEF_ROKO:
-						if (st.getQuestItemsCount(KENDNELLS_ORDER6) == 1)
-						{
+						if (st.getQuestItemsCount(KENDNELLS_ORDER6) == 1) {
 							st.giveItems(KABOO_CHIEF_TORC2, 1);
 							st.playSound(QuestState.SOUND_MIDDLE);
 							st.set("cond", "4");
@@ -279,8 +249,7 @@ public class Q105_SkirmishWithTheOrcs extends Quest
 						break;
 
 					case KABOO_CHIEF_KAMUT:
-						if (st.getQuestItemsCount(KENDNELLS_ORDER7) == 1)
-						{
+						if (st.getQuestItemsCount(KENDNELLS_ORDER7) == 1) {
 							st.giveItems(KABOO_CHIEF_TORC2, 1);
 							st.playSound(QuestState.SOUND_MIDDLE);
 							st.set("cond", "4");
@@ -288,8 +257,7 @@ public class Q105_SkirmishWithTheOrcs extends Quest
 						break;
 
 					case KABOO_CHIEF_MURTIKA:
-						if (st.getQuestItemsCount(KENDNELLS_ORDER8) == 1)
-						{
+						if (st.getQuestItemsCount(KENDNELLS_ORDER8) == 1) {
 							st.giveItems(KABOO_CHIEF_TORC2, 1);
 							st.playSound(QuestState.SOUND_MIDDLE);
 							st.set("cond", "4");

@@ -7,19 +7,19 @@
  */
 package silentium.scripts.quests;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import silentium.gameserver.configs.MainConfig;
 import silentium.commons.utils.Rnd;
+import silentium.gameserver.configs.MainConfig;
 import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 import silentium.gameserver.utils.Util;
 
-public class Q617_GatherTheFlames extends Quest
-{
+import java.util.HashMap;
+import java.util.Map;
+
+public class Q617_GatherTheFlames extends Quest implements ScriptFile {
 	private final static String qn = "Q617_GatherTheFlames";
 
 	// NPCs
@@ -32,6 +32,7 @@ public class Q617_GatherTheFlames extends Quest
 
 	// Droplist
 	private static final Map<Integer, Integer> droplist = new HashMap<>();
+
 	{
 		droplist.put(21381, 51);
 		droplist.put(21653, 51);
@@ -64,8 +65,7 @@ public class Q617_GatherTheFlames extends Quest
 	// Rewards
 	private static final int reward[] = { 6881, 6883, 6885, 6887, 6891, 6893, 6895, 6897, 6899, 7580 };
 
-	public Q617_GatherTheFlames(int questId, String name, String descr)
-	{
+	public Q617_GatherTheFlames(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { TORCH };
@@ -77,54 +77,40 @@ public class Q617_GatherTheFlames extends Quest
 			addKillId(mobs);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q617_GatherTheFlames(617, "Q617_GatherTheFlames", "Gather the Flames");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("31539-03.htm"))
-		{
+		if (event.equalsIgnoreCase("31539-03.htm")) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("31271-03.htm"))
-		{
+		} else if (event.equalsIgnoreCase("31271-03.htm")) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("31539-05.htm"))
-		{
-			if (st.getQuestItemsCount(TORCH) >= 1000)
-			{
+		} else if (event.equalsIgnoreCase("31539-05.htm")) {
+			if (st.getQuestItemsCount(TORCH) >= 1000) {
 				htmltext = "31539-07.htm";
 				st.takeItems(TORCH, 1000);
 				st.giveItems(reward[Rnd.get(reward.length)], 1);
 			}
-		}
-		else if (event.equalsIgnoreCase("31539-08.htm"))
-		{
+		} else if (event.equalsIgnoreCase("31539-08.htm")) {
 			st.takeItems(TORCH, -1);
 			st.exitQuest(true);
-		}
-		else if (Util.isDigit(event))
-		{
-			if (st.getQuestItemsCount(TORCH) >= 1200)
-			{
+		} else if (Util.isDigit(event)) {
+			if (st.getQuestItemsCount(TORCH) >= 1200) {
 				htmltext = "32049-03.htm";
 				st.takeItems(TORCH, 1200);
 				st.giveItems(Integer.valueOf(event), 1);
-			}
-			else
+			} else
 				htmltext = "32049-02.htm";
 		}
 
@@ -132,23 +118,19 @@ public class Q617_GatherTheFlames extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		String htmltext = Quest.getNoQuestMsg();
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
-				switch (npc.getNpcId())
-				{
+				switch (npc.getNpcId()) {
 					case VULCAN:
 						if (player.getLevel() >= 74)
 							htmltext = "31539-01.htm";
-						else
-						{
+						else {
 							htmltext = "31539-02.htm";
 							st.exitQuest(true);
 						}
@@ -157,8 +139,7 @@ public class Q617_GatherTheFlames extends Quest
 					case HILDA:
 						if (player.getLevel() >= 74)
 							htmltext = "31271-02.htm";
-						else
-						{
+						else {
 							htmltext = "31271-01.htm";
 							st.exitQuest(true);
 						}
@@ -167,8 +148,7 @@ public class Q617_GatherTheFlames extends Quest
 				break;
 
 			case QuestState.STARTED:
-				switch (npc.getNpcId())
-				{
+				switch (npc.getNpcId()) {
 					case VULCAN:
 						if (st.getQuestItemsCount(TORCH) >= 1000)
 							htmltext = "31539-04.htm";
@@ -194,16 +174,14 @@ public class Q617_GatherTheFlames extends Quest
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
 		L2PcInstance partyMember = getRandomPartyMemberState(player, npc, QuestState.STARTED);
 		if (partyMember == null)
 			return null;
 
 		QuestState st = partyMember.getQuestState(qn);
 
-		if (droplist.containsKey(npc.getNpcId()))
-		{
+		if (droplist.containsKey(npc.getNpcId())) {
 			int count = st.getQuestItemsCount(TORCH);
 			int probability = droplist.get(npc.getNpcId());
 			int chance = (int) (probability * MainConfig.RATE_QUEST_DROP);
@@ -213,8 +191,7 @@ public class Q617_GatherTheFlames extends Quest
 			if (Rnd.get(100) < chance)
 				numItems++;
 
-			if (numItems > 0)
-			{
+			if (numItems > 0) {
 				if (((count + numItems) / 100) > count / 100)
 					st.playSound(QuestState.SOUND_MIDDLE);
 				else

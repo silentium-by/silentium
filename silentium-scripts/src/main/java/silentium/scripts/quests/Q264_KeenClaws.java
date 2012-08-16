@@ -12,9 +12,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q264_KeenClaws extends Quest
-{
+public class Q264_KeenClaws extends Quest implements ScriptFile {
 	private final static String qn = "Q264_KeenClaws";
 
 	// Item
@@ -35,8 +35,7 @@ public class Q264_KeenClaws extends Quest
 	private static final int ShortGloves = 48;
 	private static final int ClothShoes = 35;
 
-	public Q264_KeenClaws(int questId, String name, String descr)
-	{
+	public Q264_KeenClaws(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { WOLF_CLAW };
@@ -47,21 +46,18 @@ public class Q264_KeenClaws extends Quest
 		addKillId(GOBLIN, WOLF);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q264_KeenClaws(264, "Q264_KeenClaws", "Keen Claws");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30136-03.htm"))
-		{
+		if (event.equalsIgnoreCase("30136-03.htm")) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
@@ -71,20 +67,17 @@ public class Q264_KeenClaws extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		String htmltext = Quest.getNoQuestMsg();
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 3 && player.getLevel() <= 9)
 					htmltext = "30136-02.htm";
-				else
-				{
+				else {
 					htmltext = "30136-01.htm";
 					st.exitQuest(true);
 				}
@@ -95,26 +88,21 @@ public class Q264_KeenClaws extends Quest
 
 				if (count < 50)
 					htmltext = "30136-04.htm";
-				else
-				{
+				else {
 					st.takeItems(WOLF_CLAW, -1);
 
 					int n = Rnd.get(17);
-					if (n == 0)
-					{
+					if (n == 0) {
 						st.giveItems(WoodenHelmet, 1);
 						st.playSound(QuestState.SOUND_JACKPOT);
-					}
-					else if (n < 2)
+					} else if (n < 2)
 						st.giveItems(57, 1000);
 					else if (n < 5)
 						st.giveItems(LeatherSandals, 1);
-					else if (n < 8)
-					{
+					else if (n < 8) {
 						st.giveItems(Stockings, 1);
 						st.giveItems(57, 50);
-					}
-					else if (n < 11)
+					} else if (n < 11)
 						st.giveItems(HealingPotion, 1);
 					else if (n < 14)
 						st.giveItems(ShortGloves, 1);
@@ -132,8 +120,7 @@ public class Q264_KeenClaws extends Quest
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;

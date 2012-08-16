@@ -7,8 +7,6 @@
  */
 package silentium.scripts.ai;
 
-import java.util.Collection;
-
 import silentium.commons.utils.Rnd;
 import silentium.gameserver.ai.CtrlIntention;
 import silentium.gameserver.instancemanager.GrandBossManager;
@@ -21,8 +19,11 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.network.serverpackets.PlaySound;
 import silentium.gameserver.network.serverpackets.SocialAction;
 import silentium.gameserver.network.serverpackets.SpecialCamera;
+import silentium.gameserver.scripting.ScriptFile;
 import silentium.gameserver.templates.StatsSet;
 import silentium.gameserver.utils.Util;
+
+import java.util.Collection;
 
 /**
  * Dr. Chaos is a boss @ Pavel's Ruins. Some things to know :
@@ -37,8 +38,7 @@ import silentium.gameserver.utils.Util;
  *
  * @author Kerberos, Tryskell.
  */
-public class DrChaos extends Quest
-{
+public class DrChaos extends Quest implements ScriptFile {
 	private static final int DOCTOR_CHAOS = 32033;
 	private static final int CHAOS_GOLEM = 25512;
 
@@ -50,13 +50,11 @@ public class DrChaos extends Quest
 	private static final byte CRAZY = 1; // Dr. Chaos entered on golem form.
 	private static final byte DEAD = 2; // Dr. Chaos has been killed and has not yet spawned.
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new DrChaos(-1, "drchaos", "ai");
 	}
 
-	public DrChaos(int questId, String name, String descr)
-	{
+	public DrChaos(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		addFirstTalkId(DOCTOR_CHAOS); // Different HTMs following actual humor.
@@ -69,13 +67,11 @@ public class DrChaos extends Quest
 		int status = GrandBossManager.getInstance().getBossStatus(CHAOS_GOLEM);
 
 		// Load the reset date and time for Dr. Chaos from DB.
-		if (status == DEAD)
-		{
+		if (status == DEAD) {
 			long temp = (info.getLong("respawn_time") - System.currentTimeMillis());
 			if (temp > 0)
 				startQuestTimer("reset_drchaos", temp, null, null);
-			else
-			{
+			else {
 				// The time has already expired while the server was offline. Delete the saved time and
 				// immediately spawn Dr. Chaos. Also the state need to be changed for NORMAL
 				addSpawn(DOCTOR_CHAOS, 96320, -110912, -3328, 8191, false, 0);
@@ -83,8 +79,7 @@ public class DrChaos extends Quest
 			}
 		}
 		// Spawn the war golem.
-		else if (status == CRAZY)
-		{
+		else if (status == CRAZY) {
 			int loc_x = info.getInteger("loc_x");
 			int loc_y = info.getInteger("loc_y");
 			int loc_z = info.getInteger("loc_z");
@@ -110,20 +105,15 @@ public class DrChaos extends Quest
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		if (event.equalsIgnoreCase("reset_drchaos"))
-		{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
+		if (event.equalsIgnoreCase("reset_drchaos")) {
 			GrandBossManager.getInstance().setBossStatus(CHAOS_GOLEM, NORMAL);
 			addSpawn(DOCTOR_CHAOS, 96320, -110912, -3328, 8191, false, 0);
 		}
 		// despawn the live Dr. Chaos after 30 minutes of inactivity
-		else if (event.equalsIgnoreCase("golem_despawn") && npc != null)
-		{
-			if (npc.getNpcId() == CHAOS_GOLEM)
-			{
-				if (_lastAttackVsGolem + 1800000 < System.currentTimeMillis())
-				{
+		else if (event.equalsIgnoreCase("golem_despawn") && npc != null) {
+			if (npc.getNpcId() == CHAOS_GOLEM) {
+				if (_lastAttackVsGolem + 1800000 < System.currentTimeMillis()) {
 					// Despawn the war golem.
 					npc.deleteMe();
 
@@ -132,23 +122,17 @@ public class DrChaos extends Quest
 					cancelQuestTimer("golem_despawn", npc, null);
 				}
 			}
-		}
-		else if (event.equalsIgnoreCase("1"))
-		{
+		} else if (event.equalsIgnoreCase("1")) {
 			npc.broadcastPacket(new SocialAction(npc, 2));
 			npc.broadcastPacket(new SpecialCamera(npc.getObjectId(), 1, -200, 15, 5500, 13500, 0, 0, 1, 0));
-		}
-		else if (event.equalsIgnoreCase("2"))
+		} else if (event.equalsIgnoreCase("2"))
 			npc.broadcastPacket(new SocialAction(npc, 3));
 		else if (event.equalsIgnoreCase("3"))
 			npc.broadcastPacket(new SocialAction(npc, 1));
-		else if (event.equalsIgnoreCase("4"))
-		{
+		else if (event.equalsIgnoreCase("4")) {
 			npc.broadcastPacket(new SpecialCamera(npc.getObjectId(), 1, -150, 10, 3500, 5000, 0, 0, 1, 0));
 			npc.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(95928, -110671, -3340, 0));
-		}
-		else if (event.equalsIgnoreCase("5"))
-		{
+		} else if (event.equalsIgnoreCase("5")) {
 			// Delete Dr. Chaos && spawn the war golem.
 			npc.deleteMe();
 			L2GrandBossInstance golem = (L2GrandBossInstance) addSpawn(CHAOS_GOLEM, 96080, -110822, -3343, 0, false, 0);
@@ -165,16 +149,12 @@ public class DrChaos extends Quest
 			startQuestTimer("golem_despawn", 60000, npc, null, true);
 		}
 		// Check every sec if someone is in range, if found, launch one task to decrease the timer.
-		else if (event.equalsIgnoreCase("paranoia_activity"))
-		{
-			if (GrandBossManager.getInstance().getBossStatus(CHAOS_GOLEM) == NORMAL)
-			{
+		else if (event.equalsIgnoreCase("paranoia_activity")) {
+			if (GrandBossManager.getInstance().getBossStatus(CHAOS_GOLEM) == NORMAL) {
 				Collection<L2Object> objs = npc.getKnownList().getKnownObjects().values();
 				{
-					for (L2Object obj : objs)
-					{
-						if (obj instanceof L2PcInstance && Util.checkIfInShortRadius(500, npc, obj, true))
-						{
+					for (L2Object obj : objs) {
+						if (obj instanceof L2PcInstance && Util.checkIfInShortRadius(500, npc, obj, true)) {
 							if (((L2PcInstance) obj).isDead())
 								continue;
 
@@ -197,12 +177,10 @@ public class DrChaos extends Quest
 	}
 
 	@Override
-	public String onFirstTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onFirstTalk(L2Npc npc, L2PcInstance player) {
 		String htmltext = "";
 
-		if (GrandBossManager.getInstance().getBossStatus(CHAOS_GOLEM) == NORMAL)
-		{
+		if (GrandBossManager.getInstance().getBossStatus(CHAOS_GOLEM) == NORMAL) {
 			_pissedOffTimer -= 1 + Rnd.get(5); // remove 1-5 secs.
 
 			if (_pissedOffTimer > 20 && _pissedOffTimer <= 30)
@@ -219,8 +197,7 @@ public class DrChaos extends Quest
 	}
 
 	@Override
-	public String onSpawn(L2Npc npc)
-	{
+	public String onSpawn(L2Npc npc) {
 		// 30 seconds timer at initialization.
 		_pissedOffTimer = 30;
 
@@ -231,8 +208,7 @@ public class DrChaos extends Quest
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
 		cancelQuestTimer("golem_despawn", npc, null);
 		npc.broadcastNpcSay("Urggh! You will pay dearly for this insult.");
 
@@ -250,16 +226,13 @@ public class DrChaos extends Quest
 	}
 
 	@Override
-	public String onAttackAct(L2Npc npc, L2PcInstance victim)
-	{
+	public String onAttackAct(L2Npc npc, L2PcInstance victim) {
 		int chance = Rnd.get(300);
 
 		// Choose a message from 3 choices (1/100)
-		if (chance < 3)
-		{
+		if (chance < 3) {
 			String message = "";
-			switch (chance)
-			{
+			switch (chance) {
 				case 0:
 					message = "Bwah-ha-ha! Your doom is at hand! Behold the Ultra Secret Super Weapon!";
 					break;
@@ -280,15 +253,11 @@ public class DrChaos extends Quest
 	/**
 	 * Launches the complete animation.
 	 *
-	 * @param npc
-	 *            the midget.
-	 * @param player
-	 *            the victim.
+	 * @param npc    the midget.
+	 * @param player the victim.
 	 */
-	private void crazyMidgetBecomesAngry(L2Npc npc)
-	{
-		if (GrandBossManager.getInstance().getBossStatus(CHAOS_GOLEM) == NORMAL)
-		{
+	private void crazyMidgetBecomesAngry(L2Npc npc) {
+		if (GrandBossManager.getInstance().getBossStatus(CHAOS_GOLEM) == NORMAL) {
 			// Set the status to "crazy".
 			GrandBossManager.getInstance().setBossStatus(CHAOS_GOLEM, CRAZY);
 

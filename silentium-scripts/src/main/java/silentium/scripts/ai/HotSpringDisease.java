@@ -13,6 +13,7 @@ import silentium.gameserver.model.L2Effect;
 import silentium.gameserver.model.L2Skill;
 import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
+import silentium.gameserver.scripting.ScriptFile;
 import silentium.gameserver.tables.SkillTable;
 
 /**
@@ -20,10 +21,9 @@ import silentium.gameserver.tables.SkillTable;
  *
  * @author devO, Sandro, Tryskell
  */
-public class HotSpringDisease extends DefaultMonsterAI
-{
+public class HotSpringDisease extends DefaultMonsterAI implements ScriptFile {
 	static final int[] disease1mobs = { 21314, 21316, 21317, 21319, 21321, 21322 }; // Monsters which cast Hot Spring Malaria
-																					// (4554)
+	// (4554)
 	static final int[] disease2mobs = { 21317, 21322 }; // Monsters which cast Hot Springs Flu (4553)
 	static final int[] disease3mobs = { 21316, 21319 }; // Monsters which cast Hot Springs Cholera (4552)
 	static final int[] disease4mobs = { 21314, 21321 }; // Monsters which cast Hot Springs Rheumatism (4551)
@@ -31,20 +31,17 @@ public class HotSpringDisease extends DefaultMonsterAI
 	// Chance to get infected by disease
 	private static final int DISEASE_CHANCE = 1;
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new HotSpringDisease(-1, "HotSpringDisease", "ai");
 	}
 
-	public HotSpringDisease(int questId, String name, String descr)
-	{
+	public HotSpringDisease(int questId, String name, String descr) {
 		super(questId, name, descr);
 		registerMobs(disease1mobs, QuestEventType.ON_ATTACK_ACT);
 	}
 
 	@Override
-	public String onAttackAct(L2Npc npc, L2PcInstance victim)
-	{
+	public String onAttackAct(L2Npc npc, L2PcInstance victim) {
 		if (contains(disease1mobs, npc.getNpcId()))
 			tryToApplyEffect(npc, victim, 4554);
 
@@ -60,20 +57,14 @@ public class HotSpringDisease extends DefaultMonsterAI
 		return super.onAttackAct(npc, victim);
 	}
 
-	private void tryToApplyEffect(L2Npc npc, L2PcInstance victim, int skillId)
-	{
-		if (skillId != 0)
-		{
-			if (Rnd.get(100) < DISEASE_CHANCE)
-			{
+	private void tryToApplyEffect(L2Npc npc, L2PcInstance victim, int skillId) {
+		if (skillId != 0) {
+			if (Rnd.get(100) < DISEASE_CHANCE) {
 				int level = 0;
 				L2Effect[] effects = victim.getAllEffects();
-				if (effects.length != 0 || effects != null)
-				{
-					for (L2Effect e : effects)
-					{
-						if (e.getSkill().getId() == skillId)
-						{
+				if (effects.length != 0 || effects != null) {
+					for (L2Effect e : effects) {
+						if (e.getSkill().getId() == skillId) {
 							level = e.getSkill().getLevel();
 							e.exit();
 						}

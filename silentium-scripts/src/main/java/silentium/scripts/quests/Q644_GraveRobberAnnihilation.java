@@ -7,16 +7,16 @@
  */
 package silentium.scripts.quests;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q644_GraveRobberAnnihilation extends Quest
-{
+import java.util.HashMap;
+import java.util.Map;
+
+public class Q644_GraveRobberAnnihilation extends Quest implements ScriptFile {
 	private final static String qn = "Q644_GraveRobberAnnihilation";
 
 	// Item
@@ -24,6 +24,7 @@ public class Q644_GraveRobberAnnihilation extends Quest
 
 	// Rewards
 	private static final Map<String, int[]> Rewards = new HashMap<>();
+
 	{
 		Rewards.put("var", new int[] { 1865, 30 });
 		Rewards.put("ask", new int[] { 1867, 40 });
@@ -36,8 +37,7 @@ public class Q644_GraveRobberAnnihilation extends Quest
 	// NPC
 	private final static int KARUDA = 32017;
 
-	public Q644_GraveRobberAnnihilation(int questId, String name, String descr)
-	{
+	public Q644_GraveRobberAnnihilation(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { GOODS };
@@ -48,36 +48,29 @@ public class Q644_GraveRobberAnnihilation extends Quest
 		addKillId(22003, 22004, 22005, 22006, 22008);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q644_GraveRobberAnnihilation(644, "Q644_GraveRobberAnnihilation", "Grave Robber Annihilation");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("32017-02.htm"))
-		{
+		if (event.equalsIgnoreCase("32017-02.htm")) {
 			st.setState(QuestState.STARTED);
 			st.set("cond", "1");
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (Rewards.containsKey(event))
-		{
-			if (st.getQuestItemsCount(GOODS) == 120)
-			{
+		} else if (Rewards.containsKey(event)) {
+			if (st.getQuestItemsCount(GOODS) == 120) {
 				htmltext = "32017-04.htm";
 				st.takeItems(GOODS, -1);
 				st.rewardItems(Rewards.get(event)[0], Rewards.get(event)[1]);
 				st.playSound(QuestState.SOUND_FINISH);
 				st.exitQuest(true);
-			}
-			else
+			} else
 				htmltext = "32017-07.htm";
 		}
 
@@ -85,15 +78,13 @@ public class Q644_GraveRobberAnnihilation extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		String htmltext = getNoQuestMsg();
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 20 && player.getLevel() <= 33)
 					htmltext = "32017-01.htm";
@@ -105,8 +96,7 @@ public class Q644_GraveRobberAnnihilation extends Quest
 				int cond = st.getInt("cond");
 				if (cond == 1)
 					htmltext = "32017-05.htm";
-				else if (cond == 2)
-				{
+				else if (cond == 2) {
 					if (st.getQuestItemsCount(GOODS) == 120)
 						htmltext = "32017-03.htm";
 					else
@@ -119,8 +109,7 @@ public class Q644_GraveRobberAnnihilation extends Quest
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
 		L2PcInstance partyMember = getRandomPartyMember(player, npc, "1");
 		if (partyMember == null)
 			return null;

@@ -12,9 +12,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q300_HuntingLetoLizardman extends Quest
-{
+public class Q300_HuntingLetoLizardman extends Quest implements ScriptFile {
 	private static final String qn = "Q300_HuntingLetoLizardman";
 
 	// NPC
@@ -23,8 +23,7 @@ public class Q300_HuntingLetoLizardman extends Quest
 	// Item
 	private static final int BRACELET = 7139;
 
-	public Q300_HuntingLetoLizardman(int questId, String name, String descr)
-	{
+	public Q300_HuntingLetoLizardman(int questId, String name, String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { BRACELET };
@@ -35,29 +34,23 @@ public class Q300_HuntingLetoLizardman extends Quest
 		addKillId(20577, 20578, 20579, 20580, 20582);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void onLoad() {
 		new Q300_HuntingLetoLizardman(300, "Q300_HuntingLetoLizardman", "Hunting Leto Lizardman");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30126-03.htm"))
-		{
+		if (event.equalsIgnoreCase("30126-03.htm")) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("30126-05.htm"))
-		{
-			if (st.getQuestItemsCount(BRACELET) >= 60)
-			{
+		} else if (event.equalsIgnoreCase("30126-05.htm")) {
+			if (st.getQuestItemsCount(BRACELET) >= 60) {
 				htmltext = "30126-06.htm";
 
 				int luck = Rnd.get(3);
@@ -79,20 +72,17 @@ public class Q300_HuntingLetoLizardman extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(L2Npc npc, L2PcInstance player) {
 		QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 34 && player.getLevel() <= 39)
 					htmltext = "30126-02.htm";
-				else
-				{
+				else {
 					htmltext = "30126-01.htm";
 					st.exitQuest(true);
 				}
@@ -110,8 +100,7 @@ public class Q300_HuntingLetoLizardman extends Quest
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
 		L2PcInstance partyMember = getRandomPartyMember(player, npc, "1");
 		if (partyMember != null)
 			partyMember.getQuestState(qn).dropQuestItems(BRACELET, 1, 60, 330000);
