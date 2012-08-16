@@ -6,5 +6,4 @@ package silentium.gameserver.scripting;
  * @author Tatanka
  */
 public interface ScriptFile {
-	void onLoad();
 }
