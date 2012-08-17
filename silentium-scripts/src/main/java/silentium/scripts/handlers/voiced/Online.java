@@ -22,9 +22,7 @@ public class Online implements IVoicedCommandHandler
 	public boolean useVoicedCommand(String command, L2PcInstance player, String target)
 	{
 		if (command.equalsIgnoreCase("online"))
-		{
-			player.sendMessage("Сейчас в игре " + L2World.getInstance().getAllPlayers().size() + " человек.");
-		}
+			player.sendMessage("Online: " + L2World.getInstance().getAllPlayers().size() + " players.");
 		return true;
 
 	}

@@ -63,9 +63,7 @@ public class TvTVoicedInfo implements IVoicedCommandHandler
 
 			}
 			else
-			{
 				activeChar.sendPacket(ActionFailed.STATIC_PACKET);
-			}
 		}
 		return true;
 	}
