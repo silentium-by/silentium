@@ -12047,9 +12047,6 @@ public final class L2PcInstance extends L2Playable
 
 	public void sendChatMessage(int objectId, int messageType, String charName, String text)
 	{
-		if (isGM())
-			sendPacket(new CreatureSay(objectId, messageType, charName, text));
-		else
-			sendPacket(SystemMessage.sendString(text));
+		sendPacket(new CreatureSay(objectId, messageType, charName, text));
 	}
 }
