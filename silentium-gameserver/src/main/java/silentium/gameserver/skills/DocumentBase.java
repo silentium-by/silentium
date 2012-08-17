@@ -1,9 +1,9 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.skills;
 
@@ -13,14 +13,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -34,48 +32,9 @@ import silentium.gameserver.skills.basefuncs.Lambda;
 import silentium.gameserver.skills.basefuncs.LambdaCalc;
 import silentium.gameserver.skills.basefuncs.LambdaConst;
 import silentium.gameserver.skills.basefuncs.LambdaStats;
-import silentium.gameserver.skills.conditions.Condition;
-import silentium.gameserver.skills.conditions.ConditionElementSeed;
-import silentium.gameserver.skills.conditions.ConditionForceBuff;
-import silentium.gameserver.skills.conditions.ConditionGameChance;
-import silentium.gameserver.skills.conditions.ConditionGameTime;
+import silentium.gameserver.skills.conditions.*;
 import silentium.gameserver.skills.conditions.ConditionGameTime.CheckGameTime;
-import silentium.gameserver.skills.conditions.ConditionLogicAnd;
-import silentium.gameserver.skills.conditions.ConditionLogicNot;
-import silentium.gameserver.skills.conditions.ConditionLogicOr;
-import silentium.gameserver.skills.conditions.ConditionPlayerActiveEffectId;
-import silentium.gameserver.skills.conditions.ConditionPlayerActiveSkillId;
-import silentium.gameserver.skills.conditions.ConditionPlayerCharges;
-import silentium.gameserver.skills.conditions.ConditionPlayerHasCastle;
-import silentium.gameserver.skills.conditions.ConditionPlayerHasClanHall;
-import silentium.gameserver.skills.conditions.ConditionPlayerHp;
-import silentium.gameserver.skills.conditions.ConditionPlayerHpPercentage;
-import silentium.gameserver.skills.conditions.ConditionPlayerInvSize;
-import silentium.gameserver.skills.conditions.ConditionPlayerIsHero;
-import silentium.gameserver.skills.conditions.ConditionPlayerLevel;
-import silentium.gameserver.skills.conditions.ConditionPlayerMp;
-import silentium.gameserver.skills.conditions.ConditionPlayerPkCount;
-import silentium.gameserver.skills.conditions.ConditionPlayerPledgeClass;
-import silentium.gameserver.skills.conditions.ConditionPlayerRace;
-import silentium.gameserver.skills.conditions.ConditionPlayerSex;
-import silentium.gameserver.skills.conditions.ConditionPlayerState;
 import silentium.gameserver.skills.conditions.ConditionPlayerState.CheckPlayerState;
-import silentium.gameserver.skills.conditions.ConditionPlayerTvTEvent;
-import silentium.gameserver.skills.conditions.ConditionPlayerWeight;
-import silentium.gameserver.skills.conditions.ConditionSkillStats;
-import silentium.gameserver.skills.conditions.ConditionSlotItemId;
-import silentium.gameserver.skills.conditions.ConditionTargetActiveEffectId;
-import silentium.gameserver.skills.conditions.ConditionTargetActiveSkillId;
-import silentium.gameserver.skills.conditions.ConditionTargetAggro;
-import silentium.gameserver.skills.conditions.ConditionTargetClassIdRestriction;
-import silentium.gameserver.skills.conditions.ConditionTargetHpMinMax;
-import silentium.gameserver.skills.conditions.ConditionTargetLevel;
-import silentium.gameserver.skills.conditions.ConditionTargetNpcId;
-import silentium.gameserver.skills.conditions.ConditionTargetRaceId;
-import silentium.gameserver.skills.conditions.ConditionTargetUsesWeaponKind;
-import silentium.gameserver.skills.conditions.ConditionUsingItemType;
-import silentium.gameserver.skills.conditions.ConditionUsingSkill;
-import silentium.gameserver.skills.conditions.ConditionWithSkill;
 import silentium.gameserver.skills.effects.EffectChanceSkillTrigger;
 import silentium.gameserver.skills.effects.EffectTemplate;
 import silentium.gameserver.tables.ItemTable;

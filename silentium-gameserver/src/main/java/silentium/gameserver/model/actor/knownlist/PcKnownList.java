@@ -1,9 +1,9 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.model.actor.knownlist;
 
@@ -52,8 +52,8 @@ public class PcKnownList extends PlayableKnownList
 	}
 
 	/**
-	 * Add a visible L2Object to L2PcInstance _knownObjects and _knownPlayer (if necessary) and send Server-Client Packets needed
-	 * to inform the L2PcInstance of its state and actions in progress.<BR>
+	 * Add a visible L2Object to L2PcInstance _knownObjects and _knownPlayer (if necessary) and send Server-Client Packets needed to inform the
+	 * L2PcInstance of its state and actions in progress.<BR>
 	 * <BR>
 	 * <B><U> object is a L2ItemInstance </U> :</B><BR>
 	 * <BR>
@@ -71,14 +71,14 @@ public class PcKnownList extends PlayableKnownList
 	 * <BR>
 	 * <B><U> object is a L2Summon </U> :</B><BR>
 	 * <BR>
-	 * <li>Send Server-Client Packet NpcInfo/PetItemList (if the L2PcInstance is the owner) to the L2PcInstance</li> <li>Send
-	 * Server->Client packet MoveToPawn/MoveToLocation and AutoAttackStart to the L2PcInstance</li><BR>
+	 * <li>Send Server-Client Packet NpcInfo/PetItemList (if the L2PcInstance is the owner) to the L2PcInstance</li> <li>Send Server->Client
+	 * packet MoveToPawn/MoveToLocation and AutoAttackStart to the L2PcInstance</li><BR>
 	 * <BR>
 	 * <B><U> object is a L2PcInstance </U> :</B><BR>
 	 * <BR>
-	 * <li>Send Server-Client Packet CharInfo to the L2PcInstance</li> <li>If the object has a private store, Send Server-Client
-	 * Packet PrivateStoreMsgSell to the L2PcInstance</li> <li>Send Server->Client packet MoveToPawn/MoveToLocation and
-	 * AutoAttackStart to the L2PcInstance</li><BR>
+	 * <li>Send Server-Client Packet CharInfo to the L2PcInstance</li> <li>If the object has a private store, Send Server-Client Packet
+	 * PrivateStoreMsgSell to the L2PcInstance</li> <li>Send Server->Client packet MoveToPawn/MoveToLocation and AutoAttackStart to the
+	 * L2PcInstance</li><BR>
 	 * <BR>
 	 * 
 	 * @param object
@@ -95,8 +95,8 @@ public class PcKnownList extends PlayableKnownList
 	}
 
 	/**
-	 * Remove a L2Object from L2PcInstance _knownObjects and _knownPlayer (if necessary) and send Server-Client Packet
-	 * DeleteObject to the L2PcInstance.<BR>
+	 * Remove a L2Object from L2PcInstance _knownObjects and _knownPlayer (if necessary) and send Server-Client Packet DeleteObject to the
+	 * L2PcInstance.<BR>
 	 * <BR>
 	 * 
 	 * @param object

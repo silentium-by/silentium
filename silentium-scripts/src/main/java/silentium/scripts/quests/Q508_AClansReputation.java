@@ -1,9 +1,9 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.scripts.quests;
 
@@ -19,7 +19,8 @@ import silentium.gameserver.network.serverpackets.SystemMessage;
 import silentium.gameserver.scripting.ScriptFile;
 import silentium.gameserver.utils.Util;
 
-public class Q508_AClansReputation extends Quest implements ScriptFile {
+public class Q508_AClansReputation extends Quest implements ScriptFile
+{
 	private final static String qn = "Q508_AClansReputation";
 
 	// NPC
@@ -47,7 +48,8 @@ public class Q508_AClansReputation extends Quest implements ScriptFile {
 	// Radar
 	private static final int radar[][] = { { 192346, 21528, -3648 }, { 191979, 54902, -7658 }, { 170038, -26236, -3824 }, { 171762, 55028, -5992 }, { 117232, -9476, -3320 }, { 144218, -5816, -4722 } };
 
-	public Q508_AClansReputation(int questId, String name, String descr) {
+	public Q508_AClansReputation(int questId, String name, String descr)
+	{
 		super(questId, name, descr);
 
 		questItemIds = new int[] { THEMIS_SCALE, NUCLEUS_OF_HEKATON_PRIME, TIPHON_SHARD, GLAKIS_NUCLEUS, RAHHAS_FANG, NUCLEUS_OF_FLAMESTONE_GIANT };
@@ -58,18 +60,21 @@ public class Q508_AClansReputation extends Quest implements ScriptFile {
 		addKillId(FLAMESTONE_GIANT, PALIBATI_QUEEN_THEMIS, HEKATON_PRIME, GARGOYLE_LORD_TIPHON, LAST_LESSER_GIANT_GLAKI, RAHHA);
 	}
 
-	public static void onLoad() {
+	public static void onLoad()
+	{
 		new Q508_AClansReputation(508, "Q508_AClansReputation", "A Clan's Reputation");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	{
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (Util.isDigit(event)) {
+		if (Util.isDigit(event))
+		{
 			int evt = Integer.parseInt(event);
 			st.set("raid", event);
 			htmltext = "30868-" + event + ".htm";
@@ -84,7 +89,9 @@ public class Q508_AClansReputation extends Quest implements ScriptFile {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		} else if (event.equalsIgnoreCase("30868-7.htm")) {
+		}
+		else if (event.equalsIgnoreCase("30868-7.htm"))
+		{
 			st.playSound(QuestState.SOUND_FINISH);
 			st.exitQuest(true);
 		}
@@ -93,7 +100,8 @@ public class Q508_AClansReputation extends Quest implements ScriptFile {
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player) {
+	public String onTalk(L2Npc npc, L2PcInstance player)
+	{
 		QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
@@ -101,28 +109,35 @@ public class Q508_AClansReputation extends Quest implements ScriptFile {
 
 		L2Clan clan = player.getClan();
 
-		switch (st.getState()) {
+		switch (st.getState())
+		{
 			case QuestState.CREATED:
-				if (!player.isClanLeader()) {
+				if (!player.isClanLeader())
+				{
 					st.exitQuest(true);
 					htmltext = "30868-0a.htm";
-				} else if (clan.getLevel() < 5) {
+				}
+				else if (clan.getLevel() < 5)
+				{
 					st.exitQuest(true);
 					htmltext = "30868-0b.htm";
-				} else
+				}
+				else
 					htmltext = "30868-0c.htm";
 				break;
 
 			case QuestState.STARTED:
 				int raid = st.getInt("raid");
-				if (st.getInt("cond") == 1) {
+				if (st.getInt("cond") == 1)
+				{
 					int item = reward_list[raid - 1][1];
 					int count = st.getQuestItemsCount(item);
 					int reward = Rnd.get(reward_list[raid - 1][2], reward_list[raid - 1][3]);
 
 					if (count == 0)
 						htmltext = "30868-" + raid + "a.htm";
-					else if (count == 1) {
+					else if (count == 1)
+					{
 						htmltext = "30868-" + raid + "b.htm";
 						st.takeItems(item, 1);
 						clan.addReputationScore(reward);
@@ -137,7 +152,8 @@ public class Q508_AClansReputation extends Quest implements ScriptFile {
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
+	{
 		// Retrieve the qS of the clan leader.
 		QuestState st = getClanLeaderQuestState(player, 1600);
 		if (st == null)
@@ -146,9 +162,11 @@ public class Q508_AClansReputation extends Quest implements ScriptFile {
 		int raid = st.getInt("raid");
 
 		// Reward only if quest is setup on good index.
-		if (st.getInt("cond") == 1 && (reward_list[raid - 1][0] == npc.getNpcId())) {
+		if (st.getInt("cond") == 1 && (reward_list[raid - 1][0] == npc.getNpcId()))
+		{
 			int item = reward_list[raid - 1][1];
-			if (st.getQuestItemsCount(item) == 0) {
+			if (st.getQuestItemsCount(item) == 0)
+			{
 				st.giveItems(item, 1);
 				st.playSound(QuestState.SOUND_MIDDLE);
 			}

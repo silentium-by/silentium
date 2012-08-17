@@ -1,13 +1,22 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.model.itemcontainer;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.List;
+
 import javolution.util.FastList;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import silentium.commons.database.DatabaseFactory;
 import silentium.gameserver.GameTimeController;
 import silentium.gameserver.configs.MainConfig;
@@ -19,15 +28,6 @@ import silentium.gameserver.model.actor.L2Character;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.tables.ItemTable;
 import silentium.gameserver.templates.item.L2Item;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @author Advi
@@ -54,7 +54,7 @@ public abstract class ItemContainer
 
 	/**
 	 * Returns the ownerID of the inventory
-	 *
+	 * 
 	 * @return int
 	 */
 	public int getOwnerId()
@@ -64,7 +64,7 @@ public abstract class ItemContainer
 
 	/**
 	 * Returns the quantity of items in the inventory
-	 *
+	 * 
 	 * @return int
 	 */
 	public int getSize()
@@ -74,7 +74,7 @@ public abstract class ItemContainer
 
 	/**
 	 * Returns the list of items in inventory
-	 *
+	 * 
 	 * @return L2ItemInstance : items in inventory
 	 */
 	public L2ItemInstance[] getItems()
@@ -88,7 +88,7 @@ public abstract class ItemContainer
 	/**
 	 * Returns the item from inventory by using its <B>itemId</B><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param itemId
 	 *            : int designating the ID of the item
 	 * @return L2ItemInstance designating the item or null if not found in inventory
@@ -105,7 +105,7 @@ public abstract class ItemContainer
 	/**
 	 * Returns the item's list from inventory by using its <B>itemId</B><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param itemId
 	 *            : int designating the ID of the item
 	 * @return List<L2ItemInstance> designating the items list (empty list if not found)
@@ -124,7 +124,7 @@ public abstract class ItemContainer
 	/**
 	 * Returns the item from inventory by using its <B>itemId</B><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param itemId
 	 *            : int designating the ID of the item
 	 * @param itemToIgnore
@@ -142,7 +142,7 @@ public abstract class ItemContainer
 
 	/**
 	 * Returns item from inventory by using its <B>objectId</B>
-	 *
+	 * 
 	 * @param objectId
 	 *            : int designating the ID of the object
 	 * @return L2ItemInstance designating the item or null if not found in inventory
@@ -173,7 +173,7 @@ public abstract class ItemContainer
 
 	/**
 	 * Gets count of item in the inventory
-	 *
+	 * 
 	 * @param itemId
 	 *            : Item to look for
 	 * @param enchantLevel
@@ -198,7 +198,7 @@ public abstract class ItemContainer
 
 	/**
 	 * Adds item to inventory
-	 *
+	 * 
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param item
@@ -255,7 +255,7 @@ public abstract class ItemContainer
 
 	/**
 	 * Adds item to inventory
-	 *
+	 * 
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param itemId
@@ -321,7 +321,7 @@ public abstract class ItemContainer
 
 	/**
 	 * Transfers item to another inventory
-	 *
+	 * 
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param objectId
@@ -398,7 +398,7 @@ public abstract class ItemContainer
 
 	/**
 	 * Destroy item from inventory and updates database
-	 *
+	 * 
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param item
@@ -416,7 +416,7 @@ public abstract class ItemContainer
 
 	/**
 	 * Destroy item from inventory and updates database
-	 *
+	 * 
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param item
@@ -466,7 +466,7 @@ public abstract class ItemContainer
 
 	/**
 	 * Destroy item from inventory by using its <B>objectID</B> and updates database
-	 *
+	 * 
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param objectId
@@ -490,7 +490,7 @@ public abstract class ItemContainer
 
 	/**
 	 * Destroy item from inventory by using its <B>itemId</B> and updates database
-	 *
+	 * 
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param itemId
@@ -514,7 +514,7 @@ public abstract class ItemContainer
 
 	/**
 	 * Destroy all items from inventory and updates database
-	 *
+	 * 
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param actor
@@ -533,7 +533,7 @@ public abstract class ItemContainer
 
 	/**
 	 * Get warehouse adena
-	 *
+	 * 
 	 * @return
 	 */
 	public int getAdena()
@@ -553,7 +553,7 @@ public abstract class ItemContainer
 
 	/**
 	 * Adds item to inventory for further adjustments.
-	 *
+	 * 
 	 * @param item
 	 *            : L2ItemInstance to be added from inventory
 	 */
@@ -567,7 +567,7 @@ public abstract class ItemContainer
 
 	/**
 	 * Removes item from inventory for further adjustments.
-	 *
+	 * 
 	 * @param item
 	 *            : L2ItemInstance to be removed from inventory
 	 * @return

@@ -1,15 +1,24 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.model;
 
-import com.google.common.collect.Lists;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import javolution.util.FastList;
 import javolution.util.FastMap;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import silentium.gameserver.configs.PlayersConfig;
 import silentium.gameserver.model.actor.L2Character;
 import silentium.gameserver.model.actor.L2Playable;
@@ -25,15 +34,7 @@ import silentium.gameserver.network.serverpackets.SystemMessage;
 import silentium.gameserver.templates.skills.L2EffectType;
 import silentium.gameserver.templates.skills.L2SkillType;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.atomic.AtomicBoolean;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.google.common.collect.Lists;
 
 public class CharEffectList
 {
@@ -91,7 +92,7 @@ public class CharEffectList
 
 	/**
 	 * Returns all effects affecting stored in this CharEffectList
-	 *
+	 * 
 	 * @return
 	 */
 	public final L2Effect[] getAllEffects()
@@ -126,7 +127,7 @@ public class CharEffectList
 
 	/**
 	 * Returns the first effect matching the given EffectType
-	 *
+	 * 
 	 * @param tp
 	 * @return
 	 */
@@ -172,7 +173,7 @@ public class CharEffectList
 
 	/**
 	 * Returns the first effect matching the given L2Skill
-	 *
+	 * 
 	 * @param skill
 	 * @return
 	 */
@@ -267,7 +268,7 @@ public class CharEffectList
 
 	/**
 	 * Checks if the given skill stacks with an existing one.
-	 *
+	 * 
 	 * @param checkSkill
 	 *            the skill to be checked
 	 * @return Returns whether or not this skill will stack
@@ -291,7 +292,7 @@ public class CharEffectList
 
 	/**
 	 * Return the number of buffs in this CharEffectList not counting Songs/Dances
-	 *
+	 * 
 	 * @return
 	 */
 	public int getBuffCount()
@@ -319,7 +320,7 @@ public class CharEffectList
 
 	/**
 	 * Return the number of Songs/Dances in this CharEffectList
-	 *
+	 * 
 	 * @return
 	 */
 	public int getDanceCount()
@@ -385,7 +386,7 @@ public class CharEffectList
 
 	/**
 	 * Exit all effects having a specified type
-	 *
+	 * 
 	 * @param type
 	 */
 	public final void stopEffects(L2EffectType type)
@@ -413,7 +414,7 @@ public class CharEffectList
 
 	/**
 	 * Exits all effects created by a specific skillId
-	 *
+	 * 
 	 * @param skillId
 	 */
 	public final void stopSkillEffects(int skillId)
@@ -439,7 +440,7 @@ public class CharEffectList
 
 	/**
 	 * Exits all effects created by a specific skill type
-	 *
+	 * 
 	 * @param skillType
 	 *            skill type
 	 * @param negateLvl
@@ -1035,7 +1036,7 @@ public class CharEffectList
 
 	/**
 	 * Returns effect if contains in _buffs or _debuffs and null if not found
-	 *
+	 * 
 	 * @param effect
 	 * @return
 	 */
@@ -1084,7 +1085,7 @@ public class CharEffectList
 
 	/**
 	 * Check if target is affected with special buff
-	 *
+	 * 
 	 * @param bitFlag
 	 *            flag of special buff
 	 * @return boolean true if affected

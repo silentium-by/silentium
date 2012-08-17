@@ -1,20 +1,19 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.templates;
 
 import java.util.Map;
 import java.util.Map.Entry;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javolution.util.FastMap;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author mkizub <BR>
@@ -28,7 +27,7 @@ public final class StatsSet
 
 	/**
 	 * Returns the set of values
-	 *
+	 * 
 	 * @return HashMap
 	 */
 	public final Map<String, Object> getSet()
@@ -38,7 +37,7 @@ public final class StatsSet
 
 	/**
 	 * Add a set of couple values in the current set
-	 *
+	 * 
 	 * @param newSet
 	 *            : StatsSet pointing out the list of couples to add in the current set
 	 */
@@ -51,7 +50,7 @@ public final class StatsSet
 
 	/**
 	 * Return the boolean associated to the key put in parameter ("name")
-	 *
+	 * 
 	 * @param name
 	 *            : String designating the key in the set
 	 * @return boolean : value associated to the key
@@ -74,9 +73,9 @@ public final class StatsSet
 	}
 
 	/**
-	 * Return the boolean associated to the key put in parameter ("name"). If the value associated to the key is null, this method
-	 * returns the value of the parameter deflt.
-	 *
+	 * Return the boolean associated to the key put in parameter ("name"). If the value associated to the key is null, this method returns the
+	 * value of the parameter deflt.
+	 * 
 	 * @param name
 	 *            : String designating the key in the set
 	 * @param deflt
@@ -101,9 +100,9 @@ public final class StatsSet
 	}
 
 	/**
-	 * Returns the int associated to the key put in parameter ("name"). If the value associated to the key is null, this method
-	 * returns the value of the parameter deflt.
-	 *
+	 * Returns the int associated to the key put in parameter ("name"). If the value associated to the key is null, this method returns the value
+	 * of the parameter deflt.
+	 * 
 	 * @param name
 	 *            : String designating the key in the set
 	 * @param deflt
@@ -129,7 +128,7 @@ public final class StatsSet
 
 	/**
 	 * Returns the byte associated to the key put in parameter ("name").
-	 *
+	 * 
 	 * @param name
 	 *            : String designating the key in the set
 	 * @return byte : value associated to the key
@@ -152,9 +151,9 @@ public final class StatsSet
 	}
 
 	/**
-	 * Returns the short associated to the key put in parameter ("name"). If the value associated to the key is null, this method
-	 * returns the value of the parameter deflt.
-	 *
+	 * Returns the short associated to the key put in parameter ("name"). If the value associated to the key is null, this method returns the
+	 * value of the parameter deflt.
+	 * 
 	 * @param name
 	 *            : String designating the key in the set
 	 * @param deflt
@@ -180,7 +179,7 @@ public final class StatsSet
 
 	/**
 	 * Returns the short associated to the key put in parameter ("name").
-	 *
+	 * 
 	 * @param name
 	 *            : String designating the key in the set
 	 * @return short : value associated to the key
@@ -204,7 +203,7 @@ public final class StatsSet
 
 	/**
 	 * Returns the int associated to the key put in parameter ("name").
-	 *
+	 * 
 	 * @param name
 	 *            : String designating the key in the set
 	 * @return int : value associated to the key
@@ -227,9 +226,9 @@ public final class StatsSet
 	}
 
 	/**
-	 * Returns the int associated to the key put in parameter ("name"). If the value associated to the key is null, this method
-	 * returns the value of the parameter deflt.
-	 *
+	 * Returns the int associated to the key put in parameter ("name"). If the value associated to the key is null, this method returns the value
+	 * of the parameter deflt.
+	 * 
 	 * @param name
 	 *            : String designating the key in the set
 	 * @param deflt
@@ -254,9 +253,9 @@ public final class StatsSet
 	}
 
 	/**
-	 * Returns the int[] associated to the key put in parameter ("name"). If the value associated to the key is null, this method
-	 * returns the value of the parameter deflt.
-	 *
+	 * Returns the int[] associated to the key put in parameter ("name"). If the value associated to the key is null, this method returns the
+	 * value of the parameter deflt.
+	 * 
 	 * @param name
 	 *            : String designating the key in the set
 	 * @return int[] : value associated to the key
@@ -291,7 +290,7 @@ public final class StatsSet
 
 	/**
 	 * Returns the long associated to the key put in parameter ("name").
-	 *
+	 * 
 	 * @param name
 	 *            : String designating the key in the set
 	 * @return long : value associated to the key
@@ -314,9 +313,9 @@ public final class StatsSet
 	}
 
 	/**
-	 * Returns the long associated to the key put in parameter ("name"). If the value associated to the key is null, this method
-	 * returns the value of the parameter deflt.
-	 *
+	 * Returns the long associated to the key put in parameter ("name"). If the value associated to the key is null, this method returns the
+	 * value of the parameter deflt.
+	 * 
 	 * @param name
 	 *            : String designating the key in the set
 	 * @param deflt
@@ -342,7 +341,7 @@ public final class StatsSet
 
 	/**
 	 * Returns the float associated to the key put in parameter ("name").
-	 *
+	 * 
 	 * @param name
 	 *            : String designating the key in the set
 	 * @return float : value associated to the key
@@ -365,9 +364,9 @@ public final class StatsSet
 	}
 
 	/**
-	 * Returns the float associated to the key put in parameter ("name"). If the value associated to the key is null, this method
-	 * returns the value of the parameter deflt.
-	 *
+	 * Returns the float associated to the key put in parameter ("name"). If the value associated to the key is null, this method returns the
+	 * value of the parameter deflt.
+	 * 
 	 * @param name
 	 *            : String designating the key in the set
 	 * @param deflt
@@ -393,7 +392,7 @@ public final class StatsSet
 
 	/**
 	 * Returns the double associated to the key put in parameter ("name").
-	 *
+	 * 
 	 * @param name
 	 *            : String designating the key in the set
 	 * @return double : value associated to the key
@@ -416,9 +415,9 @@ public final class StatsSet
 	}
 
 	/**
-	 * Returns the double associated to the key put in parameter ("name"). If the value associated to the key is null, this method
-	 * returns the value of the parameter deflt.
-	 *
+	 * Returns the double associated to the key put in parameter ("name"). If the value associated to the key is null, this method returns the
+	 * value of the parameter deflt.
+	 * 
 	 * @param name
 	 *            : String designating the key in the set
 	 * @param deflt
@@ -444,7 +443,7 @@ public final class StatsSet
 
 	/**
 	 * Returns the String associated to the key put in parameter ("name").
-	 *
+	 * 
 	 * @param name
 	 *            : String designating the key in the set
 	 * @return String : value associated to the key
@@ -458,9 +457,9 @@ public final class StatsSet
 	}
 
 	/**
-	 * Returns the String associated to the key put in parameter ("name"). If the value associated to the key is null, this method
-	 * returns the value of the parameter deflt.
-	 *
+	 * Returns the String associated to the key put in parameter ("name"). If the value associated to the key is null, this method returns the
+	 * value of the parameter deflt.
+	 * 
 	 * @param name
 	 *            : String designating the key in the set
 	 * @param deflt
@@ -477,7 +476,7 @@ public final class StatsSet
 
 	/**
 	 * Returns an enumeration of &lt;T&gt; from the set
-	 *
+	 * 
 	 * @param <T>
 	 *            : Class of the enumeration returned
 	 * @param name
@@ -505,9 +504,8 @@ public final class StatsSet
 	}
 
 	/**
-	 * Returns an enumeration of &lt;T&gt; from the set. If the enumeration is empty, the method returns the value of the
-	 * parameter "deflt".
-	 *
+	 * Returns an enumeration of &lt;T&gt; from the set. If the enumeration is empty, the method returns the value of the parameter "deflt".
+	 * 
 	 * @param <T>
 	 *            : Class of the enumeration returned
 	 * @param name
@@ -538,7 +536,7 @@ public final class StatsSet
 
 	/**
 	 * Add the String hold in param "value" for the key "name"
-	 *
+	 * 
 	 * @param name
 	 *            : String designating the key in the set
 	 * @param value
@@ -551,7 +549,7 @@ public final class StatsSet
 
 	/**
 	 * Add the boolean hold in param "value" for the key "name"
-	 *
+	 * 
 	 * @param name
 	 *            : String designating the key in the set
 	 * @param value
@@ -564,7 +562,7 @@ public final class StatsSet
 
 	/**
 	 * Add the int hold in param "value" for the key "name"
-	 *
+	 * 
 	 * @param name
 	 *            : String designating the key in the set
 	 * @param value
@@ -577,7 +575,7 @@ public final class StatsSet
 
 	/**
 	 * Add the double hold in param "value" for the key "name"
-	 *
+	 * 
 	 * @param name
 	 *            : String designating the key in the set
 	 * @param value
@@ -590,7 +588,7 @@ public final class StatsSet
 
 	/**
 	 * Add the long hold in param "value" for the key "name"
-	 *
+	 * 
 	 * @param name
 	 *            : String designating the key in the set
 	 * @param value
@@ -603,7 +601,7 @@ public final class StatsSet
 
 	/**
 	 * Add the Enum hold in param "value" for the key "name"
-	 *
+	 * 
 	 * @param name
 	 *            : String designating the key in the set
 	 * @param value
@@ -617,7 +615,7 @@ public final class StatsSet
 	/**
 	 * Safe version of "set". Expected values are within [min, max[<br>
 	 * Add the int hold in param "value" for the key "name".
-	 *
+	 * 
 	 * @param name
 	 *            : String designating the key in the set
 	 * @param value

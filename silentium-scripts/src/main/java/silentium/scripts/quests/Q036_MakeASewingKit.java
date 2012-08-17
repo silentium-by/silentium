@@ -1,9 +1,9 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.scripts.quests;
 
@@ -13,7 +13,8 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q036_MakeASewingKit extends Quest implements ScriptFile {
+public class Q036_MakeASewingKit extends Quest implements ScriptFile
+{
 	private static final String qn = "Q036_MakeASewingKit";
 
 	// NPC
@@ -30,7 +31,8 @@ public class Q036_MakeASewingKit extends Quest implements ScriptFile {
 	// Reward
 	private static final int SEWING_KIT = 7078;
 
-	public Q036_MakeASewingKit(int id, String name, String descr) {
+	public Q036_MakeASewingKit(int id, String name, String descr)
+	{
 		super(id, name, descr);
 		questItemIds = new int[] { REINFORCED_STEEL };
 
@@ -40,33 +42,42 @@ public class Q036_MakeASewingKit extends Quest implements ScriptFile {
 		addKillId(IRON_GOLEM);
 	}
 
-	public static void onLoad() {
+	public static void onLoad()
+	{
 		new Q036_MakeASewingKit(36, "Q036_MakeASewingKit", "Make a Sewing Kit");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	{
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equals("30847-1.htm")) {
+		if (event.equals("30847-1.htm"))
+		{
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		} else if (event.equals("30847-3.htm")) {
+		}
+		else if (event.equals("30847-3.htm"))
+		{
 			st.takeItems(REINFORCED_STEEL, 5);
 			st.set("cond", "3");
 			st.playSound(QuestState.SOUND_MIDDLE);
-		} else if (event.equals("30847-5.htm")) {
-			if (st.getQuestItemsCount(ORIHARUKON) >= 10 && st.getQuestItemsCount(ARTISANS_FRAME) >= 10) {
+		}
+		else if (event.equals("30847-5.htm"))
+		{
+			if (st.getQuestItemsCount(ORIHARUKON) >= 10 && st.getQuestItemsCount(ARTISANS_FRAME) >= 10)
+			{
 				st.takeItems(ORIHARUKON, 10);
 				st.takeItems(ARTISANS_FRAME, 10);
 				st.giveItems(SEWING_KIT, 1);
 				st.playSound(QuestState.SOUND_FINISH);
 				st.exitQuest(false);
-			} else
+			}
+			else
 				htmltext = "30847-4a.htm";
 		}
 
@@ -74,23 +85,29 @@ public class Q036_MakeASewingKit extends Quest implements ScriptFile {
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player) {
+	public String onTalk(L2Npc npc, L2PcInstance player)
+	{
 		QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState()) {
+		switch (st.getState())
+		{
 			case QuestState.CREATED:
-				if (player.getLevel() >= 60) {
+				if (player.getLevel() >= 60)
+				{
 					QuestState fwear = player.getQuestState("Q037_MakeFormalWear");
 					if (fwear != null && fwear.getInt("cond") == 6)
 						htmltext = "30847-0.htm";
-					else {
+					else
+					{
 						htmltext = "30847-0a.htm";
 						st.exitQuest(true);
 					}
-				} else {
+				}
+				else
+				{
 					htmltext = "30847-0b.htm";
 					st.exitQuest(true);
 				}
@@ -102,7 +119,8 @@ public class Q036_MakeASewingKit extends Quest implements ScriptFile {
 					htmltext = "30847-1a.htm";
 				else if (cond == 2)
 					htmltext = "30847-2.htm";
-				else if (cond == 3) {
+				else if (cond == 3)
+				{
 					if (st.getQuestItemsCount(ORIHARUKON) < 10 || st.getQuestItemsCount(ARTISANS_FRAME) < 10)
 						htmltext = "30847-4a.htm";
 					else
@@ -118,7 +136,8 @@ public class Q036_MakeASewingKit extends Quest implements ScriptFile {
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
+	{
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;

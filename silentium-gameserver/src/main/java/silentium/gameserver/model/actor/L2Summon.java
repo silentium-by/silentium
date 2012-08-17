@@ -1,19 +1,19 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.model.actor;
 
 import java.util.Collection;
 
-import silentium.gameserver.configs.MainConfig;
-import silentium.gameserver.configs.NPCConfig;
 import silentium.gameserver.ai.CharacterAI;
 import silentium.gameserver.ai.CtrlIntention;
 import silentium.gameserver.ai.SummonAI;
+import silentium.gameserver.configs.MainConfig;
+import silentium.gameserver.configs.NPCConfig;
 import silentium.gameserver.data.html.StaticHtmPath;
 import silentium.gameserver.geo.GeoData;
 import silentium.gameserver.model.L2ItemInstance;
@@ -604,14 +604,14 @@ public abstract class L2Summon extends L2Playable
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
-	 * <li>Check if the target is correct</li> <li>Check if the target is in the skill cast range</li> <li>Check if the summon
-	 * owns enough HP and MP to cast the skill</li> <li>Check if all skills are enabled and this skill is enabled</li><BR>
+	 * <li>Check if the target is correct</li> <li>Check if the target is in the skill cast range</li> <li>Check if the summon owns enough HP and
+	 * MP to cast the skill</li> <li>Check if all skills are enabled and this skill is enabled</li><BR>
 	 * <BR>
 	 * <li>Check if the skill is active</li><BR>
 	 * <BR>
 	 * <li>Notify the AI with AI_INTENTION_CAST and target</li><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param skill
 	 *            The L2Skill to use
 	 * @param forceUse

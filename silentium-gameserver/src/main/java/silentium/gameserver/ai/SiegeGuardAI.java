@@ -1,11 +1,17 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.ai;
+
+import static silentium.gameserver.ai.CtrlIntention.AI_INTENTION_ACTIVE;
+import static silentium.gameserver.ai.CtrlIntention.AI_INTENTION_ATTACK;
+import static silentium.gameserver.ai.CtrlIntention.AI_INTENTION_IDLE;
+
+import java.util.concurrent.Future;
 
 import silentium.commons.utils.Rnd;
 import silentium.gameserver.GameTimeController;
@@ -14,17 +20,17 @@ import silentium.gameserver.geo.GeoData;
 import silentium.gameserver.model.L2Effect;
 import silentium.gameserver.model.L2Object;
 import silentium.gameserver.model.L2Skill;
-import silentium.gameserver.model.actor.*;
+import silentium.gameserver.model.actor.L2Attackable;
+import silentium.gameserver.model.actor.L2Character;
+import silentium.gameserver.model.actor.L2Npc;
+import silentium.gameserver.model.actor.L2Playable;
+import silentium.gameserver.model.actor.L2Summon;
 import silentium.gameserver.model.actor.instance.L2DoorInstance;
 import silentium.gameserver.model.actor.instance.L2NpcInstance;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.actor.instance.L2SiegeGuardInstance;
 import silentium.gameserver.templates.skills.L2SkillType;
 import silentium.gameserver.utils.Util;
-
-import java.util.concurrent.Future;
-
-import static silentium.gameserver.ai.CtrlIntention.*;
 
 /**
  * This class manages AI of L2Attackable.<BR>
@@ -53,7 +59,7 @@ public class SiegeGuardAI extends CharacterAI implements Runnable
 
 	/**
 	 * Constructor of AttackableAI.
-	 *
+	 * 
 	 * @param accessor
 	 *            The AI accessor of the L2Character
 	 */
@@ -105,7 +111,7 @@ public class SiegeGuardAI extends CharacterAI implements Runnable
 	 * <li>The target is in the actor Aggro range and is at the same height</li>
 	 * <li>The actor is Aggressive</li>
 	 * </ul>
-	 *
+	 * 
 	 * @param target
 	 *            The targeted L2Object
 	 * @return True if the target is autoattackable (depends on the actor type).
@@ -140,13 +146,12 @@ public class SiegeGuardAI extends CharacterAI implements Runnable
 	}
 
 	/**
-	 * Set the Intention of this CharacterAI and create an AI Task executed every 1s (call onEvtThink method) for this
-	 * L2Attackable.<BR>
+	 * Set the Intention of this CharacterAI and create an AI Task executed every 1s (call onEvtThink method) for this L2Attackable.<BR>
 	 * <BR>
 	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : If actor _knowPlayer isn't EMPTY, AI_INTENTION_IDLE will be change in
 	 * AI_INTENTION_ACTIVE</B></FONT><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param intention
 	 *            The new Intention to set to the AI
 	 * @param arg0
@@ -192,7 +197,7 @@ public class SiegeGuardAI extends CharacterAI implements Runnable
 	 * <li>Calculate attack timeout</li>
 	 * <li>Start a new Attack and Launch Think Event.</li>
 	 * </ul>
-	 *
+	 * 
 	 * @param target
 	 *            The L2Character to attack
 	 */
@@ -209,8 +214,8 @@ public class SiegeGuardAI extends CharacterAI implements Runnable
 	 * Manage AI standard thinks of a L2Attackable (called by onEvtThink).
 	 * <ul>
 	 * <li>Update every 1s the _globalAggro counter to come close to 0</li>
-	 * <li>If the actor is Aggressive and can attack, add all autoAttackable L2Character in its Aggro Range to its _aggroList,
-	 * chose a target and order to attack it</li>
+	 * <li>If the actor is Aggressive and can attack, add all autoAttackable L2Character in its Aggro Range to its _aggroList, chose a target and
+	 * order to attack it</li>
 	 * <li>If the actor can't attack, order to it to return to its home location</li>
 	 * </ul>
 	 */
@@ -284,7 +289,7 @@ public class SiegeGuardAI extends CharacterAI implements Runnable
 	 */
 	private void thinkAttack()
 	{
-	    _log.debug("SiegeGuardAI.thinkAttack(); timeout=" + (_attackTimeout - GameTimeController.getGameTicks()));
+		_log.debug("SiegeGuardAI.thinkAttack(); timeout=" + (_attackTimeout - GameTimeController.getGameTicks()));
 
 		if (_attackTimeout < GameTimeController.getGameTicks())
 		{
@@ -649,7 +654,7 @@ public class SiegeGuardAI extends CharacterAI implements Runnable
 	 * <li>Set the L2Character movement type to run and send Server->Client packet ChangeMoveType to all others L2PcInstance</li>
 	 * <li>Set the Intention to AI_INTENTION_ATTACK</li>
 	 * </ul>
-	 *
+	 * 
 	 * @param attacker
 	 *            The L2Character that attacks the actor
 	 */
@@ -681,10 +686,9 @@ public class SiegeGuardAI extends CharacterAI implements Runnable
 	 * Launch actions corresponding to the Event Aggression.
 	 * <ul>
 	 * <li>Add the target to the actor _aggroList or update hate if already present</li>
-	 * <li>Set the actor Intention to AI_INTENTION_ATTACK (if actor is L2GuardInstance check if it isn't too far from its home
-	 * location)</li>
+	 * <li>Set the actor Intention to AI_INTENTION_ATTACK (if actor is L2GuardInstance check if it isn't too far from its home location)</li>
 	 * </ul>
-	 *
+	 * 
 	 * @param target
 	 *            The L2Character that attacks
 	 * @param aggro

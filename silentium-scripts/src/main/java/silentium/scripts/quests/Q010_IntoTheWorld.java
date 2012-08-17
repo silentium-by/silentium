@@ -1,9 +1,9 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.scripts.quests;
 
@@ -13,7 +13,8 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q010_IntoTheWorld extends Quest implements ScriptFile {
+public class Q010_IntoTheWorld extends Quest implements ScriptFile
+{
 	private final static String qn = "Q010_IntoTheWorld";
 
 	// Items
@@ -28,7 +29,8 @@ public class Q010_IntoTheWorld extends Quest implements ScriptFile {
 	private final static int Balanki = 30533;
 	private final static int Gerald = 30650;
 
-	public Q010_IntoTheWorld(int questId, String name, String descr) {
+	public Q010_IntoTheWorld(int questId, String name, String descr)
+	{
 		super(questId, name, descr);
 
 		questItemIds = new int[] { VeryExpensiveNecklace };
@@ -37,33 +39,44 @@ public class Q010_IntoTheWorld extends Quest implements ScriptFile {
 		addTalkId(Balanki, Reed, Gerald);
 	}
 
-	public static void onLoad() {
+	public static void onLoad()
+	{
 		new Q010_IntoTheWorld(10, "Q010_IntoTheWorld", "Into the World");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	{
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30533-02.htm")) {
+		if (event.equalsIgnoreCase("30533-02.htm"))
+		{
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		} else if (event.equalsIgnoreCase("30520-02.htm")) {
+		}
+		else if (event.equalsIgnoreCase("30520-02.htm"))
+		{
 			st.set("cond", "2");
 			st.giveItems(VeryExpensiveNecklace, 1);
 			st.playSound(QuestState.SOUND_MIDDLE);
-		} else if (event.equalsIgnoreCase("30650-02.htm")) {
+		}
+		else if (event.equalsIgnoreCase("30650-02.htm"))
+		{
 			st.set("cond", "3");
 			st.takeItems(VeryExpensiveNecklace, 1);
 			st.playSound(QuestState.SOUND_MIDDLE);
-		} else if (event.equalsIgnoreCase("30520-04.htm")) {
+		}
+		else if (event.equalsIgnoreCase("30520-04.htm"))
+		{
 			st.set("cond", "4");
 			st.playSound(QuestState.SOUND_MIDDLE);
-		} else if (event.equalsIgnoreCase("30533-05.htm")) {
+		}
+		else if (event.equalsIgnoreCase("30533-05.htm"))
+		{
 			st.giveItems(ScrollOfEscapeGiran, 1);
 			st.rewardItems(MarkOfTraveler, 1);
 			st.playSound(QuestState.SOUND_FINISH);
@@ -74,13 +87,15 @@ public class Q010_IntoTheWorld extends Quest implements ScriptFile {
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player) {
+	public String onTalk(L2Npc npc, L2PcInstance player)
+	{
 		String htmltext = getNoQuestMsg();
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState()) {
+		switch (st.getState())
+		{
 			case QuestState.CREATED:
 				if ((player.getLevel() >= 3 && player.getLevel() <= 10) && player.getRace().ordinal() == 4)
 					htmltext = "30533-01.htm";
@@ -90,7 +105,8 @@ public class Q010_IntoTheWorld extends Quest implements ScriptFile {
 
 			case QuestState.STARTED:
 				int cond = st.getInt("cond");
-				switch (npc.getNpcId()) {
+				switch (npc.getNpcId())
+				{
 					case Balanki:
 						if (cond >= 1 && cond <= 3)
 							htmltext = "30533-03.htm";

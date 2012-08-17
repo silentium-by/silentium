@@ -1,15 +1,18 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.model.actor.status;
 
-import com.google.common.collect.Sets;
+import java.util.Set;
+import java.util.concurrent.Future;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import silentium.commons.utils.Rnd;
 import silentium.gameserver.ThreadPoolManager;
 import silentium.gameserver.model.actor.L2Character;
@@ -17,8 +20,7 @@ import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.actor.stat.CharStat;
 import silentium.gameserver.skills.Formulas;
 
-import java.util.Set;
-import java.util.concurrent.Future;
+import com.google.common.collect.Sets;
 
 public class CharStatus
 {
@@ -49,15 +51,15 @@ public class CharStatus
 	 * <BR>
 	 * <B><U> Concept</U> :</B><BR>
 	 * <BR>
-	 * Each L2Character owns a list called <B>_statusListener</B> that contains all L2PcInstance to inform of HP/MP updates.
-	 * Players who must be informed are players that target this L2Character. When a RegenTask is in progress sever just need to
-	 * go through this list to send Server->Client packet StatusUpdate.<BR>
+	 * Each L2Character owns a list called <B>_statusListener</B> that contains all L2PcInstance to inform of HP/MP updates. Players who must be
+	 * informed are players that target this L2Character. When a RegenTask is in progress sever just need to go through this list to send
+	 * Server->Client packet StatusUpdate.<BR>
 	 * <BR>
 	 * <B><U> Example of use </U> :</B><BR>
 	 * <BR>
 	 * <li>Target a PC or NPC</li><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param object
 	 *            L2Character to add to the listener
 	 */
@@ -74,15 +76,15 @@ public class CharStatus
 	 * <BR>
 	 * <B><U> Concept</U> :</B><BR>
 	 * <BR>
-	 * Each L2Character owns a list called <B>_statusListener</B> that contains all L2PcInstance to inform of HP/MP updates.
-	 * Players who must be informed are players that target this L2Character. When a RegenTask is in progress sever just need to
-	 * go through this list to send Server->Client packet StatusUpdate.<BR>
+	 * Each L2Character owns a list called <B>_statusListener</B> that contains all L2PcInstance to inform of HP/MP updates. Players who must be
+	 * informed are players that target this L2Character. When a RegenTask is in progress sever just need to go through this list to send
+	 * Server->Client packet StatusUpdate.<BR>
 	 * <BR>
 	 * <B><U> Example of use </U> :</B><BR>
 	 * <BR>
 	 * <li>Untarget a PC or NPC</li><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param object
 	 *            L2Character to add to the listener
 	 */
@@ -96,11 +98,11 @@ public class CharStatus
 	 * <BR>
 	 * <B><U> Concept</U> :</B><BR>
 	 * <BR>
-	 * Each L2Character owns a list called <B>_statusListener</B> that contains all L2PcInstance to inform of HP/MP updates.
-	 * Players who must be informed are players that target this L2Character. When a RegenTask is in progress sever just need to
-	 * go through this list to send Server->Client packet StatusUpdate.<BR>
+	 * Each L2Character owns a list called <B>_statusListener</B> that contains all L2PcInstance to inform of HP/MP updates. Players who must be
+	 * informed are players that target this L2Character. When a RegenTask is in progress sever just need to go through this list to send
+	 * Server->Client packet StatusUpdate.<BR>
 	 * <BR>
-	 *
+	 * 
 	 * @return The list of L2Character to inform or null if empty
 	 */
 	public final Set<L2Character> getStatusListener()
@@ -123,7 +125,7 @@ public class CharStatus
 	 * <BR>
 	 * <li>L2Attackable : Update the attacker AggroInfo of the L2Attackable _aggroList</li><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param value
 	 *            The amount of removed HPs.
 	 * @param attacker

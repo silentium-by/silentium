@@ -1,9 +1,9 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.scripts.ai;
 
@@ -18,10 +18,11 @@ import silentium.gameserver.tables.SkillTable;
 
 /**
  * Hot Spring Disease AI
- *
+ * 
  * @author devO, Sandro, Tryskell
  */
-public class HotSpringDisease extends DefaultMonsterAI implements ScriptFile {
+public class HotSpringDisease extends DefaultMonsterAI implements ScriptFile
+{
 	static final int[] disease1mobs = { 21314, 21316, 21317, 21319, 21321, 21322 }; // Monsters which cast Hot Spring Malaria
 	// (4554)
 	static final int[] disease2mobs = { 21317, 21322 }; // Monsters which cast Hot Springs Flu (4553)
@@ -31,17 +32,20 @@ public class HotSpringDisease extends DefaultMonsterAI implements ScriptFile {
 	// Chance to get infected by disease
 	private static final int DISEASE_CHANCE = 1;
 
-	public static void onLoad() {
+	public static void onLoad()
+	{
 		new HotSpringDisease(-1, "HotSpringDisease", "ai");
 	}
 
-	public HotSpringDisease(int questId, String name, String descr) {
+	public HotSpringDisease(int questId, String name, String descr)
+	{
 		super(questId, name, descr);
 		registerMobs(disease1mobs, QuestEventType.ON_ATTACK_ACT);
 	}
 
 	@Override
-	public String onAttackAct(L2Npc npc, L2PcInstance victim) {
+	public String onAttackAct(L2Npc npc, L2PcInstance victim)
+	{
 		if (contains(disease1mobs, npc.getNpcId()))
 			tryToApplyEffect(npc, victim, 4554);
 
@@ -57,14 +61,20 @@ public class HotSpringDisease extends DefaultMonsterAI implements ScriptFile {
 		return super.onAttackAct(npc, victim);
 	}
 
-	private void tryToApplyEffect(L2Npc npc, L2PcInstance victim, int skillId) {
-		if (skillId != 0) {
-			if (Rnd.get(100) < DISEASE_CHANCE) {
+	private void tryToApplyEffect(L2Npc npc, L2PcInstance victim, int skillId)
+	{
+		if (skillId != 0)
+		{
+			if (Rnd.get(100) < DISEASE_CHANCE)
+			{
 				int level = 0;
 				L2Effect[] effects = victim.getAllEffects();
-				if (effects.length != 0 || effects != null) {
-					for (L2Effect e : effects) {
-						if (e.getSkill().getId() == skillId) {
+				if (effects.length != 0 || effects != null)
+				{
+					for (L2Effect e : effects)
+					{
+						if (e.getSkill().getId() == skillId)
+						{
 							level = e.getSkill().getLevel();
 							e.exit();
 						}

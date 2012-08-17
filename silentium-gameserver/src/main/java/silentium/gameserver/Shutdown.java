@@ -1,18 +1,27 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver;
 
+import java.util.Collection;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import silentium.commons.database.DatabaseFactory;
 import silentium.commons.utils.Util;
 import silentium.gameserver.configs.MainConfig;
-import silentium.gameserver.instancemanager.*;
+import silentium.gameserver.instancemanager.CastleManorManager;
+import silentium.gameserver.instancemanager.CursedWeaponsManager;
+import silentium.gameserver.instancemanager.FourSepulchersManager;
+import silentium.gameserver.instancemanager.GrandBossManager;
+import silentium.gameserver.instancemanager.ItemsOnGroundManager;
+import silentium.gameserver.instancemanager.QuestManager;
+import silentium.gameserver.instancemanager.RaidBossSpawnManager;
 import silentium.gameserver.model.L2World;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.entity.Hero;
@@ -25,8 +34,6 @@ import silentium.gameserver.network.gameserverpackets.ServerStatus;
 import silentium.gameserver.network.serverpackets.ServerClose;
 import silentium.gameserver.network.serverpackets.SystemMessage;
 import silentium.gameserver.utils.Broadcast;
-
-import java.util.Collection;
 
 /**
  * This class provides functions for shutting down and restarting the server. It closes all client connections and saves data.
@@ -63,7 +70,7 @@ public class Shutdown extends Thread
 
 	/**
 	 * This creates a countdown instance of Shutdown.
-	 *
+	 * 
 	 * @param seconds
 	 *            how many seconds until shutdown
 	 * @param restart
@@ -83,9 +90,9 @@ public class Shutdown extends Thread
 	}
 
 	/**
-	 * get the shutdown-hook instance the shutdown-hook instance is created by the first call of this function, but it has to be
-	 * registrered externaly.
-	 *
+	 * get the shutdown-hook instance the shutdown-hook instance is created by the first call of this function, but it has to be registrered
+	 * externaly.
+	 * 
 	 * @return instance of Shutdown, to be used as shutdown hook
 	 */
 	public static Shutdown getInstance()
@@ -94,11 +101,10 @@ public class Shutdown extends Thread
 	}
 
 	/**
-	 * this function is called, when a new thread starts if this thread is the thread of getInstance, then this is the shutdown
-	 * hook and we save all data and disconnect all clients. after this thread ends, the server will completely exit if this is
-	 * not the thread of getInstance, then this is a countdown thread. we start the countdown, and when we finished it, and it was
-	 * not aborted, we tell the shutdown-hook why we call exit, and then call exit when the exit status of the server is 1,
-	 * startServer.sh / startServer.bat will restart the server.
+	 * this function is called, when a new thread starts if this thread is the thread of getInstance, then this is the shutdown hook and we save
+	 * all data and disconnect all clients. after this thread ends, the server will completely exit if this is not the thread of getInstance,
+	 * then this is a countdown thread. we start the countdown, and when we finished it, and it was not aborted, we tell the shutdown-hook why we
+	 * call exit, and then call exit when the exit status of the server is 1, startServer.sh / startServer.bat will restart the server.
 	 */
 	@Override
 	public void run()
@@ -250,7 +256,7 @@ public class Shutdown extends Thread
 	/**
 	 * This functions starts a shutdown countdown.<br>
 	 * A choice must be made between activeChar or ghostEntity.
-	 *
+	 * 
 	 * @param activeChar
 	 *            GM who issued the shutdown command
 	 * @param ghostEntity
@@ -308,7 +314,7 @@ public class Shutdown extends Thread
 
 	/**
 	 * This function aborts a running countdown
-	 *
+	 * 
 	 * @param activeChar
 	 *            GM who issued the abort command
 	 */
@@ -325,7 +331,7 @@ public class Shutdown extends Thread
 
 	/**
 	 * set the shutdown mode
-	 *
+	 * 
 	 * @param mode
 	 *            what mode shall be set
 	 */

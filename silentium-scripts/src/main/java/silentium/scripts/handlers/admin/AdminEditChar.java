@@ -1,15 +1,28 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.scripts.handlers.admin;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.StringTokenizer;
+
 import javolution.text.TextBuilder;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import silentium.commons.database.DatabaseFactory;
 import silentium.commons.utils.StringUtil;
 import silentium.gameserver.configs.MainConfig;
@@ -30,10 +43,6 @@ import silentium.gameserver.network.L2GameClient;
 import silentium.gameserver.network.SystemMessageId;
 import silentium.gameserver.network.serverpackets.NpcHtmlMessage;
 import silentium.gameserver.utils.Util;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.util.*;
 
 public class AdminEditChar implements IAdminCommandHandler
 {
@@ -643,7 +652,7 @@ public class AdminEditChar implements IAdminCommandHandler
 
 	/**
 	 * Gather character informations.
-	 *
+	 * 
 	 * @param activeChar
 	 *            The player who requested that action.
 	 * @param player
@@ -728,16 +737,14 @@ public class AdminEditChar implements IAdminCommandHandler
 			// Admin information
 			activeChar.sendMessage("You changed " + player.getName() + "'s karma from " + oldKarma + " to " + newKarma + ".");
 
-			_log.debug("[SET KARMA] [GM]" + activeChar.getName() + " changed " + player.getName() + "'s karma from " +
-					oldKarma + " to " + newKarma + ".");
+			_log.debug("[SET KARMA] [GM]" + activeChar.getName() + " changed " + player.getName() + "'s karma from " + oldKarma + " to " + newKarma + ".");
 		}
 		else
 		{
 			// tell admin of mistake
 			activeChar.sendMessage("The karma value must be greater or equal to 0.");
 
-			_log.debug("[SET KARMA] ERROR: [GM]" + activeChar.getName() + " entered an incorrect value for new karma: " +
-					newKarma + " for " + player.getName() + ".");
+			_log.debug("[SET KARMA] ERROR: [GM]" + activeChar.getName() + " entered an incorrect value for new karma: " + newKarma + " for " + player.getName() + ".");
 		}
 	}
 

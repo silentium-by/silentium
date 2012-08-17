@@ -1,9 +1,9 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.scripts.teleports;
 
@@ -18,7 +18,8 @@ import silentium.gameserver.network.SystemMessageId;
 import silentium.gameserver.scripting.ScriptFile;
 import silentium.gameserver.utils.Util;
 
-public class OracleTeleport extends Quest implements ScriptFile {
+public class OracleTeleport extends Quest implements ScriptFile
+{
 	private final static int[] TOWN_DAWN = { 31078, 31079, 31080, 31081, 31083, 31084, 31082, 31692, 31694, 31997, 31168 };
 
 	private final static int[] TOWN_DUSK = { 31085, 31086, 31087, 31088, 31090, 31091, 31089, 31693, 31695, 31998, 31169 };
@@ -34,77 +35,100 @@ public class OracleTeleport extends Quest implements ScriptFile {
 			new Location(83000, 209213, -5439), new Location(-19500, 13508, -4901), new Location(12525, -248496, -9580), new Location(-41561, 209225, -5087), new Location(45242, 124466, -5413), new Location(110711, 174010, -5439), new Location(-22341, 77375, -5173), new Location(-52889, 79098, -4741), new Location(117760, 132794, -4831), new Location(171792, -17609, -4901), new Location(82564, 209207, -5439), new Location(-41565, 210048, -5085), new Location(45278, 123608, -5411), new Location(111510, 174013, -5437), new Location(-21489, 77372, -5171), new Location(-52016, 79103, -4739), new Location(118557, 132804, -4829),
 			new Location(172570, -17605, -4899), new Location(83347, 209215, -5437), new Location(42495, 143944, -5381), new Location(45666, 170300, -4981), new Location(77138, 78389, -5125), new Location(139903, 79674, -5429), new Location(-20021, 13499, -4901), new Location(113418, 84535, -6541), new Location(-52940, -250272, -7907), new Location(46499, 170301, -4979), new Location(-20280, -250785, -8163), new Location(140673, 79680, -5437), new Location(-19182, 13503, -4899), new Location(12837, -248483, -9579) };
 
-	public static void onLoad() {
+	public static void onLoad()
+	{
 		new OracleTeleport(-1, "OracleTeleport", "teleports");
 	}
 
-	public OracleTeleport(int questId, String name, String descr) {
+	public OracleTeleport(int questId, String name, String descr)
+	{
 		super(questId, name, descr);
 
-		for (int posters : RIFT_POSTERS) {
+		for (int posters : RIFT_POSTERS)
+		{
 			addStartNpc(posters);
 			addTalkId(posters);
 		}
 
-		for (int teleporters : TELEPORTERS) {
+		for (int teleporters : TELEPORTERS)
+		{
 			addStartNpc(teleporters);
 			addTalkId(teleporters);
 		}
 
-		for (int priests : TEMPLE_PRIEST) {
+		for (int priests : TEMPLE_PRIEST)
+		{
 			addStartNpc(priests);
 			addTalkId(priests);
 		}
 
-		for (int dawn : TOWN_DAWN) {
+		for (int dawn : TOWN_DAWN)
+		{
 			addStartNpc(dawn);
 			addTalkId(dawn);
 		}
 
-		for (int dusk : TOWN_DUSK) {
+		for (int dusk : TOWN_DUSK)
+		{
 			addStartNpc(dusk);
 			addTalkId(dusk);
 		}
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	{
 		String htmltext = "";
 		QuestState st = player.getQuestState(getName());
 
 		int npcId = npc.getNpcId();
-		if (event.equalsIgnoreCase("Return")) {
-			if (Util.contains(TEMPLE_PRIEST, npcId) && st.getState() == State.STARTED) {
+		if (event.equalsIgnoreCase("Return"))
+		{
+			if (Util.contains(TEMPLE_PRIEST, npcId) && st.getState() == State.STARTED)
+			{
 				Location loc = RETURN_LOCS[st.getInt("id")];
 				player.teleToLocation(loc.getX(), loc.getY(), loc.getZ());
 				player.setIsIn7sDungeon(false);
 				st.exitQuest(true);
-			} else if (Util.contains(RIFT_POSTERS, npcId) && st.getState() == State.STARTED) {
+			}
+			else if (Util.contains(RIFT_POSTERS, npcId) && st.getState() == State.STARTED)
+			{
 				Location loc = RETURN_LOCS[st.getInt("id")];
 				player.teleToLocation(loc.getX(), loc.getY(), loc.getZ());
 				htmltext = "rift_back.htm";
 				st.exitQuest(true);
 			}
-		} else if (event.equalsIgnoreCase("Festival")) {
+		}
+		else if (event.equalsIgnoreCase("Festival"))
+		{
 			int id = st.getInt("id");
-			if (Util.contains(TOWN_DAWN, id)) {
+			if (Util.contains(TOWN_DAWN, id))
+			{
 				player.teleToLocation(-80157, 111344, -4901);
 				player.setIsIn7sDungeon(true);
-			} else if (Util.contains(TOWN_DUSK, id)) {
+			}
+			else if (Util.contains(TOWN_DUSK, id))
+			{
 				player.teleToLocation(-81261, 86531, -5157);
 				player.setIsIn7sDungeon(true);
-			} else
+			}
+			else
 				htmltext = "oracle1.htm";
-		} else if (event.equalsIgnoreCase("Dimensional")) {
+		}
+		else if (event.equalsIgnoreCase("Dimensional"))
+		{
 			htmltext = "oracle.htm";
 			player.teleToLocation(-114755, -179466, -6752);
-		} else if (event.equalsIgnoreCase("5.htm")) {
+		}
+		else if (event.equalsIgnoreCase("5.htm"))
+		{
 			int id = st.getInt("id");
 			if (id > -1)
 				htmltext = "5a.htm";
 
 			int i = 0;
-			for (int id1 : TELEPORTERS) {
+			for (int id1 : TELEPORTERS)
+			{
 				if (id1 == npcId)
 					break;
 				i++;
@@ -113,10 +137,14 @@ public class OracleTeleport extends Quest implements ScriptFile {
 			st.set("id", Integer.toString(i));
 			st.setState(State.STARTED);
 			player.teleToLocation(-114755, -179466, -6752);
-		} else if (event.equalsIgnoreCase("6.htm")) {
+		}
+		else if (event.equalsIgnoreCase("6.htm"))
+		{
 			htmltext = "6.htm";
 			st.exitQuest(true);
-		} else if (event.equalsIgnoreCase("zigurratDimensional")) {
+		}
+		else if (event.equalsIgnoreCase("zigurratDimensional"))
+		{
 			int playerLevel = player.getLevel();
 			if (playerLevel >= 20 && playerLevel < 30)
 				st.takeItems(57, 2000);
@@ -132,7 +160,8 @@ public class OracleTeleport extends Quest implements ScriptFile {
 				st.takeItems(57, 24500);
 
 			int i = 0;
-			for (int zigurrat : TELEPORTERS) {
+			for (int zigurrat : TELEPORTERS)
+			{
 				if (zigurrat == npcId)
 					break;
 				i++;
@@ -149,17 +178,20 @@ public class OracleTeleport extends Quest implements ScriptFile {
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player) {
+	public String onTalk(L2Npc npc, L2PcInstance player)
+	{
 		String htmltext = "";
 		QuestState st = player.getQuestState(getName());
 
 		int npcId = npc.getNpcId();
 
-		if (Util.contains(TOWN_DAWN, npcId)) {
+		if (Util.contains(TOWN_DAWN, npcId))
+		{
 			st.setState(State.STARTED);
 
 			int i = 0;
-			for (int dawn : TELEPORTERS) {
+			for (int dawn : TELEPORTERS)
+			{
 				if (dawn == npcId)
 					break;
 				i++;
@@ -171,11 +203,13 @@ public class OracleTeleport extends Quest implements ScriptFile {
 			player.setIsIn7sDungeon(true);
 		}
 
-		if (Util.contains(TOWN_DUSK, npcId)) {
+		if (Util.contains(TOWN_DUSK, npcId))
+		{
 			st.setState(State.STARTED);
 
 			int i = 0;
-			for (int dusk : TELEPORTERS) {
+			for (int dusk : TELEPORTERS)
+			{
 				if (dusk == npcId)
 					break;
 				i++;
@@ -185,49 +219,76 @@ public class OracleTeleport extends Quest implements ScriptFile {
 			st.playSound(QuestState.SOUND_ACCEPT);
 			player.teleToLocation(-81261, 86531, -5157);
 			player.setIsIn7sDungeon(true);
-		} else if (npcId >= 31494 && npcId <= 31507) {
-			if (player.getLevel() < 20) {
+		}
+		else if (npcId >= 31494 && npcId <= 31507)
+		{
+			if (player.getLevel() < 20)
+			{
 				htmltext = "1.htm";
 				st.exitQuest(true);
-			} else if (player.getAllActiveQuests().length > 23) {
+			}
+			else if (player.getAllActiveQuests().length > 23)
+			{
 				htmltext = "1a.htm";
 				st.exitQuest(true);
-			} else if (!st.hasQuestItems(7079))
+			}
+			else if (!st.hasQuestItems(7079))
 				htmltext = "3.htm";
-			else {
+			else
+			{
 				st.setState(State.CREATED);
 				htmltext = "4.htm";
 			}
-		} else if ((npcId >= 31095 && npcId <= 31111) || (npcId >= 31114 && npcId <= 31126)) {
+		}
+		else if ((npcId >= 31095 && npcId <= 31111) || (npcId >= 31114 && npcId <= 31126))
+		{
 			int playerLevel = player.getLevel();
-			if (playerLevel < 20) {
+			if (playerLevel < 20)
+			{
 				htmltext = "ziggurat_lowlevel.htm";
 				st.exitQuest(true);
-			} else if (player.getAllActiveQuests().length > 40) {
+			}
+			else if (player.getAllActiveQuests().length > 40)
+			{
 				player.sendPacket(SystemMessageId.TOO_MANY_QUESTS);
 				st.exitQuest(true);
-			} else if (!st.hasQuestItems(7079)) {
+			}
+			else if (!st.hasQuestItems(7079))
+			{
 				htmltext = "ziggurat_nofrag.htm";
 				st.exitQuest(true);
-			} else if (playerLevel >= 20 && playerLevel < 30 && st.getQuestItemsCount(PcInventory.ADENA_ID) < 2000) {
+			}
+			else if (playerLevel >= 20 && playerLevel < 30 && st.getQuestItemsCount(PcInventory.ADENA_ID) < 2000)
+			{
 				htmltext = "ziggurat_noadena.htm";
 				st.exitQuest(true);
-			} else if (playerLevel >= 30 && playerLevel < 40 && st.getQuestItemsCount(PcInventory.ADENA_ID) < 4500) {
+			}
+			else if (playerLevel >= 30 && playerLevel < 40 && st.getQuestItemsCount(PcInventory.ADENA_ID) < 4500)
+			{
 				htmltext = "ziggurat_noadena.htm";
 				st.exitQuest(true);
-			} else if (playerLevel >= 40 && playerLevel < 50 && st.getQuestItemsCount(PcInventory.ADENA_ID) < 8000) {
+			}
+			else if (playerLevel >= 40 && playerLevel < 50 && st.getQuestItemsCount(PcInventory.ADENA_ID) < 8000)
+			{
 				htmltext = "ziggurat_noadena.htm";
 				st.exitQuest(true);
-			} else if (playerLevel >= 50 && playerLevel < 60 && st.getQuestItemsCount(PcInventory.ADENA_ID) < 12500) {
+			}
+			else if (playerLevel >= 50 && playerLevel < 60 && st.getQuestItemsCount(PcInventory.ADENA_ID) < 12500)
+			{
 				htmltext = "ziggurat_noadena.htm";
 				st.exitQuest(true);
-			} else if (playerLevel >= 60 && playerLevel < 70 && st.getQuestItemsCount(PcInventory.ADENA_ID) < 18000) {
+			}
+			else if (playerLevel >= 60 && playerLevel < 70 && st.getQuestItemsCount(PcInventory.ADENA_ID) < 18000)
+			{
 				htmltext = "ziggurat_noadena.htm";
 				st.exitQuest(true);
-			} else if (playerLevel >= 70 && st.getQuestItemsCount(PcInventory.ADENA_ID) < 24500) {
+			}
+			else if (playerLevel >= 70 && st.getQuestItemsCount(PcInventory.ADENA_ID) < 24500)
+			{
 				htmltext = "ziggurat_noadena.htm";
 				st.exitQuest(true);
-			} else
+			}
+			else
 				htmltext = "ziggurat.htm";
 		}
 

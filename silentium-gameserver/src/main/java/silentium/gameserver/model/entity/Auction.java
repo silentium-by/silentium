@@ -1,13 +1,23 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.model.entity;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Calendar;
+import java.util.Map;
+
 import javolution.util.FastMap;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import silentium.commons.database.DatabaseFactory;
 import silentium.gameserver.ThreadPoolManager;
 import silentium.gameserver.idfactory.IdFactory;
@@ -18,16 +28,6 @@ import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.network.SystemMessageId;
 import silentium.gameserver.network.serverpackets.SystemMessage;
 import silentium.gameserver.tables.ClanTable;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.Calendar;
-import java.util.Map;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class Auction
 {
@@ -117,7 +117,7 @@ public class Auction
 
 	/**
 	 * Constructor
-	 *
+	 * 
 	 * @param auctionId
 	 *            The id linked to that auction
 	 */
@@ -238,7 +238,7 @@ public class Auction
 
 	/**
 	 * Set a bid
-	 *
+	 * 
 	 * @param bidder
 	 *            The bidder.
 	 * @param bid
@@ -267,7 +267,7 @@ public class Auction
 
 	/**
 	 * Return Item in WHC
-	 *
+	 * 
 	 * @param Clan
 	 *            The clan to make warehouse checks on.
 	 * @param quantity
@@ -289,7 +289,7 @@ public class Auction
 
 	/**
 	 * Take Item in WHC
-	 *
+	 * 
 	 * @param bidder
 	 *            The bidder to make checks on.
 	 * @param quantity
@@ -310,7 +310,7 @@ public class Auction
 
 	/**
 	 * Update auction in DB
-	 *
+	 * 
 	 * @param bidder
 	 *            The bidder to make checks on.
 	 * @param bid
@@ -369,7 +369,7 @@ public class Auction
 
 	/**
 	 * Remove bids.
-	 *
+	 * 
 	 * @param newOwner
 	 *            The Clan object who won the bid.
 	 */
@@ -461,7 +461,7 @@ public class Auction
 
 	/**
 	 * Cancel bid
-	 *
+	 * 
 	 * @param bidder
 	 *            The bidder id.
 	 */

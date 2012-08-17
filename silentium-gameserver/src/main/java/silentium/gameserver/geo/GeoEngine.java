@@ -1,15 +1,31 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.geo;
 
 import gnu.trove.map.hash.TShortObjectHashMap;
+
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.LineNumberReader;
+import java.io.RandomAccessFile;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.IntBuffer;
+import java.nio.MappedByteBuffer;
+import java.nio.channels.FileChannel;
+import java.util.StringTokenizer;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import silentium.commons.utils.Point3D;
 import silentium.gameserver.configs.MainConfig;
 import silentium.gameserver.data.xml.DoorData;
@@ -20,14 +36,6 @@ import silentium.gameserver.model.Location;
 import silentium.gameserver.model.actor.instance.L2DoorInstance;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.actor.instance.L2SiegeGuardInstance;
-
-import java.io.*;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.IntBuffer;
-import java.nio.MappedByteBuffer;
-import java.nio.channels.FileChannel;
-import java.util.StringTokenizer;
 
 /**
  * @author -Nemesiss-
@@ -110,8 +118,7 @@ public class GeoEngine extends GeoData
 	}
 
 	/**
-	 * @see silentium.gameserver.geo.GeoData#canSeeTarget(silentium.gameserver.model.L2Object,
-	 *      silentium.gameserver.model.L2Object)
+	 * @see silentium.gameserver.geo.GeoData#canSeeTarget(silentium.gameserver.model.L2Object, silentium.gameserver.model.L2Object)
 	 */
 	@Override
 	public boolean canSeeTarget(L2Object cha, L2Object target)
@@ -200,8 +207,7 @@ public class GeoEngine extends GeoData
 	}
 
 	/**
-	 * @see silentium.gameserver.geo.GeoData#addGeoDataBug(silentium.gameserver.model.actor.instance.L2PcInstance,
-	 *      java.lang.String)
+	 * @see silentium.gameserver.geo.GeoData#addGeoDataBug(silentium.gameserver.model.actor.instance.L2PcInstance, java.lang.String)
 	 */
 	@Override
 	public void addGeoDataBug(L2PcInstance gm, String comment)
@@ -363,9 +369,9 @@ public class GeoEngine extends GeoData
 	}
 
 	/*
-	 * Debug function for checking if there's a line of sight between two coordinates. Creates points for line of sight check
-	 * (x,y,z towards target) and in each point, layer and movement checks are made with NLOS function. Coordinates here are
-	 * geodata x,y but z coordinate is world coordinate
+	 * Debug function for checking if there's a line of sight between two coordinates. Creates points for line of sight check (x,y,z towards
+	 * target) and in each point, layer and movement checks are made with NLOS function. Coordinates here are geodata x,y but z coordinate is
+	 * world coordinate
 	 */
 	private static boolean canSeeDebug(L2PcInstance gm, int x, int y, double z, int tx, int ty, int tz)
 	{

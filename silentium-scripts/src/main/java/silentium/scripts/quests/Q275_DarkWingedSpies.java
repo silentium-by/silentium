@@ -1,9 +1,9 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.scripts.quests;
 
@@ -14,7 +14,8 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q275_DarkWingedSpies extends Quest implements ScriptFile {
+public class Q275_DarkWingedSpies extends Quest implements ScriptFile
+{
 	private final static String qn = "Q275_DarkWingedSpies";
 
 	// NPC
@@ -31,7 +32,8 @@ public class Q275_DarkWingedSpies extends Quest implements ScriptFile {
 	// Reward
 	private static final int ADENA = 57;
 
-	public Q275_DarkWingedSpies(int questId, String name, String descr) {
+	public Q275_DarkWingedSpies(int questId, String name, String descr)
+	{
 		super(questId, name, descr);
 
 		questItemIds = new int[] { DARKWING_BAT_FANG, VARANGKAS_PARASITE };
@@ -42,18 +44,21 @@ public class Q275_DarkWingedSpies extends Quest implements ScriptFile {
 		addKillId(DARKWING_BAT, VARANGKA_TRACKER);
 	}
 
-	public static void onLoad() {
+	public static void onLoad()
+	{
 		new Q275_DarkWingedSpies(275, "Q275_DarkWingedSpies", "Dark Winged Spies");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	{
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30567-03.htm")) {
+		if (event.equalsIgnoreCase("30567-03.htm"))
+		{
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
@@ -63,22 +68,28 @@ public class Q275_DarkWingedSpies extends Quest implements ScriptFile {
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player) {
+	public String onTalk(L2Npc npc, L2PcInstance player)
+	{
 		QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState()) {
+		switch (st.getState())
+		{
 			case QuestState.CREATED:
-				if (player.getRace().ordinal() == 3) {
+				if (player.getRace().ordinal() == 3)
+				{
 					if (player.getLevel() >= 11 && player.getLevel() <= 15)
 						htmltext = "30567-02.htm";
-					else {
+					else
+					{
 						htmltext = "30567-01.htm";
 						st.exitQuest(true);
 					}
-				} else {
+				}
+				else
+				{
 					htmltext = "30567-00.htm";
 					st.exitQuest(true);
 				}
@@ -87,7 +98,8 @@ public class Q275_DarkWingedSpies extends Quest implements ScriptFile {
 			case QuestState.STARTED:
 				if (st.getQuestItemsCount(DARKWING_BAT_FANG) < 70)
 					htmltext = "30567-04.htm";
-				else {
+				else
+				{
 					htmltext = "30567-05.htm";
 					st.takeItems(DARKWING_BAT_FANG, -1);
 					st.takeItems(VARANGKAS_PARASITE, -1);
@@ -102,25 +114,32 @@ public class Q275_DarkWingedSpies extends Quest implements ScriptFile {
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
+	{
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 
-		if (st.isStarted()) {
-			switch (npc.getNpcId()) {
+		if (st.isStarted())
+		{
+			switch (npc.getNpcId())
+			{
 				case DARKWING_BAT:
-					if (st.getQuestItemsCount(DARKWING_BAT_FANG) < 70) {
+					if (st.getQuestItemsCount(DARKWING_BAT_FANG) < 70)
+					{
 						st.giveItems(DARKWING_BAT_FANG, 1);
 
-						if (st.getQuestItemsCount(DARKWING_BAT_FANG) == 70) {
+						if (st.getQuestItemsCount(DARKWING_BAT_FANG) == 70)
+						{
 							st.playSound(QuestState.SOUND_MIDDLE);
 							st.set("cond", "2");
-						} else
+						}
+						else
 							st.playSound(QuestState.SOUND_ITEMGET);
 
 						// Spawn of Varangka Tracker on the npc position.
-						if (st.getQuestItemsCount(DARKWING_BAT_FANG) < 66 && Rnd.get(100) < 10) {
+						if (st.getQuestItemsCount(DARKWING_BAT_FANG) < 66 && Rnd.get(100) < 10)
+						{
 							st.addSpawn(VARANGKA_TRACKER, npc);
 							st.giveItems(VARANGKAS_PARASITE, 1);
 						}
@@ -128,14 +147,17 @@ public class Q275_DarkWingedSpies extends Quest implements ScriptFile {
 					break;
 
 				case VARANGKA_TRACKER:
-					if (st.getQuestItemsCount(DARKWING_BAT_FANG) < 66 && st.getQuestItemsCount(VARANGKAS_PARASITE) == 1) {
+					if (st.getQuestItemsCount(DARKWING_BAT_FANG) < 66 && st.getQuestItemsCount(VARANGKAS_PARASITE) == 1)
+					{
 						st.takeItems(VARANGKAS_PARASITE, -1);
 						st.giveItems(DARKWING_BAT_FANG, 5);
 
-						if (st.getQuestItemsCount(DARKWING_BAT_FANG) == 70) {
+						if (st.getQuestItemsCount(DARKWING_BAT_FANG) == 70)
+						{
 							st.playSound(QuestState.SOUND_MIDDLE);
 							st.set("cond", "2");
-						} else
+						}
+						else
 							st.playSound(QuestState.SOUND_ITEMGET);
 					}
 					break;

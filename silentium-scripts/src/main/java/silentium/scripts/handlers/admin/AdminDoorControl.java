@@ -1,9 +1,9 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.scripts.handlers.admin;
 
@@ -16,10 +16,10 @@ import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.entity.Castle;
 
 /**
- * This class handles following admin commands: - open1 = open coloseum door 24190001 - open2 = open coloseum door 24190002 -
- * open3 = open coloseum door 24190003 - open4 = open coloseum door 24190004 - openall = open all coloseum door - close1 = close
- * coloseum door 24190001 - close2 = close coloseum door 24190002 - close3 = close coloseum door 24190003 - close4 = close
- * coloseum door 24190004 - closeall = close all coloseum door - open = open selected door - close = close selected door
+ * This class handles following admin commands: - open1 = open coloseum door 24190001 - open2 = open coloseum door 24190002 - open3 = open
+ * coloseum door 24190003 - open4 = open coloseum door 24190004 - openall = open all coloseum door - close1 = close coloseum door 24190001 -
+ * close2 = close coloseum door 24190002 - close3 = close coloseum door 24190003 - close4 = close coloseum door 24190004 - closeall = close all
+ * coloseum door - open = open selected door - close = close selected door
  */
 public class AdminDoorControl implements IAdminCommandHandler
 {

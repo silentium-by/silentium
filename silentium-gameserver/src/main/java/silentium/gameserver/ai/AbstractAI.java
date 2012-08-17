@@ -1,9 +1,9 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.ai;
 
@@ -13,8 +13,7 @@ import static silentium.gameserver.ai.CtrlIntention.AI_INTENTION_FOLLOW;
 import static silentium.gameserver.ai.CtrlIntention.AI_INTENTION_IDLE;
 
 import java.util.concurrent.Future;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -155,7 +154,7 @@ abstract class AbstractAI implements Ctrl
 	/**
 	 * Constructor of AbstractAI.<BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param accessor
 	 *            The AI accessor of the L2Character
 	 */
@@ -224,7 +223,7 @@ abstract class AbstractAI implements Ctrl
 	 * <B>AttackableAI</B> : Create an AI Task executed every 1s (if necessary)<BR>
 	 * <B>PlayerAI</B> : Stores the current AI intention parameters to later restore it if necessary<BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param intention
 	 *            The new Intention to set to the AI
 	 * @param arg0
@@ -248,7 +247,7 @@ abstract class AbstractAI implements Ctrl
 	 * <BR>
 	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : Stop the FOLLOW mode if necessary</B></FONT><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param intention
 	 *            The new Intention to set to the AI
 	 */
@@ -263,7 +262,7 @@ abstract class AbstractAI implements Ctrl
 	 * <BR>
 	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : Stop the FOLLOW mode if necessary</B></FONT><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param intention
 	 *            The new Intention to set to the AI
 	 * @param arg0
@@ -280,7 +279,7 @@ abstract class AbstractAI implements Ctrl
 	 * <BR>
 	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : Stop the FOLLOW mode if necessary</B></FONT><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param intention
 	 *            The new Intention to set to the AI
 	 * @param arg0
@@ -340,10 +339,10 @@ abstract class AbstractAI implements Ctrl
 	/**
 	 * Launch the CharacterAI onEvt method corresponding to the Event.<BR>
 	 * <BR>
-	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : The current general intention won't be change (ex : If the character attack and is
-	 * stunned, he will attack again after the stunned periode)</B></FONT><BR>
+	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : The current general intention won't be change (ex : If the character attack and is stunned, he
+	 * will attack again after the stunned periode)</B></FONT><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param evt
 	 *            The event whose the AI must be notified
 	 */
@@ -356,10 +355,10 @@ abstract class AbstractAI implements Ctrl
 	/**
 	 * Launch the CharacterAI onEvt method corresponding to the Event.<BR>
 	 * <BR>
-	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : The current general intention won't be change (ex : If the character attack and is
-	 * stunned, he will attack again after the stunned periode)</B></FONT><BR>
+	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : The current general intention won't be change (ex : If the character attack and is stunned, he
+	 * will attack again after the stunned periode)</B></FONT><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param evt
 	 *            The event whose the AI must be notified
 	 * @param arg0
@@ -374,10 +373,10 @@ abstract class AbstractAI implements Ctrl
 	/**
 	 * Launch the CharacterAI onEvt method corresponding to the Event.<BR>
 	 * <BR>
-	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : The current general intention won't be change (ex : If the character attack and is
-	 * stunned, he will attack again after the stunned periode)</B></FONT><BR>
+	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : The current general intention won't be change (ex : If the character attack and is stunned, he
+	 * will attack again after the stunned periode)</B></FONT><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param evt
 	 *            The event whose the AI must be notified
 	 * @param arg0
@@ -543,7 +542,7 @@ abstract class AbstractAI implements Ctrl
 	 * <BR>
 	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : Low level function, used by AI subclasses</B></FONT><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param pawn
 	 * @param offset
 	 */
@@ -563,12 +562,11 @@ abstract class AbstractAI implements Ctrl
 	}
 
 	/**
-	 * Move the actor to Location (x,y,z) server side AND client side by sending Server->Client packet MoveToLocation
-	 * <I>(broadcast)</I>.<BR>
+	 * Move the actor to Location (x,y,z) server side AND client side by sending Server->Client packet MoveToLocation <I>(broadcast)</I>.<BR>
 	 * <BR>
 	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : Low level function, used by AI subclasses</B></FONT><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param x
 	 * @param y
 	 * @param z
@@ -584,7 +582,7 @@ abstract class AbstractAI implements Ctrl
 	 * <BR>
 	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : Low level function, used by AI subclasses</B></FONT><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param x
 	 * @param y
 	 * @param z
@@ -619,12 +617,11 @@ abstract class AbstractAI implements Ctrl
 	}
 
 	/**
-	 * Stop the actor movement server side AND client side by sending Server->Client packet StopMove/StopRotation
-	 * <I>(broadcast)</I>.<BR>
+	 * Stop the actor movement server side AND client side by sending Server->Client packet StopMove/StopRotation <I>(broadcast)</I>.<BR>
 	 * <BR>
 	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : Low level function, used by AI subclasses</B></FONT><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param pos
 	 */
 	protected void clientStopMoving(L2CharPosition pos)
@@ -743,12 +740,12 @@ abstract class AbstractAI implements Ctrl
 	}
 
 	/**
-	 * Update the state of this actor client side by sending Server->Client packet MoveToPawn/MoveToLocation and AutoAttackStart
-	 * to the L2PcInstance player.<BR>
+	 * Update the state of this actor client side by sending Server->Client packet MoveToPawn/MoveToLocation and AutoAttackStart to the
+	 * L2PcInstance player.<BR>
 	 * <BR>
 	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : Low level function, used by AI subclasses</B></FONT><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param player
 	 *            The L2PcIstance to notify with state of this L2Character
 	 */
@@ -761,7 +758,7 @@ abstract class AbstractAI implements Ctrl
 	/**
 	 * Create and Launch an AI Follow Task to execute every 1s.<BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param target
 	 *            The L2Character to follow
 	 */
@@ -780,7 +777,7 @@ abstract class AbstractAI implements Ctrl
 
 	/**
 	 * Create and Launch an AI Follow Task to execute every 0.5s, following at specified range.
-	 *
+	 * 
 	 * @param target
 	 *            The L2Character to follow
 	 * @param range

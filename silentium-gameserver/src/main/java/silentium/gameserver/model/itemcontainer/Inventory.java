@@ -1,23 +1,11 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.model.itemcontainer;
-
-import javolution.util.FastList;
-import silentium.commons.database.DatabaseFactory;
-import silentium.gameserver.data.xml.ArmorSetsData;
-import silentium.gameserver.model.*;
-import silentium.gameserver.model.L2ItemInstance.ItemLocation;
-import silentium.gameserver.model.actor.instance.L2PcInstance;
-import silentium.gameserver.network.serverpackets.SkillCoolTime;
-import silentium.gameserver.skills.SkillHolder;
-import silentium.gameserver.tables.ItemTable;
-import silentium.gameserver.tables.SkillTable;
-import silentium.gameserver.templates.item.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -25,9 +13,29 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import javolution.util.FastList;
+import silentium.commons.database.DatabaseFactory;
+import silentium.gameserver.data.xml.ArmorSetsData;
+import silentium.gameserver.model.L2ArmorSet;
+import silentium.gameserver.model.L2ItemInstance;
+import silentium.gameserver.model.L2ItemInstance.ItemLocation;
+import silentium.gameserver.model.L2Object;
+import silentium.gameserver.model.L2Skill;
+import silentium.gameserver.model.L2World;
+import silentium.gameserver.model.actor.instance.L2PcInstance;
+import silentium.gameserver.network.serverpackets.SkillCoolTime;
+import silentium.gameserver.skills.SkillHolder;
+import silentium.gameserver.tables.ItemTable;
+import silentium.gameserver.tables.SkillTable;
+import silentium.gameserver.templates.item.L2ArmorType;
+import silentium.gameserver.templates.item.L2EtcItemType;
+import silentium.gameserver.templates.item.L2Item;
+import silentium.gameserver.templates.item.L2Weapon;
+import silentium.gameserver.templates.item.L2WeaponType;
+
 /**
  * This class manages inventory
- *
+ * 
  * @author Advi
  */
 public abstract class Inventory extends ItemContainer
@@ -78,7 +86,7 @@ public abstract class Inventory extends ItemContainer
 
 		/**
 		 * Constructor of the ChangeRecorder
-		 *
+		 * 
 		 * @param inventory
 		 */
 		ChangeRecorder(Inventory inventory)
@@ -110,7 +118,7 @@ public abstract class Inventory extends ItemContainer
 
 		/**
 		 * Returns alterations in inventory
-		 *
+		 * 
 		 * @return L2ItemInstance[] : array of alterated items
 		 */
 		public L2ItemInstance[] getChangedItems()
@@ -516,7 +524,7 @@ public abstract class Inventory extends ItemContainer
 
 	/**
 	 * Returns the instance of new ChangeRecorder
-	 *
+	 * 
 	 * @return ChangeRecorder
 	 */
 	public ChangeRecorder newRecorder()
@@ -526,7 +534,7 @@ public abstract class Inventory extends ItemContainer
 
 	/**
 	 * Drop item from inventory and updates database
-	 *
+	 * 
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param item
@@ -560,7 +568,7 @@ public abstract class Inventory extends ItemContainer
 
 	/**
 	 * Drop item from inventory by using its <B>objectID</B> and updates database
-	 *
+	 * 
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param objectId
@@ -604,7 +612,7 @@ public abstract class Inventory extends ItemContainer
 	/**
 	 * Adds item to inventory for further adjustments and Equip it if necessary (itemlocation defined)<BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param item
 	 *            : L2ItemInstance to be added from inventory
 	 */
@@ -618,7 +626,7 @@ public abstract class Inventory extends ItemContainer
 
 	/**
 	 * Removes item from inventory for further adjustments.
-	 *
+	 * 
 	 * @param item
 	 *            : L2ItemInstance to be removed from inventory
 	 */
@@ -704,7 +712,7 @@ public abstract class Inventory extends ItemContainer
 
 	/**
 	 * Returns the ID of the item in the paperdol slot
-	 *
+	 * 
 	 * @param slot
 	 *            : int designating the slot
 	 * @return int designating the ID of the item
@@ -731,7 +739,7 @@ public abstract class Inventory extends ItemContainer
 
 	/**
 	 * Returns the objectID associated to the item in the paperdoll slot
-	 *
+	 * 
 	 * @param slot
 	 *            : int pointing out the slot
 	 * @return int designating the objectID
@@ -747,7 +755,7 @@ public abstract class Inventory extends ItemContainer
 
 	/**
 	 * Adds new inventory's paperdoll listener
-	 *
+	 * 
 	 * @param listener
 	 *            PaperdollListener pointing out the listener
 	 */
@@ -759,7 +767,7 @@ public abstract class Inventory extends ItemContainer
 
 	/**
 	 * Removes a paperdoll listener
-	 *
+	 * 
 	 * @param listener
 	 *            PaperdollListener pointing out the listener to be deleted
 	 */
@@ -769,9 +777,8 @@ public abstract class Inventory extends ItemContainer
 	}
 
 	/**
-	 * Equips an item in the given slot of the paperdoll. <U><I>Remark :</I></U> The item <B>HAS TO BE</B> already in the
-	 * inventory
-	 *
+	 * Equips an item in the given slot of the paperdoll. <U><I>Remark :</I></U> The item <B>HAS TO BE</B> already in the inventory
+	 * 
 	 * @param slot
 	 *            : int pointing out the slot of the paperdoll
 	 * @param item
@@ -830,7 +837,7 @@ public abstract class Inventory extends ItemContainer
 
 	/**
 	 * Return the mask of weared item
-	 *
+	 * 
 	 * @return int
 	 */
 	public int getWearedMask()
@@ -900,7 +907,7 @@ public abstract class Inventory extends ItemContainer
 
 	/**
 	 * Unequips item in body slot and returns alterations.
-	 *
+	 * 
 	 * @param slot
 	 *            : int designating the slot of the paperdoll
 	 * @return L2ItemInstance[] : list of changes
@@ -922,7 +929,7 @@ public abstract class Inventory extends ItemContainer
 
 	/**
 	 * Sets item in slot of the paperdoll to null value
-	 *
+	 * 
 	 * @param pdollSlot
 	 *            : int designating the slot
 	 * @return L2ItemInstance designating the item in slot before change
@@ -934,7 +941,7 @@ public abstract class Inventory extends ItemContainer
 
 	/**
 	 * Unepquips item in slot and returns alterations
-	 *
+	 * 
 	 * @param slot
 	 *            : int designating the slot
 	 * @return L2ItemInstance[] : list of items altered
@@ -958,7 +965,7 @@ public abstract class Inventory extends ItemContainer
 
 	/**
 	 * Unequips item in slot (i.e. equips with default value)
-	 *
+	 * 
 	 * @param slot
 	 *            : int designating the slot
 	 * @return the instance of the item.
@@ -1045,7 +1052,7 @@ public abstract class Inventory extends ItemContainer
 	/**
 	 * Equips item and returns list of alterations<BR>
 	 * <B>If you dont need return value use {@link Inventory#equipItem(L2ItemInstance)} instead</B>
-	 *
+	 * 
 	 * @param item
 	 *            : L2ItemInstance corresponding to the item
 	 * @return L2ItemInstance[] : list of alterations
@@ -1067,7 +1074,7 @@ public abstract class Inventory extends ItemContainer
 
 	/**
 	 * Equips item in slot of paperdoll.
-	 *
+	 * 
 	 * @param item
 	 *            : L2ItemInstance designating the item and slot used.
 	 */
@@ -1219,7 +1226,7 @@ public abstract class Inventory extends ItemContainer
 
 	/**
 	 * Equips pet item in slot of paperdoll. Concerning pets, armors go to chest location, and weapon to R-hand.
-	 *
+	 * 
 	 * @param item
 	 *            : L2ItemInstance designating the item and slot used.
 	 */
@@ -1262,7 +1269,7 @@ public abstract class Inventory extends ItemContainer
 
 	/**
 	 * Returns the totalWeight.
-	 *
+	 * 
 	 * @return int
 	 */
 	public int getTotalWeight()
@@ -1273,7 +1280,7 @@ public abstract class Inventory extends ItemContainer
 	/**
 	 * Return the L2ItemInstance of the arrows needed for this bow.<BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param bow
 	 *            : L2Item designating the bow
 	 * @return L2ItemInstance pointing out arrows for bow

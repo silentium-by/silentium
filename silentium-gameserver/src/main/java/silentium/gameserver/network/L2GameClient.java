@@ -1,14 +1,26 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.network;
 
+import java.net.InetAddress;
+import java.nio.ByteBuffer;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.Future;
+import java.util.concurrent.RejectedExecutionException;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.locks.ReentrantLock;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import silentium.commons.database.DatabaseFactory;
 import silentium.commons.network.mmocore.MMOClient;
 import silentium.commons.network.mmocore.MMOConnection;
@@ -28,20 +40,9 @@ import silentium.gameserver.tables.CharNameTable;
 import silentium.gameserver.tables.ClanTable;
 import silentium.gameserver.utils.FloodProtectors;
 
-import java.net.InetAddress;
-import java.nio.ByteBuffer;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.Future;
-import java.util.concurrent.RejectedExecutionException;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.locks.ReentrantLock;
-
 /**
  * Represents a client connected on Game Server
- *
+ * 
  * @author KenM
  */
 public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>> implements Runnable
@@ -207,12 +208,11 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>> i
 
 	/**
 	 * Method to handle character deletion
-	 *
+	 * 
 	 * @param charslot
 	 *            The slot to check.
-	 * @return a byte: <li>-1: Error: No char was found for such charslot, caught exception, etc... <li>0: character is not member
-	 *         of any clan, proceed with deletion <li>1: character is member of a clan, but not clan leader <li>2: character is
-	 *         clan leader
+	 * @return a byte: <li>-1: Error: No char was found for such charslot, caught exception, etc... <li>0: character is not member of any clan,
+	 *         proceed with deletion <li>1: character is member of a clan, but not clan leader <li>2: character is clan leader
 	 */
 	public byte markToDeleteChar(int charslot)
 	{
@@ -593,8 +593,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>> i
 				if (getActiveChar() != null) // this should only happen on connection loss
 				{
 					if (getActiveChar().isLocked())
-						_log.debug(getActiveChar().getName() + " is still performing subclass actions " +
-								"during disconnect.");
+						_log.debug(getActiveChar().getName() + " is still performing subclass actions " + "during disconnect.");
 
 					// prevent closing again
 					getActiveChar().setClient(null);
@@ -638,8 +637,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>> i
 	}
 
 	/**
-	 * @return false if client can receive packets. True if detached, or flood detected, or queue overflow detected and queue
-	 *         still not empty.
+	 * @return false if client can receive packets. True if detached, or flood detected, or queue overflow detected and queue still not empty.
 	 */
 	public boolean dropPacket()
 	{
@@ -696,7 +694,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>> i
 
 	/**
 	 * Add packet to the queue and start worker thread if needed
-	 *
+	 * 
 	 * @param packet
 	 *            The packet to execute.
 	 */

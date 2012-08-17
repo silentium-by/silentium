@@ -1,9 +1,9 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.scripts.quests;
 
@@ -13,7 +13,8 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q615_MagicalPowerOfFire_Part1 extends Quest implements ScriptFile {
+public class Q615_MagicalPowerOfFire_Part1 extends Quest implements ScriptFile
+{
 	private final static String qn = "Q615_MagicalPowerOfFire_Part1";
 
 	// NPCs
@@ -28,7 +29,8 @@ public class Q615_MagicalPowerOfFire_Part1 extends Quest implements ScriptFile {
 	private static final int RED_TOTEM = 7243;
 	private static final int DIVINE_STONE = 7081;
 
-	public Q615_MagicalPowerOfFire_Part1(int questId, String name, String descr) {
+	public Q615_MagicalPowerOfFire_Part1(int questId, String name, String descr)
+	{
 		super(questId, name, descr);
 
 		questItemIds = new int[] { STOLEN_RED_TOTEM };
@@ -40,36 +42,44 @@ public class Q615_MagicalPowerOfFire_Part1 extends Quest implements ScriptFile {
 		addAggroRangeEnterId(21350, 21351, 21353, 21354, 21355, 21357, 21358, 21360, 21361, 21362, 21369, 21370, 21364, 21365, 21366, 21368, 21371, 21372, 21373, 21374, 21375);
 	}
 
-	public static void onLoad() {
+	public static void onLoad()
+	{
 		new Q615_MagicalPowerOfFire_Part1(615, "Q615_MagicalPowerOfFire_Part1", "Magical Power of Fire - Part 1");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	{
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("31378-03.htm")) {
+		if (event.equalsIgnoreCase("31378-03.htm"))
+		{
 			st.set("cond", "1");
 			st.set("spawned", "0");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		} else if (event.equalsIgnoreCase("31559-03.htm")) {
+		}
+		else if (event.equalsIgnoreCase("31559-03.htm"))
+		{
 			// You have been discovered ; quest is failed.
 			if (st.getInt("spawned") == 1)
 				htmltext = "31559-04.htm";
-				// No Thief's Key in inventory.
+			// No Thief's Key in inventory.
 			else if (st.getQuestItemsCount(KEY) == 0)
 				htmltext = "31559-02.htm";
-			else {
+			else
+			{
 				st.set("cond", "3");
 				st.takeItems(KEY, 1);
 				st.giveItems(STOLEN_RED_TOTEM, 1);
 				st.playSound(QuestState.SOUND_ITEMGET);
 			}
-		} else if (event.equalsIgnoreCase("UdanEyeDespawn")) {
+		}
+		else if (event.equalsIgnoreCase("UdanEyeDespawn"))
+		{
 			npc.broadcastNpcSay("I'll be waiting for your return.");
 			return null;
 		}
@@ -78,17 +88,20 @@ public class Q615_MagicalPowerOfFire_Part1 extends Quest implements ScriptFile {
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player) {
+	public String onTalk(L2Npc npc, L2PcInstance player)
+	{
 		QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState()) {
+		switch (st.getState())
+		{
 			case QuestState.CREATED:
 				if (player.getLevel() >= 74 && player.getAllianceWithVarkaKetra() <= -2)
 					htmltext = "31378-01.htm";
-				else {
+				else
+				{
 					htmltext = "31378-02.htm";
 					st.exitQuest(true);
 				}
@@ -96,25 +109,32 @@ public class Q615_MagicalPowerOfFire_Part1 extends Quest implements ScriptFile {
 
 			case QuestState.STARTED:
 				int cond = st.getInt("cond");
-				switch (npc.getNpcId()) {
+				switch (npc.getNpcId())
+				{
 					case NARAN:
 						htmltext = "31378-04.htm";
 						break;
 
 					case UDAN:
-						if (cond == 1) {
+						if (cond == 1)
+						{
 							htmltext = "31379-01.htm";
 							st.set("cond", "2");
 							st.playSound(QuestState.SOUND_MIDDLE);
-						} else if (cond == 2) {
+						}
+						else if (cond == 2)
+						{
 							if (st.getInt("spawned") == 0)
 								htmltext = "31379-02.htm";
-							else {
+							else
+							{
 								htmltext = "31379-03.htm";
 								st.set("spawned", "0");
 								st.playSound(QuestState.SOUND_MIDDLE);
 							}
-						} else if (cond == 3 && st.getQuestItemsCount(STOLEN_RED_TOTEM) >= 1) {
+						}
+						else if (cond == 3 && st.getQuestItemsCount(STOLEN_RED_TOTEM) >= 1)
+						{
 							htmltext = "31379-04.htm";
 
 							st.takeItems(STOLEN_RED_TOTEM, 1);
@@ -141,18 +161,21 @@ public class Q615_MagicalPowerOfFire_Part1 extends Quest implements ScriptFile {
 	}
 
 	@Override
-	public String onAggroRangeEnter(L2Npc npc, L2PcInstance player, boolean isPet) {
+	public String onAggroRangeEnter(L2Npc npc, L2PcInstance player, boolean isPet)
+	{
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 
-		if (st.getInt("spawned") == 0 && st.getInt("cond") == 2) {
+		if (st.getInt("spawned") == 0 && st.getInt("cond") == 2)
+		{
 			// Put "spawned" flag to 1 to avoid to spawn another.
 			st.set("spawned", "1");
 
 			// Spawn Udan's eye.
 			L2Npc udanEye = st.addSpawn(EYE, player, 10000);
-			if (udanEye != null) {
+			if (udanEye != null)
+			{
 				st.startQuestTimer("UdanEyeDespawn", 9000, udanEye);
 				udanEye.broadcastNpcSay("You cannot escape Udan's Eye!");
 				st.playSound(QuestState.SOUND_GIVEUP);

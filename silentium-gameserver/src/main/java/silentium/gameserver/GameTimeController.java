@@ -1,23 +1,23 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver;
 
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import javolution.util.FastMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javolution.util.FastMap;
-import silentium.gameserver.configs.NPCConfig;
 import silentium.gameserver.ai.CtrlEvent;
+import silentium.gameserver.configs.NPCConfig;
 import silentium.gameserver.instancemanager.DayNightSpawnManager;
 import silentium.gameserver.model.L2Skill;
 import silentium.gameserver.model.L2World;
@@ -86,7 +86,7 @@ public class GameTimeController
 	 * <BR>
 	 * All L2Character in movement are identified in <B>movingObjects</B> of GameTimeController.<BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param cha
 	 *            The L2Character to add to movingObjects of GameTimeController
 	 */
@@ -107,9 +107,9 @@ public class GameTimeController
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
-	 * <li>Update the position of each L2Character</li> <li>If movement is finished, the L2Character is removed from movingObjects
-	 * </li> <li>Create a task to update the _knownObject and _knowPlayers of each L2Character that finished its movement and of
-	 * their already known L2Object then notify AI with EVT_ARRIVED</li>
+	 * <li>Update the position of each L2Character</li> <li>If movement is finished, the L2Character is removed from movingObjects</li> <li>
+	 * Create a task to update the _knownObject and _knowPlayers of each L2Character that finished its movement and of their already known
+	 * L2Object then notify AI with EVT_ARRIVED</li>
 	 */
 	protected void moveObjects()
 	{
@@ -186,8 +186,8 @@ public class GameTimeController
 	}
 
 	/**
-	 * Update the _knownObject and _knowPlayers of each L2Character that finished its movement and of their already known L2Object
-	 * then notify AI with EVT_ARRIVED.<BR>
+	 * Update the _knownObject and _knowPlayers of each L2Character that finished its movement and of their already known L2Object then notify AI
+	 * with EVT_ARRIVED.<BR>
 	 * <BR>
 	 */
 	private static class MovingObjectArrived implements Runnable

@@ -1,16 +1,24 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.model.entity;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.List;
+import java.util.Map;
+
 import javolution.util.FastList;
 import javolution.util.FastMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import silentium.commons.database.DatabaseFactory;
 import silentium.gameserver.ThreadPoolManager;
 import silentium.gameserver.data.xml.DoorData;
@@ -24,12 +32,6 @@ import silentium.gameserver.network.SystemMessageId;
 import silentium.gameserver.network.serverpackets.PledgeShowInfoUpdate;
 import silentium.gameserver.network.serverpackets.SystemMessage;
 import silentium.gameserver.tables.ClanTable;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.List;
-import java.util.Map;
 
 public class ClanHall
 {
@@ -160,8 +162,7 @@ public class ClanHall
 						if (_cwh)
 						{
 							ClanTable.getInstance().getClan(getOwnerId()).getWarehouse().destroyItemByItemId("CH_function_fee", 57, fee, null, null);
-							_log.debug("deducted " + fee + " adena from " + getName() + " owner's cwh for function id" +
-										" : " + getType());
+							_log.debug("deducted " + fee + " adena from " + getName() + " owner's cwh for function id" + " : " + getType());
 						}
 						ThreadPoolManager.getInstance().scheduleGeneral(new FunctionTask(true), getRate());
 					}
@@ -191,8 +192,7 @@ public class ClanHall
 			}
 			catch (Exception e)
 			{
-				_log.warn("Exception: ClanHall.updateFunctions(int type, int lvl, int lease, long rate, " +
-						"long time, boolean addNew): " + e.getLocalizedMessage(), e);
+				_log.warn("Exception: ClanHall.updateFunctions(int type, int lvl, int lease, long rate, " + "long time, boolean addNew): " + e.getLocalizedMessage(), e);
 			}
 		}
 	}
@@ -333,7 +333,7 @@ public class ClanHall
 
 	/**
 	 * Sets this clan halls zone
-	 *
+	 * 
 	 * @param zone
 	 */
 	public void setZone(L2ClanHallZone zone)
@@ -366,7 +366,7 @@ public class ClanHall
 
 	/**
 	 * Set owner if clan hall is free
-	 *
+	 * 
 	 * @param clan
 	 *            The new clan owner.
 	 */
@@ -394,7 +394,7 @@ public class ClanHall
 
 	/**
 	 * Respawn all doors
-	 *
+	 * 
 	 * @param isDoorWeak
 	 *            if true, respawn a door with 50% HPs only.
 	 */
@@ -422,7 +422,7 @@ public class ClanHall
 
 	/**
 	 * Open or close a door.
-	 *
+	 * 
 	 * @param activeChar
 	 *            The player who request to open/close the door.
 	 * @param doorId
@@ -500,7 +500,7 @@ public class ClanHall
 
 	/**
 	 * Remove function In List and in DB
-	 *
+	 * 
 	 * @param functionType
 	 *            the function id to remove.
 	 */
@@ -523,7 +523,7 @@ public class ClanHall
 
 	/**
 	 * Update Function of a clanHall.
-	 *
+	 * 
 	 * @param player
 	 *            The player who requested the change.
 	 * @param type
@@ -538,8 +538,7 @@ public class ClanHall
 		if (player == null)
 			return false;
 
-		_log.debug("Called ClanHall.updateFunctions(int type, int lvl, int lease, long rate, " +
-					"boolean addNew) Owner : " + getOwnerId());
+		_log.debug("Called ClanHall.updateFunctions(int type, int lvl, int lease, long rate, " + "boolean addNew) Owner : " + getOwnerId());
 
 		if (lease > 0)
 		{
@@ -596,7 +595,7 @@ public class ClanHall
 
 	/**
 	 * Initialize Fee Task
-	 *
+	 * 
 	 * @param forced
 	 */
 	private void initialyzeTask(boolean forced)
@@ -651,8 +650,7 @@ public class ClanHall
 
 					ClanTable.getInstance().getClan(getOwnerId()).getWarehouse().destroyItemByItemId("CH_rental_fee", 57, getLease(), null, null);
 
-					_log.debug("deducted " + getLease() + " adena from " + getName() + " owner's cwh for ClanHall " +
-								"_paidUntil" + _paidUntil);
+					_log.debug("deducted " + getLease() + " adena from " + getName() + " owner's cwh for ClanHall " + "_paidUntil" + _paidUntil);
 
 					ThreadPoolManager.getInstance().scheduleGeneral(new FeeTask(), _paidUntil - _time);
 					_paid = true;

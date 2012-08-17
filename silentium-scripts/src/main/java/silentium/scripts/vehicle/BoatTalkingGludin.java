@@ -1,14 +1,15 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.scripts.vehicle;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import silentium.gameserver.ThreadPoolManager;
 import silentium.gameserver.instancemanager.BoatManager;
 import silentium.gameserver.model.VehiclePathPoint;
@@ -22,7 +23,8 @@ import silentium.gameserver.scripting.ScriptFile;
 /**
  * @author DS
  */
-public class BoatTalkingGludin implements Runnable, ScriptFile {
+public class BoatTalkingGludin implements Runnable, ScriptFile
+{
 	private static final Logger _log = LoggerFactory.getLogger(BoatTalkingGludin.class.getName());
 
 	// Time: 919s
@@ -65,7 +67,8 @@ public class BoatTalkingGludin implements Runnable, ScriptFile {
 	private final PlaySound TALKING_SOUND;
 	private final PlaySound GLUDIN_SOUND;
 
-	public BoatTalkingGludin(L2BoatInstance boat) {
+	public BoatTalkingGludin(L2BoatInstance boat)
+	{
 		_boat = boat;
 		_cycle = 0;
 
@@ -97,9 +100,12 @@ public class BoatTalkingGludin implements Runnable, ScriptFile {
 	}
 
 	@Override
-	public void run() {
-		try {
-			switch (_cycle) {
+	public void run()
+	{
+		try
+		{
+			switch (_cycle)
+			{
 				case 0:
 					BoatManager.getInstance().broadcastPacket(TALKING_DOCK[0], GLUDIN_DOCK[0], LEAVE_TALKING5);
 					ThreadPoolManager.getInstance().scheduleGeneral(this, 240000);
@@ -132,7 +138,8 @@ public class BoatTalkingGludin implements Runnable, ScriptFile {
 					BoatManager.getInstance().broadcastPacket(GLUDIN_DOCK[0], TALKING_DOCK[0], ARRIVAL_GLUDIN1);
 					break;
 				case 7:
-					if (BoatManager.getInstance().dockBusy(BoatManager.GLUDIN_HARBOR)) {
+					if (BoatManager.getInstance().dockBusy(BoatManager.GLUDIN_HARBOR))
+					{
 						if (_shoutCount == 0)
 							BoatManager.getInstance().broadcastPacket(GLUDIN_DOCK[0], TALKING_DOCK[0], BUSY_GLUDIN);
 
@@ -183,7 +190,8 @@ public class BoatTalkingGludin implements Runnable, ScriptFile {
 					BoatManager.getInstance().broadcastPacket(TALKING_DOCK[0], GLUDIN_DOCK[0], ARRIVAL_TALKING1);
 					break;
 				case 16:
-					if (BoatManager.getInstance().dockBusy(BoatManager.TALKING_ISLAND)) {
+					if (BoatManager.getInstance().dockBusy(BoatManager.TALKING_ISLAND))
+					{
 						if (_shoutCount == 0)
 							BoatManager.getInstance().broadcastPacket(TALKING_DOCK[0], GLUDIN_DOCK[0], BUSY_TALKING);
 
@@ -207,14 +215,18 @@ public class BoatTalkingGludin implements Runnable, ScriptFile {
 			_cycle++;
 			if (_cycle > 17)
 				_cycle = 0;
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			_log.warn(e.getLocalizedMessage(), e);
 		}
 	}
 
-	public static void onLoad() {
+	public static void onLoad()
+	{
 		final L2BoatInstance boat = BoatManager.getInstance().getNewBoat(1, -96622, 261660, -3610, 32768);
-		if (boat != null) {
+		if (boat != null)
+		{
 			boat.registerEngine(new BoatTalkingGludin(boat));
 			boat.runEngine(180000);
 			BoatManager.getInstance().dockShip(BoatManager.TALKING_ISLAND, true);

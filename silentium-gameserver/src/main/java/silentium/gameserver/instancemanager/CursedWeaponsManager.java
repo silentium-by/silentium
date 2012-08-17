@@ -1,24 +1,11 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.instancemanager;
-
-import javolution.util.FastMap;
-import org.w3c.dom.Document;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import silentium.commons.database.DatabaseFactory;
-import silentium.gameserver.configs.MainConfig;
-import silentium.gameserver.data.xml.parsers.XMLDocumentFactory;
-import silentium.gameserver.model.CursedWeapon;
-import silentium.gameserver.model.L2ItemInstance;
-import silentium.gameserver.model.actor.L2Attackable;
-import silentium.gameserver.model.actor.L2Character;
-import silentium.gameserver.model.actor.instance.*;
 
 import java.io.File;
 import java.sql.Connection;
@@ -28,10 +15,28 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
+
+import javolution.util.FastMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+
+import silentium.commons.database.DatabaseFactory;
+import silentium.gameserver.configs.MainConfig;
+import silentium.gameserver.data.xml.parsers.XMLDocumentFactory;
+import silentium.gameserver.model.CursedWeapon;
+import silentium.gameserver.model.L2ItemInstance;
+import silentium.gameserver.model.actor.L2Attackable;
+import silentium.gameserver.model.actor.L2Character;
+import silentium.gameserver.model.actor.instance.L2FeedableBeastInstance;
+import silentium.gameserver.model.actor.instance.L2FestivalMonsterInstance;
+import silentium.gameserver.model.actor.instance.L2GrandBossInstance;
+import silentium.gameserver.model.actor.instance.L2PcInstance;
+import silentium.gameserver.model.actor.instance.L2RiftInvaderInstance;
+import silentium.gameserver.model.actor.instance.L2SiegeGuardInstance;
 
 /**
  * @author Micht

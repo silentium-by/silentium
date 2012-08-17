@@ -1,14 +1,15 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.model.actor.knownlist;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import silentium.gameserver.ai.CtrlIntention;
 import silentium.gameserver.configs.NPCConfig;
 import silentium.gameserver.model.L2Object;
@@ -36,8 +37,7 @@ public class GuardKnownList extends AttackableKnownList
 			// Check if the object added is a L2PcInstance that owns Karma
 			if (((L2PcInstance) object).getKarma() > 0)
 			{
-				_log.debug(getActiveChar().getObjectId() + ": PK " + object.getObjectId() + " entered on guard range" +
-							".");
+				_log.debug(getActiveChar().getObjectId() + ": PK " + object.getObjectId() + " entered on guard range" + ".");
 
 				// Set the L2GuardInstance Intention to AI_INTENTION_ACTIVE
 				if (getActiveChar().getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE)
@@ -49,8 +49,7 @@ public class GuardKnownList extends AttackableKnownList
 			// Check if the object added is an aggressive L2MonsterInstance
 			if (((L2MonsterInstance) object).isAggressive())
 			{
-				_log.debug(getActiveChar().getObjectId() + ": Aggressive mob " + object.getObjectId() + " entered on " +
-							"guard range.");
+				_log.debug(getActiveChar().getObjectId() + ": Aggressive mob " + object.getObjectId() + " entered on " + "guard range.");
 
 				// Set the L2GuardInstance Intention to AI_INTENTION_ACTIVE
 				if (getActiveChar().getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE)

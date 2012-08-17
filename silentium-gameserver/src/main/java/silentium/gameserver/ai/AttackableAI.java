@@ -1,9 +1,9 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.ai;
 
@@ -16,11 +16,11 @@ import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.Future;
 
-import silentium.gameserver.configs.MainConfig;
-import silentium.gameserver.configs.NPCConfig;
 import silentium.commons.utils.Rnd;
 import silentium.gameserver.GameTimeController;
 import silentium.gameserver.ThreadPoolManager;
+import silentium.gameserver.configs.MainConfig;
+import silentium.gameserver.configs.NPCConfig;
 import silentium.gameserver.geo.GeoData;
 import silentium.gameserver.instancemanager.DimensionalRiftManager;
 import silentium.gameserver.model.L2CharPosition;
@@ -78,7 +78,7 @@ public class AttackableAI extends CharacterAI implements Runnable
 
 	/**
 	 * Constructor of AttackableAI.
-	 *
+	 * 
 	 * @param accessor
 	 *            The AI accessor of the L2Character
 	 */
@@ -103,29 +103,28 @@ public class AttackableAI extends CharacterAI implements Runnable
 	/**
 	 * <B><U> Actor is a L2GuardInstance</U> :</B><BR>
 	 * <BR>
-	 * <li>The target isn't a Folk or a Door</li> <li>The target isn't dead, isn't invulnerable, isn't in silent moving mode AND
-	 * too far (>100)</li> <li>The target is in the actor Aggro range and is at the same height</li> <li>The L2PcInstance target
-	 * has karma (=PK)</li> <li>The L2MonsterInstance target is aggressive</li><BR>
+	 * <li>The target isn't a Folk or a Door</li> <li>The target isn't dead, isn't invulnerable, isn't in silent moving mode AND too far (>100)</li>
+	 * <li>The target is in the actor Aggro range and is at the same height</li> <li>The L2PcInstance target has karma (=PK)</li> <li>The
+	 * L2MonsterInstance target is aggressive</li><BR>
 	 * <BR>
 	 * <B><U> Actor is a L2SiegeGuardInstance</U> :</B><BR>
 	 * <BR>
-	 * <li>The target isn't a Folk or a Door</li> <li>The target isn't dead, isn't invulnerable, isn't in silent moving mode AND
-	 * too far (>100)</li> <li>The target is in the actor Aggro range and is at the same height</li> <li>A siege is in progress</li>
-	 * <li>The L2PcInstance target isn't a Defender</li> <BR>
+	 * <li>The target isn't a Folk or a Door</li> <li>The target isn't dead, isn't invulnerable, isn't in silent moving mode AND too far (>100)</li>
+	 * <li>The target is in the actor Aggro range and is at the same height</li> <li>A siege is in progress</li> <li>The L2PcInstance target
+	 * isn't a Defender</li> <BR>
 	 * <BR>
 	 * <B><U> Actor is a L2FriendlyMobInstance</U> :</B><BR>
 	 * <BR>
-	 * <li>The target isn't a Folk, a Door or another L2Npc</li> <li>The target isn't dead, isn't invulnerable, isn't in silent
-	 * moving mode AND too far (>100)</li> <li>The target is in the actor Aggro range and is at the same height</li> <li>The
-	 * L2PcInstance target has karma (=PK)</li><BR>
+	 * <li>The target isn't a Folk, a Door or another L2Npc</li> <li>The target isn't dead, isn't invulnerable, isn't in silent moving mode AND
+	 * too far (>100)</li> <li>The target is in the actor Aggro range and is at the same height</li> <li>The L2PcInstance target has karma (=PK)</li>
+	 * <BR>
 	 * <BR>
 	 * <B><U> Actor is a L2MonsterInstance</U> :</B><BR>
 	 * <BR>
-	 * <li>The target isn't a Folk, a Door or another L2Npc</li> <li>The target isn't dead, isn't invulnerable, isn't in silent
-	 * moving mode AND too far (>100)</li> <li>The target is in the actor Aggro range and is at the same height</li> <li>The actor
-	 * is Aggressive</li><BR>
+	 * <li>The target isn't a Folk, a Door or another L2Npc</li> <li>The target isn't dead, isn't invulnerable, isn't in silent moving mode AND
+	 * too far (>100)</li> <li>The target is in the actor Aggro range and is at the same height</li> <li>The actor is Aggressive</li><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param target
 	 *            The targeted L2Object
 	 * @return True if the target is autoattackable (depends on the actor type).
@@ -277,13 +276,12 @@ public class AttackableAI extends CharacterAI implements Runnable
 	}
 
 	/**
-	 * Set the Intention of this CharacterAI and create an AI Task executed every 1s (call onEvtThink method) for this
-	 * L2Attackable.<BR>
+	 * Set the Intention of this CharacterAI and create an AI Task executed every 1s (call onEvtThink method) for this L2Attackable.<BR>
 	 * <BR>
 	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : If actor _knowPlayer isn't EMPTY, AI_INTENTION_IDLE will be change in
 	 * AI_INTENTION_ACTIVE</B></FONT><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param intention
 	 *            The new Intention to set to the AI
 	 * @param arg0
@@ -341,10 +339,9 @@ public class AttackableAI extends CharacterAI implements Runnable
 	}
 
 	/**
-	 * Manage the Attack Intention : Stop current Attack (if necessary), Calculate attack timeout, Start a new Attack and Launch
-	 * Think Event.<BR>
+	 * Manage the Attack Intention : Stop current Attack (if necessary), Calculate attack timeout, Start a new Attack and Launch Think Event.<BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param target
 	 *            The L2Character to attack
 	 */
@@ -390,10 +387,10 @@ public class AttackableAI extends CharacterAI implements Runnable
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
-	 * <li>Update every 1s the _globalAggro counter to come close to 0</li> <li>If the actor is Aggressive and can attack, add all
-	 * autoAttackable L2Character in its Aggro Range to its _aggroList, chose a target and order to attack it</li> <li>If the
-	 * actor is a L2GuardInstance that can't attack, order to it to return to its home location</li> <li>If the actor is a
-	 * L2MonsterInstance that can't attack, order to it to random walk (1/100)</li><BR>
+	 * <li>Update every 1s the _globalAggro counter to come close to 0</li> <li>If the actor is Aggressive and can attack, add all autoAttackable
+	 * L2Character in its Aggro Range to its _aggroList, chose a target and order to attack it</li> <li>If the actor is a L2GuardInstance that
+	 * can't attack, order to it to return to its home location</li> <li>If the actor is a L2MonsterInstance that can't attack, order to it to
+	 * random walk (1/100)</li><BR>
 	 * <BR>
 	 */
 	private void thinkActive()
@@ -423,8 +420,8 @@ public class AttackableAI extends CharacterAI implements Runnable
 				L2Character target = (L2Character) obj;
 
 				/*
-				 * Check to see if this is a festival mob spawn. If it is, then check to see if the aggro trigger is a festival
-				 * participant...if so, move to attack it.
+				 * Check to see if this is a festival mob spawn. If it is, then check to see if the aggro trigger is a festival participant...if
+				 * so, move to attack it.
 				 */
 				if ((npc instanceof L2FestivalMonsterInstance) && obj instanceof L2PcInstance)
 				{
@@ -578,9 +575,9 @@ public class AttackableAI extends CharacterAI implements Runnable
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
-	 * <li>Update the attack timeout if actor is running</li> <li>If target is dead or timeout is expired, stop this attack and
-	 * set the Intention to AI_INTENTION_ACTIVE</li> <li>Call all L2Object of its Faction inside the Faction Range</li> <li>Chose
-	 * a target and order to attack it with magic skill or physical attack</li><BR>
+	 * <li>Update the attack timeout if actor is running</li> <li>If target is dead or timeout is expired, stop this attack and set the Intention
+	 * to AI_INTENTION_ACTIVE</li> <li>Call all L2Object of its Faction inside the Faction Range</li> <li>Chose a target and order to attack it
+	 * with magic skill or physical attack</li><BR>
 	 * <BR>
 	 */
 	private void thinkAttack()
@@ -726,8 +723,8 @@ public class AttackableAI extends CharacterAI implements Runnable
 		}
 
 		/*
-		 * Archer dodge behavior : running from target. The movement is according of player's position. Monster always flee by
-		 * behind. Distance is always the same.
+		 * Archer dodge behavior : running from target. The movement is according of player's position. Monster always flee by behind. Distance
+		 * is always the same.
 		 */
 		if (!npc.isMovementDisabled() && npc.getAiType() == AIType.ARCHER)
 		{
@@ -2055,11 +2052,11 @@ public class AttackableAI extends CharacterAI implements Runnable
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
-	 * <li>Init the attack : Calculate the attack timeout, Set the _globalAggro to 0, Add the attacker to the actor _aggroList</li>
-	 * <li>Set the L2Character movement type to run and send Server->Client packet ChangeMoveType to all others L2PcInstance</li>
-	 * <li>Set the Intention to AI_INTENTION_ATTACK</li> <BR>
+	 * <li>Init the attack : Calculate the attack timeout, Set the _globalAggro to 0, Add the attacker to the actor _aggroList</li> <li>Set the
+	 * L2Character movement type to run and send Server->Client packet ChangeMoveType to all others L2PcInstance</li> <li>Set the Intention to
+	 * AI_INTENTION_ATTACK</li> <BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param attacker
 	 *            The L2Character that attacks the actor
 	 */
@@ -2108,10 +2105,10 @@ public class AttackableAI extends CharacterAI implements Runnable
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
-	 * <li>Add the target to the actor _aggroList or update hate if already present</li> <li>Set the actor Intention to
-	 * AI_INTENTION_ATTACK (if actor is L2GuardInstance check if it isn't too far from its home location)</li><BR>
+	 * <li>Add the target to the actor _aggroList or update hate if already present</li> <li>Set the actor Intention to AI_INTENTION_ATTACK (if
+	 * actor is L2GuardInstance check if it isn't too far from its home location)</li><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param target
 	 *            The L2Character that attacks
 	 * @param aggro

@@ -1,24 +1,22 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.model.actor;
 
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javolution.util.FastList;
-import silentium.gameserver.configs.NPCConfig;
 import silentium.gameserver.GameTimeController;
 import silentium.gameserver.ThreadPoolManager;
 import silentium.gameserver.ai.CharacterAI;
 import silentium.gameserver.ai.CtrlIntention;
+import silentium.gameserver.configs.NPCConfig;
 import silentium.gameserver.data.xml.MapRegionData;
 import silentium.gameserver.model.L2CharPosition;
 import silentium.gameserver.model.L2ItemInstance;
@@ -267,7 +265,7 @@ public abstract class L2Vehicle extends L2Character
 
 	/**
 	 * Consume ticket(s) and teleport player from boat if no correct ticket
-	 *
+	 * 
 	 * @param itemId
 	 *            Ticket itemId
 	 * @param count

@@ -1,9 +1,9 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.model;
 
@@ -122,9 +122,9 @@ public abstract class L2Object
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
-	 * <li>Set the x,y,z position of the L2Object spawn and update its _worldregion</li> <li>Add the L2Object spawn in the
-	 * _allobjects of L2World</li> <li>Add the L2Object spawn to _visibleObjects of its L2WorldRegion</li> <li>Add the L2Object
-	 * spawn in the world as a <B>visible</B> object</li><BR>
+	 * <li>Set the x,y,z position of the L2Object spawn and update its _worldregion</li> <li>Add the L2Object spawn in the _allobjects of L2World
+	 * </li> <li>Add the L2Object spawn to _visibleObjects of its L2WorldRegion</li> <li>Add the L2Object spawn in the world as a <B>visible</B>
+	 * object</li><BR>
 	 * <BR>
 	 * <B><U> Assert </U> :</B><BR>
 	 * <BR>
@@ -296,8 +296,8 @@ public abstract class L2Object
 	}
 
 	/**
-	 * Sends the Server->Client info packet for the object. Is Overridden in: <li>L2BoatInstance</li> <li>L2DoorInstance</li> <li>
-	 * L2PcInstance</li> <li>L2StaticObjectInstance</li> <li>L2Npc</li> <li>L2Summon</li> <li>L2ItemInstance</li>
+	 * Sends the Server->Client info packet for the object. Is Overridden in: <li>L2BoatInstance</li> <li>L2DoorInstance</li> <li>L2PcInstance</li>
+	 * <li>L2StaticObjectInstance</li> <li>L2Npc</li> <li>L2Summon</li> <li>L2ItemInstance</li>
 	 * 
 	 * @param activeChar
 	 */

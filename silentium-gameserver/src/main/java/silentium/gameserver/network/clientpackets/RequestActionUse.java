@@ -1,9 +1,9 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.network.clientpackets;
 
@@ -20,7 +20,12 @@ import silentium.gameserver.model.L2Object;
 import silentium.gameserver.model.L2Skill;
 import silentium.gameserver.model.actor.L2Character;
 import silentium.gameserver.model.actor.L2Summon;
-import silentium.gameserver.model.actor.instance.*;
+import silentium.gameserver.model.actor.instance.L2DoorInstance;
+import silentium.gameserver.model.actor.instance.L2PcInstance;
+import silentium.gameserver.model.actor.instance.L2PetInstance;
+import silentium.gameserver.model.actor.instance.L2SiegeSummonInstance;
+import silentium.gameserver.model.actor.instance.L2StaticObjectInstance;
+import silentium.gameserver.model.actor.instance.L2SummonInstance;
 import silentium.gameserver.network.SystemMessageId;
 import silentium.gameserver.network.serverpackets.ActionFailed;
 import silentium.gameserver.network.serverpackets.ChairSit;
@@ -47,8 +52,7 @@ public final class RequestActionUse extends L2GameClientPacket
 		if (activeChar == null)
 			return;
 
-		log.debug(activeChar.getName() + " request Action use: id " + _actionId + " 2:" + _ctrlPressed + " 3:" +
-				_shiftPressed);
+		log.debug(activeChar.getName() + " request Action use: id " + _actionId + " 2:" + _ctrlPressed + " 3:" + _shiftPressed);
 
 		// dont do anything if player is dead, or use fakedeath using another action than sit.
 		if ((activeChar.isFakeDeath() && _actionId != 0) || activeChar.isDead())
@@ -382,8 +386,7 @@ public final class RequestActionUse extends L2GameClientPacket
 	}
 
 	/*
-	 * Cast a skill for active pet/servitor. Target is specified as a parameter but can be overwrited or ignored depending on
-	 * skill type.
+	 * Cast a skill for active pet/servitor. Target is specified as a parameter but can be overwrited or ignored depending on skill type.
 	 */
 	private void useSkill(int skillId, L2Object target)
 	{
@@ -423,8 +426,7 @@ public final class RequestActionUse extends L2GameClientPacket
 	}
 
 	/*
-	 * Cast a skill for active pet/servitor. Target is retrieved from owner' target, then validated by overloaded method
-	 * useSkill(int, L2Object).
+	 * Cast a skill for active pet/servitor. Target is retrieved from owner' target, then validated by overloaded method useSkill(int, L2Object).
 	 */
 	private void useSkill(int skillId)
 	{

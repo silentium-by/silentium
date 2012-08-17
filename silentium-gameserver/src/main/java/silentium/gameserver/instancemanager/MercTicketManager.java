@@ -1,13 +1,22 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.instancemanager;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Iterator;
+
 import javolution.util.FastList;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import silentium.commons.database.DatabaseFactory;
 import silentium.gameserver.idfactory.IdFactory;
 import silentium.gameserver.model.AutoChatHandler;
@@ -19,26 +28,17 @@ import silentium.gameserver.model.entity.Castle;
 import silentium.gameserver.tables.NpcTable;
 import silentium.gameserver.templates.chars.L2NpcTemplate;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.Iterator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
- * This class is similar to the SiegeGuardManager, except it handles the loading of the mercenary tickets that are dropped on
- * castle floors by the castle lords.<br>
+ * This class is similar to the SiegeGuardManager, except it handles the loading of the mercenary tickets that are dropped on castle floors by
+ * the castle lords.<br>
  * <br>
- * These tickets (aka badges) need to be readed after each server reboot except when the server crashed in the middle of an ongoig
- * siege. In addition, this class keeps track of the added tickets, in order to properly limit the number of mercenaries in each
- * castle and the number of mercenaries from each mercenary type.<br>
+ * These tickets (aka badges) need to be readed after each server reboot except when the server crashed in the middle of an ongoig siege. In
+ * addition, this class keeps track of the added tickets, in order to properly limit the number of mercenaries in each castle and the number of
+ * mercenaries from each mercenary type.<br>
  * <br>
- * Finally, we provide auxilary functions to identify the castle in which each item (and its corresponding NPC) belong to, in
- * order to help avoid mixing them up.
- *
+ * Finally, we provide auxilary functions to identify the castle in which each item (and its corresponding NPC) belong to, in order to help avoid
+ * mixing them up.
+ * 
  * @author yellowperil & Fulminus
  */
 public class MercTicketManager
@@ -211,8 +211,7 @@ public class MercTicketManager
 	/**
 	 * @param itemId
 	 *            The ticket id to make checks on.
-	 * @return true if the passed item has reached the limit of number of dropped tickets that this SPECIFIC item may have in its
-	 *         castle.
+	 * @return true if the passed item has reached the limit of number of dropped tickets that this SPECIFIC item may have in its castle.
 	 */
 	public boolean isAtTypeLimit(int itemId)
 	{
@@ -293,10 +292,10 @@ public class MercTicketManager
 	 * <ul>
 	 * <li>find the npc that needs to be saved in the mercenary spawns, given this item</li>
 	 * <li>Use the passed character's location info to add the spawn</li>
-	 * <li>create a copy of the item to drop in the world returns the id of the mercenary npc that was added to the spawn returns
-	 * -1 if this fails.</li>
+	 * <li>create a copy of the item to drop in the world returns the id of the mercenary npc that was added to the spawn returns -1 if this
+	 * fails.</li>
 	 * </ul>
-	 *
+	 * 
 	 * @param itemId
 	 * @param activeChar
 	 * @param messages
@@ -357,7 +356,7 @@ public class MercTicketManager
 
 	/**
 	 * Delete all tickets from a castle; remove the items from the world and remove references to them from this class
-	 *
+	 * 
 	 * @param castleId
 	 */
 	public void deleteTickets(int castleId)
@@ -377,7 +376,7 @@ public class MercTicketManager
 
 	/**
 	 * remove a single ticket and its associated spawn from the world (used when the castle lord picks up a ticket, for example)
-	 *
+	 * 
 	 * @param item
 	 */
 	public void removeTicket(L2ItemInstance item)

@@ -1,15 +1,13 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.network.serverpackets;
 
 import java.util.Arrays;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import silentium.gameserver.model.L2Effect;
 import silentium.gameserver.model.L2ItemInstance;
@@ -92,7 +90,7 @@ public final class SystemMessage extends L2GameServerPacket
 
 	/**
 	 * Use {@link #getSystemMessage(SystemMessageId)} where possible instead
-	 *
+	 * 
 	 * @param id
 	 * @return the system message associated to the given Id.
 	 */
@@ -136,7 +134,7 @@ public final class SystemMessage extends L2GameServerPacket
 	 * 21-64 CH names<br>
 	 * 81-89 Territory names<br>
 	 * 101-121 Fortress names<br>
-	 *
+	 * 
 	 * @param number
 	 * @return
 	 */

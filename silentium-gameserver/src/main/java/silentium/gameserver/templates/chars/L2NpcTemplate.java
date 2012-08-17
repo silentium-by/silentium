@@ -1,9 +1,9 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.templates.chars;
 
@@ -11,11 +11,13 @@ import gnu.trove.map.hash.TIntObjectHashMap;
 
 import java.util.List;
 import java.util.Map;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import silentium.gameserver.data.xml.HerbDropData;
 import silentium.gameserver.model.L2DropCategory;
 import silentium.gameserver.model.L2DropData;
@@ -289,8 +291,7 @@ public final class L2NpcTemplate extends L2CharTemplate
 	}
 
 	/**
-	 * @return the list of all possible item drops of this L2NpcTemplate. (ie full drops and part drops, mats, miscellaneous &
-	 *         UNCATEGORIZED)
+	 * @return the list of all possible item drops of this L2NpcTemplate. (ie full drops and part drops, mats, miscellaneous & UNCATEGORIZED)
 	 */
 	public List<L2DropData> getAllDropData()
 	{
@@ -381,8 +382,8 @@ public final class L2NpcTemplate extends L2CharTemplate
 
 	/**
 	 * Checks if obj can be assigned to the Class represented by clazz.<br>
-	 * This is true if, and only if, obj is the same class represented by clazz, or a subclass of it or obj implements the
-	 * interface represented by clazz.
+	 * This is true if, and only if, obj is the same class represented by clazz, or a subclass of it or obj implements the interface represented
+	 * by clazz.
 	 * 
 	 * @param obj
 	 * @param clazz

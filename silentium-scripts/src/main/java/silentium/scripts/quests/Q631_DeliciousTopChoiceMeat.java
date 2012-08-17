@@ -1,11 +1,14 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.scripts.quests;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
@@ -13,10 +16,8 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-import java.util.HashMap;
-import java.util.Map;
-
-public class Q631_DeliciousTopChoiceMeat extends Quest implements ScriptFile {
+public class Q631_DeliciousTopChoiceMeat extends Quest implements ScriptFile
+{
 	private static final String qn = "Q631_DeliciousTopChoiceMeat";
 
 	// NPC
@@ -37,7 +38,8 @@ public class Q631_DeliciousTopChoiceMeat extends Quest implements ScriptFile {
 		Rewards.put("6", new int[] { 4044, 5 });
 	}
 
-	public Q631_DeliciousTopChoiceMeat(int questId, String name, String descr) {
+	public Q631_DeliciousTopChoiceMeat(int questId, String name, String descr)
+	{
 		super(questId, name, descr);
 
 		questItemIds = new int[] { TOP_QUALITY_MEAT };
@@ -55,34 +57,45 @@ public class Q631_DeliciousTopChoiceMeat extends Quest implements ScriptFile {
 			addKillId(num3);
 	}
 
-	public static void onLoad() {
+	public static void onLoad()
+	{
 		new Q631_DeliciousTopChoiceMeat(631, "Q631_DeliciousTopChoiceMeat", "Delicious Top Choice Meat");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	{
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("31537-03.htm")) {
-			if (player.getLevel() >= 65 && player.getLevel() <= 73) {
+		if (event.equalsIgnoreCase("31537-03.htm"))
+		{
+			if (player.getLevel() >= 65 && player.getLevel() <= 73)
+			{
 				st.setState(QuestState.STARTED);
 				st.set("cond", "1");
 				st.playSound(QuestState.SOUND_ACCEPT);
-			} else {
+			}
+			else
+			{
 				htmltext = "31537-02.htm";
 				st.exitQuest(true);
 			}
-		} else if (Rewards.containsKey(event)) {
-			if (st.getQuestItemsCount(TOP_QUALITY_MEAT) >= 120) {
+		}
+		else if (Rewards.containsKey(event))
+		{
+			if (st.getQuestItemsCount(TOP_QUALITY_MEAT) >= 120)
+			{
 				htmltext = "31537-06.htm";
 				st.takeItems(TOP_QUALITY_MEAT, -1);
 				st.rewardItems(Rewards.get(event)[0], Rewards.get(event)[1]);
 				st.playSound(QuestState.SOUND_FINISH);
 				st.exitQuest(true);
-			} else {
+			}
+			else
+			{
 				st.set("cond", "1");
 				htmltext = "31537-07.htm";
 			}
@@ -92,13 +105,15 @@ public class Q631_DeliciousTopChoiceMeat extends Quest implements ScriptFile {
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player) {
+	public String onTalk(L2Npc npc, L2PcInstance player)
+	{
 		String htmltext = getNoQuestMsg();
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState()) {
+		switch (st.getState())
+		{
 			case QuestState.CREATED:
 				htmltext = "31537-01.htm";
 				break;
@@ -107,10 +122,12 @@ public class Q631_DeliciousTopChoiceMeat extends Quest implements ScriptFile {
 				int cond = st.getInt("cond");
 				if (cond == 1)
 					htmltext = "31537-03a.htm";
-				else if (cond == 2) {
+				else if (cond == 2)
+				{
 					if (st.getQuestItemsCount(TOP_QUALITY_MEAT) >= 120)
 						htmltext = "31537-04.htm";
-					else {
+					else
+					{
 						st.set("cond", "1");
 						htmltext = "31537-03a.htm";
 					}
@@ -122,7 +139,8 @@ public class Q631_DeliciousTopChoiceMeat extends Quest implements ScriptFile {
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
+	{
 		L2PcInstance partyMember = getRandomPartyMember(player, npc, "1");
 		if (partyMember == null)
 			return null;

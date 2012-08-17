@@ -1,14 +1,15 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.skills;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import silentium.commons.utils.Rnd;
 import silentium.commons.utils.StringUtil;
 import silentium.gameserver.configs.MainConfig;
@@ -125,13 +126,12 @@ public final class Formulas
 	/**
 	 * <B><U> Concept</U> :</B><BR>
 	 * <BR>
-	 * A calculator is created to manage and dynamically calculate the effect of a character property (ex : MAX_HP,
-	 * REGENERATE_HP_RATE...). In fact, each calculator is a table of Func object in which each Func represents a mathematic
-	 * function : <BR>
+	 * A calculator is created to manage and dynamically calculate the effect of a character property (ex : MAX_HP, REGENERATE_HP_RATE...). In
+	 * fact, each calculator is a table of Func object in which each Func represents a mathematic function : <BR>
 	 * <BR>
 	 * To reduce cache memory use, L2Npcs who don't have skills share the same Calculator set called <B>NPC_STD_CALCULATOR</B>.<BR>
 	 * <BR>
-	 *
+	 * 
 	 * @return the standard NPC Calculator set.
 	 */
 	public static Calculator[] getStdNPCCalculators()
@@ -152,13 +152,12 @@ public final class Formulas
 	 * <BR>
 	 * <B><U> Concept</U> :</B><BR>
 	 * <BR>
-	 * A calculator is created to manage and dynamically calculate the effect of a character property (ex : MAX_HP,
-	 * REGENERATE_HP_RATE...). In fact, each calculator is a table of Func object in which each Func represents a mathematic
-	 * function : <BR>
+	 * A calculator is created to manage and dynamically calculate the effect of a character property (ex : MAX_HP, REGENERATE_HP_RATE...). In
+	 * fact, each calculator is a table of Func object in which each Func represents a mathematic function : <BR>
 	 * <BR>
 	 * FuncAtkAccuracy -> Math.sqrt(_player.getDEX())*6+_player.getLevel()<BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param cha
 	 *            L2PcInstance or L2Summon that must obtain basic Func objects
 	 */
@@ -472,7 +471,7 @@ public final class Formulas
 
 	/**
 	 * Calculated damage caused by ATTACK of attacker on target, called separatly for each weapon, if dual-weapon is used.
-	 *
+	 * 
 	 * @param attacker
 	 *            player or NPC that makes ATTACK
 	 * @param target
@@ -657,9 +656,9 @@ public final class Formulas
 	}
 
 	/**
-	 * Calculated damage caused by charges skills types. The special thing is about the multiplier (56 and not 70), and about the
-	 * fixed amount of damages
-	 *
+	 * Calculated damage caused by charges skills types. The special thing is about the multiplier (56 and not 70), and about the fixed amount of
+	 * damages
+	 * 
 	 * @param attacker
 	 *            player or NPC that makes ATTACK
 	 * @param target
@@ -991,7 +990,7 @@ public final class Formulas
 
 	/**
 	 * Calcul value of blow success
-	 *
+	 * 
 	 * @param activeChar
 	 *            The character delaing the blow.
 	 * @param target
@@ -1007,7 +1006,7 @@ public final class Formulas
 
 	/**
 	 * Calcul value of lethal chance
-	 *
+	 * 
 	 * @param activeChar
 	 *            The character delaing the blow.
 	 * @param target
@@ -1110,7 +1109,7 @@ public final class Formulas
 
 	/**
 	 * Check if casting process is canceled due to hit.
-	 *
+	 * 
 	 * @param target
 	 *            The target to make checks on.
 	 * @param dmg
@@ -1186,7 +1185,7 @@ public final class Formulas
 
 	/**
 	 * Calculate delay (in milliseconds) before next ATTACK.
-	 *
+	 * 
 	 * @param attacker
 	 * @param target
 	 * @param rate
@@ -1202,7 +1201,7 @@ public final class Formulas
 
 	/**
 	 * Calculate delay (in milliseconds) for skills cast.
-	 *
+	 * 
 	 * @param attacker
 	 * @param skill
 	 *            used to know if skill is magic or no.
@@ -1218,9 +1217,9 @@ public final class Formulas
 	}
 
 	/**
-	 * Calculate the hit/miss chance. Take in consideration the attacker's accuracy, the target's evasion, and the difference of
-	 * levels between both.
-	 *
+	 * Calculate the hit/miss chance. Take in consideration the attacker's accuracy, the target's evasion, and the difference of levels between
+	 * both.
+	 * 
 	 * @param attacker
 	 *            Take accuracy from the attacker.
 	 * @param target
@@ -1360,7 +1359,7 @@ public final class Formulas
 
 	/**
 	 * Test the shield use.
-	 *
+	 * 
 	 * @param attacker
 	 *            The attacker.
 	 * @param target
@@ -1884,20 +1883,19 @@ public final class Formulas
 				}
 			}
 		}/*
-		 * else { final byte element = attacker.getAttackElement(); if (element >= 0) { int calcPower =
-		 * attacker.getAttackElementValue(element); int calcDefen = target.getDefenseElementValue(element); return 1 +
-		 * L2Math.limit(-20, calcPower - calcDefen, 100) * 0.007; } }
+		 * else { final byte element = attacker.getAttackElement(); if (element >= 0) { int calcPower = attacker.getAttackElementValue(element);
+		 * int calcDefen = target.getDefenseElementValue(element); return 1 + L2Math.limit(-20, calcPower - calcDefen, 100) * 0.007; } }
 		 */
 
 		return 1;
 	}
 
 	/**
-	 * Calculate skill reflection according these three possibilities: <li>Reflect failed</li> <li>Mormal reflect (just effects).
-	 * <U>Only possible for skilltypes: BUFF, REFLECT, HEAL_PERCENT, MANAHEAL_PERCENT, HOT, CPHOT, MPHOT</U></li> <li>vengEance
-	 * reflect (100% damage reflected but damage is also dealt to actor). <U>This is only possible for skills with skilltype PDAM,
-	 * BLOW, CHARGEDAM, MDAM or DEATHLINK</U></li>
-	 *
+	 * Calculate skill reflection according these three possibilities: <li>Reflect failed</li> <li>Mormal reflect (just effects). <U>Only
+	 * possible for skilltypes: BUFF, REFLECT, HEAL_PERCENT, MANAHEAL_PERCENT, HOT, CPHOT, MPHOT</U></li> <li>vengEance reflect (100% damage
+	 * reflected but damage is also dealt to actor). <U>This is only possible for skills with skilltype PDAM, BLOW, CHARGEDAM, MDAM or
+	 * DEATHLINK</U></li>
+	 * 
 	 * @param target
 	 * @param skill
 	 * @return SKILL_REFLECTED_FAILED, SKILL_REFLECT_SUCCEED or SKILL_REFLECT_VENGEANCE
@@ -1951,7 +1949,7 @@ public final class Formulas
 
 	/**
 	 * Calculate damage caused by falling
-	 *
+	 * 
 	 * @param cha
 	 * @param fallHeight
 	 * @return damage

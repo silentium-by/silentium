@@ -1,11 +1,14 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.scripts.teleports;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
@@ -13,10 +16,8 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-import java.util.HashMap;
-import java.util.Map;
-
-public class NewbieTravelToken extends Quest implements ScriptFile {
+public class NewbieTravelToken extends Quest implements ScriptFile
+{
 	private final static Map<String, int[]> data = new HashMap<>();
 
 	{
@@ -29,11 +30,13 @@ public class NewbieTravelToken extends Quest implements ScriptFile {
 
 	private final static int TOKEN = 8542;
 
-	public static void onLoad() {
+	public static void onLoad()
+	{
 		new NewbieTravelToken(-1, "NewbieTravelToken", "teleports");
 	}
 
-	public NewbieTravelToken(int questId, String name, String descr) {
+	public NewbieTravelToken(int questId, String name, String descr)
+	{
 		super(questId, name, descr);
 
 		addStartNpc(30598, 30599, 30600, 30601, 30602);
@@ -41,20 +44,24 @@ public class NewbieTravelToken extends Quest implements ScriptFile {
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	{
 		QuestState st = player.getQuestState(getName());
 		if (st == null)
 			st = newQuestState(player);
 
-		if (data.containsKey(event)) {
+		if (data.containsKey(event))
+		{
 			int x = data.get(event)[0];
 			int y = data.get(event)[1];
 			int z = data.get(event)[2];
 
-			if (st.getQuestItemsCount(TOKEN) != 0) {
+			if (st.getQuestItemsCount(TOKEN) != 0)
+			{
 				st.takeItems(TOKEN, 1);
 				st.getPlayer().teleToLocation(x, y, z);
-			} else
+			}
+			else
 				return "notoken.htm";
 		}
 		st.exitQuest(true);
@@ -62,15 +69,18 @@ public class NewbieTravelToken extends Quest implements ScriptFile {
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player) {
+	public String onTalk(L2Npc npc, L2PcInstance player)
+	{
 		String htmltext = "";
 		QuestState st = player.getQuestState(getName());
 		int npcId = npc.getNpcId();
 
-		if (player.getLevel() >= 20) {
+		if (player.getLevel() >= 20)
+		{
 			htmltext = "wronglevel.htm";
 			st.exitQuest(true);
-		} else
+		}
+		else
 			htmltext = npcId + ".htm";
 
 		return htmltext;

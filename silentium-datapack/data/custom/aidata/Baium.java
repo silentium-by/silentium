@@ -1,32 +1,23 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any later
- * version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.
- *
- * You should have received a copy of the GNU General Public License along with
- * this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package aidata;
-
-import silentium.gameserver.ai.DefaultMonsterAI;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import javolution.util.FastList;
-
-import silentium.commons.configs.*;
-import silentium.gameserver.geo.GeoData;
+import silentium.commons.utils.Rnd;
 import silentium.gameserver.ThreadPoolManager;
 import silentium.gameserver.ai.CtrlIntention;
-import silentium.gameserver.tables.SkillTable;
+import silentium.gameserver.ai.DefaultMonsterAI;
+import silentium.gameserver.configs.NPCConfig;
+import silentium.gameserver.geo.GeoData;
 import silentium.gameserver.instancemanager.GrandBossManager;
 import silentium.gameserver.model.L2Object;
 import silentium.gameserver.model.L2Skill;
@@ -41,9 +32,9 @@ import silentium.gameserver.model.zone.type.L2BossZone;
 import silentium.gameserver.network.serverpackets.Earthquake;
 import silentium.gameserver.network.serverpackets.PlaySound;
 import silentium.gameserver.network.serverpackets.SocialAction;
+import silentium.gameserver.tables.SkillTable;
 import silentium.gameserver.templates.StatsSet;
 import silentium.gameserver.utils.Util;
-import silentium.commons.utils.Rnd;
 
 /**
  * Following animations are handled in that time tempo :
@@ -70,39 +61,7 @@ public class Baium extends DefaultMonsterAI
 	public static final byte DEAD = 2; // baium has been killed and has not yet spawned. Entry is locked.
 
 	// Archangels spawns
-	private final static int ANGEL_LOCATION[][] =
-	{
-		{
-			114239,
-			17168,
-			10080,
-			63544
-		},
-		{
-			115780,
-			15564,
-			10080,
-			13620
-		},
-		{
-			114880,
-			16236,
-			10080,
-			5400
-		},
-		{
-			115168,
-			17200,
-			10080,
-			0
-		},
-		{
-			115792,
-			16608,
-			10080,
-			0
-		},
-	};
+	private final static int ANGEL_LOCATION[][] = { { 114239, 17168, 10080, 63544 }, { 115780, 15564, 10080, 13620 }, { 114880, 16236, 10080, 5400 }, { 115168, 17200, 10080, 0 }, { 115792, 16608, 10080, 0 }, };
 
 	private long _LastAttackVsBaiumTime = 0;
 	private final List<L2Npc> _Minions = new ArrayList<>(5);
@@ -112,10 +71,7 @@ public class Baium extends DefaultMonsterAI
 	{
 		super(questId, name, descr);
 
-		int[] mob =
-		{
-			LIVE_BAIUM
-		};
+		int[] mob = { LIVE_BAIUM };
 		registerMobs(mob);
 
 		// Quest NPC starter initialization
@@ -492,7 +448,9 @@ public class Baium extends DefaultMonsterAI
 
 	/**
 	 * That method allows to select a random target.
-	 * @param npc to check.
+	 * 
+	 * @param npc
+	 *            to check.
 	 * @return the random target.
 	 */
 	private L2Character getRandomTarget(L2Npc npc)
@@ -558,7 +516,9 @@ public class Baium extends DefaultMonsterAI
 
 	/**
 	 * That method checks if angels are near.
-	 * @param npc : baium.
+	 * 
+	 * @param npc
+	 *            : baium.
 	 * @return the number of angels surrounding the target.
 	 */
 	private int getSurroundingAngelsNumber(L2Npc npc)
@@ -580,7 +540,9 @@ public class Baium extends DefaultMonsterAI
 
 	/**
 	 * The personal casting AI for Baium.
-	 * @param npc baium, basically...
+	 * 
+	 * @param npc
+	 *            baium, basically...
 	 */
 	private synchronized void callSkillAI(L2Npc npc)
 	{
@@ -636,7 +598,9 @@ public class Baium extends DefaultMonsterAI
 	/**
 	 * Pick a random skill through that list.<br>
 	 * If Baium feels surrounded, he will use AoE skills. Same behavior if he is near 2+ angels.<br>
-	 * @param npc baium
+	 * 
+	 * @param npc
+	 *            baium
 	 * @return a usable skillId
 	 */
 	private int getRandomSkill(L2Npc npc)

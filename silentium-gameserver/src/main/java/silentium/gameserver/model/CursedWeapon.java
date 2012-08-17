@@ -1,14 +1,20 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.model;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.concurrent.ScheduledFuture;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import silentium.commons.database.DatabaseFactory;
 import silentium.commons.utils.Point3D;
 import silentium.commons.utils.Rnd;
@@ -19,16 +25,17 @@ import silentium.gameserver.model.actor.L2Attackable;
 import silentium.gameserver.model.actor.L2Character;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.network.SystemMessageId;
-import silentium.gameserver.network.serverpackets.*;
+import silentium.gameserver.network.serverpackets.Earthquake;
+import silentium.gameserver.network.serverpackets.ExRedSky;
+import silentium.gameserver.network.serverpackets.InventoryUpdate;
+import silentium.gameserver.network.serverpackets.ItemList;
+import silentium.gameserver.network.serverpackets.SocialAction;
+import silentium.gameserver.network.serverpackets.SystemMessage;
+import silentium.gameserver.network.serverpackets.UserInfo;
 import silentium.gameserver.tables.SkillTable;
 import silentium.gameserver.tables.SkillTable.FrequentSkill;
 import silentium.gameserver.templates.item.L2Item;
 import silentium.gameserver.utils.Broadcast;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.concurrent.ScheduledFuture;
 
 public class CursedWeapon
 {

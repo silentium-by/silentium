@@ -1,15 +1,20 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.model;
 
+import java.lang.reflect.Constructor;
+import java.util.List;
+
 import javolution.util.FastList;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import silentium.commons.utils.Rnd;
 import silentium.gameserver.ThreadPoolManager;
 import silentium.gameserver.configs.MainConfig;
@@ -22,17 +27,13 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2MonsterInstance;
 import silentium.gameserver.templates.chars.L2NpcTemplate;
 
-import java.lang.reflect.Constructor;
-import java.util.List;
-
 /**
- * This class manages the spawn and respawn of a group of L2Npc that are in the same are and have the same type. <B><U>
- * Concept</U> :</B><BR>
+ * This class manages the spawn and respawn of a group of L2Npc that are in the same are and have the same type. <B><U> Concept</U> :</B><BR>
  * <BR>
- * L2Npc can be spawned either in a random position into a location area (if Lox=0 and Locy=0), either at an exact position. The
- * heading of the L2Npc can be a random heading if not defined (value= -1) or an exact heading (ex : merchant...).<BR>
+ * L2Npc can be spawned either in a random position into a location area (if Lox=0 and Locy=0), either at an exact position. The heading of the
+ * L2Npc can be a random heading if not defined (value= -1) or an exact heading (ex : merchant...).<BR>
  * <BR>
- *
+ * 
  * @author Nightmare
  */
 public class L2Spawn
@@ -40,8 +41,7 @@ public class L2Spawn
 	protected static final Logger _log = LoggerFactory.getLogger(L2Spawn.class.getName());
 
 	/**
-	 * The link on the L2NpcTemplate object containing generic and static properties of this spawn (ex : RewardExp, RewardSP,
-	 * AggroRange...)
+	 * The link on the L2NpcTemplate object containing generic and static properties of this spawn (ex : RewardExp, RewardSP, AggroRange...)
 	 */
 	private L2NpcTemplate _template;
 
@@ -104,20 +104,19 @@ public class L2Spawn
 	 * <BR>
 	 * <B><U> Concept</U> :</B><BR>
 	 * <BR>
-	 * Each L2Spawn owns generic and static properties (ex : RewardExp, RewardSP, AggroRange...). All of those properties are
-	 * stored in a different L2NpcTemplate for each type of L2Spawn. Each template is loaded once in the server cache memory
-	 * (reduce memory use). When a new instance of L2Spawn is created, server just create a link between the instance and the
-	 * template. This link is stored in <B>_template</B><BR>
+	 * Each L2Spawn owns generic and static properties (ex : RewardExp, RewardSP, AggroRange...). All of those properties are stored in a
+	 * different L2NpcTemplate for each type of L2Spawn. Each template is loaded once in the server cache memory (reduce memory use). When a new
+	 * instance of L2Spawn is created, server just create a link between the instance and the template. This link is stored in <B>_template</B><BR>
 	 * <BR>
-	 * Each L2Npc is linked to a L2Spawn that manages its spawn and respawn (delay, location...). This link is stored in
-	 * <B>_spawn</B> of the L2Npc<BR>
+	 * Each L2Npc is linked to a L2Spawn that manages its spawn and respawn (delay, location...). This link is stored in <B>_spawn</B> of the
+	 * L2Npc<BR>
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
-	 * <li>Set the _template of the L2Spawn</li> <li>Calculate the implementationName used to generate the generic constructor of
-	 * L2Npc managed by this L2Spawn</li> <li>Create the generic constructor of L2Npc managed by this L2Spawn</li><BR>
+	 * <li>Set the _template of the L2Spawn</li> <li>Calculate the implementationName used to generate the generic constructor of L2Npc managed
+	 * by this L2Spawn</li> <li>Create the generic constructor of L2Npc managed by this L2Spawn</li><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param mobTemplate
 	 *            The L2NpcTemplate to link to this L2Spawn
 	 * @throws SecurityException
@@ -210,7 +209,7 @@ public class L2Spawn
 
 	/**
 	 * Set the minimum respawn delay.
-	 *
+	 * 
 	 * @param date
 	 */
 	public void setRespawnMinDelay(int date)
@@ -220,7 +219,7 @@ public class L2Spawn
 
 	/**
 	 * Set Maximum respawn delay.
-	 *
+	 * 
 	 * @param date
 	 */
 	public void setRespawnMaxDelay(int date)
@@ -230,7 +229,7 @@ public class L2Spawn
 
 	/**
 	 * Set the X position of the spawn point.
-	 *
+	 * 
 	 * @param locx
 	 */
 	public void setLocx(int locx)
@@ -240,7 +239,7 @@ public class L2Spawn
 
 	/**
 	 * Set the Y position of the spawn point.
-	 *
+	 * 
 	 * @param locy
 	 */
 	public void setLocy(int locy)
@@ -250,7 +249,7 @@ public class L2Spawn
 
 	/**
 	 * Set the Z position of the spawn point.
-	 *
+	 * 
 	 * @param locz
 	 */
 	public void setLocz(int locz)
@@ -260,7 +259,7 @@ public class L2Spawn
 
 	/**
 	 * Set the heading of L2Npc when they are spawned.
-	 *
+	 * 
 	 * @param heading
 	 */
 	public void setHeading(int heading)
@@ -273,14 +272,14 @@ public class L2Spawn
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
-	 * <li>Decrease the current number of L2Npc of this L2Spawn</li> <li>Check if respawn is possible to prevent multiple
-	 * respawning caused by lag</li> <li>Update the current number of SpawnTask in progress or stand by of this L2Spawn</li> <li>
-	 * Create a new SpawnTask to launch after the respawn Delay</li><BR>
+	 * <li>Decrease the current number of L2Npc of this L2Spawn</li> <li>Check if respawn is possible to prevent multiple respawning caused by
+	 * lag</li> <li>Update the current number of SpawnTask in progress or stand by of this L2Spawn</li> <li>Create a new SpawnTask to launch
+	 * after the respawn Delay</li><BR>
 	 * <BR>
-	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : A respawn is possible ONLY if _doRespawn=True and _scheduledCount + _currentCount
-	 * < _maximumCount</B></FONT><BR>
+	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : A respawn is possible ONLY if _doRespawn=True and _scheduledCount + _currentCount <
+	 * _maximumCount</B></FONT><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param oldNpc
 	 */
 	public void decreaseCount(L2Npc oldNpc)
@@ -331,20 +330,20 @@ public class L2Spawn
 	 * <BR>
 	 * <B><U> Concept</U> :</B><BR>
 	 * <BR>
-	 * L2Npc can be spawned either in a random position into a location area (if Lox=0 and Locy=0), either at an exact position.
-	 * The heading of the L2Npc can be a random heading if not defined (value= -1) or an exact heading (ex : merchant...).<BR>
+	 * L2Npc can be spawned either in a random position into a location area (if Lox=0 and Locy=0), either at an exact position. The heading of
+	 * the L2Npc can be a random heading if not defined (value= -1) or an exact heading (ex : merchant...).<BR>
 	 * <BR>
 	 * <B><U> Actions for an random spawn into location area</U> : <I>(if Locx=0 and Locy=0)</I></B><BR>
 	 * <BR>
-	 * <li>Get L2Npc Init parameters and its generate an Identifier</li> <li>Call the constructor of the L2Npc</li> <li>Calculate
-	 * the random position in the location area (if Locx=0 and Locy=0) or get its exact position from the L2Spawn</li> <li>Set the
-	 * position of the L2Npc</li> <li>Set the HP and MP of the L2Npc to the max</li> <li>Set the heading of the L2Npc (random
-	 * heading if not defined : value=-1)</li> <li>Link the L2Npc to this L2Spawn</li> <li>Init other values of the L2Npc (ex :
-	 * from its L2CharTemplate for INT, STR, DEX...) and add it in the world</li> <li>Lauch the action OnSpawn fo the L2Npc</li><BR>
+	 * <li>Get L2Npc Init parameters and its generate an Identifier</li> <li>Call the constructor of the L2Npc</li> <li>Calculate the random
+	 * position in the location area (if Locx=0 and Locy=0) or get its exact position from the L2Spawn</li> <li>Set the position of the L2Npc</li>
+	 * <li>Set the HP and MP of the L2Npc to the max</li> <li>Set the heading of the L2Npc (random heading if not defined : value=-1)</li> <li>
+	 * Link the L2Npc to this L2Spawn</li> <li>Init other values of the L2Npc (ex : from its L2CharTemplate for INT, STR, DEX...) and add it in
+	 * the world</li> <li>Lauch the action OnSpawn fo the L2Npc</li><BR>
 	 * <BR>
 	 * <li>Increase the current number of L2Npc managed by this L2Spawn</li><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @return the newly created instance.
 	 */
 	public L2Npc doSpawn()
@@ -453,8 +452,7 @@ public class L2Spawn
 
 		_lastSpawn = mob;
 
-		_log.debug("Spawned Mob ID: " + _template.getNpcId() + " at X: " + mob.getX() + ", Y: " + mob.getY() + ", " +
-					"2: " + mob.getZ());
+		_log.debug("Spawned Mob ID: " + _template.getNpcId() + " at X: " + mob.getX() + ", Y: " + mob.getY() + ", " + "2: " + mob.getZ());
 
 		return mob;
 	}
@@ -486,7 +484,7 @@ public class L2Spawn
 
 	/**
 	 * Set the respawn delay. It can't be inferior to 0, and is automatically modified if inferior to 10 seconds.
-	 *
+	 * 
 	 * @param i
 	 *            delay in seconds
 	 */

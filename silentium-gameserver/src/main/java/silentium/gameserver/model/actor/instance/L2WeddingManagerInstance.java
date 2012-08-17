@@ -1,17 +1,17 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.model.actor.instance;
 
 import java.util.StringTokenizer;
 
-import silentium.gameserver.configs.EventsConfig;
 import silentium.gameserver.Announcements;
 import silentium.gameserver.ai.CtrlIntention;
+import silentium.gameserver.configs.EventsConfig;
 import silentium.gameserver.data.html.StaticHtmPath;
 import silentium.gameserver.instancemanager.CastleManager;
 import silentium.gameserver.instancemanager.CoupleManager;
@@ -166,7 +166,7 @@ public class L2WeddingManagerInstance extends L2NpcInstance
 
 	/**
 	 * Are both partners wearing formal wear ? If Formal Wear check is disabled, returns True in any case.<BR>
-	 *
+	 * 
 	 * @param p1
 	 *            L2PcInstance
 	 * @param p2

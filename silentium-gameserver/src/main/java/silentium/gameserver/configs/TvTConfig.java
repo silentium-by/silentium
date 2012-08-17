@@ -1,7 +1,6 @@
 package silentium.gameserver.configs;
 
 import gnu.trove.map.hash.TIntIntHashMap;
-import silentium.commons.utils.StringUtil;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -9,6 +8,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+
+import silentium.commons.utils.StringUtil;
 
 public final class TvTConfig extends ConfigEngine
 {

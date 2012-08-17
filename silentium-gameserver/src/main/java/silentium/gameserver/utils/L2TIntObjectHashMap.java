@@ -1,9 +1,9 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.utils;
 
@@ -19,7 +19,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 /**
  * Custom extension of TIntObjectHashMap that is synchronized via ReentrantReadWriteLock.<br>
  * The purpose of this map is to replace the use of FastMap<K,V>.shared() which requires a lot of resources.
- *
+ * 
  * @author Nik
  * @param <V>
  *            value object.
@@ -61,7 +61,7 @@ public class L2TIntObjectHashMap<V> extends TIntObjectHashMap<V>
 	 * (forEach operation for example)<br>
 	 * and you need to put something in the map without causing a deadlock<br>
 	 * by taking the writeLock before the readLock is unlocked.
-	 *
+	 * 
 	 * @param key
 	 * @param value
 	 * @return
@@ -130,7 +130,7 @@ public class L2TIntObjectHashMap<V> extends TIntObjectHashMap<V>
 	 * Its useful while the readLock is taken by a thread (forEach operation for example)<br>
 	 * and you need to remove something in the map without causing a deadlock<br>
 	 * by taking the writeLock before the readLock is unlocked.
-	 *
+	 * 
 	 * @param key
 	 * @return
 	 */
@@ -271,7 +271,7 @@ public class L2TIntObjectHashMap<V> extends TIntObjectHashMap<V>
 	 * Keep in mind that this uses writeLock instead of readLock,<br>
 	 * and its intended only if you are trying to put/remove something while looping<br>
 	 * the values of this map.
-	 *
+	 * 
 	 * @param procedure
 	 * @return
 	 */
@@ -310,7 +310,7 @@ public class L2TIntObjectHashMap<V> extends TIntObjectHashMap<V>
 	 * Keep in mind that this uses writeLock instead of readLock,<br>
 	 * and its intended only if you are trying to put/remove something while looping<br>
 	 * the values of this map.
-	 *
+	 * 
 	 * @param arg0
 	 * @return
 	 */
@@ -349,7 +349,7 @@ public class L2TIntObjectHashMap<V> extends TIntObjectHashMap<V>
 	 * Keep in mind that this uses writeLock instead of readLock, <br>
 	 * and its intended only if you are trying to put/remove something while looping<br>
 	 * the values of this map.
-	 *
+	 * 
 	 * @param arg0
 	 * @return
 	 */

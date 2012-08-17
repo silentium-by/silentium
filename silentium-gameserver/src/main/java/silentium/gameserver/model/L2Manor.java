@@ -1,19 +1,19 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.model;
 
 import java.io.File;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
@@ -24,7 +24,7 @@ import silentium.gameserver.templates.item.L2Item;
 
 /**
  * Service class for manor
- *
+ * 
  * @author l3x
  */
 public class L2Manor
@@ -99,7 +99,7 @@ public class L2Manor
 
 	/**
 	 * Returns price which lord pays to buy one seed
-	 *
+	 * 
 	 * @param seedId
 	 * @return seed price
 	 */
@@ -187,7 +187,7 @@ public class L2Manor
 
 	/**
 	 * Return all crops which can be purchased by given castle
-	 *
+	 * 
 	 * @param castleId
 	 * @return
 	 */
@@ -205,7 +205,7 @@ public class L2Manor
 
 	/**
 	 * Return list of seed ids, which belongs to castle with given id
-	 *
+	 * 
 	 * @param castleId
 	 *            - id of the castle
 	 * @return seedIds - list of seed ids
@@ -224,7 +224,7 @@ public class L2Manor
 
 	/**
 	 * Returns castle id where seed can be sowned<br>
-	 *
+	 * 
 	 * @param seedId
 	 * @return castleId
 	 */

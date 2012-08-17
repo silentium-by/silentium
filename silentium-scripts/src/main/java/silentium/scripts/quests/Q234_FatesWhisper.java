@@ -1,11 +1,14 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.scripts.quests;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
@@ -14,10 +17,8 @@ import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 import silentium.gameserver.tables.ItemTable;
 
-import java.util.HashMap;
-import java.util.Map;
-
-public class Q234_FatesWhisper extends Quest implements ScriptFile {
+public class Q234_FatesWhisper extends Quest implements ScriptFile
+{
 	private final static String qn = "Q234_FatesWhisper";
 
 	// Items
@@ -67,7 +68,8 @@ public class Q234_FatesWhisper extends Quest implements ScriptFile {
 		Weapons.put(7901, "Star Buster");
 	}
 
-	public Q234_FatesWhisper(int questId, String name, String descr) {
+	public Q234_FatesWhisper(int questId, String name, String descr)
+	{
 		super(questId, name, descr);
 
 		questItemIds = new int[] { PIPETTE_KNIFE, RED_PIPETTE_KNIFE };
@@ -82,45 +84,62 @@ public class Q234_FatesWhisper extends Quest implements ScriptFile {
 		addAttackId(29020);
 	}
 
-	public static void onLoad() {
+	public static void onLoad()
+	{
 		new Q234_FatesWhisper(234, "Q234_FatesWhisper", "Fate's Whispers");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	{
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("31002-03.htm")) {
+		if (event.equalsIgnoreCase("31002-03.htm"))
+		{
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		} else if (event.equalsIgnoreCase("30182-01c.htm")) {
+		}
+		else if (event.equalsIgnoreCase("30182-01c.htm"))
+		{
 			st.giveItems(INFERNIUM_VARNISH, 1);
 			st.playSound(QuestState.SOUND_ITEMGET);
-		} else if (event.equalsIgnoreCase("30178-01a.htm")) {
+		}
+		else if (event.equalsIgnoreCase("30178-01a.htm"))
+		{
 			st.set("cond", "6");
 			st.playSound(QuestState.SOUND_MIDDLE);
-		} else if (event.equalsIgnoreCase("30833-01b.htm")) {
+		}
+		else if (event.equalsIgnoreCase("30833-01b.htm"))
+		{
 			st.set("cond", "7");
 			st.giveItems(PIPETTE_KNIFE, 1);
 			st.playSound(QuestState.SOUND_MIDDLE);
-		} else if (event.startsWith("selectBGrade_")) {
+		}
+		else if (event.startsWith("selectBGrade_"))
+		{
 			if (st.getInt("bypass") == 1)
 				return null;
 
 			String bGradeId = event.replace("selectBGrade_", "");
 			st.set("weaponId", bGradeId);
 			htmltext = st.showHtmlFile("31002-13.htm").replace("%weaponname%", Weapons.get(st.getInt("weaponId")));
-		} else if (event.startsWith("confirmWeapon")) {
+		}
+		else if (event.startsWith("confirmWeapon"))
+		{
 			st.set("bypass", "1");
 			htmltext = st.showHtmlFile("31002-14.htm").replace("%weaponname%", Weapons.get(st.getInt("weaponId")));
-		} else if (event.startsWith("selectAGrade_")) {
-			if (st.getInt("bypass") == 1) {
+		}
+		else if (event.startsWith("selectAGrade_"))
+		{
+			if (st.getInt("bypass") == 1)
+			{
 				final int itemId = st.getInt("weaponId");
-				if (st.hasQuestItems(itemId)) {
+				if (st.hasQuestItems(itemId))
+				{
 					int aGradeItemId = Integer.parseInt(event.replace("selectAGrade_", ""));
 
 					htmltext = st.showHtmlFile("31002-12.htm").replace("%weaponname%", ItemTable.getInstance().getTemplate(aGradeItemId).getName());
@@ -129,9 +148,11 @@ public class Q234_FatesWhisper extends Quest implements ScriptFile {
 					st.giveItems(STAR_OF_DESTINY, 1);
 					st.playSound(QuestState.SOUND_FINISH);
 					st.exitQuest(false);
-				} else
+				}
+				else
 					htmltext = st.showHtmlFile("31002-15.htm").replace("%weaponname%", Weapons.get(itemId));
-			} else
+			}
+			else
 				htmltext = "31002-16.htm";
 		}
 
@@ -139,17 +160,20 @@ public class Q234_FatesWhisper extends Quest implements ScriptFile {
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player) {
+	public String onTalk(L2Npc npc, L2PcInstance player)
+	{
 		QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState()) {
+		switch (st.getState())
+		{
 			case QuestState.CREATED:
 				if (player.getLevel() >= 75)
 					htmltext = "31002-02.htm";
-				else {
+				else
+				{
 					htmltext = "31002-01.htm";
 					st.exitQuest(true);
 				}
@@ -157,21 +181,27 @@ public class Q234_FatesWhisper extends Quest implements ScriptFile {
 
 			case QuestState.STARTED:
 				int cond = st.getInt("cond");
-				switch (npc.getNpcId()) {
+				switch (npc.getNpcId())
+				{
 					case 31002:
-						if (cond == 1) {
+						if (cond == 1)
+						{
 							if (!st.hasQuestItems(REIRIAS_SOUL_ORB))
 								htmltext = "31002-04b.htm";
-							else {
+							else
+							{
 								st.set("cond", "2");
 								htmltext = "31002-05.htm";
 								st.takeItems(REIRIAS_SOUL_ORB, 1);
 								st.playSound(QuestState.SOUND_MIDDLE);
 							}
-						} else if (cond == 2) {
+						}
+						else if (cond == 2)
+						{
 							if (!st.hasQuestItems(KERMONS_INFERNIUM_SCEPTER) || !st.hasQuestItems(GOLKONDAS_INFERNIUM_SCEPTER) || !st.hasQuestItems(HALLATES_INFERNIUM_SCEPTER))
 								htmltext = "31002-05c.htm";
-							else {
+							else
+							{
 								st.set("cond", "3");
 								htmltext = "31002-06.htm";
 								st.takeItems(KERMONS_INFERNIUM_SCEPTER, 1);
@@ -179,43 +209,57 @@ public class Q234_FatesWhisper extends Quest implements ScriptFile {
 								st.takeItems(HALLATES_INFERNIUM_SCEPTER, 1);
 								st.playSound(QuestState.SOUND_MIDDLE);
 							}
-						} else if (cond == 3) {
+						}
+						else if (cond == 3)
+						{
 							if (st.getQuestItemsCount(INFERNIUM_VARNISH) < 1)
 								htmltext = "31002-06b.htm";
-							else {
+							else
+							{
 								st.set("cond", "4");
 								htmltext = "31002-07.htm";
 								st.takeItems(INFERNIUM_VARNISH, 1);
 								st.playSound(QuestState.SOUND_MIDDLE);
 							}
-						} else if (cond == 4) {
+						}
+						else if (cond == 4)
+						{
 							if (st.getQuestItemsCount(REORINS_HAMMER) < 1)
 								htmltext = "31002-07b.htm";
-							else {
+							else
+							{
 								st.set("cond", "5");
 								htmltext = "31002-08.htm";
 								st.takeItems(REORINS_HAMMER, 1);
 								st.playSound(QuestState.SOUND_MIDDLE);
 							}
-						} else if (cond > 4 && cond < 8)
+						}
+						else if (cond > 4 && cond < 8)
 							htmltext = "31002-08b.htm";
-						else if (cond == 8) {
+						else if (cond == 8)
+						{
 							st.set("cond", "9");
 							htmltext = "31002-09.htm";
 							st.takeItems(REORINS_MOLD, 1);
 							st.playSound(QuestState.SOUND_MIDDLE);
-						} else if (cond == 9) {
+						}
+						else if (cond == 9)
+						{
 							if (st.getQuestItemsCount(CRYSTAL_B) < 984)
 								htmltext = "31002-09b.htm";
-							else {
+							else
+							{
 								st.set("cond", "10");
 								htmltext = "31002-BGradeList.htm";
 								st.takeItems(CRYSTAL_B, 984);
 								st.playSound(QuestState.SOUND_MIDDLE);
 							}
-						} else if (cond == 10) {
+						}
+						else if (cond == 10)
+						{
 							// If a weapon is selected
-							if (st.getInt("bypass") == 1) {
+							if (st.getInt("bypass") == 1)
+							{
 								// If you got it in the inventory
 								final int itemId = st.getInt("weaponId");
 								htmltext = st.showHtmlFile((st.hasQuestItems(itemId)) ? "31002-AGradeList.htm" : "31002-15.htm").replace("%weaponname%", Weapons.get(itemId));
@@ -227,7 +271,8 @@ public class Q234_FatesWhisper extends Quest implements ScriptFile {
 						break;
 
 					case 30182:
-						if (cond == 3) {
+						if (cond == 3)
+						{
 							if (!st.hasQuestItems(INFERNIUM_VARNISH))
 								htmltext = "30182-01.htm";
 							else
@@ -236,11 +281,13 @@ public class Q234_FatesWhisper extends Quest implements ScriptFile {
 						break;
 
 					case 30847:
-						if (cond == 4 && !st.hasQuestItems(REORINS_HAMMER)) {
+						if (cond == 4 && !st.hasQuestItems(REORINS_HAMMER))
+						{
 							htmltext = "30847-01.htm";
 							st.giveItems(REORINS_HAMMER, 1);
 							st.playSound(QuestState.SOUND_ITEMGET);
-						} else if (cond >= 4 && st.hasQuestItems(REORINS_HAMMER))
+						}
+						else if (cond >= 4 && st.hasQuestItems(REORINS_HAMMER))
 							htmltext = "30847-02.htm";
 						break;
 
@@ -254,65 +301,84 @@ public class Q234_FatesWhisper extends Quest implements ScriptFile {
 					case 30833:
 						if (cond == 6)
 							htmltext = "30833-01.htm";
-						else if (cond == 7) {
+						else if (cond == 7)
+						{
 							if (st.hasQuestItems(PIPETTE_KNIFE) && !st.hasQuestItems(RED_PIPETTE_KNIFE))
 								htmltext = "30833-02.htm";
-							else {
+							else
+							{
 								htmltext = "30833-03.htm";
 								st.set("cond", "8");
 								st.takeItems(RED_PIPETTE_KNIFE, 1);
 								st.giveItems(REORINS_MOLD, 1);
 								st.playSound(QuestState.SOUND_MIDDLE);
 							}
-						} else if (cond >= 8)
+						}
+						else if (cond >= 8)
 							htmltext = "30833-04.htm";
 						break;
 
 					case 31027:
-						if (cond == 1) {
-							if (!st.hasQuestItems(REIRIAS_SOUL_ORB)) {
+						if (cond == 1)
+						{
+							if (!st.hasQuestItems(REIRIAS_SOUL_ORB))
+							{
 								htmltext = "31027-01.htm";
 								st.giveItems(REIRIAS_SOUL_ORB, 1);
 								st.playSound(QuestState.SOUND_ITEMGET);
-							} else
+							}
+							else
 								htmltext = "31027-02.htm";
-						} else
+						}
+						else
 							htmltext = "31027-02.htm";
 						break;
 
 					case 31028:
-						if (cond == 2) {
-							if (!st.hasQuestItems(KERMONS_INFERNIUM_SCEPTER)) {
+						if (cond == 2)
+						{
+							if (!st.hasQuestItems(KERMONS_INFERNIUM_SCEPTER))
+							{
 								htmltext = "31028-01.htm";
 								st.giveItems(KERMONS_INFERNIUM_SCEPTER, 1);
 								st.playSound(QuestState.SOUND_ITEMGET);
-							} else
+							}
+							else
 								htmltext = "31028-02.htm";
-						} else
+						}
+						else
 							htmltext = "31028-02.htm";
 						break;
 
 					case 31029:
-						if (cond == 2) {
-							if (!st.hasQuestItems(GOLKONDAS_INFERNIUM_SCEPTER)) {
+						if (cond == 2)
+						{
+							if (!st.hasQuestItems(GOLKONDAS_INFERNIUM_SCEPTER))
+							{
 								htmltext = "31029-01.htm";
 								st.giveItems(GOLKONDAS_INFERNIUM_SCEPTER, 1);
 								st.playSound(QuestState.SOUND_ITEMGET);
-							} else
+							}
+							else
 								htmltext = "31029-02.htm";
-						} else
+						}
+						else
 							htmltext = "31029-02.htm";
 						break;
 
 					case 31030:
-						if (cond == 2) {
-							if (!st.hasQuestItems(HALLATES_INFERNIUM_SCEPTER)) {
+						if (cond == 2)
+						{
+							if (!st.hasQuestItems(HALLATES_INFERNIUM_SCEPTER))
+							{
 								htmltext = "31030-01.htm";
 								st.giveItems(HALLATES_INFERNIUM_SCEPTER, 1);
 								st.playSound(QuestState.SOUND_ITEMGET);
-							} else
+							}
+							else
 								htmltext = "31030-02.htm";
-						} else
+						}
+						else
 							htmltext = "31030-02.htm";
 						break;
 				}
@@ -327,13 +393,16 @@ public class Q234_FatesWhisper extends Quest implements ScriptFile {
 	}
 
 	@Override
-	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isPet) {
+	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isPet)
+	{
 		QuestState st = attacker.getQuestState(qn);
 		if (st == null || !st.isStarted() || isPet)
 			return null;
 
-		if (st.getInt("cond") == 7) {
-			if (attacker.getActiveWeaponItem() != null && attacker.getActiveWeaponItem().getItemId() == PIPETTE_KNIFE && st.getQuestItemsCount(RED_PIPETTE_KNIFE) == 0) {
+		if (st.getInt("cond") == 7)
+		{
+			if (attacker.getActiveWeaponItem() != null && attacker.getActiveWeaponItem().getItemId() == PIPETTE_KNIFE && st.getQuestItemsCount(RED_PIPETTE_KNIFE) == 0)
+			{
 				st.giveItems(RED_PIPETTE_KNIFE, 1);
 				st.takeItems(PIPETTE_KNIFE, 1);
 				st.playSound(QuestState.SOUND_ITEMGET);
@@ -343,7 +412,8 @@ public class Q234_FatesWhisper extends Quest implements ScriptFile {
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
+	{
 		// Chests aren't influenced by conditions, or even if the killer got the quest. It just spawns.
 		int npcId = npc.getNpcId();
 		if (CHEST_SPAWN.containsKey(npcId))

@@ -1,9 +1,9 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.scripts.quests;
 
@@ -16,7 +16,8 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q652_AnAgedExAdventurer extends Quest implements ScriptFile {
+public class Q652_AnAgedExAdventurer extends Quest implements ScriptFile
+{
 	private static final String qn = "Q652_AnAgedExAdventurer";
 
 	// NPCs
@@ -35,7 +36,8 @@ public class Q652_AnAgedExAdventurer extends Quest implements ScriptFile {
 	// Current position
 	private int _currentPosition = 0;
 
-	public Q652_AnAgedExAdventurer(int questId, String name, String descr) {
+	public Q652_AnAgedExAdventurer(int questId, String name, String descr)
+	{
 		super(questId, name, descr);
 
 		addStartNpc(TANTAN);
@@ -44,19 +46,23 @@ public class Q652_AnAgedExAdventurer extends Quest implements ScriptFile {
 		addSpawn(TANTAN, 78355, -1325, -3659, 0, false, 0);
 	}
 
-	public static void onLoad() {
+	public static void onLoad()
+	{
 		new Q652_AnAgedExAdventurer(652, "Q652_AnAgedExAdventurer", "An Aged Ex-Adventurer");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	{
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("32012-02.htm")) {
-			if (st.getQuestItemsCount(CSS) >= 100) {
+		if (event.equalsIgnoreCase("32012-02.htm"))
+		{
+			if (st.getQuestItemsCount(CSS) >= 100)
+			{
 				st.set("cond", "1");
 				st.setState(QuestState.STARTED);
 				st.takeItems(CSS, 100);
@@ -64,11 +70,15 @@ public class Q652_AnAgedExAdventurer extends Quest implements ScriptFile {
 
 				npc.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(85326, 7869, -3620, 0));
 				startQuestTimer("apparition_npc", 6000, npc, player);
-			} else {
+			}
+			else
+			{
 				htmltext = "32012-02a.htm";
 				st.exitQuest(true);
 			}
-		} else if (event.equalsIgnoreCase("apparition_npc")) {
+		}
+		else if (event.equalsIgnoreCase("apparition_npc"))
+		{
 			int chance = Rnd.get(5);
 
 			// Loop to avoid to spawn to the same place.
@@ -86,30 +96,37 @@ public class Q652_AnAgedExAdventurer extends Quest implements ScriptFile {
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player) {
+	public String onTalk(L2Npc npc, L2PcInstance player)
+	{
 		QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState()) {
+		switch (st.getState())
+		{
 			case QuestState.CREATED:
 				if (player.getLevel() >= 46)
 					htmltext = "32012-01.htm";
-				else {
+				else
+				{
 					htmltext = "32012-00.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				switch (npc.getNpcId()) {
+				switch (npc.getNpcId())
+				{
 					case SARA:
-						if (Rnd.get(100) < 50) {
+						if (Rnd.get(100) < 50)
+						{
 							htmltext = "30180-01.htm";
 							st.rewardItems(57, 5026);
 							st.giveItems(EAD, 1);
-						} else {
+						}
+						else
+						{
 							htmltext = "30180-02.htm";
 							st.rewardItems(57, 10000);
 						}

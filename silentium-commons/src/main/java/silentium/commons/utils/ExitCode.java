@@ -2,10 +2,11 @@ package silentium.commons.utils;
 
 /**
  * Class that contains exit codes for server
- *
+ * 
  * @author SoulKeeper
  */
-public final class ExitCode {
+public final class ExitCode
+{
 	/**
 	 * Indicates that server successfully finished it's work
 	 */

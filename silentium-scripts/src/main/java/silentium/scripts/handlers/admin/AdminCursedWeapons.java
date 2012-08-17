@@ -1,9 +1,9 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.scripts.handlers.admin;
 
@@ -21,10 +21,9 @@ import silentium.gameserver.network.SystemMessageId;
 import silentium.gameserver.network.serverpackets.NpcHtmlMessage;
 
 /**
- * This class handles following admin commands: - cw_info = displays cursed weapon status - cw_remove = removes a cursed weapon
- * from the world, item id or name must be provided - cw_add = adds a cursed weapon into the world, item id or name must be
- * provided. Target will be the weilder - cw_goto = teleports GM to the specified cursed weapon - cw_reload = reloads instance
- * manager
+ * This class handles following admin commands: - cw_info = displays cursed weapon status - cw_remove = removes a cursed weapon from the world,
+ * item id or name must be provided - cw_add = adds a cursed weapon into the world, item id or name must be provided. Target will be the weilder
+ * - cw_goto = teleports GM to the specified cursed weapon - cw_reload = reloads instance manager
  */
 public class AdminCursedWeapons implements IAdminCommandHandler
 {

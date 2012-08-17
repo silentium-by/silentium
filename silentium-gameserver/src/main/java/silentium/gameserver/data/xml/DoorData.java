@@ -1,18 +1,23 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.data.xml;
 
 import gnu.trove.map.hash.TIntObjectHashMap;
+
+import java.io.File;
+import java.util.ArrayList;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
+
 import silentium.gameserver.configs.MainConfig;
 import silentium.gameserver.data.xml.parsers.XMLDocumentFactory;
 import silentium.gameserver.geo.pathfinding.AbstractNodeLoc;
@@ -24,9 +29,6 @@ import silentium.gameserver.model.entity.Castle;
 import silentium.gameserver.model.entity.ClanHall;
 import silentium.gameserver.templates.StatsSet;
 import silentium.gameserver.templates.chars.L2CharTemplate;
-
-import java.io.File;
-import java.util.ArrayList;
 
 public class DoorData
 {
@@ -222,8 +224,7 @@ public class DoorData
 
 									castle.getDoors().add(door); // Add the door to castle doors list.
 
-									_log.debug("DoorData: Door " + door.getDoorId() + " is now attached to " + castle
-											.getName() + " castle.");
+									_log.debug("DoorData: Door " + door.getDoorId() + " is now attached to " + castle.getName() + " castle.");
 								}
 							}
 
@@ -234,8 +235,7 @@ public class DoorData
 								clanhall.getDoors().add(door); // Add the door to CH doors list.
 								door.setClanHall(clanhall);
 
-								_log.debug("DoorData: Door " + door.getDoorId() + " is now attached to " + clanhall
-											.getName() + " clanhall.");
+								_log.debug("DoorData: Door " + door.getDoorId() + " is now attached to " + clanhall.getName() + " clanhall.");
 							}
 
 							putDoor(door);

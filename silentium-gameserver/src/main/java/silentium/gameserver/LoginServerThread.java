@@ -1,29 +1,11 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import silentium.commons.crypt.NewCrypt;
-import silentium.commons.utils.Rnd;
-import silentium.commons.utils.Util;
-import silentium.gameserver.configs.HexidConfig;
-import silentium.gameserver.configs.MainConfig;
-import silentium.gameserver.model.L2World;
-import silentium.gameserver.model.actor.instance.L2PcInstance;
-import silentium.gameserver.network.L2GameClient;
-import silentium.gameserver.network.L2GameClient.GameClientState;
-import silentium.gameserver.network.gameserverpackets.*;
-import silentium.gameserver.network.loginserverpackets.*;
-import silentium.gameserver.network.serverpackets.AuthLoginFail;
-import silentium.gameserver.network.serverpackets.CharSelectInfo;
 
 import java.io.BufferedOutputStream;
 import java.io.IOException;
@@ -40,6 +22,37 @@ import java.security.spec.RSAPublicKeySpec;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+
+import javolution.util.FastList;
+import javolution.util.FastMap;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import silentium.commons.crypt.NewCrypt;
+import silentium.commons.utils.Rnd;
+import silentium.commons.utils.Util;
+import silentium.gameserver.configs.HexidConfig;
+import silentium.gameserver.configs.MainConfig;
+import silentium.gameserver.model.L2World;
+import silentium.gameserver.model.actor.instance.L2PcInstance;
+import silentium.gameserver.network.L2GameClient;
+import silentium.gameserver.network.L2GameClient.GameClientState;
+import silentium.gameserver.network.gameserverpackets.AuthRequest;
+import silentium.gameserver.network.gameserverpackets.BlowFishKey;
+import silentium.gameserver.network.gameserverpackets.ChangeAccessLevel;
+import silentium.gameserver.network.gameserverpackets.GameServerBasePacket;
+import silentium.gameserver.network.gameserverpackets.PlayerAuthRequest;
+import silentium.gameserver.network.gameserverpackets.PlayerInGame;
+import silentium.gameserver.network.gameserverpackets.PlayerLogout;
+import silentium.gameserver.network.gameserverpackets.ServerStatus;
+import silentium.gameserver.network.loginserverpackets.AuthResponse;
+import silentium.gameserver.network.loginserverpackets.InitLS;
+import silentium.gameserver.network.loginserverpackets.KickPlayer;
+import silentium.gameserver.network.loginserverpackets.LoginServerFail;
+import silentium.gameserver.network.loginserverpackets.PlayerAuthResponse;
+import silentium.gameserver.network.serverpackets.AuthLoginFail;
+import silentium.gameserver.network.serverpackets.CharSelectInfo;
 
 public class LoginServerThread extends Thread
 {
@@ -275,8 +288,7 @@ public class LoginServerThread extends Thread
 							{
 								if (par.isAuthed())
 								{
-									_log.debug("Login accepted player " + wcToRemove.account + " waited(" +
-												(GameTimeController.getGameTicks() - wcToRemove.timestamp) + "ms)");
+									_log.debug("Login accepted player " + wcToRemove.account + " waited(" + (GameTimeController.getGameTicks() - wcToRemove.timestamp) + "ms)");
 									PlayerInGame pig = new PlayerInGame(par.getAccount());
 									sendPacket(pig);
 									wcToRemove.gameClient.setState(GameClientState.AUTHED);
@@ -335,7 +347,7 @@ public class LoginServerThread extends Thread
 
 	public void addWaitingClientAndSendRequest(String acc, L2GameClient client, SessionKey key)
 	{
-	    _log.debug(String.valueOf(key));
+		_log.debug(String.valueOf(key));
 
 		WaitingClient wc = new WaitingClient(acc, client, key);
 		synchronized (_waitingClients)

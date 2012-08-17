@@ -1,14 +1,17 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.network.clientpackets;
 
+import java.util.regex.Pattern;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import silentium.gameserver.configs.ChatFilterConfig;
 import silentium.gameserver.configs.CustomConfig;
 import silentium.gameserver.configs.MainConfig;
@@ -21,9 +24,8 @@ import silentium.gameserver.utils.IllegalPlayerAction;
 import silentium.gameserver.utils.LoggingUtils;
 import silentium.gameserver.utils.Util;
 
-import java.util.regex.Pattern;
-
-public final class Say2 extends L2GameClientPacket {
+public final class Say2 extends L2GameClientPacket
+{
 	private static Logger chatLogger = LoggerFactory.getLogger("chat");
 
 	public static final int ALL = 0;
@@ -53,28 +55,32 @@ public final class Say2 extends L2GameClientPacket {
 	private String _target;
 
 	@Override
-	protected void readImpl() {
+	protected void readImpl()
+	{
 		_text = readS();
 		_type = readD();
 		_target = (_type == TELL) ? readS() : null;
 	}
 
 	@Override
-	protected void runImpl() {
+	protected void runImpl()
+	{
 		log.debug("Say2: Msg Type = '" + _type + "' Text = '" + _text + "'.");
 
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)
 			return;
 
-		if (_type < 0 || _type >= CHAT_NAMES.length) {
+		if (_type < 0 || _type >= CHAT_NAMES.length)
+		{
 			log.warn("Say2: Invalid type: " + _type + " Player : " + activeChar.getName() + " text: " + String.valueOf(_text));
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			activeChar.logout();
 			return;
 		}
 
-		if (_text.isEmpty()) {
+		if (_text.isEmpty())
+		{
 			log.warn(activeChar.getName() + ": sending empty text. Possible packet hack.");
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			activeChar.logout();
@@ -84,13 +90,15 @@ public final class Say2 extends L2GameClientPacket {
 		if (_text.length() >= 100)
 			return;
 
-		if (!activeChar.isGM() && _type == ANNOUNCEMENT) {
+		if (!activeChar.isGM() && _type == ANNOUNCEMENT)
+		{
 			Util.handleIllegalPlayerAction(activeChar, activeChar.getName() + " tried to announce without GM statut.", IllegalPlayerAction.PUNISH_BROADCAST);
 			log.warn(activeChar.getName() + " tried to use announcements without GM statut.");
 			return;
 		}
 
-		if (activeChar.isChatBanned() || (activeChar.isInJail() && !activeChar.isGM())) {
+		if (activeChar.isChatBanned() || (activeChar.isInJail() && !activeChar.isGM()))
+		{
 			activeChar.sendPacket(SystemMessageId.CHATTING_PROHIBITED);
 			return;
 		}
@@ -104,31 +112,36 @@ public final class Say2 extends L2GameClientPacket {
 		_text = _text.replaceAll("\\\\n", "");
 
 		IChatHandler handler = ChatHandler.getInstance().getChatHandler(_type);
-		if (handler != null) {
+		if (handler != null)
+		{
 			handler.handleChat(_type, activeChar, _target, _text);
 
 			if (MainConfig.LOG_CHAT)
-				LoggingUtils.logChat(chatLogger, _type == TELL ? activeChar.getName() : null, _target, _text,
-						CHAT_NAMES[_type]);
-		} else
+				LoggingUtils.logChat(chatLogger, _type == TELL ? activeChar.getName() : null, _target, _text, CHAT_NAMES[_type]);
+		}
+		else
 			log.warn(activeChar.getName() + " tried to use unregistred chathandler type: " + _type + ".");
 	}
 
-	private void checkText() {
+	private void checkText()
+	{
 		String filteredText = _text;
-		for (String pattern : ChatFilterConfig.FILTER_LIST) {
+		for (String pattern : ChatFilterConfig.FILTER_LIST)
+		{
 			if (matches(filteredText, ".*" + pattern + ".*", Pattern.CASE_INSENSITIVE))
 				filteredText = CustomConfig.CHAT_FILTER_CHARS;
 		}
 		_text = filteredText;
 	}
 
-	private boolean matches(String str, String regex, int flags) {
+	private boolean matches(String str, String regex, int flags)
+	{
 		return Pattern.compile(regex, flags).matcher(str).matches();
 	}
 
 	@Override
-	protected boolean triggersOnActionRequest() {
+	protected boolean triggersOnActionRequest()
+	{
 		return false;
 	}
 }

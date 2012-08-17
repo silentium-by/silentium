@@ -1,14 +1,14 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.scripts.handlers.skill;
 
-import silentium.gameserver.configs.MainConfig;
 import silentium.commons.utils.Rnd;
+import silentium.gameserver.configs.MainConfig;
 import silentium.gameserver.geo.GeoData;
 import silentium.gameserver.handler.ISkillHandler;
 import silentium.gameserver.instancemanager.ZoneManager;
@@ -41,8 +41,8 @@ public class Fishing implements ISkillHandler
 		L2PcInstance player = (L2PcInstance) activeChar;
 
 		/*
-		 * If fishing is disabled, there isn't much point in doing anything else, unless you are GM. so this got moved up here,
-		 * before anything else.
+		 * If fishing is disabled, there isn't much point in doing anything else, unless you are GM. so this got moved up here, before anything
+		 * else.
 		 */
 		if (!MainConfig.ALLOWFISHING)
 		{
@@ -119,8 +119,8 @@ public class Fishing implements ISkillHandler
 		int y = player.getY() + (int) (sin * rnd);
 		int z = player.getZ() + 50;
 		/*
-		 * ...and if the spot is in a fishing zone. If it is, it will position the hook on the water surface. If not, you have to
-		 * be GM to proceed past here... in that case, the hook will be positioned using the old Z lookup method.
+		 * ...and if the spot is in a fishing zone. If it is, it will position the hook on the water surface. If not, you have to be GM to
+		 * proceed past here... in that case, the hook will be positioned using the old Z lookup method.
 		 */
 		L2FishingZone aimingTo = null;
 		L2WaterZone water = null;

@@ -1,19 +1,26 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.data.xml;
 
 import gnu.trove.map.hash.TIntObjectHashMap;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.StringTokenizer;
+
 import javolution.util.FastList;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
+
 import silentium.commons.utils.Rnd;
 import silentium.gameserver.configs.MainConfig;
 import silentium.gameserver.configs.PlayersConfig;
@@ -24,13 +31,9 @@ import silentium.gameserver.network.clientpackets.AbstractRefinePacket;
 import silentium.gameserver.skills.Stats;
 import silentium.gameserver.tables.SkillTable;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.StringTokenizer;
-
 /**
  * This class manages the augmentation data and can also create new augmentations.
- *
+ * 
  * @author durgus, edited by Gigiikun
  */
 public class AugmentationData
@@ -456,8 +459,7 @@ public class AugmentationData
 		}
 		stat12 = Rnd.get(offset, offset + STAT_SUBBLOCKSIZE - 1);
 
-		_log.debug("Augmentation success: stat12=" + stat12 + "; stat34=" + stat34 + "; resultColor=" + resultColor +
-					"; level=" + lifeStoneLevel + "; grade=" + lifeStoneGrade);
+		_log.debug("Augmentation success: stat12=" + stat12 + "; stat34=" + stat34 + "; resultColor=" + resultColor + "; level=" + lifeStoneLevel + "; grade=" + lifeStoneGrade);
 
 		return new L2Augmentation(((stat34 << 16) + stat12), skill);
 	}
@@ -486,7 +488,7 @@ public class AugmentationData
 
 	/**
 	 * Returns the stat and basestat boni for a given augmentation id
-	 *
+	 * 
 	 * @param augmentationId
 	 * @return
 	 */

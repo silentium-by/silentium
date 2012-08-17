@@ -1,15 +1,26 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.model.entity.sevensigns;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+
 import javolution.util.FastMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import silentium.commons.database.DatabaseFactory;
 import silentium.gameserver.ThreadPoolManager;
 import silentium.gameserver.configs.EventsConfig;
@@ -30,18 +41,9 @@ import silentium.gameserver.tables.SkillTable;
 import silentium.gameserver.templates.StatsSet;
 import silentium.gameserver.utils.Broadcast;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-
 /**
  * Seven Signs Engine
- *
+ * 
  * @author Tempy
  */
 public class SevenSigns
@@ -225,8 +227,8 @@ public class SevenSigns
 	}
 
 	/**
-	 * Registers all random spawns and auto-chats for Seven Signs NPCs, along with spawns for the Preachers of Doom and Orators of
-	 * Revelations at the beginning of the Seal Validation period.
+	 * Registers all random spawns and auto-chats for Seven Signs NPCs, along with spawns for the Preachers of Doom and Orators of Revelations at
+	 * the beginning of the Seal Validation period.
 	 */
 	public void spawnSevenSignsNPC()
 	{
@@ -534,7 +536,7 @@ public class SevenSigns
 
 	/**
 	 * A method used for sieges verification.
-	 *
+	 * 
 	 * @param date
 	 *            The date to test.
 	 * @return true if the given date is in Seal Validation or in Quest Event Results period.
@@ -747,8 +749,7 @@ public class SevenSigns
 				sevenDat.set("ancient_adena_amount", rset.getDouble("ancient_adena_amount"));
 				sevenDat.set("contribution_score", rset.getDouble("contribution_score"));
 
-				_log.debug("SevenSigns: Loaded data from DB for char ID " + charObjId + " (" + sevenDat.getString
-							("cabal") + ")");
+				_log.debug("SevenSigns: Loaded data from DB for char ID " + charObjId + " (" + sevenDat.getString("cabal") + ")");
 
 				_signsPlayerData.put(charObjId, sevenDat);
 			}
@@ -818,9 +819,7 @@ public class SevenSigns
 				statement.execute();
 				statement.clearParameters();
 
-
-					_log.debug("SevenSigns: Updated data in database for char ID " + sevenDat.getInteger("char_obj_id") +
-							" (" + sevenDat.getString("cabal") + ")");
+				_log.debug("SevenSigns: Updated data in database for char ID " + sevenDat.getInteger("char_obj_id") + " (" + sevenDat.getString("cabal") + ")");
 			}
 			statement.close();
 		}
@@ -832,7 +831,7 @@ public class SevenSigns
 
 	/**
 	 * Updates Seven Signs data for one player. Data must already exists, else it returns.
-	 *
+	 * 
 	 * @param objectId
 	 *            The objectId of the player to update.
 	 */
@@ -928,7 +927,7 @@ public class SevenSigns
 	/**
 	 * Used to specify cabal-related details for the specified player.<br>
 	 * This method checks to see if the player has registered before and will update the database if necessary.
-	 *
+	 * 
 	 * @param objectId
 	 * @param chosenCabal
 	 * @param chosenSeal
@@ -971,8 +970,7 @@ public class SevenSigns
 				statement.execute();
 				statement.close();
 
-				_log.debug("SevenSigns: Inserted data in DB for char ID " + currPlayerData.getInteger("char_obj_id")
-							+ " (" + currPlayerData.getString("cabal") + ")");
+				_log.debug("SevenSigns: Inserted data in DB for char ID " + currPlayerData.getInteger("char_obj_id") + " (" + currPlayerData.getString("cabal") + ")");
 			}
 			catch (SQLException e)
 			{
@@ -995,7 +993,7 @@ public class SevenSigns
 	/**
 	 * Returns the amount of ancient adena the specified player can claim, if any.<BR>
 	 * If removeReward = True, all the ancient adena owed to them is removed, then DB is updated.
-	 *
+	 * 
 	 * @param objectId
 	 * @param removeReward
 	 * @return
@@ -1024,10 +1022,10 @@ public class SevenSigns
 	}
 
 	/**
-	 * Used to add the specified player's seal stone contribution points to the current total for their cabal. Returns the point
-	 * score the contribution was worth.<br>
+	 * Used to add the specified player's seal stone contribution points to the current total for their cabal. Returns the point score the
+	 * contribution was worth.<br>
 	 * Each stone count <B>must be</B> broken down and specified by the stone's color.
-	 *
+	 * 
 	 * @param objectId
 	 *            The objectId of the player.
 	 * @param blueCount
@@ -1076,9 +1074,9 @@ public class SevenSigns
 	}
 
 	/**
-	 * Adds the specified number of festival points to the specified cabal. Remember, the same number of points are <B>deducted
-	 * from the rival cabal</B> to maintain proportionality.
-	 *
+	 * Adds the specified number of festival points to the specified cabal. Remember, the same number of points are <B>deducted from the rival
+	 * cabal</B> to maintain proportionality.
+	 * 
 	 * @param cabal
 	 * @param amount
 	 */
@@ -1103,7 +1101,7 @@ public class SevenSigns
 
 	/**
 	 * Send info on the current Seven Signs period to the specified player.
-	 *
+	 * 
 	 * @param player
 	 */
 	public void sendCurrentPeriodMsg(L2PcInstance player)
@@ -1131,7 +1129,7 @@ public class SevenSigns
 
 	/**
 	 * Sends the built-in system message specified by sysMsgId to all online players.
-	 *
+	 * 
 	 * @param sysMsgId
 	 */
 	public void sendMessageToAll(SystemMessageId sysMsgId)
@@ -1141,8 +1139,8 @@ public class SevenSigns
 	}
 
 	/**
-	 * Used to initialize the seals for each cabal. (Used at startup or at beginning of a new cycle). This method should be called
-	 * after <B>resetSeals()</B> and <B>calcNewSealOwners()</B> on a new cycle.
+	 * Used to initialize the seals for each cabal. (Used at startup or at beginning of a new cycle). This method should be called after
+	 * <B>resetSeals()</B> and <B>calcNewSealOwners()</B> on a new cycle.
 	 */
 	protected void initializeSeals()
 	{
@@ -1179,12 +1177,9 @@ public class SevenSigns
 	 */
 	protected void calcNewSealOwners()
 	{
-		_log.debug("SevenSigns: (Avarice) Dawn = " + _signsDawnSealTotals.get(SEAL_AVARICE) + ", " +
-				"Dusk = " + _signsDuskSealTotals.get(SEAL_AVARICE));
-		_log.debug("SevenSigns: (Gnosis) Dawn = " + _signsDawnSealTotals.get(SEAL_GNOSIS) + ", " +
-				"Dusk = " + _signsDuskSealTotals.get(SEAL_GNOSIS));
-		_log.debug("SevenSigns: (Strife) Dawn = " + _signsDawnSealTotals.get(SEAL_STRIFE) + ", " +
-				"Dusk = " + _signsDuskSealTotals.get(SEAL_STRIFE));
+		_log.debug("SevenSigns: (Avarice) Dawn = " + _signsDawnSealTotals.get(SEAL_AVARICE) + ", " + "Dusk = " + _signsDuskSealTotals.get(SEAL_AVARICE));
+		_log.debug("SevenSigns: (Gnosis) Dawn = " + _signsDawnSealTotals.get(SEAL_GNOSIS) + ", " + "Dusk = " + _signsDuskSealTotals.get(SEAL_GNOSIS));
+		_log.debug("SevenSigns: (Strife) Dawn = " + _signsDawnSealTotals.get(SEAL_STRIFE) + ", " + "Dusk = " + _signsDuskSealTotals.get(SEAL_STRIFE));
 
 		for (Integer currSeal : _signsDawnSealTotals.keySet())
 		{
@@ -1320,7 +1315,7 @@ public class SevenSigns
 	 * This method is called to remove all players from catacombs and necropolises, who belong to the losing cabal. <BR>
 	 * <BR>
 	 * Should only ever called at the beginning of Seal Validation.
-	 *
+	 * 
 	 * @param compWinner
 	 */
 	protected void teleLosingCabalFromDungeons(String compWinner)
@@ -1355,9 +1350,9 @@ public class SevenSigns
 	}
 
 	/**
-	 * The primary controller of period change of the Seven Signs system. This runs all related tasks depending on the period that
-	 * is about to begin.
-	 *
+	 * The primary controller of period change of the Seven Signs system. This runs all related tasks depending on the period that is about to
+	 * begin.
+	 * 
 	 * @author Tempy
 	 */
 	protected class SevenSignsPeriodChange implements Runnable
@@ -1472,7 +1467,7 @@ public class SevenSigns
 
 	/**
 	 * Buff/debuff players following their membership to Seal of Strife.
-	 *
+	 * 
 	 * @param strifeOwner
 	 *            The cabal owning the Seal of Strife.
 	 */
@@ -1517,7 +1512,7 @@ public class SevenSigns
 
 	/**
 	 * Siege summon cannot be summoned by Dusk when the Seal of Strife is controlled by the Dawn.
-	 *
+	 * 
 	 * @param activeChar
 	 * @return true if all is ok, false otherwise.
 	 */

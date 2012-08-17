@@ -1,17 +1,16 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.model;
 
 import java.util.ArrayList;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -106,7 +105,7 @@ public abstract class L2Effect
 
 	/**
 	 * <font color="FF0000"><b>WARNING: scheduleEffect no longer inside constructor ; you must call it explicitly.</b></font>
-	 *
+	 * 
 	 * @param env
 	 * @param template
 	 */
@@ -185,7 +184,7 @@ public abstract class L2Effect
 
 	/**
 	 * Returns the elapsed time of the task.
-	 *
+	 * 
 	 * @return Time in seconds.
 	 */
 	public int getTaskTime()
@@ -285,8 +284,8 @@ public abstract class L2Effect
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
-	 * <li>Cancel the effect in the the abnormal effect map of the L2Character</li> <li>Stop the task of the L2Effect, remove it
-	 * and update client magic icon</li><BR>
+	 * <li>Cancel the effect in the the abnormal effect map of the L2Character</li> <li>Stop the task of the L2Effect, remove it and update
+	 * client magic icon</li><BR>
 	 * <BR>
 	 */
 	public final void exit()
@@ -332,7 +331,7 @@ public abstract class L2Effect
 
 	/**
 	 * Notify started
-	 *
+	 * 
 	 * @return always true, overidden in each effect.
 	 */
 	public boolean onStart()
@@ -529,7 +528,7 @@ public abstract class L2Effect
 
 	/**
 	 * Return bit flag for current effect
-	 *
+	 * 
 	 * @return int flag
 	 */
 	public int getEffectFlags()

@@ -1,27 +1,34 @@
 package silentium.gameserver.utils;
 
+import static silentium.gameserver.utils.IllegalPlayerAction.PUNISH_BROADCAST;
+import static silentium.gameserver.utils.IllegalPlayerAction.PUNISH_JAIL;
+import static silentium.gameserver.utils.IllegalPlayerAction.PUNISH_KICK;
+import static silentium.gameserver.utils.IllegalPlayerAction.PUNISH_KICKBAN;
+
 import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
+
 import silentium.gameserver.model.L2ItemInstance;
 import silentium.gameserver.model.L2Object;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 
-import static silentium.gameserver.utils.IllegalPlayerAction.*;
-
 /**
- * Класс, помогающий логгировать определенные события. Это можно было бы перенести в layouts,
- * но тогда пришлось бы отправлять аргументы для логгирования через массив, а это будет слишком жирно,
- * только если не сделать отдельный сервер для логгирования.
- *
+ * Класс, помогающий логгировать определенные события. Это можно было бы
+ * перенести в layouts, но тогда пришлось бы отправлять аргументы для логгирования
+ * через массив, а это будет слишком жирно, только если не сделать отдельный
+ * сервер для логгирования.
+ * 
  * @author Tatanka
  */
-public class LoggingUtils {
+public class LoggingUtils
+{
 	private static final String[] excludeItemType = { "Arrow", "Shot", "Herb" };
 
-	// строится тут, а не в layout, потому что пришлось бы отправлять аргументы массивом, а это слишком жирно будет,
+	// строится тут, а не в layout, потому что пришлось бы отправлять аргументы
+	// массивом, а это слишком жирно будет,
 	// только если не сделать отдельный сервер для чата или логгирования.
-	public static void logChat(Logger chatLogger, String senderName, String receiverName, String message,
-	                           String chatName) {
+	public static void logChat(Logger chatLogger, String senderName, String receiverName, String message, String chatName)
+	{
 		final StringBuilder stringBuilder = new StringBuilder();
 
 		stringBuilder.append('[');
@@ -32,7 +39,8 @@ public class LoggingUtils {
 		stringBuilder.append(senderName);
 		stringBuilder.append('\'');
 
-		if (receiverName != null) {
+		if (receiverName != null)
+		{
 			stringBuilder.append(" to ");
 
 			stringBuilder.append('\'');
@@ -49,8 +57,8 @@ public class LoggingUtils {
 		chatLogger.info(stringBuilder.toString());
 	}
 
-	public static void logItem(Logger itemLogger, String processPrefix, String process, L2ItemInstance item,
-	                           String ownerName, L2Object reference) {
+	public static void logItem(Logger itemLogger, String processPrefix, String process, L2ItemInstance item, String ownerName, L2Object reference)
+	{
 		final StringBuilder stringBuilder = new StringBuilder();
 
 		// Don't log arrows, shots and herbs.
@@ -76,7 +84,8 @@ public class LoggingUtils {
 		stringBuilder.append(item.getCount());
 		stringBuilder.append('\'');
 
-		if (item.getEnchantLevel() > 0){
+		if (item.getEnchantLevel() > 0)
+		{
 			stringBuilder.append(", item enchant level '");
 			stringBuilder.append('+');
 			stringBuilder.append(item.getEnchantLevel());
@@ -91,7 +100,8 @@ public class LoggingUtils {
 		itemLogger.info(stringBuilder.toString());
 	}
 
-	public static void logAudit(Logger auditLogger, String message, L2PcInstance actor, int punishment) {
+	public static void logAudit(Logger auditLogger, String message, L2PcInstance actor, int punishment)
+	{
 		final StringBuilder stringBuilder = new StringBuilder();
 
 		stringBuilder.append(message);
@@ -101,7 +111,8 @@ public class LoggingUtils {
 		stringBuilder.append(actor.getName());
 
 		stringBuilder.append(" and punishment was ");
-		switch (punishment) {
+		switch (punishment)
+		{
 			case PUNISH_BROADCAST:
 				stringBuilder.append("broadcast");
 				break;

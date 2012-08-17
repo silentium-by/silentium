@@ -1,17 +1,16 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.network;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -417,15 +416,13 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 68<br>
-	 * Message: Would you like to withdraw from the $s1 clan? If you leave, you will have to wait at least a day before joining
-	 * another clan.
+	 * Message: Would you like to withdraw from the $s1 clan? If you leave, you will have to wait at least a day before joining another clan.
 	 */
 	public static final SystemMessageId WOULD_YOU_LIKE_TO_WITHDRAW_FROM_THE_S1_CLAN;
 
 	/**
 	 * ID: 69<br>
-	 * Message: Would you like to dismiss $s1 from the clan? If you do so, you will have to wait at least a day before accepting a
-	 * new member.
+	 * Message: Would you like to dismiss $s1 from the clan? If you do so, you will have to wait at least a day before accepting a new member.
 	 */
 	public static final SystemMessageId WOULD_YOU_LIKE_TO_DISMISS_S1_FROM_THE_CLAN;
 
@@ -479,8 +476,7 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 78<br>
-	 * Message: When you delete a character, any items in his/her possession will also be deleted. Do you really wish to delete
-	 * $s1%?
+	 * Message: When you delete a character, any items in his/her possession will also be deleted. Do you really wish to delete $s1%?
 	 */
 	public static final SystemMessageId WISH_DELETE_S1;
 
@@ -2558,8 +2554,8 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 456<br>
-	 * Message: Lineage II game services may be used by individuals 15 years of age or older except for PvP servers,which may only
-	 * be used by adults 18 years of age and older (Korea Only)
+	 * Message: Lineage II game services may be used by individuals 15 years of age or older except for PvP servers,which may only be used by
+	 * adults 18 years of age and older (Korea Only)
 	 */
 	public static final SystemMessageId LINAGE_MINIMUM_AGE;
 
@@ -2619,8 +2615,7 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 468<br>
-	 * Message: A clan that has withdrawn or been expelled cannot enter into an alliance within one day of withdrawal or
-	 * expulsion.
+	 * Message: A clan that has withdrawn or been expelled cannot enter into an alliance within one day of withdrawal or expulsion.
 	 */
 	public static final SystemMessageId CANT_ENTER_ALLIANCE_WITHIN_1_DAY;
 
@@ -3606,15 +3601,13 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 642<br>
-	 * Message: You are already registered to the attacker side and must not cancel your registration before submitting your
-	 * request
+	 * Message: You are already registered to the attacker side and must not cancel your registration before submitting your request
 	 */
 	public static final SystemMessageId ALREADY_ATTACKER_NOT_CANCEL;
 
 	/**
 	 * ID: 643<br>
-	 * Message: You are already registered to the defender side and must not cancel your registration before submitting your
-	 * request
+	 * Message: You are already registered to the defender side and must not cancel your registration before submitting your request
 	 */
 	public static final SystemMessageId ALREADY_DEFENDER_NOT_CANCEL;
 
@@ -4128,8 +4121,8 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 733<br>
-	 * Message: We have received $s1 petitions from you today and that is the maximum that you can submit in one day. You cannot
-	 * submit any more petitions.
+	 * Message: We have received $s1 petitions from you today and that is the maximum that you can submit in one day. You cannot submit any more
+	 * petitions.
 	 */
 	public static final SystemMessageId WE_HAVE_RECEIVED_S1_PETITIONS_TODAY;
 
@@ -4231,8 +4224,7 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 751<br>
-	 * Message: As there is a conflict in the siege relationship with a clan in the alliance, you cannot invite that clan to the
-	 * alliance.
+	 * Message: As there is a conflict in the siege relationship with a clan in the alliance, you cannot invite that clan to the alliance.
 	 */
 	public static final SystemMessageId CANNOT_INVITE_CONFLICT_CLAN;
 
@@ -4676,8 +4668,8 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 833<br>
-	 * Message: You are not authorized to make further recommendations at this time. You will receive more recommendation credits
-	 * each day at 1 p.m.
+	 * Message: You are not authorized to make further recommendations at this time. You will receive more recommendation credits each day at 1
+	 * p.m.
 	 */
 	public static final SystemMessageId NO_MORE_RECOMMENDATIONS_TO_HAVE;
 
@@ -5475,8 +5467,8 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 966<br>
-	 * Message: Chatting is currently prohibited. If you try to chat before the prohibition is removed, the prohibition time will
-	 * become even longer.
+	 * Message: Chatting is currently prohibited. If you try to chat before the prohibition is removed, the prohibition time will become even
+	 * longer.
 	 */
 	public static final SystemMessageId CHATTING_IS_CURRENTLY_PROHIBITED;
 
@@ -6136,15 +6128,14 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 1077<br>
-	 * Message: A GameGuard Execution error has occurred. Please send the *.erl file(s) located in the GameGuard folder to
-	 * game@inca.co.kr
+	 * Message: A GameGuard Execution error has occurred. Please send the *.erl file(s) located in the GameGuard folder to game@inca.co.kr
 	 */
 	public static final SystemMessageId GG_EXECUTION_ERROR;
 
 	/**
 	 * ID: 1078<br>
-	 * Message: When a user's keyboard input exceeds a certain cumulative score a chat ban will be applied. This is done to
-	 * discourage spamming. Please avoid posting the same message multiple times during a short period.
+	 * Message: When a user's keyboard input exceeds a certain cumulative score a chat ban will be applied. This is done to discourage spamming.
+	 * Please avoid posting the same message multiple times during a short period.
 	 */
 	public static final SystemMessageId DONT_SPAM;
 
@@ -6354,8 +6345,8 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 1113<br>
-	 * Message: The prize amount for Lucky Lottery #$s1 is $s2 adena. There was no first prize winner in this drawing, therefore
-	 * the jackpot will be added to the next drawing.
+	 * Message: The prize amount for Lucky Lottery #$s1 is $s2 adena. There was no first prize winner in this drawing, therefore the jackpot will
+	 * be added to the next drawing.
 	 */
 	public static final SystemMessageId AMOUNT_FOR_LOTTERY_S1_IS_S2_ADENA_NO_WINNER;
 
@@ -6391,8 +6382,8 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 1119<br>
-	 * Message: Quest was automatically canceled when you attempted to settle the accounts of your quest while your inventory
-	 * exceeded 80 percent of capacity.
+	 * Message: Quest was automatically canceled when you attempted to settle the accounts of your quest while your inventory exceeded 80 percent
+	 * of capacity.
 	 */
 	public static final SystemMessageId QUEST_CANCELED_INVENTORY_EXCEEDS_80_PERCENT;
 
@@ -6494,8 +6485,8 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 1136<br>
-	 * Message: Since there was an account that used this IP and attempted to log in illegally, this account is not allowed to
-	 * connect to the game server for $s1 minutes. Please use another game server.
+	 * Message: Since there was an account that used this IP and attempted to log in illegally, this account is not allowed to connect to the
+	 * game server for $s1 minutes. Please use another game server.
 	 */
 	public static final SystemMessageId ACCOUNT_NOT_ALLOWED_TO_CONNECT;
 
@@ -6814,8 +6805,7 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 1189<br>
-	 * Message: This temporary alliance of the Castle Attacker team is in effect. It will be dissolved when the Castle Lord is
-	 * replaced.
+	 * Message: This temporary alliance of the Castle Attacker team is in effect. It will be dissolved when the Castle Lord is replaced.
 	 */
 	public static final SystemMessageId TEMPORARY_ALLIANCE;
 
@@ -6845,8 +6835,7 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 1194<br>
-	 * Message: A mercenary can be assigned to a position from the beginning of the Seal Validatio period until the time when a
-	 * siege starts.
+	 * Message: A mercenary can be assigned to a position from the beginning of the Seal Validatio period until the time when a siege starts.
 	 */
 	public static final SystemMessageId MERC_CAN_BE_ASSIGNED;
 
@@ -6942,8 +6931,7 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 1210<br>
-	 * Message: Seven Signs: The quest event period has begun. Visit a Priest of Dawn or Priestess of Dusk to participate in the
-	 * event.
+	 * Message: Seven Signs: The quest event period has begun. Visit a Priest of Dawn or Priestess of Dusk to participate in the event.
 	 */
 	public static final SystemMessageId QUEST_EVENT_PERIOD_BEGUN;
 
@@ -7183,8 +7171,7 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 1250<br>
-	 * Message: Do you really want to surrender? If you surrender during an alliance war, your Exp will drop the same as if you
-	 * were to die once.
+	 * Message: Do you really want to surrender? If you surrender during an alliance war, your Exp will drop the same as if you were to die once.
 	 */
 	public static final SystemMessageId SURRENDER_ALLY_WAR_CONFIRM;
 
@@ -7202,8 +7189,7 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 1253<br>
-	 * Message: Are you sure you want to surrender? Exp penalty will be the same as death and you will not be allowed to
-	 * participate in clan war.
+	 * Message: Are you sure you want to surrender? Exp penalty will be the same as death and you will not be allowed to participate in clan war.
 	 */
 	public static final SystemMessageId SURRENDER_CONFIRM2;
 
@@ -7251,8 +7237,8 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 1261<br>
-	 * Message: Seven Signs: The quest event period has begun. Speak with a Priest of Dawn or Dusk Priestess if you wish to
-	 * participate in the event.
+	 * Message: Seven Signs: The quest event period has begun. Speak with a Priest of Dawn or Dusk Priestess if you wish to participate in the
+	 * event.
 	 */
 	public static final SystemMessageId COMPETITION_PERIOD_BEGUN;
 
@@ -7318,8 +7304,7 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 1271<br>
-	 * Message: Do you wish to participate? Until the next seal validation period, you are a member of the Revolutionaries of
-	 * Dusk.
+	 * Message: Do you wish to participate? Until the next seal validation period, you are a member of the Revolutionaries of Dusk.
 	 */
 	public static final SystemMessageId DUSK_CONFIRM;
 
@@ -7553,8 +7538,8 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 1311<br>
-	 * Message: Previous versions of MSN Messenger only provide the basic features for in-game MSN Messenger Chat. Add/Delete
-	 * Contacts and other MSN Messenger options are not available
+	 * Message: Previous versions of MSN Messenger only provide the basic features for in-game MSN Messenger Chat. Add/Delete Contacts and other
+	 * MSN Messenger options are not available
 	 */
 	public static final SystemMessageId MSN_ONLY_BASIC;
 
@@ -7578,8 +7563,8 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 1315<br>
-	 * Message: Deleting a contact will remove that contact from MSN Messenger as well. The contact can still check your online
-	 * status and well not be blocked from sending you a message.
+	 * Message: Deleting a contact will remove that contact from MSN Messenger as well. The contact can still check your online status and well
+	 * not be blocked from sending you a message.
 	 */
 	public static final SystemMessageId DELETING_A_CONTACT;
 
@@ -7753,8 +7738,7 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 1344<br>
-	 * Message: Your request to log into the .NET Messenger service has failed. Please verify that you are currently connected to
-	 * the internet.
+	 * Message: Your request to log into the .NET Messenger service has failed. Please verify that you are currently connected to the internet.
 	 */
 	public static final SystemMessageId NET_LOGIN_FAILED;
 
@@ -7916,8 +7900,8 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 1371<br>
-	 * Message: It has been determined that you're not engaged in normal gameplay and a restriction has been imposed upon you. You
-	 * may not move for $s1 minutes.
+	 * Message: It has been determined that you're not engaged in normal gameplay and a restriction has been imposed upon you. You may not move
+	 * for $s1 minutes.
 	 */
 	public static final SystemMessageId GAMEPLAY_RESTRICTION_PENALTY_S1;
 
@@ -8067,8 +8051,7 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 1396<br>
-	 * Message: The list of party rooms can only be viewed by a person who has not joined a party or who is currently the leader
-	 * of a party.
+	 * Message: The list of party rooms can only be viewed by a person who has not joined a party or who is currently the leader of a party.
 	 */
 	public static final SystemMessageId CANT_VIEW_PARTY_ROOMS;
 
@@ -8116,8 +8099,8 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 1404<br>
-	 * Message: The owner of the private manufacturing store has changed the price for creating this item. Please check the new
-	 * price before trying again.
+	 * Message: The owner of the private manufacturing store has changed the price for creating this item. Please check the new price before
+	 * trying again.
 	 */
 	public static final SystemMessageId MANUFACTURE_PRICE_HAS_CHANGED;
 
@@ -8147,8 +8130,8 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 1409<br>
-	 * Message: Your prepaid usage time has expired. Your new prepaid reservation will be used. The remaining usage time is $s1
-	 * hours and $s2 minutes.
+	 * Message: Your prepaid usage time has expired. Your new prepaid reservation will be used. The remaining usage time is $s1 hours and $s2
+	 * minutes.
 	 */
 	public static final SystemMessageId PREPAID_EXPIRED_S1_S2;
 
@@ -8316,8 +8299,8 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 1437<br>
-	 * Message: Players are no longer allowed to play dice. Dice can no longer be purchased from a village store. However, you can
-	 * still sell them to any village store.
+	 * Message: Players are no longer allowed to play dice. Dice can no longer be purchased from a village store. However, you can still sell
+	 * them to any village store.
 	 */
 	public static final SystemMessageId DICE_NO_LONGER_ALLOWED;
 
@@ -8803,8 +8786,8 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 1519<br>
-	 * Message: Your pet has been killed! Make sure you resurrect your pet within 20 minutes or your pet and all of it's items
-	 * will disappear forever!
+	 * Message: Your pet has been killed! Make sure you resurrect your pet within 20 minutes or your pet and all of it's items will disappear
+	 * forever!
 	 */
 	public static final SystemMessageId MAKE_SURE_YOU_RESSURECT_YOUR_PET_WITHIN_20_MINUTES;
 
@@ -9062,8 +9045,7 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 1562<br>
-	 * Message: A Clan War has been declared against the clan, $s1. you will only lose a quarter of the normal experience from
-	 * death.
+	 * Message: A Clan War has been declared against the clan, $s1. you will only lose a quarter of the normal experience from death.
 	 */
 	public static final SystemMessageId CLAN_WAR_DECLARED_AGAINST_S1_IF_KILLED_LOSE_LOW_EXP;
 
@@ -9075,8 +9057,7 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 1564<br>
-	 * Message: A Clan War can be declared only if the clan is level three or above, and the number of clan members is fifteen or
-	 * greater.
+	 * Message: A Clan War can be declared only if the clan is level three or above, and the number of clan members is fifteen or greater.
 	 */
 	public static final SystemMessageId CLAN_WAR_DECLARED_IF_CLAN_LVL3_OR_15_MEMBER;
 
@@ -9544,8 +9525,7 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 1642<br>
-	 * Message: Much carnage has been left for the cleanup crew of the Olympiad Stadium. Battles in the Grand Olympiad Games are
-	 * now over!
+	 * Message: Much carnage has been left for the cleanup crew of the Olympiad Stadium. Battles in the Grand Olympiad Games are now over!
 	 */
 	public static final SystemMessageId THE_OLYMPIAD_GAME_HAS_ENDED;
 
@@ -9643,8 +9623,7 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 1663<br>
-	 * Message: The clan crest was successfully registered. Remember, only a clan that owns a clan hall or castle can have their
-	 * crest displayed.
+	 * Message: The clan crest was successfully registered. Remember, only a clan that owns a clan hall or castle can have their crest displayed.
 	 */
 	public static final SystemMessageId CLAN_EMBLEM_WAS_SUCCESSFULLY_REGISTERED;
 
@@ -9686,8 +9665,8 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 1670<br>
-	 * Message: Due to your Reeling and/or Pumping skill being three or more levels higher than your Fishing skill, a 50 damage
-	 * penalty will be applied.
+	 * Message: Due to your Reeling and/or Pumping skill being three or more levels higher than your Fishing skill, a 50 damage penalty will be
+	 * applied.
 	 */
 	public static final SystemMessageId REELING_PUMPING_3_LEVELS_HIGHER_THAN_FISHING_PENALTY;
 
@@ -9705,8 +9684,8 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 1673<br>
-	 * Message: Your current record for this Grand Olympiad is $s1 match(es), $s2 win(s) and $s3 defeat(s). You have earned $s4
-	 * Olympiad Point(s).
+	 * Message: Your current record for this Grand Olympiad is $s1 match(es), $s2 win(s) and $s3 defeat(s). You have earned $s4 Olympiad
+	 * Point(s).
 	 */
 	public static final SystemMessageId THE_CURRENT_RECORD_FOR_THIS_OLYMPIAD_SESSION_IS_S1_MATCHES_S2_WINS_S3_DEFEATS_YOU_HAVE_EARNED_S4_OLYMPIAD_POINTS;
 
@@ -9790,8 +9769,7 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 1687<br>
-	 * Message: This area cannot be entered while mounted atop of a Wyvern. You will be dismounted from your Wyvern if you do not
-	 * leave!
+	 * Message: This area cannot be entered while mounted atop of a Wyvern. You will be dismounted from your Wyvern if you do not leave!
 	 */
 	public static final SystemMessageId AREA_CANNOT_BE_ENTERED_WHILE_MOUNTED_WYVERN;
 
@@ -9815,15 +9793,14 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 1691<br>
-	 * Message: You can't join a Grand Olympiad Game match with that much stuff on you! Reduce your weight to below 80 percent
-	 * full and request to join again!
+	 * Message: You can't join a Grand Olympiad Game match with that much stuff on you! Reduce your weight to below 80 percent full and request
+	 * to join again!
 	 */
 	public static final SystemMessageId SINCE_80_PERCENT_OR_MORE_OF_YOUR_INVENTORY_SLOTS_ARE_FULL_YOU_CANNOT_PARTICIPATE_IN_THE_OLYMPIAD;
 
 	/**
 	 * ID: 1692<br>
-	 * Message: You have changed from your main class to a subclass and therefore are removed from the Grand Olympiad Games
-	 * waiting list.
+	 * Message: You have changed from your main class to a subclass and therefore are removed from the Grand Olympiad Games waiting list.
 	 */
 	public static final SystemMessageId SINCE_YOU_HAVE_CHANGED_YOUR_CLASS_INTO_A_SUB_JOB_YOU_CANNOT_PARTICIPATE_IN_THE_OLYMPIAD;
 
@@ -9853,15 +9830,13 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 1697<br>
-	 * Message: Your accumulated play time has reached Fatigue level, so you will receive experience or item drops at only 50
-	 * percent [...]
+	 * Message: Your accumulated play time has reached Fatigue level, so you will receive experience or item drops at only 50 percent [...]
 	 */
 	public static final SystemMessageId ACCUMULATED_PLAY_TIME_WARNING1;
 
 	/**
 	 * ID: 1698<br>
-	 * Message: Your accumulated play time has reached Ill-health level, so you will no longer gain experience or item drops.
-	 * [...}
+	 * Message: Your accumulated play time has reached Ill-health level, so you will no longer gain experience or item drops. [...}
 	 */
 	public static final SystemMessageId ACCUMULATED_PLAY_TIME_WARNING2;
 
@@ -10131,8 +10106,7 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 1743<br>
-	 * Message: To open a Clan Academy, the leader of a Level 5 clan or above must pay XX Proofs of Blood or a certain amount of
-	 * adena.
+	 * Message: To open a Clan Academy, the leader of a Level 5 clan or above must pay XX Proofs of Blood or a certain amount of adena.
 	 */
 	public static final SystemMessageId OPEN_ACADEMY_CONDITIONS;
 
@@ -10168,8 +10142,8 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 1749<br>
-	 * Message: Congratulations! You will now graduate from the Clan Academy and leave your current clan. As a graduate of the
-	 * academy, you can immediately join a clan as a regular member without being subject to any penalties.
+	 * Message: Congratulations! You will now graduate from the Clan Academy and leave your current clan. As a graduate of the academy, you can
+	 * immediately join a clan as a regular member without being subject to any penalties.
 	 */
 	public static final SystemMessageId ACADEMY_MEMBERSHIP_TERMINATED;
 
@@ -10307,8 +10281,8 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 1772<br>
-	 * Message: Since your clan was defeated in a siege, $s1 points have been deducted from your clan's reputation score and given
-	 * to the opposing clan.
+	 * Message: Since your clan was defeated in a siege, $s1 points have been deducted from your clan's reputation score and given to the
+	 * opposing clan.
 	 */
 	public static final SystemMessageId CLAN_WAS_DEFEATED_IN_SIEGE_AND_LOST_S1_REPUTATION_POINTS;
 
@@ -10326,8 +10300,8 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 1775<br>
-	 * Message: Clan member $s1 was an active member of the highest-ranked party in the Festival of Darkness. $s2 points have been
-	 * added to your clan's reputation score.
+	 * Message: Clan member $s1 was an active member of the highest-ranked party in the Festival of Darkness. $s2 points have been added to your
+	 * clan's reputation score.
 	 */
 	public static final SystemMessageId CLAN_MEMBER_S1_WAS_IN_HIGHEST_RANKED_PARTY_IN_FESTIVAL_OF_DARKNESS_AND_GAINED_S2_REPUTATION;
 
@@ -10345,8 +10319,7 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 1778<br>
-	 * Message: An opposing clan has captured your clan's contested clan hall. $s1 points have been deducted from your clan's
-	 * reputation score.
+	 * Message: An opposing clan has captured your clan's contested clan hall. $s1 points have been deducted from your clan's reputation score.
 	 */
 	public static final SystemMessageId OPPOSING_CLAN_CAPTURED_CLAN_HALL_AND_YOUR_CLAN_LOSES_S1_POINTS;
 
@@ -10358,8 +10331,8 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 1780<br>
-	 * Message: Your clan has captured your opponent's contested clan hall. $s1 points have been deducted from your opponent's
-	 * clan reputation score.
+	 * Message: Your clan has captured your opponent's contested clan hall. $s1 points have been deducted from your opponent's clan reputation
+	 * score.
 	 */
 	public static final SystemMessageId CLAN_CAPTURED_CONTESTED_CLAN_HALL_AND_S1_POINTS_DEDUCTED_FROM_OPPONENT;
 
@@ -10371,8 +10344,8 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 1782<br>
-	 * Message: Your clan member $s1 was killed. $s2 points have been deducted from your clan's reputation score and added to your
-	 * opponent's clan reputation score.
+	 * Message: Your clan member $s1 was killed. $s2 points have been deducted from your clan's reputation score and added to your opponent's
+	 * clan reputation score.
 	 */
 	public static final SystemMessageId CLAN_MEMBER_S1_WAS_KILLED_AND_S2_POINTS_DEDUCTED_FROM_REPUTATION;
 
@@ -10384,8 +10357,8 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 1784<br>
-	 * Message: Your clan has failed to defend the castle. $s1 points have been deducted from your clan's reputation score and
-	 * added to your opponents'.
+	 * Message: Your clan has failed to defend the castle. $s1 points have been deducted from your clan's reputation score and added to your
+	 * opponents'.
 	 */
 	public static final SystemMessageId YOUR_CLAN_FAILED_TO_DEFEND_CASTLE_AND_S1_POINTS_LOST_AND_ADDED_TO_OPPONENT;
 
@@ -10997,8 +10970,7 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 1887<br>
-	 * Message: Invalid serial number. Your attempt to enter the number has failed time(s). You will be allowed to make more
-	 * attempt(s).
+	 * Message: Invalid serial number. Your attempt to enter the number has failed time(s). You will be allowed to make more attempt(s).
 	 */
 	public static final SystemMessageId SERIAL_NUMBER_ENTERING_FAILED;
 
@@ -11196,8 +11168,8 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 1920<br>
-	 * Message: Your account is currently inactive because you have not logged into the game for some time. You may reactivate
-	 * your account by visiting the PlayNC website (http://www.plaync.com/us/support/).
+	 * Message: Your account is currently inactive because you have not logged into the game for some time. You may reactivate your account by
+	 * visiting the PlayNC website (http://www.plaync.com/us/support/).
 	 */
 	public static final SystemMessageId ACCOUNT_INACTIVITY;
 
@@ -11755,8 +11727,7 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 2014<br>
-	 * Message: You cannot proceed because the manor cannot accept any more crops. All crops have been returned and no adena
-	 * withdrawn.
+	 * Message: You cannot proceed because the manor cannot accept any more crops. All crops have been returned and no adena withdrawn.
 	 */
 	public static final SystemMessageId MANOR_CANT_ACCEPT_MORE_CROPS;
 
@@ -11792,8 +11763,8 @@ public final class SystemMessageId
 
 	/**
 	 * ID: 2020<br>
-	 * Message: $s1 cannot make a challenge to a duel because $s1 is currently in a duel-prohibited area (Peaceful Zone / Seven
-	 * Signs Zone / Near Water / Restart Prohibited Area).
+	 * Message: $s1 cannot make a challenge to a duel because $s1 is currently in a duel-prohibited area (Peaceful Zone / Seven Signs Zone / Near
+	 * Water / Restart Prohibited Area).
 	 */
 	public static final SystemMessageId S1_CANNOT_MAKE_A_CHALLANGE_TO_A_DUEL_BECAUSE_S1_IS_CURRENTLY_IN_A_DUEL_PROHIBITED_AREA;
 

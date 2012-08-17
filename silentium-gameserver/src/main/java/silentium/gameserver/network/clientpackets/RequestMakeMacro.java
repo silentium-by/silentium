@@ -1,9 +1,9 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.network.clientpackets;
 
@@ -20,8 +20,8 @@ public final class RequestMakeMacro extends L2GameClientPacket
 	private static final int MAX_MACRO_LENGTH = 12;
 
 	/**
-	 * packet type id 0xc1 sample c1 d // id S // macro name S // unknown desc S // unknown acronym c // icon c // count c //
-	 * entry c // type d // skill id c // shortcut id S // command name format: cdSSScc (ccdcS)
+	 * packet type id 0xc1 sample c1 d // id S // macro name S // unknown desc S // unknown acronym c // icon c // count c // entry c // type d
+	 * // skill id c // shortcut id S // command name format: cdSSScc (ccdcS)
 	 */
 	@Override
 	protected void readImpl()
@@ -38,8 +38,7 @@ public final class RequestMakeMacro extends L2GameClientPacket
 
 		L2MacroCmd[] commands = new L2MacroCmd[_count];
 
-		log.debug("Make macro id:" + _id + "\tname:" + _name + "\tdesc:" + _desc + "\tacronym:" + _acronym +
-					"\ticon:" + _icon + "\tcount:" + _count);
+		log.debug("Make macro id:" + _id + "\tname:" + _name + "\tdesc:" + _desc + "\tacronym:" + _acronym + "\ticon:" + _icon + "\tcount:" + _count);
 
 		for (int i = 0; i < _count; i++)
 		{

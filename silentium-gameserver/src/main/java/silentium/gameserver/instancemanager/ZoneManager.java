@@ -1,19 +1,28 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.instancemanager;
 
+import java.io.File;
+import java.lang.reflect.Constructor;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 import javolution.util.FastList;
 import javolution.util.FastMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
+
 import silentium.gameserver.configs.MainConfig;
 import silentium.gameserver.data.xml.parsers.XMLDocumentFactory;
 import silentium.gameserver.model.L2ItemInstance;
@@ -29,16 +38,9 @@ import silentium.gameserver.model.zone.form.ZoneNPoly;
 import silentium.gameserver.model.zone.type.L2ArenaZone;
 import silentium.gameserver.model.zone.type.L2OlympiadStadiumZone;
 
-import java.io.File;
-import java.lang.reflect.Constructor;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 /**
  * This class manages the zones
- *
+ * 
  * @author durgus
  */
 public class ZoneManager
@@ -292,8 +294,7 @@ public class ZoneManager
 							}
 						}
 						if (checkId(zoneId))
-							_log.warn("Caution: Zone (" + zoneId + ") from file: " + f.getName() + " overrides previos " +
-									"definition.");
+							_log.warn("Caution: Zone (" + zoneId + ") from file: " + f.getName() + " overrides previos " + "definition.");
 
 						if (zoneName != null && !zoneName.isEmpty())
 							temp.setName(zoneName);
@@ -349,7 +350,7 @@ public class ZoneManager
 
 	/**
 	 * Add new zone
-	 *
+	 * 
 	 * @param id
 	 * @param <T>
 	 * @param zone
@@ -371,7 +372,7 @@ public class ZoneManager
 
 	/**
 	 * Return all zones by class type
-	 *
+	 * 
 	 * @param <T>
 	 * @param zoneType
 	 *            Zone class
@@ -385,7 +386,7 @@ public class ZoneManager
 
 	/**
 	 * Get zone by ID
-	 *
+	 * 
 	 * @param id
 	 * @return
 	 * @see #getZoneById(int, Class)
@@ -402,7 +403,7 @@ public class ZoneManager
 
 	/**
 	 * Get zone by ID and zone class
-	 *
+	 * 
 	 * @param <T>
 	 * @param id
 	 * @param zoneType
@@ -416,7 +417,7 @@ public class ZoneManager
 
 	/**
 	 * Returns all zones from where the object is located
-	 *
+	 * 
 	 * @param object
 	 * @return zones
 	 */
@@ -427,7 +428,7 @@ public class ZoneManager
 
 	/**
 	 * Returns zone from where the object is located by type
-	 *
+	 * 
 	 * @param <T>
 	 * @param object
 	 * @param type
@@ -442,7 +443,7 @@ public class ZoneManager
 
 	/**
 	 * Returns all zones from given coordinates (plane)
-	 *
+	 * 
 	 * @param x
 	 * @param y
 	 * @return zones
@@ -461,7 +462,7 @@ public class ZoneManager
 
 	/**
 	 * Returns all zones from given coordinates
-	 *
+	 * 
 	 * @param x
 	 * @param y
 	 * @param z
@@ -481,7 +482,7 @@ public class ZoneManager
 
 	/**
 	 * Returns zone from given coordinates
-	 *
+	 * 
 	 * @param <T>
 	 * @param x
 	 * @param y
@@ -530,7 +531,7 @@ public class ZoneManager
 
 	/**
 	 * For testing purposes only
-	 *
+	 * 
 	 * @param <T>
 	 * @param obj
 	 * @param type
@@ -558,7 +559,7 @@ public class ZoneManager
 
 	/**
 	 * General storage for debug items used for visualizing zones.
-	 *
+	 * 
 	 * @return list of items
 	 */
 	public List<L2ItemInstance> getDebugItems()

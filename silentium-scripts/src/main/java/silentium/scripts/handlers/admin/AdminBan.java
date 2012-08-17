@@ -1,11 +1,16 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.scripts.handlers.admin;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.StringTokenizer;
 
 import silentium.commons.database.DatabaseFactory;
 import silentium.gameserver.Announcements;
@@ -18,20 +23,14 @@ import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.network.SystemMessageId;
 import silentium.gameserver.utils.GMAudit;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.StringTokenizer;
-
 /**
- * This class handles following admin commands: - ban_acc <account_name> = changes account access level to -100 and logs him off.
- * If no account is specified target's account is used. - ban_char <char_name> = changes a characters access level to -100 and
- * logs him off. If no character is specified target is used. - ban_chat <char_name> <duration> = chat bans a character for the
- * specified duration. If no name is specified the target is chat banned indefinitely. - unban_acc <account_name> = changes
- * account access level to 0. - unban_char <char_name> = changes specified characters access level to 0. - unban_chat <char_name>
- * = lifts chat ban from specified player. If no player name is specified current target is used. - jail charname [penalty_time] =
- * jails character. Time specified in minutes. For ever if no time is specified. - unjail charname = Unjails player, teleport him
- * to Floran.
+ * This class handles following admin commands: - ban_acc <account_name> = changes account access level to -100 and logs him off. If no account
+ * is specified target's account is used. - ban_char <char_name> = changes a characters access level to -100 and logs him off. If no character is
+ * specified target is used. - ban_chat <char_name> <duration> = chat bans a character for the specified duration. If no name is specified the
+ * target is chat banned indefinitely. - unban_acc <account_name> = changes account access level to 0. - unban_char <char_name> = changes
+ * specified characters access level to 0. - unban_chat <char_name> = lifts chat ban from specified player. If no player name is specified
+ * current target is used. - jail charname [penalty_time] = jails character. Time specified in minutes. For ever if no time is specified. -
+ * unjail charname = Unjails player, teleport him to Floran.
  */
 public class AdminBan implements IAdminCommandHandler
 {

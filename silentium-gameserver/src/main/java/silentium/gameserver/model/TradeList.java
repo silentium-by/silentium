@@ -1,18 +1,20 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.model;
 
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javolution.util.FastList;
 import javolution.util.FastSet;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import silentium.gameserver.configs.MainConfig;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.itemcontainer.PcInventory;
@@ -175,7 +177,7 @@ public class TradeList
 
 	/**
 	 * Retrieves items from TradeList
-	 *
+	 * 
 	 * @return an array consisting of items.
 	 */
 	public TradeItem[] getItems()
@@ -185,7 +187,7 @@ public class TradeList
 
 	/**
 	 * Returns the list of items in inventory available for transaction
-	 *
+	 * 
 	 * @param inventory
 	 *            The inventory to make checks on.
 	 * @return L2ItemInstance : items in inventory
@@ -214,7 +216,7 @@ public class TradeList
 
 	/**
 	 * Adjust available item from Inventory by the one in this list
-	 *
+	 * 
 	 * @param item
 	 *            : L2ItemInstance to be adjusted
 	 * @return TradeItem representing adjusted item
@@ -239,7 +241,7 @@ public class TradeList
 
 	/**
 	 * Adjust ItemRequest by corresponding item in this list using its <b>ObjectId</b>
-	 *
+	 * 
 	 * @param item
 	 *            : ItemRequest to be adjusted
 	 */
@@ -259,7 +261,7 @@ public class TradeList
 
 	/**
 	 * Add simplified item to TradeList
-	 *
+	 * 
 	 * @param objectId
 	 *            : int
 	 * @param count
@@ -273,7 +275,7 @@ public class TradeList
 
 	/**
 	 * Add item to TradeList
-	 *
+	 * 
 	 * @param objectId
 	 *            : int
 	 * @param count
@@ -333,7 +335,7 @@ public class TradeList
 
 	/**
 	 * Add item to TradeList
-	 *
+	 * 
 	 * @param itemId
 	 *            : int
 	 * @param count
@@ -382,7 +384,7 @@ public class TradeList
 
 	/**
 	 * Remove item from TradeList
-	 *
+	 * 
 	 * @param objectId
 	 *            : int
 	 * @param itemId
@@ -461,7 +463,7 @@ public class TradeList
 
 	/**
 	 * Confirms TradeList
-	 *
+	 * 
 	 * @return : boolean
 	 */
 	public boolean confirm()
@@ -529,7 +531,7 @@ public class TradeList
 
 	/**
 	 * Validates TradeList with owner inventory
-	 *
+	 * 
 	 * @return true if ok, false otherwise.
 	 */
 	private boolean validate()
@@ -556,7 +558,7 @@ public class TradeList
 
 	/**
 	 * Transfers all TradeItems from inventory to partner
-	 *
+	 * 
 	 * @param partner
 	 * @param ownerIU
 	 * @param partnerIU
@@ -596,7 +598,7 @@ public class TradeList
 
 	/**
 	 * Count items slots
-	 *
+	 * 
 	 * @param partner
 	 * @return
 	 */
@@ -644,7 +646,7 @@ public class TradeList
 
 	/**
 	 * Proceeds with trade
-	 *
+	 * 
 	 * @param partnerList
 	 */
 	private void doExchange(TradeList partnerList)
@@ -700,7 +702,7 @@ public class TradeList
 
 	/**
 	 * Buy items from this PrivateStore list
-	 *
+	 * 
 	 * @param player
 	 * @param items
 	 * @return int: result of trading. 0 - ok, 1 - canceled (no adena), 2 - failed (item error)
@@ -901,7 +903,7 @@ public class TradeList
 
 	/**
 	 * Sell items to this PrivateStore list
-	 *
+	 * 
 	 * @param player
 	 * @param items
 	 * @return : boolean true if success

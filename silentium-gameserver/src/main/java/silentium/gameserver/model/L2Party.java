@@ -1,11 +1,15 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.model;
+
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.concurrent.Future;
 
 import javolution.util.FastList;
 import silentium.commons.utils.Rnd;
@@ -23,14 +27,19 @@ import silentium.gameserver.model.actor.instance.L2SummonInstance;
 import silentium.gameserver.model.entity.DimensionalRift;
 import silentium.gameserver.model.entity.sevensigns.SevenSignsFestival;
 import silentium.gameserver.network.SystemMessageId;
-import silentium.gameserver.network.serverpackets.*;
+import silentium.gameserver.network.serverpackets.CreatureSay;
+import silentium.gameserver.network.serverpackets.ExCloseMPCC;
+import silentium.gameserver.network.serverpackets.ExOpenMPCC;
+import silentium.gameserver.network.serverpackets.L2GameServerPacket;
+import silentium.gameserver.network.serverpackets.PartyMemberPosition;
+import silentium.gameserver.network.serverpackets.PartySmallWindowAdd;
+import silentium.gameserver.network.serverpackets.PartySmallWindowAll;
+import silentium.gameserver.network.serverpackets.PartySmallWindowDelete;
+import silentium.gameserver.network.serverpackets.PartySmallWindowDeleteAll;
+import silentium.gameserver.network.serverpackets.SystemMessage;
 import silentium.gameserver.skills.Stats;
 import silentium.gameserver.tables.ItemTable;
 import silentium.gameserver.utils.Util;
-
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.concurrent.Future;
 
 /**
  * @author nuocnam
@@ -61,7 +70,7 @@ public class L2Party
 
 	/**
 	 * constructor ensures party has always one member - leader
-	 *
+	 * 
 	 * @param leader
 	 * @param itemDistribution
 	 */
@@ -75,7 +84,7 @@ public class L2Party
 
 	/**
 	 * returns number of party members
-	 *
+	 * 
 	 * @return
 	 */
 	public int getMemberCount()
@@ -85,7 +94,7 @@ public class L2Party
 
 	/**
 	 * Check if another player can start invitation process
-	 *
+	 * 
 	 * @return boolean if party waits for invitation respond
 	 */
 	public boolean getPendingInvitation()
@@ -95,7 +104,7 @@ public class L2Party
 
 	/**
 	 * set invitation process flag and store time for expiration happens when: player join party or player decline to join
-	 *
+	 * 
 	 * @param val
 	 */
 	public void setPendingInvitation(boolean val)
@@ -106,7 +115,7 @@ public class L2Party
 
 	/**
 	 * Check if player invitation is expired
-	 *
+	 * 
 	 * @return boolean if time is expired
 	 * @see silentium.gameserver.model.actor.instance.L2PcInstance#isRequestExpired()
 	 */
@@ -117,7 +126,7 @@ public class L2Party
 
 	/**
 	 * returns all party members
-	 *
+	 * 
 	 * @return
 	 */
 	public final FastList<L2PcInstance> getPartyMembers()
@@ -127,7 +136,7 @@ public class L2Party
 
 	/**
 	 * get random member from party
-	 *
+	 * 
 	 * @param ItemId
 	 * @param target
 	 * @return
@@ -149,7 +158,7 @@ public class L2Party
 
 	/**
 	 * get next item looter
-	 *
+	 * 
 	 * @param ItemId
 	 * @param target
 	 * @return
@@ -171,7 +180,7 @@ public class L2Party
 
 	/**
 	 * get next item looter
-	 *
+	 * 
 	 * @param player
 	 * @param ItemId
 	 * @param spoil
@@ -226,7 +235,7 @@ public class L2Party
 
 	/**
 	 * Broadcasts packet to every party member.
-	 *
+	 * 
 	 * @param packet
 	 *            The packet to broadcast.
 	 */
@@ -263,7 +272,7 @@ public class L2Party
 
 	/**
 	 * Send a Server->Client packet to all other L2PcInstance of the Party.
-	 *
+	 * 
 	 * @param player
 	 * @param msg
 	 */
@@ -278,7 +287,7 @@ public class L2Party
 
 	/**
 	 * adds new member to party
-	 *
+	 * 
 	 * @param player
 	 */
 	public synchronized void addPartyMember(L2PcInstance player)
@@ -323,7 +332,7 @@ public class L2Party
 
 	/**
 	 * Remove player from party Overloaded method that takes player's name as parameter
-	 *
+	 * 
 	 * @param name
 	 */
 	public void removePartyMember(String name)
@@ -333,7 +342,7 @@ public class L2Party
 
 	/**
 	 * Remove player from party
-	 *
+	 * 
 	 * @param player
 	 */
 	public void removePartyMember(L2PcInstance player)
@@ -415,7 +424,7 @@ public class L2Party
 
 	/**
 	 * Change party leader (used for string arguments)
-	 *
+	 * 
 	 * @param name
 	 */
 	public void changePartyLeader(String name)
@@ -460,7 +469,7 @@ public class L2Party
 
 	/**
 	 * finds a player in the party by name
-	 *
+	 * 
 	 * @param name
 	 * @return
 	 */
@@ -476,7 +485,7 @@ public class L2Party
 
 	/**
 	 * distribute item(s) to party members
-	 *
+	 * 
 	 * @param player
 	 * @param item
 	 */
@@ -503,7 +512,7 @@ public class L2Party
 
 	/**
 	 * distribute item(s) to party members
-	 *
+	 * 
 	 * @param player
 	 * @param item
 	 * @param spoil
@@ -545,7 +554,7 @@ public class L2Party
 
 	/**
 	 * distribute adena to party members
-	 *
+	 * 
 	 * @param player
 	 * @param adena
 	 * @param target
@@ -584,13 +593,13 @@ public class L2Party
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
-	 * <li>Get the L2PcInstance owner of the L2SummonInstance (if necessary)</li> <li>Calculate the Experience and SP reward
-	 * distribution rate</li> <li>Add Experience and SP to the L2PcInstance</li><BR>
+	 * <li>Get the L2PcInstance owner of the L2SummonInstance (if necessary)</li> <li>Calculate the Experience and SP reward distribution rate</li>
+	 * <li>Add Experience and SP to the L2PcInstance</li><BR>
 	 * <BR>
 	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T GIVE rewards to L2PetInstance</B></FONT><BR>
 	 * <BR>
 	 * Exception are L2PetInstances that leech from the owner's XP; they get the exp indirectly, via the owner's exp gain<BR>
-	 *
+	 * 
 	 * @param xpReward
 	 *            The Experience reward to distribute
 	 * @param spReward

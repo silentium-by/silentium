@@ -1,9 +1,9 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.geo.pathfinding;
 
@@ -33,7 +33,7 @@ public abstract class PathFinding
 
 	/**
 	 * Convert geodata position to pathnode position
-	 *
+	 * 
 	 * @param geo_pos
 	 * @return pathnode position
 	 */
@@ -44,7 +44,7 @@ public abstract class PathFinding
 
 	/**
 	 * Convert node position to pathnode block position
-	 *
+	 * 
 	 * @param node_pos
 	 * @return pathnode block position (0...255)
 	 */
@@ -70,7 +70,7 @@ public abstract class PathFinding
 
 	/**
 	 * Convert pathnode x to World x position
-	 *
+	 * 
 	 * @param node_x
 	 * @return
 	 */
@@ -81,7 +81,7 @@ public abstract class PathFinding
 
 	/**
 	 * Convert pathnode y to World y position
-	 *
+	 * 
 	 * @param node_y
 	 * @return
 	 */

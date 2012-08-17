@@ -1,9 +1,9 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.scripts.ai;
 
@@ -19,10 +19,11 @@ import silentium.gameserver.scripting.ScriptFile;
  * It sends back the good string following the action and the npcId.<br>
  * <br>
  * <font color="red"><b><u>TODO:</b></u> Replace the system of switch by an XML, once a decent amount of NPCs is mapped.</font>
- *
+ * 
  * @author Tryskell
  */
-public class SpeakingNPCs extends DefaultMonsterAI implements ScriptFile {
+public class SpeakingNPCs extends DefaultMonsterAI implements ScriptFile
+{
 	private static final int[] NPC_IDS = { 18212, //
 			18213, //
 			18214, //
@@ -67,24 +68,28 @@ public class SpeakingNPCs extends DefaultMonsterAI implements ScriptFile {
 			27247, //
 			27249 };
 
-	public static void onLoad() {
+	public static void onLoad()
+	{
 		new SpeakingNPCs(-1, "SpeakingNPCs", "ai");
 	}
 
-	public SpeakingNPCs(int questId, String name, String descr) {
+	public SpeakingNPCs(int questId, String name, String descr)
+	{
 		super(questId, name, descr);
 		this.registerMobs(NPC_IDS, QuestEventType.ON_ATTACK, QuestEventType.ON_KILL);
 	}
 
 	@Override
-	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isPet) {
+	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isPet)
+	{
 		if (npc.hasSpoken())
 			return super.onAttack(npc, attacker, damage, isPet);
 
 		int npcId = npc.getNpcId();
 		String message = "";
 
-		switch (npcId) {
+		switch (npcId)
+		{
 			case 18212:
 			case 18213:
 			case 18214:
@@ -146,11 +151,13 @@ public class SpeakingNPCs extends DefaultMonsterAI implements ScriptFile {
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
+	{
 		int npcId = npc.getNpcId();
 		String message = "";
 
-		switch (npcId) {
+		switch (npcId)
+		{
 			case 18212:
 			case 18213:
 			case 18214:

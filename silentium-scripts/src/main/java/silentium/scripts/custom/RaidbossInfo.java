@@ -1,11 +1,13 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.scripts.custom;
+
+import java.util.Map;
 
 import javolution.util.FastMap;
 import silentium.gameserver.model.L2Spawn;
@@ -20,12 +22,11 @@ import silentium.gameserver.tables.SpawnTable;
 import silentium.gameserver.templates.chars.L2NpcTemplate;
 import silentium.gameserver.utils.Util;
 
-import java.util.Map;
-
 /**
  * @authors: Kerberos (python), Nyaran (java)
  */
-public class RaidbossInfo extends Quest implements ScriptFile {
+public class RaidbossInfo extends Quest implements ScriptFile
+{
 	private static final String qn = "RaidbossInfo";
 
 	private static final Map<Integer, Location> RADAR = new FastMap<>();
@@ -34,18 +35,21 @@ public class RaidbossInfo extends Quest implements ScriptFile {
 			31818, 31819, 31820, 31821, 31822, 31823, 31824, 31825, 31826, 31827, 31828, 31829, 31830, 31831, 31832, 31833, 31834, 31835, 31836, 31837, 31838, 31839, 31840, 31841 };
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	{
 		String htmltext = event;
 
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (Util.isDigit(event)) {
+		if (Util.isDigit(event))
+		{
 			htmltext = null;
 			int rbid = Integer.parseInt(event);
 
-			if (RADAR.containsKey(rbid)) {
+			if (RADAR.containsKey(rbid))
+			{
 				Location loc = RADAR.get(rbid);
 				st.addRadar(loc.getX(), loc.getY(), loc.getZ());
 			}
@@ -55,26 +59,33 @@ public class RaidbossInfo extends Quest implements ScriptFile {
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player) {
+	public String onTalk(L2Npc npc, L2PcInstance player)
+	{
 		return "info.htm";
 	}
 
-	public static void onLoad() {
+	public static void onLoad()
+	{
 		new RaidbossInfo(-1, "RaidbossInfo", "custom");
 	}
 
-	public RaidbossInfo(int id, String name, String descr) {
+	public RaidbossInfo(int id, String name, String descr)
+	{
 		super(id, name, descr);
 
-		for (int npcId : _NPCs) {
+		for (int npcId : _NPCs)
+		{
 			addStartNpc(npcId);
 			addTalkId(npcId);
 		}
 
 		// Add all Raid Bosses to RAIDS list
-		for (L2NpcTemplate raid : NpcTable.getInstance().getAllNpcOfClassType("L2RaidBoss")) {
-			for (L2Spawn spawn : SpawnTable.getInstance().getSpawnTable()) {
-				if (spawn.getNpcId() == raid.getNpcId()) {
+		for (L2NpcTemplate raid : NpcTable.getInstance().getAllNpcOfClassType("L2RaidBoss"))
+		{
+			for (L2Spawn spawn : SpawnTable.getInstance().getSpawnTable())
+			{
+				if (spawn.getNpcId() == raid.getNpcId())
+				{
 					RADAR.put(raid.getNpcId(), new Location(spawn.getLocx(), spawn.getLocy(), spawn.getLocz()));
 					break;
 				}

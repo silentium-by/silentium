@@ -1,11 +1,14 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.scripts.quests;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import silentium.commons.utils.Rnd;
 import silentium.gameserver.model.actor.L2Npc;
@@ -14,10 +17,8 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-import java.util.HashMap;
-import java.util.Map;
-
-public class Q369_CollectorOfJewels extends Quest implements ScriptFile {
+public class Q369_CollectorOfJewels extends Quest implements ScriptFile
+{
 	private final static String qn = "Q369_CollectorOfJewels";
 
 	// NPC
@@ -47,7 +48,8 @@ public class Q369_CollectorOfJewels extends Quest implements ScriptFile {
 		DROPLIST_FLARE.put(20749, 85);
 	}
 
-	public Q369_CollectorOfJewels(int questId, String name, String descr) {
+	public Q369_CollectorOfJewels(int questId, String name, String descr)
+	{
 		super(questId, name, descr);
 
 		questItemIds = new int[] { FLARE_SHARD, FREEZING_SHARD };
@@ -62,26 +64,31 @@ public class Q369_CollectorOfJewels extends Quest implements ScriptFile {
 			addKillId(mob);
 	}
 
-	public static void onLoad() {
+	public static void onLoad()
+	{
 		new Q369_CollectorOfJewels(369, "Q369_CollectorOfJewels", "Collector of Jewels");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	{
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30376-03.htm")) {
+		if (event.equalsIgnoreCase("30376-03.htm"))
+		{
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
 			st.set("awaitsFreezing", "1");
 			st.set("awaitsFlare", "1");
-		} else if (event.equalsIgnoreCase("30376-07.htm"))
+		}
+		else if (event.equalsIgnoreCase("30376-07.htm"))
 			st.playSound(QuestState.SOUND_ITEMGET);
-		else if (event.equalsIgnoreCase("30376-08.htm")) {
+		else if (event.equalsIgnoreCase("30376-08.htm"))
+		{
 			st.exitQuest(true);
 			st.playSound(QuestState.SOUND_FINISH);
 		}
@@ -90,17 +97,20 @@ public class Q369_CollectorOfJewels extends Quest implements ScriptFile {
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player) {
+	public String onTalk(L2Npc npc, L2PcInstance player)
+	{
 		QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState()) {
+		switch (st.getState())
+		{
 			case QuestState.CREATED:
 				if (player.getLevel() >= 25 && player.getLevel() <= 37)
 					htmltext = "30376-02.htm";
-				else {
+				else
+				{
 					htmltext = "30376-01.htm";
 					st.exitQuest(true);
 				}
@@ -113,7 +123,8 @@ public class Q369_CollectorOfJewels extends Quest implements ScriptFile {
 
 				if (cond == 1)
 					htmltext = "30376-04.htm";
-				else if (cond == 2 && flare >= 50 && freezing >= 50) {
+				else if (cond == 2 && flare >= 50 && freezing >= 50)
+				{
 					htmltext = "30376-05.htm";
 					st.set("cond", "3");
 					st.rewardItems(ADENA, 12500);
@@ -122,9 +133,11 @@ public class Q369_CollectorOfJewels extends Quest implements ScriptFile {
 					st.set("awaitsFreezing", "1");
 					st.set("awaitsFlare", "1");
 					st.playSound(QuestState.SOUND_MIDDLE);
-				} else if (cond == 3)
+				}
+				else if (cond == 3)
 					htmltext = "30376-09.htm";
-				else if (cond == 4 && flare >= 200 && freezing >= 200) {
+				else if (cond == 4 && flare >= 200 && freezing >= 200)
+				{
 					htmltext = "30376-10.htm";
 					st.playSound(QuestState.SOUND_FINISH);
 					st.rewardItems(ADENA, 63500);
@@ -139,17 +152,21 @@ public class Q369_CollectorOfJewels extends Quest implements ScriptFile {
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
+	{
 		int npcId = npc.getNpcId();
 		L2PcInstance partymember = null;
 		int item = 0, chance = 0;
 
-		if (DROPLIST_FREEZE.containsKey(npcId)) {
+		if (DROPLIST_FREEZE.containsKey(npcId))
+		{
 			partymember = getRandomPartyMember(player, npc, "awaitsFreezing", "1");
 
 			item = FREEZING_SHARD;
 			chance = DROPLIST_FREEZE.get(npcId);
-		} else if (DROPLIST_FLARE.containsKey(npcId)) {
+		}
+		else if (DROPLIST_FLARE.containsKey(npcId))
+		{
 			partymember = getRandomPartyMember(player, npc, "awaitsFlare", "1");
 
 			item = FLARE_SHARD;
@@ -162,7 +179,8 @@ public class Q369_CollectorOfJewels extends Quest implements ScriptFile {
 		QuestState st = partymember.getQuestState(qn);
 		int cond = st.getInt("cond");
 
-		if (cond >= 1 && cond <= 3) {
+		if (cond >= 1 && cond <= 3)
+		{
 			int max = 0;
 
 			if (cond == 1)
@@ -170,7 +188,8 @@ public class Q369_CollectorOfJewels extends Quest implements ScriptFile {
 			else if (cond == 3)
 				max = 200;
 
-			if (Rnd.get(100) < chance && st.getQuestItemsCount(item) <= max) {
+			if (Rnd.get(100) < chance && st.getQuestItemsCount(item) <= max)
+			{
 				st.giveItems(item, 1);
 
 				if (st.getQuestItemsCount(FREEZING_SHARD) == max)
@@ -178,10 +197,12 @@ public class Q369_CollectorOfJewels extends Quest implements ScriptFile {
 				else if (st.getQuestItemsCount(FLARE_SHARD) == max)
 					st.unset("awaitsFlare");
 
-				if (st.getQuestItemsCount(FLARE_SHARD) == max && st.getQuestItemsCount(FREEZING_SHARD) == max) {
+				if (st.getQuestItemsCount(FLARE_SHARD) == max && st.getQuestItemsCount(FREEZING_SHARD) == max)
+				{
 					st.set("cond", String.valueOf(cond + 1));
 					st.playSound(QuestState.SOUND_MIDDLE);
-				} else
+				}
+				else
 					st.playSound(QuestState.SOUND_ITEMGET);
 			}
 		}

@@ -1,18 +1,18 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.model.actor.instance;
 
 import java.util.Iterator;
 import java.util.Set;
 
+import silentium.commons.utils.StringUtil;
 import silentium.gameserver.configs.ClansConfig;
 import silentium.gameserver.configs.PlayersConfig;
-import silentium.commons.utils.StringUtil;
 import silentium.gameserver.data.html.StaticHtmPath;
 import silentium.gameserver.data.xml.CharTemplateData;
 import silentium.gameserver.data.xml.SkillTreeData;
@@ -341,9 +341,9 @@ public class L2VillageMasterInstance extends L2NpcInstance
 					}
 
 					/*
-					 * If quest checking is enabled, verify if the character has completed the Mimir's Elixir (Path to Subclass)
-					 * and Fate's Whisper (A Grade Weapon) quests by checking for instances of their unique reward items. If they
-					 * both exist, remove both unique items and continue with adding the sub-class.
+					 * If quest checking is enabled, verify if the character has completed the Mimir's Elixir (Path to Subclass) and Fate's
+					 * Whisper (A Grade Weapon) quests by checking for instances of their unique reward items. If they both exist, remove both
+					 * unique items and continue with adding the sub-class.
 					 */
 					if (allowAddition && !PlayersConfig.ALT_GAME_SUBCLASS_WITHOUT_QUESTS)
 						allowAddition = checkQuests(player);
@@ -495,11 +495,11 @@ public class L2VillageMasterInstance extends L2NpcInstance
 			baseClassId = currentBaseId;
 
 		/**
-		 * If the race of your main class is Elf or Dark Elf, you may not select each class as a subclass to the other class, and
-		 * you may not select Overlord and Warsmith class as a subclass. You may not select a similar class as the subclass. The
-		 * occupations classified as similar classes are as follows: Treasure Hunter, Plainswalker and Abyss Walker Hawkeye,
-		 * Silver Ranger and Phantom Ranger Paladin, Dark Avenger, Temple Knight and Shillien Knight Warlocks, Elemental Summoner
-		 * and Phantom Summoner Elder and Shillien Elder Swordsinger and Bladedancer Sorcerer, Spellsinger and Spellhowler
+		 * If the race of your main class is Elf or Dark Elf, you may not select each class as a subclass to the other class, and you may not
+		 * select Overlord and Warsmith class as a subclass. You may not select a similar class as the subclass. The occupations classified as
+		 * similar classes are as follows: Treasure Hunter, Plainswalker and Abyss Walker Hawkeye, Silver Ranger and Phantom Ranger Paladin, Dark
+		 * Avenger, Temple Knight and Shillien Knight Warlocks, Elemental Summoner and Phantom Summoner Elder and Shillien Elder Swordsinger and
+		 * Bladedancer Sorcerer, Spellsinger and Spellhowler
 		 */
 		Set<PlayerClass> availSubs = PlayerClass.values()[baseClassId].getAvailableSubclasses(player);
 
@@ -537,8 +537,8 @@ public class L2VillageMasterInstance extends L2NpcInstance
 	}
 
 	/*
-	 * Check new subclass classId for validity (villagemaster race/type is not contains in previous subclasses, but in allowed
-	 * subclasses) Base class not added into allowed subclasses.
+	 * Check new subclass classId for validity (villagemaster race/type is not contains in previous subclasses, but in allowed subclasses) Base
+	 * class not added into allowed subclasses.
 	 */
 	private final boolean isValidNewSubClass(L2PcInstance player, int classId)
 	{
@@ -925,7 +925,7 @@ public class L2VillageMasterInstance extends L2NpcInstance
 
 	/**
 	 * this displays PledgeSkillList to the player.
-	 *
+	 * 
 	 * @param player
 	 */
 	public static final void showPledgeSkillList(L2PcInstance player)

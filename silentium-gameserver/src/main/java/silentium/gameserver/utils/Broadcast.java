@@ -1,9 +1,9 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.utils;
 
@@ -23,13 +23,13 @@ public final class Broadcast
 	 * <BR>
 	 * <B><U> Concept</U> :</B><BR>
 	 * L2PcInstance in the detection area of the L2Character are identified in <B>_knownPlayers</B>.<BR>
-	 * In order to inform other players of state modification on the L2Character, server just need to go through _knownPlayers to
-	 * send Server->Client Packet<BR>
+	 * In order to inform other players of state modification on the L2Character, server just need to go through _knownPlayers to send
+	 * Server->Client Packet<BR>
 	 * <BR>
-	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T SEND Server->Client packet to this L2Character (to do this use
-	 * method toSelfAndKnownPlayers)</B></FONT><BR>
+	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T SEND Server->Client packet to this L2Character (to do this use method
+	 * toSelfAndKnownPlayers)</B></FONT><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param character
 	 *            The character to make checks on.
 	 * @param mov
@@ -52,13 +52,13 @@ public final class Broadcast
 	 * <BR>
 	 * <B><U> Concept</U> :</B><BR>
 	 * L2PcInstance in the detection area of the L2Character are identified in <B>_knownPlayers</B>.<BR>
-	 * In order to inform other players of state modification on the L2Character, server just need to go through _knownPlayers to
-	 * send Server->Client Packet<BR>
+	 * In order to inform other players of state modification on the L2Character, server just need to go through _knownPlayers to send
+	 * Server->Client Packet<BR>
 	 * <BR>
-	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T SEND Server->Client packet to this L2Character (to do this use
-	 * method toSelfAndKnownPlayers)</B></FONT><BR>
+	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T SEND Server->Client packet to this L2Character (to do this use method
+	 * toSelfAndKnownPlayers)</B></FONT><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param character
 	 *            The character to make checks on.
 	 * @param mov
@@ -81,13 +81,13 @@ public final class Broadcast
 	 * <BR>
 	 * <B><U> Concept</U> :</B><BR>
 	 * L2PcInstance in the detection area of the L2Character are identified in <B>_knownPlayers</B>.<BR>
-	 * In order to inform other players of state modification on the L2Character, server just needs to go through _knownPlayers to
-	 * send Server->Client Packet and check the distance between the targets.<BR>
+	 * In order to inform other players of state modification on the L2Character, server just needs to go through _knownPlayers to send
+	 * Server->Client Packet and check the distance between the targets.<BR>
 	 * <BR>
-	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T SEND Server->Client packet to this L2Character (to do this use
-	 * method toSelfAndKnownPlayers)</B></FONT><BR>
+	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T SEND Server->Client packet to this L2Character (to do this use method
+	 * toSelfAndKnownPlayers)</B></FONT><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param character
 	 *            The character to make checks on.
 	 * @param mov
@@ -113,10 +113,10 @@ public final class Broadcast
 	 * <BR>
 	 * <B><U> Concept</U> :</B><BR>
 	 * L2PcInstance in the detection area of the L2Character are identified in <B>_knownPlayers</B>.<BR>
-	 * In order to inform other players of state modification on the L2Character, server just need to go through _knownPlayers to
-	 * send Server->Client Packet<BR>
+	 * In order to inform other players of state modification on the L2Character, server just need to go through _knownPlayers to send
+	 * Server->Client Packet<BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param character
 	 *            The character to make checks on.
 	 * @param mov
@@ -166,13 +166,13 @@ public final class Broadcast
 	 * Send a packet to all L2PcInstance present in the world.<BR>
 	 * <BR>
 	 * <B><U> Concept</U> :</B><BR>
-	 * In order to inform other players of state modification on the L2Character, server just need to go through _allPlayers to
-	 * send Server->Client Packet<BR>
+	 * In order to inform other players of state modification on the L2Character, server just need to go through _allPlayers to send
+	 * Server->Client Packet<BR>
 	 * <BR>
-	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T SEND Server->Client packet to this L2Character (to do this use
-	 * method toSelfAndKnownPlayers)</B></FONT><BR>
+	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T SEND Server->Client packet to this L2Character (to do this use method
+	 * toSelfAndKnownPlayers)</B></FONT><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param mov
 	 *            The packet to send.
 	 */

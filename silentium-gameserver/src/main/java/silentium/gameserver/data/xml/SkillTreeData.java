@@ -1,26 +1,35 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.data.xml;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
+
 import silentium.gameserver.configs.MainConfig;
 import silentium.gameserver.data.xml.parsers.XMLDocumentFactory;
-import silentium.gameserver.model.*;
+import silentium.gameserver.model.L2EnchantSkillData;
+import silentium.gameserver.model.L2EnchantSkillLearn;
+import silentium.gameserver.model.L2PledgeSkillLearn;
+import silentium.gameserver.model.L2Skill;
+import silentium.gameserver.model.L2SkillLearn;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.base.ClassId;
 import silentium.gameserver.tables.SkillTable;
-
-import java.io.File;
-import java.util.*;
 
 public class SkillTreeData
 {
@@ -201,7 +210,7 @@ public class SkillTreeData
 
 	/**
 	 * Adds list of skills to general skill tree according to classId.
-	 *
+	 * 
 	 * @param skills
 	 *            List of general skills to be added.
 	 * @param classId
@@ -236,7 +245,7 @@ public class SkillTreeData
 
 	/**
 	 * Returns size of general skills tree (amount of classes with general skills).
-	 *
+	 * 
 	 * @return int : Size of general skill tree.
 	 */
 	public int getSkillTreesSize()
@@ -466,7 +475,7 @@ public class SkillTreeData
 
 	/**
 	 * Get skill enchant data under L2EnchantSkillData model, or null if none data found.
-	 *
+	 * 
 	 * @param enchant
 	 *            the Enchant ID.
 	 * @return L2EnchantSkillData corresponding to the given id or null.

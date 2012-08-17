@@ -1,9 +1,9 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.model.actor.instance;
 
@@ -16,7 +16,7 @@ import silentium.gameserver.templates.chars.L2NpcTemplate;
 
 /**
  * L2FestivalMonsterInstance This class manages all attackable festival NPCs, spawned during the Festival of Darkness.
- *
+ * 
  * @author Tempy
  */
 public class L2FestivalMonsterInstance extends L2MonsterInstance
@@ -65,8 +65,8 @@ public class L2FestivalMonsterInstance extends L2MonsterInstance
 	}
 
 	/**
-	 * Actions: <li>Check if the killing object is a player, and then find the party they belong to.</li> <li>Add a blood offering
-	 * item to the leader of the party.</li> <li>Update the party leader's inventory to show the new item addition.</li>
+	 * Actions: <li>Check if the killing object is a player, and then find the party they belong to.</li> <li>Add a blood offering item to the
+	 * leader of the party.</li> <li>Update the party leader's inventory to show the new item addition.</li>
 	 */
 	@Override
 	public void doItemDrop(L2Character lastAttacker)

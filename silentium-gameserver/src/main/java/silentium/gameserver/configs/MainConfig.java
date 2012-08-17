@@ -1,9 +1,9 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.configs;
 
@@ -14,7 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-public final class MainConfig extends ConfigEngine {
+public final class MainConfig extends ConfigEngine
+{
 	public static String LOGIN_BIND_ADDRESS;
 	public static int PORT_LOGIN;
 	public static boolean ACCEPT_NEW_GAMESERVER;
@@ -40,7 +41,8 @@ public final class MainConfig extends ConfigEngine {
 	public static String GAME_SERVER_LOGIN_HOST;
 	public static File DATAPACK_ROOT;
 
-	public static enum IdFactoryType {
+	public static enum IdFactoryType
+	{
 		BitSet, Stack
 	}
 
@@ -180,8 +182,10 @@ public final class MainConfig extends ConfigEngine {
 	public static int CLIENT_PACKET_QUEUE_MAX_UNDERFLOWS_PER_MIN = 1; // default 1
 	public static int CLIENT_PACKET_QUEUE_MAX_UNKNOWN_PER_MIN = 5; // default 5
 
-	public static void load() {
-		try (InputStream is = new FileInputStream(new File(SERVER_FILE))) {
+	public static void load()
+	{
+		try (InputStream is = new FileInputStream(new File(SERVER_FILE)))
+		{
 			Properties server = new Properties();
 			server.load(is);
 			is.close();
@@ -330,7 +334,9 @@ public final class MainConfig extends ConfigEngine {
 			ZONE_TOWN = Integer.parseInt(server.getProperty("ZoneTown", "0"));
 			SERVER_NEWS = Boolean.parseBoolean(server.getProperty("ShowServerNews", "False"));
 			DISABLE_TUTORIAL = Boolean.parseBoolean(server.getProperty("DisableTutorial", "False"));
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			e.printStackTrace();
 			throw new Error("Server failed to load " + SERVER_FILE + " file.");
 		}

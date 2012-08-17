@@ -1,16 +1,21 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.utils;
 
-import com.google.common.collect.Lists;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
 import javolution.util.FastSet;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import silentium.commons.utils.Rnd;
 import silentium.gameserver.ThreadPoolManager;
 import silentium.gameserver.configs.NPCConfig;
@@ -21,9 +26,7 @@ import silentium.gameserver.model.actor.instance.L2MonsterInstance;
 import silentium.gameserver.tables.NpcTable;
 import silentium.gameserver.templates.chars.L2NpcTemplate;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import com.google.common.collect.Lists;
 
 /**
  * @author luisantonioa, DS
@@ -58,8 +61,7 @@ public class MinionList
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
-	 * <li>Get the Minion data of all Minions that must be spawn</li> <li>For each Minion type, spawn the amount of Minion needed</li>
-	 * <BR>
+	 * <li>Get the Minion data of all Minions that must be spawn</li> <li>For each Minion type, spawn the amount of Minion needed</li> <BR>
 	 * <BR>
 	 */
 	public final void spawnMinions()
@@ -120,8 +122,7 @@ public class MinionList
 	// hooks
 
 	/**
-	 * Called on the master spawn Old minions (from previous spawn) are deleted. If master can respawn - enabled reuse of the
-	 * killed minions.
+	 * Called on the master spawn Old minions (from previous spawn) are deleted. If master can respawn - enabled reuse of the killed minions.
 	 */
 	public void onMasterSpawn()
 	{
@@ -134,7 +135,7 @@ public class MinionList
 
 	/**
 	 * Called on the minion spawn and added them in the list of the spawned minions.
-	 *
+	 * 
 	 * @param minion
 	 *            The instance of minion.
 	 */
@@ -145,7 +146,7 @@ public class MinionList
 
 	/**
 	 * Called on the master death/delete.
-	 *
+	 * 
 	 * @param force
 	 *            if true - force delete of the spawned minions By default minions deleted only for raidbosses
 	 */
@@ -157,12 +158,12 @@ public class MinionList
 
 	/**
 	 * Called on the minion death/delete. Removed minion from the list of the spawned minions and reuse if possible.
-	 *
+	 * 
 	 * @param minion
 	 *            The minion to make checks on.
 	 * @param respawnTime
-	 *            (ms) enable respawning of this minion while master is alive. -1 - use default value: 0 (disable) for mobs and
-	 *            config value for raids.
+	 *            (ms) enable respawning of this minion while master is alive. -1 - use default value: 0 (disable) for mobs and config value for
+	 *            raids.
 	 */
 	public void onMinionDie(L2MonsterInstance minion, int respawnTime)
 	{
@@ -178,7 +179,7 @@ public class MinionList
 
 	/**
 	 * Called if master/minion was attacked. Master and all free minions receive aggro against attacker.
-	 *
+	 * 
 	 * @param caller
 	 *            That instance will call for help versus attacker.
 	 * @param attacker
@@ -291,11 +292,11 @@ public class MinionList
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
-	 * <li>Get the template of the Minion to spawn</li> <li>Create and Init the Minion and generate its Identifier</li> <li>Set
-	 * the Minion HP, MP and Heading</li> <li>Set the Minion leader to this RaidBoss</li> <li>Init the position of the Minion and
-	 * add it in the world as a visible object</li><BR>
+	 * <li>Get the template of the Minion to spawn</li> <li>Create and Init the Minion and generate its Identifier</li> <li>Set the Minion HP, MP
+	 * and Heading</li> <li>Set the Minion leader to this RaidBoss</li> <li>Init the position of the Minion and add it in the world as a visible
+	 * object</li><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param master
 	 *            L2MonsterInstance used as master for this minion
 	 * @param minionId
@@ -345,8 +346,7 @@ public class MinionList
 
 		minion.spawnMe(newX, newY, master.getZ());
 
-		_log.trace("Spawned minion template " + minion.getNpcId() + " with objid: " + minion.getObjectId() + " to " +
-					"boss " + master.getObjectId() + " ,at: " + minion.getX() + " x, " + minion.getY() + " y, " + minion.getZ() + " z");
+		_log.trace("Spawned minion template " + minion.getNpcId() + " with objid: " + minion.getObjectId() + " to " + "boss " + master.getObjectId() + " ,at: " + minion.getX() + " x, " + minion.getY() + " y, " + minion.getZ() + " z");
 
 		return minion;
 	}

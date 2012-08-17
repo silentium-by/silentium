@@ -1,11 +1,15 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.model.itemcontainer;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import javolution.util.FastList;
 import silentium.commons.database.DatabaseFactory;
@@ -23,12 +27,6 @@ import silentium.gameserver.tables.ItemTable;
 import silentium.gameserver.templates.item.L2EtcItemType;
 import silentium.gameserver.templates.item.L2Item;
 import silentium.gameserver.utils.Util;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class PcInventory extends Inventory
 {
@@ -103,7 +101,7 @@ public class PcInventory extends Inventory
 
 	/**
 	 * Returns the list of items in inventory available for transaction
-	 *
+	 * 
 	 * @param allowAdena
 	 * @param allowAncientAdena
 	 * @param onlyAvailable
@@ -141,9 +139,9 @@ public class PcInventory extends Inventory
 	}
 
 	/**
-	 * Returns the list of items in inventory available for transaction Allows an item to appear twice if and only if there is a
-	 * difference in enchantment level.
-	 *
+	 * Returns the list of items in inventory available for transaction Allows an item to appear twice if and only if there is a difference in
+	 * enchantment level.
+	 * 
 	 * @param allowAdena
 	 * @param allowAncientAdena
 	 * @return L2ItemInstance : items in inventory
@@ -196,7 +194,7 @@ public class PcInventory extends Inventory
 
 	/**
 	 * Returns the list of all items in inventory that have a given item id.
-	 *
+	 * 
 	 * @param itemId
 	 *            : ID of item
 	 * @param includeEquipped
@@ -234,7 +232,7 @@ public class PcInventory extends Inventory
 
 	/**
 	 * Returns the list of all items in inventory that have a given item id AND a given enchantment level.
-	 *
+	 * 
 	 * @param itemId
 	 *            : ID of item
 	 * @param enchantment
@@ -263,7 +261,7 @@ public class PcInventory extends Inventory
 
 	/**
 	 * Returns the list of items in inventory available for transaction
-	 *
+	 * 
 	 * @param allowAdena
 	 * @param allowNonTradeable
 	 * @return L2ItemInstance : items in inventory
@@ -285,7 +283,7 @@ public class PcInventory extends Inventory
 
 	/**
 	 * Get all augmented items
-	 *
+	 * 
 	 * @return
 	 */
 	public L2ItemInstance[] getAugmentedItems()
@@ -305,7 +303,7 @@ public class PcInventory extends Inventory
 
 	/**
 	 * Returns the list of items in inventory available for transaction adjusetd by tradeList
-	 *
+	 * 
 	 * @param tradeList
 	 * @return L2ItemInstance : items in inventory
 	 */
@@ -330,7 +328,7 @@ public class PcInventory extends Inventory
 
 	/**
 	 * Adjust TradeItem according his status in inventory
-	 *
+	 * 
 	 * @param item
 	 *            : L2ItemInstance to be adjusten
 	 */
@@ -367,7 +365,7 @@ public class PcInventory extends Inventory
 
 	/**
 	 * Adds adena to PCInventory
-	 *
+	 * 
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param count
@@ -385,7 +383,7 @@ public class PcInventory extends Inventory
 
 	/**
 	 * Removes adena to PCInventory
-	 *
+	 * 
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param count
@@ -406,7 +404,7 @@ public class PcInventory extends Inventory
 
 	/**
 	 * Adds specified amount of ancient adena to player inventory.
-	 *
+	 * 
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param count
@@ -424,7 +422,7 @@ public class PcInventory extends Inventory
 
 	/**
 	 * Removes specified amount of ancient adena from player inventory.
-	 *
+	 * 
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param count
@@ -445,7 +443,7 @@ public class PcInventory extends Inventory
 
 	/**
 	 * Adds item in inventory and checks _adena and _ancientAdena
-	 *
+	 * 
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param item
@@ -472,7 +470,7 @@ public class PcInventory extends Inventory
 
 	/**
 	 * Adds item in inventory and checks _adena and _ancientAdena
-	 *
+	 * 
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param itemId
@@ -519,7 +517,7 @@ public class PcInventory extends Inventory
 
 	/**
 	 * Transfers item to another inventory and checks _adena and _ancientAdena
-	 *
+	 * 
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param objectId
@@ -548,7 +546,7 @@ public class PcInventory extends Inventory
 
 	/**
 	 * Destroy item from inventory and checks _adena and _ancientAdena
-	 *
+	 * 
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param item
@@ -567,7 +565,7 @@ public class PcInventory extends Inventory
 
 	/**
 	 * Destroy item from inventory and checks _adena and _ancientAdena
-	 *
+	 * 
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param item
@@ -594,7 +592,7 @@ public class PcInventory extends Inventory
 
 	/**
 	 * Destroys item from inventory and checks _adena and _ancientAdena
-	 *
+	 * 
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param objectId
@@ -619,7 +617,7 @@ public class PcInventory extends Inventory
 
 	/**
 	 * Destroy item from inventory by using its <B>itemId</B> and checks _adena and _ancientAdena
-	 *
+	 * 
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param itemId
@@ -644,7 +642,7 @@ public class PcInventory extends Inventory
 
 	/**
 	 * Drop item from inventory and checks _adena and _ancientAdena
-	 *
+	 * 
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param item
@@ -671,7 +669,7 @@ public class PcInventory extends Inventory
 
 	/**
 	 * Drop item from inventory by using its <B>objectID</B> and checks _adena and _ancientAdena
-	 *
+	 * 
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param objectId
@@ -700,7 +698,7 @@ public class PcInventory extends Inventory
 
 	/**
 	 * <b>Overloaded</b>, when removes item from inventory, remove also owner shortcuts.
-	 *
+	 * 
 	 * @param item
 	 *            : L2ItemInstance to be removed from inventory
 	 */
@@ -826,7 +824,7 @@ public class PcInventory extends Inventory
 	/**
 	 * Set inventory block for specified IDs<br>
 	 * array reference is used for {@link PcInventory#_blockItems}
-	 *
+	 * 
 	 * @param items
 	 *            array of Ids to block/allow
 	 * @param mode
@@ -853,7 +851,7 @@ public class PcInventory extends Inventory
 
 	/**
 	 * Check if player inventory is in block mode.
-	 *
+	 * 
 	 * @return true if some itemIds blocked
 	 */
 	public boolean hasInventoryBlock()
@@ -863,7 +861,7 @@ public class PcInventory extends Inventory
 
 	/**
 	 * Return block mode
-	 *
+	 * 
 	 * @return int {@link PcInventory#_blockMode}
 	 */
 	public int getBlockMode()
@@ -873,7 +871,7 @@ public class PcInventory extends Inventory
 
 	/**
 	 * Return TIntArrayList with blocked item ids
-	 *
+	 * 
 	 * @return TIntArrayList
 	 */
 	public int[] getBlockItems()
@@ -883,7 +881,7 @@ public class PcInventory extends Inventory
 
 	/**
 	 * Check if player can use item by itemid
-	 *
+	 * 
 	 * @param itemId
 	 *            int
 	 * @return true if can use

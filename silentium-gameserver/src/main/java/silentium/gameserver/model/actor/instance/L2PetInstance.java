@@ -1,14 +1,20 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.model.actor.instance;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.concurrent.Future;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import silentium.commons.database.DatabaseFactory;
 import silentium.commons.utils.Rnd;
 import silentium.gameserver.ThreadPoolManager;
@@ -21,8 +27,12 @@ import silentium.gameserver.handler.ItemHandler;
 import silentium.gameserver.idfactory.IdFactory;
 import silentium.gameserver.instancemanager.CursedWeaponsManager;
 import silentium.gameserver.instancemanager.ItemsOnGroundManager;
-import silentium.gameserver.model.*;
+import silentium.gameserver.model.L2ItemInstance;
+import silentium.gameserver.model.L2Object;
+import silentium.gameserver.model.L2PetData;
 import silentium.gameserver.model.L2PetData.L2PetLevelData;
+import silentium.gameserver.model.L2Skill;
+import silentium.gameserver.model.L2World;
 import silentium.gameserver.model.actor.L2Character;
 import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.L2Summon;
@@ -30,19 +40,28 @@ import silentium.gameserver.model.actor.stat.PetStat;
 import silentium.gameserver.model.itemcontainer.Inventory;
 import silentium.gameserver.model.itemcontainer.PetInventory;
 import silentium.gameserver.network.SystemMessageId;
-import silentium.gameserver.network.serverpackets.*;
+import silentium.gameserver.network.serverpackets.ActionFailed;
+import silentium.gameserver.network.serverpackets.InventoryUpdate;
+import silentium.gameserver.network.serverpackets.MoveToPawn;
+import silentium.gameserver.network.serverpackets.MyTargetSelected;
+import silentium.gameserver.network.serverpackets.PetInventoryUpdate;
+import silentium.gameserver.network.serverpackets.PetItemList;
+import silentium.gameserver.network.serverpackets.PetStatusShow;
+import silentium.gameserver.network.serverpackets.StatusUpdate;
+import silentium.gameserver.network.serverpackets.StopMove;
+import silentium.gameserver.network.serverpackets.SystemMessage;
+import silentium.gameserver.network.serverpackets.ValidateLocation;
 import silentium.gameserver.tables.ItemTable;
 import silentium.gameserver.tables.PetDataTable;
 import silentium.gameserver.tables.SkillTable;
 import silentium.gameserver.taskmanager.DecayTaskManager;
 import silentium.gameserver.templates.chars.L2NpcTemplate;
-import silentium.gameserver.templates.item.*;
+import silentium.gameserver.templates.item.L2ArmorType;
+import silentium.gameserver.templates.item.L2EtcItemType;
+import silentium.gameserver.templates.item.L2Item;
+import silentium.gameserver.templates.item.L2Weapon;
+import silentium.gameserver.templates.item.L2WeaponType;
 import silentium.gameserver.utils.Util;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.concurrent.Future;
 
 public class L2PetInstance extends L2Summon
 {
@@ -88,8 +107,8 @@ public class L2PetInstance extends L2Summon
 	 * Manage Feeding Task.<BR>
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
-	 * <li>Feed or kill the pet depending on hunger level</li> <li>If pet has food in inventory and feed level drops below 55%
-	 * then consume food from inventory</li> <li>Send a broadcastStatusUpdate packet for this L2PetInstance</li><BR>
+	 * <li>Feed or kill the pet depending on hunger level</li> <li>If pet has food in inventory and feed level drops below 55% then consume food
+	 * from inventory</li> <li>Send a broadcastStatusUpdate packet for this L2PetInstance</li><BR>
 	 * <BR>
 	 */
 	class FeedTask implements Runnable
@@ -386,7 +405,7 @@ public class L2PetInstance extends L2Summon
 
 	/**
 	 * Destroys item from inventory and send a Server->Client InventoryUpdate packet to the L2PcInstance.
-	 *
+	 * 
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param objectId
@@ -437,9 +456,8 @@ public class L2PetInstance extends L2Summon
 	}
 
 	/**
-	 * Destroy item from inventory by using its <B>itemId</B> and send a Server->Client InventoryUpdate packet to the
-	 * L2PcInstance.
-	 *
+	 * Destroy item from inventory by using its <B>itemId</B> and send a Server->Client InventoryUpdate packet to the L2PcInstance.
+	 * 
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param itemId
@@ -699,7 +717,7 @@ public class L2PetInstance extends L2Summon
 
 	/**
 	 * Transfers item to another inventory
-	 *
+	 * 
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param objectId
@@ -749,7 +767,7 @@ public class L2PetInstance extends L2Summon
 
 	/**
 	 * Remove the Pet from DB and its associated item from the player inventory
-	 *
+	 * 
 	 * @param owner
 	 *            The owner from whose invenory we should delete the item
 	 */
@@ -973,7 +991,7 @@ public class L2PetInstance extends L2Summon
 
 	/**
 	 * Restore the specified % of experience this L2PetInstance has lost.
-	 *
+	 * 
 	 * @param restorePercent
 	 */
 	public void restoreExp(double restorePercent)
@@ -1185,8 +1203,8 @@ public class L2PetInstance extends L2Summon
 	/**
 	 * A simple check, made to see if this current pet is hungry.<br>
 	 * <br>
-	 * If the actual amount of food < 55% of the max, the pet is shown as hungry. Both atkspd and cstspd are divided by 2, and
-	 * deluxe food can be used automatically if worn.
+	 * If the actual amount of food < 55% of the max, the pet is shown as hungry. Both atkspd and cstspd are divided by 2, and deluxe food can be
+	 * used automatically if worn.
 	 **/
 	@Override
 	public final boolean isHungry()

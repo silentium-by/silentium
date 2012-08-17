@@ -1,9 +1,9 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.scripts.custom;
 
@@ -19,7 +19,8 @@ import silentium.gameserver.utils.Util;
 /**
  * @authors L2Emu Team (python), Nyaran (java)
  */
-public class NpcLocationInfo extends Quest implements ScriptFile {
+public class NpcLocationInfo extends Quest implements ScriptFile
+{
 	private static final String qn = "NpcLocationInfo";
 
 	private static final int[] NPCRADAR = {
@@ -197,21 +198,26 @@ public class NpcLocationInfo extends Quest implements ScriptFile {
 	};
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	{
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 
 		if (st == null)
 			return htmltext;
 
-		if (Util.isDigit(event)) {
+		if (Util.isDigit(event))
+		{
 			htmltext = null;
 			int npcId = Integer.parseInt(event);
 
-			if (Util.contains(NPCRADAR, npcId)) {
+			if (Util.contains(NPCRADAR, npcId))
+			{
 				int x = 0, y = 0, z = 0;
-				for (L2Spawn spawn : SpawnTable.getInstance().getSpawnTable()) {
-					if (npcId == spawn.getNpcId()) {
+				for (L2Spawn spawn : SpawnTable.getInstance().getSpawnTable())
+				{
+					if (npcId == spawn.getNpcId())
+					{
 						x = spawn.getLocx();
 						y = spawn.getLocy();
 						z = spawn.getLocz();
@@ -227,15 +233,18 @@ public class NpcLocationInfo extends Quest implements ScriptFile {
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player) {
+	public String onTalk(L2Npc npc, L2PcInstance player)
+	{
 		return String.valueOf(npc.getNpcId()) + ".htm";
 	}
 
-	public static void onLoad() {
+	public static void onLoad()
+	{
 		new NpcLocationInfo(-1, "NpcLocationInfo", "custom");
 	}
 
-	public NpcLocationInfo(int id, String name, String descr) {
+	public NpcLocationInfo(int id, String name, String descr)
+	{
 		super(id, name, descr);
 
 		addStartNpc(30598, 30599, 30600, 30601, 30602);

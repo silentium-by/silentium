@@ -1,14 +1,19 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.authserver.network.clientpackets;
 
+import java.security.GeneralSecurityException;
+
+import javax.crypto.Cipher;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import silentium.authserver.GameServerTable.GameServerInfo;
 import silentium.authserver.L2LoginClient;
 import silentium.authserver.L2LoginClient.LoginClientState;
@@ -20,9 +25,6 @@ import silentium.authserver.network.serverpackets.AccountKicked.AccountKickedRea
 import silentium.authserver.network.serverpackets.LoginFail.LoginFailReason;
 import silentium.authserver.network.serverpackets.LoginOk;
 import silentium.authserver.network.serverpackets.ServerList;
-
-import javax.crypto.Cipher;
-import java.security.GeneralSecurityException;
 
 /**
  * Format: x 0 (a leading null) x: the rsa encrypted block with the login an password

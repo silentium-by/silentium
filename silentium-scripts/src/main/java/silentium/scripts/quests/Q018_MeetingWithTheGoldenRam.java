@@ -1,9 +1,9 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.scripts.quests;
 
@@ -12,7 +12,8 @@ import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 
-public class Q018_MeetingWithTheGoldenRam extends Quest {
+public class Q018_MeetingWithTheGoldenRam extends Quest
+{
 	private final static String qn = "Q018_MeetingWithTheGoldenRam";
 
 	// Items
@@ -24,7 +25,8 @@ public class Q018_MeetingWithTheGoldenRam extends Quest {
 	private final static int Daisy = 31315;
 	private final static int Abercrombie = 31555;
 
-	public Q018_MeetingWithTheGoldenRam(int questId, String name, String descr) {
+	public Q018_MeetingWithTheGoldenRam(int questId, String name, String descr)
+	{
 		super(questId, name, descr);
 
 		questItemIds = new int[] { SupplyBox };
@@ -33,26 +35,33 @@ public class Q018_MeetingWithTheGoldenRam extends Quest {
 		addTalkId(Donal, Daisy, Abercrombie);
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args)
+	{
 		new Q018_MeetingWithTheGoldenRam(18, "Q018_MeetingWithTheGoldenRam", "Meeting with the Golden Ram");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	{
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("31314-03.htm")) {
+		if (event.equalsIgnoreCase("31314-03.htm"))
+		{
 			st.setState(QuestState.STARTED);
 			st.set("cond", "1");
 			st.playSound(QuestState.SOUND_ACCEPT);
-		} else if (event.equalsIgnoreCase("31315-02.htm")) {
+		}
+		else if (event.equalsIgnoreCase("31315-02.htm"))
+		{
 			st.set("cond", "2");
 			st.giveItems(SupplyBox, 1);
 			st.playSound(QuestState.SOUND_MIDDLE);
-		} else if (event.equalsIgnoreCase("31555-02.htm")) {
+		}
+		else if (event.equalsIgnoreCase("31555-02.htm"))
+		{
 			st.takeItems(SupplyBox, 1);
 			st.rewardItems(Adena, 15000);
 			st.addExpAndSp(50000, 0);
@@ -63,17 +72,20 @@ public class Q018_MeetingWithTheGoldenRam extends Quest {
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player) {
+	public String onTalk(L2Npc npc, L2PcInstance player)
+	{
 		String htmltext = getNoQuestMsg();
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState()) {
+		switch (st.getState())
+		{
 			case QuestState.CREATED:
 				if (player.getLevel() >= 66 && player.getLevel() <= 76)
 					htmltext = "31314-01.htm";
-				else {
+				else
+				{
 					htmltext = "31314-02.htm";
 					st.exitQuest(true);
 				}
@@ -81,7 +93,8 @@ public class Q018_MeetingWithTheGoldenRam extends Quest {
 
 			case QuestState.STARTED:
 				int cond = st.getInt("cond");
-				switch (npc.getNpcId()) {
+				switch (npc.getNpcId())
+				{
 					case Donal:
 						htmltext = "31314-04.htm";
 						break;

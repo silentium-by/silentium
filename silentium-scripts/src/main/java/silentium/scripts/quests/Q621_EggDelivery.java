@@ -1,9 +1,9 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.scripts.quests;
 
@@ -14,7 +14,8 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q621_EggDelivery extends Quest implements ScriptFile {
+public class Q621_EggDelivery extends Quest implements ScriptFile
+{
 	private final static String qn = "Q621_EggDelivery";
 
 	// Items
@@ -34,7 +35,8 @@ public class Q621_EggDelivery extends Quest implements ScriptFile {
 	private static final int HASTE_POT = 1062;
 	private static final int[] RECIPES = { 6847, 6849, 6851 };
 
-	public Q621_EggDelivery(int questId, String name, String descr) {
+	public Q621_EggDelivery(int questId, String name, String descr)
+	{
 		super(questId, name, descr);
 
 		questItemIds = new int[] { EGG, FEE };
@@ -43,63 +45,86 @@ public class Q621_EggDelivery extends Quest implements ScriptFile {
 		addTalkId(JEREMY, PULIN, NAFF, CROCUS, KUBER, BEOLIN, VALENTINE);
 	}
 
-	public static void onLoad() {
+	public static void onLoad()
+	{
 		new Q621_EggDelivery(621, "Q621_EggDelivery", "Egg Delivery");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	{
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("31521-02.htm")) {
+		if (event.equalsIgnoreCase("31521-02.htm"))
+		{
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.giveItems(EGG, 5);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		} else if (event.equalsIgnoreCase("31543-02.htm")) {
+		}
+		else if (event.equalsIgnoreCase("31543-02.htm"))
+		{
 			st.set("cond", "2");
 			st.takeItems(EGG, 1);
 			st.giveItems(FEE, 1);
 			st.playSound(QuestState.SOUND_ITEMGET);
-		} else if (event.equalsIgnoreCase("31544-02.htm")) {
+		}
+		else if (event.equalsIgnoreCase("31544-02.htm"))
+		{
 			st.set("cond", "3");
 			st.takeItems(EGG, 1);
 			st.giveItems(FEE, 1);
 			st.playSound(QuestState.SOUND_ITEMGET);
-		} else if (event.equalsIgnoreCase("31545-02.htm")) {
+		}
+		else if (event.equalsIgnoreCase("31545-02.htm"))
+		{
 			st.set("cond", "4");
 			st.takeItems(EGG, 1);
 			st.giveItems(FEE, 1);
 			st.playSound(QuestState.SOUND_ITEMGET);
-		} else if (event.equalsIgnoreCase("31546-02.htm")) {
+		}
+		else if (event.equalsIgnoreCase("31546-02.htm"))
+		{
 			st.set("cond", "5");
 			st.takeItems(EGG, 1);
 			st.giveItems(FEE, 1);
 			st.playSound(QuestState.SOUND_ITEMGET);
-		} else if (event.equalsIgnoreCase("31547-02.htm")) {
+		}
+		else if (event.equalsIgnoreCase("31547-02.htm"))
+		{
 			st.set("cond", "6");
 			st.takeItems(EGG, 1);
 			st.giveItems(FEE, 1);
 			st.playSound(QuestState.SOUND_ITEMGET);
-		} else if (event.equalsIgnoreCase("31521-06.htm")) {
-			if (st.getQuestItemsCount(FEE) < 5) {
+		}
+		else if (event.equalsIgnoreCase("31521-06.htm"))
+		{
+			if (st.getQuestItemsCount(FEE) < 5)
+			{
 				htmltext = "31521-08.htm";
 				st.playSound(QuestState.SOUND_GIVEUP);
 				st.exitQuest(true);
-			} else {
+			}
+			else
+			{
 				st.set("cond", "7");
 				st.takeItems(FEE, 5);
 				st.playSound(QuestState.SOUND_MIDDLE);
 			}
-		} else if (event.equalsIgnoreCase("31584-02.htm")) {
-			if (Rnd.get(5) < 1) {
+		}
+		else if (event.equalsIgnoreCase("31584-02.htm"))
+		{
+			if (Rnd.get(5) < 1)
+			{
 				st.rewardItems(RECIPES[Rnd.get(3)], 1);
 				st.playSound(QuestState.SOUND_FINISH);
 				st.exitQuest(true);
-			} else {
+			}
+			else
+			{
 				st.rewardItems(57, 18800);
 				st.rewardItems(HASTE_POT, 1);
 				st.playSound(QuestState.SOUND_FINISH);
@@ -110,13 +135,15 @@ public class Q621_EggDelivery extends Quest implements ScriptFile {
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player) {
+	public String onTalk(L2Npc npc, L2PcInstance player)
+	{
 		String htmltext = Quest.getNoQuestMsg();
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState()) {
+		switch (st.getState())
+		{
 			case QuestState.CREATED:
 				if (player.getLevel() >= 68 && player.getLevel() <= 73)
 					htmltext = "31521-01.htm";
@@ -127,7 +154,8 @@ public class Q621_EggDelivery extends Quest implements ScriptFile {
 			case QuestState.STARTED:
 				int cond = st.getInt("cond");
 
-				switch (npc.getNpcId()) {
+				switch (npc.getNpcId())
+				{
 					case JEREMY:
 						if (cond == 1)
 							htmltext = "31521-04.htm";

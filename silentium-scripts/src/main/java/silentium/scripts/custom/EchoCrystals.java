@@ -1,11 +1,13 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.scripts.custom;
+
+import java.util.Map;
 
 import javolution.util.FastMap;
 import silentium.gameserver.model.actor.L2Npc;
@@ -15,13 +17,12 @@ import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 import silentium.gameserver.utils.Util;
 
-import java.util.Map;
-
 /**
  * @authors DrLecter (python), Plim (java)
  * @notes Formerly based on Elektra's script
  */
-public class EchoCrystals extends Quest implements ScriptFile {
+public class EchoCrystals extends Quest implements ScriptFile
+{
 	private static final String qn = "EchoCrystals";
 
 	private static final int ADENA = 57;
@@ -29,13 +30,15 @@ public class EchoCrystals extends Quest implements ScriptFile {
 
 	private static final Map<Integer, ScoreData> SCORES = new FastMap<>();
 
-	private class ScoreData {
+	private class ScoreData
+	{
 		private final int _crystalId;
 		private final String _okMsg;
 		private final String _noAdenaMsg;
 		private final String _noScoreMsg;
 
-		public ScoreData(int crystalId, String okMsg, String noAdenaMsg, String noScoreMsg) {
+		public ScoreData(int crystalId, String okMsg, String noAdenaMsg, String noScoreMsg)
+		{
 			super();
 
 			_crystalId = crystalId;
@@ -44,31 +47,38 @@ public class EchoCrystals extends Quest implements ScriptFile {
 			_noScoreMsg = noScoreMsg;
 		}
 
-		public int getCrystalId() {
+		public int getCrystalId()
+		{
 			return _crystalId;
 		}
 
-		public String getOkMsg() {
+		public String getOkMsg()
+		{
 			return _okMsg;
 		}
 
-		public String getNoAdenaMsg() {
+		public String getNoAdenaMsg()
+		{
 			return _noAdenaMsg;
 		}
 
-		public String getNoScoreMsg() {
+		public String getNoScoreMsg()
+		{
 			return _noScoreMsg;
 		}
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	{
 		String htmltext = "";
 		QuestState st = player.getQuestState(qn);
 
-		if (st != null && Util.isDigit(event)) {
+		if (st != null && Util.isDigit(event))
+		{
 			int score = Integer.parseInt(event);
-			if (SCORES.containsKey(score)) {
+			if (SCORES.containsKey(score))
+			{
 				int crystal = SCORES.get(score).getCrystalId();
 				String ok = SCORES.get(score).getOkMsg();
 				String noadena = SCORES.get(score).getNoAdenaMsg();
@@ -78,7 +88,8 @@ public class EchoCrystals extends Quest implements ScriptFile {
 					htmltext = npc.getNpcId() + "-" + noscore + ".htm";
 				else if (st.getQuestItemsCount(ADENA) < COST)
 					htmltext = npc.getNpcId() + "-" + noadena + ".htm";
-				else {
+				else
+				{
 					st.takeItems(ADENA, COST);
 					st.giveItems(crystal, 1);
 					htmltext = npc.getNpcId() + "-" + ok + ".htm";
@@ -90,15 +101,18 @@ public class EchoCrystals extends Quest implements ScriptFile {
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player) {
+	public String onTalk(L2Npc npc, L2PcInstance player)
+	{
 		return "1.htm";
 	}
 
-	public static void onLoad() {
+	public static void onLoad()
+	{
 		new EchoCrystals(-1, "EchoCrystals", "custom");
 	}
 
-	public EchoCrystals(int questId, String name, String descr) {
+	public EchoCrystals(int questId, String name, String descr)
+	{
 		super(questId, name, descr);
 
 		// Initialize Map

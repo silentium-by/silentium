@@ -1,9 +1,9 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.scripts.quests;
 
@@ -14,7 +14,8 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q661_MakingTheHarvestGroundsSafe extends Quest implements ScriptFile {
+public class Q661_MakingTheHarvestGroundsSafe extends Quest implements ScriptFile
+{
 	private static final String qn = "Q661_MakingTheHarvestGroundsSafe";
 
 	// NPC
@@ -33,7 +34,8 @@ public class Q661_MakingTheHarvestGroundsSafe extends Quest implements ScriptFil
 	private static final int CLOUDY_BEAST = 21096;
 	private static final int YOUNG_ARANEID = 21097;
 
-	public Q661_MakingTheHarvestGroundsSafe(int questId, String name, String descr) {
+	public Q661_MakingTheHarvestGroundsSafe(int questId, String name, String descr)
+	{
 		super(questId, name, descr);
 
 		questItemIds = new int[] { STING_OF_GIANT_PB, CLOUDY_GEM, TALON_OF_YA };
@@ -44,22 +46,27 @@ public class Q661_MakingTheHarvestGroundsSafe extends Quest implements ScriptFil
 		addKillId(GIANT_PB, CLOUDY_BEAST, YOUNG_ARANEID);
 	}
 
-	public static void onLoad() {
+	public static void onLoad()
+	{
 		new Q661_MakingTheHarvestGroundsSafe(661, "Q661_MakingTheHarvestGroundsSafe", "Making the Harvest Grounds Safe");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	{
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30210-02.htm")) {
+		if (event.equalsIgnoreCase("30210-02.htm"))
+		{
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		} else if (event.equalsIgnoreCase("30210-04.htm")) {
+		}
+		else if (event.equalsIgnoreCase("30210-04.htm"))
+		{
 			int item1 = st.getQuestItemsCount(STING_OF_GIANT_PB);
 			int item2 = st.getQuestItemsCount(CLOUDY_GEM);
 			int item3 = st.getQuestItemsCount(TALON_OF_YA);
@@ -74,24 +81,28 @@ public class Q661_MakingTheHarvestGroundsSafe extends Quest implements ScriptFil
 			st.takeItems(CLOUDY_GEM, item2);
 			st.takeItems(TALON_OF_YA, item3);
 			st.rewardItems(ADENA, sum);
-		} else if (event.equalsIgnoreCase("30210-06.htm"))
+		}
+		else if (event.equalsIgnoreCase("30210-06.htm"))
 			st.exitQuest(true);
 
 		return htmltext;
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player) {
+	public String onTalk(L2Npc npc, L2PcInstance player)
+	{
 		QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState()) {
+		switch (st.getState())
+		{
 			case QuestState.CREATED:
 				if (player.getLevel() >= 21)
 					htmltext = "30210-01.htm";
-				else {
+				else
+				{
 					htmltext = "30210-01a.htm";
 					st.exitQuest(true);
 				}
@@ -109,13 +120,16 @@ public class Q661_MakingTheHarvestGroundsSafe extends Quest implements ScriptFil
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
+	{
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 
-		if (st.isStarted() && Rnd.get(10) < 5) {
-			switch (npc.getNpcId()) {
+		if (st.isStarted() && Rnd.get(10) < 5)
+		{
+			switch (npc.getNpcId())
+			{
 				case GIANT_PB:
 					st.giveItems(STING_OF_GIANT_PB, 1);
 					break;

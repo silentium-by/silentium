@@ -1,19 +1,38 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.model.actor.instance;
 
-import com.google.common.collect.Sets;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.ReentrantLock;
+
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import silentium.commons.database.DatabaseFactory;
 import silentium.commons.utils.Point3D;
 import silentium.commons.utils.Rnd;
-import silentium.gameserver.*;
+import silentium.gameserver.GameTimeController;
+import silentium.gameserver.ItemsAutoDestroy;
+import silentium.gameserver.LoginServerThread;
+import silentium.gameserver.RecipeController;
+import silentium.gameserver.ThreadPoolManager;
 import silentium.gameserver.ai.CharacterAI;
 import silentium.gameserver.ai.CtrlIntention;
 import silentium.gameserver.ai.PlayerAI;
@@ -25,25 +44,57 @@ import silentium.gameserver.configs.MainConfig;
 import silentium.gameserver.configs.PlayersConfig;
 import silentium.gameserver.data.html.HtmCache;
 import silentium.gameserver.data.html.StaticHtmPath;
-import silentium.gameserver.data.xml.*;
+import silentium.gameserver.data.xml.AccessLevelsData;
+import silentium.gameserver.data.xml.CharTemplateData;
+import silentium.gameserver.data.xml.FishData;
+import silentium.gameserver.data.xml.HennaData;
+import silentium.gameserver.data.xml.MapRegionData;
+import silentium.gameserver.data.xml.SkillTreeData;
 import silentium.gameserver.geo.GeoData;
 import silentium.gameserver.handler.IItemHandler;
 import silentium.gameserver.handler.ItemHandler;
-import silentium.gameserver.instancemanager.*;
+import silentium.gameserver.instancemanager.CastleManager;
+import silentium.gameserver.instancemanager.CoupleManager;
+import silentium.gameserver.instancemanager.CursedWeaponsManager;
+import silentium.gameserver.instancemanager.DimensionalRiftManager;
+import silentium.gameserver.instancemanager.DuelManager;
+import silentium.gameserver.instancemanager.GrandBossManager;
+import silentium.gameserver.instancemanager.ItemsOnGroundManager;
+import silentium.gameserver.instancemanager.QuestManager;
+import silentium.gameserver.instancemanager.SiegeManager;
 import silentium.gameserver.model.*;
 import silentium.gameserver.model.L2PetData.L2PetLevelData;
 import silentium.gameserver.model.L2Skill.SkillTargetType;
-import silentium.gameserver.model.actor.*;
+import silentium.gameserver.model.actor.L2Attackable;
+import silentium.gameserver.model.actor.L2Character;
+import silentium.gameserver.model.actor.L2Npc;
+import silentium.gameserver.model.actor.L2Playable;
+import silentium.gameserver.model.actor.L2Summon;
+import silentium.gameserver.model.actor.L2Vehicle;
 import silentium.gameserver.model.actor.appearance.PcAppearance;
 import silentium.gameserver.model.actor.knownlist.PcKnownList;
 import silentium.gameserver.model.actor.position.PcPosition;
 import silentium.gameserver.model.actor.stat.PcStat;
 import silentium.gameserver.model.actor.status.PcStatus;
-import silentium.gameserver.model.base.*;
-import silentium.gameserver.model.entity.*;
+import silentium.gameserver.model.base.ClassId;
+import silentium.gameserver.model.base.ClassLevel;
+import silentium.gameserver.model.base.Experience;
+import silentium.gameserver.model.base.PlayerClass;
+import silentium.gameserver.model.base.Race;
+import silentium.gameserver.model.base.SubClass;
+import silentium.gameserver.model.entity.Castle;
+import silentium.gameserver.model.entity.Duel;
+import silentium.gameserver.model.entity.Hero;
+import silentium.gameserver.model.entity.Siege;
+import silentium.gameserver.model.entity.TvTEvent;
 import silentium.gameserver.model.entity.sevensigns.SevenSigns;
 import silentium.gameserver.model.entity.sevensigns.SevenSignsFestival;
-import silentium.gameserver.model.itemcontainer.*;
+import silentium.gameserver.model.itemcontainer.Inventory;
+import silentium.gameserver.model.itemcontainer.ItemContainer;
+import silentium.gameserver.model.itemcontainer.PcFreight;
+import silentium.gameserver.model.itemcontainer.PcInventory;
+import silentium.gameserver.model.itemcontainer.PcWarehouse;
+import silentium.gameserver.model.itemcontainer.PetInventory;
 import silentium.gameserver.model.olympiad.OlympiadGameManager;
 import silentium.gameserver.model.olympiad.OlympiadGameTask;
 import silentium.gameserver.model.olympiad.OlympiadManager;
@@ -60,31 +111,35 @@ import silentium.gameserver.skills.Stats;
 import silentium.gameserver.skills.effects.EffectTemplate;
 import silentium.gameserver.skills.l2skills.L2SkillSiegeFlag;
 import silentium.gameserver.skills.l2skills.L2SkillSummon;
-import silentium.gameserver.tables.*;
+import silentium.gameserver.tables.CharNameTable;
+import silentium.gameserver.tables.ClanTable;
+import silentium.gameserver.tables.GmListTable;
+import silentium.gameserver.tables.ItemTable;
+import silentium.gameserver.tables.NpcTable;
+import silentium.gameserver.tables.PetDataTable;
+import silentium.gameserver.tables.SkillTable;
 import silentium.gameserver.tables.SkillTable.FrequentSkill;
 import silentium.gameserver.taskmanager.AttackStanceTaskManager;
 import silentium.gameserver.templates.chars.L2PcTemplate;
-import silentium.gameserver.templates.item.*;
+import silentium.gameserver.templates.item.L2ActionType;
+import silentium.gameserver.templates.item.L2Armor;
+import silentium.gameserver.templates.item.L2ArmorType;
+import silentium.gameserver.templates.item.L2EtcItemType;
+import silentium.gameserver.templates.item.L2Henna;
+import silentium.gameserver.templates.item.L2Item;
+import silentium.gameserver.templates.item.L2Weapon;
+import silentium.gameserver.templates.item.L2WeaponType;
 import silentium.gameserver.templates.skills.L2EffectType;
 import silentium.gameserver.templates.skills.L2SkillType;
 import silentium.gameserver.utils.Broadcast;
 import silentium.gameserver.utils.FloodProtectors;
 import silentium.gameserver.utils.Util;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.*;
-import java.util.concurrent.Future;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.locks.ReentrantLock;
+import com.google.common.collect.Sets;
 
 /**
- * This class represents all player characters in the world. There is always a client-thread connected to this (except if a
- * player-store is activated upon logout).
+ * This class represents all player characters in the world. There is always a client-thread connected to this (except if a player-store is
+ * activated upon logout).
  */
 public final class L2PcInstance extends L2Playable
 {
@@ -311,8 +366,8 @@ public final class L2PcInstance extends L2Playable
 	private List<PcFreight> _depositedFreight;
 
 	/**
-	 * The Private Store type of the L2PcInstance (STORE_PRIVATE_NONE=0, STORE_PRIVATE_SELL=1, sellmanage=2, STORE_PRIVATE_BUY=3,
-	 * buymanage=4, STORE_PRIVATE_MANUFACTURE=5)
+	 * The Private Store type of the L2PcInstance (STORE_PRIVATE_NONE=0, STORE_PRIVATE_SELL=1, sellmanage=2, STORE_PRIVATE_BUY=3, buymanage=4,
+	 * STORE_PRIVATE_MANUFACTURE=5)
 	 */
 	private int _privatestore;
 
@@ -738,10 +793,10 @@ public final class L2PcInstance extends L2Playable
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
-	 * <li>Create a new L2PcInstance with an account name</li> <li>Set the name, the Hair Style, the Hair Color and the Face type
-	 * of the L2PcInstance</li> <li>Add the player in the characters table of the database</li><BR>
+	 * <li>Create a new L2PcInstance with an account name</li> <li>Set the name, the Hair Style, the Hair Color and the Face type of the
+	 * L2PcInstance</li> <li>Add the player in the characters table of the database</li><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param objectId
 	 *            Identifier of the object to initialized
 	 * @param template
@@ -837,16 +892,14 @@ public final class L2PcInstance extends L2Playable
 	}
 
 	/**
-	 * Retrieve a L2PcInstance from the characters table of the database and add it in _allObjects of the L2world (call restore
-	 * method).<BR>
+	 * Retrieve a L2PcInstance from the characters table of the database and add it in _allObjects of the L2world (call restore method).<BR>
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
-	 * <li>Retrieve the L2PcInstance from the characters table of the database</li> <li>Add the L2PcInstance object in _allObjects
-	 * </li> <li>Set the x,y,z position of the L2PcInstance and make it invisible</li> <li>Update the overloaded status of the
-	 * L2PcInstance</li><BR>
+	 * <li>Retrieve the L2PcInstance from the characters table of the database</li> <li>Add the L2PcInstance object in _allObjects</li> <li>Set
+	 * the x,y,z position of the L2PcInstance and make it invisible</li> <li>Update the overloaded status of the L2PcInstance</li><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param objectId
 	 *            Identifier of the object to initialized
 	 * @return The L2PcInstance loaded from the database
@@ -871,12 +924,12 @@ public final class L2PcInstance extends L2Playable
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
-	 * <li>Call the L2Character constructor to create an empty _skills slot and copy basic Calculator set to this L2PcInstance</li>
-	 * <li>Set the name of the L2PcInstance</li><BR>
+	 * <li>Call the L2Character constructor to create an empty _skills slot and copy basic Calculator set to this L2PcInstance</li> <li>Set the
+	 * name of the L2PcInstance</li><BR>
 	 * <BR>
 	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method SET the level of the L2PcInstance to 1</B></FONT><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param objectId
 	 *            Identifier of the object to initialized
 	 * @param template
@@ -1015,7 +1068,7 @@ public final class L2PcInstance extends L2Playable
 	/**
 	 * A newbie is the first character of an account reaching level 6.<br>
 	 * He isn't considered newbie anymore at lvl 25.
-	 *
+	 * 
 	 * @return True if newbie.
 	 */
 	public boolean isNewbie()
@@ -1068,7 +1121,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Manage Logout Task
-	 *
+	 * 
 	 * @param closeClient
 	 */
 	public void logout(boolean closeClient)
@@ -1101,7 +1154,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Add a new L2RecipList to the table _commonrecipebook containing all L2RecipeList of the L2PcInstance.
-	 *
+	 * 
 	 * @param recipe
 	 *            The L2RecipeList to add to the _recipebook
 	 */
@@ -1112,7 +1165,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Add a new L2RecipList to the table _recipebook containing all L2RecipeList of the L2PcInstance.
-	 *
+	 * 
 	 * @param recipe
 	 *            The L2RecipeList to add to the _recipebook
 	 */
@@ -1137,9 +1190,9 @@ public final class L2PcInstance extends L2Playable
 	}
 
 	/**
-	 * Tries to remove a L2RecipList from the table _DwarvenRecipeBook or from table _CommonRecipeBook, those table contain all
-	 * L2RecipeList of the L2PcInstance.
-	 *
+	 * Tries to remove a L2RecipList from the table _DwarvenRecipeBook or from table _CommonRecipeBook, those table contain all L2RecipeList of
+	 * the L2PcInstance.
+	 * 
 	 * @param recipeId
 	 *            The Identifier of the L2RecipeList to remove from the _recipebook.
 	 */
@@ -1186,7 +1239,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Add a QuestState to the table _quest containing all quests began by the L2PcInstance.
-	 *
+	 * 
 	 * @param qs
 	 *            The QuestState to add to _quest.
 	 */
@@ -1197,7 +1250,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Remove a QuestState from the table _quest containing all quests began by the L2PcInstance.
-	 *
+	 * 
 	 * @param quest
 	 *            The name of the quest.
 	 */
@@ -1246,7 +1299,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Return a table containing all QuestState to modify after a L2Attackable killing.
-	 *
+	 * 
 	 * @param npc
 	 *            The attacked L2Npc.
 	 * @return An array of QuestState containing that L2Npc.
@@ -1276,7 +1329,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Return a table containing all QuestState to modify after a L2Attackable killing.
-	 *
+	 * 
 	 * @param npc
 	 *            The killed L2Npc.
 	 * @return An array of QuestState containing that L2Npc.
@@ -1306,7 +1359,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Return a table containing all QuestState from the table _quests in which the L2PcInstance must talk to the NPC.
-	 *
+	 * 
 	 * @param npcId
 	 *            The NPC id to make checks on.
 	 * @return An array of QuestState containing that L2Npc.
@@ -1413,7 +1466,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Add QuestState instance that is to be notified of L2PcInstance's death.
-	 *
+	 * 
 	 * @param qs
 	 *            The QuestState that subscribe to this event
 	 */
@@ -1428,7 +1481,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Remove QuestState instance that is to be notified of L2PcInstance's death.
-	 *
+	 * 
 	 * @param qs
 	 *            The QuestState that subscribe to this event
 	 */
@@ -1484,7 +1537,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Add a L2shortCut to the L2PcInstance _shortCuts
-	 *
+	 * 
 	 * @param shortcut
 	 *            The shortcut to add.
 	 */
@@ -1495,7 +1548,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Delete the L2ShortCut corresponding to the position (page-slot) from the L2PcInstance _shortCuts.
-	 *
+	 * 
 	 * @param slot
 	 * @param page
 	 */
@@ -1506,7 +1559,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Add a L2Macro to the L2PcInstance _macroses.
-	 *
+	 * 
 	 * @param macro
 	 *            The Macro object to add.
 	 */
@@ -1517,7 +1570,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Delete the L2Macro corresponding to the Identifier from the L2PcInstance _macroses.
-	 *
+	 * 
 	 * @param id
 	 */
 	public void deleteMacro(int id)
@@ -1535,7 +1588,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Set the siege state of the L2PcInstance.
-	 *
+	 * 
 	 * @param siegeState
 	 *            1 = attacker, 2 = defender, 0 = not involved
 	 */
@@ -1554,7 +1607,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Set the PvP Flag of the L2PcInstance.
-	 *
+	 * 
 	 * @param pvpFlag
 	 *            0 or 1.
 	 */
@@ -1688,7 +1741,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Set the PK counter of the L2PcInstance.
-	 *
+	 * 
 	 * @param pkKills
 	 *            A number.
 	 */
@@ -1707,7 +1760,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Set the _deleteTimer of the L2PcInstance.
-	 *
+	 * 
 	 * @param deleteTimer
 	 *            Time in ms.
 	 */
@@ -1756,7 +1809,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Set the number of recommandations obtained by the L2PcInstance (Max : 255).
-	 *
+	 * 
 	 * @param value
 	 *            Number of recommandations obtained.
 	 */
@@ -1814,7 +1867,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Set the exp of the L2PcInstance before a death
-	 *
+	 * 
 	 * @param exp
 	 */
 	public void setExpBeforeDeath(long exp)
@@ -1838,7 +1891,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Set the Karma of the L2PcInstance and send a Server->Client packet StatusUpdate (broadcast).
-	 *
+	 * 
 	 * @param karma
 	 *            A value.
 	 */
@@ -1874,7 +1927,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Weight Limit = (CON Modifier*69000)*Skills
-	 *
+	 * 
 	 * @return The max weight that the L2PcInstance can load.
 	 */
 	public int getMaxLoad()
@@ -1980,7 +2033,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * This method cleans charged shots (both ss, sps, and bss)
-	 *
+	 * 
 	 * @param unequipped
 	 *            The item which needs to be decharged.
 	 */
@@ -1999,7 +2052,7 @@ public final class L2PcInstance extends L2Playable
 	 * <LI>If item is equipped, shots are applied if automation is on.</LI>
 	 * <LI>If item is unequipped, shots are discharged.</LI>
 	 * </UL>
-	 *
+	 * 
 	 * @param item
 	 *            The item to charge/discharge.
 	 * @param abortAttack
@@ -2076,7 +2129,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Set PvP Kills of the L2PcInstance (number of player killed during a PvP).
-	 *
+	 * 
 	 * @param pvpKills
 	 *            A value.
 	 */
@@ -2095,7 +2148,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Set the template of the L2PcInstance.
-	 *
+	 * 
 	 * @param Id
 	 *            The Identifier of the L2PcTemplate to set to the L2PcInstance
 	 */
@@ -2176,7 +2229,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Set the fists weapon of the L2PcInstance (used when no weapon is equipped).
-	 *
+	 * 
 	 * @param weaponItem
 	 *            The fists L2Weapon to set to the L2PcInstance
 	 */
@@ -2262,8 +2315,8 @@ public final class L2PcInstance extends L2Playable
 	/**
 	 * This method is kinda polymorph :<BR>
 	 * <BR>
-	 * <li>it gives proper Expertise, Dwarven && Common Craft skill level ;</li> <li>it controls the Lucky skill (remove at lvl
-	 * 10) ;</li> <li>it finally sends the skill list.</li>
+	 * <li>it gives proper Expertise, Dwarven && Common Craft skill level ;</li> <li>it controls the Lucky skill (remove at lvl 10) ;</li> <li>it
+	 * finally sends the skill list.</li>
 	 */
 	public void rewardSkills()
 	{
@@ -2353,7 +2406,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Give all available skills to the player.
-	 *
+	 * 
 	 * @return The number of given skills.
 	 */
 	public int giveAvailableSkills()
@@ -2369,7 +2422,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Set the Experience value of the L2PcInstance.
-	 *
+	 * 
 	 * @param exp
 	 *            A value.
 	 */
@@ -2408,7 +2461,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Set the SP amount of the L2PcInstance.
-	 *
+	 * 
 	 * @param sp
 	 *            A value.
 	 */
@@ -2508,7 +2561,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Delete a ShortCut of the L2PcInstance _shortCuts.
-	 *
+	 * 
 	 * @param objectId
 	 *            The shortcut id.
 	 */
@@ -2527,7 +2580,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Set _waitTypeSitting to given value.
-	 *
+	 * 
 	 * @param state
 	 *            A boolean.
 	 */
@@ -2537,8 +2590,7 @@ public final class L2PcInstance extends L2Playable
 	}
 
 	/**
-	 * Sit down the L2PcInstance, set the AI Intention to AI_INTENTION_REST and send a Server->Client ChangeWaitType packet
-	 * (broadcast)
+	 * Sit down the L2PcInstance, set the AI Intention to AI_INTENTION_REST and send a Server->Client ChangeWaitType packet (broadcast)
 	 */
 	public void sitDown()
 	{
@@ -2589,8 +2641,7 @@ public final class L2PcInstance extends L2Playable
 	}
 
 	/**
-	 * Stand up the L2PcInstance, set the AI Intention to AI_INTENTION_IDLE and send a Server->Client ChangeWaitType packet
-	 * (broadcast)
+	 * Stand up the L2PcInstance, set the AI Intention to AI_INTENTION_IDLE and send a Server->Client ChangeWaitType packet (broadcast)
 	 */
 	public void standUp()
 	{
@@ -2722,7 +2773,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Set the Identifier of the L2PcInstance.
-	 *
+	 * 
 	 * @param charId
 	 *            The CharId.
 	 */
@@ -2749,7 +2800,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Add adena to Inventory of the L2PcInstance and send a Server->Client InventoryUpdate packet to the L2PcInstance.
-	 *
+	 * 
 	 * @param process
 	 *            String Identifier of process triggering this action
 	 * @param count
@@ -2782,7 +2833,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Reduce adena in Inventory of the L2PcInstance and send a Server->Client InventoryUpdate packet to the L2PcInstance.
-	 *
+	 * 
 	 * @param process
 	 *            String Identifier of process triggering this action
 	 * @param count
@@ -2827,7 +2878,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Add ancient adena to Inventory of the L2PcInstance and send a Server->Client InventoryUpdate packet to the L2PcInstance.
-	 *
+	 * 
 	 * @param process
 	 *            String Identifier of process triggering this action
 	 * @param count
@@ -2859,7 +2910,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Reduce ancient adena in Inventory of the L2PcInstance and send a Server->Client InventoryUpdate packet to the L2PcInstance.
-	 *
+	 * 
 	 * @param process
 	 *            String Identifier of process triggering this action
 	 * @param count
@@ -2908,7 +2959,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Adds item to inventory and send a Server->Client InventoryUpdate packet to the L2PcInstance.
-	 *
+	 * 
 	 * @param process
 	 *            String Identifier of process triggering this action
 	 * @param item
@@ -2971,7 +3022,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Adds item to Inventory and send a Server->Client InventoryUpdate packet to the L2PcInstance.
-	 *
+	 * 
 	 * @param process
 	 *            String Identifier of process triggering this action
 	 * @param itemId
@@ -3055,7 +3106,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Destroy item from inventory and send a Server->Client InventoryUpdate packet to the L2PcInstance.
-	 *
+	 * 
 	 * @param process
 	 *            String Identifier of process triggering this action
 	 * @param item
@@ -3073,7 +3124,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Destroy item from inventory and send a Server->Client InventoryUpdate packet to the L2PcInstance.
-	 *
+	 * 
 	 * @param process
 	 *            String Identifier of process triggering this action
 	 * @param item
@@ -3126,7 +3177,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Destroys item from inventory and send a Server->Client InventoryUpdate packet to the L2PcInstance.
-	 *
+	 * 
 	 * @param process
 	 *            String Identifier of process triggering this action
 	 * @param objectId
@@ -3155,9 +3206,9 @@ public final class L2PcInstance extends L2Playable
 	}
 
 	/**
-	 * Destroys shots from inventory without logging and only occasional saving to database. Sends a Server->Client
-	 * InventoryUpdate packet to the L2PcInstance.
-	 *
+	 * Destroys shots from inventory without logging and only occasional saving to database. Sends a Server->Client InventoryUpdate packet to the
+	 * L2PcInstance.
+	 * 
 	 * @param process
 	 *            String Identifier of process triggering this action
 	 * @param objectId
@@ -3186,9 +3237,8 @@ public final class L2PcInstance extends L2Playable
 	}
 
 	/**
-	 * Destroy item from inventory by using its <B>itemId</B> and send a Server->Client InventoryUpdate packet to the
-	 * L2PcInstance.
-	 *
+	 * Destroy item from inventory by using its <B>itemId</B> and send a Server->Client InventoryUpdate packet to the L2PcInstance.
+	 * 
 	 * @param process
 	 *            String Identifier of process triggering this action
 	 * @param itemId
@@ -3245,7 +3295,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Transfers item to another ItemContainer and send a Server->Client InventoryUpdate packet to the L2PcInstance.
-	 *
+	 * 
 	 * @param process
 	 *            String Identifier of process triggering this action
 	 * @param objectId
@@ -3328,7 +3378,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Drop item from inventory and send a Server->Client InventoryUpdate packet to the L2PcInstance.
-	 *
+	 * 
 	 * @param process
 	 *            String Identifier of process triggering this action
 	 * @param item
@@ -3404,7 +3454,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Drop item from inventory by using its <B>objectID</B> and send a Server->Client InventoryUpdate packet to the L2PcInstance.
-	 *
+	 * 
 	 * @param process
 	 *            String Identifier of process triggering this action
 	 * @param objectId
@@ -3535,7 +3585,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Set _protectEndTime according settings.
-	 *
+	 * 
 	 * @param protect
 	 *            boolean Drop timer or activate it.
 	 */
@@ -3549,7 +3599,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Set protection from agro mobs when getting up from fake death, according settings.
-	 *
+	 * 
 	 * @param protect
 	 *            boolean Drop timer or activate it.
 	 */
@@ -3597,7 +3647,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Close the active connection with the client.
-	 *
+	 * 
 	 * @param closeClient
 	 */
 	private void closeNetConnection(boolean closeClient)
@@ -3681,14 +3731,13 @@ public final class L2PcInstance extends L2Playable
 	 * <BR>
 	 * <B><U> Actions on first click on the L2PcInstance (Select it)</U> :</B><BR>
 	 * <BR>
-	 * <li>Set the target of the player</li> <li>Send a Server->Client packet MyTargetSelected to the player (display the select
-	 * window)</li><BR>
+	 * <li>Set the target of the player</li> <li>Send a Server->Client packet MyTargetSelected to the player (display the select window)</li><BR>
 	 * <BR>
 	 * <B><U> Actions on second click on the L2PcInstance (Follow it/Attack it/Intercat with it)</U> :</B><BR>
 	 * <BR>
-	 * <li>Send a Server->Client packet MyTargetSelected to the player (display the select window)</li> <li>If this L2PcInstance
-	 * has a Private Store, notify the player AI with AI_INTENTION_INTERACT</li> <li>If this L2PcInstance is autoAttackable,
-	 * notify the player AI with AI_INTENTION_ATTACK</li><BR>
+	 * <li>Send a Server->Client packet MyTargetSelected to the player (display the select window)</li> <li>If this L2PcInstance has a Private
+	 * Store, notify the player AI with AI_INTENTION_INTERACT</li> <li>If this L2PcInstance is autoAttackable, notify the player AI with
+	 * AI_INTENTION_ATTACK</li><BR>
 	 * <BR>
 	 * <li>If this L2PcInstance is NOT autoAttackable, notify the player AI with AI_INTENTION_FOLLOW</li><BR>
 	 * <BR>
@@ -3696,7 +3745,7 @@ public final class L2PcInstance extends L2Playable
 	 * <BR>
 	 * <li>Client packet : Action, AttackRequest</li><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param player
 	 *            The player that start an action on this L2PcInstance
 	 */
@@ -3837,17 +3886,15 @@ public final class L2PcInstance extends L2Playable
 	}
 
 	/**
-	 * Send packet StatusUpdate with current HP,MP and CP to the L2PcInstance and only current HP, MP and Level to all other
-	 * L2PcInstance of the Party.<BR>
+	 * Send packet StatusUpdate with current HP,MP and CP to the L2PcInstance and only current HP, MP and Level to all other L2PcInstance of the
+	 * Party.<BR>
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
 	 * <li>Send the Server->Client packet StatusUpdate with current HP, MP and CP to this L2PcInstance</li><BR>
-	 * <li>Send the Server->Client packet PartySmallWindowUpdate with current HP, MP and Level to all other L2PcInstance of the
-	 * Party</li><BR>
+	 * <li>Send the Server->Client packet PartySmallWindowUpdate with current HP, MP and Level to all other L2PcInstance of the Party</li><BR>
 	 * <BR>
-	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T SEND current HP and MP to all L2PcInstance of the
-	 * _statusListener</B></FONT><BR>
+	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T SEND current HP and MP to all L2PcInstance of the _statusListener</B></FONT><BR>
 	 * <BR>
 	 */
 	@Override
@@ -3867,8 +3914,7 @@ public final class L2PcInstance extends L2Playable
 		L2Party party = _party;
 		if (party != null && (needCpUpdate || needHpUpdate || needMpUpdate(352)))
 		{
-			_log.debug("Send status for party window of " + getObjectId() + "(" + getName() + ") to his party. CP: "
-						+ getCurrentCp() + " HP: " + getCurrentHp() + " MP: " + getCurrentMp());
+			_log.debug("Send status for party window of " + getObjectId() + "(" + getName() + ") to his party. CP: " + getCurrentCp() + " HP: " + getCurrentHp() + " MP: " + getCurrentMp());
 			// Send the Server->Client packet PartySmallWindowUpdate with current HP, MP and Level to all other L2PcInstance of
 			// the Party
 			PartySmallWindowUpdate update = new PartySmallWindowUpdate(this);
@@ -3895,8 +3941,8 @@ public final class L2PcInstance extends L2Playable
 	 * If player is morphed, it sends informations from the template the player is using.<BR>
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
-	 * <li>Send a UserInfo packet (public and private data) to this L2PcInstance.</li> <li>Send a CharInfo packet (public data
-	 * only) to L2PcInstance's knownlist.</li>
+	 * <li>Send a UserInfo packet (public and private data) to this L2PcInstance.</li> <li>Send a CharInfo packet (public data only) to
+	 * L2PcInstance's knownlist.</li>
 	 */
 	public final void broadcastUserInfo()
 	{
@@ -3956,13 +4002,13 @@ public final class L2PcInstance extends L2Playable
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
-	 * <li>If the attacker/target is dead or use fake death, notify the AI with EVT_CANCEL and send a Server->Client packet
-	 * ActionFailed (if attacker is a L2PcInstance)</li> <li>If attack isn't aborted, send a message system (critical hit,
-	 * missed...) to attacker/target if they are L2PcInstance</li> <li>If attack isn't aborted and hit isn't missed, reduce HP of
-	 * the target and calculate reflection damage to reduce HP of attacker if necessary</li> <li>if attack isn't aborted and hit
-	 * isn't missed, manage attack or cast break of the target (calculating rate, sending message...)</li><BR>
+	 * <li>If the attacker/target is dead or use fake death, notify the AI with EVT_CANCEL and send a Server->Client packet ActionFailed (if
+	 * attacker is a L2PcInstance)</li> <li>If attack isn't aborted, send a message system (critical hit, missed...) to attacker/target if they
+	 * are L2PcInstance</li> <li>If attack isn't aborted and hit isn't missed, reduce HP of the target and calculate reflection damage to reduce
+	 * HP of attacker if necessary</li> <li>if attack isn't aborted and hit isn't missed, manage attack or cast break of the target (calculating
+	 * rate, sending message...)</li><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param target
 	 *            The L2Character targeted
 	 * @param damage
@@ -3994,7 +4040,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Send SystemMessage packet.
-	 *
+	 * 
 	 * @param id
 	 *            SystemMessageId
 	 */
@@ -4008,7 +4054,7 @@ public final class L2PcInstance extends L2Playable
 	 * <BR>
 	 * Turn the character in front of the target.<BR>
 	 * In case of private stores, send the related packet.
-	 *
+	 * 
 	 * @param target
 	 *            The L2Character targeted
 	 */
@@ -4048,14 +4094,13 @@ public final class L2PcInstance extends L2Playable
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
-	 * <li>Send a System Message to the L2PcInstance : YOU_PICKED_UP_S1_ADENA or YOU_PICKED_UP_S1_S2</li> <li>Add the Item to the
-	 * L2PcInstance inventory</li> <li>Send a Server->Client packet InventoryUpdate to this L2PcInstance with NewItem (use a new
-	 * slot) or ModifiedItem (increase amount)</li> <li>Send a Server->Client packet StatusUpdate to this L2PcInstance with
-	 * current weight</li><BR>
+	 * <li>Send a System Message to the L2PcInstance : YOU_PICKED_UP_S1_ADENA or YOU_PICKED_UP_S1_S2</li> <li>Add the Item to the L2PcInstance
+	 * inventory</li> <li>Send a Server->Client packet InventoryUpdate to this L2PcInstance with NewItem (use a new slot) or ModifiedItem
+	 * (increase amount)</li> <li>Send a Server->Client packet StatusUpdate to this L2PcInstance with current weight</li><BR>
 	 * <BR>
 	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : If a Party is in progress, distribute Items between party members</B></FONT><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param target
 	 *            The reference Object.
 	 * @param item
@@ -4076,15 +4121,14 @@ public final class L2PcInstance extends L2Playable
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
-	 * <li>Send a Server->Client packet StopMove to this L2PcInstance</li> <li>Remove the L2ItemInstance from the world and send
-	 * server->client GetItem packets</li> <li>Send a System Message to the L2PcInstance : YOU_PICKED_UP_S1_ADENA or
-	 * YOU_PICKED_UP_S1_S2</li> <li>Add the Item to the L2PcInstance inventory</li> <li>Send a Server->Client packet
-	 * InventoryUpdate to this L2PcInstance with NewItem (use a new slot) or ModifiedItem (increase amount)</li> <li>Send a
-	 * Server->Client packet StatusUpdate to this L2PcInstance with current weight</li><BR>
+	 * <li>Send a Server->Client packet StopMove to this L2PcInstance</li> <li>Remove the L2ItemInstance from the world and send server->client
+	 * GetItem packets</li> <li>Send a System Message to the L2PcInstance : YOU_PICKED_UP_S1_ADENA or YOU_PICKED_UP_S1_S2</li> <li>Add the Item
+	 * to the L2PcInstance inventory</li> <li>Send a Server->Client packet InventoryUpdate to this L2PcInstance with NewItem (use a new slot) or
+	 * ModifiedItem (increase amount)</li> <li>Send a Server->Client packet StatusUpdate to this L2PcInstance with current weight</li><BR>
 	 * <BR>
 	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : If a Party is in progress, distribute Items between party members</B></FONT><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param object
 	 *            The L2ItemInstance to pick up
 	 */
@@ -4292,7 +4336,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Verify if the player can target (he can't if afraid or under confusion).
-	 *
+	 * 
 	 * @return true or false.
 	 */
 	public boolean canTarget()
@@ -4310,10 +4354,9 @@ public final class L2PcInstance extends L2Playable
 	 * <ul>
 	 * <li>Remove the L2PcInstance from the _statusListener of the old target if it was a L2Character</li>
 	 * <li>Add the L2PcInstance to the _statusListener of the new target if it's a L2Character</li>
-	 * <li>Target the new L2Object (add the target to the L2PcInstance _target, _knownObject and L2PcInstance to _KnownObject of
-	 * the L2Object)</li>
+	 * <li>Target the new L2Object (add the target to the L2PcInstance _target, _knownObject and L2PcInstance to _KnownObject of the L2Object)</li>
 	 * </ul>
-	 *
+	 * 
 	 * @param newTarget
 	 *            The L2Object to target
 	 */
@@ -4540,11 +4583,11 @@ public final class L2PcInstance extends L2Playable
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
-	 * <li>Reduce the Experience of the L2PcInstance in function of the calculated Death Penalty</li> <li>If necessary, unsummon
-	 * the Pet of the killed L2PcInstance</li> <li>Manage Karma gain for attacker and Karam loss for the killed L2PcInstance</li>
-	 * <li>If the killed L2PcInstance has Karma, manage Drop Item</li> <li>Kill the L2PcInstance</li><BR>
+	 * <li>Reduce the Experience of the L2PcInstance in function of the calculated Death Penalty</li> <li>If necessary, unsummon the Pet of the
+	 * killed L2PcInstance</li> <li>Manage Karma gain for attacker and Karam loss for the killed L2PcInstance</li> <li>If the killed L2PcInstance
+	 * has Karma, manage Drop Item</li> <li>Kill the L2PcInstance</li><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param killer
 	 *            The L2Character who attacks
 	 */
@@ -4825,7 +4868,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Increase pk count, karma and send the info to the player
-	 *
+	 * 
 	 * @param targLVL
 	 *            : level of the killed player
 	 */
@@ -4943,7 +4986,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Restore the experience this L2PcInstance has lost and sends a Server->Client StatusUpdate packet.
-	 *
+	 * 
 	 * @param restorePercent
 	 *            The specified % of restored experience.
 	 */
@@ -4961,11 +5004,10 @@ public final class L2PcInstance extends L2Playable
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
-	 * <li>Calculate the Experience loss</li> <li>Set the value of _expBeforeDeath</li> <li>Set the new Experience value of the
-	 * L2PcInstance and Decrease its level if necessary</li> <li>Send a Server->Client StatusUpdate packet with its new Experience
-	 * </li><BR>
+	 * <li>Calculate the Experience loss</li> <li>Set the value of _expBeforeDeath</li> <li>Set the new Experience value of the L2PcInstance and
+	 * Decrease its level if necessary</li> <li>Send a Server->Client StatusUpdate packet with its new Experience</li><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param atwar
 	 *            If true, use clan war penalty system instead of regular system.
 	 */
@@ -5029,11 +5071,11 @@ public final class L2PcInstance extends L2Playable
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
-	 * <li>Send a Server->Client System Message to the L2PcInstance : YOU_INCREASED_YOUR_LEVEL</li> <li>Send a Server->Client
-	 * packet StatusUpdate to the L2PcInstance with new LEVEL, MAX_HP and MAX_MP</li> <li>Set the current HP and MP of the
-	 * L2PcInstance, Launch/Stop a HP/MP/CP Regeneration Task and send StatusUpdate packet to all other L2PcInstance to inform
-	 * (exclusive broadcast)</li> <li>Recalculate the party level</li> <li>Recalculate the number of Recommandation that the
-	 * L2PcInstance can give</li> <li>Give Expertise skill of this level and remove beginner Lucky skill</li><BR>
+	 * <li>Send a Server->Client System Message to the L2PcInstance : YOU_INCREASED_YOUR_LEVEL</li> <li>Send a Server->Client packet StatusUpdate
+	 * to the L2PcInstance with new LEVEL, MAX_HP and MAX_MP</li> <li>Set the current HP and MP of the L2PcInstance, Launch/Stop a HP/MP/CP
+	 * Regeneration Task and send StatusUpdate packet to all other L2PcInstance to inform (exclusive broadcast)</li> <li>Recalculate the party
+	 * level</li> <li>Recalculate the number of Recommandation that the L2PcInstance can give</li> <li>Give Expertise skill of this level and
+	 * remove beginner Lucky skill</li><BR>
 	 * <BR>
 	 */
 	public void increaseLevel()
@@ -5092,7 +5134,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Set the L2Summon of the L2PcInstance.
-	 *
+	 * 
 	 * @param summon
 	 *            The Object.
 	 */
@@ -5111,7 +5153,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Set the L2TamedBeast of the L2PcInstance.
-	 *
+	 * 
 	 * @param tamedBeast
 	 *            The Object.
 	 */
@@ -5130,7 +5172,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Set the L2PcInstance requester of a transaction (ex : FriendInvite, JoinAlly, JoinParty...).
-	 *
+	 * 
 	 * @param requester
 	 */
 	public void setActiveRequester(L2PcInstance requester)
@@ -5170,7 +5212,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Set the _requestExpireTime of that L2PcInstance, and set his partner as the active requester.
-	 *
+	 * 
 	 * @param partner
 	 *            The partner to make checks on.
 	 */
@@ -5198,7 +5240,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Select the Warehouse to be used in next activity.
-	 *
+	 * 
 	 * @param warehouse
 	 *            An active warehouse.
 	 */
@@ -5217,7 +5259,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Set the TradeList to be used in next activity.
-	 *
+	 * 
 	 * @param tradeList
 	 *            The TradeList to be used.
 	 */
@@ -5301,7 +5343,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Set the _createList object of the L2PcInstance.
-	 *
+	 * 
 	 * @param list
 	 */
 	public void setCreateList(L2ManufactureList list)
@@ -5333,7 +5375,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Set the Private Store type of the L2PcInstance.
-	 *
+	 * 
 	 * @param type
 	 *            The value : 0 = none, 1 = sell, 2 = sellmanage, 3 = buy, 4 = buymanage, 5 = manufacture.
 	 */
@@ -5352,7 +5394,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Set the _skillLearningClassId object of the L2PcInstance.
-	 *
+	 * 
 	 * @param classId
 	 *            The parameter.
 	 */
@@ -5371,7 +5413,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Set the _clan object, _clanId, _clanLeader Flag and title of the L2PcInstance.
-	 *
+	 * 
 	 * @param clan
 	 *            The Clan object which is used to feed L2PcInstance values.
 	 */
@@ -5422,8 +5464,8 @@ public final class L2PcInstance extends L2Playable
 	}
 
 	/**
-	 * Reduce the number of arrows owned by the L2PcInstance and send it Server->Client Packet InventoryUpdate or ItemList (to
-	 * unequip if the last arrow was consummed).<BR>
+	 * Reduce the number of arrows owned by the L2PcInstance and send it Server->Client Packet InventoryUpdate or ItemList (to unequip if the
+	 * last arrow was consummed).<BR>
 	 * <BR>
 	 */
 	@Override
@@ -5511,7 +5553,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Disarm the player's weapon and shield.
-	 *
+	 * 
 	 * @return true if successful, false otherwise.
 	 */
 	public boolean disarmWeapons()
@@ -5917,7 +5959,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Set the _party object of the L2PcInstance (without joining it).
-	 *
+	 * 
 	 * @param party
 	 *            The object.
 	 */
@@ -5928,7 +5970,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Set the _party object of the L2PcInstance AND join it.
-	 *
+	 * 
 	 * @param party
 	 */
 	public void joinParty(L2Party party)
@@ -5972,7 +6014,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Set the _accessLevel of the L2PcInstance.
-	 *
+	 * 
 	 * @param level
 	 */
 	public void setAccessLevel(int level)
@@ -6028,8 +6070,7 @@ public final class L2PcInstance extends L2Playable
 		if (PlayersConfig.EVERYBODY_HAS_ADMIN_RIGHTS)
 			return AccessLevelsData._masterAccessLevel;
 		else if (_accessLevel == null) /*
-										 * This is here because inventory etc. is loaded before access level on login, so it is
-										 * not null
+										 * This is here because inventory etc. is loaded before access level on login, so it is not null
 										 */
 			setAccessLevel(AccessLevelsData._userAccessLevelNum);
 
@@ -6043,9 +6084,9 @@ public final class L2PcInstance extends L2Playable
 	}
 
 	/**
-	 * Update Stats of the L2PcInstance client side by sending Server->Client packet UserInfo/StatusUpdate to this L2PcInstance
-	 * and CharInfo/StatusUpdate to all L2PcInstance in its _KnownPlayers (broadcast).
-	 *
+	 * Update Stats of the L2PcInstance client side by sending Server->Client packet UserInfo/StatusUpdate to this L2PcInstance and
+	 * CharInfo/StatusUpdate to all L2PcInstance in its _KnownPlayers (broadcast).
+	 * 
 	 * @param broadcastType
 	 */
 	public void updateAndBroadcastStatus(int broadcastType)
@@ -6075,9 +6116,9 @@ public final class L2PcInstance extends L2Playable
 	}
 
 	/**
-	 * Set the online Flag to True or False and update the characters table of the database with online status and lastAccess
-	 * (called when login and logout).
-	 *
+	 * Set the online Flag to True or False and update the characters table of the database with online status and lastAccess (called when login
+	 * and logout).
+	 * 
 	 * @param isOnline
 	 * @param updateInDb
 	 */
@@ -6097,8 +6138,7 @@ public final class L2PcInstance extends L2Playable
 	}
 
 	/**
-	 * Update the characters table of the database with online status and lastAccess of this L2PcInstance (called when login and
-	 * logout).
+	 * Update the characters table of the database with online status and lastAccess of this L2PcInstance (called when login and logout).
 	 */
 	public void updateOnlineStatus()
 	{
@@ -6119,7 +6159,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Create a new player in the characters table of the database.
-	 *
+	 * 
 	 * @return true if successful.
 	 */
 	private boolean createDb()
@@ -6177,11 +6217,10 @@ public final class L2PcInstance extends L2Playable
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
-	 * <li>Retrieve the L2PcInstance from the characters table of the database</li> <li>Add the L2PcInstance object in _allObjects
-	 * </li> <li>Set the x,y,z position of the L2PcInstance and make it invisible</li> <li>Update the overloaded status of the
-	 * L2PcInstance</li><BR>
+	 * <li>Retrieve the L2PcInstance from the characters table of the database</li> <li>Add the L2PcInstance object in _allObjects</li> <li>Set
+	 * the x,y,z position of the L2PcInstance and make it invisible</li> <li>Update the overloaded status of the L2PcInstance</li><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param objectId
 	 *            Identifier of the object to initialized
 	 * @return The L2PcInstance loaded from the database
@@ -6446,7 +6485,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Restores sub-class data for the L2PcInstance, used to check the current class index for the character.
-	 *
+	 * 
 	 * @param player
 	 *            The player to make checks on.
 	 * @return true if successful.
@@ -6587,7 +6626,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Update L2PcInstance stats in the characters table of the database.
-	 *
+	 * 
 	 * @param storeActiveEffects
 	 */
 	public synchronized void store(boolean storeActiveEffects)
@@ -6844,8 +6883,8 @@ public final class L2PcInstance extends L2Playable
 	}
 
 	/**
-	 * Add a skill to the L2PcInstance _skills and its Func objects to the calculator set of the L2PcInstance and save update in
-	 * the character_skills table of the database.<BR>
+	 * Add a skill to the L2PcInstance _skills and its Func objects to the calculator set of the L2PcInstance and save update in the
+	 * character_skills table of the database.<BR>
 	 * <BR>
 	 * <B><U> Concept</U> :</B><BR>
 	 * <BR>
@@ -6853,10 +6892,10 @@ public final class L2PcInstance extends L2Playable
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
-	 * <li>Replace oldSkill by newSkill or Add the newSkill</li> <li>If an old skill has been replaced, remove all its Func
-	 * objects of L2Character calculator set</li> <li>Add Func objects of newSkill to the calculator set of the L2Character</li><BR>
+	 * <li>Replace oldSkill by newSkill or Add the newSkill</li> <li>If an old skill has been replaced, remove all its Func objects of
+	 * L2Character calculator set</li> <li>Add Func objects of newSkill to the calculator set of the L2Character</li><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param newSkill
 	 *            The L2Skill to add to the L2Character
 	 * @param store
@@ -6892,8 +6931,8 @@ public final class L2PcInstance extends L2Playable
 	}
 
 	/**
-	 * Remove a skill from the L2Character and its Func objects from calculator set of the L2Character and save update in the
-	 * character_skills table of the database.<BR>
+	 * Remove a skill from the L2Character and its Func objects from calculator set of the L2Character and save update in the character_skills
+	 * table of the database.<BR>
 	 * <BR>
 	 * <B><U> Concept</U> :</B><BR>
 	 * <BR>
@@ -6901,14 +6940,13 @@ public final class L2PcInstance extends L2Playable
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
-	 * <li>Remove the skill from the L2Character _skills</li> <li>Remove all its Func objects from the L2Character calculator set</li>
-	 * <BR>
+	 * <li>Remove the skill from the L2Character _skills</li> <li>Remove all its Func objects from the L2Character calculator set</li> <BR>
 	 * <BR>
 	 * <B><U> Overriden in </U> :</B><BR>
 	 * <BR>
 	 * <li>L2PcInstance : Save update in the character_skills table of the database</li><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param skill
 	 *            The L2Skill to remove from the L2Character
 	 * @return The L2Skill removed
@@ -6956,7 +6994,7 @@ public final class L2PcInstance extends L2Playable
 	 * Add or update a L2PcInstance skill in the character_skills table of the database. <BR>
 	 * <BR>
 	 * If newClassIndex > -1, the skill will be stored with that class index, not the current one.
-	 *
+	 * 
 	 * @param newSkill
 	 * @param oldSkill
 	 * @param newClassIndex
@@ -7078,8 +7116,8 @@ public final class L2PcInstance extends L2Playable
 					continue;
 
 				/**
-				 * Restore Type 0 These skills were still in effect on the character upon logout. Some of which were self casted
-				 * and might still have a long reuse delay which also is restored.
+				 * Restore Type 0 These skills were still in effect on the character upon logout. Some of which were self casted and might still
+				 * have a long reuse delay which also is restored.
 				 */
 				if (skill.hasEffects())
 				{
@@ -7160,8 +7198,7 @@ public final class L2PcInstance extends L2Playable
 	}
 
 	/**
-	 * Retrieve from the database all Recommendation data of this L2PcInstance, add to _recomChars and calculate stats of the
-	 * L2PcInstance.
+	 * Retrieve from the database all Recommendation data of this L2PcInstance, add to _recomChars and calculate stats of the L2PcInstance.
 	 */
 	private void restoreRecom()
 	{
@@ -7206,9 +7243,9 @@ public final class L2PcInstance extends L2Playable
 	}
 
 	/**
-	 * Remove a Henna of the L2PcInstance, save update in the character_hennas table of the database and send Server->Client
-	 * HennaInfo/UserInfo packet to this L2PcInstance.
-	 *
+	 * Remove a Henna of the L2PcInstance, save update in the character_hennas table of the database and send Server->Client HennaInfo/UserInfo
+	 * packet to this L2PcInstance.
+	 * 
 	 * @param slot
 	 *            The slot number to make checks on.
 	 * @return true if successful.
@@ -7261,9 +7298,9 @@ public final class L2PcInstance extends L2Playable
 	}
 
 	/**
-	 * Add a Henna to the L2PcInstance, save update in the character_hennas table of the database and send Server->Client
-	 * HennaInfo/UserInfo packet to this L2PcInstance.
-	 *
+	 * Add a Henna to the L2PcInstance, save update in the character_hennas table of the database and send Server->Client HennaInfo/UserInfo
+	 * packet to this L2PcInstance.
+	 * 
 	 * @param henna
 	 *            The Henna template to add.
 	 * @return true if successful.
@@ -7397,9 +7434,9 @@ public final class L2PcInstance extends L2Playable
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
-	 * <li>Check if the attacker isn't the L2PcInstance Pet</li> <li>Check if the attacker is L2MonsterInstance</li> <li>If the
-	 * attacker is a L2PcInstance, check if it is not in the same party</li> <li>Check if the L2PcInstance has Karma</li> <li>If
-	 * the attacker is a L2PcInstance, check if it is not in the same siege clan (Attacker, Defender)</li><BR>
+	 * <li>Check if the attacker isn't the L2PcInstance Pet</li> <li>Check if the attacker is L2MonsterInstance</li> <li>If the attacker is a
+	 * L2PcInstance, check if it is not in the same party</li> <li>Check if the L2PcInstance has Karma</li> <li>If the attacker is a
+	 * L2PcInstance, check if it is not in the same siege clan (Attacker, Defender)</li><BR>
 	 * <BR>
 	 */
 	@Override
@@ -7491,10 +7528,9 @@ public final class L2PcInstance extends L2Playable
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
-	 * <li>Check if the skill isn't toggle and is offensive</li> <li>Check if the target is in the skill cast range</li> <li>Check
-	 * if the skill is Spoil type and if the target isn't already spoiled</li> <li>Check if the caster owns enought consummed
-	 * Item, enough HP and MP to cast the skill</li> <li>Check if the caster isn't sitting</li> <li>Check if all skills are
-	 * enabled and this skill is enabled</li><BR>
+	 * <li>Check if the skill isn't toggle and is offensive</li> <li>Check if the target is in the skill cast range</li> <li>Check if the skill
+	 * is Spoil type and if the target isn't already spoiled</li> <li>Check if the caster owns enought consummed Item, enough HP and MP to cast
+	 * the skill</li> <li>Check if the caster isn't sitting</li> <li>Check if all skills are enabled and this skill is enabled</li><BR>
 	 * <BR>
 	 * <li>Check if the caster own the weapon needed</li><BR>
 	 * <BR>
@@ -7504,7 +7540,7 @@ public final class L2PcInstance extends L2Playable
 	 * <BR>
 	 * <li>Notify the AI with AI_INTENTION_CAST and target</li><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param skill
 	 *            The L2Skill to use
 	 * @param forceUse
@@ -8062,7 +8098,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Check if the requested casting is a Pc->Pc skill cast and if it's a valid pvp condition
-	 *
+	 * 
 	 * @param target
 	 *            L2Object instance containing the target
 	 * @param skill
@@ -8076,7 +8112,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Check if the requested casting is a Pc->Pc skill cast and if it's a valid pvp condition
-	 *
+	 * 
 	 * @param target
 	 *            L2Object instance containing the target
 	 * @param skill
@@ -8144,7 +8180,7 @@ public final class L2PcInstance extends L2Playable
 	 * - change isRiding/isFlying flags;<br>
 	 * - gift player with Wyvern Breath skill if mount is a wyvern;;<br>
 	 * - send the skillList (faded icons update)
-	 *
+	 * 
 	 * @param npcId
 	 *            the npcId of the mount
 	 * @param npcLevel
@@ -8252,17 +8288,16 @@ public final class L2PcInstance extends L2Playable
 	 * <BR>
 	 * <B><U> Concept</U> :</B><BR>
 	 * <BR>
-	 * Others L2PcInstance in the detection area of the L2PcInstance are identified in <B>_knownPlayers</B>. In order to inform
-	 * other players of this L2PcInstance state modifications, server just need to go through _knownPlayers to send Server->Client
-	 * Packet<BR>
+	 * Others L2PcInstance in the detection area of the L2PcInstance are identified in <B>_knownPlayers</B>. In order to inform other players of
+	 * this L2PcInstance state modifications, server just need to go through _knownPlayers to send Server->Client Packet<BR>
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
-	 * <li>Send a Server->Client packet UserInfo to this L2PcInstance (Public and Private Data)</li> <li>Send a Server->Client
-	 * packet CharInfo to all L2PcInstance in _KnownPlayers of the L2PcInstance (Public data only)</li><BR>
+	 * <li>Send a Server->Client packet UserInfo to this L2PcInstance (Public and Private Data)</li> <li>Send a Server->Client packet CharInfo to
+	 * all L2PcInstance in _KnownPlayers of the L2PcInstance (Public data only)</li><BR>
 	 * <BR>
-	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : DON'T SEND UserInfo packet to other players instead of CharInfo packet. Indeed,
-	 * UserInfo packet contains PRIVATE DATA as MaxHP, STR, DEX...</B></FONT><BR>
+	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : DON'T SEND UserInfo packet to other players instead of CharInfo packet. Indeed, UserInfo packet
+	 * contains PRIVATE DATA as MaxHP, STR, DEX...</B></FONT><BR>
 	 * <BR>
 	 */
 	@Override
@@ -8305,7 +8340,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Add a L2CubicInstance to the L2PcInstance _cubics.
-	 *
+	 * 
 	 * @param id
 	 * @param level
 	 * @param matk
@@ -8324,7 +8359,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Remove a L2CubicInstance from the L2PcInstance _cubics.
-	 *
+	 * 
 	 * @param id
 	 */
 	public void delCubic(int id)
@@ -8362,7 +8397,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Set the _currentFolkNpc of the player.
-	 *
+	 * 
 	 * @param npc
 	 */
 	public void setCurrentFolkNPC(L2Npc npc)
@@ -8435,7 +8470,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Cancel autoshot use for shot itemId
-	 *
+	 * 
 	 * @param itemId
 	 *            int id to disable
 	 * @return true if canceled.
@@ -8881,7 +8916,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Sets up the duel state using a non 0 duelId.
-	 *
+	 * 
 	 * @param duelId
 	 *            0=not in a duel
 	 */
@@ -8908,7 +8943,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * This returns a SystemMessage stating why the player is not available for duelling.
-	 *
+	 * 
 	 * @return S1_CANNOT_DUEL... message
 	 */
 	public SystemMessage getNoDuelReason()
@@ -8921,7 +8956,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Checks if this player might join / start a duel. To get the reason use getNoDuelReason() after calling this function.
-	 *
+	 * 
 	 * @return true if the player might join/start a duel.
 	 */
 	public boolean canDuel()
@@ -8957,7 +8992,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Set Noblesse Status, and reward with nobles' skills.
-	 *
+	 * 
 	 * @param val
 	 *            Add skills if setted to true, else remove skills.
 	 * @param store
@@ -9045,7 +9080,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * [-5,-1] varka, 0 neutral, [1,5] ketra
-	 *
+	 * 
 	 * @return the side faction.
 	 */
 	public int getAllianceWithVarkaKetra()
@@ -9095,9 +9130,9 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * 1. Add the specified class ID as a subclass (up to the maximum number of <b>three</b>) for this character.<BR>
-	 * 2. This method no longer changes the active _classIndex of the player. This is only done by the calling of setActiveClass()
-	 * method as that should be the only way to do so.
-	 *
+	 * 2. This method no longer changes the active _classIndex of the player. This is only done by the calling of setActiveClass() method as that
+	 * should be the only way to do so.
+	 * 
 	 * @param classId
 	 * @param classIndex
 	 * @return boolean subclassAdded
@@ -9182,7 +9217,7 @@ public final class L2PcInstance extends L2Playable
 	 * 1. Completely erase all existance of the subClass linked to the classIndex.<BR>
 	 * 2. Send over the newClassId to addSubClass()to create a new instance on this classIndex.<BR>
 	 * 3. Upon Exception, revert the player to their BaseClass to avoid further problems.<BR>
-	 *
+	 * 
 	 * @param classIndex
 	 * @param newClassId
 	 * @return boolean subclassAdded
@@ -9306,9 +9341,8 @@ public final class L2PcInstance extends L2Playable
 	/**
 	 * Changes the character's class based on the given class index. <BR>
 	 * <BR>
-	 * An index of zero specifies the character's original (base) class, while indexes 1-3 specifies the character's sub-classes
-	 * respectively.
-	 *
+	 * An index of zero specifies the character's original (base) class, while indexes 1-3 specifies the character's sub-classes respectively.
+	 * 
 	 * @param classIndex
 	 * @return true if successful.
 	 */
@@ -9336,8 +9370,8 @@ public final class L2PcInstance extends L2Playable
 					character.abortCast();
 
 			/*
-			 * 1. Call store() before modifying _classIndex to avoid skill effects rollover. 2. Register the correct _classId
-			 * against applied 'classIndex'.
+			 * 1. Call store() before modifying _classIndex to avoid skill effects rollover. 2. Register the correct _classId against applied
+			 * 'classIndex'.
 			 */
 			store();
 			_reuseTimeStamps.clear();
@@ -9366,13 +9400,12 @@ public final class L2PcInstance extends L2Playable
 				getParty().recalculatePartyLevel();
 
 			/*
-			 * Update the character's change in class status. 1. Remove any active cubics from the player. 2. Renovate the
-			 * characters table in the database with the new class info, storing also buff/effect data. 3. Remove all existing
-			 * skills. 4. Restore all the learned skills for the current class from the database. 5. Restore effect/buff data for
-			 * the new class. 6. Restore henna data for the class, applying the new stat modifiers while removing existing ones.
-			 * 7. Reset HP/MP/CP stats and send Server->Client character status packet to reflect changes. 8. Restore shortcut
-			 * data related to this class. 9. Resend a class change animation effect to broadcast to all nearby players.
-			 * 10.Unsummon any active servitor from the player.
+			 * Update the character's change in class status. 1. Remove any active cubics from the player. 2. Renovate the characters table in
+			 * the database with the new class info, storing also buff/effect data. 3. Remove all existing skills. 4. Restore all the learned
+			 * skills for the current class from the database. 5. Restore effect/buff data for the new class. 6. Restore henna data for the
+			 * class, applying the new stat modifiers while removing existing ones. 7. Reset HP/MP/CP stats and send Server->Client character
+			 * status packet to reflect changes. 8. Restore shortcut data related to this class. 9. Resend a class change animation effect to
+			 * broadcast to all nearby players. 10.Unsummon any active servitor from the player.
 			 */
 
 			if (getPet() instanceof L2SummonInstance)
@@ -9998,17 +10031,15 @@ public final class L2PcInstance extends L2Playable
 	}
 
 	/**
-	 * Manage the delete task of a L2PcInstance (Leave Party, Unsummon pet, Save its inventory in the database, Remove it from the
-	 * world...).<BR>
+	 * Manage the delete task of a L2PcInstance (Leave Party, Unsummon pet, Save its inventory in the database, Remove it from the world...).<BR>
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
-	 * <li>If the L2PcInstance is in observer mode, set its position to its position before entering in observer mode</li> <li>Set
-	 * the online Flag to True or False and update the characters table of the database with online status and lastAccess</li> <li>
-	 * Stop the HP/MP/CP Regeneration task</li> <li>Cancel Crafting, Attak or Cast</li> <li>Remove the L2PcInstance from the world
-	 * </li> <li>Stop Party and Unsummon Pet</li> <li>Update database with items in its inventory and remove them from the world</li>
-	 * <li>Remove all L2Object from _knownObjects and _knownPlayer of the L2Character then cancel Attak or Cast and notify AI</li>
-	 * <li>Close the connection with the client</li><BR>
+	 * <li>If the L2PcInstance is in observer mode, set its position to its position before entering in observer mode</li> <li>Set the online
+	 * Flag to True or False and update the characters table of the database with online status and lastAccess</li> <li>Stop the HP/MP/CP
+	 * Regeneration task</li> <li>Cancel Crafting, Attak or Cast</li> <li>Remove the L2PcInstance from the world</li> <li>Stop Party and Unsummon
+	 * Pet</li> <li>Update database with items in its inventory and remove them from the world</li> <li>Remove all L2Object from _knownObjects
+	 * and _knownPlayer of the L2Character then cancel Attak or Cast and notify AI</li> <li>Close the connection with the client</li><BR>
 	 * <BR>
 	 */
 	@Override
@@ -10174,11 +10205,11 @@ public final class L2PcInstance extends L2Playable
 	private L2FishData _fish;
 
 	/*
-	 * startFishing() was stripped of any pre-fishing related checks, namely the fishing zone check. Also worthy of note is the
-	 * fact the code to find the hook landing position was also striped. The stripped code was moved into fishing.java. In my
-	 * opinion it makes more sense for it to be there since all other skill related checks were also there. Last but not least,
-	 * moving the zone check there, fixed a bug where baits would always be consumed no matter if fishing actualy took place.
-	 * startFishing() now takes up 3 arguments, wich are acurately described as being the hook landing coordinates.
+	 * startFishing() was stripped of any pre-fishing related checks, namely the fishing zone check. Also worthy of note is the fact the code to
+	 * find the hook landing position was also striped. The stripped code was moved into fishing.java. In my opinion it makes more sense for it
+	 * to be there since all other skill related checks were also there. Last but not least, moving the zone check there, fixed a bug where baits
+	 * would always be consumed no matter if fishing actualy took place. startFishing() now takes up 3 arguments, wich are acurately described as
+	 * being the hook landing coordinates.
 	 */
 	public void startFishing(int _x, int _y, int _z)
 	{
@@ -10615,7 +10646,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Create a new SkillDat object and set the player _currentSkill.
-	 *
+	 * 
 	 * @param currentSkill
 	 * @param ctrlPressed
 	 * @param shiftPressed
@@ -10645,7 +10676,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Create a new SkillDat object and set the player _currentPetSkill.
-	 *
+	 * 
 	 * @param currentSkill
 	 * @param ctrlPressed
 	 * @param shiftPressed
@@ -10672,7 +10703,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Create a new SkillDat object and queue it in the player _queuedSkill.
-	 *
+	 * 
 	 * @param queuedSkill
 	 * @param ctrlPressed
 	 * @param shiftPressed
@@ -10687,8 +10718,7 @@ public final class L2PcInstance extends L2Playable
 			return;
 		}
 
-		_log.debug("Setting queued skill: " + queuedSkill.getName() + " (ID: " + queuedSkill.getId() + ") for " +
-					getName() + ".");
+		_log.debug("Setting queued skill: " + queuedSkill.getName() + " (ID: " + queuedSkill.getId() + ") for " + getName() + ".");
 
 		_queuedSkill = new SkillDat(queuedSkill, ctrlPressed, shiftPressed);
 	}
@@ -10753,7 +10783,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Sets punish level for player based on delay
-	 *
+	 * 
 	 * @param state
 	 * @param delayInMinutes
 	 *            -- 0 for infinite
@@ -11064,9 +11094,9 @@ public final class L2PcInstance extends L2Playable
 	}
 
 	/**
-	 * Simple class containing all neccessary information to maintain valid timestamps and reuse for skills upon relog. Filter
-	 * this carefully as it becomes redundant to store reuse for small delays.
-	 *
+	 * Simple class containing all neccessary information to maintain valid timestamps and reuse for skills upon relog. Filter this carefully as
+	 * it becomes redundant to store reuse for small delays.
+	 * 
 	 * @author Yesod
 	 */
 	public static class TimeStamp
@@ -11118,8 +11148,8 @@ public final class L2PcInstance extends L2Playable
 		}
 
 		/*
-		 * Check if the reuse delay has passed and if it has not then update the stored reuse time according to what is currently
-		 * remaining on the delay.
+		 * Check if the reuse delay has passed and if it has not then update the stored reuse time according to what is currently remaining on
+		 * the delay.
 		 */
 		public boolean hasNotPassed()
 		{
@@ -11129,7 +11159,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Index according to skill id the current timestamp of use.
-	 *
+	 * 
 	 * @param skill
 	 * @param reuse
 	 *            delay
@@ -11142,7 +11172,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Index according to skill this TimeStamp instance for restoration purposes only.
-	 *
+	 * 
 	 * @param skill
 	 * @param reuse
 	 * @param systime
@@ -11283,7 +11313,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Returns the Number of Charges this L2PcInstance got.
-	 *
+	 * 
 	 * @return
 	 */
 	public int getCharges()
@@ -11368,7 +11398,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Signets check used to valid who is affected when he entered in the aoe effect.
-	 *
+	 * 
 	 * @param cha
 	 *            The target to make checks on.
 	 * @return true if player can attack the target.
@@ -11420,7 +11450,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Request Teleport
-	 *
+	 * 
 	 * @param requester
 	 *            The player who requested the teleport.
 	 * @param skill
@@ -11438,7 +11468,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Action teleport
-	 *
+	 * 
 	 * @param answer
 	 * @param requesterId
 	 **/
@@ -11727,7 +11757,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Test if player inventory is under 80% capaity
-	 *
+	 * 
 	 * @param includeQuestInv
 	 *            check also quest inventory
 	 * @return

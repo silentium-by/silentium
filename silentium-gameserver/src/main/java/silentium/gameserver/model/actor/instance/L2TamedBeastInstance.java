@@ -1,9 +1,9 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.model.actor.instance;
 
@@ -150,7 +150,7 @@ public final class L2TamedBeastInstance extends L2FeedableBeastInstance
 
 	/**
 	 * The "Home" is considered as the central tower in middle of Wild Beast Reserve.
-	 *
+	 * 
 	 * @return true or false, depending of the location.
 	 */
 	protected boolean isTooFarFromHome()
@@ -186,7 +186,7 @@ public final class L2TamedBeastInstance extends L2FeedableBeastInstance
 	/**
 	 * Notification triggered by the owner when the owner is attacked.<br>
 	 * Tamed mobs will heal/recharge or debuff the enemy according to their skills.
-	 *
+	 * 
 	 * @param attacker
 	 */
 	public void onOwnerGotAttacked(L2Character attacker)
@@ -273,7 +273,7 @@ public final class L2TamedBeastInstance extends L2FeedableBeastInstance
 	 * <li>Next, call doCast in order to cast the spell.</li>
 	 * <li>Finally, return to auto-following the owner.</li>
 	 * </ul>
-	 *
+	 * 
 	 * @param skill
 	 *            The skill to cast.
 	 * @param target
@@ -376,8 +376,7 @@ public final class L2TamedBeastInstance extends L2FeedableBeastInstance
 			}
 
 			/*
-			 * If the owner has less than 60% of available buff, cast a random buff. That buff is casted only if the player hasn't
-			 * it.
+			 * If the owner has less than 60% of available buff, cast a random buff. That buff is casted only if the player hasn't it.
 			 */
 			if ((_numBuffs * 2 / 3) > totalBuffsOnOwner)
 				if (owner.getFirstEffect(buffToGive) == null)

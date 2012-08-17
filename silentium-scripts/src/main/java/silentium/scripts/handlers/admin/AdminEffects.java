@@ -1,11 +1,13 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.scripts.handlers.admin;
+
+import java.util.StringTokenizer;
 
 import silentium.gameserver.handler.IAdminCommandHandler;
 import silentium.gameserver.model.L2Object;
@@ -17,20 +19,26 @@ import silentium.gameserver.model.actor.instance.L2ChestInstance;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.network.SystemMessageId;
 import silentium.gameserver.network.serverpackets.AbstractNpcInfo.NpcInfo;
-import silentium.gameserver.network.serverpackets.*;
+import silentium.gameserver.network.serverpackets.Earthquake;
+import silentium.gameserver.network.serverpackets.ExRedSky;
+import silentium.gameserver.network.serverpackets.L2GameServerPacket;
+import silentium.gameserver.network.serverpackets.MagicSkillUse;
+import silentium.gameserver.network.serverpackets.PlaySound;
+import silentium.gameserver.network.serverpackets.SignsSky;
+import silentium.gameserver.network.serverpackets.SocialAction;
+import silentium.gameserver.network.serverpackets.StopMove;
+import silentium.gameserver.network.serverpackets.SunRise;
+import silentium.gameserver.network.serverpackets.SunSet;
 import silentium.gameserver.tables.SkillTable;
 import silentium.gameserver.utils.Broadcast;
 
-import java.util.StringTokenizer;
-
 /**
- * This class handles following admin commands: <li>hide = makes yourself invisible or visible <li>earthquake = causes an
- * earthquake of a given intensity and duration around you <li>gmspeed = temporary Super Haste effect. <li>para/unpara =
- * paralyze/remove paralysis from target <li>para_all/unpara_all = same as para/unpara, affects the whole world. <li>
- * polyself/unpolyself = makes you look as a specified mob. <li>changename = temporary change name <li>social = forces an
- * L2Character instance to broadcast social action packets. <li>effect = forces an L2Character instance to broadcast MSU packets.
- * <li>abnormal = force changes over an L2Character instance's abnormal state. <li>play_sound/play_sounds = Music broadcasting
- * related commands <li>atmosphere = sky change related commands.
+ * This class handles following admin commands: <li>hide = makes yourself invisible or visible <li>earthquake = causes an earthquake of a given
+ * intensity and duration around you <li>gmspeed = temporary Super Haste effect. <li>para/unpara = paralyze/remove paralysis from target <li>
+ * para_all/unpara_all = same as para/unpara, affects the whole world. <li>polyself/unpolyself = makes you look as a specified mob. <li>
+ * changename = temporary change name <li>social = forces an L2Character instance to broadcast social action packets. <li>effect = forces an
+ * L2Character instance to broadcast MSU packets. <li>abnormal = force changes over an L2Character instance's abnormal state. <li>
+ * play_sound/play_sounds = Music broadcasting related commands <li>atmosphere = sky change related commands.
  */
 public class AdminEffects implements IAdminCommandHandler
 {

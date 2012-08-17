@@ -1,15 +1,24 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.model.entity;
 
 import gnu.trove.map.hash.TIntIntHashMap;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import silentium.commons.database.DatabaseFactory;
 import silentium.gameserver.CastleUpdater;
 import silentium.gameserver.ThreadPoolManager;
@@ -35,13 +44,6 @@ import silentium.gameserver.network.serverpackets.PlaySound;
 import silentium.gameserver.network.serverpackets.PledgeShowInfoUpdate;
 import silentium.gameserver.network.serverpackets.SystemMessage;
 import silentium.gameserver.tables.ClanTable;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 
 public class Castle
 {
@@ -117,7 +119,7 @@ public class Castle
 
 	/**
 	 * Add amount to castle's treasury (warehouse).
-	 *
+	 * 
 	 * @param amount
 	 *            The amount to add.
 	 */
@@ -167,7 +169,7 @@ public class Castle
 
 	/**
 	 * Add amount to castle instance's treasury (warehouse), no tax paying.
-	 *
+	 * 
 	 * @param amount
 	 *            The amount of adenas to add to treasury.
 	 * @return true if successful.
@@ -280,7 +282,7 @@ public class Castle
 
 	/**
 	 * Get the object distance to this castle zone.
-	 *
+	 * 
 	 * @param obj
 	 *            The L2Object to make tests on.
 	 * @return the distance between the L2Object and the zone.
@@ -325,7 +327,7 @@ public class Castle
 
 	/**
 	 * This method setup the castle owner.
-	 *
+	 * 
 	 * @param clan
 	 *            The clan who will own the castle.
 	 */
@@ -370,7 +372,7 @@ public class Castle
 
 	/**
 	 * Remove the castle owner. This method is only used by admin command.
-	 *
+	 * 
 	 * @param clan
 	 *            The clan which is victim of the command.
 	 **/
@@ -399,7 +401,7 @@ public class Castle
 
 	/**
 	 * This method updates the castle tax rate.
-	 *
+	 * 
 	 * @param activeChar
 	 *            Sends informative messages to that character (success or fail).
 	 * @param taxPercent
@@ -458,7 +460,7 @@ public class Castle
 
 	/**
 	 * Respawn all doors on castle grounds.
-	 *
+	 * 
 	 * @param isDoorWeak
 	 *            if true, spawn doors with 50% max HPs.
 	 */
@@ -874,7 +876,7 @@ public class Castle
 
 	/**
 	 * Save manor production data for specified period.
-	 *
+	 * 
 	 * @param period
 	 *            The period number.
 	 */
@@ -975,7 +977,7 @@ public class Castle
 
 	/**
 	 * Save crop procure data for specified period.
-	 *
+	 * 
 	 * @param period
 	 *            The period number.
 	 */
@@ -1019,7 +1021,7 @@ public class Castle
 
 	/**
 	 * Update crop informations.
-	 *
+	 * 
 	 * @param cropId
 	 * @param amount
 	 * @param period
@@ -1044,7 +1046,7 @@ public class Castle
 
 	/**
 	 * Update seeds informations.
-	 *
+	 * 
 	 * @param seedId
 	 * @param amount
 	 * @param period
@@ -1131,7 +1133,7 @@ public class Castle
 
 	/**
 	 * Register an artefact instance.
-	 *
+	 * 
 	 * @param artefact
 	 *            The instance to register in _artefacts List.
 	 */

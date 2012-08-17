@@ -1,16 +1,25 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.model;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+
 import javolution.util.FastList;
 import javolution.util.FastMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import silentium.commons.database.DatabaseFactory;
 import silentium.gameserver.board.BB.Forum;
 import silentium.gameserver.board.Manager.ForumsBBSManager;
@@ -26,17 +35,21 @@ import silentium.gameserver.model.actor.instance.L2PcInstance.TimeStamp;
 import silentium.gameserver.model.itemcontainer.ClanWarehouse;
 import silentium.gameserver.model.itemcontainer.ItemContainer;
 import silentium.gameserver.network.SystemMessageId;
-import silentium.gameserver.network.serverpackets.*;
+import silentium.gameserver.network.serverpackets.ItemList;
+import silentium.gameserver.network.serverpackets.L2GameServerPacket;
+import silentium.gameserver.network.serverpackets.PledgeReceiveSubPledgeCreated;
+import silentium.gameserver.network.serverpackets.PledgeShowInfoUpdate;
+import silentium.gameserver.network.serverpackets.PledgeShowMemberListAll;
+import silentium.gameserver.network.serverpackets.PledgeShowMemberListDeleteAll;
+import silentium.gameserver.network.serverpackets.PledgeShowMemberListUpdate;
+import silentium.gameserver.network.serverpackets.PledgeSkillListAdd;
+import silentium.gameserver.network.serverpackets.SkillCoolTime;
+import silentium.gameserver.network.serverpackets.StatusUpdate;
+import silentium.gameserver.network.serverpackets.SystemMessage;
+import silentium.gameserver.network.serverpackets.UserInfo;
 import silentium.gameserver.tables.ClanTable;
 import silentium.gameserver.tables.SkillTable;
 import silentium.gameserver.utils.Util;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
-import java.util.Map;
 
 public class L2Clan
 {
@@ -125,7 +138,7 @@ public class L2Clan
 
 	/**
 	 * Called if a clan is referenced only by id. In this case all other data needs to be fetched from db
-	 *
+	 * 
 	 * @param clanId
 	 *            A valid clan Id to create and restore
 	 */
@@ -139,7 +152,7 @@ public class L2Clan
 
 	/**
 	 * Called only if a new clan is created
-	 *
+	 * 
 	 * @param clanId
 	 *            A valid clan Id to create
 	 * @param clanName
@@ -557,7 +570,7 @@ public class L2Clan
 
 	/**
 	 * Sets the clan level and updates the clan forum if it's needed.
-	 *
+	 * 
 	 * @param level
 	 *            the clan level to be set.
 	 */
@@ -990,7 +1003,7 @@ public class L2Clan
 
 	/**
 	 * Replace old skill by new skill or add the new skill.
-	 *
+	 * 
 	 * @param newSkill
 	 *            the skill to add.
 	 * @return the skill object or null.
@@ -1005,7 +1018,7 @@ public class L2Clan
 
 	/**
 	 * Add a new skill to the list, send a packet to all online clan members, update their stats and store it in db
-	 *
+	 * 
 	 * @param newSkill
 	 *            The skill to add
 	 * @return null if the newSkill was null, else the old skill.
@@ -1340,7 +1353,7 @@ public class L2Clan
 
 	/**
 	 * Retrieve subPledge by type
-	 *
+	 * 
 	 * @param pledgeType
 	 * @return the subpledge object.
 	 */
@@ -1354,7 +1367,7 @@ public class L2Clan
 
 	/**
 	 * Retrieve subPledge by name
-	 *
+	 * 
 	 * @param pledgeName
 	 * @return the subpledge object.
 	 */
@@ -1373,7 +1386,7 @@ public class L2Clan
 
 	/**
 	 * Retrieve all subPledges.
-	 *
+	 * 
 	 * @return an array containing all subpledge objects.
 	 */
 	public final SubPledge[] getAllSubPledges()
@@ -1538,7 +1551,7 @@ public class L2Clan
 
 	/**
 	 * Retrieve all skills of this L2PcInstance from the database
-	 *
+	 * 
 	 * @param rank
 	 * @param privs
 	 */
@@ -1597,7 +1610,7 @@ public class L2Clan
 
 	/**
 	 * Retrieve all RankPrivs
-	 *
+	 * 
 	 * @return an array containing all RankPrivs objects.
 	 */
 	public final RankPrivs[] getAllRankPrivs()
@@ -1625,7 +1638,7 @@ public class L2Clan
 	/**
 	 * Add the value to the total amount of the clan's reputation score.<br>
 	 * <b>This method updates the database.</b>
-	 *
+	 * 
 	 * @param value
 	 *            : The value to add to current amount.
 	 */
@@ -1638,7 +1651,7 @@ public class L2Clan
 	/**
 	 * Removes the value to the total amount of the clan's reputation score.<br>
 	 * <b>This method updates the database.</b>
-	 *
+	 * 
 	 * @param value
 	 *            : The value to remove to current amount.
 	 */
@@ -1651,7 +1664,7 @@ public class L2Clan
 	/**
 	 * Launch behaviors following how big or low is the actual reputation.<br>
 	 * <b>This method DOESN'T update the database.</b>
-	 *
+	 * 
 	 * @param value
 	 *            : The total amount to set to _reputationScore.
 	 */
@@ -1740,7 +1753,7 @@ public class L2Clan
 
 	/**
 	 * Checks if activeChar and target meet various conditions to join a clan
-	 *
+	 * 
 	 * @param activeChar
 	 * @param target
 	 * @param pledgeType
@@ -1813,7 +1826,7 @@ public class L2Clan
 
 	/**
 	 * Checks if activeChar and target meet various conditions to join a clan
-	 *
+	 * 
 	 * @param activeChar
 	 * @param target
 	 * @return
@@ -2229,7 +2242,7 @@ public class L2Clan
 
 	/**
 	 * Change the clan crest. If crest id is 0, crest is removed. New crest id is saved to database.
-	 *
+	 * 
 	 * @param crestId
 	 *            if 0, crest is removed, else new crest id is set and saved to database
 	 */
@@ -2259,7 +2272,7 @@ public class L2Clan
 
 	/**
 	 * Change the ally crest. If crest id is 0, crest is removed. New crest id is saved to database.
-	 *
+	 * 
 	 * @param crestId
 	 *            if 0, crest is removed, else new crest id is set and saved to database
 	 * @param onlyThisClan
@@ -2313,7 +2326,7 @@ public class L2Clan
 
 	/**
 	 * Change the large crest. If crest id is 0, crest is removed. New crest id is saved to database.
-	 *
+	 * 
 	 * @param crestId
 	 *            if 0, crest is removed, else new crest id is set and saved to database
 	 */

@@ -1,9 +1,9 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.network.serverpackets;
 
@@ -92,8 +92,8 @@ public class SSQStatus extends L2GameServerPacket
 				double totalStoneScore = duskStoneScore + dawnStoneScore;
 
 				/*
-				 * Scoring seems to be proportionate to a set base value, so base this on the maximum obtainable score from
-				 * festivals, which is 500.
+				 * Scoring seems to be proportionate to a set base value, so base this on the maximum obtainable score from festivals, which is
+				 * 500.
 				 */
 				int duskStoneScoreProp = 0;
 				int dawnStoneScoreProp = 0;
@@ -205,8 +205,7 @@ public class SSQStatus extends L2GameServerPacket
 					int dawnProportion = SevenSigns.getInstance().getSealProportion(i, SevenSigns.CABAL_DAWN);
 					int duskProportion = SevenSigns.getInstance().getSealProportion(i, SevenSigns.CABAL_DUSK);
 
-					_log.debug(SevenSigns.getSealName(i, true) + " = Dawn Prop: " + dawnProportion + "(" + (
-							(dawnProportion / totalDawnMembers) * 100) + "%)" + ", Dusk Prop: " + duskProportion + "(" + ((duskProportion / totalDuskMembers) * 100) + "%)");
+					_log.debug(SevenSigns.getSealName(i, true) + " = Dawn Prop: " + dawnProportion + "(" + ((dawnProportion / totalDawnMembers) * 100) + "%)" + ", Dusk Prop: " + duskProportion + "(" + ((duskProportion / totalDuskMembers) * 100) + "%)");
 
 					writeC(i);
 					writeC(SevenSigns.getInstance().getSealOwner(i));

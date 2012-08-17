@@ -1,22 +1,31 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.model.actor.instance;
 
+import java.util.Collection;
+import java.util.concurrent.ScheduledFuture;
+
 import javolution.util.FastList;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import silentium.gameserver.ThreadPoolManager;
 import silentium.gameserver.ai.CharacterAI;
 import silentium.gameserver.ai.CtrlIntention;
 import silentium.gameserver.ai.DoorAI;
 import silentium.gameserver.data.html.StaticHtmPath;
 import silentium.gameserver.instancemanager.CastleManager;
-import silentium.gameserver.model.*;
+import silentium.gameserver.model.L2CharPosition;
+import silentium.gameserver.model.L2Clan;
+import silentium.gameserver.model.L2ItemInstance;
+import silentium.gameserver.model.L2Object;
+import silentium.gameserver.model.L2Skill;
 import silentium.gameserver.model.actor.L2Character;
 import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.L2Playable;
@@ -27,12 +36,16 @@ import silentium.gameserver.model.entity.Castle;
 import silentium.gameserver.model.entity.ClanHall;
 import silentium.gameserver.network.L2GameClient;
 import silentium.gameserver.network.SystemMessageId;
-import silentium.gameserver.network.serverpackets.*;
+import silentium.gameserver.network.serverpackets.ActionFailed;
+import silentium.gameserver.network.serverpackets.ConfirmDlg;
+import silentium.gameserver.network.serverpackets.DoorInfo;
+import silentium.gameserver.network.serverpackets.DoorStatusUpdate;
+import silentium.gameserver.network.serverpackets.MyTargetSelected;
+import silentium.gameserver.network.serverpackets.NpcHtmlMessage;
+import silentium.gameserver.network.serverpackets.SystemMessage;
+import silentium.gameserver.network.serverpackets.ValidateLocation;
 import silentium.gameserver.templates.chars.L2CharTemplate;
 import silentium.gameserver.templates.item.L2Weapon;
-
-import java.util.Collection;
-import java.util.concurrent.ScheduledFuture;
 
 public class L2DoorInstance extends L2Character
 {
@@ -161,8 +174,7 @@ public class L2DoorInstance extends L2Character
 					closeMe();
 				}
 
-				log.debug("Auto " + doorAction + " door ID " + _doorId + " (" + _name + ") for " + (_autoActionDelay /
-						60000) + " minute(s).");
+				log.debug("Auto " + doorAction + " door ID " + _doorId + " (" + _name + ") for " + (_autoActionDelay / 60000) + " minute(s).");
 			}
 			catch (Exception e)
 			{
@@ -254,7 +266,7 @@ public class L2DoorInstance extends L2Character
 	/**
 	 * Sets the delay for automatic opening/closing of this door instance.<BR>
 	 * <B>Note:</B> A value of -1 cancels the auto open/close task.
-	 *
+	 * 
 	 * @param actionDelay
 	 *            Delay in milliseconds.
 	 */

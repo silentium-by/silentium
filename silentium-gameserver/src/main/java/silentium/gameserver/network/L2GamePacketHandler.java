@@ -1,35 +1,35 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.network;
 
 import java.nio.ByteBuffer;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import silentium.gameserver.configs.MainConfig;
 import silentium.commons.network.mmocore.IClientFactory;
 import silentium.commons.network.mmocore.IMMOExecutor;
 import silentium.commons.network.mmocore.IPacketHandler;
 import silentium.commons.network.mmocore.MMOConnection;
 import silentium.commons.network.mmocore.ReceivablePacket;
 import silentium.commons.utils.Util;
+import silentium.gameserver.configs.MainConfig;
 import silentium.gameserver.network.L2GameClient.GameClientState;
 import silentium.gameserver.network.clientpackets.*;
 
 /**
  * Stateful Packet Handler<BR>
  * The Stateful approach prevents the server from handling inconsistent packets, examples:<BR>
- * <li>Clients sends a MoveToLocation packet without having a character attached. (Potential errors handling the packet).</li> <li>
- * Clients sends a RequestAuthLogin being already authed. (Potential exploit).</li> <BR>
+ * <li>Clients sends a MoveToLocation packet without having a character attached. (Potential errors handling the packet).</li> <li>Clients sends
+ * a RequestAuthLogin being already authed. (Potential exploit).</li> <BR>
  * <BR>
- * Note: If for a given exception a packet needs to be handled on more then one state, then it should be added to all these
- * states.
- *
+ * Note: If for a given exception a packet needs to be handled on more then one state, then it should be added to all these states.
+ * 
  * @author KenM
  */
 public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, IClientFactory<L2GameClient>, IMMOExecutor<L2GameClient>

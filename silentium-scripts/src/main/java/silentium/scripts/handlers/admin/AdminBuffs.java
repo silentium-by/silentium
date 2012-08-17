@@ -2,8 +2,8 @@ package silentium.scripts.handlers.admin;
 
 import java.util.StringTokenizer;
 
-import silentium.gameserver.configs.MainConfig;
 import silentium.commons.utils.StringUtil;
+import silentium.gameserver.configs.MainConfig;
 import silentium.gameserver.handler.IAdminCommandHandler;
 import silentium.gameserver.model.L2Effect;
 import silentium.gameserver.model.L2World;

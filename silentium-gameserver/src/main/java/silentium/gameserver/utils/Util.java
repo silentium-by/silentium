@@ -1,9 +1,9 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.utils;
 
@@ -130,7 +130,7 @@ public final class Util
 	/**
 	 * Capitalizes the first letter of a string, and returns the result.<BR>
 	 * (Based on ucfirst() function of PHP)
-	 *
+	 * 
 	 * @param str
 	 * @return String containing the modified string.
 	 */
@@ -147,7 +147,7 @@ public final class Util
 	/**
 	 * Capitalizes the first letter of every "word" in a string.<BR>
 	 * (Based on ucwords() function of PHP)
-	 *
+	 * 
 	 * @param str
 	 * @return String containing the modified string.
 	 */
@@ -172,7 +172,7 @@ public final class Util
 
 	/**
 	 * Format the given date on the given format
-	 *
+	 * 
 	 * @param date
 	 *            : the date to format.
 	 * @param format
@@ -198,9 +198,9 @@ public final class Util
 	}
 
 	/**
-	 * Faster calculation than checkIfInRange if distance is short and collisionRadius isn't needed. Not for long distance checks
-	 * (potential teleports, far away castles, etc)
-	 *
+	 * Faster calculation than checkIfInRange if distance is short and collisionRadius isn't needed. Not for long distance checks (potential
+	 * teleports, far away castles, etc)
+	 * 
 	 * @param radius
 	 *            The radius to use as check.
 	 * @param obj1
@@ -234,7 +234,7 @@ public final class Util
 	/**
 	 * This check includes collision radius of both characters.<br>
 	 * Used for accurate checks (skill casts, knownlist, etc).
-	 *
+	 * 
 	 * @param range
 	 *            The range to use as check.
 	 * @param obj1
@@ -277,7 +277,7 @@ public final class Util
 
 	/**
 	 * Return the number of players in a defined radius.<br>
-	 *
+	 * 
 	 * @param range
 	 *            : the radius.
 	 * @param npc
@@ -315,7 +315,7 @@ public final class Util
 
 	/**
 	 * Verify if the given text matches with the regex pattern.
-	 *
+	 * 
 	 * @param text
 	 *            : the text to test.
 	 * @param regex
@@ -341,7 +341,7 @@ public final class Util
 
 	/**
 	 * Child of isValidName, with regular pattern for players' name.
-	 *
+	 * 
 	 * @param text
 	 *            : the text to test.
 	 * @return true if matching.
@@ -353,7 +353,7 @@ public final class Util
 
 	/**
 	 * Returns the number of "words" in a given string.
-	 *
+	 * 
 	 * @param str
 	 * @return int numWords
 	 */
@@ -365,7 +365,7 @@ public final class Util
 	/**
 	 * Returns a delimited string for an given array of string elements.<BR>
 	 * (Based on implode() in PHP)
-	 *
+	 * 
 	 * @param strArray
 	 * @param strDelim
 	 * @return String implodedString
@@ -383,7 +383,7 @@ public final class Util
 	/**
 	 * Returns a delimited string for an given collection of string elements.<BR>
 	 * (Based on implode() in PHP)
-	 *
+	 * 
 	 * @param strCollection
 	 * @param strDelim
 	 * @return String implodedString
@@ -396,7 +396,7 @@ public final class Util
 	/**
 	 * Returns the rounded value of val to specified number of digits after the decimal point.<BR>
 	 * (Based on round() in PHP)
-	 *
+	 * 
 	 * @param val
 	 * @param numPlaces
 	 * @return float roundedVal
@@ -444,7 +444,7 @@ public final class Util
 
 	/**
 	 * Return amount of adena formatted with "," delimiter
-	 *
+	 * 
 	 * @param amount
 	 * @return String formatted adena amount
 	 */

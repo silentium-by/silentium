@@ -1,14 +1,21 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.instancemanager.games;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Calendar;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import silentium.commons.database.DatabaseFactory;
 import silentium.commons.utils.Rnd;
 import silentium.gameserver.Announcements;
@@ -18,12 +25,6 @@ import silentium.gameserver.configs.MainConfig;
 import silentium.gameserver.model.L2ItemInstance;
 import silentium.gameserver.network.SystemMessageId;
 import silentium.gameserver.network.serverpackets.SystemMessage;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Calendar;
 
 public class Lottery
 {
@@ -260,8 +261,7 @@ public class Lottery
 				luckynums[i] = luckynum;
 			}
 
-			_log.debug("Lottery: The lucky numbers are " + luckynums[0] + ", " + luckynums[1] + ", " +
-						"" + luckynums[2] + ", " + luckynums[3] + ", " + luckynums[4] + ".");
+			_log.debug("Lottery: The lucky numbers are " + luckynums[0] + ", " + luckynums[1] + ", " + "" + luckynums[2] + ", " + luckynums[3] + ", " + luckynums[4] + ".");
 
 			int enchant = 0;
 			int type2 = 0;
@@ -274,7 +274,7 @@ public class Lottery
 					type2 += Math.pow(2, luckynums[i] - 17);
 			}
 
-		    _log.debug("Lottery: Encoded lucky numbers are " + enchant + ", " + type2);
+			_log.debug("Lottery: Encoded lucky numbers are " + enchant + ", " + type2);
 
 			int count1 = 0;
 			int count2 = 0;

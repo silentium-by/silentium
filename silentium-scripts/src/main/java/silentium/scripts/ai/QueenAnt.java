@@ -1,11 +1,13 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.scripts.ai;
+
+import java.util.List;
 
 import javolution.util.FastList;
 import silentium.commons.utils.Rnd;
@@ -25,14 +27,13 @@ import silentium.gameserver.scripting.ScriptFile;
 import silentium.gameserver.skills.SkillHolder;
 import silentium.gameserver.templates.StatsSet;
 
-import java.util.List;
-
 /**
  * Queen Ant AI
- *
+ * 
  * @author Emperorc
  */
-public class QueenAnt extends DefaultMonsterAI implements ScriptFile {
+public class QueenAnt extends DefaultMonsterAI implements ScriptFile
+{
 	private static final int QUEEN = 29001;
 	private static final int LARVA = 29002;
 	private static final int NURSE = 29003;
@@ -58,11 +59,13 @@ public class QueenAnt extends DefaultMonsterAI implements ScriptFile {
 	private L2MonsterInstance _larva = null;
 	private final List<L2MonsterInstance> _nurses = new FastList<>(5);
 
-	public static void onLoad() {
+	public static void onLoad()
+	{
 		new QueenAnt(-1, "queen_ant", "ai");
 	}
 
-	public QueenAnt(int questId, String name, String descr) {
+	public QueenAnt(int questId, String name, String descr)
+	{
 		super(questId, name, descr);
 
 		registerMobs(MOBS, QuestEventType.ON_SPAWN, QuestEventType.ON_KILL);
@@ -71,27 +74,32 @@ public class QueenAnt extends DefaultMonsterAI implements ScriptFile {
 		_zone = GrandBossManager.getInstance().getZone(QUEEN_X, QUEEN_Y, QUEEN_Z);
 
 		StatsSet info = GrandBossManager.getInstance().getStatsSet(QUEEN);
-		if (GrandBossManager.getInstance().getBossStatus(QUEEN) == DEAD) {
+		if (GrandBossManager.getInstance().getBossStatus(QUEEN) == DEAD)
+		{
 			// load the unlock date and time for queen ant from DB
 			long temp = info.getLong("respawn_time") - System.currentTimeMillis();
 
 			// the unlock time has not yet expired.
 			if (temp > 0)
 				startQuestTimer("queen_unlock", temp, null, null);
-				// the time has already expired while the server was offline. Immediately spawn queen ant.
-			else {
+			// the time has already expired while the server was offline. Immediately spawn queen ant.
+			else
+			{
 				L2GrandBossInstance queen = (L2GrandBossInstance) addSpawn(QUEEN, QUEEN_X, QUEEN_Y, QUEEN_Z, 0, false, 0);
 				GrandBossManager.getInstance().setBossStatus(QUEEN, ALIVE);
 				spawnBoss(queen);
 			}
-		} else {
+		}
+		else
+		{
 			int loc_x = info.getInteger("loc_x");
 			int loc_y = info.getInteger("loc_y");
 			int loc_z = info.getInteger("loc_z");
 			int heading = info.getInteger("heading");
 			int hp = info.getInteger("currentHP");
 			int mp = info.getInteger("currentMP");
-			if (!_zone.isInsideZone(loc_x, loc_y, loc_z)) {
+			if (!_zone.isInsideZone(loc_x, loc_y, loc_z))
+			{
 				loc_x = QUEEN_X;
 				loc_y = QUEEN_Y;
 				loc_z = QUEEN_Z;
@@ -102,7 +110,8 @@ public class QueenAnt extends DefaultMonsterAI implements ScriptFile {
 		}
 	}
 
-	private void spawnBoss(L2GrandBossInstance npc) {
+	private void spawnBoss(L2GrandBossInstance npc)
+	{
 		if (Rnd.get(100) < 33)
 			_zone.movePlayersTo(-19480, 187344, -5600);
 		else if (Rnd.get(100) < 50)
@@ -120,29 +129,36 @@ public class QueenAnt extends DefaultMonsterAI implements ScriptFile {
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
-		if (event.equalsIgnoreCase("heal")) {
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	{
+		if (event.equalsIgnoreCase("heal"))
+		{
 			boolean notCasting;
 			final boolean larvaNeedHeal = _larva != null && _larva.getCurrentHp() < _larva.getMaxHp();
 			final boolean queenNeedHeal = _queen != null && _queen.getCurrentHp() < _queen.getMaxHp();
-			for (L2MonsterInstance nurse : _nurses) {
+			for (L2MonsterInstance nurse : _nurses)
+			{
 				if (nurse == null || nurse.isDead() || nurse.isCastingNow())
 					continue;
 
 				notCasting = nurse.getAI().getIntention() != CtrlIntention.AI_INTENTION_CAST;
-				if (larvaNeedHeal) {
-					if (nurse.getTarget() != _larva || notCasting) {
+				if (larvaNeedHeal)
+				{
+					if (nurse.getTarget() != _larva || notCasting)
+					{
 						nurse.setTarget(_larva);
 						nurse.useMagic(Rnd.nextBoolean() ? HEAL1.getSkill() : HEAL2.getSkill());
 					}
 					continue;
 				}
 
-				if (queenNeedHeal) {
+				if (queenNeedHeal)
+				{
 					if (nurse.getLeader() == _larva) // skip larva's minions
 						continue;
 
-					if (nurse.getTarget() != _queen || notCasting) {
+					if (nurse.getTarget() != _queen || notCasting)
+					{
 						nurse.setTarget(_queen);
 						nurse.useMagic(HEAL1.getSkill());
 					}
@@ -153,14 +169,19 @@ public class QueenAnt extends DefaultMonsterAI implements ScriptFile {
 				if (notCasting && nurse.getTarget() != null)
 					nurse.setTarget(null);
 			}
-		} else if (event.equalsIgnoreCase("action") && npc != null) {
-			if (Rnd.get(3) == 0) {
+		}
+		else if (event.equalsIgnoreCase("action") && npc != null)
+		{
+			if (Rnd.get(3) == 0)
+			{
 				if (Rnd.get(2) == 0)
 					npc.broadcastPacket(new SocialAction(npc, 3));
 				else
 					npc.broadcastPacket(new SocialAction(npc, 4));
 			}
-		} else if (event.equalsIgnoreCase("queen_unlock")) {
+		}
+		else if (event.equalsIgnoreCase("queen_unlock"))
+		{
 			L2GrandBossInstance queen = (L2GrandBossInstance) addSpawn(QUEEN, QUEEN_X, QUEEN_Y, QUEEN_Z, 0, false, 0);
 			GrandBossManager.getInstance().setBossStatus(QUEEN, ALIVE);
 			spawnBoss(queen);
@@ -169,9 +190,11 @@ public class QueenAnt extends DefaultMonsterAI implements ScriptFile {
 	}
 
 	@Override
-	public String onSpawn(L2Npc npc) {
+	public String onSpawn(L2Npc npc)
+	{
 		final L2MonsterInstance mob = (L2MonsterInstance) npc;
-		switch (npc.getNpcId()) {
+		switch (npc.getNpcId())
+		{
 			case LARVA:
 				mob.setIsImmobilized(true);
 				mob.setIsMortal(false);
@@ -191,12 +214,15 @@ public class QueenAnt extends DefaultMonsterAI implements ScriptFile {
 	}
 
 	@Override
-	public String onFactionCall(L2Npc npc, L2Npc caller, L2PcInstance attacker, boolean isPet) {
+	public String onFactionCall(L2Npc npc, L2Npc caller, L2PcInstance attacker, boolean isPet)
+	{
 		if (caller == null || npc == null)
 			return super.onFactionCall(npc, caller, attacker, isPet);
 
-		if (!npc.isCastingNow() && npc.getAI().getIntention() != CtrlIntention.AI_INTENTION_CAST) {
-			if (caller.getCurrentHp() < caller.getMaxHp()) {
+		if (!npc.isCastingNow() && npc.getAI().getIntention() != CtrlIntention.AI_INTENTION_CAST)
+		{
+			if (caller.getCurrentHp() < caller.getMaxHp())
+			{
 				npc.setTarget(caller);
 				((L2Attackable) npc).useMagic(HEAL1.getSkill());
 			}
@@ -205,11 +231,14 @@ public class QueenAnt extends DefaultMonsterAI implements ScriptFile {
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance killer, boolean isPet) {
+	public String onKill(L2Npc npc, L2PcInstance killer, boolean isPet)
+	{
 		// Acts only once.
-		if (GrandBossManager.getInstance().getBossStatus(QUEEN) == ALIVE) {
+		if (GrandBossManager.getInstance().getBossStatus(QUEEN) == ALIVE)
+		{
 			int npcId = npc.getNpcId();
-			if (npcId == QUEEN) {
+			if (npcId == QUEEN)
+			{
 				npc.broadcastPacket(new PlaySound(1, "BS02_D", 1, npc.getObjectId(), npc.getX(), npc.getY(), npc.getZ()));
 				GrandBossManager.getInstance().setBossStatus(QUEEN, DEAD);
 
@@ -228,12 +257,17 @@ public class QueenAnt extends DefaultMonsterAI implements ScriptFile {
 				_larva.deleteMe();
 				_larva = null;
 				_queen = null;
-			} else {
-				if (npcId == ROYAL) {
+			}
+			else
+			{
+				if (npcId == ROYAL)
+				{
 					L2MonsterInstance mob = (L2MonsterInstance) npc;
 					if (mob.getLeader() != null)
 						mob.getLeader().getMinionList().onMinionDie(mob, (280 + Rnd.get(40)) * 1000);
-				} else if (npcId == NURSE) {
+				}
+				else if (npcId == NURSE)
+				{
 					L2MonsterInstance mob = (L2MonsterInstance) npc;
 					_nurses.remove(mob);
 					if (mob.getLeader() != null)

@@ -1,9 +1,9 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.network.clientpackets;
 
@@ -89,20 +89,19 @@ public abstract class AbstractEnchantPacket extends L2GameClientPacket
 		 * <br>
 		 * <u>Weapons</u>
 		 * <ul>
-		 * <li>magic weapons has chance of 40% until +15 and 20% from +15 and higher. There is no upper limit, there is no
-		 * dependance on current enchant level.</li>
-		 * <li>non magic weapons has chance of 70% until +15 and 35% from +15 and higher. There is no upper limit, there is no
-		 * dependance on current enchant level.</li>
+		 * <li>magic weapons has chance of 40% until +15 and 20% from +15 and higher. There is no upper limit, there is no dependance on current
+		 * enchant level.</li>
+		 * <li>non magic weapons has chance of 70% until +15 and 35% from +15 and higher. There is no upper limit, there is no dependance on
+		 * current enchant level.</li>
 		 * </ul>
 		 * <u>Armors</u>
 		 * <ul>
-		 * <li>non fullbody armors (jewelry, upper armor, lower armor, boots, gloves, helmets and shirts) has chance of 2/3 for
-		 * +4, 1/3 for +5, 1/4 for +6, ...., 1/18 +20. If you've made a +20 armor, chance to make it +21 will be equal to zero
-		 * (0%).</li>
-		 * <li>full body armors has a chance of 1/1 for +4, 2/3 for +5, 1/3 for +6, ..., 1/17 for +20. If you've made a +20 armor,
-		 * chance to make it +21 will be equal to zero (0%).</li>
+		 * <li>non fullbody armors (jewelry, upper armor, lower armor, boots, gloves, helmets and shirts) has chance of 2/3 for +4, 1/3 for +5,
+		 * 1/4 for +6, ...., 1/18 +20. If you've made a +20 armor, chance to make it +21 will be equal to zero (0%).</li>
+		 * <li>full body armors has a chance of 1/1 for +4, 2/3 for +5, 1/3 for +6, ..., 1/17 for +20. If you've made a +20 armor, chance to make
+		 * it +21 will be equal to zero (0%).</li>
 		 * </ul>
-		 *
+		 * 
 		 * @param enchantItem
 		 *            : The item to enchant.
 		 * @return the enchant chance under double format (0.7 / 0.35 / 0.44324...).

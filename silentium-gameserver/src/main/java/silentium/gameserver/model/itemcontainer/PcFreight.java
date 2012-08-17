@@ -1,9 +1,9 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.model.itemcontainer;
 
@@ -51,7 +51,7 @@ public class PcFreight extends ItemContainer
 
 	/**
 	 * Returns the quantity of items in the inventory
-	 *
+	 * 
 	 * @return int
 	 */
 	@Override
@@ -68,7 +68,7 @@ public class PcFreight extends ItemContainer
 
 	/**
 	 * Returns the list of items in inventory
-	 *
+	 * 
 	 * @return L2ItemInstance : items in inventory
 	 */
 	@Override
@@ -84,7 +84,7 @@ public class PcFreight extends ItemContainer
 
 	/**
 	 * Returns the item from inventory by using its <B>itemId</B>
-	 *
+	 * 
 	 * @param itemId
 	 *            : int designating the ID of the item
 	 * @return L2ItemInstance designating the item or null if not found in inventory
@@ -101,7 +101,7 @@ public class PcFreight extends ItemContainer
 
 	/**
 	 * Adds item to PcFreight for further adjustments.
-	 *
+	 * 
 	 * @param item
 	 *            : L2ItemInstance to be added from inventory
 	 */
@@ -144,7 +144,7 @@ public class PcFreight extends ItemContainer
 
 	/**
 	 * This provides support to load a new PcFreight without owner so that transactions can be done
-	 *
+	 * 
 	 * @param val
 	 *            The id of the owner.
 	 */

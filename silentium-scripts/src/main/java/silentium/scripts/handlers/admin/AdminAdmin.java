@@ -1,11 +1,13 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.scripts.handlers.admin;
+
+import java.util.StringTokenizer;
 
 import silentium.gameserver.configs.ConfigEngine;
 import silentium.gameserver.data.crest.CrestCache;
@@ -15,7 +17,6 @@ import silentium.gameserver.data.xml.DoorData;
 import silentium.gameserver.data.xml.NpcWalkerRoutesData;
 import silentium.gameserver.data.xml.TeleportLocationData;
 import silentium.gameserver.handler.IAdminCommandHandler;
-import silentium.gameserver.instancemanager.QuestManager;
 import silentium.gameserver.instancemanager.ZoneManager;
 import silentium.gameserver.model.L2Multisell;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
@@ -24,8 +25,6 @@ import silentium.gameserver.tables.GmListTable;
 import silentium.gameserver.tables.ItemTable;
 import silentium.gameserver.tables.NpcTable;
 import silentium.gameserver.tables.SkillTable;
-
-import java.util.StringTokenizer;
 
 /**
  * This class handles following admin commands:<br>
@@ -41,8 +40,7 @@ import java.util.StringTokenizer;
  */
 public class AdminAdmin implements IAdminCommandHandler
 {
-	private static final String[] ADMIN_COMMANDS = { "admin_admin", "admin_admin1", "admin_admin2", "admin_admin3",
-			"admin_admin4", "admin_gmliston", "admin_gmlistoff", "admin_silence", "admin_tradeoff", "admin_reload" };
+	private static final String[] ADMIN_COMMANDS = { "admin_admin", "admin_admin1", "admin_admin2", "admin_admin3", "admin_admin4", "admin_gmliston", "admin_gmlistoff", "admin_silence", "admin_tradeoff", "admin_reload" };
 
 	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)

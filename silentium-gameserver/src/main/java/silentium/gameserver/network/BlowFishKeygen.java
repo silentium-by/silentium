@@ -1,9 +1,9 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.network;
 
@@ -11,7 +11,7 @@ import silentium.commons.utils.Rnd;
 
 /**
  * Blowfish keygen for GameServer client connections
- *
+ * 
  * @author KenM
  */
 public class BlowFishKeygen
@@ -52,7 +52,7 @@ public class BlowFishKeygen
 	/**
 	 * Returns a key from this keygen pool, the logical ownership is retained by this keygen.<BR>
 	 * Thus when getting a key with interests other then read-only a copy must be performed.<BR>
-	 *
+	 * 
 	 * @return A key from this keygen pool.
 	 */
 	public static byte[] getRandomKey()

@@ -1,9 +1,9 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.scripts.quests;
 
@@ -13,7 +13,8 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q432_BirthdayPartySong extends Quest implements ScriptFile {
+public class Q432_BirthdayPartySong extends Quest implements ScriptFile
+{
 	private static final String qn = "Q432_BirthdayPartySong";
 
 	// NPC
@@ -22,7 +23,8 @@ public class Q432_BirthdayPartySong extends Quest implements ScriptFile {
 	// Item
 	private static final int RED_CRYSTAL = 7541;
 
-	public Q432_BirthdayPartySong(int questId, String name, String descr) {
+	public Q432_BirthdayPartySong(int questId, String name, String descr)
+	{
 		super(questId, name, descr);
 
 		questItemIds = new int[] { RED_CRYSTAL };
@@ -33,23 +35,29 @@ public class Q432_BirthdayPartySong extends Quest implements ScriptFile {
 		addKillId(21103);
 	}
 
-	public static void onLoad() {
+	public static void onLoad()
+	{
 		new Q432_BirthdayPartySong(432, "Q432_BirthdayPartySong", "Birthday Party Song");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	{
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("31043-02.htm")) {
+		if (event.equalsIgnoreCase("31043-02.htm"))
+		{
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		} else if (event.equalsIgnoreCase("31043-06.htm")) {
-			if (st.getQuestItemsCount(RED_CRYSTAL) == 50) {
+		}
+		else if (event.equalsIgnoreCase("31043-06.htm"))
+		{
+			if (st.getQuestItemsCount(RED_CRYSTAL) == 50)
+			{
 				htmltext = "31043-05.htm";
 				st.takeItems(RED_CRYSTAL, -1);
 				st.rewardItems(7061, 25);
@@ -62,17 +70,20 @@ public class Q432_BirthdayPartySong extends Quest implements ScriptFile {
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player) {
+	public String onTalk(L2Npc npc, L2PcInstance player)
+	{
 		QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState()) {
+		switch (st.getState())
+		{
 			case QuestState.CREATED:
 				if (player.getLevel() >= 31 && player.getLevel() <= 36)
 					htmltext = "31043-01.htm";
-				else {
+				else
+				{
 					htmltext = "31043-00.htm";
 					st.exitQuest(true);
 				}
@@ -90,7 +101,8 @@ public class Q432_BirthdayPartySong extends Quest implements ScriptFile {
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
+	{
 		L2PcInstance partyMember = getRandomPartyMember(player, npc, "1");
 		if (partyMember == null)
 			return null;

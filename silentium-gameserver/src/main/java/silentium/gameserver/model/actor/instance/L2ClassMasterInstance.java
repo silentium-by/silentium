@@ -1,14 +1,14 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.model.actor.instance;
 
-import silentium.gameserver.configs.NPCConfig;
 import silentium.commons.utils.StringUtil;
+import silentium.gameserver.configs.NPCConfig;
 import silentium.gameserver.data.html.StaticHtmPath;
 import silentium.gameserver.data.xml.CharTemplateData;
 import silentium.gameserver.model.base.ClassId;
@@ -21,11 +21,11 @@ import silentium.gameserver.tables.ItemTable;
 import silentium.gameserver.templates.chars.L2NpcTemplate;
 
 /**
- * Custom class allowing you to choose your class. You can customize class rewards as needed items. Check npc.properties for more
- * informations. This NPC type got 2 differents ways to level : - the normal one, where you have to be at least of the good level
- * NOTE : you have to take 1st class then 2nd, if you try to take 2nd directly it won't work. - the "allow_entire_tree" version,
- * where you can take class depending of your current path. NOTE : you don't need to be of the good level. Added to the
- * "change class" function, this NPC can noblesse and give available skills (related to your current class and level).
+ * Custom class allowing you to choose your class. You can customize class rewards as needed items. Check npc.properties for more informations.
+ * This NPC type got 2 differents ways to level : - the normal one, where you have to be at least of the good level NOTE : you have to take 1st
+ * class then 2nd, if you try to take 2nd directly it won't work. - the "allow_entire_tree" version, where you can take class depending of your
+ * current path. NOTE : you don't need to be of the good level. Added to the "change class" function, this NPC can noblesse and give available
+ * skills (related to your current class and level).
  */
 public final class L2ClassMasterInstance extends L2NpcInstance
 {
@@ -272,7 +272,7 @@ public final class L2ClassMasterInstance extends L2NpcInstance
 
 	/**
 	 * Returns true if class change is possible
-	 *
+	 * 
 	 * @param oldCID
 	 *            current player ClassId
 	 * @param val
@@ -294,7 +294,7 @@ public final class L2ClassMasterInstance extends L2NpcInstance
 
 	/**
 	 * Returns true if class change is possible
-	 *
+	 * 
 	 * @param oldCID
 	 *            current player ClassId
 	 * @param newCID

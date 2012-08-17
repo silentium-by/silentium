@@ -1,9 +1,9 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.scripts.quests;
 
@@ -14,7 +14,8 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q331_ArrowOfVengeance extends Quest implements ScriptFile {
+public class Q331_ArrowOfVengeance extends Quest implements ScriptFile
+{
 	private final static String qn = "Q331_ArrowOfVengeance";
 
 	// Npc
@@ -25,7 +26,8 @@ public class Q331_ArrowOfVengeance extends Quest implements ScriptFile {
 	private static final int MEDUSA_VENOM = 1453;
 	private static final int WYRMS_TOOTH = 1454;
 
-	public Q331_ArrowOfVengeance(int questId, String name, String descr) {
+	public Q331_ArrowOfVengeance(int questId, String name, String descr)
+	{
 		super(questId, name, descr);
 
 		questItemIds = new int[] { HARPY_FEATHER, MEDUSA_VENOM, WYRMS_TOOTH };
@@ -36,22 +38,27 @@ public class Q331_ArrowOfVengeance extends Quest implements ScriptFile {
 		addKillId(20145, 20158, 20176);
 	}
 
-	public static void onLoad() {
+	public static void onLoad()
+	{
 		new Q331_ArrowOfVengeance(331, "Q331_ArrowOfVengeance", "Arrow Of Vengeance");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	{
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30125-03.htm")) {
+		if (event.equalsIgnoreCase("30125-03.htm"))
+		{
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		} else if (event.equalsIgnoreCase("30125-06.htm")) {
+		}
+		else if (event.equalsIgnoreCase("30125-06.htm"))
+		{
 			st.playSound(QuestState.SOUND_FINISH);
 			st.exitQuest(true);
 		}
@@ -60,17 +67,20 @@ public class Q331_ArrowOfVengeance extends Quest implements ScriptFile {
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player) {
+	public String onTalk(L2Npc npc, L2PcInstance player)
+	{
 		String htmltext = Quest.getNoQuestMsg();
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState()) {
+		switch (st.getState())
+		{
 			case QuestState.CREATED:
 				if (player.getLevel() >= 32 && player.getLevel() <= 39)
 					htmltext = "30125-02.htm";
-				else {
+				else
+				{
 					htmltext = "30125-01.htm";
 					st.exitQuest(true);
 				}
@@ -81,7 +91,8 @@ public class Q331_ArrowOfVengeance extends Quest implements ScriptFile {
 				int medusaVenom = st.getQuestItemsCount(MEDUSA_VENOM);
 				int wyrmTooth = st.getQuestItemsCount(WYRMS_TOOTH);
 
-				if (harpyFeather + medusaVenom + wyrmTooth > 0) {
+				if (harpyFeather + medusaVenom + wyrmTooth > 0)
+				{
 					htmltext = "30125-05.htm";
 					st.takeItems(HARPY_FEATHER, -1);
 					st.takeItems(MEDUSA_VENOM, -1);
@@ -92,7 +103,8 @@ public class Q331_ArrowOfVengeance extends Quest implements ScriptFile {
 						reward += 3100;
 
 					st.rewardItems(57, reward);
-				} else
+				}
+				else
 					htmltext = "30125-04.htm";
 				break;
 
@@ -105,13 +117,16 @@ public class Q331_ArrowOfVengeance extends Quest implements ScriptFile {
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
+	{
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 
-		if (st.isStarted() && Rnd.get(10) < 5) {
-			switch (npc.getNpcId()) {
+		if (st.isStarted() && Rnd.get(10) < 5)
+		{
+			switch (npc.getNpcId())
+			{
 				case 20145:
 					st.giveItems(HARPY_FEATHER, 1);
 					break;

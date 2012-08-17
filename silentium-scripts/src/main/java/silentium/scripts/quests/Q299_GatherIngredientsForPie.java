@@ -1,9 +1,9 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.scripts.quests;
 
@@ -13,7 +13,8 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q299_GatherIngredientsForPie extends Quest implements ScriptFile {
+public class Q299_GatherIngredientsForPie extends Quest implements ScriptFile
+{
 	private static final String qn = "Q299_GatherIngredientsForPie";
 
 	// NPCs
@@ -30,7 +31,8 @@ public class Q299_GatherIngredientsForPie extends Quest implements ScriptFile {
 	private static final int WASP_WORKER = 20934;
 	private static final int WASP_LEADER = 20935;
 
-	public Q299_GatherIngredientsForPie(int questId, String name, String descr) {
+	public Q299_GatherIngredientsForPie(int questId, String name, String descr)
+	{
 		super(questId, name, descr);
 
 		questItemIds = new int[] { FRUIT_BASKET, AVELLAN_SPICE, HONEY_POUCH };
@@ -41,45 +43,60 @@ public class Q299_GatherIngredientsForPie extends Quest implements ScriptFile {
 		addKillId(WASP_WORKER, WASP_LEADER);
 	}
 
-	public static void onLoad() {
+	public static void onLoad()
+	{
 		new Q299_GatherIngredientsForPie(299, "Q299_GatherIngredientsForPie", "Gather Ingredients for Pie");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	{
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30620-1.htm")) {
+		if (event.equalsIgnoreCase("30620-1.htm"))
+		{
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		} else if (event.equalsIgnoreCase("30620-3.htm")) {
+		}
+		else if (event.equalsIgnoreCase("30620-3.htm"))
+		{
 			st.set("cond", "3");
 			st.takeItems(HONEY_POUCH, -1);
 			st.playSound(QuestState.SOUND_MIDDLE);
-		} else if (event.equalsIgnoreCase("30063-1.htm")) {
+		}
+		else if (event.equalsIgnoreCase("30063-1.htm"))
+		{
 			st.set("cond", "4");
 			st.giveItems(AVELLAN_SPICE, 1);
 			st.playSound(QuestState.SOUND_MIDDLE);
-		} else if (event.equalsIgnoreCase("30620-5.htm")) {
+		}
+		else if (event.equalsIgnoreCase("30620-5.htm"))
+		{
 			st.set("cond", "5");
 			st.takeItems(AVELLAN_SPICE, -1);
 			st.playSound(QuestState.SOUND_MIDDLE);
-		} else if (event.equalsIgnoreCase("30466-1.htm")) {
+		}
+		else if (event.equalsIgnoreCase("30466-1.htm"))
+		{
 			st.set("cond", "6");
 			st.giveItems(FRUIT_BASKET, 1);
 			st.playSound(QuestState.SOUND_MIDDLE);
-		} else if (event.equalsIgnoreCase("30620-7a.htm")) {
-			if (st.getQuestItemsCount(FRUIT_BASKET) >= 1) {
+		}
+		else if (event.equalsIgnoreCase("30620-7a.htm"))
+		{
+			if (st.getQuestItemsCount(FRUIT_BASKET) >= 1)
+			{
 				htmltext = "30620-7.htm";
 				st.takeItems(FRUIT_BASKET, -1);
 				st.rewardItems(57, 25000);
 				st.playSound(QuestState.SOUND_FINISH);
 				st.exitQuest(true);
-			} else
+			}
+			else
 				st.set("cond", "5");
 		}
 
@@ -87,17 +104,20 @@ public class Q299_GatherIngredientsForPie extends Quest implements ScriptFile {
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player) {
+	public String onTalk(L2Npc npc, L2PcInstance player)
+	{
 		QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState()) {
+		switch (st.getState())
+		{
 			case QuestState.CREATED:
 				if (player.getLevel() >= 34 && player.getLevel() <= 40)
 					htmltext = "30620-0.htm";
-				else {
+				else
+				{
 					htmltext = "30620-0a.htm";
 					st.exitQuest(true);
 				}
@@ -105,27 +125,34 @@ public class Q299_GatherIngredientsForPie extends Quest implements ScriptFile {
 
 			case QuestState.STARTED:
 				int cond = st.getInt("cond");
-				switch (npc.getNpcId()) {
+				switch (npc.getNpcId())
+				{
 					case EMILY:
 						if (cond == 1)
 							htmltext = "30620-1a.htm";
-						else if (cond == 2) {
+						else if (cond == 2)
+						{
 							if (st.getQuestItemsCount(HONEY_POUCH) >= 100)
 								htmltext = "30620-2.htm";
-							else {
+							else
+							{
 								htmltext = "30620-2a.htm";
 								st.exitQuest(true);
 							}
-						} else if (cond == 3)
+						}
+						else if (cond == 3)
 							htmltext = "30620-3a.htm";
-						else if (cond == 4) {
+						else if (cond == 4)
+						{
 							if (st.getQuestItemsCount(AVELLAN_SPICE) >= 1)
 								htmltext = "30620-4.htm";
-							else {
+							else
+							{
 								htmltext = "30620-4a.htm";
 								st.exitQuest(true);
 							}
-						} else if (cond == 5)
+						}
+						else if (cond == 5)
 							htmltext = "30620-5a.htm";
 						else if (cond == 6)
 							htmltext = "30620-6.htm";
@@ -152,7 +179,8 @@ public class Q299_GatherIngredientsForPie extends Quest implements ScriptFile {
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
+	{
 		L2PcInstance partyMember = getRandomPartyMember(player, npc, "1");
 		if (partyMember != null)
 			partyMember.getQuestState(qn).dropQuestItems(HONEY_POUCH, 1, 100, 500000);

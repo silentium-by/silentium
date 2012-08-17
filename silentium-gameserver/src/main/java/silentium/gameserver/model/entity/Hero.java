@@ -1,9 +1,9 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 
 /**
@@ -11,10 +11,23 @@
  */
 package silentium.gameserver.model.entity;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
 import javolution.util.FastList;
 import javolution.util.FastMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import silentium.commons.database.DatabaseFactory;
 import silentium.commons.utils.StringUtil;
 import silentium.gameserver.data.html.HtmCache;
@@ -28,19 +41,16 @@ import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.itemcontainer.Inventory;
 import silentium.gameserver.model.olympiad.Olympiad;
 import silentium.gameserver.network.SystemMessageId;
-import silentium.gameserver.network.serverpackets.*;
+import silentium.gameserver.network.serverpackets.InventoryUpdate;
+import silentium.gameserver.network.serverpackets.NpcHtmlMessage;
+import silentium.gameserver.network.serverpackets.PledgeShowInfoUpdate;
+import silentium.gameserver.network.serverpackets.SocialAction;
+import silentium.gameserver.network.serverpackets.SystemMessage;
 import silentium.gameserver.tables.CharNameTable;
 import silentium.gameserver.tables.ClanTable;
 import silentium.gameserver.tables.NpcTable;
 import silentium.gameserver.templates.StatsSet;
 import silentium.gameserver.templates.chars.L2NpcTemplate;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.*;
 
 public class Hero
 {
@@ -237,7 +247,7 @@ public class Hero
 
 	/**
 	 * Restore hero message from Db.
-	 *
+	 * 
 	 * @param charId
 	 */
 	public void loadMessage(int charId)
@@ -878,7 +888,7 @@ public class Hero
 
 	/**
 	 * Set new hero message for hero
-	 *
+	 * 
 	 * @param player
 	 *            the player instance
 	 * @param message
@@ -887,13 +897,12 @@ public class Hero
 	public void setHeroMessage(L2PcInstance player, String message)
 	{
 		_heroMessage.put(player.getObjectId(), message);
-		_log.debug("Hero message for player: " + player.getName() + ":[" + player.getObjectId() + "] set to: [" + message
-				+ "]");
+		_log.debug("Hero message for player: " + player.getName() + ":[" + player.getObjectId() + "] set to: [" + message + "]");
 	}
 
 	/**
 	 * Update hero message in database
-	 *
+	 * 
 	 * @param charId
 	 *            character objid
 	 */

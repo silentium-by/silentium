@@ -1,19 +1,19 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.model.entity;
 
 import java.util.Calendar;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import javolution.util.FastList;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javolution.util.FastList;
 import silentium.gameserver.ThreadPoolManager;
 import silentium.gameserver.ai.CtrlIntention;
 import silentium.gameserver.instancemanager.DuelManager;
@@ -297,7 +297,7 @@ public class Duel
 
 	/**
 	 * Check if a player engaged in pvp combat (only for 1on1 duels)
-	 *
+	 * 
 	 * @param sendMessage
 	 *            true will return a message for both duelists.
 	 * @return returns true if a duelist is engaged in Pvp combat
@@ -424,7 +424,7 @@ public class Duel
 
 	/**
 	 * Restore player conditions
-	 *
+	 * 
 	 * @param abnormalDuelEnd
 	 *            was the duel canceled?
 	 */
@@ -467,7 +467,7 @@ public class Duel
 
 	/**
 	 * Get the duel id
-	 *
+	 * 
 	 * @return id
 	 */
 	public int getId()
@@ -477,7 +477,7 @@ public class Duel
 
 	/**
 	 * Returns the remaining time
-	 *
+	 * 
 	 * @return remaining time
 	 */
 	public int getRemainingTime()
@@ -487,7 +487,7 @@ public class Duel
 
 	/**
 	 * Get the player that requestet the duel
-	 *
+	 * 
 	 * @return duel requester
 	 */
 	public L2PcInstance getPlayerA()
@@ -497,7 +497,7 @@ public class Duel
 
 	/**
 	 * Get the player that was challenged
-	 *
+	 * 
 	 * @return challenged player
 	 */
 	public L2PcInstance getPlayerB()
@@ -507,7 +507,7 @@ public class Duel
 
 	/**
 	 * Returns whether this is a party duel or not
-	 *
+	 * 
 	 * @return is party duel
 	 */
 	public boolean isPartyDuel()
@@ -527,7 +527,7 @@ public class Duel
 
 	/**
 	 * teleport all players to the given coordinates
-	 *
+	 * 
 	 * @param x
 	 * @param y
 	 * @param z
@@ -556,7 +556,7 @@ public class Duel
 
 	/**
 	 * Broadcast a packet to the challenger team
-	 *
+	 * 
 	 * @param packet
 	 *            The packet to send.
 	 */
@@ -576,7 +576,7 @@ public class Duel
 
 	/**
 	 * Broadcast a packet to the challenged team
-	 *
+	 * 
 	 * @param packet
 	 *            The packet to send.
 	 */
@@ -596,7 +596,7 @@ public class Duel
 
 	/**
 	 * Get the duel looser
-	 *
+	 * 
 	 * @return looser
 	 */
 	public L2PcInstance getLooser()
@@ -631,7 +631,7 @@ public class Duel
 
 	/**
 	 * Do the countdown and send message to players if necessary
-	 *
+	 * 
 	 * @return current count
 	 */
 	public int countdown()
@@ -659,7 +659,7 @@ public class Duel
 
 	/**
 	 * The duel has reached a state in which it can no longer continue
-	 *
+	 * 
 	 * @param result
 	 *            The duel result state.
 	 */
@@ -768,7 +768,7 @@ public class Duel
 
 	/**
 	 * Did a situation occur in which the duel has to be ended?
-	 *
+	 * 
 	 * @return DuelResultEnum duel status
 	 */
 	public DuelResultEnum checkEndDuelCondition()
@@ -827,7 +827,7 @@ public class Duel
 
 	/**
 	 * Register a surrender request
-	 *
+	 * 
 	 * @param player
 	 *            The player instance who surrender.
 	 */
@@ -881,7 +881,7 @@ public class Duel
 
 	/**
 	 * This function is called whenever a player was defeated in a duel
-	 *
+	 * 
 	 * @param player
 	 *            The defeated player instance.
 	 */
@@ -926,7 +926,7 @@ public class Duel
 
 	/**
 	 * This function is called whenever a player leaves a party
-	 *
+	 * 
 	 * @param player
 	 *            The player instance who left.
 	 */

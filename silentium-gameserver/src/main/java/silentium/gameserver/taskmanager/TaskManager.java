@@ -1,19 +1,15 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.taskmanager;
 
-import javolution.util.FastList;
-import javolution.util.FastMap;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import silentium.commons.database.DatabaseFactory;
-import silentium.gameserver.ThreadPoolManager;
-import silentium.gameserver.taskmanager.tasks.*;
+import static silentium.gameserver.taskmanager.TaskTypes.TYPE_NONE;
+import static silentium.gameserver.taskmanager.TaskTypes.TYPE_SHEDULED;
+import static silentium.gameserver.taskmanager.TaskTypes.TYPE_TIME;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,7 +20,21 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.ScheduledFuture;
 
-import static silentium.gameserver.taskmanager.TaskTypes.*;
+import javolution.util.FastList;
+import javolution.util.FastMap;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import silentium.commons.database.DatabaseFactory;
+import silentium.gameserver.ThreadPoolManager;
+import silentium.gameserver.taskmanager.tasks.TaskCleanUp;
+import silentium.gameserver.taskmanager.tasks.TaskOlympiadSave;
+import silentium.gameserver.taskmanager.tasks.TaskRaidPointsReset;
+import silentium.gameserver.taskmanager.tasks.TaskRecom;
+import silentium.gameserver.taskmanager.tasks.TaskRestart;
+import silentium.gameserver.taskmanager.tasks.TaskSevenSignsUpdate;
+import silentium.gameserver.taskmanager.tasks.TaskShutdown;
 
 /**
  * @author Layane

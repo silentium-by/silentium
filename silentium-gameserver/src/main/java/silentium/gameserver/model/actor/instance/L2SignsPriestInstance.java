@@ -1,11 +1,13 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.model.actor.instance;
+
+import java.util.StringTokenizer;
 
 import javolution.text.TextBuilder;
 import silentium.gameserver.configs.EventsConfig;
@@ -19,11 +21,9 @@ import silentium.gameserver.network.serverpackets.NpcHtmlMessage;
 import silentium.gameserver.network.serverpackets.SystemMessage;
 import silentium.gameserver.templates.chars.L2NpcTemplate;
 
-import java.util.StringTokenizer;
-
 /**
  * Dawn/Dusk Seven Signs Priest Instance
- *
+ * 
  * @author Tempy
  */
 public class L2SignsPriestInstance extends L2NpcInstance
@@ -191,8 +191,8 @@ public class L2SignsPriestInstance extends L2NpcInstance
 							}
 						}
 						/*
-						 * If the player is trying to join the Lords of Dawn, check if they are carrying a Lord's certificate. If
-						 * not then try to take the required amount of adena instead.
+						 * If the player is trying to join the Lords of Dawn, check if they are carrying a Lord's certificate. If not then try to
+						 * take the required amount of adena instead.
 						 */
 						if (EventsConfig.ALT_GAME_CASTLE_DAWN && cabal == SevenSigns.CABAL_DAWN)
 						{

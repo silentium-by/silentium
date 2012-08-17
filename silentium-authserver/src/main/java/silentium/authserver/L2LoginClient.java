@@ -1,35 +1,36 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.authserver;
-
-import silentium.authserver.configs.MainConfig;
-import silentium.commons.crypt.LoginCrypt;
-import silentium.commons.crypt.ScrambledKeyPair;
-import silentium.authserver.network.serverpackets.L2LoginServerPacket;
-import silentium.authserver.network.serverpackets.LoginFail;
-import silentium.authserver.network.serverpackets.LoginFail.LoginFailReason;
-import silentium.authserver.network.serverpackets.PlayFail;
-import silentium.authserver.network.serverpackets.PlayFail.PlayFailReason;
-import silentium.commons.network.mmocore.MMOClient;
-import silentium.commons.network.mmocore.MMOConnection;
-import silentium.commons.network.mmocore.SendablePacket;
-import silentium.commons.utils.Rnd;
 
 import java.io.IOException;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
 import java.security.interfaces.RSAPrivateKey;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import silentium.authserver.configs.MainConfig;
+import silentium.authserver.network.serverpackets.L2LoginServerPacket;
+import silentium.authserver.network.serverpackets.LoginFail;
+import silentium.authserver.network.serverpackets.LoginFail.LoginFailReason;
+import silentium.authserver.network.serverpackets.PlayFail;
+import silentium.authserver.network.serverpackets.PlayFail.PlayFailReason;
+import silentium.commons.crypt.LoginCrypt;
+import silentium.commons.crypt.ScrambledKeyPair;
+import silentium.commons.network.mmocore.MMOClient;
+import silentium.commons.network.mmocore.MMOConnection;
+import silentium.commons.network.mmocore.SendablePacket;
+import silentium.commons.utils.Rnd;
+
 /**
  * Represents a client connected into the LoginServer
- *
+ * 
  * @author KenM
  */
 public final class L2LoginClient extends MMOClient<MMOConnection<L2LoginClient>>

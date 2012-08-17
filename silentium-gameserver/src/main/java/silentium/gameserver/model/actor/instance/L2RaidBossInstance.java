@@ -1,15 +1,15 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.model.actor.instance;
 
-import silentium.gameserver.configs.NPCConfig;
 import silentium.commons.utils.Rnd;
 import silentium.gameserver.ThreadPoolManager;
+import silentium.gameserver.configs.NPCConfig;
 import silentium.gameserver.instancemanager.RaidBossPointsManager;
 import silentium.gameserver.instancemanager.RaidBossSpawnManager;
 import silentium.gameserver.model.L2Spawn;
@@ -34,11 +34,11 @@ public class L2RaidBossInstance extends L2MonsterInstance
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
-	 * <li>Call the L2Character constructor to set the _template of the L2RaidBossInstance (copy skills from template to object
-	 * and link _calculators to NPC_STD_CALCULATOR)</li> <li>Set the name of the L2RaidBossInstance</li> <li>Create a
-	 * RandomAnimation Task that will be launched after the calculated delay if the server allow it</li><BR>
+	 * <li>Call the L2Character constructor to set the _template of the L2RaidBossInstance (copy skills from template to object and link
+	 * _calculators to NPC_STD_CALCULATOR)</li> <li>Set the name of the L2RaidBossInstance</li> <li>Create a RandomAnimation Task that will be
+	 * launched after the calculated delay if the server allow it</li><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param objectId
 	 *            Identifier of the object to initialized
 	 * @param template
@@ -97,8 +97,7 @@ public class L2RaidBossInstance extends L2MonsterInstance
 	}
 
 	/**
-	 * Spawn all minions at a regular interval Also if boss is too far from home location at the time of this check, teleport it
-	 * home
+	 * Spawn all minions at a regular interval Also if boss is too far from home location at the time of this check, teleport it home
 	 */
 	@Override
 	protected void startMaintenanceTask()

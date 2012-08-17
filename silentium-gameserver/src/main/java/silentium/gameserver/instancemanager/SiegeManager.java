@@ -1,14 +1,30 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.instancemanager;
 
 import gnu.trove.map.hash.TIntObjectHashMap;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+import java.util.StringTokenizer;
+
 import javolution.util.FastList;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import silentium.commons.database.DatabaseFactory;
 import silentium.gameserver.configs.MainConfig;
 import silentium.gameserver.model.L2Clan;
@@ -22,19 +38,6 @@ import silentium.gameserver.model.entity.Siege;
 import silentium.gameserver.network.SystemMessageId;
 import silentium.gameserver.network.serverpackets.SystemMessage;
 import silentium.gameserver.tables.SkillTable;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
-import java.util.StringTokenizer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class SiegeManager
 {
@@ -182,7 +185,7 @@ public class SiegeManager
 	 * <LI>must be an attacker;</LI>
 	 * <LI>mustn't be inside a castle (siege zone, but not castle zone)</LI>
 	 * </UL>
-	 *
+	 * 
 	 * @param activeChar
 	 *            The player who attempt to summon a siege summon.
 	 * @return true if the player can summon, false otherwise (send an error message aswell).
@@ -204,7 +207,7 @@ public class SiegeManager
 
 	/**
 	 * Verify if the clan is registered to any siege.
-	 *
+	 * 
 	 * @param clan
 	 *            The L2Clan of the player
 	 * @return true if the clan is registered or owner of a castle

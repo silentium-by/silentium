@@ -1,11 +1,16 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.model.actor.instance;
+
+import java.util.Calendar;
+import java.util.List;
+import java.util.Map;
+import java.util.StringTokenizer;
 
 import javolution.util.FastMap;
 import silentium.gameserver.data.html.StaticHtmPath;
@@ -19,11 +24,6 @@ import silentium.gameserver.network.SystemMessageId;
 import silentium.gameserver.network.serverpackets.NpcHtmlMessage;
 import silentium.gameserver.templates.chars.L2NpcTemplate;
 import silentium.gameserver.utils.Util;
-
-import java.util.Calendar;
-import java.util.List;
-import java.util.Map;
-import java.util.StringTokenizer;
 
 public final class L2AuctioneerInstance extends L2NpcInstance
 {

@@ -1,15 +1,22 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.tables;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.util.Map;
+import java.util.concurrent.ScheduledFuture;
+
 import javolution.util.FastMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import silentium.commons.database.DatabaseFactory;
 import silentium.gameserver.Item;
 import silentium.gameserver.ThreadPoolManager;
@@ -22,13 +29,13 @@ import silentium.gameserver.model.L2World;
 import silentium.gameserver.model.actor.L2Attackable;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.skills.SkillsEngine;
-import silentium.gameserver.templates.item.*;
+import silentium.gameserver.templates.item.L2Armor;
+import silentium.gameserver.templates.item.L2ArmorType;
+import silentium.gameserver.templates.item.L2EtcItem;
+import silentium.gameserver.templates.item.L2Item;
+import silentium.gameserver.templates.item.L2Weapon;
+import silentium.gameserver.templates.item.L2WeaponType;
 import silentium.gameserver.utils.LoggingUtils;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.util.Map;
-import java.util.concurrent.ScheduledFuture;
 
 public class ItemTable
 {
@@ -116,7 +123,7 @@ public class ItemTable
 
 	/**
 	 * Returns instance of ItemTable
-	 *
+	 * 
 	 * @return ItemTable
 	 */
 	public static ItemTable getInstance()
@@ -126,7 +133,7 @@ public class ItemTable
 
 	/**
 	 * Returns a new object Item
-	 *
+	 * 
 	 * @return
 	 */
 	public Item newItem()
@@ -166,7 +173,7 @@ public class ItemTable
 
 	/**
 	 * Builds a variable in which all items are putting in in function of their ID.
-	 *
+	 * 
 	 * @param size
 	 */
 	private void buildFastLookupTable(int size)
@@ -191,7 +198,7 @@ public class ItemTable
 
 	/**
 	 * Returns the item corresponding to the item ID
-	 *
+	 * 
 	 * @param id
 	 *            : int designating the item
 	 * @return L2Item
@@ -209,10 +216,10 @@ public class ItemTable
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
-	 * <li>Create and Init the L2ItemInstance corresponding to the Item Identifier and quantity</li> <li>Add the L2ItemInstance
-	 * object to _allObjects of L2world</li> <li>Logs Item creation according to log settings</li><BR>
+	 * <li>Create and Init the L2ItemInstance corresponding to the Item Identifier and quantity</li> <li>Add the L2ItemInstance object to
+	 * _allObjects of L2world</li> <li>Logs Item creation according to log settings</li><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param itemId
@@ -277,7 +284,7 @@ public class ItemTable
 	 * <BR>
 	 * <U><I>Concept :</I></U><BR>
 	 * Dummy item is created by setting the ID of the object in the world at null value
-	 *
+	 * 
 	 * @param itemId
 	 *            : int designating the item
 	 * @return L2ItemInstance designating the dummy item created
@@ -297,10 +304,10 @@ public class ItemTable
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
-	 * <li>Sets L2ItemInstance parameters to be unusable</li> <li>Removes the L2ItemInstance object to _allObjects of L2world</li>
-	 * <li>Logs Item delettion according to log settings</li><BR>
+	 * <li>Sets L2ItemInstance parameters to be unusable</li> <li>Removes the L2ItemInstance object to _allObjects of L2world</li> <li>Logs Item
+	 * delettion according to log settings</li><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param item

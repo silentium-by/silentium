@@ -1,9 +1,9 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.scripts.handlers.voiced;
 
@@ -18,7 +18,7 @@ import silentium.gameserver.network.serverpackets.NpcHtmlMessage;
 
 /**
  * Tvt info.
- *
+ * 
  * @author denser
  */
 public class TvTVoicedInfo implements IVoicedCommandHandler
@@ -27,8 +27,8 @@ public class TvTVoicedInfo implements IVoicedCommandHandler
 
 	/**
 	 * Set this to false and recompile script if you don't want to use string cache.<br>
-	 * This will decrease performance but will be more consistent against possible html editions during runtime Recompiling the
-	 * script will get the new html would be enough too [DrHouse]
+	 * This will decrease performance but will be more consistent against possible html editions during runtime Recompiling the script will get
+	 * the new html would be enough too [DrHouse]
 	 */
 	private static final boolean USE_STATIC_HTML = true;
 	private static final String HTML = HtmCache.getInstance().getHtm(StaticHtmPath.TvTHtmPath + "Status.htm");

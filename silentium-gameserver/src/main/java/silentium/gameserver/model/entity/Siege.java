@@ -1,14 +1,23 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.model.entity;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.concurrent.ScheduledFuture;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import silentium.commons.database.DatabaseFactory;
 import silentium.gameserver.Announcements;
 import silentium.gameserver.ThreadPoolManager;
@@ -21,8 +30,12 @@ import silentium.gameserver.instancemanager.MercTicketManager;
 import silentium.gameserver.instancemanager.SiegeGuardManager;
 import silentium.gameserver.instancemanager.SiegeManager;
 import silentium.gameserver.instancemanager.SiegeManager.SiegeSpawn;
-import silentium.gameserver.model.*;
+import silentium.gameserver.model.L2Clan;
+import silentium.gameserver.model.L2ClanMember;
+import silentium.gameserver.model.L2Object;
+import silentium.gameserver.model.L2SiegeClan;
 import silentium.gameserver.model.L2SiegeClan.SiegeClanType;
+import silentium.gameserver.model.L2Spawn;
 import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2ControlTowerInstance;
 import silentium.gameserver.model.actor.instance.L2FlameTowerInstance;
@@ -37,14 +50,6 @@ import silentium.gameserver.tables.ClanTable;
 import silentium.gameserver.tables.NpcTable;
 import silentium.gameserver.templates.chars.L2NpcTemplate;
 import silentium.gameserver.utils.Broadcast;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.concurrent.ScheduledFuture;
 
 public class Siege implements Siegable
 {
@@ -443,7 +448,7 @@ public class Siege implements Siegable
 
 	/**
 	 * Broadcast a string to defenders.
-	 *
+	 * 
 	 * @param message
 	 *            The String of the message to send to player
 	 * @param bothSides
@@ -535,7 +540,7 @@ public class Siege implements Siegable
 
 	/**
 	 * Approve clan as defender for siege.
-	 *
+	 * 
 	 * @param clanId
 	 *            The int of player's clan id
 	 */
@@ -550,7 +555,7 @@ public class Siege implements Siegable
 
 	/**
 	 * Check if an object is inside an area using his location.
-	 *
+	 * 
 	 * @param object
 	 *            The Object to use positions.
 	 * @return true if object is inside the zone
@@ -573,7 +578,7 @@ public class Siege implements Siegable
 
 	/**
 	 * Return true if clan is attacker
-	 *
+	 * 
 	 * @param clan
 	 *            The L2Clan of the player
 	 */
@@ -585,7 +590,7 @@ public class Siege implements Siegable
 
 	/**
 	 * Return true if clan is defender
-	 *
+	 * 
 	 * @param clan
 	 *            The L2Clan of the player
 	 */
@@ -759,7 +764,7 @@ public class Siege implements Siegable
 
 	/**
 	 * Remove the flag that was killed
-	 *
+	 * 
 	 * @param flag
 	 */
 	public void killedFlag(L2Npc flag)
@@ -776,7 +781,7 @@ public class Siege implements Siegable
 
 	/**
 	 * Display list of registered clans
-	 *
+	 * 
 	 * @param player
 	 *            The player who requested the list.
 	 */
@@ -787,7 +792,7 @@ public class Siege implements Siegable
 
 	/**
 	 * Register clan as attacker
-	 *
+	 * 
 	 * @param player
 	 *            The L2PcInstance of the player trying to register
 	 */
@@ -821,7 +826,7 @@ public class Siege implements Siegable
 
 	/**
 	 * Register clan as defender.
-	 *
+	 * 
 	 * @param player
 	 *            The L2PcInstance of the player trying to register
 	 */
@@ -839,10 +844,10 @@ public class Siege implements Siegable
 	}
 
 	/**
-	 * Verify if allies are registered on different list than the actual player's choice. Let's say clan A and clan B are in same
-	 * alliance. If clan A wants to attack a castle, clan B mustn't be on defenders' list. The contrary is right too : you can't
-	 * defend if one ally is on attackers' list.
-	 *
+	 * Verify if allies are registered on different list than the actual player's choice. Let's say clan A and clan B are in same alliance. If
+	 * clan A wants to attack a castle, clan B mustn't be on defenders' list. The contrary is right too : you can't defend if one ally is on
+	 * attackers' list.
+	 * 
 	 * @param clan
 	 *            The clan of L2PcInstance, used for alliance existence checks
 	 * @param attacker
@@ -887,7 +892,7 @@ public class Siege implements Siegable
 
 	/**
 	 * Remove clan from siege.
-	 *
+	 * 
 	 * @param clanId
 	 *            The int of player's clan id
 	 */
@@ -913,7 +918,7 @@ public class Siege implements Siegable
 
 	/**
 	 * Remove clan from siege.
-	 *
+	 * 
 	 * @param clan
 	 */
 	public void removeSiegeClan(L2Clan clan)
@@ -926,7 +931,7 @@ public class Siege implements Siegable
 
 	/**
 	 * Remove clan from siege.
-	 *
+	 * 
 	 * @param player
 	 *            The L2PcInstance of player/clan being removed
 	 */
@@ -955,7 +960,7 @@ public class Siege implements Siegable
 
 	/**
 	 * Teleport players according their types.
-	 *
+	 * 
 	 * @param teleportWho
 	 *            The type of players (owner, attacker, spectator, defenders not owning).
 	 * @param teleportWhere
@@ -993,7 +998,7 @@ public class Siege implements Siegable
 
 	/**
 	 * Add clan as attacker
-	 *
+	 * 
 	 * @param clanId
 	 *            The int of clan's id
 	 */
@@ -1004,7 +1009,7 @@ public class Siege implements Siegable
 
 	/**
 	 * Add clan as defender
-	 *
+	 * 
 	 * @param clanId
 	 *            The int of clan's id
 	 */
@@ -1015,7 +1020,7 @@ public class Siege implements Siegable
 
 	/**
 	 * Add clan as defender with the specified type
-	 *
+	 * 
 	 * @param clanId
 	 *            The int of clan's id
 	 * @param type
@@ -1028,7 +1033,7 @@ public class Siege implements Siegable
 
 	/**
 	 * Add clan as defender waiting approval
-	 *
+	 * 
 	 * @param clanId
 	 *            The int of clan's id
 	 */
@@ -1244,7 +1249,7 @@ public class Siege implements Siegable
 	/**
 	 * Save registration to database.<BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param clan
 	 *            The L2Clan of player
 	 * @param typeId
@@ -1342,7 +1347,7 @@ public class Siege implements Siegable
 	/**
 	 * Spawn control tower.<BR>
 	 * Create the array which will contain all CTs of that castle if not existing.
-	 *
+	 * 
 	 * @param id
 	 *            The castle identifier of that spawnlist.
 	 */
@@ -1369,7 +1374,7 @@ public class Siege implements Siegable
 
 	/**
 	 * Spawn flame tower.
-	 *
+	 * 
 	 * @param Id
 	 */
 	private void spawnFlameTower(int Id)

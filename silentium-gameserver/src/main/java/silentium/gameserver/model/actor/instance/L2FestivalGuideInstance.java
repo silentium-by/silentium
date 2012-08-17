@@ -1,11 +1,14 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.model.actor.instance;
+
+import java.util.Calendar;
+import java.util.List;
 
 import javolution.text.TextBuilder;
 import silentium.gameserver.configs.EventsConfig;
@@ -20,12 +23,9 @@ import silentium.gameserver.network.serverpackets.SystemMessage;
 import silentium.gameserver.templates.StatsSet;
 import silentium.gameserver.templates.chars.L2NpcTemplate;
 
-import java.util.Calendar;
-import java.util.List;
-
 /**
  * Festival of Darkness Guide (Seven Signs)
- *
+ * 
  * @author Tempy
  */
 public final class L2FestivalGuideInstance extends L2NpcInstance
@@ -188,8 +188,8 @@ public final class L2FestivalGuideInstance extends L2NpcInstance
 					// TODO: Check if the player has delevelled by comparing their skill levels.
 
 					/*
-					 * Check to see if the player has already signed up, if they are then update the participant list providing
-					 * all the required criteria has been met.
+					 * Check to see if the player has already signed up, if they are then update the participant list providing all the required
+					 * criteria has been met.
 					 */
 					if (player.isFestivalParticipant())
 					{
@@ -354,9 +354,8 @@ public final class L2FestivalGuideInstance extends L2NpcInstance
 						return;
 
 					/**
-					 * If the player is the party leader, remove all participants from the festival (i.e. set the party to null,
-					 * when updating the participant list) otherwise just remove this player from the "arena", and also remove
-					 * them from the party.
+					 * If the player is the party leader, remove all participants from the festival (i.e. set the party to null, when updating
+					 * the participant list) otherwise just remove this player from the "arena", and also remove them from the party.
 					 */
 					boolean isLeader = playerParty.isLeader(player);
 

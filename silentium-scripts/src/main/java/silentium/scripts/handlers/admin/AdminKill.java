@@ -1,14 +1,17 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.scripts.handlers.admin;
 
+import java.util.StringTokenizer;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import silentium.gameserver.configs.NPCConfig;
 import silentium.gameserver.handler.IAdminCommandHandler;
 import silentium.gameserver.model.L2Object;
@@ -17,12 +20,10 @@ import silentium.gameserver.model.actor.L2Character;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.network.SystemMessageId;
 
-import java.util.StringTokenizer;
-
 /**
- * This class handles following admin commands: - kill = kills target L2Character - kill_monster = kills target non-player - kill
- * <radius> = If radius is specified, then ALL players only in that radius will be killed. - kill_monster <radius> = If radius is
- * specified, then ALL non-players only in that radius will be killed.
+ * This class handles following admin commands: - kill = kills target L2Character - kill_monster = kills target non-player - kill <radius> = If
+ * radius is specified, then ALL players only in that radius will be killed. - kill_monster <radius> = If radius is specified, then ALL
+ * non-players only in that radius will be killed.
  */
 public class AdminKill implements IAdminCommandHandler
 {
@@ -115,8 +116,7 @@ public class AdminKill implements IAdminCommandHandler
 		else
 			target.reduceCurrentHp(target.getMaxHp() + 1, activeChar, null);
 
-		_log.info("GM: " + activeChar.getName() + "(" + activeChar.getObjectId() + ")" + " killed character " +
-					target.getObjectId());
+		_log.info("GM: " + activeChar.getName() + "(" + activeChar.getObjectId() + ")" + " killed character " + target.getObjectId());
 	}
 
 	@Override

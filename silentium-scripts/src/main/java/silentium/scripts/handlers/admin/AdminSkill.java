@@ -1,14 +1,17 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.scripts.handlers.admin;
 
+import java.util.StringTokenizer;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import silentium.commons.utils.StringUtil;
 import silentium.gameserver.data.html.StaticHtmPath;
 import silentium.gameserver.handler.IAdminCommandHandler;
@@ -24,11 +27,9 @@ import silentium.gameserver.network.serverpackets.PledgeSkillList;
 import silentium.gameserver.network.serverpackets.SystemMessage;
 import silentium.gameserver.tables.SkillTable;
 
-import java.util.StringTokenizer;
-
 /**
- * This class handles following admin commands: - show_skills - remove_skills - skill_list - skill_index - add_skill -
- * remove_skill - get_skills - reset_skills - give_all_skills - remove_all_skills - add_clan_skills
+ * This class handles following admin commands: - show_skills - remove_skills - skill_list - skill_index - add_skill - remove_skill - get_skills
+ * - reset_skills - give_all_skills - remove_all_skills - add_clan_skills
  */
 public class AdminSkill implements IAdminCommandHandler
 {
@@ -163,7 +164,7 @@ public class AdminSkill implements IAdminCommandHandler
 
 	/**
 	 * This function will give all the skills that the target can learn at his/her level
-	 *
+	 * 
 	 * @param activeChar
 	 *            The GM char.
 	 */
@@ -382,8 +383,7 @@ public class AdminSkill implements IAdminCommandHandler
 			if (player != activeChar)
 				player.sendMessage("Admin removed the skill " + skillname + " from your skills list.");
 
-			_log.warn("[GM]" + activeChar.getName() + " removed skill " + skillname + " from " + player.getName() +
-						".");
+			_log.warn("[GM]" + activeChar.getName() + " removed skill " + skillname + " from " + player.getName() + ".");
 
 			player.sendSkillList();
 		}

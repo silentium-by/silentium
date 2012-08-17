@@ -1,23 +1,41 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.model.entity.sevensigns;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ScheduledFuture;
+
 import javolution.util.FastList;
 import javolution.util.FastMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import silentium.commons.database.DatabaseFactory;
 import silentium.commons.utils.Rnd;
 import silentium.gameserver.ThreadPoolManager;
 import silentium.gameserver.ai.CtrlIntention;
 import silentium.gameserver.configs.EventsConfig;
 import silentium.gameserver.data.xml.MapRegionData;
-import silentium.gameserver.model.*;
+import silentium.gameserver.model.L2CharPosition;
+import silentium.gameserver.model.L2Clan;
+import silentium.gameserver.model.L2ItemInstance;
+import silentium.gameserver.model.L2Party;
+import silentium.gameserver.model.L2Spawn;
+import silentium.gameserver.model.L2World;
+import silentium.gameserver.model.SpawnListener;
 import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2FestivalMonsterInstance;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
@@ -35,19 +53,9 @@ import silentium.gameserver.templates.StatsSet;
 import silentium.gameserver.templates.chars.L2NpcTemplate;
 import silentium.gameserver.utils.Util;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ScheduledFuture;
-
 /**
  * Seven Signs Festival of Darkness Engine TODO: - Archer mobs should target healer characters over other party members.
- *
+ * 
  * @author Tempy
  */
 public class SevenSignsFestival implements SpawnListener
@@ -57,12 +65,12 @@ public class SevenSignsFestival implements SpawnListener
 	private static final String GET_CLAN_NAME = "SELECT clan_name FROM clan_data WHERE clan_id = (SELECT clanid FROM characters WHERE char_name = ?)";
 
 	/**
-	 * These length settings are important! :) All times are relative to the ELAPSED time (in ms) since a festival begins.
-	 * Festival manager start is the time after the server starts to begin the first festival cycle. The cycle length should
-	 * ideally be at least 2x longer than the festival length. This allows ample time for players to sign-up to participate in the
-	 * festival. The intermission is the time between the festival participants being moved to the "arenas" and the spawning of
-	 * the first set of mobs. The monster swarm time is the time before the monsters swarm to the center of the arena, after they
-	 * are spawned. The chest spawn time is for when the bonus festival chests spawn, usually towards the end of the festival.
+	 * These length settings are important! :) All times are relative to the ELAPSED time (in ms) since a festival begins. Festival manager start
+	 * is the time after the server starts to begin the first festival cycle. The cycle length should ideally be at least 2x longer than the
+	 * festival length. This allows ample time for players to sign-up to participate in the festival. The intermission is the time between the
+	 * festival participants being moved to the "arenas" and the spawning of the first set of mobs. The monster swarm time is the time before the
+	 * monsters swarm to the center of the arena, after they are spawned. The chest spawn time is for when the bonus festival chests spawn,
+	 * usually towards the end of the festival.
 	 */
 	public static final long FESTIVAL_SIGNUP_TIME = EventsConfig.ALT_FESTIVAL_CYCLE_LENGTH - EventsConfig.ALT_FESTIVAL_LENGTH - 60000;
 
@@ -84,9 +92,8 @@ public class SevenSignsFestival implements SpawnListener
 
 	// ////////////////////// \\\\\\\\\\\\\\\\\\\\\\\\\\
 	/*
-	 * The following contains all the necessary spawn data for: - Player Start Locations - Witches - Monsters - Chests All data is
-	 * given by: X, Y, Z (coords), Heading, NPC ID (if necessary) This may be moved externally in time, but the data should not
-	 * change.
+	 * The following contains all the necessary spawn data for: - Player Start Locations - Witches - Monsters - Chests All data is given by: X,
+	 * Y, Z (coords), Heading, NPC ID (if necessary) This may be moved externally in time, but the data should not change.
 	 */
 	public static final int[][] FESTIVAL_DAWN_PLAYER_SPAWNS = { { -79187, 113186, -4895, 0 }, // 31 and below
 			{ -75918, 110137, -4895, 0 }, // 42 and below
@@ -445,11 +452,10 @@ public class SevenSignsFestival implements SpawnListener
 	private Map<Integer, Integer> _duskFestivalScores;
 
 	/**
-	 * _festivalData is essentially an instance of the seven_signs_festival table and should be treated as such. Data is initially
-	 * accessed by the related Seven Signs cycle, with _signsCycle representing data for the current round of Festivals. The
-	 * actual table data is stored as a series of StatsSet constructs. These are accessed by the use of an offset based on the
-	 * number of festivals, thus: offset = FESTIVAL_COUNT + festivalId (Data for Dawn is always accessed by offset >
-	 * FESTIVAL_COUNT)
+	 * _festivalData is essentially an instance of the seven_signs_festival table and should be treated as such. Data is initially accessed by
+	 * the related Seven Signs cycle, with _signsCycle representing data for the current round of Festivals. The actual table data is stored as a
+	 * series of StatsSet constructs. These are accessed by the use of an offset based on the number of festivals, thus: offset = FESTIVAL_COUNT
+	 * + festivalId (Data for Dawn is always accessed by offset > FESTIVAL_COUNT)
 	 */
 	private Map<Integer, Map<Integer, StatsSet>> _festivalData;
 
@@ -487,7 +493,7 @@ public class SevenSignsFestival implements SpawnListener
 
 	/**
 	 * Returns the associated name (level range) to a given festival ID.
-	 *
+	 * 
 	 * @param festivalID
 	 * @return String festivalName
 	 */
@@ -523,7 +529,7 @@ public class SevenSignsFestival implements SpawnListener
 
 	/**
 	 * Returns the maximum allowed player level for the given festival type.
-	 *
+	 * 
 	 * @param festivalId
 	 * @return int maxLevel
 	 */
@@ -555,7 +561,7 @@ public class SevenSignsFestival implements SpawnListener
 
 	/**
 	 * Returns true if the monster ID given is of an archer/marksman type.
-	 *
+	 * 
 	 * @param npcId
 	 * @return boolean isArcher
 	 */
@@ -570,7 +576,7 @@ public class SevenSignsFestival implements SpawnListener
 
 	/**
 	 * Returns true if the monster ID given is a festival chest.
-	 *
+	 * 
 	 * @param npcId
 	 * @return boolean isChest
 	 */
@@ -581,7 +587,7 @@ public class SevenSignsFestival implements SpawnListener
 
 	/**
 	 * Primarily used to terminate the Festival Manager, when the Seven Signs period changes.
-	 *
+	 * 
 	 * @return ScheduledFuture festManagerScheduler
 	 */
 	protected final ScheduledFuture<?> getFestivalManagerSchedule()
@@ -690,7 +696,7 @@ public class SevenSignsFestival implements SpawnListener
 	 * Stores current festival data, basic settings to the properties file and past high score data to the database.<BR>
 	 * <BR>
 	 * If updateSettings = true, then all Seven Signs data is updated in the database.
-	 *
+	 * 
 	 * @param updateSettings
 	 *            if true, will save Seven Signs status aswell.
 	 */
@@ -723,8 +729,7 @@ public class SevenSignsFestival implements SpawnListener
 					// next record to store.
 					if (statementUpdate.executeUpdate() > 0)
 					{
-						_log.debug("SevenSignsFestival: Updated data in DB (Cycle = " + festivalCycle + ", " +
-									"Cabal = " + cabal + ", FestID = " + festivalId + ")");
+						_log.debug("SevenSignsFestival: Updated data in DB (Cycle = " + festivalCycle + ", " + "Cabal = " + cabal + ", FestID = " + festivalId + ")");
 
 						continue;
 					}
@@ -738,8 +743,7 @@ public class SevenSignsFestival implements SpawnListener
 					statementInsert.execute();
 					statementInsert.clearParameters();
 
-					_log.debug("SevenSignsFestival: Inserted data in DB (Cycle = " + festivalCycle + ", " +
-								"Cabal = " + cabal + ", FestID = " + festivalId + ")");
+					_log.debug("SevenSignsFestival: Inserted data in DB (Cycle = " + festivalCycle + ", " + "Cabal = " + cabal + ", FestID = " + festivalId + ")");
 				}
 			}
 			statementUpdate.close();
@@ -852,7 +856,7 @@ public class SevenSignsFestival implements SpawnListener
 
 	/**
 	 * Used to reset all festival data at the beginning of a new quest event period.
-	 *
+	 * 
 	 * @param updateSettings
 	 */
 	protected void resetFestivalData(boolean updateSettings)
@@ -970,9 +974,9 @@ public class SevenSignsFestival implements SpawnListener
 	}
 
 	/**
-	 * Returns the current festival ID and oracle ID that the specified player is in, but will return the default of {-1, -1} if
-	 * the player is not found as a participant.
-	 *
+	 * Returns the current festival ID and oracle ID that the specified player is in, but will return the default of {-1, -1} if the player is
+	 * not found as a participant.
+	 * 
 	 * @param player
 	 * @return int[] playerFestivalInfo
 	 */
@@ -1061,8 +1065,7 @@ public class SevenSignsFestival implements SpawnListener
 				participants.add(player.getObjectId());
 			}
 
-			_log.debug("SevenSignsFestival: " + festivalParty.getPartyMembers().toString() + " have signed up to the " +
-						"" + SevenSigns.getCabalShortName(oracle) + " " + getFestivalName(festivalId) + " festival.");
+			_log.debug("SevenSignsFestival: " + festivalParty.getPartyMembers().toString() + " have signed up to the " + "" + SevenSigns.getCabalShortName(oracle) + " " + getFestivalName(festivalId) + " festival.");
 		}
 
 		if (oracle == SevenSigns.CABAL_DAWN)
@@ -1125,7 +1128,7 @@ public class SevenSignsFestival implements SpawnListener
 
 	/**
 	 * Returns a stats set containing the highest score <b>this cycle</b> for the the specified cabal and associated festival ID.
-	 *
+	 * 
 	 * @param oracle
 	 * @param festivalId
 	 * @return StatsSet festivalDat
@@ -1151,8 +1154,7 @@ public class SevenSignsFestival implements SpawnListener
 			currData.set("score", 0);
 			currData.set("members", "");
 
-			_log.debug("SevenSignsFestival: Data missing for " + SevenSigns.getCabalName(oracle) + ", " +
-					"FestivalID = " + festivalId + " (Current Cycle " + _signsCycle + ")");
+			_log.debug("SevenSignsFestival: Data missing for " + SevenSigns.getCabalName(oracle) + ", " + "FestivalID = " + festivalId + " (Current Cycle " + _signsCycle + ")");
 		}
 
 		return currData;
@@ -1160,7 +1162,7 @@ public class SevenSignsFestival implements SpawnListener
 
 	/**
 	 * Returns a stats set containing the highest ever recorded score data for the specified festival.
-	 *
+	 * 
 	 * @param festivalId
 	 * @return StatsSet result
 	 */
@@ -1191,9 +1193,9 @@ public class SevenSignsFestival implements SpawnListener
 	}
 
 	/**
-	 * Set the final score details for the last participants of the specified festival data. Returns <b>true</b> if the score is
-	 * higher than that previously recorded <b>this cycle</b>.
-	 *
+	 * Set the final score details for the last participants of the specified festival data. Returns <b>true</b> if the score is higher than that
+	 * previously recorded <b>this cycle</b>.
+	 * 
 	 * @param player
 	 * @param oracle
 	 * @param festivalId
@@ -1247,8 +1249,7 @@ public class SevenSignsFestival implements SpawnListener
 			currFestData.set("score", offeringScore);
 			currFestData.set("members", Util.implodeString(partyMembers, ","));
 
-			_log.debug("SevenSignsFestival: " + player.getName() + "'s party has the highest score (" + offeringScore +
-					") so far for " + SevenSigns.getCabalName(oracle) + " in " + getFestivalName(festivalId));
+			_log.debug("SevenSignsFestival: " + player.getName() + "'s party has the highest score (" + offeringScore + ") so far for " + SevenSigns.getCabalName(oracle) + " in " + getFestivalName(festivalId));
 
 			// Only add the score to the cabal's overall if it's higher than the other cabal's score.
 			if (offeringScore > otherCabalHighScore)
@@ -1307,9 +1308,9 @@ public class SevenSignsFestival implements SpawnListener
 	}
 
 	/**
-	 * Calculate and return the proportion of the accumulated bonus for the festival where the player was in the winning party, if
-	 * the winning party's cabal won the event. The accumulated bonus is then updated, with the player's share deducted.
-	 *
+	 * Calculate and return the proportion of the accumulated bonus for the festival where the player was in the winning party, if the winning
+	 * party's cabal won the event. The accumulated bonus is then updated, with the player's share deducted.
+	 * 
 	 * @param player
 	 * @return playerBonus (the share of the bonus for the party)
 	 */
@@ -1341,9 +1342,8 @@ public class SevenSignsFestival implements SpawnListener
 	}
 
 	/**
-	 * Used to send a "shout" message to all players currently present in an Oracle. Primarily used for Festival Guide and Witch
-	 * related speech.
-	 *
+	 * Used to send a "shout" message to all players currently present in an Oracle. Primarily used for Festival Guide and Witch related speech.
+	 * 
 	 * @param senderName
 	 * @param message
 	 */
@@ -1361,7 +1361,7 @@ public class SevenSignsFestival implements SpawnListener
 
 	/**
 	 * Basically a wrapper-call to signal to increase the challenge of the specified festival.
-	 *
+	 * 
 	 * @param oracle
 	 * @param festivalId
 	 * @return boolean isChalIncreased
@@ -1375,7 +1375,7 @@ public class SevenSignsFestival implements SpawnListener
 
 	/**
 	 * Used with the SpawnListener, to update the required "chat guide" instances, for use with announcements in the oracles.
-	 *
+	 * 
 	 * @param npc
 	 */
 	@Override
@@ -1402,9 +1402,9 @@ public class SevenSignsFestival implements SpawnListener
 	}
 
 	/**
-	 * The FestivalManager class is the main runner of all the festivals. It is used for easier integration and management of all
-	 * running festivals.
-	 *
+	 * The FestivalManager class is the main runner of all the festivals. It is used for easier integration and management of all running
+	 * festivals.
+	 * 
 	 * @author Tempy
 	 */
 	private class FestivalManager implements Runnable
@@ -1643,7 +1643,7 @@ public class SevenSignsFestival implements SpawnListener
 		/**
 		 * Returns the running instance of a festival for the given Oracle and festivalID. <BR>
 		 * A <B>null</B> value is returned if there are no participants in that festival.
-		 *
+		 * 
 		 * @param oracle
 		 * @param festivalId
 		 * @return L2DarknessFestival festivalInst
@@ -1663,9 +1663,9 @@ public class SevenSignsFestival implements SpawnListener
 	}
 
 	/**
-	 * Each running festival is represented by an L2DarknessFestival class. It contains all the spawn information and data for the
-	 * running festival. All festivals are managed by the FestivalManager class, which must be initialized first.
-	 *
+	 * Each running festival is represented by an L2DarknessFestival class. It contains all the spawn information and data for the running
+	 * festival. All festivals are managed by the FestivalManager class, which must be initialized first.
+	 * 
 	 * @author Tempy
 	 */
 	private class L2DarknessFestival
@@ -1776,8 +1776,7 @@ public class SevenSignsFestival implements SpawnListener
 				SpawnTable.getInstance().addNewSpawn(npcSpawn, false);
 				_witchInst = npcSpawn.doSpawn();
 
-				_log.debug("SevenSignsFestival: Spawned the Festival Witch " + npcSpawn.getNpcId() + " at " +
-							_witchSpawn._x + " " + _witchSpawn._y + " " + _witchSpawn._z);
+				_log.debug("SevenSignsFestival: Spawned the Festival Witch " + npcSpawn.getNpcId() + " at " + _witchSpawn._x + " " + _witchSpawn._y + " " + _witchSpawn._z);
 			}
 			catch (Exception e)
 			{
@@ -1807,8 +1806,7 @@ public class SevenSignsFestival implements SpawnListener
 		{
 			boolean isPositive;
 
-			_log.debug("SevenSignsFestival: Moving spawns to arena center for festival " + SevenSigns
-						.getCabalShortName(_cabal) + " (" + getFestivalName(_levelRange) + ")");
+			_log.debug("SevenSignsFestival: Moving spawns to arena center for festival " + SevenSigns.getCabalShortName(_cabal) + " (" + getFestivalName(_levelRange) + ")");
 
 			for (L2FestivalMonsterInstance festivalMob : _npcInsts)
 			{
@@ -1825,8 +1823,8 @@ public class SevenSignsFestival implements SpawnListener
 				int y = _startLocation._y;
 
 				/*
-				 * Random X and Y coords around the player start location, up to half of the maximum allowed offset are generated
-				 * to prevent the mobs from all moving to the exact same place.
+				 * Random X and Y coords around the player start location, up to half of the maximum allowed offset are generated to prevent the
+				 * mobs from all moving to the exact same place.
 				 */
 				isPositive = (Rnd.nextInt(2) == 1);
 
@@ -1855,7 +1853,7 @@ public class SevenSignsFestival implements SpawnListener
 		 * 1 - Same as 0, but without archers/marksmen. (used for challenge increase) <BR>
 		 * 2 - Secondary Monsters (archers) <BR>
 		 * 3 - Festival Chests
-		 *
+		 * 
 		 * @param respawnDelay
 		 * @param spawnType
 		 */
@@ -1914,8 +1912,7 @@ public class SevenSignsFestival implements SpawnListener
 
 						_npcInsts.add(festivalMob);
 
-						_log.debug("SevenSignsFestival: Spawned NPC ID " + currSpawn._npcId + " at " + currSpawn._x +
-									" " + currSpawn._y + " " + currSpawn._z);
+						_log.debug("SevenSignsFestival: Spawned NPC ID " + currSpawn._npcId + " at " + currSpawn._x + " " + currSpawn._y + " " + currSpawn._z);
 					}
 					catch (Exception e)
 					{

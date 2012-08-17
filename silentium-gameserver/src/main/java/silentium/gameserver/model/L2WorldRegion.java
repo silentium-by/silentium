@@ -1,30 +1,36 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.model;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import silentium.gameserver.ThreadPoolManager;
-import silentium.gameserver.configs.NPCConfig;
-import silentium.gameserver.model.actor.*;
-import silentium.gameserver.model.zone.L2ZoneType;
-import silentium.gameserver.model.zone.type.L2DerbyTrackZone;
-import silentium.gameserver.model.zone.type.L2PeaceZone;
-import silentium.gameserver.model.zone.type.L2TownZone;
-import silentium.gameserver.tables.SpawnTable;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ScheduledFuture;
+
+import javolution.util.FastList;
+import javolution.util.FastMap;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import silentium.gameserver.ThreadPoolManager;
+import silentium.gameserver.configs.NPCConfig;
+import silentium.gameserver.model.actor.L2Attackable;
+import silentium.gameserver.model.actor.L2Character;
+import silentium.gameserver.model.actor.L2Npc;
+import silentium.gameserver.model.actor.L2Playable;
+import silentium.gameserver.model.actor.L2Vehicle;
+import silentium.gameserver.model.zone.L2ZoneType;
+import silentium.gameserver.model.zone.type.L2DerbyTrackZone;
+import silentium.gameserver.model.zone.type.L2PeaceZone;
+import silentium.gameserver.model.zone.type.L2TownZone;
+import silentium.gameserver.tables.SpawnTable;
 
 public final class L2WorldRegion
 {
@@ -277,7 +283,7 @@ public final class L2WorldRegion
 
 	/**
 	 * this function turns this region's AI and geodata on or off
-	 *
+	 * 
 	 * @param value
 	 */
 	public void setActive(boolean value)
@@ -299,9 +305,9 @@ public final class L2WorldRegion
 	}
 
 	/**
-	 * Immediately sets self as active and starts a timer to set neighbors as active this timer is to avoid turning on neighbors
-	 * in the case when a person just teleported into a region and then teleported out immediately...there is no reason to
-	 * activate all the neighbors in that case.
+	 * Immediately sets self as active and starts a timer to set neighbors as active this timer is to avoid turning on neighbors in the case when
+	 * a person just teleported into a region and then teleported out immediately...there is no reason to activate all the neighbors in that
+	 * case.
 	 */
 	private void startActivation()
 	{
@@ -323,9 +329,8 @@ public final class L2WorldRegion
 	}
 
 	/**
-	 * starts a timer to set neighbors (including self) as inactive this timer is to avoid turning off neighbors in the case when
-	 * a person just moved out of a region that he may very soon return to. There is no reason to turn self & neighbors off in
-	 * that case.
+	 * starts a timer to set neighbors (including self) as inactive this timer is to avoid turning off neighbors in the case when a person just
+	 * moved out of a region that he may very soon return to. There is no reason to turn self & neighbors off in that case.
 	 */
 	private void startDeactivation()
 	{
@@ -346,10 +351,10 @@ public final class L2WorldRegion
 
 	/**
 	 * Add the L2Object in the L2ObjectHashSet(L2Object) _visibleObjects containing L2Object visible in this L2WorldRegion <BR>
-	 * If L2Object is a L2PcInstance, Add the L2PcInstance in the L2ObjectHashSet(L2PcInstance) _allPlayable containing
-	 * L2PcInstance of all player in game in this L2WorldRegion <BR>
+	 * If L2Object is a L2PcInstance, Add the L2PcInstance in the L2ObjectHashSet(L2PcInstance) _allPlayable containing L2PcInstance of all
+	 * player in game in this L2WorldRegion <BR>
 	 * Assert : object.getCurrentWorldRegion() == this
-	 *
+	 * 
 	 * @param object
 	 */
 	public void addVisibleObject(L2Object object)
@@ -376,7 +381,7 @@ public final class L2WorldRegion
 	 * <BR>
 	 * If L2Object is a L2PcInstance, remove it from the L2ObjectHashSet(L2PcInstance) _allPlayable of this L2WorldRegion <BR>
 	 * Assert : object.getCurrentWorldRegion() == this || object.getCurrentWorldRegion() == null
-	 *
+	 * 
 	 * @param object
 	 */
 	public void removeVisibleObject(L2Object object)

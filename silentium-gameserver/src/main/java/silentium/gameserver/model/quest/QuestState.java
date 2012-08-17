@@ -1,15 +1,22 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.model.quest;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Map;
+
 import javolution.util.FastMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import silentium.commons.database.DatabaseFactory;
 import silentium.commons.utils.Rnd;
 import silentium.gameserver.GameTimeController;
@@ -24,14 +31,18 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2MonsterInstance;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.network.SystemMessageId;
-import silentium.gameserver.network.serverpackets.*;
+import silentium.gameserver.network.serverpackets.ExShowQuestMark;
+import silentium.gameserver.network.serverpackets.InventoryUpdate;
+import silentium.gameserver.network.serverpackets.PlaySound;
+import silentium.gameserver.network.serverpackets.QuestList;
+import silentium.gameserver.network.serverpackets.StatusUpdate;
+import silentium.gameserver.network.serverpackets.SystemMessage;
+import silentium.gameserver.network.serverpackets.TutorialCloseHtml;
+import silentium.gameserver.network.serverpackets.TutorialEnableClientEvent;
+import silentium.gameserver.network.serverpackets.TutorialShowHtml;
+import silentium.gameserver.network.serverpackets.TutorialShowQuestionMark;
 import silentium.gameserver.skills.Stats;
 import silentium.gameserver.tables.ItemTable;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.Map;
 
 /**
  * @author Luis Arias
@@ -73,9 +84,9 @@ public final class QuestState
 	 * Constructor of the QuestState : save the quest in the list of quests of the player.<BR/>
 	 * <BR/>
 	 * <U><I>Actions :</U></I><BR/>
-	 * <LI>Save informations in the object QuestState created (Quest, Player, Completion, State)</LI> <LI>Add the QuestState in
-	 * the player's list of quests by using setQuestState()</LI> <LI>Add drops gotten by the quest</LI> <BR/>
-	 *
+	 * <LI>Save informations in the object QuestState created (Quest, Player, Completion, State)</LI> <LI>Add the QuestState in the player's list
+	 * of quests by using setQuestState()</LI> <LI>Add drops gotten by the quest</LI> <BR/>
+	 * 
 	 * @param quest
 	 *            : quest associated with the QuestState
 	 * @param player
@@ -102,7 +113,7 @@ public final class QuestState
 
 	/**
 	 * Return the quest
-	 *
+	 * 
 	 * @return Quest
 	 */
 	public Quest getQuest()
@@ -112,7 +123,7 @@ public final class QuestState
 
 	/**
 	 * Return the L2PcInstance
-	 *
+	 * 
 	 * @return L2PcInstance
 	 */
 	public L2PcInstance getPlayer()
@@ -122,7 +133,7 @@ public final class QuestState
 
 	/**
 	 * Return the state of the quest
-	 *
+	 * 
 	 * @return State
 	 */
 	public byte getState()
@@ -132,7 +143,7 @@ public final class QuestState
 
 	/**
 	 * Return true if quest just created, false otherwise
-	 *
+	 * 
 	 * @return
 	 */
 	public boolean isCreated()
@@ -142,7 +153,7 @@ public final class QuestState
 
 	/**
 	 * Return true if quest completed, false otherwise
-	 *
+	 * 
 	 * @return boolean
 	 */
 	public boolean isCompleted()
@@ -152,7 +163,7 @@ public final class QuestState
 
 	/**
 	 * Return true if quest started, false otherwise
-	 *
+	 * 
 	 * @return boolean
 	 */
 	public boolean isStarted()
@@ -163,9 +174,9 @@ public final class QuestState
 	/**
 	 * Return state of the quest after its initialization.<BR>
 	 * <BR>
-	 * <U><I>Actions :</I></U> <LI>Remove drops from previous state</LI> <LI>Set new state of the quest</LI> <LI>Add drop for new
-	 * state</LI> <LI>Update information in database</LI> <LI>Send packet QuestList to client</LI>
-	 *
+	 * <U><I>Actions :</I></U> <LI>Remove drops from previous state</LI> <LI>Set new state of the quest</LI> <LI>Add drop for new state</LI> <LI>
+	 * Update information in database</LI> <LI>Send packet QuestList to client</LI>
+	 * 
 	 * @param state
 	 * @return object
 	 */
@@ -200,7 +211,7 @@ public final class QuestState
 
 	/**
 	 * Add parameter used in quests.
-	 *
+	 * 
 	 * @param var
 	 *            : String pointing out the name of the variable for quest
 	 * @param val
@@ -223,12 +234,11 @@ public final class QuestState
 	 * Return value of parameter "val" after adding the couple (var,val) in class variable "vars".<BR>
 	 * <BR>
 	 * <U><I>Actions :</I></U><BR>
-	 * <LI>Initialize class variable "vars" if is null</LI> <LI>Initialize parameter "val" if is null</LI> <LI>Add/Update couple
-	 * (var,val) in class variable FastMap "vars"</LI> <LI>If the key represented by "var" exists in FastMap "vars", the couple
-	 * (var,val) is updated in the database. The key is known as existing if the preceding value of the key (given as result of
-	 * function put()) is not null.<BR>
+	 * <LI>Initialize class variable "vars" if is null</LI> <LI>Initialize parameter "val" if is null</LI> <LI>Add/Update couple (var,val) in
+	 * class variable FastMap "vars"</LI> <LI>If the key represented by "var" exists in FastMap "vars", the couple (var,val) is updated in the
+	 * database. The key is known as existing if the preceding value of the key (given as result of function put()) is not null.<BR>
 	 * If the key doesn't exist, the couple is added/created in the database</LI>
-	 *
+	 * 
 	 * @param var
 	 *            : String indicating the name of the variable for quest
 	 * @param val
@@ -279,17 +289,16 @@ public final class QuestState
 	 * Internally handles the progression of the quest so that it is ready for sending appropriate packets to the client<BR>
 	 * <BR>
 	 * <U><I>Actions :</I></U><BR>
-	 * <LI>Check if the new progress number resets the quest to a previous (smaller) step</LI> <LI>If not, check if quest progress
-	 * steps have been skipped</LI> <LI>If skipped, prepare the variable completedStateFlags appropriately to be ready for sending
-	 * to clients</LI> <LI>If no steps were skipped, flags do not need to be prepared...</LI> <LI>If the passed step resets the
-	 * quest to a previous step, reset such that steps after the parameter are not considered, while skipped steps before the
-	 * parameter, if any, maintain their info</LI>
-	 *
+	 * <LI>Check if the new progress number resets the quest to a previous (smaller) step</LI> <LI>If not, check if quest progress steps have
+	 * been skipped</LI> <LI>If skipped, prepare the variable completedStateFlags appropriately to be ready for sending to clients</LI> <LI>If no
+	 * steps were skipped, flags do not need to be prepared...</LI> <LI>If the passed step resets the quest to a previous step, reset such that
+	 * steps after the parameter are not considered, while skipped steps before the parameter, if any, maintain their info</LI>
+	 * 
 	 * @param cond
 	 *            : int indicating the step number for the current quest progress (as will be shown to the client)
 	 * @param old
-	 *            : int indicating the previously noted step For more info on the variable communicating the progress steps to the
-	 *            client, please see
+	 *            : int indicating the previously noted step For more info on the variable communicating the progress steps to the client, please
+	 *            see
 	 */
 	private void setCond(int cond, int old)
 	{
@@ -375,9 +384,8 @@ public final class QuestState
 	/**
 	 * Remove the variable of quest from the list of variables for the quest.<BR>
 	 * <BR>
-	 * <U><I>Concept : </I></U> Remove the variable of quest represented by "var" from the class variable FastMap "vars" and from
-	 * the database.
-	 *
+	 * <U><I>Concept : </I></U> Remove the variable of quest represented by "var" from the class variable FastMap "vars" and from the database.
+	 * 
 	 * @param var
 	 *            : String designating the variable for the quest to be deleted
 	 * @return String pointing out the previous value associated with the variable "var"
@@ -396,10 +404,10 @@ public final class QuestState
 	}
 
 	/**
-	 * Insert (or Update) in the database variables that need to stay persistant for this player after a reboot. This function is
-	 * for storage of values that do not related to a specific quest but are global for all quests. For example, player's can get
-	 * only once the adena and XP reward for the first class quests, but they can make more than one first class quest.
-	 *
+	 * Insert (or Update) in the database variables that need to stay persistant for this player after a reboot. This function is for storage of
+	 * values that do not related to a specific quest but are global for all quests. For example, player's can get only once the adena and XP
+	 * reward for the first class quests, but they can make more than one first class quest.
+	 * 
 	 * @param var
 	 *            : String designating the name of the variable for the quest
 	 * @param value
@@ -423,11 +431,11 @@ public final class QuestState
 	}
 
 	/**
-	 * Read from the database a previously saved variable for this quest. Due to performance considerations, this function should
-	 * best be used only when the quest is first loaded. Subclasses of this class can define structures into which these loaded
-	 * values can be saved. However, on-demand usage of this function throughout the script is not prohibited, only not
-	 * recommended. Values read from this function were entered by calls to "saveGlobalQuestVar"
-	 *
+	 * Read from the database a previously saved variable for this quest. Due to performance considerations, this function should best be used
+	 * only when the quest is first loaded. Subclasses of this class can define structures into which these loaded values can be saved. However,
+	 * on-demand usage of this function throughout the script is not prohibited, only not recommended. Values read from this function were
+	 * entered by calls to "saveGlobalQuestVar"
+	 * 
 	 * @param var
 	 *            : String designating the name of the variable for the quest
 	 * @return String : String representing the loaded value for the passed var, or an empty string if the var was invalid
@@ -455,7 +463,7 @@ public final class QuestState
 
 	/**
 	 * Permanently delete from the database one of the player's global quest variable that was previously saved.
-	 *
+	 * 
 	 * @param var
 	 *            : String designating the name of the variable
 	 */
@@ -477,7 +485,7 @@ public final class QuestState
 
 	/**
 	 * Return the value of the variable of quest represented by "var"
-	 *
+	 * 
 	 * @param var
 	 *            : name of the variable of quest
 	 * @return String
@@ -492,7 +500,7 @@ public final class QuestState
 
 	/**
 	 * Return the value of the variable of quest represented by "var"
-	 *
+	 * 
 	 * @param var
 	 *            : String designating the variable for the quest
 	 * @return int
@@ -513,8 +521,7 @@ public final class QuestState
 		}
 		catch (Exception e)
 		{
-			_log.debug(getPlayer().getName() + ": variable " + var + " isn't an integer: " + varint + " ! "
-					+ e.getMessage(), e);
+			_log.debug(getPlayer().getName() + ": variable " + var + " isn't an integer: " + varint + " ! " + e.getMessage(), e);
 		}
 
 		return varint;
@@ -522,7 +529,7 @@ public final class QuestState
 
 	/**
 	 * Add player to get notification of characters death
-	 *
+	 * 
 	 * @param character
 	 *            : L2Character of the character to get notification of death
 	 */
@@ -562,7 +569,7 @@ public final class QuestState
 
 	/**
 	 * Return the level of enchantment on the weapon of the player(Done specifically for weapon SA's)
-	 *
+	 * 
 	 * @param itemId
 	 *            : ID of the item to check enchantment
 	 * @return int
@@ -579,7 +586,7 @@ public final class QuestState
 
 	/**
 	 * Give adena to the player
-	 *
+	 * 
 	 * @param count
 	 * @param applyRates
 	 */
@@ -590,7 +597,7 @@ public final class QuestState
 
 	/**
 	 * Reward player using quest reward config multiplier's.
-	 *
+	 * 
 	 * @param itemId
 	 *            : the item to reward.
 	 * @param count
@@ -649,7 +656,7 @@ public final class QuestState
 
 	/**
 	 * Give item/reward to the player
-	 *
+	 * 
 	 * @param itemId
 	 * @param count
 	 */
@@ -710,7 +717,7 @@ public final class QuestState
 	/**
 	 * Drop Quest item using MainConfig.RATE_QUEST_DROP and random number.<br>
 	 * Dropped item amount is always the same.
-	 *
+	 * 
 	 * @param itemId
 	 *            : int Item Identifier of the item to be dropped
 	 * @param count
@@ -728,7 +735,7 @@ public final class QuestState
 
 	/**
 	 * Drop Quest item using MainConfig.RATE_QUEST_DROP and random number.
-	 *
+	 * 
 	 * @param itemId
 	 *            : int Item Identifier of the item to be dropped
 	 * @param minCount
@@ -792,7 +799,7 @@ public final class QuestState
 	/**
 	 * Drop Quest item with 100% luck.<br>
 	 * Dropped item amount is always the same.
-	 *
+	 * 
 	 * @param itemId
 	 *            : int Item Identifier of the item to be dropped
 	 * @param count
@@ -808,7 +815,7 @@ public final class QuestState
 
 	/**
 	 * Drop Quest item with 100% luck.
-	 *
+	 * 
 	 * @param itemId
 	 *            : Item Identifier of the item to be dropped
 	 * @param minCount
@@ -882,7 +889,7 @@ public final class QuestState
 	 * Remove items from player's inventory when talking to NPC in order to have rewards.<BR>
 	 * <BR>
 	 * <U><I>Actions :</I></U> <LI>Destroy quantity of items wanted</LI> <LI>Send new inventory list to player</LI>
-	 *
+	 * 
 	 * @param itemId
 	 *            : Identifier of the item
 	 * @param count
@@ -914,7 +921,7 @@ public final class QuestState
 
 	/**
 	 * Send a packet in order to play sound at client terminal
-	 *
+	 * 
 	 * @param sound
 	 */
 	public void playSound(String sound)
@@ -924,7 +931,7 @@ public final class QuestState
 
 	/**
 	 * Add XP and SP as quest reward
-	 *
+	 * 
 	 * @param exp
 	 * @param sp
 	 */
@@ -935,7 +942,7 @@ public final class QuestState
 
 	/**
 	 * Return random value
-	 *
+	 * 
 	 * @param max
 	 *            : max value for randomisation
 	 * @return int
@@ -982,7 +989,7 @@ public final class QuestState
 	/**
 	 * Start a timer for quest.<BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param name
 	 *            The name of the timer. Will also be the value for event of onEvent
 	 * @param time
@@ -1010,7 +1017,7 @@ public final class QuestState
 
 	/**
 	 * Return the QuestTimer object with the specified name
-	 *
+	 * 
 	 * @param name
 	 *            A name to check.
 	 * @return QuestTimer<BR>
@@ -1023,7 +1030,7 @@ public final class QuestState
 
 	/**
 	 * Add spawn for player instance.
-	 *
+	 * 
 	 * @param npcId
 	 *            template of the npc.
 	 * @return the newly created instance.
@@ -1044,9 +1051,9 @@ public final class QuestState
 	}
 
 	/**
-	 * Add spawn for player instance Will despawn after the spawn length expires Uses player's coords and heading. Adds a little
-	 * randomization in the x y coords
-	 *
+	 * Add spawn for player instance Will despawn after the spawn length expires Uses player's coords and heading. Adds a little randomization in
+	 * the x y coords
+	 * 
 	 * @param npcId
 	 * @param cha
 	 * @return instance of the newly spawned npc.
@@ -1063,7 +1070,7 @@ public final class QuestState
 
 	/**
 	 * Add spawn for player instance Will despawn after the spawn length expires Return object id of newly spawned npc
-	 *
+	 * 
 	 * @param npcId
 	 * @param x
 	 * @param y
@@ -1077,9 +1084,9 @@ public final class QuestState
 	}
 
 	/**
-	 * Add spawn for player instance Inherits coords and heading from specified L2Character instance. It could be either the
-	 * player, or any killed/attacked mob Return object id of newly spawned npc
-	 *
+	 * Add spawn for player instance Inherits coords and heading from specified L2Character instance. It could be either the player, or any
+	 * killed/attacked mob Return object id of newly spawned npc
+	 * 
 	 * @param npcId
 	 * @param cha
 	 * @param randomOffset
@@ -1093,7 +1100,7 @@ public final class QuestState
 
 	/**
 	 * Add spawn for player instance Return object id of newly spawned npc
-	 *
+	 * 
 	 * @param npcId
 	 * @param x
 	 * @param y
@@ -1110,7 +1117,7 @@ public final class QuestState
 
 	/**
 	 * Add spawn for player instance Return object id of newly spawned npc
-	 *
+	 * 
 	 * @param npcId
 	 * @param x
 	 * @param y
@@ -1133,7 +1140,7 @@ public final class QuestState
 
 	/**
 	 * Destroy element used by quest when quest is exited
-	 *
+	 * 
 	 * @param repeatable
 	 * @return QuestState
 	 */

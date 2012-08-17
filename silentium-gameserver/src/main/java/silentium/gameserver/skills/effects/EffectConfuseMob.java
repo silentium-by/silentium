@@ -1,9 +1,9 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.skills.effects;
 
@@ -24,11 +24,11 @@ import silentium.gameserver.skills.Env;
 import silentium.gameserver.templates.skills.L2EffectType;
 
 /**
- * This effect changes the target of the victim. It adds some random aggro aswell to force the monster to keep attacking. As the
- * added aggro is random, the victim can often change of target.<br>
+ * This effect changes the target of the victim. It adds some random aggro aswell to force the monster to keep attacking. As the added aggro is
+ * random, the victim can often change of target.<br>
  * <br>
  * Only others mobs can fill the aggroList of the victim. For a more generic use, consider using EffectConfusion.
- *
+ * 
  * @author littlecrow, Tryskell
  */
 public class EffectConfuseMob extends L2Effect

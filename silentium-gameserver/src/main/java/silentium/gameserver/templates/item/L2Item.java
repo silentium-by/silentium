@@ -1,20 +1,22 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.templates.item;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javolution.util.FastList;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javolution.util.FastList;
-import silentium.gameserver.configs.MainConfig;
 import silentium.commons.utils.StringUtil;
+import silentium.gameserver.configs.MainConfig;
 import silentium.gameserver.model.L2Effect;
 import silentium.gameserver.model.L2ItemInstance;
 import silentium.gameserver.model.L2Object;
@@ -152,7 +154,7 @@ public abstract class L2Item
 	/**
 	 * Constructor of the L2Item that fill class variables.<BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param set
 	 *            : StatsSet corresponding to a set of couples (key,value) for description of the item
 	 */
@@ -396,7 +398,7 @@ public abstract class L2Item
 
 	/**
 	 * Returns if the item can be sold
-	 *
+	 * 
 	 * @return boolean
 	 */
 	public final boolean isSellable()
@@ -406,7 +408,7 @@ public abstract class L2Item
 
 	/**
 	 * Returns if the item can dropped
-	 *
+	 * 
 	 * @return boolean
 	 */
 	public final boolean isDropable()
@@ -416,7 +418,7 @@ public abstract class L2Item
 
 	/**
 	 * Returns if the item can destroy
-	 *
+	 * 
 	 * @return boolean
 	 */
 	public final boolean isDestroyable()
@@ -426,7 +428,7 @@ public abstract class L2Item
 
 	/**
 	 * Returns if the item can add to trade
-	 *
+	 * 
 	 * @return boolean
 	 */
 	public final boolean isTradable()
@@ -436,7 +438,7 @@ public abstract class L2Item
 
 	/**
 	 * Returns if the item can be put into warehouse
-	 *
+	 * 
 	 * @return boolean
 	 */
 	public final boolean isDepositable()
@@ -446,7 +448,7 @@ public abstract class L2Item
 
 	/**
 	 * Returns array of Func objects containing the list of functions used by the item
-	 *
+	 * 
 	 * @param instance
 	 *            : L2ItemInstance pointing out the item
 	 * @param player
@@ -482,7 +484,7 @@ public abstract class L2Item
 
 	/**
 	 * Returns the effects associated with the item.
-	 *
+	 * 
 	 * @param instance
 	 *            : L2ItemInstance pointing out the item
 	 * @param player
@@ -524,7 +526,7 @@ public abstract class L2Item
 
 	/**
 	 * Add the FuncTemplate f to the list of functions used with the item
-	 *
+	 * 
 	 * @param f
 	 *            : FuncTemplate to add
 	 */
@@ -532,13 +534,12 @@ public abstract class L2Item
 	{
 		switch (f.stat)
 		{/*
-		 * FIXME elementals case FIRE_RES: case FIRE_POWER: setElementals(new Elementals(Elementals.FIRE, (int)
-		 * f.lambda.calc(null))); break; case WATER_RES: case WATER_POWER: setElementals(new Elementals(Elementals.WATER, (int)
-		 * f.lambda.calc(null))); break; case WIND_RES: case WIND_POWER: setElementals(new Elementals(Elementals.WIND, (int)
-		 * f.lambda.calc(null))); break; case EARTH_RES: case EARTH_POWER: setElementals(new Elementals(Elementals.EARTH, (int)
-		 * f.lambda.calc(null))); break; case HOLY_RES: case HOLY_POWER: setElementals(new Elementals(Elementals.HOLY, (int)
-		 * f.lambda.calc(null))); break; case DARK_RES: case DARK_POWER: setElementals(new Elementals(Elementals.DARK, (int)
-		 * f.lambda.calc(null))); break;
+		 * FIXME elementals case FIRE_RES: case FIRE_POWER: setElementals(new Elementals(Elementals.FIRE, (int) f.lambda.calc(null))); break;
+		 * case WATER_RES: case WATER_POWER: setElementals(new Elementals(Elementals.WATER, (int) f.lambda.calc(null))); break; case WIND_RES:
+		 * case WIND_POWER: setElementals(new Elementals(Elementals.WIND, (int) f.lambda.calc(null))); break; case EARTH_RES: case EARTH_POWER:
+		 * setElementals(new Elementals(Elementals.EARTH, (int) f.lambda.calc(null))); break; case HOLY_RES: case HOLY_POWER: setElementals(new
+		 * Elementals(Elementals.HOLY, (int) f.lambda.calc(null))); break; case DARK_RES: case DARK_POWER: setElementals(new
+		 * Elementals(Elementals.DARK, (int) f.lambda.calc(null))); break;
 		 */
 		}
 
@@ -557,7 +558,7 @@ public abstract class L2Item
 
 	/**
 	 * Add the EffectTemplate effect to the list of effects generated by the item
-	 *
+	 * 
 	 * @param effect
 	 *            : EffectTemplate
 	 */
@@ -586,7 +587,7 @@ public abstract class L2Item
 
 	/**
 	 * Method to retrieve skills linked to this item
-	 *
+	 * 
 	 * @return Skills linked to this item as SkillHolder[]
 	 */
 	public final SkillHolder[] getSkills()
@@ -692,7 +693,7 @@ public abstract class L2Item
 
 	/**
 	 * Returns the name of the item
-	 *
+	 * 
 	 * @return String
 	 */
 	@Override

@@ -1,33 +1,38 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.tables;
 
 import gnu.trove.map.hash.TIntObjectHashMap;
-import javolution.util.FastList;
-import javolution.util.FastMap;
-import silentium.commons.database.DatabaseFactory;
-import silentium.gameserver.model.*;
-import silentium.gameserver.model.base.ClassId;
-import silentium.gameserver.model.quest.Quest;
-import silentium.gameserver.model.quest.Quest.QuestEventType;
-import silentium.gameserver.skills.Formulas;
-import silentium.gameserver.templates.StatsSet;
-import silentium.gameserver.templates.chars.L2NpcTemplate;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
 import java.util.Map;
+
+import javolution.util.FastList;
+import javolution.util.FastMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import silentium.commons.database.DatabaseFactory;
+import silentium.gameserver.model.L2DropCategory;
+import silentium.gameserver.model.L2DropData;
+import silentium.gameserver.model.L2MinionData;
+import silentium.gameserver.model.L2NpcAIData;
+import silentium.gameserver.model.L2Skill;
+import silentium.gameserver.model.base.ClassId;
+import silentium.gameserver.model.quest.Quest;
+import silentium.gameserver.model.quest.Quest.QuestEventType;
+import silentium.gameserver.skills.Formulas;
+import silentium.gameserver.templates.StatsSet;
+import silentium.gameserver.templates.chars.L2NpcTemplate;
 
 public class NpcTable
 {
@@ -63,7 +68,7 @@ public class NpcTable
 
 	/**
 	 * Id equals to zero or lesser means all.
-	 *
+	 * 
 	 * @param id
 	 *            of the NPC to load.
 	 */
@@ -134,11 +139,10 @@ public class NpcTable
 				npcDat.set("baseMDef", rset.getInt("mdef"));
 				npcDat.set("basePDef", rset.getInt("pdef"));
 				/*
-				 * } else { npcDat.set("baseRunSpd", Formulas.calcNpcMoveBonus(DEX, rset.getInt("runspd")));
-				 * npcDat.set("basePAtkSpd", Formulas.calcNpcPatkSpdBonus(DEX, rset.getInt("atkspd"))); npcDat.set("baseMAtkSpd",
-				 * Formulas.calcNpcMatkSpdBonus(WIT, rset.getInt("matkspd"))); npcDat.set("basePAtk",
-				 * Formulas.calcNpcPatkBonus(STR, rset.getInt("patk"), level)); npcDat.set("baseMAtk",
-				 * Formulas.calcNpcMatkBonus(INT, rset.getInt("matk"), level)); npcDat.set("baseMDef",
+				 * } else { npcDat.set("baseRunSpd", Formulas.calcNpcMoveBonus(DEX, rset.getInt("runspd"))); npcDat.set("basePAtkSpd",
+				 * Formulas.calcNpcPatkSpdBonus(DEX, rset.getInt("atkspd"))); npcDat.set("baseMAtkSpd", Formulas.calcNpcMatkSpdBonus(WIT,
+				 * rset.getInt("matkspd"))); npcDat.set("basePAtk", Formulas.calcNpcPatkBonus(STR, rset.getInt("patk"), level));
+				 * npcDat.set("baseMAtk", Formulas.calcNpcMatkBonus(INT, rset.getInt("matk"), level)); npcDat.set("baseMDef",
 				 * Formulas.calcNpcMdefBonus(MEN, rset.getInt("mdef"), level)); npcDat.set("basePDef",
 				 * Formulas.calcNpcPdefBonus(rset.getInt("pdef"), level)); }
 				 */
@@ -172,7 +176,7 @@ public class NpcTable
 
 	/**
 	 * Id equals to zero or lesser means all.
-	 *
+	 * 
 	 * @param id
 	 *            of the NPC to load it's skills.
 	 */
@@ -239,7 +243,7 @@ public class NpcTable
 
 	/**
 	 * Id equals to zero or lesser means all.
-	 *
+	 * 
 	 * @param id
 	 *            of the NPC to load it's drops.
 	 */
@@ -301,7 +305,7 @@ public class NpcTable
 
 	/**
 	 * Id equals to zero or lesser means all.
-	 *
+	 * 
 	 * @param id
 	 *            of the NPC to load it's skill learn list.
 	 */
@@ -351,7 +355,7 @@ public class NpcTable
 
 	/**
 	 * Id equals to zero or lesser means all.
-	 *
+	 * 
 	 * @param id
 	 *            of the NPC to load it's minions.
 	 */
@@ -409,7 +413,7 @@ public class NpcTable
 
 	/**
 	 * Id equals to zero or lesser means all.
-	 *
+	 * 
 	 * @param id
 	 *            of the NPC to load it's AI data.
 	 */

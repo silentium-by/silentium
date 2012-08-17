@@ -1,24 +1,25 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.utils;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import silentium.commons.utils.StringUtil;
 import silentium.gameserver.GameTimeController;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.network.L2GameClient;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 /**
  * Flood protector implementation.
- *
+ * 
  * @author fordfrog
  */
 public final class FloodProtectorAction
@@ -37,7 +38,7 @@ public final class FloodProtectorAction
 
 	/**
 	 * Creates new instance of FloodProtectorAction.
-	 *
+	 * 
 	 * @param client
 	 *            client for which flood protection is being created
 	 * @param config
@@ -52,7 +53,7 @@ public final class FloodProtectorAction
 
 	/**
 	 * Checks whether the request is flood protected or not.
-	 *
+	 * 
 	 * @param command
 	 *            command issued or short command description
 	 * @return true if action is allowed, otherwise false

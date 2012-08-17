@@ -1,11 +1,14 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.scripts.quests;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import silentium.commons.utils.Rnd;
 import silentium.gameserver.configs.MainConfig;
@@ -15,10 +18,8 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-import java.util.HashMap;
-import java.util.Map;
-
-public class Q039_RedEyedInvaders extends Quest implements ScriptFile {
+public class Q039_RedEyedInvaders extends Quest implements ScriptFile
+{
 	private final static String qn = "Q039_RedEyedInvaders";
 
 	// NPCs
@@ -60,7 +61,8 @@ public class Q039_RedEyedInvaders extends Quest implements ScriptFile {
 	private static final int BABY_DUCK_RODE = 6529;
 	private static final int FISHING_SHOT_NG = 6535;
 
-	public Q039_RedEyedInvaders(int questId, String name, String descr) {
+	public Q039_RedEyedInvaders(int questId, String name, String descr)
+	{
 		super(questId, name, descr);
 
 		questItemIds = new int[] { BLACK_BONE_NECKLACE, RED_BONE_NECKLACE, INCENSE_POUCH, GEM_OF_MAILLE };
@@ -71,30 +73,39 @@ public class Q039_RedEyedInvaders extends Quest implements ScriptFile {
 		addKillId(M_LIZARDMAN, M_LIZARDMAN_SCOUT, M_LIZARDMAN_GUARD, ARANEID);
 	}
 
-	public static void onLoad() {
+	public static void onLoad()
+	{
 		new Q039_RedEyedInvaders(39, "Q039_RedEyedInvaders", "Red-Eyed Invaders");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	{
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30334-1.htm")) {
+		if (event.equalsIgnoreCase("30334-1.htm"))
+		{
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		} else if (event.equalsIgnoreCase("30332-1.htm")) {
+		}
+		else if (event.equalsIgnoreCase("30332-1.htm"))
+		{
 			st.set("cond", "2");
 			st.playSound(QuestState.SOUND_MIDDLE);
-		} else if (event.equalsIgnoreCase("30332-3.htm")) {
+		}
+		else if (event.equalsIgnoreCase("30332-3.htm"))
+		{
 			st.set("cond", "4");
 			st.takeItems(BLACK_BONE_NECKLACE, -1);
 			st.takeItems(RED_BONE_NECKLACE, -1);
 			st.playSound(QuestState.SOUND_MIDDLE);
-		} else if (event.equalsIgnoreCase("30332-5.htm")) {
+		}
+		else if (event.equalsIgnoreCase("30332-5.htm"))
+		{
 			st.takeItems(INCENSE_POUCH, -1);
 			st.takeItems(GEM_OF_MAILLE, -1);
 			st.giveItems(GREEN_COLORED_LURE_HG, 60);
@@ -108,17 +119,20 @@ public class Q039_RedEyedInvaders extends Quest implements ScriptFile {
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player) {
+	public String onTalk(L2Npc npc, L2PcInstance player)
+	{
 		String htmltext = Quest.getNoQuestMsg();
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState()) {
+		switch (st.getState())
+		{
 			case QuestState.CREATED:
 				if (player.getLevel() >= 20 && player.getLevel() <= 28)
 					htmltext = "30334-0.htm";
-				else {
+				else
+				{
 					htmltext = "30334-2.htm";
 					st.exitQuest(true);
 				}
@@ -126,7 +140,8 @@ public class Q039_RedEyedInvaders extends Quest implements ScriptFile {
 
 			case QuestState.STARTED:
 				int cond = st.getInt("cond");
-				switch (npc.getNpcId()) {
+				switch (npc.getNpcId())
+				{
 					case BABENCO:
 						if (cond >= 1)
 							htmltext = "30334-3.htm";
@@ -156,11 +171,13 @@ public class Q039_RedEyedInvaders extends Quest implements ScriptFile {
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
+	{
 		int npcId = npc.getNpcId();
 
 		L2PcInstance partyMember = getRandomPartyMember(player, npc, "2");
-		if (partyMember != null && npcId != ARANEID) {
+		if (partyMember != null && npcId != ARANEID)
+		{
 			drop(partyMember, FIRST_DP.get(npcId));
 			return null;
 		}
@@ -171,7 +188,8 @@ public class Q039_RedEyedInvaders extends Quest implements ScriptFile {
 		return null;
 	}
 
-	private void drop(L2PcInstance player, int[] list) {
+	private void drop(L2PcInstance player, int[] list)
+	{
 		int item = list[0];
 		int max = list[1];
 		int item2 = list[2];
@@ -191,12 +209,15 @@ public class Q039_RedEyedInvaders extends Quest implements ScriptFile {
 		if (count + numItems >= max)
 			numItems = max - count;
 
-		if (numItems > 0) {
+		if (numItems > 0)
+		{
 			st.giveItems(item, numItems);
-			if (st.getQuestItemsCount(item) == max && st.getQuestItemsCount(item2) == max) {
+			if (st.getQuestItemsCount(item) == max && st.getQuestItemsCount(item2) == max)
+			{
 				st.set("cond", String.valueOf(cond));
 				st.playSound(QuestState.SOUND_MIDDLE);
-			} else
+			}
+			else
 				st.playSound(QuestState.SOUND_ITEMGET);
 		}
 	}

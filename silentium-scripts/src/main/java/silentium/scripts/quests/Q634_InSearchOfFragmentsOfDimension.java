@@ -1,9 +1,9 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.scripts.quests;
 
@@ -15,17 +15,20 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q634_InSearchOfFragmentsOfDimension extends Quest implements ScriptFile {
+public class Q634_InSearchOfFragmentsOfDimension extends Quest implements ScriptFile
+{
 	private final static String qn = "Q634_InSearchOfFragmentsOfDimension";
 
 	// Items
 	private static final int DIMENSION_FRAGMENT = 7079;
 
-	public Q634_InSearchOfFragmentsOfDimension(int questId, String name, String descr) {
+	public Q634_InSearchOfFragmentsOfDimension(int questId, String name, String descr)
+	{
 		super(questId, name, descr);
 
 		// Dimensional Gate Keepers.
-		for (int i = 31494; i < 31508; i++) {
+		for (int i = 31494; i < 31508; i++)
+		{
 			addStartNpc(i);
 			addTalkId(i);
 		}
@@ -35,22 +38,27 @@ public class Q634_InSearchOfFragmentsOfDimension extends Quest implements Script
 			addKillId(i);
 	}
 
-	public static void onLoad() {
+	public static void onLoad()
+	{
 		new Q634_InSearchOfFragmentsOfDimension(634, "Q634_InSearchOfFragmentsOfDimension", "In Search of Fragments of Dimension");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	{
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("02.htm")) {
+		if (event.equalsIgnoreCase("02.htm"))
+		{
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		} else if (event.equalsIgnoreCase("05.htm")) {
+		}
+		else if (event.equalsIgnoreCase("05.htm"))
+		{
 			st.playSound(QuestState.SOUND_FINISH);
 			st.exitQuest(true);
 		}
@@ -58,17 +66,20 @@ public class Q634_InSearchOfFragmentsOfDimension extends Quest implements Script
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player) {
+	public String onTalk(L2Npc npc, L2PcInstance player)
+	{
 		QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState()) {
+		switch (st.getState())
+		{
 			case QuestState.CREATED:
 				if (st.getPlayer().getLevel() >= 20)
 					htmltext = "01.htm";
-				else {
+				else
+				{
 					htmltext = "01a.htm";
 					st.exitQuest(true);
 				}
@@ -83,7 +94,8 @@ public class Q634_InSearchOfFragmentsOfDimension extends Quest implements Script
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
+	{
 		L2PcInstance partyMember = getRandomPartyMemberState(player, npc, QuestState.STARTED);
 		if (partyMember == null)
 			return null;
@@ -97,7 +109,8 @@ public class Q634_InSearchOfFragmentsOfDimension extends Quest implements Script
 			itemMultiplier++;
 
 		int numItems = (int) (itemMultiplier * (npc.getLevel() * 0.15 + 1.6));
-		if (numItems > 0) {
+		if (numItems > 0)
+		{
 			st.giveItems(DIMENSION_FRAGMENT, numItems);
 			st.playSound(QuestState.SOUND_ITEMGET);
 		}

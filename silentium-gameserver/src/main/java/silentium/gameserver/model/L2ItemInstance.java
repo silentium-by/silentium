@@ -1,14 +1,22 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.model;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.locks.ReentrantLock;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import silentium.commons.database.DatabaseFactory;
 import silentium.gameserver.ThreadPoolManager;
 import silentium.gameserver.ai.CtrlIntention;
@@ -21,18 +29,21 @@ import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.actor.knownlist.NullKnownList;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.network.SystemMessageId;
-import silentium.gameserver.network.serverpackets.*;
+import silentium.gameserver.network.serverpackets.DropItem;
+import silentium.gameserver.network.serverpackets.GetItem;
+import silentium.gameserver.network.serverpackets.InventoryUpdate;
+import silentium.gameserver.network.serverpackets.SpawnItem;
+import silentium.gameserver.network.serverpackets.StatusUpdate;
+import silentium.gameserver.network.serverpackets.SystemMessage;
 import silentium.gameserver.skills.basefuncs.Func;
 import silentium.gameserver.tables.ItemTable;
-import silentium.gameserver.templates.item.*;
+import silentium.gameserver.templates.item.L2Armor;
+import silentium.gameserver.templates.item.L2EtcItem;
+import silentium.gameserver.templates.item.L2EtcItemType;
+import silentium.gameserver.templates.item.L2Item;
+import silentium.gameserver.templates.item.L2ItemType;
+import silentium.gameserver.templates.item.L2Weapon;
 import silentium.gameserver.utils.LoggingUtils;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * This class manages items.
@@ -108,7 +119,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Constructor of the L2ItemInstance from the objectId and the itemId.
-	 *
+	 * 
 	 * @param objectId
 	 *            : int designating the ID of the object in the world
 	 * @param itemId
@@ -134,7 +145,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Constructor of the L2ItemInstance from the objetId and the description of the item given by the L2Item.
-	 *
+	 * 
 	 * @param objectId
 	 *            : int designating the ID of the object in the world
 	 * @param item
@@ -157,7 +168,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Sets the ownerID of the item
-	 *
+	 * 
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param owner_id
@@ -177,7 +188,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Sets the ownerID of the item
-	 *
+	 * 
 	 * @param owner_id
 	 *            : int designating the ID of the owner
 	 */
@@ -192,7 +203,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns the ownerID of the item
-	 *
+	 * 
 	 * @return int : ownerID of the item
 	 */
 	public int getOwnerId()
@@ -202,7 +213,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Sets the location of the item
-	 *
+	 * 
 	 * @param loc
 	 *            : ItemLocation (enumeration)
 	 */
@@ -215,7 +226,7 @@ public final class L2ItemInstance extends L2Object
 	 * Sets the location of the item.<BR>
 	 * <BR>
 	 * <U><I>Remark :</I></U> If loc and loc_data different from database, say datas not up-to-date
-	 *
+	 * 
 	 * @param loc
 	 *            : ItemLocation (enumeration)
 	 * @param loc_data
@@ -239,7 +250,7 @@ public final class L2ItemInstance extends L2Object
 	/**
 	 * Sets the quantity of the item.<BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param count
 	 *            the new count to set
 	 */
@@ -254,7 +265,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns the quantity of item
-	 *
+	 * 
 	 * @return int
 	 */
 	public int getCount()
@@ -266,7 +277,7 @@ public final class L2ItemInstance extends L2Object
 	 * Sets the quantity of the item.<BR>
 	 * <BR>
 	 * <U><I>Remark :</I></U> If loc and loc_data different from database, say datas not up-to-date
-	 *
+	 * 
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param count
@@ -303,7 +314,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns if item is equipable
-	 *
+	 * 
 	 * @return boolean
 	 */
 	public boolean isEquipable()
@@ -313,7 +324,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns if item is equipped
-	 *
+	 * 
 	 * @return boolean
 	 */
 	public boolean isEquipped()
@@ -323,7 +334,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns the slot where the item is stored
-	 *
+	 * 
 	 * @return int
 	 */
 	public int getLocationSlot()
@@ -334,7 +345,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns the characteristics of the item
-	 *
+	 * 
 	 * @return L2Item
 	 */
 	public L2Item getItem()
@@ -379,7 +390,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns the type of item
-	 *
+	 * 
 	 * @return Enum
 	 */
 	public L2ItemType getItemType()
@@ -389,7 +400,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns the ID of the item
-	 *
+	 * 
 	 * @return int
 	 */
 	public int getItemId()
@@ -399,7 +410,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns true if item is an EtcItem
-	 *
+	 * 
 	 * @return boolean
 	 */
 	public boolean isEtcItem()
@@ -409,7 +420,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns true if item is a Weapon/Shield
-	 *
+	 * 
 	 * @return boolean
 	 */
 	public boolean isWeapon()
@@ -419,7 +430,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns true if item is an Armor
-	 *
+	 * 
 	 * @return boolean
 	 */
 	public boolean isArmor()
@@ -429,7 +440,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns the characteristics of the L2EtcItem
-	 *
+	 * 
 	 * @return L2EtcItem
 	 */
 	public L2EtcItem getEtcItem()
@@ -442,7 +453,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns the characteristics of the L2Weapon
-	 *
+	 * 
 	 * @return L2Weapon
 	 */
 	public L2Weapon getWeaponItem()
@@ -455,7 +466,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns the characteristics of the L2Armor
-	 *
+	 * 
 	 * @return L2Armor
 	 */
 	public L2Armor getArmorItem()
@@ -468,7 +479,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns the quantity of crystals for crystallization
-	 *
+	 * 
 	 * @return int
 	 */
 	public final int getCrystalCount()
@@ -502,7 +513,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Sets the last change of the item
-	 *
+	 * 
 	 * @param lastChange
 	 *            : int
 	 */
@@ -633,7 +644,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Sets the level of enchantment of the item
-	 *
+	 * 
 	 * @param enchantLevel
 	 *            : number to apply.
 	 */
@@ -664,7 +675,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Sets a new augmentation.
-	 *
+	 * 
 	 * @param augmentation
 	 *            : the augmentation object to apply.
 	 * @return return true if successfull.
@@ -801,7 +812,7 @@ public final class L2ItemInstance extends L2Object
 	/**
 	 * Sets the mana for this shadow item.<BR>
 	 * <b>NOTE</b>: does not send an inventory update packet
-	 *
+	 * 
 	 * @param mana
 	 */
 	public void setMana(int mana)
@@ -818,9 +829,9 @@ public final class L2ItemInstance extends L2Object
 	}
 
 	/**
-	 * Decreases the mana of this shadow item, sends a inventory update schedules a new consumption task if non is running
-	 * optionally one could force a new task
-	 *
+	 * Decreases the mana of this shadow item, sends a inventory update schedules a new consumption task if non is running optionally one could
+	 * force a new task
+	 * 
 	 * @param resetConsumingMana
 	 *            : if false, continue to schedule mana drop (case of shadow weapon).
 	 */
@@ -928,7 +939,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns false cause item can't be attacked
-	 *
+	 * 
 	 * @return boolean false
 	 */
 	@Override
@@ -939,7 +950,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns the type of charge with SoulShot of the item.
-	 *
+	 * 
 	 * @return int (CHARGED_NONE, CHARGED_SOULSHOT)
 	 */
 	public int getChargedSoulshot()
@@ -949,7 +960,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns the type of charge with SpiritShot of the item
-	 *
+	 * 
 	 * @return int (CHARGED_NONE, CHARGED_SPIRITSHOT, CHARGED_BLESSED_SPIRITSHOT)
 	 */
 	public int getChargedSpiritshot()
@@ -964,7 +975,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Sets the type of charge with SoulShot of the item
-	 *
+	 * 
 	 * @param type
 	 *            : int (CHARGED_NONE, CHARGED_SOULSHOT)
 	 */
@@ -975,7 +986,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Sets the type of charge with SpiritShot of the item
-	 *
+	 * 
 	 * @param type
 	 *            : int (CHARGED_NONE, CHARGED_SPIRITSHOT, CHARGED_BLESSED_SPIRITSHOT)
 	 */
@@ -990,9 +1001,9 @@ public final class L2ItemInstance extends L2Object
 	}
 
 	/**
-	 * This function basically returns a set of functions from L2Item/L2Armor/L2Weapon, but may add additional functions, if this
-	 * particular item instance is enhanched for a particular player.
-	 *
+	 * This function basically returns a set of functions from L2Item/L2Armor/L2Weapon, but may add additional functions, if this particular item
+	 * instance is enhanched for a particular player.
+	 * 
 	 * @param player
 	 *            : L2Character designating the player
 	 * @return Func[]
@@ -1013,8 +1024,7 @@ public final class L2ItemInstance extends L2Object
 	 * </UL>
 	 * <B> Otherwise</B> :
 	 * <UL>
-	 * <LI><B>IF</B> the item hasn't a null quantity, and has a correct location, and has a correct owner : insert item in
-	 * database</LI>
+	 * <LI><B>IF</B> the item hasn't a null quantity, and has a correct location, and has a correct owner : insert item in database</LI>
 	 * </UL>
 	 */
 	public void updateDatabase()
@@ -1115,7 +1125,7 @@ public final class L2ItemInstance extends L2Object
 	 * <BR>
 	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T ADD the object to _allObjects of L2World </B></FONT><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param dropper
 	 *            : the character who dropped the item.
 	 * @param x
@@ -1192,7 +1202,7 @@ public final class L2ItemInstance extends L2Object
 	 * <BR>
 	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T REMOVE the object from _allObjects of L2World </B></FONT><BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param player
 	 *            Player that pick up the item
 	 */

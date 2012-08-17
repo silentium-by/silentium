@@ -1,12 +1,16 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.ai;
 
+import static silentium.gameserver.ai.CtrlIntention.AI_INTENTION_CAST;
+import static silentium.gameserver.ai.CtrlIntention.AI_INTENTION_IDLE;
+import static silentium.gameserver.ai.CtrlIntention.AI_INTENTION_MOVE_TO;
+import static silentium.gameserver.ai.CtrlIntention.AI_INTENTION_REST;
 import silentium.gameserver.model.L2CharPosition;
 import silentium.gameserver.model.L2Object;
 import silentium.gameserver.model.L2Skill;
@@ -15,8 +19,6 @@ import silentium.gameserver.model.actor.L2Character;
 import silentium.gameserver.model.actor.L2Character.AIAccessor;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.actor.instance.L2StaticObjectInstance;
-
-import static silentium.gameserver.ai.CtrlIntention.*;
 
 public class PlayerAI extends PlayableAI
 {
@@ -42,7 +44,7 @@ public class PlayerAI extends PlayableAI
 	/**
 	 * Saves the current Intention for this PlayerAI if necessary and calls changeIntention in AbstractAI.<BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param intention
 	 *            The new Intention to set to the AI
 	 * @param arg0
@@ -141,9 +143,9 @@ public class PlayerAI extends PlayableAI
 	 * <BR>
 	 * <B><U> Actions</U> : </B><BR>
 	 * <BR>
-	 * <li>Stop the actor auto-attack server side AND client side by sending Server->Client packet AutoAttackStop (broadcast)</li>
-	 * <li>Set the Intention of this AI to AI_INTENTION_MOVE_TO</li> <li>Move the actor to Location (x,y,z) server side AND client
-	 * side by sending Server->Client packet MoveToLocation (broadcast)</li><BR>
+	 * <li>Stop the actor auto-attack server side AND client side by sending Server->Client packet AutoAttackStop (broadcast)</li> <li>Set the
+	 * Intention of this AI to AI_INTENTION_MOVE_TO</li> <li>Move the actor to Location (x,y,z) server side AND client side by sending
+	 * Server->Client packet MoveToLocation (broadcast)</li><BR>
 	 * <BR>
 	 */
 	@Override

@@ -1,11 +1,14 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.scripts.quests;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import silentium.commons.utils.Rnd;
 import silentium.gameserver.model.actor.L2Npc;
@@ -14,10 +17,8 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-import java.util.HashMap;
-import java.util.Map;
-
-public class Q038_DragonFangs extends Quest implements ScriptFile {
+public class Q038_DragonFangs extends Quest implements ScriptFile
+{
 	private final static String qn = "Q038_DragonFangs";
 
 	// Items
@@ -45,7 +46,8 @@ public class Q038_DragonFangs extends Quest implements ScriptFile {
 		droplist.put(20356, new int[] { 6, TOOTH_OF_DRAGON, 50, 50 });
 	}
 
-	public Q038_DragonFangs(int questId, String name, String descr) {
+	public Q038_DragonFangs(int questId, String name, String descr)
+	{
 		super(questId, name, descr);
 
 		questItemIds = new int[] { FEATHER_ORNAMENT, TOOTH_OF_TOTEM, TOOTH_OF_DRAGON, LETTER_OF_IRIS, LETTER_OF_ROHMER };
@@ -57,51 +59,68 @@ public class Q038_DragonFangs extends Quest implements ScriptFile {
 			addKillId(mob);
 	}
 
-	public static void onLoad() {
+	public static void onLoad()
+	{
 		new Q038_DragonFangs(38, "Q038_DragonFangs", "Dragon Fangs");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	{
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30386-02.htm")) {
+		if (event.equalsIgnoreCase("30386-02.htm"))
+		{
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		} else if (event.equalsIgnoreCase("30386-04.htm")) {
+		}
+		else if (event.equalsIgnoreCase("30386-04.htm"))
+		{
 			st.set("cond", "3");
 			st.takeItems(FEATHER_ORNAMENT, 100);
 			st.giveItems(TOOTH_OF_TOTEM, 1);
 			st.playSound(QuestState.SOUND_MIDDLE);
-		} else if (event.equalsIgnoreCase("30034-02a.htm")) {
-			if (st.getQuestItemsCount(TOOTH_OF_TOTEM) == 1) {
+		}
+		else if (event.equalsIgnoreCase("30034-02a.htm"))
+		{
+			if (st.getQuestItemsCount(TOOTH_OF_TOTEM) == 1)
+			{
 				htmltext = "30034-02.htm";
 				st.set("cond", "4");
 				st.takeItems(TOOTH_OF_TOTEM, 1);
 				st.giveItems(LETTER_OF_IRIS, 1);
 				st.playSound(QuestState.SOUND_MIDDLE);
 			}
-		} else if (event.equalsIgnoreCase("30344-02a.htm")) {
-			if (st.getQuestItemsCount(LETTER_OF_IRIS) == 1) {
+		}
+		else if (event.equalsIgnoreCase("30344-02a.htm"))
+		{
+			if (st.getQuestItemsCount(LETTER_OF_IRIS) == 1)
+			{
 				htmltext = "30344-02.htm";
 				st.set("cond", "5");
 				st.takeItems(LETTER_OF_IRIS, 1);
 				st.giveItems(LETTER_OF_ROHMER, 1);
 				st.playSound(QuestState.SOUND_MIDDLE);
 			}
-		} else if (event.equalsIgnoreCase("30034-04a.htm")) {
-			if (st.getQuestItemsCount(LETTER_OF_ROHMER) == 1) {
+		}
+		else if (event.equalsIgnoreCase("30034-04a.htm"))
+		{
+			if (st.getQuestItemsCount(LETTER_OF_ROHMER) == 1)
+			{
 				st.takeItems(LETTER_OF_ROHMER, 1);
 				htmltext = "30034-04.htm";
 				st.set("cond", "6");
 				st.playSound(QuestState.SOUND_MIDDLE);
 			}
-		} else if (event.equalsIgnoreCase("30034-06a.htm")) {
-			if (st.getQuestItemsCount(TOOTH_OF_DRAGON) == 50) {
+		}
+		else if (event.equalsIgnoreCase("30034-06a.htm"))
+		{
+			if (st.getQuestItemsCount(TOOTH_OF_DRAGON) == 50)
+			{
 				int position = Rnd.get(reward.length);
 
 				htmltext = "30034-06.htm";
@@ -116,17 +135,20 @@ public class Q038_DragonFangs extends Quest implements ScriptFile {
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player) {
+	public String onTalk(L2Npc npc, L2PcInstance player)
+	{
 		String htmltext = Quest.getNoQuestMsg();
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState()) {
+		switch (st.getState())
+		{
 			case QuestState.CREATED:
 				if (player.getLevel() >= 19 && player.getLevel() <= 29)
 					htmltext = "30386-01.htm";
-				else {
+				else
+				{
 					st.exitQuest(true);
 					htmltext = "30386-01a.htm";
 				}
@@ -134,7 +156,8 @@ public class Q038_DragonFangs extends Quest implements ScriptFile {
 
 			case QuestState.STARTED:
 				int cond = st.getInt("cond");
-				switch (npc.getNpcId()) {
+				switch (npc.getNpcId())
+				{
 					case LUIS:
 						if (cond == 1)
 							htmltext = "30386-02a.htm";
@@ -175,27 +198,33 @@ public class Q038_DragonFangs extends Quest implements ScriptFile {
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
+	{
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 
 		int npcId = npc.getNpcId();
 
-		if (droplist.containsKey(npcId)) {
+		if (droplist.containsKey(npcId))
+		{
 			int cond = droplist.get(npcId)[0];
 			int item = droplist.get(npcId)[1];
 			int max = droplist.get(npcId)[2];
 			int chance = droplist.get(npcId)[3];
 
-			if (st.getInt("cond") == cond && st.getQuestItemsCount(item) < max) {
-				if (Rnd.get(100) < chance) {
+			if (st.getInt("cond") == cond && st.getQuestItemsCount(item) < max)
+			{
+				if (Rnd.get(100) < chance)
+				{
 					st.giveItems(item, 1);
 
-					if (st.getQuestItemsCount(item) == max) {
+					if (st.getQuestItemsCount(item) == max)
+					{
 						st.set("cond", String.valueOf(cond + 1));
 						st.playSound(QuestState.SOUND_MIDDLE);
-					} else
+					}
+					else
 						st.playSound(QuestState.SOUND_ITEMGET);
 				}
 			}

@@ -1,24 +1,24 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.model.entity;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import javolution.util.FastMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javolution.util.FastMap;
-import silentium.gameserver.configs.TvTConfig;
 import silentium.commons.utils.Rnd;
 import silentium.commons.utils.StringUtil;
+import silentium.gameserver.configs.TvTConfig;
 import silentium.gameserver.data.html.HtmCache;
 import silentium.gameserver.data.html.StaticHtmPath;
 import silentium.gameserver.data.xml.DoorData;
@@ -89,7 +89,7 @@ public class TvTEvent
 	 * 1. Get L2NpcTemplate by TvTConfig.TVT_EVENT_PARTICIPATION_NPC_ID<br>
 	 * 2. Try to spawn a new npc of it<br>
 	 * <br>
-	 *
+	 * 
 	 * @return boolean: true if success, otherwise false<br>
 	 */
 	public static boolean startParticipation()
@@ -154,7 +154,7 @@ public class TvTEvent
 	 * 4. Set state EventState.STARTED<br>
 	 * 5. Teleport all participants to team spot<br>
 	 * <br>
-	 *
+	 * 
 	 * @return boolean: true if success, otherwise false<br>
 	 */
 	public static boolean startFight()
@@ -265,14 +265,14 @@ public class TvTEvent
 
 	/**
 	 * Calculates the TvTEvent reward<br>
-	 * 1. If both teams are at a tie(points equals), send it as system message to all participants, if one of the teams have 0
-	 * participants left online abort rewarding<br>
+	 * 1. If both teams are at a tie(points equals), send it as system message to all participants, if one of the teams have 0 participants left
+	 * online abort rewarding<br>
 	 * 2. Wait till teams are not at a tie anymore<br>
 	 * 3. Set state EvcentState.REWARDING<br>
 	 * 4. Reward team with more points<br>
 	 * 5. Show win html to wining team participants<br>
 	 * <br>
-	 *
+	 * 
 	 * @return String: winning team name<br>
 	 */
 	public static String calculateRewards()
@@ -412,7 +412,7 @@ public class TvTEvent
 	 * 1. Calculate the id of the team in which the player should be added<br>
 	 * 2. Add the player to the calculated team<br>
 	 * <br>
-	 *
+	 * 
 	 * @param playerInstance
 	 *            as L2PcInstance<br>
 	 * @return boolean: true if success, otherwise false<br>
@@ -445,7 +445,7 @@ public class TvTEvent
 	 * 1. Get team id of the player<br>
 	 * 2. Remove player from it's team<br>
 	 * <br>
-	 *
+	 * 
 	 * @param playerObjectId
 	 * @return boolean: true if success, otherwise false
 	 */
@@ -496,7 +496,7 @@ public class TvTEvent
 	 * 1. Send the message to all players of team number one<br>
 	 * 2. Send the message to all players of team number two<br>
 	 * <br>
-	 *
+	 * 
 	 * @param message
 	 *            as String<br>
 	 */
@@ -521,7 +521,7 @@ public class TvTEvent
 
 	/**
 	 * Close doors specified in configs
-	 *
+	 * 
 	 * @param doors
 	 */
 	private static void closeDoors(List<Integer> doors)
@@ -539,7 +539,7 @@ public class TvTEvent
 
 	/**
 	 * Open doors specified in configs
-	 *
+	 * 
 	 * @param doors
 	 */
 	private static void openDoors(List<Integer> doors)
@@ -572,7 +572,7 @@ public class TvTEvent
 	/**
 	 * Called when a player logs in<br>
 	 * <br>
-	 *
+	 * 
 	 * @param playerInstance
 	 *            as L2PcInstance<br>
 	 */
@@ -597,7 +597,7 @@ public class TvTEvent
 	/**
 	 * Called when a player logs out<br>
 	 * <br>
-	 *
+	 * 
 	 * @param playerInstance
 	 *            as L2PcInstance<br>
 	 */
@@ -614,7 +614,7 @@ public class TvTEvent
 	 * Called on every bypass by npc of type L2TvTEventNpc<br>
 	 * Needs synchronization cause of the max player check<br>
 	 * <br>
-	 *
+	 * 
 	 * @param command
 	 *            as String<br>
 	 * @param playerInstance
@@ -698,7 +698,7 @@ public class TvTEvent
 	/**
 	 * Called on every onAction in L2PcIstance<br>
 	 * <br>
-	 *
+	 * 
 	 * @param playerInstance
 	 * @param targetedPlayerObjectId
 	 * @return boolean: true if player is allowed to target, otherwise false
@@ -734,7 +734,7 @@ public class TvTEvent
 	/**
 	 * Called on every scroll use<br>
 	 * <br>
-	 *
+	 * 
 	 * @param playerObjectId
 	 * @return boolean: true if player is allowed to use scroll, otherwise false
 	 */
@@ -751,7 +751,7 @@ public class TvTEvent
 
 	/**
 	 * Called on every potion use
-	 *
+	 * 
 	 * @param playerObjectId
 	 * @return boolean: true if player is allowed to use potions, otherwise false
 	 */
@@ -768,7 +768,7 @@ public class TvTEvent
 
 	/**
 	 * Called on every escape use(thanks to nbd)
-	 *
+	 * 
 	 * @param playerObjectId
 	 * @return boolean: true if player is not in tvt event, otherwise false
 	 */
@@ -789,7 +789,7 @@ public class TvTEvent
 
 	/**
 	 * Called on every summon item use
-	 *
+	 * 
 	 * @param playerObjectId
 	 * @return boolean: true if player is allowed to summon by item, otherwise false
 	 */
@@ -811,7 +811,7 @@ public class TvTEvent
 	/**
 	 * Is called when a player is killed<br>
 	 * <br>
-	 *
+	 * 
 	 * @param killerCharacter
 	 *            as L2Character<br>
 	 * @param killedPlayerInstance
@@ -880,7 +880,7 @@ public class TvTEvent
 
 	/**
 	 * Called on Appearing packet received (player finished teleporting)
-	 *
+	 * 
 	 * @param playerInstance
 	 */
 	public static void onTeleported(L2PcInstance playerInstance)
@@ -948,7 +948,7 @@ public class TvTEvent
 	/**
 	 * Sets the TvTEvent state<br>
 	 * <br>
-	 *
+	 * 
 	 * @param state
 	 *            as EventState<br>
 	 */
@@ -963,7 +963,7 @@ public class TvTEvent
 	/**
 	 * Is TvTEvent inactive?<br>
 	 * <br>
-	 *
+	 * 
 	 * @return boolean: true if event is inactive(waiting for next event cycle), otherwise false<br>
 	 */
 	public static boolean isInactive()
@@ -981,7 +981,7 @@ public class TvTEvent
 	/**
 	 * Is TvTEvent in inactivating?<br>
 	 * <br>
-	 *
+	 * 
 	 * @return boolean: true if event is in inactivating progress, otherwise false<br>
 	 */
 	public static boolean isInactivating()
@@ -999,7 +999,7 @@ public class TvTEvent
 	/**
 	 * Is TvTEvent in participation?<br>
 	 * <br>
-	 *
+	 * 
 	 * @return boolean: true if event is in participation progress, otherwise false<br>
 	 */
 	public static boolean isParticipating()
@@ -1017,7 +1017,7 @@ public class TvTEvent
 	/**
 	 * Is TvTEvent starting?<br>
 	 * <br>
-	 *
+	 * 
 	 * @return boolean: true if event is starting up(setting up fighting spot, teleport players etc.), otherwise false<br>
 	 */
 	public static boolean isStarting()
@@ -1035,7 +1035,7 @@ public class TvTEvent
 	/**
 	 * Is TvTEvent started?<br>
 	 * <br>
-	 *
+	 * 
 	 * @return boolean: true if event is started, otherwise false<br>
 	 */
 	public static boolean isStarted()
@@ -1053,7 +1053,7 @@ public class TvTEvent
 	/**
 	 * Is TvTEvent rewarding?<br>
 	 * <br>
-	 *
+	 * 
 	 * @return boolean: true if event is currently rewarding, otherwise false<br>
 	 */
 	public static boolean isRewarding()
@@ -1070,7 +1070,7 @@ public class TvTEvent
 
 	/**
 	 * Returns the team id of a player, if player is not participant it returns -1
-	 *
+	 * 
 	 * @param playerObjectId
 	 * @return byte: team name of the given playerName, if not in event -1
 	 */
@@ -1081,7 +1081,7 @@ public class TvTEvent
 
 	/**
 	 * Returns the team of a player, if player is not participant it returns null
-	 *
+	 * 
 	 * @param playerObjectId
 	 * @return TvTEventTeam: team of the given playerObjectId, if not in event null
 	 */
@@ -1092,7 +1092,7 @@ public class TvTEvent
 
 	/**
 	 * Returns the enemy team of a player, if player is not participant it returns null
-	 *
+	 * 
 	 * @param playerObjectId
 	 * @return TvTEventTeam: enemy team of the given playerObjectId, if not in event null
 	 */
@@ -1103,7 +1103,7 @@ public class TvTEvent
 
 	/**
 	 * Returns the team coordinates in which the player is in, if player is not in a team return null
-	 *
+	 * 
 	 * @param playerObjectId
 	 * @return int[]: coordinates of teams, 2 elements, index 0 for team 1 and index 1 for team 2
 	 */
@@ -1114,7 +1114,7 @@ public class TvTEvent
 
 	/**
 	 * Is given player participant of the event?
-	 *
+	 * 
 	 * @param playerObjectId
 	 * @return boolean: true if player is participant, ohterwise false
 	 */
@@ -1131,7 +1131,7 @@ public class TvTEvent
 	/**
 	 * Returns participated player count<br>
 	 * <br>
-	 *
+	 * 
 	 * @return int: amount of players registered in the event<br>
 	 */
 	public static int getParticipatedPlayersCount()
@@ -1147,7 +1147,7 @@ public class TvTEvent
 	/**
 	 * Returns teams names<br>
 	 * <br>
-	 *
+	 * 
 	 * @return String[]: names of teams, 2 elements, index 0 for team 1 and index 1 for team 2<br>
 	 */
 	public static String[] getTeamNames()
@@ -1158,7 +1158,7 @@ public class TvTEvent
 	/**
 	 * Returns player count of both teams<br>
 	 * <br>
-	 *
+	 * 
 	 * @return int[]: player count of teams, 2 elements, index 0 for team 1 and index 1 for team 2<br>
 	 */
 	public static int[] getTeamsPlayerCounts()
@@ -1168,7 +1168,7 @@ public class TvTEvent
 
 	/**
 	 * Returns points count of both teams
-	 *
+	 * 
 	 * @return int[]: points of teams, 2 elements, index 0 for team 1 and index 1 for team 2<br>
 	 */
 	public static int[] getTeamsPoints()

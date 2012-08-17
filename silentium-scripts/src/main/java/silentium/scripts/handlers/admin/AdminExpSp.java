@@ -1,14 +1,17 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.scripts.handlers.admin;
 
+import java.util.StringTokenizer;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import silentium.gameserver.data.html.StaticHtmPath;
 import silentium.gameserver.handler.IAdminCommandHandler;
 import silentium.gameserver.model.L2Object;
@@ -16,12 +19,10 @@ import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.network.SystemMessageId;
 import silentium.gameserver.network.serverpackets.NpcHtmlMessage;
 
-import java.util.StringTokenizer;
-
 /**
- * This class handles following admin commands: <li>add_exp_sp_to_character <i>shows menu for add or remove</i> <li>add_exp_sp exp
- * sp <i>Adds exp & sp to target, displays menu if a parameter is missing</i> <li>remove_exp_sp exp sp <i>Removes exp & sp from
- * target, displays menu if a parameter is missing</i>
+ * This class handles following admin commands: <li>add_exp_sp_to_character <i>shows menu for add or remove</i> <li>add_exp_sp exp sp <i>Adds exp
+ * & sp to target, displays menu if a parameter is missing</i> <li>remove_exp_sp exp sp <i>Removes exp & sp from target, displays menu if a
+ * parameter is missing</i>
  */
 public class AdminExpSp implements IAdminCommandHandler
 {
@@ -127,8 +128,7 @@ public class AdminExpSp implements IAdminCommandHandler
 			// Admin information
 			activeChar.sendMessage("Added " + expval + " xp and " + spval + " sp to " + player.getName() + ".");
 
-			_log.info("GM: " + activeChar.getName() + "(" + activeChar.getObjectId() + ") added " + expval + " xp " +
-						"and " + spval + " sp to " + player.getObjectId() + ".");
+			_log.info("GM: " + activeChar.getName() + "(" + activeChar.getObjectId() + ") added " + expval + " xp " + "and " + spval + " sp to " + player.getObjectId() + ".");
 		}
 		return true;
 	}
@@ -172,8 +172,7 @@ public class AdminExpSp implements IAdminCommandHandler
 			// Admin information
 			activeChar.sendMessage("Removed " + expval + " xp and " + spval + " sp from " + player.getName() + ".");
 
-			_log.info("GM: " + activeChar.getName() + "(" + activeChar.getObjectId() + ") removed " + expval + " xp " +
-					"and " + "" + spval + " sp from " + player.getObjectId() + ".");
+			_log.info("GM: " + activeChar.getName() + "(" + activeChar.getObjectId() + ") removed " + expval + " xp " + "and " + "" + spval + " sp from " + player.getObjectId() + ".");
 		}
 		return true;
 	}

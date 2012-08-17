@@ -1,9 +1,9 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.scripts.quests;
 
@@ -14,7 +14,8 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q246_PossessorOfAPreciousSoul extends Quest implements ScriptFile {
+public class Q246_PossessorOfAPreciousSoul extends Quest implements ScriptFile
+{
 	private static final String qn = "Q246_PossessorOfAPreciousSoul";
 
 	// NPCs
@@ -35,7 +36,8 @@ public class Q246_PossessorOfAPreciousSoul extends Quest implements ScriptFile {
 	private static final int JUDGE_OF_SPLENDOR = 21544;
 	private static final int BARAKIEL = 25325;
 
-	public Q246_PossessorOfAPreciousSoul(int questId, String name, String descr) {
+	public Q246_PossessorOfAPreciousSoul(int questId, String name, String descr)
+	{
 		super(questId, name, descr);
 
 		questItemIds = new int[] { WATERBINDER, EVERGREEN, RAIN_SONG, RELIC_BOX };
@@ -46,73 +48,93 @@ public class Q246_PossessorOfAPreciousSoul extends Quest implements ScriptFile {
 		addKillId(PILGRIM_OF_SPLENDOR, JUDGE_OF_SPLENDOR, BARAKIEL);
 	}
 
-	public static void onLoad() {
+	public static void onLoad()
+	{
 		new Q246_PossessorOfAPreciousSoul(246, "Q246_PossessorOfAPreciousSoul", "Possessor of a Precious Soul - 3");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player) {
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	{
 		String htmltext = event;
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
 		// Caradine
-		if (event.equalsIgnoreCase("31740-04.htm")) {
+		if (event.equalsIgnoreCase("31740-04.htm"))
+		{
 			st.set("cond", "1");
 			st.takeItems(CARADINE_LETTER_2, 1);
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
 		}
 		// Ossian
-		else if (event.equalsIgnoreCase("31741-02.htm")) {
+		else if (event.equalsIgnoreCase("31741-02.htm"))
+		{
 			st.set("cond", "2");
 			st.playSound(QuestState.SOUND_MIDDLE);
-		} else if (event.equalsIgnoreCase("31741-05.htm")) {
-			if (st.hasQuestItems(WATERBINDER) && st.hasQuestItems(EVERGREEN)) {
+		}
+		else if (event.equalsIgnoreCase("31741-05.htm"))
+		{
+			if (st.hasQuestItems(WATERBINDER) && st.hasQuestItems(EVERGREEN))
+			{
 				st.set("cond", "4");
 				st.takeItems(WATERBINDER, 1);
 				st.takeItems(EVERGREEN, 1);
 				st.playSound(QuestState.SOUND_MIDDLE);
-			} else
+			}
+			else
 				htmltext = null;
-		} else if (event.equalsIgnoreCase("31741-08.htm")) {
-			if (st.hasQuestItems(RAIN_SONG)) {
+		}
+		else if (event.equalsIgnoreCase("31741-08.htm"))
+		{
+			if (st.hasQuestItems(RAIN_SONG))
+			{
 				st.set("cond", "6");
 				st.takeItems(RAIN_SONG, 1);
 				st.giveItems(RELIC_BOX, 1);
 				st.playSound(QuestState.SOUND_MIDDLE);
-			} else
+			}
+			else
 				htmltext = null;
 		}
 		// Ladd
-		else if (event.equalsIgnoreCase("30721-02.htm")) {
-			if (st.hasQuestItems(RELIC_BOX)) {
+		else if (event.equalsIgnoreCase("30721-02.htm"))
+		{
+			if (st.hasQuestItems(RELIC_BOX))
+			{
 				st.takeItems(RELIC_BOX, 1);
 				st.giveItems(CARADINE_LETTER_3, 1);
 				st.addExpAndSp(719843, 0);
 				st.playSound(QuestState.SOUND_FINISH);
 				st.exitQuest(false);
-			} else
+			}
+			else
 				htmltext = null;
 		}
 		return htmltext;
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player) {
+	public String onTalk(L2Npc npc, L2PcInstance player)
+	{
 		String htmltext = getNoQuestMsg();
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState()) {
+		switch (st.getState())
+		{
 			case QuestState.CREATED:
-				if (st.hasQuestItems(CARADINE_LETTER_2)) {
-					if (!player.isSubClassActive() || player.getLevel() < 65) {
+				if (st.hasQuestItems(CARADINE_LETTER_2))
+				{
+					if (!player.isSubClassActive() || player.getLevel() < 65)
+					{
 						htmltext = "31740-02.htm";
 						st.exitQuest(true);
-					} else
+					}
+					else
 						htmltext = "31740-01.htm";
 				}
 				break;
@@ -122,14 +144,16 @@ public class Q246_PossessorOfAPreciousSoul extends Quest implements ScriptFile {
 					break;
 
 				int cond = st.getInt("cond");
-				switch (npc.getNpcId()) {
+				switch (npc.getNpcId())
+				{
 					case CARADINE:
 						if (cond == 1)
 							htmltext = "31740-05.htm";
 						break;
 
 					case OSSIAN:
-						switch (cond) {
+						switch (cond)
+						{
 							case 1:
 								htmltext = "31741-01.htm";
 								break;
@@ -168,46 +192,60 @@ public class Q246_PossessorOfAPreciousSoul extends Quest implements ScriptFile {
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) {
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
+	{
 		final int npcId = npc.getNpcId();
-		if (npcId == BARAKIEL) {
+		if (npcId == BARAKIEL)
+		{
 			QuestState st;
-			if (player.isInParty()) {
-				for (L2PcInstance plr : getPartyMembers(player, npc, "cond", "4")) {
+			if (player.isInParty())
+			{
+				for (L2PcInstance plr : getPartyMembers(player, npc, "cond", "4"))
+				{
 					if (!plr.isSubClassActive())
 						continue;
 
 					st = plr.getQuestState(qn);
-					if (!st.hasQuestItems(RAIN_SONG)) {
-						st.set("cond", "5");
-						st.giveItems(RAIN_SONG, 1);
-						st.playSound(QuestState.SOUND_MIDDLE);
-					}
-				}
-			} else if (player.isSubClassActive()) {
-				if (checkPlayerCondition(player, npc, "cond", "4")) {
-					st = player.getQuestState(qn);
-					if (!st.hasQuestItems(RAIN_SONG)) {
+					if (!st.hasQuestItems(RAIN_SONG))
+					{
 						st.set("cond", "5");
 						st.giveItems(RAIN_SONG, 1);
 						st.playSound(QuestState.SOUND_MIDDLE);
 					}
 				}
 			}
-		} else {
+			else if (player.isSubClassActive())
+			{
+				if (checkPlayerCondition(player, npc, "cond", "4"))
+				{
+					st = player.getQuestState(qn);
+					if (!st.hasQuestItems(RAIN_SONG))
+					{
+						st.set("cond", "5");
+						st.giveItems(RAIN_SONG, 1);
+						st.playSound(QuestState.SOUND_MIDDLE);
+					}
+				}
+			}
+		}
+		else
+		{
 			if (!player.isSubClassActive() || !checkPlayerCondition(player, npc, "cond", "2"))
 				return null;
 
-			if (Rnd.get(10) < 2) {
+			if (Rnd.get(10) < 2)
+			{
 				final int neklaceOrRing = (npcId == PILGRIM_OF_SPLENDOR) ? WATERBINDER : EVERGREEN;
 				QuestState st = player.getQuestState(qn);
 
-				if (!st.hasQuestItems(neklaceOrRing)) {
+				if (!st.hasQuestItems(neklaceOrRing))
+				{
 					st.giveItems(neklaceOrRing, 1);
 
 					if (!st.hasQuestItems((npcId == PILGRIM_OF_SPLENDOR) ? EVERGREEN : WATERBINDER))
 						st.playSound(QuestState.SOUND_ITEMGET);
-					else {
+					else
+					{
 						st.set("cond", "3");
 						st.playSound(QuestState.SOUND_MIDDLE);
 					}

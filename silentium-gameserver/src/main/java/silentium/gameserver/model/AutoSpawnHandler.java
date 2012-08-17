@@ -1,26 +1,11 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.model;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import silentium.commons.database.DatabaseFactory;
-import silentium.commons.utils.Rnd;
-import silentium.gameserver.Announcements;
-import silentium.gameserver.ThreadPoolManager;
-import silentium.gameserver.data.xml.MapRegionData;
-import silentium.gameserver.idfactory.IdFactory;
-import silentium.gameserver.model.actor.L2Npc;
-import silentium.gameserver.tables.NpcTable;
-import silentium.gameserver.tables.SpawnTable;
-import silentium.gameserver.templates.chars.L2NpcTemplate;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -31,6 +16,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
+
+import javolution.util.FastList;
+import javolution.util.FastMap;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import silentium.commons.database.DatabaseFactory;
+import silentium.commons.utils.Rnd;
+import silentium.gameserver.Announcements;
+import silentium.gameserver.ThreadPoolManager;
+import silentium.gameserver.data.xml.MapRegionData;
+import silentium.gameserver.idfactory.IdFactory;
+import silentium.gameserver.model.actor.L2Npc;
+import silentium.gameserver.tables.NpcTable;
+import silentium.gameserver.tables.SpawnTable;
+import silentium.gameserver.templates.chars.L2NpcTemplate;
 
 /**
  * Allows spawning of a NPC object based on a timer (from the official idea used for the Merchant and Blacksmith of Mammon).
@@ -43,13 +45,13 @@ import java.util.concurrent.TimeUnit;
  * <LI>int respawnDelay (If < 0 = default value)</LI>
  * <LI>int despawnDelay (If < 0 = default value or if = 0, function disabled)</LI>
  * </UL>
- * spawnPoints is a standard two-dimensional int array containing X,Y and Z coordinates. The default respawn/despawn delays are
- * currently every hour (as for Mammon on official servers).</LI><BR>
- * <LI>The resulting AutoSpawnInstance object represents the newly added spawn index. - The interal methods of this object can be
- * used to adjust random spawning, for instance a call to setRandomSpawn(1, true); would set the spawn at index 1 to be randomly
- * rather than sequentially-based. - Also they can be used to specify the number of NPC instances to spawn using setSpawnCount(),
- * and broadcast a message to all users using setBroadcast(). Random Spawning = OFF by default Broadcasting = OFF by default
- *
+ * spawnPoints is a standard two-dimensional int array containing X,Y and Z coordinates. The default respawn/despawn delays are currently every
+ * hour (as for Mammon on official servers).</LI><BR>
+ * <LI>The resulting AutoSpawnInstance object represents the newly added spawn index. - The interal methods of this object can be used to adjust
+ * random spawning, for instance a call to setRandomSpawn(1, true); would set the spawn at index 1 to be randomly rather than sequentially-based.
+ * - Also they can be used to specify the number of NPC instances to spawn using setSpawnCount(), and broadcast a message to all users using
+ * setBroadcast(). Random Spawning = OFF by default Broadcasting = OFF by default
+ * 
  * @author Tempy
  */
 public class AutoSpawnHandler
@@ -138,7 +140,7 @@ public class AutoSpawnHandler
 	/**
 	 * Registers a spawn with the given parameters with the spawner, and marks it as active.<br>
 	 * Returns a AutoSpawnInstance containing info about the spawn.
-	 *
+	 * 
 	 * @param npcId
 	 * @param spawnPoints
 	 * @param initialDelay
@@ -182,7 +184,7 @@ public class AutoSpawnHandler
 	 * Returns a AutoSpawnInstance containing info about the spawn.<BR>
 	 * <BR>
 	 * <B>Warning:</B> Spawn locations must be specified separately using addSpawnLocation().
-	 *
+	 * 
 	 * @param npcId
 	 * @param initialDelay
 	 *            (If < 0 = default value)
@@ -199,7 +201,7 @@ public class AutoSpawnHandler
 
 	/**
 	 * Remove a registered spawn from the list, specified by the given spawn instance.
-	 *
+	 * 
 	 * @param spawnInst
 	 * @return boolean removedSuccessfully
 	 */
@@ -217,8 +219,7 @@ public class AutoSpawnHandler
 			ScheduledFuture<?> respawnTask = _runningSpawns.remove(spawnInst._objectId);
 			respawnTask.cancel(false);
 
-			_log.debug("AutoSpawnHandler: Removed auto spawn for NPC ID " + spawnInst._npcId + " (Object ID = " +
-						spawnInst._objectId + ").");
+			_log.debug("AutoSpawnHandler: Removed auto spawn for NPC ID " + spawnInst._npcId + " (Object ID = " + spawnInst._objectId + ").");
 		}
 		catch (Exception e)
 		{
@@ -231,7 +232,7 @@ public class AutoSpawnHandler
 
 	/**
 	 * Remove a registered spawn from the list, specified by the given spawn object ID.
-	 *
+	 * 
 	 * @param objectId
 	 */
 	public void removeSpawn(int objectId)
@@ -241,7 +242,7 @@ public class AutoSpawnHandler
 
 	/**
 	 * Sets the active state of the specified spawn.
-	 *
+	 * 
 	 * @param spawnInst
 	 * @param isActive
 	 */
@@ -284,7 +285,7 @@ public class AutoSpawnHandler
 
 	/**
 	 * Sets the active state of all auto spawn instances to that specified, and cancels the scheduled spawn task if necessary.
-	 *
+	 * 
 	 * @param isActive
 	 */
 	public void setAllActive(boolean isActive)
@@ -300,7 +301,7 @@ public class AutoSpawnHandler
 
 	/**
 	 * Returns the number of milliseconds until the next occurrance of the given spawn.
-	 *
+	 * 
 	 * @param spawnInst
 	 * @return
 	 */
@@ -317,7 +318,7 @@ public class AutoSpawnHandler
 	/**
 	 * Attempts to return the AutoSpawnInstance associated with the given NPC or Object ID type. <BR>
 	 * Note: If isObjectId == false, returns first instance for the specified NPC ID.
-	 *
+	 * 
 	 * @param id
 	 * @param isObjectId
 	 * @return AutoSpawnInstance spawnInst
@@ -351,7 +352,7 @@ public class AutoSpawnHandler
 
 	/**
 	 * Tests if the specified object ID is assigned to an auto spawn.
-	 *
+	 * 
 	 * @param objectId
 	 * @return boolean isAssigned
 	 */
@@ -362,7 +363,7 @@ public class AutoSpawnHandler
 
 	/**
 	 * Tests if the specified spawn instance is assigned to an auto spawn.
-	 *
+	 * 
 	 * @param spawnInst
 	 * @return boolean isAssigned
 	 */
@@ -373,7 +374,7 @@ public class AutoSpawnHandler
 
 	/**
 	 * AutoSpawner Class This handles the main spawn task for an auto spawn instance, and initializes a despawner if required.
-	 *
+	 * 
 	 * @author Tempy
 	 */
 	private class AutoSpawner implements Runnable
@@ -479,8 +480,7 @@ public class AutoSpawnHandler
 				if (spawnInst.isBroadcasting() && npcInst != null)
 					Announcements.announceToAll("The " + npcInst.getName() + " has spawned near " + nearestTown + "!");
 
-				_log.debug("AutoSpawnHandler: Spawned NPC ID " + spawnInst.getNpcId() + " at " + x + ", " + y + ", " +
-							"" + z + " (Near " + nearestTown + ") for " + (spawnInst.getRespawnDelay() / 60000) + " minute(s).");
+				_log.debug("AutoSpawnHandler: Spawned NPC ID " + spawnInst.getNpcId() + " at " + x + ", " + y + ", " + "" + z + " (Near " + nearestTown + ") for " + (spawnInst.getRespawnDelay() / 60000) + " minute(s).");
 
 				// If there is no despawn time, do not create a despawn task.
 				if (spawnInst.getDespawnDelay() > 0)
@@ -501,7 +501,7 @@ public class AutoSpawnHandler
 	 * AutoDespawner Class <BR>
 	 * <BR>
 	 * Simply used as a secondary class for despawning an auto spawn instance.
-	 *
+	 * 
 	 * @author Tempy
 	 */
 	private class AutoDespawner implements Runnable
@@ -548,7 +548,7 @@ public class AutoSpawnHandler
 	 * AutoSpawnInstance Class <BR>
 	 * <BR>
 	 * Stores information about a registered auto spawn.
-	 *
+	 * 
 	 * @author Tempy
 	 */
 	public class AutoSpawnInstance

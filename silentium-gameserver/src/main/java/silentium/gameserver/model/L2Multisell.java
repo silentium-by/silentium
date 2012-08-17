@@ -1,18 +1,24 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.model;
 
 import gnu.trove.map.hash.TIntObjectHashMap;
+
+import java.io.File;
+import java.util.List;
+
 import javolution.util.FastList;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
+
 import silentium.gameserver.configs.MainConfig;
 import silentium.gameserver.data.xml.parsers.XMLDocumentFactory;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
@@ -21,9 +27,6 @@ import silentium.gameserver.tables.ItemTable;
 import silentium.gameserver.templates.item.L2Armor;
 import silentium.gameserver.templates.item.L2Item;
 import silentium.gameserver.templates.item.L2Weapon;
-
-import java.io.File;
-import java.util.List;
 
 /**
  * Multisell list manager
@@ -64,21 +67,19 @@ public class L2Multisell
 	}
 
 	/**
-	 * This will generate the multisell list for the items. There exist various parameters in multisells that affect the way they
-	 * will appear:
+	 * This will generate the multisell list for the items. There exist various parameters in multisells that affect the way they will appear:
 	 * <ul>
-	 * <li>inventory only: * if true, only show items of the multisell for which the "primary" ingredients are already in the
-	 * player's inventory. By "primary" ingredients we mean weapon and armor. * if false, show the entire list.</li>
-	 * <li>maintain enchantment: presumably, only lists with "inventory only" set to true should sometimes have this as true. This
-	 * makes no sense otherwise... * If true, then the product will match the enchantment level of the ingredient. if the player
-	 * has multiple items that match the ingredient list but the enchantment levels differ, then the entries need to be duplicated
-	 * to show the products and ingredients for each enchantment level. For example: If the player has a crystal staff +1 and a
-	 * crystal staff +3 and goes to exchange it at the mammon, the list should have all exchange possibilities for the +1 staff,
-	 * followed by all possibilities for the +3 staff. * If false, then any level ingredient will be considered equal and product
-	 * will always be at +0</li>
+	 * <li>inventory only: * if true, only show items of the multisell for which the "primary" ingredients are already in the player's inventory.
+	 * By "primary" ingredients we mean weapon and armor. * if false, show the entire list.</li>
+	 * <li>maintain enchantment: presumably, only lists with "inventory only" set to true should sometimes have this as true. This makes no sense
+	 * otherwise... * If true, then the product will match the enchantment level of the ingredient. if the player has multiple items that match
+	 * the ingredient list but the enchantment levels differ, then the entries need to be duplicated to show the products and ingredients for
+	 * each enchantment level. For example: If the player has a crystal staff +1 and a crystal staff +3 and goes to exchange it at the mammon,
+	 * the list should have all exchange possibilities for the +1 staff, followed by all possibilities for the +3 staff. * If false, then any
+	 * level ingredient will be considered equal and product will always be at +0</li>
 	 * <li>apply taxes: Uses the "taxIngredient" entry in order to add a certain amount of adena to the ingredients</li>
 	 * </ul>
-	 *
+	 * 
 	 * @param listId
 	 * @param inventoryOnly
 	 * @param player

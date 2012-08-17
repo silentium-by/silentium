@@ -1,9 +1,9 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.skills;
 
@@ -11,15 +11,14 @@ import javolution.util.FastList;
 import silentium.gameserver.skills.basefuncs.Func;
 
 /**
- * A calculator is created to manage and dynamically calculate the effect of a character property (ex : MAX_HP,
- * REGENERATE_HP_RATE...). In fact, each calculator is a table of Func object in which each Func represents a mathematic function
- * : <BR>
+ * A calculator is created to manage and dynamically calculate the effect of a character property (ex : MAX_HP, REGENERATE_HP_RATE...). In fact,
+ * each calculator is a table of Func object in which each Func represents a mathematic function : <BR>
  * <BR>
  * FuncAtkAccuracy -> Math.sqrt(_player.getDEX())*6+_player.getLevel()<BR>
  * <BR>
- * When the calc method of a calculator is launched, each mathematic function is called according to its priority <B>_order</B>.
- * Indeed, Func with lowest priority order is executed first and Funcs with the same order are executed in unspecified order. The
- * result of the calculation is stored in the value property of an Env class instance.<BR>
+ * When the calc method of a calculator is launched, each mathematic function is called according to its priority <B>_order</B>. Indeed, Func
+ * with lowest priority order is executed first and Funcs with the same order are executed in unspecified order. The result of the calculation is
+ * stored in the value property of an Env class instance.<BR>
  * <BR>
  * Method addFunc and removeFunc permit to add and remove a Func object from a Calculator.<BR>
  * <BR>

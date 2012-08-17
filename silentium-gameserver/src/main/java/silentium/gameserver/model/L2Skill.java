@@ -1,9 +1,9 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.gameserver.model;
 
@@ -11,10 +11,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.StringTokenizer;
+
+import javolution.util.FastList;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javolution.util.FastList;
 import silentium.gameserver.configs.MainConfig;
 import silentium.gameserver.data.xml.SkillTreeData;
 import silentium.gameserver.geo.GeoData;
@@ -2012,14 +2014,13 @@ public abstract class L2Skill implements IChanceSkillTrigger
 				}
 				return _emptyTargetList;
 			}/*
-			 * // npc only for now - untested case TARGET_CLAN_MEMBER: { if (activeChar instanceof L2Npc) { // for buff purposes,
-			 * returns friendly mobs nearby and mob itself final L2Npc npc = (L2Npc) activeChar; if (npc.getClan() == null ||
-			 * npc.getClan().isEmpty()) { return new L2Character[]{activeChar}; } final Collection<L2Object> objs =
-			 * activeChar.getKnownList().getKnownObjects().values(); for (L2Object newTarget : objs) { if (newTarget instanceof
-			 * L2Npc && npc.getClan().equals(((L2Npc) newTarget).getClan())) { if (!Util.checkIfInRange(getCastRange(),
-			 * activeChar, newTarget, true)) continue; if (((L2Npc) newTarget).getFirstEffect(this) != null) continue;
-			 * targetList.add((L2Npc) newTarget); break; // found } } if (targetList.isEmpty()) targetList.add(npc); } else return
-			 * _emptyTargetList; return targetList.toArray(new L2Character[targetList.size()]); }
+			 * // npc only for now - untested case TARGET_CLAN_MEMBER: { if (activeChar instanceof L2Npc) { // for buff purposes, returns
+			 * friendly mobs nearby and mob itself final L2Npc npc = (L2Npc) activeChar; if (npc.getClan() == null || npc.getClan().isEmpty()) {
+			 * return new L2Character[]{activeChar}; } final Collection<L2Object> objs = activeChar.getKnownList().getKnownObjects().values();
+			 * for (L2Object newTarget : objs) { if (newTarget instanceof L2Npc && npc.getClan().equals(((L2Npc) newTarget).getClan())) { if
+			 * (!Util.checkIfInRange(getCastRange(), activeChar, newTarget, true)) continue; if (((L2Npc) newTarget).getFirstEffect(this) !=
+			 * null) continue; targetList.add((L2Npc) newTarget); break; // found } } if (targetList.isEmpty()) targetList.add(npc); } else
+			 * return _emptyTargetList; return targetList.toArray(new L2Character[targetList.size()]); }
 			 */
 			default:
 			{
@@ -2044,9 +2045,9 @@ public abstract class L2Skill implements IChanceSkillTrigger
 	}
 
 	/*
-	 * Check if should be target added to the target list false if target is dead, target same as caster, target inside peace
-	 * zone, target in the same party with caster, caster can see target. Additional checks if not in PvP zones (arena, siege):
-	 * target in not the same clan and alliance with caster, and usual skill PvP check. Caution: distance is not checked.
+	 * Check if should be target added to the target list false if target is dead, target same as caster, target inside peace zone, target in the
+	 * same party with caster, caster can see target. Additional checks if not in PvP zones (arena, siege): target in not the same clan and
+	 * alliance with caster, and usual skill PvP check. Caution: distance is not checked.
 	 */
 	public static final boolean checkForAreaOffensiveSkills(L2Character caster, L2Character target, L2Skill skill, boolean sourceInArena)
 	{
@@ -2263,7 +2264,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 
 	/**
 	 * Warning: this method doesn't consider modifier (shield, ss, sps, bss) for secondary effects
-	 *
+	 * 
 	 * @param effector
 	 * @param effected
 	 * @return An array of L2Effect.
@@ -2275,13 +2276,12 @@ public abstract class L2Skill implements IChanceSkillTrigger
 
 	/**
 	 * This method has suffered some changes in CT2.2 ->CT2.3<br>
-	 * Effect engine is now supporting secondary effects with independent success/fail calculus from effect skill. Env parameter
-	 * has been added to pass parameters like soulshot, spiritshots, blessed spiritshots or shield deffence. Some other
-	 * optimizations have been done <br>
+	 * Effect engine is now supporting secondary effects with independent success/fail calculus from effect skill. Env parameter has been added
+	 * to pass parameters like soulshot, spiritshots, blessed spiritshots or shield deffence. Some other optimizations have been done <br>
 	 * <br>
-	 * This new feature works following next rules: <li>To enable feature, effectPower must be over -1 (check
-	 * DocumentSkill#attachEffect for further information)</li> <li>If main skill fails, secondary effect always fail</li>
-	 *
+	 * This new feature works following next rules: <li>To enable feature, effectPower must be over -1 (check DocumentSkill#attachEffect for
+	 * further information)</li> <li>If main skill fails, secondary effect always fail</li>
+	 * 
 	 * @param effector
 	 * @param effected
 	 * @param env

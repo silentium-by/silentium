@@ -1,25 +1,12 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.authserver;
 
-import javolution.util.FastMap;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import silentium.authserver.GameServerTable.GameServerInfo;
-import silentium.authserver.configs.MainConfig;
-import silentium.authserver.network.gameserverpackets.ServerStatus;
-import silentium.authserver.network.serverpackets.LoginFail.LoginFailReason;
-import silentium.commons.crypt.Base64;
-import silentium.commons.crypt.ScrambledKeyPair;
-import silentium.commons.database.DatabaseFactory;
-import silentium.commons.utils.Rnd;
-
-import javax.crypto.Cipher;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.security.GeneralSecurityException;
@@ -33,6 +20,22 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Map;
+
+import javax.crypto.Cipher;
+
+import javolution.util.FastMap;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import silentium.authserver.GameServerTable.GameServerInfo;
+import silentium.authserver.configs.MainConfig;
+import silentium.authserver.network.gameserverpackets.ServerStatus;
+import silentium.authserver.network.serverpackets.LoginFail.LoginFailReason;
+import silentium.commons.crypt.Base64;
+import silentium.commons.crypt.ScrambledKeyPair;
+import silentium.commons.database.DatabaseFactory;
+import silentium.commons.utils.Rnd;
 
 public class LoginController
 {
@@ -103,10 +106,9 @@ public class LoginController
 	}
 
 	/**
-	 * This is mostly to force the initialization of the Crypto Implementation, avoiding it being done on runtime when its first
-	 * needed.<BR>
+	 * This is mostly to force the initialization of the Crypto Implementation, avoiding it being done on runtime when its first needed.<BR>
 	 * In short it avoids the worst-case execution time on runtime by doing it on loading.
-	 *
+	 * 
 	 * @param key
 	 *            Any private RSA Key just for testing purposes.
 	 * @throws java.security.GeneralSecurityException
@@ -193,7 +195,7 @@ public class LoginController
 
 	/**
 	 * Adds the address to the ban list of the login server, with the given duration.
-	 *
+	 * 
 	 * @param address
 	 *            The Address to be banned.
 	 * @param expiration
@@ -210,7 +212,7 @@ public class LoginController
 
 	/**
 	 * Adds the address to the ban list of the login server, with the given duration.
-	 *
+	 * 
 	 * @param address
 	 *            The Address to be banned.
 	 * @param duration
@@ -244,7 +246,7 @@ public class LoginController
 
 	/**
 	 * Remove the specified address from the ban list
-	 *
+	 * 
 	 * @param address
 	 *            The address to be removed from the ban list
 	 * @return true if the ban was removed, false if there was no ban for this ip
@@ -256,7 +258,7 @@ public class LoginController
 
 	/**
 	 * Remove the specified address from the ban list
-	 *
+	 * 
 	 * @param address
 	 *            The address to be removed from the ban list
 	 * @return true if the ban was removed, false if there was no ban for this ip or the address was invalid.
@@ -317,8 +319,7 @@ public class LoginController
 
 			if (loginOk && client.getLastServer() != serverId)
 			{
-				try (Connection con = DatabaseFactory.getConnection(); PreparedStatement statement = con
-						.prepareStatement("UPDATE accounts SET lastServer = ? WHERE login = ?"))
+				try (Connection con = DatabaseFactory.getConnection(); PreparedStatement statement = con.prepareStatement("UPDATE accounts SET lastServer = ? WHERE login = ?"))
 				{
 					statement.setInt(1, serverId);
 					statement.setString(2, client.getAccount());
@@ -336,8 +337,7 @@ public class LoginController
 
 	public void setAccountAccessLevel(String account, int banLevel)
 	{
-		try (Connection con = DatabaseFactory.getConnection(); PreparedStatement statement = con.prepareStatement
-				("UPDATE accounts SET access_level=? WHERE login=?"))
+		try (Connection con = DatabaseFactory.getConnection(); PreparedStatement statement = con.prepareStatement("UPDATE accounts SET access_level=? WHERE login=?"))
 		{
 			statement.setInt(1, banLevel);
 			statement.setString(2, account);
@@ -351,9 +351,10 @@ public class LoginController
 
 	/**
 	 * <p>
-	 * This method returns one of the cached {@link silentium.commons.crypt.ScrambledKeyPair ScrambledKeyPairs} for communication with Login Clients.
+	 * This method returns one of the cached {@link silentium.commons.crypt.ScrambledKeyPair ScrambledKeyPairs} for communication with Login
+	 * Clients.
 	 * </p>
-	 *
+	 * 
 	 * @return a scrambled keypair
 	 */
 	public ScrambledKeyPair getScrambledRSAKeyPair()
@@ -363,7 +364,7 @@ public class LoginController
 
 	/**
 	 * user name is not case sensitive any more
-	 *
+	 * 
 	 * @param user
 	 * @param password
 	 * @param client
@@ -388,12 +389,14 @@ public class LoginController
 			int access = 0;
 			int lastServer = 1;
 
-			try (Connection con = DatabaseFactory.getConnection(); PreparedStatement statement = con.prepareStatement
-					("SELECT password, access_level, lastServer FROM accounts WHERE login=?")) {
+			try (Connection con = DatabaseFactory.getConnection(); PreparedStatement statement = con.prepareStatement("SELECT password, access_level, lastServer FROM accounts WHERE login=?"))
+			{
 				statement.setString(1, user);
 
-				try (ResultSet rset = statement.executeQuery()) {
-					if (rset.next()) {
+				try (ResultSet rset = statement.executeQuery())
+				{
+					if (rset.next())
+					{
 						expected = Base64.decode(rset.getString("password"));
 						access = rset.getInt("access_level");
 						lastServer = Math.max(rset.getInt("lastServer"), 1);
@@ -408,8 +411,8 @@ public class LoginController
 				{
 					if ((user.length() >= 2) && (user.length() <= 14))
 					{
-						try (Connection con = DatabaseFactory.getConnection(); PreparedStatement statement = con
-								.prepareStatement("INSERT INTO accounts (login,password,lastactive,access_level,newbie) values(?,?,?,?,?)")) {
+						try (Connection con = DatabaseFactory.getConnection(); PreparedStatement statement = con.prepareStatement("INSERT INTO accounts (login,password,lastactive,access_level,newbie) values(?,?,?,?,?)"))
+						{
 							statement.setString(1, user);
 							statement.setString(2, Base64.encodeBytes(hash));
 							statement.setLong(3, System.currentTimeMillis());
@@ -419,16 +422,14 @@ public class LoginController
 						}
 
 						if (MainConfig.LOG_LOGIN_CONTROLLER)
-							authLog.info("'" + user + "' " + address.getHostAddress() + " - OK : AccountCreate",
-									"loginlog");
+							authLog.info("'" + user + "' " + address.getHostAddress() + " - OK : AccountCreate", "loginlog");
 
 						_log.info("New account has been created for " + user + ".");
 						return true;
 					}
 
 					if (MainConfig.LOG_LOGIN_CONTROLLER)
-						authLog.info("'" + user + "' " + address.getHostAddress() + " - ERR : ErrCreatingACC",
-								"loginlog");
+						authLog.info("'" + user + "' " + address.getHostAddress() + " - ERR : ErrCreatingACC", "loginlog");
 
 					_log.warn("Invalid username creation/use attempt: " + user + ".");
 					return false;
@@ -487,8 +488,8 @@ public class LoginController
 				client.setAccessLevel(access);
 				client.setLastServer(lastServer);
 
-				try (Connection con = DatabaseFactory.getConnection(); PreparedStatement statement = con
-						.prepareStatement("UPDATE accounts SET lastactive=? WHERE login=?")) {
+				try (Connection con = DatabaseFactory.getConnection(); PreparedStatement statement = con.prepareStatement("UPDATE accounts SET lastactive=? WHERE login=?"))
+				{
 					statement.setLong(1, System.currentTimeMillis());
 					statement.setString(2, user);
 					statement.execute();

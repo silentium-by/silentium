@@ -1,19 +1,20 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program
- * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
- * received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package silentium.commons.crypt;
 
 import java.io.IOException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * This class ...
- *
+ * 
  * @version $Revision: 1.3.4.1 $ $Date: 2005/03/27 15:30:09 $
  */
 public class NewCrypt
@@ -108,9 +109,9 @@ public class NewCrypt
 	}
 
 	/**
-	 * Packet is first XOR encoded with <code>key</code> Then, the last 4 bytes are overwritten with the the XOR "key". Thus this
-	 * assume that there is enough room for the key to fit without overwriting data.
-	 *
+	 * Packet is first XOR encoded with <code>key</code> Then, the last 4 bytes are overwritten with the the XOR "key". Thus this assume that
+	 * there is enough room for the key to fit without overwriting data.
+	 * 
 	 * @param raw
 	 *            The raw bytes to be encrypted
 	 * @param key
@@ -122,9 +123,9 @@ public class NewCrypt
 	}
 
 	/**
-	 * Packet is first XOR encoded with <code>key</code> Then, the last 4 bytes are overwritten with the the XOR "key". Thus this
-	 * assume that there is enough room for the key to fit without overwriting data.
-	 *
+	 * Packet is first XOR encoded with <code>key</code> Then, the last 4 bytes are overwritten with the the XOR "key". Thus this assume that
+	 * there is enough room for the key to fit without overwriting data.
+	 * 
 	 * @param raw
 	 *            The raw bytes to be encrypted
 	 * @param offset
