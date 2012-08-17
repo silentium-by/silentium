@@ -38,7 +38,7 @@ public class Q341_HuntingForWildBeasts extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q341_HuntingForWildBeasts(341, "Q341_HuntingForWildBeasts", "Hunting for Wild Beasts");
+		new Q341_HuntingForWildBeasts(341, "Q341_HuntingForWildBeasts", "quests");
 	}
 
 	@Override

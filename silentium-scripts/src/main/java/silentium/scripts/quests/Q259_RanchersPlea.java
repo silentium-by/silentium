@@ -48,7 +48,7 @@ public class Q259_RanchersPlea extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q259_RanchersPlea(259, "Q259_RanchersPlea", "Rancher's Plea");
+		new Q259_RanchersPlea(259, "Q259_RanchersPlea", "quests");
 	}
 
 	@Override

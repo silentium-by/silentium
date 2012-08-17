@@ -43,7 +43,7 @@ public class Q004_LongliveThePaagrioLord extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q004_LongliveThePaagrioLord(4, "Q004_LongliveThePaagrioLord", "Long live the Pa'agrio Lord!");
+		new Q004_LongliveThePaagrioLord(4, "Q004_LongliveThePaagrioLord", "quests");
 	}
 
 	@Override

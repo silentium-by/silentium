@@ -14,7 +14,7 @@ public class Q083_SagaOfTheMoonlightSentinel extends SagasSuperClass
 {
 	public static String qn1 = "Q083_SagaOfTheMoonlightSentinel";
 	public static int qnu = 83;
-	public static String qna = "Saga of the Moonlight Sentinel";
+	public static String qna = "quests";
 
 	public Q083_SagaOfTheMoonlightSentinel()
 	{

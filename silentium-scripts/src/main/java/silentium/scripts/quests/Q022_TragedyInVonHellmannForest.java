@@ -56,7 +56,7 @@ public class Q022_TragedyInVonHellmannForest extends Quest
 
 	public static void main(String[] args)
 	{
-		new Q022_TragedyInVonHellmannForest(22, "Q022_TragedyInVonHellmannForest", "Tragedy in von Hellmann Forest");
+		new Q022_TragedyInVonHellmannForest(22, "Q022_TragedyInVonHellmannForest", "quests");
 	}
 
 	@Override

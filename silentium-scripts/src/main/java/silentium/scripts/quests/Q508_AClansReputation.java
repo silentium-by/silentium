@@ -62,7 +62,7 @@ public class Q508_AClansReputation extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q508_AClansReputation(508, "Q508_AClansReputation", "A Clan's Reputation");
+		new Q508_AClansReputation(508, "Q508_AClansReputation", "quests");
 	}
 
 	@Override

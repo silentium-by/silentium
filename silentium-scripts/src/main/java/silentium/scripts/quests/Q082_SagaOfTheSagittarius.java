@@ -14,7 +14,7 @@ public class Q082_SagaOfTheSagittarius extends SagasSuperClass
 {
 	public static String qn1 = "Q082_SagaOfTheSagittarius";
 	public static int qnu = 82;
-	public static String qna = "Saga of the Sagittarius";
+	public static String qna = "quests";
 
 	public Q082_SagaOfTheSagittarius()
 	{

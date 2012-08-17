@@ -37,7 +37,7 @@ public class Q020_BringUpWithLove extends Quest
 
 	public static void main(String[] args)
 	{
-		new Q020_BringUpWithLove(20, "Q020_BringUpWithLove", "Bring Up With Love");
+		new Q020_BringUpWithLove(20, "Q020_BringUpWithLove", "quests");
 	}
 
 	@Override

@@ -45,7 +45,7 @@ public class Q406_PathToAnElvenKnight extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q406_PathToAnElvenKnight(406, "Q406_PathToAnElvenKnight", "Path to an Elven Knight");
+		new Q406_PathToAnElvenKnight(406, "Q406_PathToAnElvenKnight", "quests");
 	}
 
 	@Override

@@ -38,7 +38,7 @@ public class Q366_SilverHairedShaman extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q366_SilverHairedShaman(366, "Q366_SilverHairedShaman", "Silver Haired Shaman");
+		new Q366_SilverHairedShaman(366, "Q366_SilverHairedShaman", "quests");
 	}
 
 	@Override

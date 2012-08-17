@@ -41,7 +41,7 @@ public class Q008_AnAdventureBegins extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q008_AnAdventureBegins(8, "Q008_AnAdventureBegins", "An Adventure Begins");
+		new Q008_AnAdventureBegins(8, "Q008_AnAdventureBegins", "quests");
 	}
 
 	@Override

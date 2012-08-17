@@ -14,7 +14,7 @@ public class Q096_SagaOfTheSpectralDancer extends SagasSuperClass
 {
 	public static String qn1 = "Q096_SagaOfTheSpectralDancer";
 	public static int qnu = 96;
-	public static String qna = "Saga of the Spectral Dancer";
+	public static String qna = "quests";
 
 	public Q096_SagaOfTheSpectralDancer()
 	{

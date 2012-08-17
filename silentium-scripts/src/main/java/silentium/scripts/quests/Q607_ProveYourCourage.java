@@ -37,7 +37,7 @@ public class Q607_ProveYourCourage extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q607_ProveYourCourage(607, "Q607_ProveYourCourage", "Prove your courage!");
+		new Q607_ProveYourCourage(607, "Q607_ProveYourCourage", "quests");
 	}
 
 	@Override

@@ -48,7 +48,7 @@ public class Q652_AnAgedExAdventurer extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q652_AnAgedExAdventurer(652, "Q652_AnAgedExAdventurer", "An Aged Ex-Adventurer");
+		new Q652_AnAgedExAdventurer(652, "Q652_AnAgedExAdventurer", "quests");
 	}
 
 	@Override

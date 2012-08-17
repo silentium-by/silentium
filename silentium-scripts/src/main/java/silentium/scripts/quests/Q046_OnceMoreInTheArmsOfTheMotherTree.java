@@ -45,7 +45,7 @@ public class Q046_OnceMoreInTheArmsOfTheMotherTree extends Quest implements Scri
 
 	public static void onLoad()
 	{
-		new Q046_OnceMoreInTheArmsOfTheMotherTree(46, "Q046_OnceMoreInTheArmsOfTheMotherTree", "Once More In The Arms of the Mother Tree");
+		new Q046_OnceMoreInTheArmsOfTheMotherTree(46, "Q046_OnceMoreInTheArmsOfTheMotherTree", "quests");
 	}
 
 	@Override

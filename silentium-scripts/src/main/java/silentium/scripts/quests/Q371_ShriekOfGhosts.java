@@ -45,7 +45,7 @@ public class Q371_ShriekOfGhosts extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q371_ShriekOfGhosts(371, "Q371_ShriekOfGhosts", "Shriek of Ghosts");
+		new Q371_ShriekOfGhosts(371, "Q371_ShriekOfGhosts", "quests");
 	}
 
 	@Override

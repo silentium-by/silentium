@@ -43,7 +43,7 @@ public class Q647_InfluxOfMachines extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q647_InfluxOfMachines(647, "Q647_InfluxOfMachines", "Influx of Machines");
+		new Q647_InfluxOfMachines(647, "Q647_InfluxOfMachines", "quests");
 	}
 
 	@Override

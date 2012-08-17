@@ -61,7 +61,7 @@ public class Q628_HuntOfTheGoldenRamMercenaryForce extends Quest implements Scri
 
 	public static void onLoad()
 	{
-		new Q628_HuntOfTheGoldenRamMercenaryForce(628, "Q628_HuntOfTheGoldenRamMercenaryForce", "Hunt of the Golden Ram Mercenary Force");
+		new Q628_HuntOfTheGoldenRamMercenaryForce(628, "Q628_HuntOfTheGoldenRamMercenaryForce", "quests");
 	}
 
 	@Override

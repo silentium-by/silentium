@@ -56,7 +56,7 @@ public class Q171_ActsOfEvil extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q171_ActsOfEvil(171, "Q171_ActsOfEvil", "Acts of Evil");
+		new Q171_ActsOfEvil(171, "Q171_ActsOfEvil", "quests");
 	}
 
 	@Override

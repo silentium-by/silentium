@@ -59,7 +59,7 @@ public class Q631_DeliciousTopChoiceMeat extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q631_DeliciousTopChoiceMeat(631, "Q631_DeliciousTopChoiceMeat", "Delicious Top Choice Meat");
+		new Q631_DeliciousTopChoiceMeat(631, "Q631_DeliciousTopChoiceMeat", "quests");
 	}
 
 	@Override

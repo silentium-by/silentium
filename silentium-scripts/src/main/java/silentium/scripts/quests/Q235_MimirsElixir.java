@@ -60,7 +60,7 @@ public class Q235_MimirsElixir extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q235_MimirsElixir(235, "Q235_MimirsElixir", "Mimir's Elixir");
+		new Q235_MimirsElixir(235, "Q235_MimirsElixir", "quests");
 	}
 
 	@Override

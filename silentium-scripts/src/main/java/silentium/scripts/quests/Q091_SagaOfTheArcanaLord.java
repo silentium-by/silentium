@@ -14,7 +14,7 @@ public class Q091_SagaOfTheArcanaLord extends SagasSuperClass
 {
 	public static String qn1 = "Q091_SagaOfTheArcanaLord";
 	public static int qnu = 91;
-	public static String qna = "Saga of the Arcana Lord";
+	public static String qna = "quests";
 
 	public Q091_SagaOfTheArcanaLord()
 	{

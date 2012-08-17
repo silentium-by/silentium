@@ -14,7 +14,7 @@ public class Q100_SagaOfTheMaestro extends SagasSuperClass
 {
 	public static String qn1 = "Q100_SagaOfTheMaestro";
 	public static int qnu = 100;
-	public static String qna = "Saga of the Maestro";
+	public static String qna = "quests";
 
 	public Q100_SagaOfTheMaestro()
 	{

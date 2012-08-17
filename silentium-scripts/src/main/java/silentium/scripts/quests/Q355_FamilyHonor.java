@@ -44,7 +44,7 @@ public class Q355_FamilyHonor extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q355_FamilyHonor(355, "Q355_FamilyHonor", "Family Honor");
+		new Q355_FamilyHonor(355, "Q355_FamilyHonor", "quests");
 	}
 
 	@Override

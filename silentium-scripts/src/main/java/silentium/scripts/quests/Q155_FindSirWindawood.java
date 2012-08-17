@@ -37,7 +37,7 @@ public class Q155_FindSirWindawood extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q155_FindSirWindawood(155, "Q155_FindSirWindawood", "Find Sir Windawood");
+		new Q155_FindSirWindawood(155, "Q155_FindSirWindawood", "quests");
 	}
 
 	@Override

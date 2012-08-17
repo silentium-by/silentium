@@ -42,7 +42,7 @@ public class Q431_WeddingMarch extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q431_WeddingMarch(431, "Q431_WeddingMarch", "Wedding March");
+		new Q431_WeddingMarch(431, "Q431_WeddingMarch", "quests");
 	}
 
 	@Override

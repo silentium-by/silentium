@@ -49,7 +49,7 @@ public class Q258_BringWolfPelts extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q258_BringWolfPelts(258, "Q258_BringWolfPelts", "Bring Wolf Pelts");
+		new Q258_BringWolfPelts(258, "Q258_BringWolfPelts", "quests");
 	}
 
 	@Override

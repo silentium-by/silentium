@@ -40,7 +40,7 @@ public class Q331_ArrowOfVengeance extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q331_ArrowOfVengeance(331, "Q331_ArrowOfVengeance", "Arrow Of Vengeance");
+		new Q331_ArrowOfVengeance(331, "Q331_ArrowOfVengeance", "quests");
 	}
 
 	@Override

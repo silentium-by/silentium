@@ -38,7 +38,7 @@ public class Q165_ShilensHunt extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q165_ShilensHunt(165, "Q165_ShilensHunt", "Shilen's Hunt");
+		new Q165_ShilensHunt(165, "Q165_ShilensHunt", "quests");
 	}
 
 	@Override

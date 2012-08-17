@@ -35,7 +35,7 @@ public class Q014_WhereaboutsOfTheArchaeologist extends Quest
 
 	public static void main(String[] args)
 	{
-		new Q014_WhereaboutsOfTheArchaeologist(14, "Q014_WhereaboutsOfTheArchaeologist", "Whereabouts of the Archaeologist");
+		new Q014_WhereaboutsOfTheArchaeologist(14, "Q014_WhereaboutsOfTheArchaeologist", "quests");
 	}
 
 	@Override

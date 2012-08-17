@@ -66,7 +66,7 @@ public class Q105_SkirmishWithTheOrcs extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q105_SkirmishWithTheOrcs(105, "Q105_SkirmishWithTheOrcs", "Skirmish with the Orcs");
+		new Q105_SkirmishWithTheOrcs(105, "Q105_SkirmishWithTheOrcs", "quests");
 	}
 
 	@Override

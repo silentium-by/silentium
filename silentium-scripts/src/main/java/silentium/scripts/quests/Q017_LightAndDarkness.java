@@ -38,7 +38,7 @@ public class Q017_LightAndDarkness extends Quest
 
 	public static void main(String[] args)
 	{
-		new Q017_LightAndDarkness(17, "Q017_LightAndDarkness", "Light and Darkness");
+		new Q017_LightAndDarkness(17, "Q017_LightAndDarkness", "quests");
 	}
 
 	@Override

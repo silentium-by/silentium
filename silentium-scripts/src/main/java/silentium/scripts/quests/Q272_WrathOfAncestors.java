@@ -44,7 +44,7 @@ public class Q272_WrathOfAncestors extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q272_WrathOfAncestors(272, "Q272_WrathOfAncestors", "Wrath of Ancestors");
+		new Q272_WrathOfAncestors(272, "Q272_WrathOfAncestors", "quests");
 	}
 
 	@Override

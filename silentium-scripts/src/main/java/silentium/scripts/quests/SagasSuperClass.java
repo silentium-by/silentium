@@ -926,7 +926,7 @@ public class SagasSuperClass extends Quest implements ScriptFile
 	public static void onLoad()
 	{
 		// initialize superclass
-		new SagasSuperClass(-1, "SagasSuperClass", "Saga's SuperClass");
+		new SagasSuperClass(-1, "SagasSuperClass", "quests");
 
 		// initialize subclasses
 		_scripts.add(new Q087_SagaOfEvasSaint());

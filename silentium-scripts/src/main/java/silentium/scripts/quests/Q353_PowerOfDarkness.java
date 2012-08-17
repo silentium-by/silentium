@@ -38,7 +38,7 @@ public class Q353_PowerOfDarkness extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q353_PowerOfDarkness(353, "Q353_PowerOfDarkness", "Power of Darkness");
+		new Q353_PowerOfDarkness(353, "Q353_PowerOfDarkness", "quests");
 	}
 
 	@Override

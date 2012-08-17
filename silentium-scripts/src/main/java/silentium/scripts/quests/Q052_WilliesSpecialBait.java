@@ -43,7 +43,7 @@ public class Q052_WilliesSpecialBait extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q052_WilliesSpecialBait(52, "Q052_WilliesSpecialBait", "Willie's Special Bait");
+		new Q052_WilliesSpecialBait(52, "Q052_WilliesSpecialBait", "quests");
 	}
 
 	@Override

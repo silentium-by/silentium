@@ -51,7 +51,7 @@ public class Q032_AnObviousLie extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q032_AnObviousLie(32, "Q032_AnObviousLie", "An Obvious Lie");
+		new Q032_AnObviousLie(32, "Q032_AnObviousLie", "quests");
 	}
 
 	@Override

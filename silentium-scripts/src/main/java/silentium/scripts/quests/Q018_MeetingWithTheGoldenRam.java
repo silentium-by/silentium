@@ -37,7 +37,7 @@ public class Q018_MeetingWithTheGoldenRam extends Quest
 
 	public static void main(String[] args)
 	{
-		new Q018_MeetingWithTheGoldenRam(18, "Q018_MeetingWithTheGoldenRam", "Meeting with the Golden Ram");
+		new Q018_MeetingWithTheGoldenRam(18, "Q018_MeetingWithTheGoldenRam", "quests");
 	}
 
 	@Override

@@ -40,7 +40,7 @@ public class Q169_OffspringOfNightmares extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q169_OffspringOfNightmares(169, "Q169_OffspringOfNightmares", "Offspring of Nightmares");
+		new Q169_OffspringOfNightmares(169, "Q169_OffspringOfNightmares", "quests");
 	}
 
 	@Override

@@ -99,7 +99,7 @@ public class Q605_AllianceWithKetraOrcs extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q605_AllianceWithKetraOrcs(605, "Q605_AllianceWithKetraOrcs", "Alliance with Ketra Orcs");
+		new Q605_AllianceWithKetraOrcs(605, "Q605_AllianceWithKetraOrcs", "quests");
 	}
 
 	@Override

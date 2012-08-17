@@ -40,7 +40,7 @@ public class Q101_SwordOfSolidarity extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q101_SwordOfSolidarity(101, "Q101_SwordOfSolidarity", "Sword Of Solidarity");
+		new Q101_SwordOfSolidarity(101, "Q101_SwordOfSolidarity", "quests");
 	}
 
 	@Override

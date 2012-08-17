@@ -14,7 +14,7 @@ public class Q094_SagaOfTheSoultaker extends SagasSuperClass
 {
 	public static String qn1 = "Q094_SagaOfTheSoultaker";
 	public static int qnu = 94;
-	public static String qna = "Saga of the Soultaker";
+	public static String qna = "quests";
 
 	public Q094_SagaOfTheSoultaker()
 	{

@@ -46,7 +46,7 @@ public class Q023_LidiasHeart extends Quest
 
 	public static void main(String[] args)
 	{
-		new Q023_LidiasHeart(23, "Q023_LidiasHeart", "Lidia's Heart");
+		new Q023_LidiasHeart(23, "Q023_LidiasHeart", "quests");
 	}
 
 	@Override

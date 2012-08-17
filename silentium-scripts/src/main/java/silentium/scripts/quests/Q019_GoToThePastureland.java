@@ -36,7 +36,7 @@ public class Q019_GoToThePastureland extends Quest
 
 	public static void main(String[] args)
 	{
-		new Q019_GoToThePastureland(19, "Q019_GoToThePastureland", "Go to the Pastureland!");
+		new Q019_GoToThePastureland(19, "Q019_GoToThePastureland", "quests");
 	}
 
 	@Override

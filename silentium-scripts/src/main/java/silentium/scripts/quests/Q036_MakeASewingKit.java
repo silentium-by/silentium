@@ -44,7 +44,7 @@ public class Q036_MakeASewingKit extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q036_MakeASewingKit(36, "Q036_MakeASewingKit", "Make a Sewing Kit");
+		new Q036_MakeASewingKit(36, "Q036_MakeASewingKit", "quests");
 	}
 
 	@Override

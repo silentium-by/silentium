@@ -37,7 +37,7 @@ public class Q156_MillenniumLove extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q156_MillenniumLove(156, "Q156_MillenniumLove", "Millennium Love");
+		new Q156_MillenniumLove(156, "Q156_MillenniumLove", "quests");
 	}
 
 	@Override

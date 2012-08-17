@@ -66,7 +66,7 @@ public class Q369_CollectorOfJewels extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q369_CollectorOfJewels(369, "Q369_CollectorOfJewels", "Collector of Jewels");
+		new Q369_CollectorOfJewels(369, "Q369_CollectorOfJewels", "quests");
 	}
 
 	@Override

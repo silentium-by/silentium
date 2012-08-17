@@ -52,7 +52,7 @@ public class Q619_RelicsOfTheOldEmpire extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q619_RelicsOfTheOldEmpire(619, "Q619_RelicsOfTheOldEmpire", "Relics of the Old Empire");
+		new Q619_RelicsOfTheOldEmpire(619, "Q619_RelicsOfTheOldEmpire", "quests");
 	}
 
 	@Override

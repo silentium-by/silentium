@@ -43,7 +43,7 @@ public class Q051_OFullesSpecialBait extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q051_OFullesSpecialBait(51, "Q051_OFullesSpecialBait", "O'Fulle's Special Bait");
+		new Q051_OFullesSpecialBait(51, "Q051_OFullesSpecialBait", "quests");
 	}
 
 	@Override

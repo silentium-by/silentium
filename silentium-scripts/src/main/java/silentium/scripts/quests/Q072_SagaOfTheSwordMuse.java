@@ -14,7 +14,7 @@ public class Q072_SagaOfTheSwordMuse extends SagasSuperClass
 {
 	public static String qn1 = "Q072_SagaOfTheSwordMuse";
 	public static int qnu = 72;
-	public static String qna = "Saga of the Sword Muse";
+	public static String qna = "quests";
 
 	public Q072_SagaOfTheSwordMuse()
 	{

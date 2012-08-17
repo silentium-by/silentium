@@ -36,7 +36,7 @@ public class Q606_WarWithVarkaSilenos extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q606_WarWithVarkaSilenos(606, "Q606_WarWithVarkaSilenos", "War with Varka Silenos");
+		new Q606_WarWithVarkaSilenos(606, "Q606_WarWithVarkaSilenos", "quests");
 	}
 
 	@Override

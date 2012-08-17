@@ -14,7 +14,7 @@ public class Q088_SagaOfTheArchmage extends SagasSuperClass
 {
 	public static String qn1 = "Q088_SagaOfTheArchmage";
 	public static int qnu = 88;
-	public static String qna = "Saga of the Archmage";
+	public static String qna = "quests";
 
 	public Q088_SagaOfTheArchmage()
 	{

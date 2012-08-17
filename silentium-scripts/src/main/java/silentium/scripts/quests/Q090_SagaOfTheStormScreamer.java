@@ -14,7 +14,7 @@ public class Q090_SagaOfTheStormScreamer extends SagasSuperClass
 {
 	public static String qn1 = "Q090_SagaOfTheStormScreamer";
 	public static int qnu = 90;
-	public static String qna = "Saga of the Storm Screamer";
+	public static String qna = "quests";
 
 	public Q090_SagaOfTheStormScreamer()
 	{

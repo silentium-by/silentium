@@ -37,7 +37,7 @@ public class Q047_IntoTheDarkForest extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q047_IntoTheDarkForest(47, "Q047_IntoTheDarkForest", "Into The Dark Forest");
+		new Q047_IntoTheDarkForest(47, "Q047_IntoTheDarkForest", "quests");
 	}
 
 	@Override

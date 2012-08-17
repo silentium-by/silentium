@@ -40,7 +40,7 @@ public class Q638_SeekersOfTheHolyGrail extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q638_SeekersOfTheHolyGrail(638, "Q638_SeekersOfTheHolyGrail", "Seekers of the Holy Grail");
+		new Q638_SeekersOfTheHolyGrail(638, "Q638_SeekersOfTheHolyGrail", "quests");
 	}
 
 	@Override

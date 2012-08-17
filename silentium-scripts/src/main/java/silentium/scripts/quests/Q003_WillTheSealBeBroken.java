@@ -39,7 +39,7 @@ public class Q003_WillTheSealBeBroken extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q003_WillTheSealBeBroken(3, "Q003_WillTheSealBeBroken", "Will the Seal be Broken?");
+		new Q003_WillTheSealBeBroken(3, "Q003_WillTheSealBeBroken", "quests");
 	}
 
 	@Override

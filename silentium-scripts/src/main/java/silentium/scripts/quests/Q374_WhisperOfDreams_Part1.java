@@ -35,12 +35,13 @@ public class Q374_WhisperOfDreams_Part1 extends Quest implements ScriptFile
 	private static final int MYSTERIOUS_STONE = 5887;
 
 	// Rewards
-	private static final int[][] REWARDS = { { 5486, 3, 2950 }, // Dark Crystal, 3x, 2950 adena
-			{ 5487, 2, 18050 }, // Nightmare, 2x, 18050 adena
-			{ 5488, 2, 18050 }, // Majestic, 2x, 18050 adena
-			{ 5485, 4, 10450 }, // Tallum Tunic, 4, 10450 adena
-			{ 5489, 6, 15550 }
-	// Tallum Stockings, 6, 15550 adena
+	private static final int[][] REWARDS =
+	{
+		{ 5486, 3, 2950 }, // Dark Crystal, 3x, 2950 adena
+		{ 5487, 2, 18050 }, // Nightmare, 2x, 18050 adena
+		{ 5488, 2, 18050 }, // Majestic, 2x, 18050 adena
+		{ 5485, 4, 10450 }, // Tallum Tunic, 4, 10450 adena
+		{ 5489, 6, 15550 } // Tallum Stockings, 6, 15550 adena
 	};
 
 	public Q374_WhisperOfDreams_Part1(int questId, String name, String descr)
@@ -57,7 +58,7 @@ public class Q374_WhisperOfDreams_Part1 extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q374_WhisperOfDreams_Part1(374, "Q374_WhisperOfDreams_Part1", "Whisper of Dreams, Part 1");
+		new Q374_WhisperOfDreams_Part1(374, "Q374_WhisperOfDreams_Part1", "quests");
 	}
 
 	@Override

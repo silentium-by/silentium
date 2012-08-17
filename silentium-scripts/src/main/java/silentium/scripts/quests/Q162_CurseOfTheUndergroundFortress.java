@@ -51,7 +51,7 @@ public class Q162_CurseOfTheUndergroundFortress extends Quest implements ScriptF
 
 	public static void onLoad()
 	{
-		new Q162_CurseOfTheUndergroundFortress(162, "Q162_CurseOfTheUndergroundFortress", "Curse of the Underground Fortress");
+		new Q162_CurseOfTheUndergroundFortress(162, "Q162_CurseOfTheUndergroundFortress", "quests");
 	}
 
 	@Override

@@ -46,7 +46,7 @@ public class Q159_ProtectTheWaterSource extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q159_ProtectTheWaterSource(159, "Q159_ProtectTheWaterSource", "Protect the Water Source");
+		new Q159_ProtectTheWaterSource(159, "Q159_ProtectTheWaterSource", "quests");
 	}
 
 	@Override

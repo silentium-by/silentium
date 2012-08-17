@@ -42,7 +42,7 @@ public class Q347_GoGetTheCalculator extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q347_GoGetTheCalculator(347, "Q347_GoGetTheCalculator", "Go Get the Calculator");
+		new Q347_GoGetTheCalculator(347, "Q347_GoGetTheCalculator", "quests");
 	}
 
 	@Override

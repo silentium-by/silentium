@@ -47,7 +47,7 @@ public class Q005_MinersFavor extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q005_MinersFavor(5, "Q005_MinersFavor", "Miner's Favor");
+		new Q005_MinersFavor(5, "Q005_MinersFavor", "quests");
 	}
 
 	@Override

@@ -14,7 +14,7 @@ public class Q071_SagaOfEvasTemplar extends SagasSuperClass
 {
 	public static String qn1 = "Q071_SagaOfEvasTemplar";
 	public static int qnu = 71;
-	public static String qna = "Saga of Eva's Templar";
+	public static String qna = "quests";
 
 	public Q071_SagaOfEvasTemplar()
 	{

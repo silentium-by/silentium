@@ -45,7 +45,7 @@ public class Q049_TheRoadHome extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q049_TheRoadHome(49, "Q049_TheRoadHome", "The Road Home");
+		new Q049_TheRoadHome(49, "Q049_TheRoadHome", "quests");
 	}
 
 	@Override

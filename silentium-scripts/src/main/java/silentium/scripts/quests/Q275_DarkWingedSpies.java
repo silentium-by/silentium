@@ -46,7 +46,7 @@ public class Q275_DarkWingedSpies extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q275_DarkWingedSpies(275, "Q275_DarkWingedSpies", "Dark Winged Spies");
+		new Q275_DarkWingedSpies(275, "Q275_DarkWingedSpies", "quests");
 	}
 
 	@Override

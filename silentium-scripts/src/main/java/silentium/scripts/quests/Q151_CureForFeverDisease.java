@@ -40,7 +40,7 @@ public class Q151_CureForFeverDisease extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q151_CureForFeverDisease(151, "Q151_CureForFeverDisease", "Cure for Fever Disease");
+		new Q151_CureForFeverDisease(151, "Q151_CureForFeverDisease", "quests");
 	}
 
 	@Override

@@ -14,7 +14,7 @@ public class Q084_SagaOfTheGhostSentinel extends SagasSuperClass
 {
 	public static String qn1 = "Q084_SagaOfTheGhostSentinel";
 	public static int qnu = 84;
-	public static String qna = "Saga of the Ghost Sentinel";
+	public static String qna = "quests";
 
 	public Q084_SagaOfTheGhostSentinel()
 	{

@@ -47,7 +47,7 @@ public class Q152_ShardsOfGolem extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q152_ShardsOfGolem(152, "Q152_ShardsOfGolem", "Shards of Golem");
+		new Q152_ShardsOfGolem(152, "Q152_ShardsOfGolem", "quests");
 	}
 
 	@Override

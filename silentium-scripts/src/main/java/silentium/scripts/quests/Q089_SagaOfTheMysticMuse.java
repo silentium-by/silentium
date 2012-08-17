@@ -14,7 +14,7 @@ public class Q089_SagaOfTheMysticMuse extends SagasSuperClass
 {
 	public static String qn1 = "Q089_SagaOfTheMysticMuse";
 	public static int qnu = 89;
-	public static String qna = "Saga of the Mystic Muse";
+	public static String qna = "quests";
 
 	public Q089_SagaOfTheMysticMuse()
 	{

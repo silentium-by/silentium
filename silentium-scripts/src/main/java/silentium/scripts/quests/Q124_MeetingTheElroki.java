@@ -34,7 +34,7 @@ public class Q124_MeetingTheElroki extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q124_MeetingTheElroki(124, "Q124_MeetingTheElroki", "Meeting the Elroki");
+		new Q124_MeetingTheElroki(124, "Q124_MeetingTheElroki", "quests");
 	}
 
 	@Override

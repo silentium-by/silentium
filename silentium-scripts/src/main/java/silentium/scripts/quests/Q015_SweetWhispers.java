@@ -31,7 +31,7 @@ public class Q015_SweetWhispers extends Quest
 
 	public static void main(String[] args)
 	{
-		new Q015_SweetWhispers(15, "Q015_SweetWhispers", "Sweet Whispers");
+		new Q015_SweetWhispers(15, "Q015_SweetWhispers", "quests");
 	}
 
 	@Override

@@ -86,7 +86,7 @@ public class Q234_FatesWhisper extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q234_FatesWhisper(234, "Q234_FatesWhisper", "Fate's Whispers");
+		new Q234_FatesWhisper(234, "Q234_FatesWhisper", "quests");
 	}
 
 	@Override

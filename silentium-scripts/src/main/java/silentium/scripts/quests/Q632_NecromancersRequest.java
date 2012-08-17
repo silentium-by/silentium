@@ -42,7 +42,7 @@ public class Q632_NecromancersRequest extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q632_NecromancersRequest(632, "Q632_NecromancersRequest", "Necromancer's Request");
+		new Q632_NecromancersRequest(632, "Q632_NecromancersRequest", "quests");
 	}
 
 	@Override

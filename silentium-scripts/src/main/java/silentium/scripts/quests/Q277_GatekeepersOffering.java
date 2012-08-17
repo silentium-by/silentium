@@ -41,7 +41,7 @@ public class Q277_GatekeepersOffering extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q277_GatekeepersOffering(277, "Q277_GatekeepersOffering", "Gatekeeper's Offering");
+		new Q277_GatekeepersOffering(277, "Q277_GatekeepersOffering", "quests");
 	}
 
 	@Override

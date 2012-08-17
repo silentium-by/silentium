@@ -1938,6 +1938,10 @@ public class L2Npc extends L2Character
 
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
 		player.sendPacket(ActionFailed.STATIC_PACKET);
+
+		// Show htmpath in chat (only for gm)
+		if (player.isGM())
+			player.sendChatMessage(0, Say2.ALL, "HTML", filename);
 	}
 
 	/**

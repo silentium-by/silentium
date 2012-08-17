@@ -37,7 +37,7 @@ public class Q649_ALooterAndARailroadMan extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q649_ALooterAndARailroadMan(649, "Q649_ALooterAndARailroadMan", "A Looter and a Railroad Man");
+		new Q649_ALooterAndARailroadMan(649, "Q649_ALooterAndARailroadMan", "quests");
 	}
 
 	@Override

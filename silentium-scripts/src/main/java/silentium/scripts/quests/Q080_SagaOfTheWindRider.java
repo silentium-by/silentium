@@ -14,7 +14,7 @@ public class Q080_SagaOfTheWindRider extends SagasSuperClass
 {
 	public static String qn1 = "Q080_SagaOfTheWindRider";
 	public static int qnu = 80;
-	public static String qna = "Saga of the Wind Rider";
+	public static String qna = "quests";
 
 	public Q080_SagaOfTheWindRider()
 	{

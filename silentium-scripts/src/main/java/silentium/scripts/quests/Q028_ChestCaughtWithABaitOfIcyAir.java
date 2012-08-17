@@ -37,7 +37,7 @@ public class Q028_ChestCaughtWithABaitOfIcyAir extends Quest
 
 	public static void main(String[] args)
 	{
-		new Q028_ChestCaughtWithABaitOfIcyAir(28, "Q028_ChestCaughtWithABaitOfIcyAir", "Chest caught with a bait of icy air");
+		new Q028_ChestCaughtWithABaitOfIcyAir(28, "Q028_ChestCaughtWithABaitOfIcyAir", "quests");
 	}
 
 	@Override

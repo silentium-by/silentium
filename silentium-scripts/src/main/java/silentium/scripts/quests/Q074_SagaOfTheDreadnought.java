@@ -14,7 +14,7 @@ public class Q074_SagaOfTheDreadnought extends SagasSuperClass
 {
 	public static String qn1 = "Q074_SagaOfTheDreadnought";
 	public static int qnu = 74;
-	public static String qna = "Saga of the Dreadnought";
+	public static String qna = "quests";
 
 	public Q074_SagaOfTheDreadnought()
 	{

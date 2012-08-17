@@ -37,7 +37,7 @@ public class Q027_ChestCaughtWithABaitOfWind extends Quest
 
 	public static void main(String[] args)
 	{
-		new Q027_ChestCaughtWithABaitOfWind(27, "Q027_ChestCaughtWithABaitOfWind", "Chest caught with a bait of wind");
+		new Q027_ChestCaughtWithABaitOfWind(27, "Q027_ChestCaughtWithABaitOfWind", "quests");
 	}
 
 	@Override

@@ -40,7 +40,7 @@ public class Q033_MakeAPairOfDressShoes extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q033_MakeAPairOfDressShoes(33, "Q033_MakeAPairOfDressShoes", "Make a Pair of Dress Shoes");
+		new Q033_MakeAPairOfDressShoes(33, "Q033_MakeAPairOfDressShoes", "quests");
 	}
 
 	@Override

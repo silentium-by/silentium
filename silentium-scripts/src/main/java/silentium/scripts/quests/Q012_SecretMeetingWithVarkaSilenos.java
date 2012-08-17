@@ -36,7 +36,7 @@ public class Q012_SecretMeetingWithVarkaSilenos extends Quest
 
 	public static void main(String[] args)
 	{
-		new Q012_SecretMeetingWithVarkaSilenos(12, "Q012_SecretMeetingWithVarkaSilenos", "Secret Meeting With Varka Silenos");
+		new Q012_SecretMeetingWithVarkaSilenos(12, "Q012_SecretMeetingWithVarkaSilenos", "quests");
 	}
 
 	@Override

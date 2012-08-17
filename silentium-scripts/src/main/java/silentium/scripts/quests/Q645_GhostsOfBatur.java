@@ -52,7 +52,7 @@ public class Q645_GhostsOfBatur extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q645_GhostsOfBatur(645, "Q645_GhostsOfBatur", "Ghosts Of Batur");
+		new Q645_GhostsOfBatur(645, "Q645_GhostsOfBatur", "quests");
 	}
 
 	@Override

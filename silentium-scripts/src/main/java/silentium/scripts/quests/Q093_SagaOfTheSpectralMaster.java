@@ -14,7 +14,7 @@ public class Q093_SagaOfTheSpectralMaster extends SagasSuperClass
 {
 	public static String qn1 = "Q093_SagaOfTheSpectralMaster";
 	public static int qnu = 93;
-	public static String qna = "Saga of the Spectral Master";
+	public static String qna = "quests";
 
 	public Q093_SagaOfTheSpectralMaster()
 	{

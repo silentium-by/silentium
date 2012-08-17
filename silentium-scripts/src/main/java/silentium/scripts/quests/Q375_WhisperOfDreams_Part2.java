@@ -47,7 +47,7 @@ public class Q375_WhisperOfDreams_Part2 extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q375_WhisperOfDreams_Part2(375, "Q375_WhisperOfDreams_Part2", "Whisper of Dreams, Part 2");
+		new Q375_WhisperOfDreams_Part2(375, "Q375_WhisperOfDreams_Part2", "quests");
 	}
 
 	@Override

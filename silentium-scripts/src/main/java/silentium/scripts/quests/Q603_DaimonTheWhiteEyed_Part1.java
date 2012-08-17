@@ -49,7 +49,7 @@ public class Q603_DaimonTheWhiteEyed_Part1 extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q603_DaimonTheWhiteEyed_Part1(603, "Q603_DaimonTheWhiteEyed_Part1", "Daimon the White-Eyed - Part 1");
+		new Q603_DaimonTheWhiteEyed_Part1(603, "Q603_DaimonTheWhiteEyed_Part1", "quests");
 	}
 
 	@Override

@@ -38,7 +38,7 @@ public class Q262_TradeWithTheIvoryTower extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q262_TradeWithTheIvoryTower(262, "Q262_TradeWithTheIvoryTower", "Trade with the Ivory Tower");
+		new Q262_TradeWithTheIvoryTower(262, "Q262_TradeWithTheIvoryTower", "quests");
 	}
 
 	@Override

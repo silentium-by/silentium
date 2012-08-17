@@ -58,7 +58,7 @@ public class Q378_MagnificentFeast extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q378_MagnificentFeast(378, "Q378_MagnificentFeast", "Magnificent Feast");
+		new Q378_MagnificentFeast(378, "Q378_MagnificentFeast", "quests");
 	}
 
 	@Override

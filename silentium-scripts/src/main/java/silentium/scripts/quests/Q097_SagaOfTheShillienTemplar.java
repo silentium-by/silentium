@@ -14,7 +14,7 @@ public class Q097_SagaOfTheShillienTemplar extends SagasSuperClass
 {
 	public static String qn1 = "Q097_SagaOfTheShillienTemplar";
 	public static int qnu = 97;
-	public static String qna = "Saga of the Shillien Templar";
+	public static String qna = "quests";
 
 	public Q097_SagaOfTheShillienTemplar()
 	{

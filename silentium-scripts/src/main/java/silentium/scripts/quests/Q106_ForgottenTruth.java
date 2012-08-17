@@ -39,7 +39,7 @@ public class Q106_ForgottenTruth extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q106_ForgottenTruth(-1, "Q106_ForgottenTruth", "Forgotten Truth");
+		new Q106_ForgottenTruth(-1, "Q106_ForgottenTruth", "quests");
 	}
 
 	@Override

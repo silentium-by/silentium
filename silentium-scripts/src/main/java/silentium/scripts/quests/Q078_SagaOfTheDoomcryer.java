@@ -14,7 +14,7 @@ public class Q078_SagaOfTheDoomcryer extends SagasSuperClass
 {
 	public static String qn1 = "Q078_SagaOfTheDoomcryer";
 	public static int qnu = 78;
-	public static String qna = "Saga of the Doomcryer";
+	public static String qna = "quests";
 
 	public Q078_SagaOfTheDoomcryer()
 	{

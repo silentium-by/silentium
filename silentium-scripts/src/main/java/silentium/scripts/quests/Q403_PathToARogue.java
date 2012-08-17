@@ -50,7 +50,7 @@ public class Q403_PathToARogue extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q403_PathToARogue(403, "Q403_PathToARogue", "Path to a Rogue");
+		new Q403_PathToARogue(403, "Q403_PathToARogue", "quests");
 	}
 
 	@Override

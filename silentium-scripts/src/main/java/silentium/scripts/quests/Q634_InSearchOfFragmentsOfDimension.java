@@ -40,7 +40,7 @@ public class Q634_InSearchOfFragmentsOfDimension extends Quest implements Script
 
 	public static void onLoad()
 	{
-		new Q634_InSearchOfFragmentsOfDimension(634, "Q634_InSearchOfFragmentsOfDimension", "In Search of Fragments of Dimension");
+		new Q634_InSearchOfFragmentsOfDimension(634, "Q634_InSearchOfFragmentsOfDimension", "quests");
 	}
 
 	@Override

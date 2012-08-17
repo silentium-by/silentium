@@ -44,7 +44,7 @@ public class Q653_WildMaiden extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q653_WildMaiden(653, "Q653_WildMaiden", "Wild Maiden");
+		new Q653_WildMaiden(653, "Q653_WildMaiden", "quests");
 	}
 
 	@Override

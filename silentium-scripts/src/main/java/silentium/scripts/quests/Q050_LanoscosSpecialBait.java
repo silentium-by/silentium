@@ -43,7 +43,7 @@ public class Q050_LanoscosSpecialBait extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q050_LanoscosSpecialBait(50, "Q050_LanoscosSpecialBait", "Lanosco's Special Bait");
+		new Q050_LanoscosSpecialBait(50, "Q050_LanoscosSpecialBait", "quests");
 	}
 
 	@Override

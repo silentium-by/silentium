@@ -42,7 +42,7 @@ public class Q629_CleanUpTheSwampOfScreams extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q629_CleanUpTheSwampOfScreams(629, "Q629_CleanUpTheSwampOfScreams", "Clean up the Swamp of Screams");
+		new Q629_CleanUpTheSwampOfScreams(629, "Q629_CleanUpTheSwampOfScreams", "quests");
 	}
 
 	@Override

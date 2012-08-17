@@ -44,7 +44,7 @@ public class Q615_MagicalPowerOfFire_Part1 extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q615_MagicalPowerOfFire_Part1(615, "Q615_MagicalPowerOfFire_Part1", "Magical Power of Fire - Part 1");
+		new Q615_MagicalPowerOfFire_Part1(615, "Q615_MagicalPowerOfFire_Part1", "quests");
 	}
 
 	@Override

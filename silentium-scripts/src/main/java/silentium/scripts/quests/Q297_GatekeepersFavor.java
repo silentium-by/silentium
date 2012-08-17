@@ -42,7 +42,7 @@ public class Q297_GatekeepersFavor extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q297_GatekeepersFavor(297, "Q297_GatekeepersFavor", "Gatekeeper's Favor");
+		new Q297_GatekeepersFavor(297, "Q297_GatekeepersFavor", "quests");
 	}
 
 	@Override

@@ -40,7 +40,7 @@ public class Q261_CollectorsDream extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q261_CollectorsDream(261, "Q261_CollectorsDream", "Collector's Dream");
+		new Q261_CollectorsDream(261, "Q261_CollectorsDream", "quests");
 	}
 
 	@Override

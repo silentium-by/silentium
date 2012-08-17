@@ -40,7 +40,7 @@ public class Q161_FruitOfTheMotherTree extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q161_FruitOfTheMotherTree(161, "Q161_FruitOfTheMotherTree", "Fruit of the Mothertree");
+		new Q161_FruitOfTheMotherTree(161, "Q161_FruitOfTheMotherTree", "quests");
 	}
 
 	@Override

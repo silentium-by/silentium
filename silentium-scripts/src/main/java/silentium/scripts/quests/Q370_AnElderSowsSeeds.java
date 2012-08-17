@@ -41,7 +41,7 @@ public class Q370_AnElderSowsSeeds extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q370_AnElderSowsSeeds(370, "Q370_AnElderSowsSeeds", "An Elder Sows Seeds");
+		new Q370_AnElderSowsSeeds(370, "Q370_AnElderSowsSeeds", "quests");
 	}
 
 	@Override

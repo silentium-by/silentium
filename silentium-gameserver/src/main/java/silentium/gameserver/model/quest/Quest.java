@@ -1954,14 +1954,6 @@ public class Quest extends ManagedScript
 	public String getHtm(String fileName)
 	{
 		String content = HtmCache.getInstance().getHtm(StaticHtmPath.ScriptsHtmPath + getDescr().toLowerCase() + "/" + getName() + "/" + fileName);
-
-		if (content == null)
-		{
-			content = HtmCache.getInstance().getHtm(StaticHtmPath.QuestHtmPath + "Q" + getName() + "/" + fileName);
-			if (content == null)
-				content = HtmCache.getInstance().getHtmForce(StaticHtmPath.QuestHtmPath + getName() + "/" + fileName);
-		}
-
 		return content;
 	}
 

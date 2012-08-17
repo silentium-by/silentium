@@ -38,7 +38,7 @@ public class Q358_IllegitimateChildOfAGoddess extends Quest implements ScriptFil
 
 	public static void onLoad()
 	{
-		new Q358_IllegitimateChildOfAGoddess(358, "Q358_IllegitimateChildOfAGoddess", "Illegitimate Child of a Goddess");
+		new Q358_IllegitimateChildOfAGoddess(358, "Q358_IllegitimateChildOfAGoddess", "quests");
 	}
 
 	@Override

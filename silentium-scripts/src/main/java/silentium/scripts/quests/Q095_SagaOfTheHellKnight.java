@@ -14,7 +14,7 @@ public class Q095_SagaOfTheHellKnight extends SagasSuperClass
 {
 	public static String qn1 = "Q095_SagaOfTheHellKnight";
 	public static int qnu = 95;
-	public static String qna = "Saga of the Hell Knight";
+	public static String qna = "quests";
 
 	public Q095_SagaOfTheHellKnight()
 	{

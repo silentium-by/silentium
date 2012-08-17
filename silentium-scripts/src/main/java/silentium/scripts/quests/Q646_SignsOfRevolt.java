@@ -52,7 +52,7 @@ public class Q646_SignsOfRevolt extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q646_SignsOfRevolt(646, "Q646_SignsOfRevolt", "Signs Of Revolt");
+		new Q646_SignsOfRevolt(646, "Q646_SignsOfRevolt", "quests");
 	}
 
 	@Override

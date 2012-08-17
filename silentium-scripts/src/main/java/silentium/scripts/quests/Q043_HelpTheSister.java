@@ -45,7 +45,7 @@ public class Q043_HelpTheSister extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q043_HelpTheSister(43, "Q043_HelpTheSister", "Help the Sister!");
+		new Q043_HelpTheSister(43, "Q043_HelpTheSister", "quests");
 	}
 
 	@Override

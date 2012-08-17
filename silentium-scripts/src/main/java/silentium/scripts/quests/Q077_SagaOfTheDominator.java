@@ -14,7 +14,7 @@ public class Q077_SagaOfTheDominator extends SagasSuperClass
 {
 	public static String qn1 = "Q077_SagaOfTheDominator";
 	public static int qnu = 77;
-	public static String qna = "Saga of the Dominator";
+	public static String qna = "quests";
 
 	public Q077_SagaOfTheDominator()
 	{

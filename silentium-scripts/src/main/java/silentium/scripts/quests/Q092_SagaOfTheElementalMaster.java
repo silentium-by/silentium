@@ -14,7 +14,7 @@ public class Q092_SagaOfTheElementalMaster extends SagasSuperClass
 {
 	public static String qn1 = "Q092_SagaOfTheElementalMaster";
 	public static int qnu = 92;
-	public static String qna = "Saga of the Elemental Master";
+	public static String qna = "quests";
 
 	public Q092_SagaOfTheElementalMaster()
 	{

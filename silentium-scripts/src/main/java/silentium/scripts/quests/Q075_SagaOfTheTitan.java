@@ -14,7 +14,7 @@ public class Q075_SagaOfTheTitan extends SagasSuperClass
 {
 	public static String qn1 = "Q075_SagaOfTheTitan";
 	public static int qnu = 75;
-	public static String qna = "Saga of the Titan";
+	public static String qna = "quests";
 
 	public Q075_SagaOfTheTitan()
 	{

@@ -41,7 +41,7 @@ public class Q298_LizardmensConspiracy extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q298_LizardmensConspiracy(298, "Q298_LizardmensConspiracy", "Lizardmen's Conspiracy");
+		new Q298_LizardmensConspiracy(298, "Q298_LizardmensConspiracy", "quests");
 	}
 
 	@Override

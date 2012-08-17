@@ -36,7 +36,7 @@ public class Q263_OrcSubjugation extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q263_OrcSubjugation(263, "Q263_OrcSubjugation", "Orc Subjugation");
+		new Q263_OrcSubjugation(263, "Q263_OrcSubjugation", "quests");
 	}
 
 	@Override

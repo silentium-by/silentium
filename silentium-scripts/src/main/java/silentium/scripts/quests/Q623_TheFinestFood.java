@@ -45,7 +45,7 @@ public class Q623_TheFinestFood extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q623_TheFinestFood(623, "Q623_TheFinestFood", "The Finest Food");
+		new Q623_TheFinestFood(623, "Q623_TheFinestFood", "quests");
 	}
 
 	@Override

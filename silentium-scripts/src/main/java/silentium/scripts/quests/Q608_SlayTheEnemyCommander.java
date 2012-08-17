@@ -37,7 +37,7 @@ public class Q608_SlayTheEnemyCommander extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q608_SlayTheEnemyCommander(608, "Q608_SlayTheEnemyCommander", "Slay the enemy commander!");
+		new Q608_SlayTheEnemyCommander(608, "Q608_SlayTheEnemyCommander", "quests");
 	}
 
 	@Override

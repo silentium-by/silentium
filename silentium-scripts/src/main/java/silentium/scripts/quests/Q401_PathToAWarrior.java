@@ -47,7 +47,7 @@ public class Q401_PathToAWarrior extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q401_PathToAWarrior(401, "Q401_PathToAWarrior", "Path to a Warrior");
+		new Q401_PathToAWarrior(401, "Q401_PathToAWarrior", "quests");
 	}
 
 	@Override

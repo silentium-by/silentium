@@ -47,7 +47,7 @@ public class Q037_MakeFormalWear extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q037_MakeFormalWear(37, "Q037_MakeFormalWear", "Make Formal Wear");
+		new Q037_MakeFormalWear(37, "Q037_MakeFormalWear", "quests");
 	}
 
 	@Override

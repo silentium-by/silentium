@@ -37,7 +37,7 @@ public class Q016_TheComingDarkness extends Quest
 
 	public static void main(String[] args)
 	{
-		new Q016_TheComingDarkness(16, "Q016_TheComingDarkness", "The Coming Darkness");
+		new Q016_TheComingDarkness(16, "Q016_TheComingDarkness", "quests");
 	}
 
 	@Override

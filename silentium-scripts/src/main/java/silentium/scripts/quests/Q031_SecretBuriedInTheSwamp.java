@@ -43,7 +43,7 @@ public class Q031_SecretBuriedInTheSwamp extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q031_SecretBuriedInTheSwamp(31, "Q031_SecretBuriedInTheSwamp", "Secret Buried in the Swamp");
+		new Q031_SecretBuriedInTheSwamp(31, "Q031_SecretBuriedInTheSwamp", "quests");
 	}
 
 	@Override

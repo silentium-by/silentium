@@ -40,7 +40,7 @@ public class Q354_ConquestOfAlligatorIsland extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q354_ConquestOfAlligatorIsland(354, "Q354_ConquestOfAlligatorIsland", "Conquest of Alligator Island");
+		new Q354_ConquestOfAlligatorIsland(354, "Q354_ConquestOfAlligatorIsland", "quests");
 	}
 
 	@Override

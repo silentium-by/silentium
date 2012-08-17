@@ -43,7 +43,7 @@ public class Q157_RecoverSmuggledGoods extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q157_RecoverSmuggledGoods(157, "Q157_RecoverSmuggledGoods", "Recover Smuggled Goods");
+		new Q157_RecoverSmuggledGoods(157, "Q157_RecoverSmuggledGoods", "quests");
 	}
 
 	@Override

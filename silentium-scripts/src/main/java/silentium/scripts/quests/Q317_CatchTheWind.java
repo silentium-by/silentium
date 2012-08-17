@@ -37,7 +37,7 @@ public class Q317_CatchTheWind extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q317_CatchTheWind(317, "Q317_CatchTheWind", "Catch the Wind");
+		new Q317_CatchTheWind(317, "Q317_CatchTheWind", "quests");
 	}
 
 	@Override

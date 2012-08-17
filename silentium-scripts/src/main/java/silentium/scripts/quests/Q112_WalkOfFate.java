@@ -35,7 +35,7 @@ public class Q112_WalkOfFate extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q112_WalkOfFate(112, "Q112_WalkOfFate", "Walk of Fate");
+		new Q112_WalkOfFate(112, "Q112_WalkOfFate", "quests");
 	}
 
 	@Override

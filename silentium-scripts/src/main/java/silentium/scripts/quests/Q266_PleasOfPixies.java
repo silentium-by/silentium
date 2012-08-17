@@ -42,7 +42,7 @@ public class Q266_PleasOfPixies extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q266_PleasOfPixies(266, "Q266_PleasOfPixies", "Pleas of Pixies");
+		new Q266_PleasOfPixies(266, "Q266_PleasOfPixies", "quests");
 	}
 
 	@Override

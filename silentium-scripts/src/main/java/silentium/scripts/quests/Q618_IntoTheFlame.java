@@ -45,7 +45,7 @@ public class Q618_IntoTheFlame extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q618_IntoTheFlame(618, "Q618_IntoTheFlame", "Into The Flame");
+		new Q618_IntoTheFlame(618, "Q618_IntoTheFlame", "quests");
 	}
 
 	@Override

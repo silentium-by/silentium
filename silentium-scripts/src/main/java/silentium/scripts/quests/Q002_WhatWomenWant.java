@@ -46,7 +46,7 @@ public class Q002_WhatWomenWant extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q002_WhatWomenWant(2, "Q002_WhatWomenWant", "What Women Want");
+		new Q002_WhatWomenWant(2, "Q002_WhatWomenWant", "quests");
 	}
 
 	@Override

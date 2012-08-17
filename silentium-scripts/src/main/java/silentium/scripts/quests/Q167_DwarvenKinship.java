@@ -39,7 +39,7 @@ public class Q167_DwarvenKinship extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q167_DwarvenKinship(167, "Q167_DwarvenKinship", "Dwarven Kinship");
+		new Q167_DwarvenKinship(167, "Q167_DwarvenKinship", "quests");
 	}
 
 	@Override

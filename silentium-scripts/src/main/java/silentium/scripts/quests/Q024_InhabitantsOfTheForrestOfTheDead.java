@@ -45,7 +45,7 @@ public class Q024_InhabitantsOfTheForrestOfTheDead extends Quest
 
 	public static void main(String[] args)
 	{
-		new Q024_InhabitantsOfTheForrestOfTheDead(-1, "Q024_InhabitantsOfTheForrestOfTheDead", "Inhabitants Of The Forrest Of The Dead");
+		new Q024_InhabitantsOfTheForrestOfTheDead(-1, "Q024_InhabitantsOfTheForrestOfTheDead", "quests");
 	}
 
 	@Override

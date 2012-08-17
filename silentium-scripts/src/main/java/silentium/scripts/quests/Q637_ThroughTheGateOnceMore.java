@@ -41,7 +41,7 @@ public class Q637_ThroughTheGateOnceMore extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q637_ThroughTheGateOnceMore(637, "Q637_ThroughTheGateOnceMore", "Through the Gate Once More");
+		new Q637_ThroughTheGateOnceMore(637, "Q637_ThroughTheGateOnceMore", "quests");
 	}
 
 	@Override

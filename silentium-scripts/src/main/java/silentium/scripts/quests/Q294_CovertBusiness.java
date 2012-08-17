@@ -44,7 +44,7 @@ public class Q294_CovertBusiness extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q294_CovertBusiness(294, "Q294_CovertBusiness", "Covert Business");
+		new Q294_CovertBusiness(294, "Q294_CovertBusiness", "quests");
 	}
 
 	@Override

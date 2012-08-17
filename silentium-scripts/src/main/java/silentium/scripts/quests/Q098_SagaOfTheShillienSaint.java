@@ -14,7 +14,7 @@ public class Q098_SagaOfTheShillienSaint extends SagasSuperClass
 {
 	public static String qn1 = "Q098_SagaOfTheShillienSaint";
 	public static int qnu = 98;
-	public static String qna = "Saga of the Shillien Saint";
+	public static String qna = "quests";
 
 	public Q098_SagaOfTheShillienSaint()
 	{

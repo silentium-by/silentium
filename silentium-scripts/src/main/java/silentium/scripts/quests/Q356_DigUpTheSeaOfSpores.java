@@ -43,7 +43,7 @@ public class Q356_DigUpTheSeaOfSpores extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q356_DigUpTheSeaOfSpores(356, "Q356_DigUpTheSeaOfSpores", "Dig Up the Sea of Spores!");
+		new Q356_DigUpTheSeaOfSpores(356, "Q356_DigUpTheSeaOfSpores", "quests");
 	}
 
 	@Override

@@ -41,7 +41,7 @@ public class Q650_ABrokenDream extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q650_ABrokenDream(650, "Q650_ABrokenDream", "A Broken Dream");
+		new Q650_ABrokenDream(650, "Q650_ABrokenDream", "quests");
 	}
 
 	@Override

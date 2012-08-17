@@ -14,7 +14,7 @@ public class Q099_SagaOfTheFortuneSeeker extends SagasSuperClass
 {
 	public static String qn1 = "Q099_SagaOfTheFortuneSeeker";
 	public static int qnu = 99;
-	public static String qna = "Saga of the Fortune Seeker";
+	public static String qna = "quests";
 
 	public Q099_SagaOfTheFortuneSeeker()
 	{

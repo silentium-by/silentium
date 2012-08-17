@@ -43,7 +43,7 @@ public class Q001_LettersOfLove extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q001_LettersOfLove(1, "Q001_LettersOfLove", "Letters of Love");
+		new Q001_LettersOfLove(1, "Q001_LettersOfLove", "quests");
 	}
 
 	@Override

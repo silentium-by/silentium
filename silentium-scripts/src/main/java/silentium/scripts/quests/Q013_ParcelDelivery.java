@@ -35,7 +35,7 @@ public class Q013_ParcelDelivery extends Quest
 
 	public static void main(String[] args)
 	{
-		new Q013_ParcelDelivery(13, "Q013_ParcelDelivery", "Parcel Delivery");
+		new Q013_ParcelDelivery(13, "Q013_ParcelDelivery", "quests");
 	}
 
 	@Override

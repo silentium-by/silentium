@@ -57,7 +57,7 @@ public class Q021_HiddenTruth extends Quest
 
 	public static void main(String[] args)
 	{
-		new Q021_HiddenTruth(21, "Q021_HiddenTruth", "Hidden Truth");
+		new Q021_HiddenTruth(21, "Q021_HiddenTruth", "quests");
 	}
 
 	@Override

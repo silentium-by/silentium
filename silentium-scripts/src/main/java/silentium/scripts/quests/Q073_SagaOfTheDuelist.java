@@ -14,7 +14,7 @@ public class Q073_SagaOfTheDuelist extends SagasSuperClass
 {
 	public static String qn1 = "Q073_SagaOfTheDuelist";
 	public static int qnu = 73;
-	public static String qna = "Saga of the Duelist";
+	public static String qna = "quests";
 
 	public Q073_SagaOfTheDuelist()
 	{

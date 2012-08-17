@@ -14,7 +14,7 @@ public class Q076_SagaOfTheGrandKhavatari extends SagasSuperClass
 {
 	public static String qn1 = "Q076_SagaOfTheGrandKhavatari";
 	public static int qnu = 76;
-	public static String qna = "Saga of the Grand Khavatari";
+	public static String qna = "quests";
 
 	public Q076_SagaOfTheGrandKhavatari()
 	{

@@ -44,7 +44,7 @@ public class Q102_FungusFever extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q102_FungusFever(102, "Q102_FungusFever", "Fungus Fever");
+		new Q102_FungusFever(102, "Q102_FungusFever", "quests");
 	}
 
 	private void check(QuestState st)

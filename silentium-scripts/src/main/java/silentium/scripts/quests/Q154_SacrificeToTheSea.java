@@ -45,7 +45,7 @@ public class Q154_SacrificeToTheSea extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q154_SacrificeToTheSea(154, "Q154_SacrificeToTheSea", "Sacrifice to the Sea");
+		new Q154_SacrificeToTheSea(154, "Q154_SacrificeToTheSea", "quests");
 	}
 
 	@Override

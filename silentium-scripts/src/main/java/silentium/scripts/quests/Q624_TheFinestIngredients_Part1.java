@@ -46,7 +46,7 @@ public class Q624_TheFinestIngredients_Part1 extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q624_TheFinestIngredients_Part1(624, "Q624_TheFinestIngredients_Part1", "The Finest Ingredients - Part 1");
+		new Q624_TheFinestIngredients_Part1(624, "Q624_TheFinestIngredients_Part1", "quests");
 	}
 
 	@Override

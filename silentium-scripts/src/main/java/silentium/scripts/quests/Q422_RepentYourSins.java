@@ -59,7 +59,7 @@ public class Q422_RepentYourSins extends Quest implements ScriptFile
 
 	public static void onLoad()
 	{
-		new Q422_RepentYourSins(422, "Q422_RepentYourSins", "Repent Your Sins");
+		new Q422_RepentYourSins(422, "Q422_RepentYourSins", "quests");
 	}
 
 	@Override

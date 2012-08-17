@@ -16,9 +16,9 @@ public class StaticHtmPath
 	public static final String BaseHtmPath = "data/html-en/";
 	public static final String NpcHtmPath = BaseHtmPath + "npc/";
 	public static final String ScriptsHtmPath = BaseHtmPath + "scripts/";
-	public static final String QuestHtmPath = BaseHtmPath + "quests/";
+	public static final String QuestHtmPath = ScriptsHtmPath + "quests/";
 	public static final String AdminHtmPath = NpcHtmPath + "admin/";
-	public static final String AdventurerGuildsmanHtmPath = NpcHtmPath + "adventurer_guildsman";
+	public static final String AdventurerGuildsmanHtmPath = NpcHtmPath + "adventurer_guildsman/";
 	public static final String AuctionHtmPath = NpcHtmPath + "auction/";
 	public static final String BoardHtmPath = NpcHtmPath + "CommunityBoard/";
 	public static final String CastleBlacksmithHtmPath = NpcHtmPath + "castleblacksmith/";

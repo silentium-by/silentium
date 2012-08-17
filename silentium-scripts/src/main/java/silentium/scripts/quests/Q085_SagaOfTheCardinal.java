@@ -14,7 +14,7 @@ public class Q085_SagaOfTheCardinal extends SagasSuperClass
 {
 	public static String qn1 = "Q085_SagaOfTheCardinal";
 	public static int qnu = 85;
-	public static String qna = "Saga of the Cardinal";
+	public static String qna = "quests";
 
 	public Q085_SagaOfTheCardinal()
 	{
