@@ -9,18 +9,9 @@ package silentium.scripts.handlers.admin;
 
 import gnu.trove.iterator.TIntObjectIterator;
 import gnu.trove.map.hash.TIntObjectHashMap;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.List;
-import java.util.StringTokenizer;
-
 import javolution.text.TextBuilder;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import silentium.commons.database.DatabaseFactory;
 import silentium.commons.utils.StringUtil;
 import silentium.gameserver.TradeController;
@@ -43,6 +34,12 @@ import silentium.gameserver.templates.StatsSet;
 import silentium.gameserver.templates.chars.L2NpcTemplate;
 import silentium.gameserver.templates.item.L2Item;
 import silentium.gameserver.templates.skills.L2SkillType;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.List;
+import java.util.StringTokenizer;
 
 /**
  * @author terry
@@ -1102,7 +1099,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 
 			npcData.getDropData().clear();
 
-			PreparedStatement statement = con.prepareStatement("SELECT " + DatabaseFactory.safetyString(new String[] { "mobId", "itemId", "min", "max", "category", "chance" }) + " FROM droplist WHERE mobId=?");
+			PreparedStatement statement = con.prepareStatement("SELECT mobId, itemId, min, max, category, chance FROM droplist WHERE mobId=?");
 			statement.setInt(1, npcId);
 			ResultSet dropDataList = statement.executeQuery();
 

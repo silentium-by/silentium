@@ -7,22 +7,17 @@
  */
 package silentium.gameserver;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import silentium.commons.database.DatabaseFactory;
 import silentium.gameserver.model.L2TradeList;
 import silentium.gameserver.model.L2TradeList.L2TradeItem;
 import silentium.gameserver.tables.ItemTable;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.*;
 
 public class TradeController
 {
@@ -46,7 +41,7 @@ public class TradeController
 
 			int itemId, price, maxCount, currentCount, time;
 			long saveTimer;
-			PreparedStatement statement = con.prepareStatement("SELECT item_id, price, shop_id, " + DatabaseFactory.safetyString("order") + ", count, currentCount, time, savetimer FROM merchant_buylists WHERE shop_id=? ORDER BY " + DatabaseFactory.safetyString("order") + " ASC");
+			PreparedStatement statement = con.prepareStatement("SELECT item_id, price, shop_id, order, count, currentCount, time, savetimer FROM merchant_buylists WHERE shop_id=? ORDER BY order ASC");
 			while (rset1.next())
 			{
 				statement.setString(1, String.valueOf(rset1.getInt("shop_id")));

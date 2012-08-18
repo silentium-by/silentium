@@ -7,18 +7,16 @@
  */
 package silentium.commons.database;
 
+import com.jolbox.bonecp.BoneCP;
+import com.jolbox.bonecp.BoneCPConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import silentium.commons.ServerType;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import silentium.commons.ServerType;
-
-import com.jolbox.bonecp.BoneCP;
-import com.jolbox.bonecp.BoneCPConfig;
 
 public class DatabaseFactory
 {
@@ -60,30 +58,6 @@ public class DatabaseFactory
 	public static void shutdown()
 	{
 		connectionPool.shutdown();
-	}
-
-	public static final String safetyString(final String... whatToCheck)
-	{
-		int length = 0;
-
-		for (final String word : whatToCheck)
-			length += word.length() + 4;
-
-		final StringBuilder sbResult = new StringBuilder(length);
-		final char braceLeft = '`';
-		final char braceRight = '`';
-
-		for (final String word : whatToCheck)
-		{
-			if (sbResult.length() > 0)
-				sbResult.append(", ");
-
-			sbResult.append(braceLeft);
-			sbResult.append(word);
-			sbResult.append(braceRight);
-		}
-
-		return sbResult.toString();
 	}
 
 	public static Connection getConnection()
