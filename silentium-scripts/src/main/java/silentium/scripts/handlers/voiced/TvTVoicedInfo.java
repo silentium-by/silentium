@@ -31,7 +31,7 @@ public class TvTVoicedInfo implements IVoicedCommandHandler
 	 * the new html would be enough too [DrHouse]
 	 */
 	private static final boolean USE_STATIC_HTML = true;
-	private static final String HTML = HtmCache.getInstance().getHtm(StaticHtmPath.TvTHtmPath + "Status.htm");
+	private static final String HTML = HtmCache.getInstance().getHtm(StaticHtmPath.ModsHtmPath + "TvT/Status.htm");
 
 	@Override
 	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
@@ -40,7 +40,7 @@ public class TvTVoicedInfo implements IVoicedCommandHandler
 		{
 			if (TvTEvent.isStarting() || TvTEvent.isStarted())
 			{
-				String htmContent = (USE_STATIC_HTML && !HTML.isEmpty()) ? HTML : HtmCache.getInstance().getHtm(StaticHtmPath.TvTHtmPath + "Status.htm");
+				String htmContent = (USE_STATIC_HTML && !HTML.isEmpty()) ? HTML : HtmCache.getInstance().getHtm(StaticHtmPath.ModsHtmPath + "TvT/Status.htm");
 				try
 				{
 					NpcHtmlMessage npcHtmlMessage = new NpcHtmlMessage(5);

@@ -41,9 +41,9 @@ public class L2TvTEventNpcInstance extends L2Npc
 			final String htmContent;
 
 			if (!isParticipant)
-				htmContent = HtmCache.getInstance().getHtm(StaticHtmPath.TvTHtmPath + "Participation.htm");
+				htmContent = HtmCache.getInstance().getHtm(StaticHtmPath.ModsHtmPath + "TvT/Participation.htm");
 			else
-				htmContent = HtmCache.getInstance().getHtm(StaticHtmPath.TvTHtmPath + "RemoveParticipation.htm");
+				htmContent = HtmCache.getInstance().getHtm(StaticHtmPath.ModsHtmPath + "TvT/RemoveParticipation.htm");
 
 			if (htmContent != null)
 			{
@@ -65,7 +65,7 @@ public class L2TvTEventNpcInstance extends L2Npc
 		}
 		else if (TvTEvent.isStarting() || TvTEvent.isStarted())
 		{
-			final String htmContent = HtmCache.getInstance().getHtm(StaticHtmPath.TvTHtmPath + "Status.htm");
+			final String htmContent = HtmCache.getInstance().getHtm(StaticHtmPath.ModsHtmPath + "TvT/Status.htm");
 
 			if (htmContent != null)
 			{

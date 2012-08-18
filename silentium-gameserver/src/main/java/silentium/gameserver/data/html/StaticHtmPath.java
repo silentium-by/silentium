@@ -50,5 +50,5 @@ public class StaticHtmPath
 	public static final String VillageMasterHtmPath = NpcHtmPath + "villagemaster/";
 	public static final String WarehouseHtmPath = NpcHtmPath + "warehouse/";
 	public static final String WyvernManagerHtmPath = NpcHtmPath + "wyvernmanager/";
-	public static final String TvTHtmPath = BaseHtmPath + "mods/TvTEvent/";
+	public static final String ModsHtmPath = NpcHtmPath + "mods/";
 }
