@@ -7,19 +7,8 @@
  */
 package silentium.gameserver.data.crest;
 
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.ArrayList;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import silentium.commons.database.DatabaseFactory;
 import silentium.commons.io.filters.BmpFilter;
 import silentium.commons.io.filters.OldPledgeFilter;
@@ -28,34 +17,48 @@ import silentium.gameserver.idfactory.IdFactory;
 import silentium.gameserver.model.L2Clan;
 import silentium.gameserver.tables.ClanTable;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import static silentium.gameserver.data.crest.CrestCache.CrestType.PLEDGE_OLD;
+
 /**
  * @author Layane, reworked by Java-man
  */
 public class CrestCache
 {
-	private static final Logger _log = LoggerFactory.getLogger(CrestCache.class.getName());
+	private static final Logger log = LoggerFactory.getLogger(CrestCache.class);
 
-	private final static ArrayList<CrestData> cache = new ArrayList<>();
+	private static final List<CrestData> cache = new ArrayList<>();
 
-	private final static String CRESTS_DIR = "data/crests/";
+	private static final String CRESTS_DIR = "data/crests/";
 
-	private final static FileFilter bmpFilter = new BmpFilter();
-	private final static FileFilter oldPledgeFilter = new OldPledgeFilter();
+	private static final File[] EMPTY_FILE_ARRAY = new File[0];
 
-	public static enum CrestType
+	public enum CrestType
 	{
-		PLEDGE("Crest_"), PLEDGE_LARGE("Crest_Large_"), PLEDGE_OLD("Pledge_"), ALLY("AllyCrest_");
+		PLEDGE("Crest_"),
+		PLEDGE_LARGE("Crest_Large_"),
+		PLEDGE_OLD("Pledge_"),
+		ALLY("AllyCrest_");
 
-		private final String _dirPrefix;
+		private final String dirPrefix;
 
-		CrestType(String dirPrefix)
+		CrestType(final String dirPrefix)
 		{
-			_dirPrefix = dirPrefix;
+			this.dirPrefix = dirPrefix;
 		}
 
 		public String getDirPrefix()
 		{
-			return _dirPrefix;
+			return dirPrefix;
 		}
 	}
 
@@ -69,9 +72,9 @@ public class CrestCache
 	{
 		cache.clear();
 
-		File[] files = new File(MainConfig.DATAPACK_ROOT, CRESTS_DIR).listFiles(bmpFilter);
+		File[] files = new File(MainConfig.DATAPACK_ROOT, CRESTS_DIR).listFiles(BmpFilter.INSTANCE);
 		if (files == null)
-			files = new File[0];
+			files = EMPTY_FILE_ARRAY;
 
 		String fileName;
 		byte[] content;
@@ -79,31 +82,31 @@ public class CrestCache
 		CrestType crestType = null;
 		int crestId = 0;
 
-		for (File file : files)
+		for (final File file : files)
 		{
 			fileName = file.getName();
+
 			try (RandomAccessFile f = new RandomAccessFile(file, "r"))
 			{
 				content = new byte[(int) f.length()];
 				f.readFully(content);
 
-				for (CrestType type : CrestType.values())
-				{
+				for (final CrestType type : CrestType.values())
 					if (fileName.startsWith(type.getDirPrefix()))
 					{
 						crestType = type;
-						crestId = Integer.valueOf(fileName.substring(type.getDirPrefix().length(), fileName.length() - 4));
+						crestId = getCrestIdFromFileName(fileName, type.getDirPrefix());
 					}
-				}
+
 				cache.add(new CrestData(crestType, crestId, content));
 			}
 			catch (Exception e)
 			{
-				_log.warn("Problem with loading crest bmp file: " + file, e);
+				log.warn("Problem with loading crest bmp file: " + file, e);
 			}
 		}
 
-		_log.info("Cache[Crest]: " + cache.size() + " files loaded.");
+		log.info("Cache[Crest]: " + cache.size() + " files loaded.");
 	}
 
 	public static void convertOldPledgeFiles()
@@ -111,82 +114,79 @@ public class CrestCache
 		int clanId, newId;
 		L2Clan clan;
 
-		final File[] files = new File(MainConfig.DATAPACK_ROOT, CRESTS_DIR).listFiles(oldPledgeFilter);
-		for (File file : files)
+		final File[] files = new File(MainConfig.DATAPACK_ROOT, CRESTS_DIR).listFiles(OldPledgeFilter.INSTANCE);
+		for (final File file : files)
 		{
-			clanId = Integer.parseInt(file.getName().substring(7, file.getName().length() - 4));
+			clanId = getCrestIdFromFileName(file.getName(), PLEDGE_OLD.getDirPrefix());
 			newId = IdFactory.getInstance().getNextId();
 			clan = ClanTable.getInstance().getClan(clanId);
 
-			_log.info("Found old crest file \"" + file.getName() + "\" for clanId " + clanId);
+			log.info("Found old crest file \"" + file.getName() + "\" for clanId " + clanId);
 
 			if (clan != null)
 			{
 				removeCrest(CrestType.PLEDGE_LARGE, clan.getCrestId());
 
 				file.renameTo(new File(MainConfig.DATAPACK_ROOT, CRESTS_DIR + "Crest_" + newId + ".bmp"));
-				_log.info("Renamed Clan crest to new format: Crest_" + newId + ".bmp");
+				log.info("Renamed Clan crest to new format: Crest_" + newId + ".bmp");
 
-				try (Connection con = DatabaseFactory.getConnection())
+				try (Connection con = DatabaseFactory.getConnection();
+				     PreparedStatement statement = con.prepareStatement("UPDATE clan_data SET crest_id = ? WHERE clan_id = ?"))
 				{
-					PreparedStatement statement = con.prepareStatement("UPDATE clan_data SET crest_id = ? WHERE clan_id = ?");
 					statement.setInt(1, newId);
 					statement.setInt(2, clan.getClanId());
 					statement.executeUpdate();
-					statement.close();
 				}
 				catch (SQLException e)
 				{
-					_log.warn("Could not update the crest id:", e);
+					log.warn("Could not update the crest id:", e);
 				}
 
 				clan.setCrestId(newId);
 			}
 			else
 			{
-				_log.info("Clan Id: " + clanId + " does not exist in table.. deleting.");
+				log.info("Clan Id: " + clanId + " does not exist in table.. deleting.");
 				file.delete();
 			}
 		}
 	}
 
-	public static byte[] getCrest(CrestType crestType, int id)
+	public static byte[] getCrestHash(final CrestType crestType, final int id)
 	{
-		for (CrestData crest : cache)
+		for (final CrestData crest : cache)
 			if (crest.getCrestType() == crestType && crest.getCrestId() == id)
 				return crest.getHash();
 
-		return new byte[0];
+		return null;
 	}
 
-	public static void removeCrest(CrestType crestType, int id)
+	public static void removeCrest(final CrestType crestType, final int id)
 	{
-		String crestDirPrefix = crestType.getDirPrefix();
+		final String crestDirPrefix = crestType.getDirPrefix();
 
-		if (!crestDirPrefix.equals("Pledge_"))
-		{
-			for (CrestData crestData : cache)
+		if (!"Pledge_".equals(crestDirPrefix))
+			for (final CrestData crestData : cache)
 				if (crestData.getCrestType() == crestType && crestData.getCrestId() == id)
 				{
 					cache.remove(crestData);
 					break;
 				}
-		}
 
-		File crestFile = new File(MainConfig.DATAPACK_ROOT, CRESTS_DIR + crestDirPrefix + id + ".bmp");
+		final File crestFile = new File(MainConfig.DATAPACK_ROOT, CRESTS_DIR + crestDirPrefix + id + ".bmp");
 		try
 		{
 			crestFile.delete();
 		}
 		catch (Exception e)
 		{
-			_log.warn("", e);
+			log.warn("", e);
 		}
 	}
 
-	public static boolean saveCrest(CrestType crestType, int newId, byte[] data)
+	public static boolean saveCrest(final CrestType crestType, final int newId, final byte[] data)
 	{
-		File crestFile = new File(MainConfig.DATAPACK_ROOT, CRESTS_DIR + crestType.getDirPrefix() + newId + ".bmp");
+		final File crestFile = new File(MainConfig.DATAPACK_ROOT, CRESTS_DIR + crestType.getDirPrefix() + newId + ".bmp");
 		try (FileOutputStream out = new FileOutputStream(crestFile))
 		{
 			out.write(data);
@@ -197,37 +197,42 @@ public class CrestCache
 		}
 		catch (IOException e)
 		{
-			_log.info("Error saving pledge crest" + crestFile + ":", e);
+			log.info("Error saving pledge crest" + crestFile + ':', e);
 			return false;
 		}
 	}
 
+	public static int getCrestIdFromFileName(final String fileName, final String dirPrefix)
+	{
+		return Integer.valueOf(fileName.substring(dirPrefix.length(), fileName.length() - 4));
+	}
+
 	private static class CrestData
 	{
-		private final CrestType _crestType;
-		private final int _crestId;
-		private final byte[] _hash;
+		private final CrestType crestType;
+		private final int crestId;
+		private final byte[] hash;
 
-		CrestData(CrestType crestType, int crestId, byte[] hash)
+		CrestData(final CrestType crestType, final int crestId, final byte[] hash)
 		{
-			_crestType = crestType;
-			_crestId = crestId;
-			_hash = hash;
+			this.crestType = crestType;
+			this.crestId = crestId;
+			this.hash = hash;
 		}
 
 		public CrestType getCrestType()
 		{
-			return _crestType;
+			return crestType;
 		}
 
 		public int getCrestId()
 		{
-			return _crestId;
+			return crestId;
 		}
 
 		public byte[] getHash()
 		{
-			return _hash;
+			return hash;
 		}
 	}
 }

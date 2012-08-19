@@ -8,13 +8,15 @@
 package silentium.commons.io.filters;
 
 import java.io.File;
-import java.io.FileFilter;
+import java.io.FilenameFilter;
 
-public class BmpFilter implements FileFilter
+public class BmpFilter implements FilenameFilter
 {
+	public static final FilenameFilter INSTANCE = new BmpFilter();
+
 	@Override
-	public boolean accept(File file)
+	public boolean accept(final File dir, final String name)
 	{
-		return file.getName().endsWith(".bmp");
+		return name.endsWith(".bmp");
 	}
 }

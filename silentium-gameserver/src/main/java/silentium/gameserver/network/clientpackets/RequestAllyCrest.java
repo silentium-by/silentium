@@ -26,7 +26,7 @@ public final class RequestAllyCrest extends L2GameClientPacket
 	{
 		log.debug("Allycrestid: " + _crestId + " requested.");
 
-		byte[] data = CrestCache.getCrest(CrestType.ALLY, _crestId);
+		byte[] data = CrestCache.getCrestHash(CrestType.ALLY, _crestId);
 		if (data != null)
 			sendPacket(new AllyCrest(_crestId, data));
 		else
