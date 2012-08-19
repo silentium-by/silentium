@@ -7,55 +7,45 @@
  */
 package silentium.commons.utils;
 
+import javolution.text.TextBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.UnknownHostException;
 
-import javolution.text.TextBuilder;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-public class Util
-{
+public class Util {
 	private static final Logger _log = LoggerFactory.getLogger(Util.class.getName());
 
-	public static boolean isInternalIP(String ipAddress)
-	{
+	public static boolean isInternalIP(final String ipAddress) {
 		java.net.InetAddress addr = null;
-		try
-		{
+		try {
 			addr = java.net.InetAddress.getByName(ipAddress);
 			return addr.isSiteLocalAddress() || addr.isLoopbackAddress();
-		}
-		catch (UnknownHostException e)
-		{
+		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		}
 		return false;
 	}
 
-	public static String printData(byte[] data, int len)
-	{
-		TextBuilder result = new TextBuilder();
+	public static String printData(final byte[] data, final int len) {
+		final TextBuilder result = new TextBuilder();
 
 		int counter = 0;
 
-		for (int i = 0; i < len; i++)
-		{
+		for (int i = 0; i < len; i++) {
 			if (counter % 16 == 0)
-				result.append(fillHex(i, 4) + ": ");
+				result.append(fillHex(i, 4)).append(": ");
 
-			result.append(fillHex(data[i] & 0xff, 2) + " ");
+			result.append(fillHex(data[i] & 0xff, 2)).append(' ');
 			counter++;
-			if (counter == 16)
-			{
+			if (counter == 16) {
 				result.append("   ");
 
 				int charpoint = i - 15;
-				for (int a = 0; a < 16; a++)
-				{
-					int t1 = data[charpoint++];
+				for (int a = 0; a < 16; a++) {
+					final int t1 = data[charpoint++];
 
 					if (t1 > 0x1f && t1 < 0x80)
 						result.append((char) t1);
@@ -68,16 +58,14 @@ public class Util
 			}
 		}
 
-		int rest = data.length % 16;
-		if (rest > 0)
-		{
+		final int rest = data.length % 16;
+		if (rest > 0) {
 			for (int i = 0; i < 17 - rest; i++)
 				result.append("   ");
 
 			int charpoint = data.length - rest;
-			for (int a = 0; a < rest; a++)
-			{
-				int t1 = data[charpoint++];
+			for (int a = 0; a < rest; a++) {
+				final int t1 = data[charpoint++];
 
 				if (t1 > 0x1f && t1 < 0x80)
 					result.append((char) t1);
@@ -90,35 +78,30 @@ public class Util
 		return result.toString();
 	}
 
-	public static String fillHex(int data, int digits)
-	{
+	public static String fillHex(final int data, final int digits) {
 		String number = Integer.toHexString(data);
 
-		for (int i = number.length(); i < digits; i++)
-		{
-			number = "0" + number;
+		for (int i = number.length(); i < digits; i++) {
+			number = '0' + number;
 		}
 
 		return number;
 	}
 
-	public static String printData(byte[] raw)
-	{
+	public static String printData(final byte... raw) {
 		return printData(raw, raw.length);
 	}
 
-	public static String getStackTrace(Throwable t)
-	{
-		StringWriter sw = new StringWriter();
+	public static String getStackTrace(final Throwable t) {
+		final StringWriter sw = new StringWriter();
 		t.printStackTrace(new PrintWriter(sw));
 		return sw.toString();
 	}
 
-	public static void printSection(String s)
-	{
+	public static void printSection(String s) {
 		s = "=[ " + s + " ]";
 		while (s.length() < 78)
-			s = "-" + s;
+			s = '-' + s;
 		_log.info(s);
 	}
 }

@@ -9,16 +9,14 @@ package silentium.authserver.network.gameserverpackets;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import silentium.authserver.network.clientpackets.ClientBasePacket;
 
 /**
  * Format: cccddb c desired ID c accept alternative ID c reserve Host s ExternalHostName s InetranlHostName d max players d hexid size b hexid
- * 
+ *
  * @author -Wooden-
  */
-public class GameServerAuth extends ClientBasePacket
-{
+public class GameServerAuth extends ClientBasePacket {
 	protected static Logger _log = LoggerFactory.getLogger(GameServerAuth.class.getName());
 	private final byte[] _hexId;
 	private final int _desiredId;
@@ -32,72 +30,63 @@ public class GameServerAuth extends ClientBasePacket
 	/**
 	 * @param decrypt
 	 */
-	public GameServerAuth(byte[] decrypt)
-	{
+	public GameServerAuth(final byte... decrypt) {
 		super(decrypt);
 		_desiredId = readC();
-		_acceptAlternativeId = (readC() == 0 ? false : true);
-		_hostReserved = (readC() == 0 ? false : true);
+		_acceptAlternativeId = readC() == 0 ? false : true;
+		_hostReserved = readC() == 0 ? false : true;
 		_externalHost = readS();
 		_internalHost = readS();
 		_port = readH();
 		_maxPlayers = readD();
-		int size = readD();
+		final int size = readD();
 		_hexId = readB(size);
 	}
 
 	/**
 	 * @return
 	 */
-	public byte[] getHexID()
-	{
+	public byte[] getHexID() {
 		return _hexId;
 	}
 
-	public boolean getHostReserved()
-	{
+	public boolean getHostReserved() {
 		return _hostReserved;
 	}
 
-	public int getDesiredID()
-	{
+	public int getDesiredID() {
 		return _desiredId;
 	}
 
-	public boolean acceptAlternateID()
-	{
+	public boolean acceptAlternateID() {
 		return _acceptAlternativeId;
 	}
 
 	/**
 	 * @return Returns the max players.
 	 */
-	public int getMaxPlayers()
-	{
+	public int getMaxPlayers() {
 		return _maxPlayers;
 	}
 
 	/**
 	 * @return Returns the externalHost.
 	 */
-	public String getExternalHost()
-	{
+	public String getExternalHost() {
 		return _externalHost;
 	}
 
 	/**
 	 * @return Returns the internalHost.
 	 */
-	public String getInternalHost()
-	{
+	public String getInternalHost() {
 		return _internalHost;
 	}
 
 	/**
 	 * @return Returns the port.
 	 */
-	public int getPort()
-	{
+	public int getPort() {
 		return _port;
 	}
 }

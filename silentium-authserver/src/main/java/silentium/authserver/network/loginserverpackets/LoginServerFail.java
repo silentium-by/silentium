@@ -12,21 +12,18 @@ import silentium.authserver.network.serverpackets.ServerBasePacket;
 /**
  * @author -Wooden-
  */
-public class LoginServerFail extends ServerBasePacket
-{
+public class LoginServerFail extends ServerBasePacket {
 
 	/**
 	 * @param reason
 	 */
-	public LoginServerFail(int reason)
-	{
+	public LoginServerFail(final int reason) {
 		writeC(0x01);
 		writeC(reason);
 	}
 
 	@Override
-	public byte[] getContent()
-	{
+	public byte[] getContent() {
 		return getBytes();
 	}
 

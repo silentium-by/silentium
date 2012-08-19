@@ -14,8 +14,7 @@ import org.apache.commons.math3.random.RandomGenerator;
  * @author Forsaiken
  * @author Tatanka
  */
-public final class Rnd
-{
+public final class Rnd {
 	private static final RandomGenerator random = new MersenneTwister();
 
 	/**
@@ -24,48 +23,39 @@ public final class Rnd
 	 * @return A random double number from 0 to 1
 	 * @see silentium.commons.utils.Rnd#nextDouble()
 	 */
-	public static double get()
-	{
+	public static double get() {
 		return random.nextDouble();
 	}
 
 	/**
 	 * Gets a random integer number from 0(inclusive) to n(exclusive)
 	 *
-	 * @param n
-	 *            The superior limit (exclusive)
+	 * @param n The superior limit (exclusive)
 	 * @return A random integer number from 0 to n-1
 	 */
-	public static int get(final int n)
-	{
+	public static int get(final int n) {
 		return random.nextInt(n);
 	}
 
 	/**
 	 * Gets a random integer number from min(inclusive) to max(inclusive)
 	 *
-	 * @param min
-	 *            The minimum value
-	 * @param max
-	 *            The maximum value
+	 * @param min The minimum value
+	 * @param max The maximum value
 	 * @return A random integer number from min to max
 	 */
-	public static int get(final int min, final int max)
-	{
+	public static int get(final int min, final int max) {
 		return min + random.nextInt(max - min + 1);
 	}
 
 	/**
 	 * Gets a random long number from min(inclusive) to max(inclusive)
 	 *
-	 * @param min
-	 *            The minimum value
-	 * @param max
-	 *            The maximum value
+	 * @param min The minimum value
+	 * @param max The maximum value
 	 * @return A random long number from min to max
 	 */
-	public static long get(final long min, final long max)
-	{
+	public static long get(final long min, final long max) {
 		return min + (long) (random.nextDouble() * (max - min + 1));
 	}
 
@@ -75,20 +65,17 @@ public final class Rnd
 	 * @return A random boolean state (true or false)
 	 * @see java.util.Random#nextBoolean()
 	 */
-	public static boolean nextBoolean()
-	{
+	public static boolean nextBoolean() {
 		return random.nextBoolean();
 	}
 
 	/**
 	 * Fill the given array with random byte numbers from Byte.MIN_VALUE(inclusive) to Byte.MAX_VALUE(inclusive)
 	 *
-	 * @param array
-	 *            The array to be filled with random byte numbers
+	 * @param array The array to be filled with random byte numbers
 	 * @see java.util.Random#nextBytes(byte[] bytes)
 	 */
-	public static void nextBytes(final byte[] array)
-	{
+	public static void nextBytes(final byte... array) {
 		random.nextBytes(array);
 	}
 
@@ -98,8 +85,7 @@ public final class Rnd
 	 * @return A random double number from 0 to 1
 	 * @see java.util.Random#nextDouble()
 	 */
-	public static double nextDouble()
-	{
+	public static double nextDouble() {
 		return random.nextDouble();
 	}
 
@@ -109,8 +95,7 @@ public final class Rnd
 	 * @return A random integer number from 0 to 1
 	 * @see java.util.Random#nextFloat()
 	 */
-	public static float nextFloat()
-	{
+	public static float nextFloat() {
 		return random.nextFloat();
 	}
 
@@ -120,8 +105,7 @@ public final class Rnd
 	 * @return A random gaussian double number from 0 to 1
 	 * @see java.util.Random#nextGaussian()
 	 */
-	public static double nextGaussian()
-	{
+	public static double nextGaussian() {
 		return random.nextGaussian();
 	}
 
@@ -131,8 +115,7 @@ public final class Rnd
 	 * @return A random integer number from Integer.MIN_VALUE to Integer.MAX_VALUE
 	 * @see java.util.Random#nextInt()
 	 */
-	public static int nextInt()
-	{
+	public static int nextInt() {
 		return random.nextInt();
 	}
 
@@ -141,8 +124,7 @@ public final class Rnd
 	 * @return
 	 * @see silentium.commons.utils.Rnd#get(int n)
 	 */
-	public static int nextInt(final int n)
-	{
+	public static int nextInt(final int n) {
 		return get(n);
 	}
 
@@ -152,8 +134,7 @@ public final class Rnd
 	 * @return A random integer number from Long.MIN_VALUE to Long.MAX_VALUE
 	 * @see java.util.Random#nextLong()
 	 */
-	public static final long nextLong()
-	{
+	public static final long nextLong() {
 		return random.nextLong();
 	}
 }

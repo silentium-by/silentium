@@ -7,10 +7,7 @@
  */
 package silentium.gameserver.scripting;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.Set;
-
+import com.google.common.base.Objects;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
 import org.reflections.util.ClasspathHelper;
@@ -18,68 +15,55 @@ import org.reflections.util.ConfigurationBuilder;
 import org.reflections.util.FilterBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import silentium.gameserver.ai.DefaultMonsterAI;
-import silentium.gameserver.handler.AdminCommandHandler;
-import silentium.gameserver.handler.ChatHandler;
-import silentium.gameserver.handler.IAdminCommandHandler;
-import silentium.gameserver.handler.IChatHandler;
-import silentium.gameserver.handler.IItemHandler;
-import silentium.gameserver.handler.ISkillHandler;
-import silentium.gameserver.handler.IUserCommandHandler;
-import silentium.gameserver.handler.IVoicedCommandHandler;
-import silentium.gameserver.handler.ItemHandler;
-import silentium.gameserver.handler.SkillHandler;
-import silentium.gameserver.handler.UserCommandHandler;
-import silentium.gameserver.handler.VoicedCommandHandler;
+import silentium.gameserver.handler.*;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Set;
 
 /**
  * Caches script engines and provides funcionality for executing and managing scripts.<BR>
- * 
+ *
  * @author KenM
  */
-public final class L2ScriptEngineManager
-{
-	private static final Logger _log = LoggerFactory.getLogger(L2ScriptEngineManager.class.getName());
+public final class L2ScriptEngineManager {
+	private static final Logger log = LoggerFactory.getLogger(L2ScriptEngineManager.class);
 
 	private Class<? extends ScriptFile> currentLoadingScript;
 
-	public static L2ScriptEngineManager getInstance()
-	{
+	public static L2ScriptEngineManager getInstance() {
 		return SingletonHolder.INSTANCE;
 	}
 
-	public void initializeScripts()
-	{
-		final Reflections reflections = new Reflections(new ConfigurationBuilder().setUrls(ClasspathHelper.forPackage("silentium.scripts")).filterInputsBy(new FilterBuilder().exclude("silentium.scripts.handlers")).setScanners(new SubTypesScanner(false)).useParallelExecutor());
+	public void initializeScripts() {
+		final Reflections reflections = new Reflections(new ConfigurationBuilder()
+				.setUrls(ClasspathHelper.forPackage("silentium.scripts"))
+				.filterInputsBy(new FilterBuilder().exclude("silentium.scripts.handlers"))
+				.setScanners(new SubTypesScanner(false))
+				.useParallelExecutor());
 		final Set<Class<? extends ScriptFile>> classes = reflections.getSubTypesOf(ScriptFile.class);
 
 		DefaultMonsterAI.initialize();
 
-		for (final Class<? extends ScriptFile> scriptClass : classes)
-		{
-			try
-			{
+		for (final Class<? extends ScriptFile> scriptClass : classes) {
+			try {
 				currentLoadingScript = scriptClass;
 
 				final Method onLoadMethod = scriptClass.getMethod("onLoad");
 
-				if (onLoadMethod.getDeclaringClass().equals(scriptClass)) // Check for classes like Sagas
+				if (Objects.equal(onLoadMethod.getDeclaringClass(), scriptClass)) // Check for classes like Sagas
 					onLoadMethod.invoke(null);
-			}
-			catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e)
-			{
-				_log.warn("Script {} can't be initialized: {}", scriptClass.getSimpleName(), e.getLocalizedMessage());
+			} catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+				log.warn("Script {} can't be initialized: {}", scriptClass.getSimpleName(), e.getLocalizedMessage());
 			}
 		}
 
 		registerHandlers();
 	}
 
-	private static void registerHandlers()
-	{
-		try
-		{
+	private static void registerHandlers() {
+		try {
 			Reflections reflections = new Reflections("silentium.scripts.handlers.admin");
 			for (final Class<? extends IAdminCommandHandler> handler : reflections.getSubTypesOf(IAdminCommandHandler.class))
 				AdminCommandHandler.getInstance().registerAdminCommandHandler(handler.getConstructor().newInstance());
@@ -103,23 +87,19 @@ public final class L2ScriptEngineManager
 			reflections = new Reflections("silentium.scripts.handlers.voiced");
 			for (final Class<? extends IVoicedCommandHandler> voicedCommandHandler : reflections.getSubTypesOf(IVoicedCommandHandler.class))
 				VoicedCommandHandler.getInstance().registerHandler(voicedCommandHandler.getConstructor().newInstance());
-		}
-		catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e)
-		{
-			_log.warn("Handler {} can't be initialized.", e);
+		} catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+			log.warn("Handler {} can't be initialized.", e);
 		}
 	}
 
 	/**
 	 * @return Returns the currentLoadingScript.
 	 */
-	public Class<? extends ScriptFile> getCurrentLoadingScript()
-	{
+	public Class<? extends ScriptFile> getCurrentLoadingScript() {
 		return currentLoadingScript;
 	}
 
-	private static class SingletonHolder
-	{
+	private static class SingletonHolder {
 		static final L2ScriptEngineManager INSTANCE = new L2ScriptEngineManager();
 	}
 }

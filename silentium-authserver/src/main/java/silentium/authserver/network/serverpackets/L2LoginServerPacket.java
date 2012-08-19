@@ -13,7 +13,6 @@ import silentium.commons.network.mmocore.SendablePacket;
 /**
  * @author KenM
  */
-public abstract class L2LoginServerPacket extends SendablePacket<L2LoginClient>
-{
+public abstract class L2LoginServerPacket extends SendablePacket<L2LoginClient> {
 
 }

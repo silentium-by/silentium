@@ -12,17 +12,14 @@ import silentium.authserver.network.serverpackets.ServerBasePacket;
 /**
  * @author -Wooden-
  */
-public class KickPlayer extends ServerBasePacket
-{
-	public KickPlayer(String account)
-	{
+public class KickPlayer extends ServerBasePacket {
+	public KickPlayer(final String account) {
 		writeC(0x04);
 		writeS(account);
 	}
 
 	@Override
-	public byte[] getContent()
-	{
+	public byte[] getContent() {
 		return getBytes();
 	}
 }

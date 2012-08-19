@@ -10,13 +10,11 @@ package silentium.commons.io.filters;
 import java.io.File;
 import java.io.FilenameFilter;
 
-public class BmpFilter implements FilenameFilter
-{
+public class BmpFilter implements FilenameFilter {
 	public static final FilenameFilter INSTANCE = new BmpFilter();
 
 	@Override
-	public boolean accept(final File dir, final String name)
-	{
+	public boolean accept(final File dir, final String name) {
 		return name.endsWith(".bmp");
 	}
 }

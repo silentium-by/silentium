@@ -22,7 +22,7 @@ import java.sql.SQLException;
  * @author Tatanka (full rework)
  */
 public class DatabaseTuning {
-	private static Logger _log = LoggerFactory.getLogger(DatabaseTuning.class.getName());
+	private static final Logger log = LoggerFactory.getLogger(DatabaseTuning.class.getName());
 
 	// TODO сделать так, чтобы все нужные таблицы сами находились.
 	private static final String GAME_SERVER_TABLES = "auction, auction_bid, augmentations, castle, " + "castle_doorupgrade, castle_manor_procure, castle_manor_production, castle_siege_guards, " + "character_friends, character_hennas, character_macroses, character_mail, character_premium, " + "character_quest_global_data, character_quests, character_raid_points, character_recipebook, " + "character_recommends, character_shortcuts, character_skills, character_skills_save, " + "character_subclasses, characters, clan_data, clan_notices, clan_privs, clan_skills, clan_subpledges, "
@@ -38,7 +38,7 @@ public class DatabaseTuning {
 	private static final String AUTH_SERVER_TABLES_REPAIR_QUERY = "REPAIR TABLE " + AUTH_SERVER_TABLES;
 
 	public static void start() {
-		_log.info("Start tuning database...");
+		log.info("Start tuning database...");
 
 		for (final DatabaseTuningType tuningType : DatabaseTuningType.values())
 			tuningType.tune();
@@ -57,7 +57,7 @@ public class DatabaseTuning {
 
 		void tune() {
 			try (Connection con = DatabaseFactory.getConnection()) {
-				PreparedStatement statement;
+				final PreparedStatement statement;
 
 				if (ServerType.SERVER_TYPE == ServerType.GAMESERVER)
 					statement = con.prepareStatement(gameServerQuery);
@@ -68,7 +68,7 @@ public class DatabaseTuning {
 
 				statement.execute();
 			} catch (SQLException e) {
-				_log.info("Tuning failed." + e.getLocalizedMessage());
+				log.info("Tuning failed." + e.getLocalizedMessage());
 			}
 		}
 	}

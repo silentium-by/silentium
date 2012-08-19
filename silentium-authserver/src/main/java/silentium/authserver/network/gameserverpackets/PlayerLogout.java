@@ -12,16 +12,14 @@ import silentium.authserver.network.clientpackets.ClientBasePacket;
 /**
  * @author -Wooden-
  */
-public class PlayerLogout extends ClientBasePacket
-{
+public class PlayerLogout extends ClientBasePacket {
 
 	private final String _account;
 
 	/**
 	 * @param decrypt
 	 */
-	public PlayerLogout(byte[] decrypt)
-	{
+	public PlayerLogout(final byte... decrypt) {
 		super(decrypt);
 		_account = readS();
 	}
@@ -29,8 +27,7 @@ public class PlayerLogout extends ClientBasePacket
 	/**
 	 * @return Returns the account.
 	 */
-	public String getAccount()
-	{
+	public String getAccount() {
 		return _account;
 	}
 

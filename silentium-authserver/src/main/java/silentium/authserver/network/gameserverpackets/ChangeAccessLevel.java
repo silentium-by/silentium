@@ -12,8 +12,7 @@ import silentium.authserver.network.clientpackets.ClientBasePacket;
 /**
  * @author -Wooden-
  */
-public class ChangeAccessLevel extends ClientBasePacket
-{
+public class ChangeAccessLevel extends ClientBasePacket {
 
 	private final int _level;
 	private final String _account;
@@ -21,8 +20,7 @@ public class ChangeAccessLevel extends ClientBasePacket
 	/**
 	 * @param decrypt
 	 */
-	public ChangeAccessLevel(byte[] decrypt)
-	{
+	public ChangeAccessLevel(final byte... decrypt) {
 		super(decrypt);
 		_level = readD();
 		_account = readS();
@@ -31,16 +29,14 @@ public class ChangeAccessLevel extends ClientBasePacket
 	/**
 	 * @return Returns the account.
 	 */
-	public String getAccount()
-	{
+	public String getAccount() {
 		return _account;
 	}
 
 	/**
 	 * @return Returns the level.
 	 */
-	public int getLevel()
-	{
+	public int getLevel() {
 		return _level;
 	}
 

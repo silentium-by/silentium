@@ -10,15 +10,14 @@ package silentium.commons.network.mmocore;
 /**
  * @author KenM
  */
-public final class SelectorConfig
-{
-	public int READ_BUFFER_SIZE = 64 * 1024;
+public final class SelectorConfig {
+	public final int READ_BUFFER_SIZE = 64 * 1024;
 
-	public int WRITE_BUFFER_SIZE = 64 * 1024;
+	public final int WRITE_BUFFER_SIZE = 64 * 1024;
 
 	public int HELPER_BUFFER_COUNT = 20;
 
-	public int HELPER_BUFFER_SIZE = 64 * 1024;
+	public final int HELPER_BUFFER_SIZE = 64 * 1024;
 
 	/**
 	 * Server will try to send MAX_SEND_PER_PASS packets per socket write call<br>

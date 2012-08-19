@@ -7,13 +7,8 @@
  */
 package silentium.authserver.network.clientpackets;
 
-import java.security.GeneralSecurityException;
-
-import javax.crypto.Cipher;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import silentium.authserver.GameServerTable.GameServerInfo;
 import silentium.authserver.L2LoginClient;
 import silentium.authserver.L2LoginClient.LoginClientState;
@@ -26,11 +21,13 @@ import silentium.authserver.network.serverpackets.LoginFail.LoginFailReason;
 import silentium.authserver.network.serverpackets.LoginOk;
 import silentium.authserver.network.serverpackets.ServerList;
 
+import javax.crypto.Cipher;
+import java.security.GeneralSecurityException;
+
 /**
  * Format: x 0 (a leading null) x: the rsa encrypted block with the login an password
  */
-public class RequestAuthLogin extends L2LoginClientPacket
-{
+public class RequestAuthLogin extends L2LoginClientPacket {
 	private static Logger _log = LoggerFactory.getLogger(RequestAuthLogin.class.getName());
 
 	private final byte[] _raw = new byte[128];
@@ -39,26 +36,21 @@ public class RequestAuthLogin extends L2LoginClientPacket
 	private String _password;
 	private int _ncotp;
 
-	public String getPassword()
-	{
+	public String getPassword() {
 		return _password;
 	}
 
-	public String getUser()
-	{
+	public String getUser() {
 		return _user;
 	}
 
-	public int getOneTimePassword()
-	{
+	public int getOneTimePassword() {
 		return _ncotp;
 	}
 
 	@Override
-	public boolean readImpl()
-	{
-		if (super._buf.remaining() >= 128)
-		{
+	public boolean readImpl() {
+		if (_buf.remaining() >= 128) {
 			readB(_raw);
 			return true;
 		}
@@ -66,41 +58,33 @@ public class RequestAuthLogin extends L2LoginClientPacket
 	}
 
 	@Override
-	public void run()
-	{
+	public void run() {
 		byte[] decrypted = null;
 		final L2LoginClient client = getClient();
-		try
-		{
+		try {
 			final Cipher rsaCipher = Cipher.getInstance("RSA/ECB/nopadding");
 			rsaCipher.init(Cipher.DECRYPT_MODE, getClient().getRSAPrivateKey());
 			decrypted = rsaCipher.doFinal(_raw, 0x00, 0x80);
-		}
-		catch (GeneralSecurityException e)
-		{
+		} catch (GeneralSecurityException e) {
 			_log.error(e.getLocalizedMessage(), e);
 			return;
 		}
 
-		try
-		{
+		try {
 			_user = new String(decrypted, 0x5E, 14).trim().toLowerCase();
 			_password = new String(decrypted, 0x6C, 16).trim();
 			_ncotp = decrypted[0x7c];
 			_ncotp |= decrypted[0x7d] << 8;
 			_ncotp |= decrypted[0x7e] << 16;
 			_ncotp |= decrypted[0x7f] << 24;
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			_log.error(e.getLocalizedMessage(), e);
 			return;
 		}
 
 		final LoginController lc = LoginController.getInstance();
-		AuthLoginResult result = lc.tryAuthLogin(_user, _password, client);
-		switch (result)
-		{
+		final AuthLoginResult result = lc.tryAuthLogin(_user, _password, client);
+		switch (result) {
 			case AUTH_SUCCESS:
 				client.setAccount(_user);
 				client.setState(LoginClientState.AUTHED_LOGIN);
@@ -120,9 +104,8 @@ public class RequestAuthLogin extends L2LoginClientPacket
 				break;
 
 			case ALREADY_ON_LS:
-				L2LoginClient oldClient;
-				if ((oldClient = lc.getAuthedClient(_user)) != null)
-				{
+				final L2LoginClient oldClient;
+				if ((oldClient = lc.getAuthedClient(_user)) != null) {
 					// kick the other client
 					oldClient.close(LoginFailReason.REASON_ACCOUNT_IN_USE);
 					lc.removeAuthedLoginClient(_user);
@@ -132,9 +115,8 @@ public class RequestAuthLogin extends L2LoginClientPacket
 				break;
 
 			case ALREADY_ON_GS:
-				GameServerInfo gsi;
-				if ((gsi = lc.getAccountOnGameServer(_user)) != null)
-				{
+				final GameServerInfo gsi;
+				if ((gsi = lc.getAccountOnGameServer(_user)) != null) {
 					client.close(LoginFailReason.REASON_ACCOUNT_IN_USE);
 
 					// kick from there

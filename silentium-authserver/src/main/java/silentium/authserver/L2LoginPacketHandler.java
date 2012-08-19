@@ -7,8 +7,6 @@
  */
 package silentium.authserver;
 
-import java.nio.ByteBuffer;
-
 import silentium.authserver.L2LoginClient.LoginClientState;
 import silentium.authserver.network.clientpackets.AuthGameGuard;
 import silentium.authserver.network.clientpackets.RequestAuthLogin;
@@ -17,23 +15,22 @@ import silentium.authserver.network.clientpackets.RequestServerLogin;
 import silentium.commons.network.mmocore.IPacketHandler;
 import silentium.commons.network.mmocore.ReceivablePacket;
 
+import java.nio.ByteBuffer;
+
 /**
  * Handler for packets received by Login Server
- * 
+ *
  * @author KenM
  */
-public final class L2LoginPacketHandler implements IPacketHandler<L2LoginClient>
-{
+public final class L2LoginPacketHandler implements IPacketHandler<L2LoginClient> {
 	@Override
-	public ReceivablePacket<L2LoginClient> handlePacket(ByteBuffer buf, L2LoginClient client)
-	{
-		int opcode = buf.get() & 0xFF;
+	public ReceivablePacket<L2LoginClient> handlePacket(final ByteBuffer buf, final L2LoginClient client) {
+		final int opcode = buf.get() & 0xFF;
 
 		ReceivablePacket<L2LoginClient> packet = null;
-		LoginClientState state = client.getState();
+		final LoginClientState state = client.getState();
 
-		switch (state)
-		{
+		switch (state) {
 			case CONNECTED:
 				if (opcode == 0x07)
 					packet = new AuthGameGuard();
@@ -60,8 +57,7 @@ public final class L2LoginPacketHandler implements IPacketHandler<L2LoginClient>
 		return packet;
 	}
 
-	private static void debugOpcode(int opcode, LoginClientState state)
-	{
+	private static void debugOpcode(final int opcode, final LoginClientState state) {
 		System.out.println("Unknown Opcode: " + opcode + " for state: " + state.name());
 	}
 }

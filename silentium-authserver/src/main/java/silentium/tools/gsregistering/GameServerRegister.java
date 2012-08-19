@@ -24,11 +24,11 @@ public class GameServerRegister {
 	private static String _choice;
 	private static boolean _choiceOk;
 
-	public static void main(String[] args) throws IOException {
+	public static void main(final String... args) throws IOException {
 		MainConfig.load();
 		DatabaseFactory.init();
 
-		LineNumberReader _in = new LineNumberReader(new InputStreamReader(System.in));
+		final LineNumberReader _in = new LineNumberReader(new InputStreamReader(System.in));
 
 		System.out.println("Welcome to L2J gameserver registering.");
 		System.out.println("Enter the ID of the server you want to register.");
@@ -37,16 +37,16 @@ public class GameServerRegister {
 		while (!_choiceOk) {
 			System.out.println("Your choice:");
 			_choice = _in.readLine();
-			if (_choice.equalsIgnoreCase("help")) {
-				for (Map.Entry<Integer, String> entry : GameServerTable.getInstance().getServerNames().entrySet()) {
+			if ("help".equalsIgnoreCase(_choice)) {
+				for (final Map.Entry<Integer, String> entry : GameServerTable.getInstance().getServerNames().entrySet()) {
 					System.out.println("Server ID: " + entry.getKey() + "\t- " + entry.getValue() + " - In Use: " + (GameServerTable.getInstance().hasRegisteredGameServerOnId(entry.getKey()) ? "YES" : "NO"));
 				}
 				System.out.println("You can also see 'servername.xml'.");
-			} else if (_choice.equalsIgnoreCase("clean")) {
+			} else if ("clean".equalsIgnoreCase(_choice)) {
 				System.out.print("This is going to UNREGISTER ALL servers from this LoginServer. Are you sure? (y/n) ");
 				_choice = _in.readLine();
-				if (_choice.equals("y")) {
-					GameServerRegister.cleanRegisteredGameServersFromDB();
+				if ("y".equals(_choice)) {
+					cleanRegisteredGameServersFromDB();
 					GameServerTable.getInstance().getRegisteredGameServers().clear();
 				} else {
 					System.out.println("ABORTED");
@@ -58,7 +58,7 @@ public class GameServerRegister {
 						System.exit(1);
 					}
 
-					final int id = new Integer(_choice).intValue();
+					final int id = Integer.parseInt(_choice);
 					if (GameServerTable.getInstance().getServerNameById(id) == null) {
 						System.out.println("No name for id: " + id);
 						continue;
@@ -67,7 +67,7 @@ public class GameServerRegister {
 					if (GameServerTable.getInstance().hasRegisteredGameServerOnId(id)) {
 						System.out.println("This ID isn't available.");
 					} else {
-						byte[] hexId = HexUtils.generateHex(16);
+						final byte[] hexId = HexUtils.generateHex(16);
 
 						GameServerTable.getInstance().registerServerOnDB(hexId, id, "");
 						saveHexid(id, new BigInteger(hexId).toString(16), "hexid.txt");
@@ -84,7 +84,7 @@ public class GameServerRegister {
 
 	public static void cleanRegisteredGameServersFromDB() {
 		try (Connection con = DatabaseFactory.getConnection()) {
-			PreparedStatement statement = con.prepareStatement("DELETE FROM gameservers");
+			final PreparedStatement statement = con.prepareStatement("DELETE FROM gameservers");
 			statement.executeUpdate();
 			statement.close();
 		} catch (SQLException e) {
@@ -92,13 +92,13 @@ public class GameServerRegister {
 		}
 	}
 
-	public static void saveHexid(int serverId, String hexId, String fileName) {
+	public static void saveHexid(final int serverId, final String hexId, final String fileName) {
 		try {
-			Properties hexSetting = new Properties();
-			File file = new File(fileName);
+			final Properties hexSetting = new Properties();
+			final File file = new File(fileName);
 			file.createNewFile();
 
-			OutputStream out = new FileOutputStream(file);
+			final OutputStream out = new FileOutputStream(file);
 			hexSetting.setProperty("ServerID", String.valueOf(serverId));
 			hexSetting.setProperty("HexID", hexId);
 			hexSetting.store(out, "the hexID to auth into login");

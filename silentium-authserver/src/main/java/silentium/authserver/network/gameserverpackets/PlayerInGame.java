@@ -7,28 +7,25 @@
  */
 package silentium.authserver.network.gameserverpackets;
 
-import java.util.List;
-
 import javolution.util.FastList;
 import silentium.authserver.network.clientpackets.ClientBasePacket;
+
+import java.util.List;
 
 /**
  * @author -Wooden-
  */
-public class PlayerInGame extends ClientBasePacket
-{
+public class PlayerInGame extends ClientBasePacket {
 	private final List<String> _accounts;
 
 	/**
 	 * @param decrypt
 	 */
-	public PlayerInGame(byte[] decrypt)
-	{
+	public PlayerInGame(final byte... decrypt) {
 		super(decrypt);
 		_accounts = new FastList<>();
-		int size = readH();
-		for (int i = 0; i < size; i++)
-		{
+		final int size = readH();
+		for (int i = 0; i < size; i++) {
 			_accounts.add(readS());
 		}
 	}
@@ -36,8 +33,7 @@ public class PlayerInGame extends ClientBasePacket
 	/**
 	 * @return Returns the accounts.
 	 */
-	public List<String> getAccounts()
-	{
+	public List<String> getAccounts() {
 		return _accounts;
 	}
 

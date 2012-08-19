@@ -35,7 +35,7 @@ public class L2LoginServer {
 	private GameServerListener _gameServerListener;
 	private SelectorThread<L2LoginClient> _selectorThread;
 
-	public static void main(String[] args) throws Exception {
+	public static void main(final String... args) throws Exception {
 		loginServer = new L2LoginServer();
 	}
 
@@ -68,7 +68,7 @@ public class L2LoginServer {
 
 		Util.printSection("IP, Ports & Socket infos");
 		InetAddress bindAddress = null;
-		if (!MainConfig.LOGIN_BIND_ADDRESS.equals("*")) {
+		if (!"*".equals(MainConfig.LOGIN_BIND_ADDRESS)) {
 			try {
 				bindAddress = InetAddress.getByName(MainConfig.LOGIN_BIND_ADDRESS);
 			} catch (UnknownHostException e1) {
@@ -128,7 +128,7 @@ public class L2LoginServer {
 	}
 
 	private void loadBanFile() {
-		File banFile = new File("config/banned_ip.cfg");
+		final File banFile = new File("config/banned_ip.cfg");
 		if (banFile.exists() && banFile.isFile()) {
 			LineNumberReader reader = null;
 			try {
@@ -139,7 +139,7 @@ public class L2LoginServer {
 				while ((line = reader.readLine()) != null) {
 					line = line.trim();
 					// check if this line isnt a comment line
-					if (line.length() > 0 && line.charAt(0) != '#') {
+					if (!line.isEmpty() && line.charAt(0) != '#') {
 						// split comments if any
 						parts = line.split("#");
 
@@ -147,7 +147,7 @@ public class L2LoginServer {
 						line = parts[0];
 						parts = line.split(" ");
 
-						String address = parts[0];
+						final String address = parts[0];
 						long duration = 0;
 
 						if (parts.length > 1) {
@@ -176,7 +176,7 @@ public class L2LoginServer {
 			_log.warn("banned_ip.cfg is missing. Ban listing is skipped.");
 	}
 
-	public void shutdown(boolean restart) {
+	public void shutdown(final boolean restart) {
 		Runtime.getRuntime().exit(restart ? 2 : 0);
 	}
 }

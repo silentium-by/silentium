@@ -13,8 +13,7 @@ import silentium.authserver.network.clientpackets.ClientBasePacket;
 /**
  * @author -Wooden-
  */
-public class PlayerAuthRequest extends ClientBasePacket
-{
+public class PlayerAuthRequest extends ClientBasePacket {
 
 	private final String _account;
 	private final SessionKey _sessionKey;
@@ -22,30 +21,27 @@ public class PlayerAuthRequest extends ClientBasePacket
 	/**
 	 * @param decrypt
 	 */
-	public PlayerAuthRequest(byte[] decrypt)
-	{
+	public PlayerAuthRequest(final byte... decrypt) {
 		super(decrypt);
 		_account = readS();
-		int playKey1 = readD();
-		int playKey2 = readD();
-		int loginKey1 = readD();
-		int loginKey2 = readD();
+		final int playKey1 = readD();
+		final int playKey2 = readD();
+		final int loginKey1 = readD();
+		final int loginKey2 = readD();
 		_sessionKey = new SessionKey(loginKey1, loginKey2, playKey1, playKey2);
 	}
 
 	/**
 	 * @return Returns the account.
 	 */
-	public String getAccount()
-	{
+	public String getAccount() {
 		return _account;
 	}
 
 	/**
 	 * @return Returns the key.
 	 */
-	public SessionKey getKey()
-	{
+	public SessionKey getKey() {
 		return _sessionKey;
 	}
 

@@ -10,7 +10,6 @@ package silentium.commons.network.mmocore;
 /**
  * @author KenM
  */
-public interface IMMOExecutor<T extends MMOClient<?>>
-{
-	public void execute(ReceivablePacket<T> packet);
+public interface IMMOExecutor<T extends MMOClient<?>> {
+	void execute(ReceivablePacket<T> packet);
 }

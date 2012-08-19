@@ -7,16 +7,15 @@
  */
 package silentium.authserver.configs;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Properties;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-public final class MainConfig
-{
+public final class MainConfig {
 	private static final Logger log = LoggerFactory.getLogger(MainConfig.class);
 
 	public static String LOGIN_BIND_ADDRESS;
@@ -51,14 +50,12 @@ public final class MainConfig
 	public static int MMO_MAX_READ_PER_PASS = 12; // default 12
 	public static int MMO_HELPER_BUFFER_COUNT = 20; // default 20
 
-	public static void load()
-	{
+	public static void load() {
 		log.info("Loading loginserver configuration files.");
 
 		final File config = new File("./config/loginserver.properties");
 
-		try (InputStream is = new FileInputStream(config))
-		{
+		try (InputStream is = new FileInputStream(config)) {
 			final Properties server = new Properties();
 			server.load(is);
 
@@ -94,9 +91,7 @@ public final class MainConfig
 			NORMAL_CONNECTION_TIME = Integer.parseInt(server.getProperty("NormalConnectionTime", "700"));
 			FAST_CONNECTION_TIME = Integer.parseInt(server.getProperty("FastConnectionTime", "350"));
 			MAX_CONNECTION_PER_IP = Integer.parseInt(server.getProperty("MaxConnectionPerIP", "50"));
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			log.error("Server failed to load ./config/loginserver.properties file.", e);
 		}
 	}

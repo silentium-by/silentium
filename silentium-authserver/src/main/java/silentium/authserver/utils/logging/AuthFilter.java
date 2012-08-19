@@ -14,11 +14,9 @@ import ch.qos.logback.core.spi.FilterReply;
 /**
  * @author Tatanka
  */
-public class AuthFilter extends Filter<ILoggingEvent>
-{
+public class AuthFilter extends Filter<ILoggingEvent> {
 	@Override
-	public FilterReply decide(ILoggingEvent event)
-	{
+	public FilterReply decide(final ILoggingEvent event) {
 		if ("auth".equals(event.getLoggerName()))
 			return FilterReply.ACCEPT;
 

@@ -9,27 +9,21 @@ package silentium.authserver.network.clientpackets;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import silentium.authserver.L2LoginClient;
 import silentium.commons.network.mmocore.ReceivablePacket;
 
 /**
  * @author KenM
  */
-public abstract class L2LoginClientPacket extends ReceivablePacket<L2LoginClient>
-{
+public abstract class L2LoginClientPacket extends ReceivablePacket<L2LoginClient> {
 	private static Logger _log = LoggerFactory.getLogger(L2LoginClientPacket.class.getName());
 
 	@Override
-	protected final boolean read()
-	{
-		try
-		{
+	protected final boolean read() {
+		try {
 			return readImpl();
-		}
-		catch (Exception e)
-		{
-			_log.error("ERROR READING: " + this.getClass().getSimpleName());
+		} catch (Exception e) {
+			_log.error("ERROR READING: " + getClass().getSimpleName());
 			e.printStackTrace();
 			return false;
 		}

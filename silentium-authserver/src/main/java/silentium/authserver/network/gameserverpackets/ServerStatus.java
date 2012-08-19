@@ -9,7 +9,6 @@ package silentium.authserver.network.gameserverpackets;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import silentium.authserver.GameServerTable;
 import silentium.authserver.GameServerTable.GameServerInfo;
 import silentium.authserver.network.clientpackets.ClientBasePacket;
@@ -17,8 +16,7 @@ import silentium.authserver.network.clientpackets.ClientBasePacket;
 /**
  * @author -Wooden-
  */
-public class ServerStatus extends ClientBasePacket
-{
+public class ServerStatus extends ClientBasePacket {
 	protected static Logger _log = LoggerFactory.getLogger(ServerStatus.class.getName());
 
 	public static final String[] STATUS_STRING = { "Auto", "Good", "Normal", "Full", "Down", "Gm Only" };
@@ -39,20 +37,16 @@ public class ServerStatus extends ClientBasePacket
 	public static final int ON = 0x01;
 	public static final int OFF = 0x00;
 
-	public ServerStatus(byte[] decrypt, int serverId)
-	{
+	public ServerStatus(final byte[] decrypt, final int serverId) {
 		super(decrypt);
 
-		GameServerInfo gsi = GameServerTable.getInstance().getRegisteredGameServerById(serverId);
-		if (gsi != null)
-		{
-			int size = readD();
-			for (int i = 0; i < size; i++)
-			{
-				int type = readD();
-				int value = readD();
-				switch (type)
-				{
+		final GameServerInfo gsi = GameServerTable.getInstance().getRegisteredGameServerById(serverId);
+		if (gsi != null) {
+			final int size = readD();
+			for (int i = 0; i < size; i++) {
+				final int type = readD();
+				final int value = readD();
+				switch (type) {
 					case SERVER_LIST_STATUS:
 						gsi.setStatus(value);
 						break;

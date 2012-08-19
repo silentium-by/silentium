@@ -10,13 +10,11 @@ package silentium.commons.io.filters;
 import java.io.File;
 import java.io.FilenameFilter;
 
-public class HtmFilter implements FilenameFilter
-{
+public class HtmFilter implements FilenameFilter {
 	public static final FilenameFilter INSTANCE = new HtmFilter();
 
 	@Override
-	public boolean accept(final File dir, final String name)
-	{
+	public boolean accept(final File dir, final String name) {
 		return name.endsWith(".htm") || name.endsWith(".html");
 	}
 }

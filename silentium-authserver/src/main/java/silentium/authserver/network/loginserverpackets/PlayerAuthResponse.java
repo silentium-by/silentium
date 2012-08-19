@@ -12,18 +12,15 @@ import silentium.authserver.network.serverpackets.ServerBasePacket;
 /**
  * @author -Wooden-
  */
-public class PlayerAuthResponse extends ServerBasePacket
-{
-	public PlayerAuthResponse(String account, boolean response)
-	{
+public class PlayerAuthResponse extends ServerBasePacket {
+	public PlayerAuthResponse(final String account, final boolean response) {
 		writeC(0x03);
 		writeS(account);
 		writeC(response ? 1 : 0);
 	}
 
 	@Override
-	public byte[] getContent()
-	{
+	public byte[] getContent() {
 		return getBytes();
 	}
 }

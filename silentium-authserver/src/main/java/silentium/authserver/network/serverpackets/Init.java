@@ -13,28 +13,24 @@ import silentium.authserver.L2LoginClient;
  * Format: dd b dddd s d: session id d: protocol revision b: 0x90 bytes : 0x80 bytes for the scrambled RSA public key 0x10 bytes at 0x00 d:
  * unknow d: unknow d: unknow d: unknow s: blowfish key
  */
-public final class Init extends L2LoginServerPacket
-{
+public final class Init extends L2LoginServerPacket {
 	private final int _sessionId;
 
 	private final byte[] _publicKey;
 	private final byte[] _blowfishKey;
 
-	public Init(L2LoginClient client)
-	{
+	public Init(final L2LoginClient client) {
 		this(client.getScrambledModulus(), client.getBlowfishKey(), client.getSessionId());
 	}
 
-	public Init(byte[] publickey, byte[] blowfishkey, int sessionId)
-	{
+	public Init(final byte[] publickey, final byte[] blowfishkey, final int sessionId) {
 		_sessionId = sessionId;
 		_publicKey = publickey;
 		_blowfishKey = blowfishkey;
 	}
 
 	@Override
-	protected void write()
-	{
+	protected void write() {
 		writeC(0x00); // init packet id
 
 		writeD(_sessionId); // session id

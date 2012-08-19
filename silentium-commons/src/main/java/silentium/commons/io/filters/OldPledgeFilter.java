@@ -10,13 +10,11 @@ package silentium.commons.io.filters;
 import java.io.File;
 import java.io.FilenameFilter;
 
-public class OldPledgeFilter implements FilenameFilter
-{
+public class OldPledgeFilter implements FilenameFilter {
 	public static final FilenameFilter INSTANCE = new OldPledgeFilter();
 
 	@Override
-	public boolean accept(final File dir, final String name)
-	{
+	public boolean accept(final File dir, final String name) {
 		return name.startsWith("Pledge_");
 	}
 }

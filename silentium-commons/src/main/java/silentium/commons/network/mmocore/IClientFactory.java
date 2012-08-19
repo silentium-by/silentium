@@ -10,7 +10,6 @@ package silentium.commons.network.mmocore;
 /**
  * @author KenM
  */
-public interface IClientFactory<T extends MMOClient<?>>
-{
-	public T create(final MMOConnection<T> con);
+public interface IClientFactory<T extends MMOClient<?>> {
+	T create(final MMOConnection<T> con);
 }

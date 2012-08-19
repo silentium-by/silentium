@@ -13,16 +13,14 @@ import silentium.authserver.network.serverpackets.ServerBasePacket;
 /**
  * @author -Wooden-
  */
-public class InitLS extends ServerBasePacket
-{
+public class InitLS extends ServerBasePacket {
 	// ID 0x00
 	// format
 	// d proto rev
 	// d key size
 	// b key
 
-	public InitLS(byte[] publickey)
-	{
+	public InitLS(final byte... publickey) {
 		writeC(0x00);
 		writeD(L2LoginServer.PROTOCOL_REV);
 		writeD(publickey.length);
@@ -30,8 +28,7 @@ public class InitLS extends ServerBasePacket
 	}
 
 	@Override
-	public byte[] getContent()
-	{
+	public byte[] getContent() {
 		return getBytes();
 	}
 }

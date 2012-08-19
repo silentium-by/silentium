@@ -17,19 +17,18 @@ import java.util.Arrays;
 
 /**
  * Used to keep hash table capacities prime numbers. Not of interest for users; only for implementors of hashtables.
- * <p>
+ * <p/>
  * Choosing prime numbers as hash table capacities is a good idea to keep them working fast, particularly under hash table expansions.
- * <p>
+ * <p/>
  * However, JDK 1.2, JGL 3.1 and many other toolkits do nothing to keep capacities prime. This class provides efficient means to choose prime
  * capacities.
- * <p>
+ * <p/>
  * Choosing a prime is <tt>O(log 300)</tt> (binary search in a list of 300 ints). Memory requirements: 1 KB static memory.
- * 
+ *
  * @author wolfgang.hoschek@cern.ch
  * @version 1.0, 09/24/99
  */
-public final class PrimeFinder
-{
+public final class PrimeFinder {
 	/**
 	 * The largest prime this class can generate; currently equal to <tt>Integer.MAX_VALUE</tt>.
 	 */
@@ -81,8 +80,7 @@ public final class PrimeFinder
 			// chunk #10
 			379, 761, 1523, 3049, 6101, 12203, 24407, 48817, 97649, 195311, 390647, 781301, 1562611, 3125257, 6250537, 12501169, 25002389, 50004791, 100009607, 200019221, 400038451, 800076929, 1600153859 };
 
-	static
-	{ // initializer
+	static { // initializer
 		// The above prime numbers are formatted for human readability.
 		// To find numbers fast, we sort them once and for all.
 
@@ -92,16 +90,13 @@ public final class PrimeFinder
 	/**
 	 * Returns a prime number which is <code>&gt;= desiredCapacity</code> and very close to <code>desiredCapacity</code> (within 11% if
 	 * <code>desiredCapacity &gt;= 1000</code>).
-	 * 
-	 * @param desiredCapacity
-	 *            the capacity desired by the user.
+	 *
+	 * @param desiredCapacity the capacity desired by the user.
 	 * @return the capacity which should be used for a hashtable.
 	 */
-	public static final int nextPrime(int desiredCapacity)
-	{
+	public static final int nextPrime(final int desiredCapacity) {
 		int i = Arrays.binarySearch(PRIME_CAPACITIES, desiredCapacity);
-		if (i < 0)
-		{
+		if (i < 0) {
 			// desired capacity not found, choose next prime greater
 			// than desired capacity
 			i = -i - 1; // remember the semantics of binarySearch...

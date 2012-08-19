@@ -10,60 +10,47 @@ package silentium.commons.network.mmocore;
 /**
  * @author KenM
  */
-public abstract class SendablePacket<T extends MMOClient<?>> extends AbstractPacket<T>
-{
-	protected final void putInt(final int value)
-	{
+public abstract class SendablePacket<T extends MMOClient<?>> extends AbstractPacket<T> {
+	protected final void putInt(final int value) {
 		_buf.putInt(value);
 	}
 
-	protected final void putDouble(final double value)
-	{
+	protected final void putDouble(final double value) {
 		_buf.putDouble(value);
 	}
 
-	protected final void putFloat(final float value)
-	{
+	protected final void putFloat(final float value) {
 		_buf.putFloat(value);
 	}
 
-	protected final void writeC(final int data)
-	{
+	protected final void writeC(final int data) {
 		_buf.put((byte) data);
 	}
 
-	protected final void writeF(final double value)
-	{
+	protected final void writeF(final double value) {
 		_buf.putDouble(value);
 	}
 
-	protected final void writeH(final int value)
-	{
+	protected final void writeH(final int value) {
 		_buf.putShort((short) value);
 	}
 
-	protected final void writeD(final int value)
-	{
+	protected final void writeD(final int value) {
 		_buf.putInt(value);
 	}
 
-	protected final void writeQ(final long value)
-	{
+	protected final void writeQ(final long value) {
 		_buf.putLong(value);
 	}
 
-	protected final void writeB(final byte[] data)
-	{
+	protected final void writeB(final byte... data) {
 		_buf.put(data);
 	}
 
-	protected final void writeS(final String text)
-	{
-		if (text != null)
-		{
+	protected final void writeS(final String text) {
+		if (text != null) {
 			final int len = text.length();
-			for (int i = 0; i < len; i++)
-			{
+			for (int i = 0; i < len; i++) {
 				_buf.putChar(text.charAt(i));
 			}
 		}

@@ -10,29 +10,25 @@ package silentium.commons.network.mmocore;
 /**
  * @author Forsaiken
  */
-public final class NioNetStackList<E>
-{
+public final class NioNetStackList<E> {
 	private final NioNetStackNode _start = new NioNetStackNode();
 
 	private final NioNetStackNodeBuf _buf = new NioNetStackNodeBuf();
 
 	private NioNetStackNode _end = new NioNetStackNode();
 
-	public NioNetStackList()
-	{
+	public NioNetStackList() {
 		clear();
 	}
 
-	public final void addLast(final E elem)
-	{
+	public final void addLast(final E elem) {
 		final NioNetStackNode newEndNode = _buf.removeFirst();
 		_end._value = elem;
 		_end._next = newEndNode;
 		_end = newEndNode;
 	}
 
-	public final E removeFirst()
-	{
+	public final E removeFirst() {
 		final NioNetStackNode old = _start._next;
 		final E value = old._value;
 		_start._next = old._next;
@@ -40,49 +36,37 @@ public final class NioNetStackList<E>
 		return value;
 	}
 
-	public final boolean isEmpty()
-	{
+	public final boolean isEmpty() {
 		return _start._next == _end;
 	}
 
-	public final void clear()
-	{
+	public final void clear() {
 		_start._next = _end;
 	}
 
-	private final class NioNetStackNode
-	{
+	private final class NioNetStackNode {
 		private NioNetStackNode _next;
 
 		private E _value;
-
-		private NioNetStackNode()
-		{
-
-		}
 	}
 
-	private final class NioNetStackNodeBuf
-	{
+	private final class NioNetStackNodeBuf {
 		private final NioNetStackNode _start = new NioNetStackNode();
 
 		private NioNetStackNode _end = new NioNetStackNode();
 
-		NioNetStackNodeBuf()
-		{
+		NioNetStackNodeBuf() {
 			_start._next = _end;
 		}
 
-		final void addLast(final NioNetStackNode node)
-		{
+		final void addLast(final NioNetStackNode node) {
 			node._next = null;
 			node._value = null;
 			_end._next = node;
 			_end = node;
 		}
 
-		final NioNetStackNode removeFirst()
-		{
+		final NioNetStackNode removeFirst() {
 			if (_start._next == _end)
 				return new NioNetStackNode();
 

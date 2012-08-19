@@ -7,27 +7,21 @@
  */
 package silentium.commons.utils.logging;
 
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
-
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.LayoutBase;
-
 import com.google.common.base.Joiner;
+import org.joda.time.DateTime;
 
 /*
  * @author Tatanka
  */
-public class ConsoleLogLayout extends LayoutBase<ILoggingEvent>
-{
-	private static final DateTimeFormatter dateTimeFormatter = DateTimeFormat.fullDateTime();
+public class ConsoleLogLayout extends LayoutBase<ILoggingEvent> {
 	private static final Joiner joiner = Joiner.on(" ").skipNulls();
 	private static final String CRLF = "\r\n";
 
 	@Override
-	public String doLayout(final ILoggingEvent event)
-	{
-		return joiner.join(new DateTime(event.getTimeStamp()).toString("HH:mm:ss"), event.getLevel().toString(), event.getThreadName(), "in", event.getLoggerName(), "-", event.getFormattedMessage(), CRLF);
+	public String doLayout(final ILoggingEvent event) {
+		return joiner.join(new DateTime(event.getTimeStamp()).toString("HH:mm:ss"), event.getLevel().toString(),
+				event.getThreadName(), "in", event.getLoggerName(), "-", event.getFormattedMessage(), CRLF);
 	}
 }

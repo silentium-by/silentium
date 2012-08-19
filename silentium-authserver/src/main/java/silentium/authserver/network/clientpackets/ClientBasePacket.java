@@ -9,22 +9,19 @@ package silentium.authserver.network.clientpackets;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.2.4.1 $ $Date: 2005/03/27 15:30:12 $
  */
-public abstract class ClientBasePacket
-{
+public abstract class ClientBasePacket {
 	private final byte[] _decrypt;
 	private int _off;
 
-	public ClientBasePacket(byte[] decrypt)
-	{
+	public ClientBasePacket(final byte... decrypt) {
 		_decrypt = decrypt;
 		_off = 1; // skip packet type id
 	}
 
-	public int readD()
-	{
+	public int readD() {
 		int result = _decrypt[_off++] & 0xff;
 		result |= _decrypt[_off++] << 8 & 0xff00;
 		result |= _decrypt[_off++] << 0x10 & 0xff0000;
@@ -32,21 +29,18 @@ public abstract class ClientBasePacket
 		return result;
 	}
 
-	public int readC()
-	{
-		int result = _decrypt[_off++] & 0xff;
+	public int readC() {
+		final int result = _decrypt[_off++] & 0xff;
 		return result;
 	}
 
-	public int readH()
-	{
+	public int readH() {
 		int result = _decrypt[_off++] & 0xff;
 		result |= _decrypt[_off++] << 8 & 0xff00;
 		return result;
 	}
 
-	public double readF()
-	{
+	public double readF() {
 		long result = _decrypt[_off++] & 0xff;
 		result |= _decrypt[_off++] << 8 & 0xff00;
 		result |= _decrypt[_off++] << 0x10 & 0xff0000;
@@ -58,29 +52,21 @@ public abstract class ClientBasePacket
 		return Double.longBitsToDouble(result);
 	}
 
-	public String readS()
-	{
+	public String readS() {
 		String result = null;
-		try
-		{
+		try {
 			result = new String(_decrypt, _off, _decrypt.length - _off, "UTF-16LE");
 			result = result.substring(0, result.indexOf(0x00));
 			_off += result.length() * 2 + 2;
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return result;
 	}
 
-	public final byte[] readB(int length)
-	{
-		byte[] result = new byte[length];
-		for (int i = 0; i < length; i++)
-		{
-			result[i] = _decrypt[_off + i];
-		}
+	public final byte[] readB(final int length) {
+		final byte[] result = new byte[length];
+		System.arraycopy(_decrypt, _off, result, 0, length);
 		_off += length;
 		return result;
 	}

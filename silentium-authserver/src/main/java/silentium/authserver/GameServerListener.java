@@ -7,27 +7,23 @@
  */
 package silentium.authserver;
 
+import javolution.util.FastList;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import silentium.authserver.configs.MainConfig;
+
 import java.io.IOException;
 import java.net.Socket;
 import java.util.List;
 
-import javolution.util.FastList;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import silentium.authserver.configs.MainConfig;
-
 /**
  * @author KenM
  */
-public class GameServerListener extends FloodProtectedListener
-{
-	private static Logger _log = LoggerFactory.getLogger(GameServerListener.class.getName());
-	private static List<GameServerThread> _gameServers = new FastList<>();
+public class GameServerListener extends FloodProtectedListener {
+	private static final Logger _log = LoggerFactory.getLogger(GameServerListener.class.getName());
+	private static final List<GameServerThread> _gameServers = new FastList<>();
 
-	public GameServerListener() throws IOException
-	{
+	public GameServerListener() throws IOException {
 		super(MainConfig.GAME_SERVER_LOGIN_HOST, MainConfig.GAME_SERVER_LOGIN_PORT);
 	}
 
@@ -35,18 +31,15 @@ public class GameServerListener extends FloodProtectedListener
 	 * @see FloodProtectedListener#addClient(java.net.Socket)
 	 */
 	@Override
-	public void addClient(Socket s)
-	{
-		if (MainConfig.DEBUG)
-		{
+	public void addClient(final Socket s) {
+		if (MainConfig.DEBUG) {
 			_log.info("Received gameserver connection from: " + s.getInetAddress().getHostAddress());
 		}
-		GameServerThread gst = new GameServerThread(s);
+		final GameServerThread gst = new GameServerThread(s);
 		_gameServers.add(gst);
 	}
 
-	public void removeGameServer(GameServerThread gst)
-	{
+	public void removeGameServer(final GameServerThread gst) {
 		_gameServers.remove(gst);
 	}
 }
