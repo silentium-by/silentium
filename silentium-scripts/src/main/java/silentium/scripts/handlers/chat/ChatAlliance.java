@@ -11,33 +11,29 @@ import silentium.gameserver.handler.IChatHandler;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.network.serverpackets.CreatureSay;
 
-public class ChatAlliance implements IChatHandler
-{
+public class ChatAlliance implements IChatHandler {
 	private static final int[] COMMAND_IDS = { 9 };
 
 	/**
 	 * Handle chat type 'alliance'
-	 * 
+	 *
 	 * @see silentium.gameserver.handler.IChatHandler#handleChat(int, silentium.gameserver.model.actor.instance.L2PcInstance, String, String)
 	 */
 	@Override
-	public void handleChat(int type, L2PcInstance activeChar, String target, String text)
-	{
-		if (activeChar.getClan() != null)
-		{
-			CreatureSay cs = new CreatureSay(activeChar.getObjectId(), type, activeChar.getName(), text);
+	public void handleChat(final int type, final L2PcInstance activeChar, final String target, final String text) {
+		if (activeChar.getClan() != null) {
+			final CreatureSay cs = new CreatureSay(activeChar.getObjectId(), type, activeChar.getName(), text);
 			activeChar.getClan().broadcastToOnlineAllyMembers(cs);
 		}
 	}
 
 	/**
 	 * Returns the chat types registered to this handler
-	 * 
+	 *
 	 * @see silentium.gameserver.handler.IChatHandler#getChatTypeList()
 	 */
 	@Override
-	public int[] getChatTypeList()
-	{
+	public int[] getChatTypeList() {
 		return COMMAND_IDS;
 	}
 }

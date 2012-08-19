@@ -16,28 +16,24 @@ import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.network.SystemMessageId;
 import silentium.gameserver.templates.skills.L2SkillType;
 
-public class Craft implements ISkillHandler
-{
+public class Craft implements ISkillHandler {
 	private static final L2SkillType[] SKILL_IDS = { L2SkillType.COMMON_CRAFT, L2SkillType.DWARVEN_CRAFT };
 
 	@Override
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
-	{
-		if (activeChar == null || !(activeChar instanceof L2PcInstance))
+	public void useSkill(final L2Character activeChar, final L2Skill skill, final L2Object... targets) {
+		if (!(activeChar instanceof L2PcInstance))
 			return;
 
-		L2PcInstance player = (L2PcInstance) activeChar;
-		if (player.getPrivateStoreType() != 0)
-		{
+		final L2PcInstance player = (L2PcInstance) activeChar;
+		if (player.getPrivateStoreType() != 0) {
 			player.sendPacket(SystemMessageId.CANNOT_CREATED_WHILE_ENGAGED_IN_TRADING);
 			return;
 		}
-		RecipeController.getInstance().requestBookOpen(player, (skill.getSkillType() == L2SkillType.DWARVEN_CRAFT) ? true : false);
+		RecipeController.getInstance().requestBookOpen(player, skill.getSkillType() == L2SkillType.DWARVEN_CRAFT);
 	}
 
 	@Override
-	public L2SkillType[] getSkillIds()
-	{
+	public L2SkillType[] getSkillIds() {
 		return SKILL_IDS;
 	}
 }

@@ -9,7 +9,6 @@ package silentium.scripts.vehicle;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import silentium.gameserver.ThreadPoolManager;
 import silentium.gameserver.instancemanager.BoatManager;
 import silentium.gameserver.model.VehiclePathPoint;
@@ -23,8 +22,7 @@ import silentium.gameserver.scripting.ScriptFile;
 /**
  * @author DS
  */
-public class BoatGiranTalking implements Runnable, ScriptFile
-{
+public class BoatGiranTalking implements Runnable, ScriptFile {
 	private static final Logger _log = LoggerFactory.getLogger(BoatGiranTalking.class.getName());
 
 	// Time: 868s
@@ -70,8 +68,7 @@ public class BoatGiranTalking implements Runnable, ScriptFile
 	private final PlaySound GIRAN_SOUND;
 	private final PlaySound TALKING_SOUND;
 
-	public BoatGiranTalking(L2BoatInstance boat)
-	{
+	public BoatGiranTalking(final L2BoatInstance boat) {
 		_boat = boat;
 
 		ARRIVED_AT_GIRAN = new CreatureSay(0, Say2.BOAT, 801, SystemMessageId.FERRY_ARRIVED_AT_GIRAN);
@@ -103,12 +100,9 @@ public class BoatGiranTalking implements Runnable, ScriptFile
 	}
 
 	@Override
-	public void run()
-	{
-		try
-		{
-			switch (_cycle)
-			{
+	public void run() {
+		try {
+			switch (_cycle) {
 				case 0:
 					BoatManager.getInstance().broadcastPacket(GIRAN_DOCK, TALKING_DOCK[0], LEAVE_GIRAN5);
 					ThreadPoolManager.getInstance().scheduleGeneral(this, 240000);
@@ -140,8 +134,7 @@ public class BoatGiranTalking implements Runnable, ScriptFile
 					BoatManager.getInstance().broadcastPacket(TALKING_DOCK[0], GIRAN_DOCK, ARRIVAL_TALKING1);
 					break;
 				case 7:
-					if (BoatManager.getInstance().dockBusy(BoatManager.TALKING_ISLAND))
-					{
+					if (BoatManager.getInstance().dockBusy(BoatManager.TALKING_ISLAND)) {
 						if (_shoutCount == 0)
 							BoatManager.getInstance().broadcastPacket(TALKING_DOCK[0], GIRAN_DOCK, BUSY_TALKING);
 
@@ -209,18 +202,14 @@ public class BoatGiranTalking implements Runnable, ScriptFile
 			_cycle++;
 			if (_cycle > 18)
 				_cycle = 0;
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			_log.warn(e.getLocalizedMessage(), e);
 		}
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		final L2BoatInstance boat = BoatManager.getInstance().getNewBoat(2, 48950, 190613, -3610, 60800);
-		if (boat != null)
-		{
+		if (boat != null) {
 			boat.registerEngine(new BoatGiranTalking(boat));
 			boat.runEngine(180000);
 		}

@@ -7,51 +7,47 @@
  */
 package silentium.scripts.handlers.chat;
 
-import java.util.Collection;
-
 import silentium.gameserver.handler.IChatHandler;
 import silentium.gameserver.model.L2World;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.network.serverpackets.CreatureSay;
 
+import java.util.Collection;
+
 /**
  * A chat handler
- * 
+ *
  * @author durgus
  */
-public class ChatHeroVoice implements IChatHandler
-{
+public class ChatHeroVoice implements IChatHandler {
 	private static final int[] COMMAND_IDS = { 17 };
 
 	/**
 	 * Handle chat type 'hero voice'
-	 * 
+	 *
 	 * @see silentium.gameserver.handler.IChatHandler#handleChat(int, silentium.gameserver.model.actor.instance.L2PcInstance, String, String)
 	 */
 	@Override
-	public void handleChat(int type, L2PcInstance activeChar, String target, String text)
-	{
-		if (activeChar.isHero())
-		{
+	public void handleChat(final int type, final L2PcInstance activeChar, final String target, final String text) {
+		if (activeChar.isHero()) {
 			if (!activeChar.getFloodProtectors().getHeroVoice().tryPerformAction("heroVoice"))
 				return;
 
-			CreatureSay cs = new CreatureSay(activeChar.getObjectId(), type, activeChar.getName(), text);
+			final CreatureSay cs = new CreatureSay(activeChar.getObjectId(), type, activeChar.getName(), text);
 
-			Collection<L2PcInstance> pls = L2World.getInstance().getAllPlayers().values();
-			for (L2PcInstance player : pls)
+			final Collection<L2PcInstance> pls = L2World.getInstance().getAllPlayers().values();
+			for (final L2PcInstance player : pls)
 				player.sendPacket(cs);
 		}
 	}
 
 	/**
 	 * Returns the chat types registered to this handler
-	 * 
+	 *
 	 * @see silentium.gameserver.handler.IChatHandler#getChatTypeList()
 	 */
 	@Override
-	public int[] getChatTypeList()
-	{
+	public int[] getChatTypeList() {
 		return COMMAND_IDS;
 	}
 }

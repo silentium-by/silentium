@@ -7,52 +7,42 @@
  */
 package silentium.scripts.handlers.admin;
 
-import java.util.StringTokenizer;
-
 import silentium.gameserver.handler.IAdminCommandHandler;
 import silentium.gameserver.model.L2Object;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.network.SystemMessageId;
 
+import java.util.StringTokenizer;
+
 /**
  * This class handles polymorph commands.
  */
-public class AdminPolymorph implements IAdminCommandHandler
-{
+public class AdminPolymorph implements IAdminCommandHandler {
 	private static final String[] ADMIN_COMMANDS = { "admin_polymorph", "admin_unpolymorph", "admin_polymorph_menu", "admin_unpolymorph_menu" };
 
 	@Override
-	public boolean useAdminCommand(String command, L2PcInstance activeChar)
-	{
+	public boolean useAdminCommand(final String command, final L2PcInstance activeChar) {
 		if (activeChar.isMounted())
 			return false;
 
-		if (command.startsWith("admin_polymorph"))
-		{
-			StringTokenizer st = new StringTokenizer(command);
-			L2Object target = activeChar.getTarget();
-			try
-			{
+		if (command.startsWith("admin_polymorph")) {
+			final StringTokenizer st = new StringTokenizer(command);
+			final L2Object target = activeChar.getTarget();
+			try {
 				st.nextToken();
-				String p1 = st.nextToken();
-				if (st.hasMoreTokens())
-				{
-					String p2 = st.nextToken();
+				final String p1 = st.nextToken();
+				if (st.hasMoreTokens()) {
+					final String p2 = st.nextToken();
 					doPolymorph(activeChar, target, p2, p1);
-				}
-				else
+				} else
 					doPolymorph(activeChar, target, p1, "npc");
-			}
-			catch (Exception e)
-			{
+			} catch (Exception e) {
 				activeChar.sendMessage("Usage: //polymorph [type] <id>");
 			}
 
 			if (command.contains("menu"))
 				showMainPage(activeChar);
-		}
-		else if (command.startsWith("admin_unpolymorph"))
-		{
+		} else if (command.startsWith("admin_unpolymorph")) {
 			doUnpoly(activeChar, activeChar.getTarget());
 
 			if (command.contains("menu"))
@@ -62,46 +52,40 @@ public class AdminPolymorph implements IAdminCommandHandler
 		return true;
 	}
 
-	private static void doPolymorph(L2PcInstance activeChar, L2Object target, String id, String type)
-	{
+	private static void doPolymorph(final L2PcInstance activeChar, L2Object target, final String id, final String type) {
 		// Target the GM if no target is found.
 		if (target == null)
 			target = activeChar;
 
-		if (!target.getPoly().setPolyInfo(type, id))
-		{
+		if (!target.getPoly().setPolyInfo(type, id)) {
 			activeChar.sendPacket(SystemMessageId.APPLICANT_INFORMATION_INCORRECT);
 			return;
 		}
 
-		activeChar.sendMessage("You polymorphed " + target.getName() + " into a " + type + " with id: " + id + ".");
+		activeChar.sendMessage("You polymorphed " + target.getName() + " into a " + type + " with id: " + id + '.');
 	}
 
-	private static void doUnpoly(L2PcInstance activeChar, L2Object target)
-	{
+	private static void doUnpoly(final L2PcInstance activeChar, L2Object target) {
 		// Target the GM if no target is found.
 		if (target == null)
 			target = activeChar;
 
-		if (!target.getPoly().isMorphed())
-		{
+		if (!target.getPoly().isMorphed()) {
 			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 			return;
 		}
 
 		target.getPoly().setPolyInfo(null, "1");
 
-		activeChar.sendMessage("You successfully unpolymorphed " + target.getName() + ".");
+		activeChar.sendMessage("You successfully unpolymorphed " + target.getName() + '.');
 	}
 
-	private static void showMainPage(L2PcInstance activeChar)
-	{
+	private static void showMainPage(final L2PcInstance activeChar) {
 		AdminHelpPage.showHelpPage(activeChar, "effects_menu.htm");
 	}
 
 	@Override
-	public String[] getAdminCommandList()
-	{
+	public String[] getAdminCommandList() {
 		return ADMIN_COMMANDS;
 	}
 }

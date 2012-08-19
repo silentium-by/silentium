@@ -14,8 +14,7 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q659_IdRatherBeCollectingFairyBreath extends Quest implements ScriptFile
-{
+public class Q659_IdRatherBeCollectingFairyBreath extends Quest implements ScriptFile {
 	private static final String qn = "Q659_IdRatherBeCollectingFairyBreath";
 
 	// NPCs
@@ -29,8 +28,7 @@ public class Q659_IdRatherBeCollectingFairyBreath extends Quest implements Scrip
 	private static final int BABBLING_WIND = 21024;
 	private static final int GIGGLING_WIND = 21025;
 
-	public Q659_IdRatherBeCollectingFairyBreath(int questId, String name, String descr)
-	{
+	public Q659_IdRatherBeCollectingFairyBreath(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { FAIRY_BREATH };
@@ -40,82 +38,67 @@ public class Q659_IdRatherBeCollectingFairyBreath extends Quest implements Scrip
 		addKillId(GIGGLING_WIND, BABBLING_WIND, SOBBING_WIND);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q659_IdRatherBeCollectingFairyBreath(659, "Q659_IdRatherBeCollectingFairyBreath", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		final String htmltext = event;
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30634-03.htm"))
-		{
+		if ("30634-03.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("30634-06.htm"))
-		{
-			int count = st.getQuestItemsCount(FAIRY_BREATH);
-			if (count > 0)
-			{
+		} else if ("30634-06.htm".equalsIgnoreCase(event)) {
+			final int count = st.getQuestItemsCount(FAIRY_BREATH);
+			if (count > 0) {
 				st.takeItems(FAIRY_BREATH, count);
 				if (count < 10)
 					st.rewardItems(57, count * 50);
 				else
 					st.rewardItems(57, count * 50 + 5365);
 			}
-		}
-		else if (event.equalsIgnoreCase("30634-08.htm"))
+		} else if ("30634-08.htm".equalsIgnoreCase(event))
 			st.exitQuest(true);
 
 		return htmltext;
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
+		final QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 26)
 					htmltext = "30634-02.htm";
-				else
-				{
+				else {
 					htmltext = "30634-01.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				if (!st.hasQuestItems(FAIRY_BREATH))
-					htmltext = "30634-04.htm";
-				else
-					htmltext = "30634-05.htm";
+				htmltext = !st.hasQuestItems(FAIRY_BREATH) ? "30634-04.htm" : "30634-05.htm";
 				break;
 		}
 		return htmltext;
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 
-		if (st.isStarted() && Rnd.get(10) < 9)
-		{
+		if (st.isStarted() && Rnd.get(10) < 9) {
 			st.giveItems(FAIRY_BREATH, 1);
 			st.playSound(QuestState.SOUND_ITEMGET);
 		}

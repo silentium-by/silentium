@@ -7,28 +7,27 @@
  */
 package silentium.scripts.quests;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q640_TheZeroHour extends Quest implements ScriptFile
-{
+import java.util.HashMap;
+import java.util.Map;
+
+public class Q640_TheZeroHour extends Quest implements ScriptFile {
 	private static final String qn = "Q640_TheZeroHour";
 
 	// NPC
-	private final static int KAHMAN = 31554;
+	private static final int KAHMAN = 31554;
 
 	// Item
-	private final static int FANG = 8085;
+	private static final int FANG = 8085;
 
 	private static final Map<String, int[]> REWARDS = new HashMap<>();
 
-	{
+	static {
 		REWARDS.put("1", new int[] { 12, 4042, 1 });
 		REWARDS.put("2", new int[] { 6, 4043, 1 });
 		REWARDS.put("3", new int[] { 6, 4044, 1 });
@@ -40,8 +39,7 @@ public class Q640_TheZeroHour extends Quest implements ScriptFile
 		REWARDS.put("9", new int[] { 123, 1893, 5 });
 	}
 
-	public Q640_TheZeroHour(int questId, String name, String descr)
-	{
+	public Q640_TheZeroHour(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 		questItemIds = new int[] { FANG };
 
@@ -52,48 +50,37 @@ public class Q640_TheZeroHour extends Quest implements ScriptFile
 		addKillId(22105, 22106, 22107, 22108, 22109, 22110, 22111, 22113, 22114, 22115, 22116, 22117, 22118, 22119, 22121);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q640_TheZeroHour(640, "Q640_TheZeroHour", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
 		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("31554-02.htm"))
-		{
+		if ("31554-02.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("31554-05.htm"))
-		{
+		} else if ("31554-05.htm".equalsIgnoreCase(event)) {
 			if (!st.hasQuestItems(FANG))
 				htmltext = "31554-06.htm";
-		}
-		else if (event.equalsIgnoreCase("31554-08.htm"))
-		{
+		} else if ("31554-08.htm".equalsIgnoreCase(event)) {
 			st.playSound(QuestState.SOUND_FINISH);
 			st.exitQuest(true);
-		}
-		else if (REWARDS.containsKey(event))
-		{
-			int cost = REWARDS.get(event)[0];
-			int item = REWARDS.get(event)[1];
-			int amount = REWARDS.get(event)[2];
+		} else if (REWARDS.containsKey(event)) {
+			final int cost = REWARDS.get(event)[0];
+			final int item = REWARDS.get(event)[1];
+			final int amount = REWARDS.get(event)[2];
 
-			if (st.getQuestItemsCount(FANG) >= cost)
-			{
+			if (st.getQuestItemsCount(FANG) >= cost) {
 				st.takeItems(FANG, cost);
 				st.rewardItems(item, amount);
 				htmltext = "31554-09.htm";
-			}
-			else
+			} else
 				htmltext = "31554-06.htm";
 		}
 
@@ -101,36 +88,25 @@ public class Q640_TheZeroHour extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
+		final QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
-				if (player.getLevel() >= 66)
-				{
-					QuestState st2 = player.getQuestState("Q109_InSearchOfTheNest");
-					if (st2 != null && st2.isCompleted())
-						htmltext = "31554-01.htm";
-					else
-						htmltext = "31554-10.htm";
-				}
-				else
-				{
+				if (player.getLevel() >= 66) {
+					final QuestState st2 = player.getQuestState("Q109_InSearchOfTheNest");
+					htmltext = st2 != null && st2.isCompleted() ? "31554-01.htm" : "31554-10.htm";
+				} else {
 					htmltext = "31554-00.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				if (st.hasQuestItems(FANG))
-					htmltext = "31554-04.htm";
-				else
-					htmltext = "31554-03.htm";
+				htmltext = st.hasQuestItems(FANG) ? "31554-04.htm" : "31554-03.htm";
 				break;
 		}
 
@@ -138,13 +114,12 @@ public class Q640_TheZeroHour extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		L2PcInstance partyMember = getRandomPartyMemberState(player, npc, QuestState.STARTED);
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final L2PcInstance partyMember = getRandomPartyMemberState(player, npc, QuestState.STARTED);
 		if (partyMember == null)
 			return null;
 
-		QuestState st = partyMember.getQuestState(qn);
+		final QuestState st = partyMember.getQuestState(qn);
 
 		st.giveItems(FANG, 1);
 		st.playSound(QuestState.SOUND_ITEMGET);

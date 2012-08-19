@@ -17,18 +17,15 @@ import silentium.gameserver.templates.skills.L2SkillType;
 /**
  * Mobs can teleport players to them.
  */
-public class GetPlayer implements ISkillHandler
-{
+public class GetPlayer implements ISkillHandler {
 	private static final L2SkillType[] SKILL_IDS = { L2SkillType.GET_PLAYER };
 
 	@Override
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
-	{
+	public void useSkill(final L2Character activeChar, final L2Skill skill, final L2Object... targets) {
 		if (activeChar.isAlikeDead())
 			return;
 
-		for (L2Object target : targets)
-		{
+		for (final L2Object target : targets) {
 			final L2PcInstance victim = target.getActingPlayer();
 			if (victim == null || victim.isAlikeDead())
 				continue;
@@ -38,8 +35,7 @@ public class GetPlayer implements ISkillHandler
 	}
 
 	@Override
-	public L2SkillType[] getSkillIds()
-	{
+	public L2SkillType[] getSkillIds() {
 		return SKILL_IDS;
 	}
 }

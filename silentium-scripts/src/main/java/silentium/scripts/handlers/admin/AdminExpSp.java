@@ -7,11 +7,8 @@
  */
 package silentium.scripts.handlers.admin;
 
-import java.util.StringTokenizer;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import silentium.gameserver.data.html.StaticHtmPath;
 import silentium.gameserver.handler.IAdminCommandHandler;
 import silentium.gameserver.model.L2Object;
@@ -19,42 +16,33 @@ import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.network.SystemMessageId;
 import silentium.gameserver.network.serverpackets.NpcHtmlMessage;
 
+import java.util.StringTokenizer;
+
 /**
  * This class handles following admin commands: <li>add_exp_sp_to_character <i>shows menu for add or remove</i> <li>add_exp_sp exp sp <i>Adds exp
  * & sp to target, displays menu if a parameter is missing</i> <li>remove_exp_sp exp sp <i>Removes exp & sp from target, displays menu if a
  * parameter is missing</i>
  */
-public class AdminExpSp implements IAdminCommandHandler
-{
-	private static Logger _log = LoggerFactory.getLogger(AdminExpSp.class.getName());
+public class AdminExpSp implements IAdminCommandHandler {
+	private static final Logger _log = LoggerFactory.getLogger(AdminExpSp.class.getName());
 	private static final String[] ADMIN_COMMANDS = { "admin_add_exp_sp_to_character", "admin_add_exp_sp", "admin_remove_exp_sp" };
 
 	@Override
-	public boolean useAdminCommand(String command, L2PcInstance activeChar)
-	{
-		if (command.startsWith("admin_add_exp_sp"))
-		{
-			try
-			{
-				String val = command.substring(16);
+	public boolean useAdminCommand(final String command, final L2PcInstance activeChar) {
+		if (command.startsWith("admin_add_exp_sp")) {
+			try {
+				final String val = command.substring(16);
 				if (!adminAddExpSp(activeChar, val))
 					activeChar.sendMessage("Usage: //add_exp_sp exp sp");
-			}
-			catch (StringIndexOutOfBoundsException e)
-			{ // Case of missing parameter
+			} catch (StringIndexOutOfBoundsException e) { // Case of missing parameter
 				activeChar.sendMessage("Usage: //add_exp_sp exp sp");
 			}
-		}
-		else if (command.startsWith("admin_remove_exp_sp"))
-		{
-			try
-			{
-				String val = command.substring(19);
+		} else if (command.startsWith("admin_remove_exp_sp")) {
+			try {
+				final String val = command.substring(19);
 				if (!adminRemoveExpSP(activeChar, val))
 					activeChar.sendMessage("Usage: //remove_exp_sp exp sp");
-			}
-			catch (StringIndexOutOfBoundsException e)
-			{ // Case of missing parameter
+			} catch (StringIndexOutOfBoundsException e) { // Case of missing parameter
 				activeChar.sendMessage("Usage: //remove_exp_sp exp sp");
 			}
 		}
@@ -63,23 +51,20 @@ public class AdminExpSp implements IAdminCommandHandler
 	}
 
 	@Override
-	public String[] getAdminCommandList()
-	{
+	public String[] getAdminCommandList() {
 		return ADMIN_COMMANDS;
 	}
 
-	private static void addExpSp(L2PcInstance activeChar)
-	{
-		L2Object target = activeChar.getTarget();
+	private static void addExpSp(final L2PcInstance activeChar) {
+		final L2Object target = activeChar.getTarget();
 		L2PcInstance player = null;
 		if (target instanceof L2PcInstance)
 			player = (L2PcInstance) target;
-		else
-		{
+		else {
 			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 			return;
 		}
-		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
+		final NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
 		adminReply.setFile(StaticHtmPath.AdminHtmPath + "expsp.htm");
 		adminReply.replace("%name%", player.getName());
 		adminReply.replace("%level%", String.valueOf(player.getLevel()));
@@ -89,90 +74,74 @@ public class AdminExpSp implements IAdminCommandHandler
 		activeChar.sendPacket(adminReply);
 	}
 
-	private static boolean adminAddExpSp(L2PcInstance activeChar, String ExpSp)
-	{
-		L2Object target = activeChar.getTarget();
+	private static boolean adminAddExpSp(final L2PcInstance activeChar, final String ExpSp) {
+		final L2Object target = activeChar.getTarget();
 		L2PcInstance player = null;
-		if (target instanceof L2PcInstance)
-		{
+		if (target instanceof L2PcInstance) {
 			player = (L2PcInstance) target;
-		}
-		else
-		{
+		} else {
 			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 			return false;
 		}
-		StringTokenizer st = new StringTokenizer(ExpSp);
+		final StringTokenizer st = new StringTokenizer(ExpSp);
 		if (st.countTokens() != 2)
 			return false;
 
-		String exp = st.nextToken();
-		String sp = st.nextToken();
+		final String exp = st.nextToken();
+		final String sp = st.nextToken();
 		long expval = 0;
 		int spval = 0;
-		try
-		{
+		try {
 			expval = Long.parseLong(exp);
 			spval = Integer.parseInt(sp);
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			return false;
 		}
 
-		if (expval != 0 || spval != 0)
-		{
+		if (expval != 0 || spval != 0) {
 			// Common character information
 			player.sendMessage("Admin is adding you " + expval + " xp and " + spval + " sp.");
 			player.addExpAndSp(expval, spval);
 			// Admin information
-			activeChar.sendMessage("Added " + expval + " xp and " + spval + " sp to " + player.getName() + ".");
+			activeChar.sendMessage("Added " + expval + " xp and " + spval + " sp to " + player.getName() + '.');
 
-			_log.info("GM: " + activeChar.getName() + "(" + activeChar.getObjectId() + ") added " + expval + " xp " + "and " + spval + " sp to " + player.getObjectId() + ".");
+			_log.info("GM: " + activeChar.getName() + '(' + activeChar.getObjectId() + ") added " + expval + " xp " + "and " + spval + " sp to " + player.getObjectId() + '.');
 		}
 		return true;
 	}
 
-	private static boolean adminRemoveExpSP(L2PcInstance activeChar, String ExpSp)
-	{
-		L2Object target = activeChar.getTarget();
+	private static boolean adminRemoveExpSP(final L2PcInstance activeChar, final String ExpSp) {
+		final L2Object target = activeChar.getTarget();
 		L2PcInstance player = null;
-		if (target instanceof L2PcInstance)
-		{
+		if (target instanceof L2PcInstance) {
 			player = (L2PcInstance) target;
-		}
-		else
-		{
+		} else {
 			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 			return false;
 		}
-		StringTokenizer st = new StringTokenizer(ExpSp);
+		final StringTokenizer st = new StringTokenizer(ExpSp);
 		if (st.countTokens() != 2)
 			return false;
 
-		String exp = st.nextToken();
-		String sp = st.nextToken();
+		final String exp = st.nextToken();
+		final String sp = st.nextToken();
 		long expval = 0;
 		int spval = 0;
-		try
-		{
+		try {
 			expval = Long.parseLong(exp);
 			spval = Integer.parseInt(sp);
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			return false;
 		}
 
-		if (expval != 0 || spval != 0)
-		{
+		if (expval != 0 || spval != 0) {
 			// Common character information
 			player.sendMessage("Admin is removing you " + expval + " xp and " + spval + " sp.");
 			player.removeExpAndSp(expval, spval);
 			// Admin information
-			activeChar.sendMessage("Removed " + expval + " xp and " + spval + " sp from " + player.getName() + ".");
+			activeChar.sendMessage("Removed " + expval + " xp and " + spval + " sp from " + player.getName() + '.');
 
-			_log.info("GM: " + activeChar.getName() + "(" + activeChar.getObjectId() + ") removed " + expval + " xp " + "and " + "" + spval + " sp from " + player.getObjectId() + ".");
+			_log.info("GM: " + activeChar.getName() + '(' + activeChar.getObjectId() + ") removed " + expval + " xp " + "and " + spval + " sp from " + player.getObjectId() + '.');
 		}
 		return true;
 	}

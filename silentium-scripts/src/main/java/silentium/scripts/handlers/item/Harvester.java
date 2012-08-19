@@ -21,14 +21,12 @@ import silentium.gameserver.tables.SkillTable;
 /**
  * @author l3x
  */
-public class Harvester implements IItemHandler
-{
+public class Harvester implements IItemHandler {
 	L2PcInstance _activeChar;
 	L2MonsterInstance _target;
 
 	@Override
-	public void useItem(L2Playable playable, L2ItemInstance _item, boolean forceUse)
-	{
+	public void useItem(final L2Playable playable, final L2ItemInstance _item, final boolean forceUse) {
 		if (!(playable instanceof L2PcInstance))
 			return;
 
@@ -37,8 +35,7 @@ public class Harvester implements IItemHandler
 
 		_activeChar = (L2PcInstance) playable;
 
-		if (!(_activeChar.getTarget() instanceof L2MonsterInstance))
-		{
+		if (!(_activeChar.getTarget() instanceof L2MonsterInstance)) {
 			_activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 			_activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
@@ -46,13 +43,12 @@ public class Harvester implements IItemHandler
 
 		_target = (L2MonsterInstance) _activeChar.getTarget();
 
-		if (_target == null || !_target.isDead())
-		{
+		if (_target == null || !_target.isDead()) {
 			_activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 
-		L2Skill skill = SkillTable.getInstance().getInfo(2098, 1); // harvesting skill
+		final L2Skill skill = SkillTable.getInstance().getInfo(2098, 1); // harvesting skill
 		if (skill != null)
 			_activeChar.useMagic(skill, false, false);
 	}

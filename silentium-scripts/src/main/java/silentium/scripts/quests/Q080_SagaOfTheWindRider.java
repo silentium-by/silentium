@@ -10,14 +10,12 @@ package silentium.scripts.quests;
 /**
  * @author Emperorc
  */
-public class Q080_SagaOfTheWindRider extends SagasSuperClass
-{
-	public static String qn1 = "Q080_SagaOfTheWindRider";
-	public static int qnu = 80;
-	public static String qna = "quests";
+public class Q080_SagaOfTheWindRider extends SagasSuperClass {
+	public static final String qn1 = "Q080_SagaOfTheWindRider";
+	public static final int qnu = 80;
+	public static final String qna = "quests";
 
-	public Q080_SagaOfTheWindRider()
-	{
+	public Q080_SagaOfTheWindRider() {
 		super(qnu, qn1, qna);
 
 		NPC = new int[] { 31603, 31624, 31284, 31615, 31612, 31646, 31648, 31652, 31654, 31655, 31659, 31616 };

@@ -9,7 +9,6 @@ package silentium.scripts.handlers.skill;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import silentium.gameserver.handler.ISkillHandler;
 import silentium.gameserver.model.L2Effect;
 import silentium.gameserver.model.L2ItemInstance;
@@ -24,15 +23,13 @@ import silentium.gameserver.skills.Formulas;
 import silentium.gameserver.templates.item.L2WeaponType;
 import silentium.gameserver.templates.skills.L2SkillType;
 
-public class Pdam implements ISkillHandler
-{
-	private static Logger _log = LoggerFactory.getLogger(Pdam.class.getName());
+public class Pdam implements ISkillHandler {
+	private static final Logger _log = LoggerFactory.getLogger(Pdam.class.getName());
 
 	private static final L2SkillType[] SKILL_IDS = { L2SkillType.PDAM, L2SkillType.FATAL };
 
 	@Override
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
-	{
+	public void useSkill(final L2Character activeChar, final L2Skill skill, final L2Object... targets) {
 		if (activeChar.isAlikeDead())
 			return;
 
@@ -40,27 +37,24 @@ public class Pdam implements ISkillHandler
 
 		_log.debug("Begin Skill processing in Pdam.java " + skill.getSkillType());
 
-		L2ItemInstance weapon = activeChar.getActiveWeaponInstance();
-		boolean soul = (weapon != null && weapon.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT && weapon.getItemType() != L2WeaponType.DAGGER);
+		final L2ItemInstance weapon = activeChar.getActiveWeaponInstance();
+		final boolean soul = weapon != null && weapon.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT && weapon.getItemType() != L2WeaponType.DAGGER;
 
-		for (L2Character target : (L2Character[]) targets)
-		{
+		for (final L2Character target : (L2Character[]) targets) {
 			if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance && ((L2PcInstance) target).isFakeDeath())
 				target.stopFakeDeath(true);
 			else if (target.isDead())
 				continue;
 
 			// Calculate skill evasion. As PDAM skillType is used for bow, make an exception with this weapon.
-			boolean skillIsEvaded = Formulas.calcPhysicalSkillEvasion(target, skill);
-			if (weapon != null && weapon.getItemType() != L2WeaponType.BOW)
-			{
-				if (skillIsEvaded)
-				{
+			final boolean skillIsEvaded = Formulas.calcPhysicalSkillEvasion(target, skill);
+			if (weapon != null && weapon.getItemType() != L2WeaponType.BOW) {
+				if (skillIsEvaded) {
 					if (activeChar instanceof L2PcInstance)
-						((L2PcInstance) activeChar).sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_DODGES_ATTACK).addCharName(target));
+						activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_DODGES_ATTACK).addCharName(target));
 
 					if (target instanceof L2PcInstance)
-						((L2PcInstance) target).sendPacket(SystemMessage.getSystemMessage(SystemMessageId.AVOIDED_S1_ATTACK).addCharName(activeChar));
+						target.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.AVOIDED_S1_ATTACK).addCharName(activeChar));
 
 					// no futher calculations needed.
 					continue;
@@ -75,28 +69,21 @@ public class Pdam implements ISkillHandler
 			if (skill.getBaseCritRate() > 0)
 				crit = Formulas.calcCrit(skill.getBaseCritRate() * 10 * Formulas.getSTRBonus(activeChar));
 
-			if (!crit && (skill.getCondition() & L2Skill.COND_CRIT) != 0)
-				damage = 0;
-			else
-				damage = (int) Formulas.calcPhysDam(activeChar, target, skill, shld, false, dual, soul);
+			damage = !crit && (skill.getCondition() & L2Skill.COND_CRIT) != 0 ? 0 : (int) Formulas.calcPhysDam(activeChar, target, skill, shld, false, dual, soul);
 
 			if (crit)
 				damage *= 2; // PDAM Critical damage always 2x and not affected by buffs
 
 			final byte reflect = Formulas.calcSkillReflect(target, skill);
 
-			if (skill.hasEffects())
-			{
-				L2Effect[] effects;
-				if ((reflect & Formulas.SKILL_REFLECT_SUCCEED) != 0)
-				{
+			if (skill.hasEffects()) {
+				final L2Effect[] effects;
+				if ((reflect & Formulas.SKILL_REFLECT_SUCCEED) != 0) {
 					activeChar.stopSkillEffects(skill.getId());
 					effects = skill.getEffects(target, activeChar);
 					if (effects != null && effects.length > 0)
 						activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT).addSkillName(skill));
-				}
-				else
-				{
+				} else {
 					// activate attacked effects, if any
 					target.stopSkillEffects(skill.getId());
 					effects = skill.getEffects(activeChar, target, new Env(shld, false, false, false));
@@ -105,8 +92,7 @@ public class Pdam implements ISkillHandler
 				}
 			}
 
-			if (damage > 0)
-			{
+			if (damage > 0) {
 				activeChar.sendDamageMessage(target, damage, false, crit, false);
 
 				// Possibility of a lethal strike
@@ -115,8 +101,7 @@ public class Pdam implements ISkillHandler
 				target.reduceCurrentHp(damage, activeChar, skill);
 
 				// vengeance reflected damage
-				if ((reflect & Formulas.SKILL_REFLECT_VENGEANCE) != 0)
-				{
+				if ((reflect & Formulas.SKILL_REFLECT_VENGEANCE) != 0) {
 					if (target instanceof L2PcInstance)
 						target.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.COUNTERED_S1_ATTACK).addCharName(activeChar));
 
@@ -124,21 +109,18 @@ public class Pdam implements ISkillHandler
 						activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_PERFORMING_COUNTERATTACK).addCharName(target));
 
 					// Formula from Diego post, 700 from rpg tests
-					double vegdamage = (700 * target.getPAtk(activeChar) / activeChar.getPDef(target));
+					final double vegdamage = 700 * target.getPAtk(activeChar) / activeChar.getPDef(target);
 					activeChar.reduceCurrentHp(vegdamage, target, skill);
 				}
-			}
-			else
+			} else
 				// No damage
 				activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.ATTACK_FAILED));
 		}
 
 		// self Effect :]
-		if (skill.hasSelfEffects())
-		{
+		if (skill.hasSelfEffects()) {
 			final L2Effect effect = activeChar.getFirstEffect(skill.getId());
-			if (effect != null && effect.isSelfEffect())
-			{
+			if (effect != null && effect.isSelfEffect()) {
 				// Replace old effect with new one.
 				effect.exit();
 			}
@@ -150,8 +132,7 @@ public class Pdam implements ISkillHandler
 	}
 
 	@Override
-	public L2SkillType[] getSkillIds()
-	{
+	public L2SkillType[] getSkillIds() {
 		return SKILL_IDS;
 	}
 }

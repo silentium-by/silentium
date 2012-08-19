@@ -16,12 +16,11 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q385_YokeOfThePast extends Quest implements ScriptFile
-{
+public class Q385_YokeOfThePast extends Quest implements ScriptFile {
 	private static final String qn = "Q385_YokeOfThePast";
 
 	// NPCs
-	private static final int GATEKEEPER_ZIGGURAT[] = { 31095, 31096, 31097, 31098, 31099, 31100, 31101, 31102, 31103, 31104, 31105, 31106, 31107, 31108, 31109, 31110, 31114, 31115, 31116, 31117, 31118, 31119, 31120, 31121, 31122, 31123, 31124, 31125, 31126 };
+	private static final int[] GATEKEEPER_ZIGGURAT = { 31095, 31096, 31097, 31098, 31099, 31100, 31101, 31102, 31103, 31104, 31105, 31106, 31107, 31108, 31109, 31110, 31114, 31115, 31116, 31117, 31118, 31119, 31120, 31121, 31122, 31123, 31124, 31125, 31126 };
 
 	// Item
 	private static final int ANCIENT_SCROLL = 5902;
@@ -29,9 +28,9 @@ public class Q385_YokeOfThePast extends Quest implements ScriptFile
 	// Reward
 	private static final int BLANK_SCROLL = 5965;
 
-	private final TIntIntHashMap Chance = new TIntIntHashMap();
+	private static final TIntIntHashMap Chance = new TIntIntHashMap();
 
-	{
+	static {
 		Chance.put(21208, 7);
 		Chance.put(21209, 8);
 		Chance.put(21210, 11);
@@ -75,14 +74,12 @@ public class Q385_YokeOfThePast extends Quest implements ScriptFile
 		Chance.put(21255, 86);
 	}
 
-	public Q385_YokeOfThePast(int questId, String name, String descr)
-	{
+	public Q385_YokeOfThePast(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { ANCIENT_SCROLL };
 
-		for (int ziggurat : GATEKEEPER_ZIGGURAT)
-		{
+		for (final int ziggurat : GATEKEEPER_ZIGGURAT) {
 			addStartNpc(ziggurat);
 			addTalkId(ziggurat);
 		}
@@ -90,27 +87,22 @@ public class Q385_YokeOfThePast extends Quest implements ScriptFile
 		addKillId(21208, 21209, 21210, 21211, 21213, 21214, 21215, 21217, 21218, 21219, 21221, 21223, 21224, 21225, 21226, 21227, 21228, 21229, 21230, 21231, 21236, 21237, 21238, 21239, 21240, 21241, 21242, 21243, 21244, 21245, 21246, 21247, 21248, 21249, 21250, 21251, 21252, 21253, 21254, 21255);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q385_YokeOfThePast(385, "Q385_YokeOfThePast", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		final String htmltext = event;
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("05.htm"))
-		{
+		if ("05.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("10.htm"))
-		{
+		} else if ("10.htm".equalsIgnoreCase(event)) {
 			st.playSound(QuestState.SOUND_FINISH);
 			st.exitQuest(true);
 		}
@@ -119,20 +111,17 @@ public class Q385_YokeOfThePast extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
+		final QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 20 && player.getLevel() <= 75)
 					htmltext = "01.htm";
-				else
-				{
+				else {
 					htmltext = "02.htm";
 					st.exitQuest(true);
 				}
@@ -141,10 +130,9 @@ public class Q385_YokeOfThePast extends Quest implements ScriptFile
 			case QuestState.STARTED:
 				if (st.getQuestItemsCount(ANCIENT_SCROLL) == 0)
 					htmltext = "08.htm";
-				else
-				{
+				else {
 					htmltext = "09.htm";
-					int count = st.getQuestItemsCount(ANCIENT_SCROLL);
+					final int count = st.getQuestItemsCount(ANCIENT_SCROLL);
 					st.takeItems(ANCIENT_SCROLL, -1);
 					st.rewardItems(BLANK_SCROLL, count);
 				}
@@ -155,24 +143,22 @@ public class Q385_YokeOfThePast extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		L2PcInstance partyMember = getRandomPartyMemberState(player, npc, QuestState.STARTED);
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final L2PcInstance partyMember = getRandomPartyMemberState(player, npc, QuestState.STARTED);
 		if (partyMember == null)
 			return null;
 
-		QuestState st = partyMember.getQuestState(qn);
+		final QuestState st = partyMember.getQuestState(qn);
 
-		int p = Chance.get(npc.getNpcId());
+		final int p = Chance.get(npc.getNpcId());
 		int chance = (int) (p * MainConfig.RATE_QUEST_DROP);
 		int numItems = chance / 100; // Max is 100
-		chance = chance % 100;
+		chance %= 100;
 
 		if (Rnd.get(100) < chance)
 			numItems++;
 
-		if (numItems > 0)
-		{
+		if (numItems > 0) {
 			st.giveItems(ANCIENT_SCROLL, numItems);
 			st.playSound(QuestState.SOUND_ITEMGET);
 		}

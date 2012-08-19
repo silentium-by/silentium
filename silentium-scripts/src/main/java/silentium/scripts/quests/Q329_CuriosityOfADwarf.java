@@ -14,8 +14,7 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q329_CuriosityOfADwarf extends Quest implements ScriptFile
-{
+public class Q329_CuriosityOfADwarf extends Quest implements ScriptFile {
 	private static final String qn = "Q329_CuriosityOfADwarf";
 
 	// NPC
@@ -25,8 +24,7 @@ public class Q329_CuriosityOfADwarf extends Quest implements ScriptFile
 	private static final int Golem_Heartstone = 1346;
 	private static final int Broken_Heartstone = 1365;
 
-	public Q329_CuriosityOfADwarf(int questId, String name, String descr)
-	{
+	public Q329_CuriosityOfADwarf(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		addStartNpc(Rolento);
@@ -35,27 +33,22 @@ public class Q329_CuriosityOfADwarf extends Quest implements ScriptFile
 		addKillId(20083, 20085); // Granite golem, Puncher
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q329_CuriosityOfADwarf(329, "Q329_CuriosityOfADwarf", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		final String htmltext = event;
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30437-03.htm"))
-		{
+		if ("30437-03.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("30437-06.htm"))
-		{
+		} else if ("30437-06.htm".equalsIgnoreCase(event)) {
 			st.playSound(QuestState.SOUND_FINISH);
 			st.exitQuest(true);
 		}
@@ -64,37 +57,33 @@ public class Q329_CuriosityOfADwarf extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
+		final QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 33 && player.getLevel() <= 38)
 					htmltext = "30437-02.htm";
-				else
-				{
+				else {
 					htmltext = "30437-01.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				int golem = st.getQuestItemsCount(Golem_Heartstone);
-				int broken = st.getQuestItemsCount(Broken_Heartstone);
+				final int golem = st.getQuestItemsCount(Golem_Heartstone);
+				final int broken = st.getQuestItemsCount(Broken_Heartstone);
 
 				if (golem + broken == 0)
 					htmltext = "30437-04.htm";
-				else
-				{
+				else {
 					htmltext = "30437-05.htm";
 					st.takeItems(Golem_Heartstone, -1);
 					st.takeItems(Broken_Heartstone, -1);
-					st.rewardItems(57, broken * 50 + golem * 1000 + ((golem + broken > 10) ? 1183 : 0));
+					st.rewardItems(57, broken * 50 + golem * 1000 + (golem + broken > 10 ? 1183 : 0));
 				}
 				break;
 		}
@@ -103,22 +92,17 @@ public class Q329_CuriosityOfADwarf extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 
-		if (st.isStarted())
-		{
-			int chance = Rnd.get(100);
-			if (chance < 15)
-			{
+		if (st.isStarted()) {
+			final int chance = Rnd.get(100);
+			if (chance < 15) {
 				st.giveItems(Golem_Heartstone, 1);
 				st.playSound(QuestState.SOUND_ITEMGET);
-			}
-			else if (chance < 65)
-			{
+			} else if (chance < 65) {
 				st.giveItems(Broken_Heartstone, 1);
 				st.playSound(QuestState.SOUND_ITEMGET);
 			}

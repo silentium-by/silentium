@@ -13,9 +13,8 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q636_TruthBeyondTheGate extends Quest implements ScriptFile
-{
-	private final static String qn = "Q636_TruthBeyondTheGate";
+public class Q636_TruthBeyondTheGate extends Quest implements ScriptFile {
+	private static final String qn = "Q636_TruthBeyondTheGate";
 
 	// NPCs
 	private static final int ELIYAH = 31329;
@@ -24,35 +23,29 @@ public class Q636_TruthBeyondTheGate extends Quest implements ScriptFile
 	// Reward
 	private static final int MARK = 8064;
 
-	public Q636_TruthBeyondTheGate(int questId, String name, String descr)
-	{
+	public Q636_TruthBeyondTheGate(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		addStartNpc(ELIYAH);
 		addTalkId(ELIYAH, FLAURON);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q636_TruthBeyondTheGate(636, "Q636_TruthBeyondTheGate", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		final String htmltext = event;
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("31329-04.htm"))
-		{
+		if ("31329-04.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("32010-02.htm"))
-		{
+		} else if ("32010-02.htm".equalsIgnoreCase(event)) {
 			st.giveItems(MARK, 1);
 			st.exitQuest(false);
 			st.playSound(QuestState.SOUND_FINISH);
@@ -62,37 +55,30 @@ public class Q636_TruthBeyondTheGate extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
 		String htmltext = Quest.getNoQuestMsg();
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() > 72)
 					htmltext = "31329-02.htm";
-				else
-				{
+				else {
 					htmltext = "31329-01.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				switch (npc.getNpcId())
-				{
+				switch (npc.getNpcId()) {
 					case ELIYAH:
 						htmltext = "31329-05.htm";
 						break;
 
 					case FLAURON:
-						if (st.hasQuestItems(MARK))
-							htmltext = "32010-03.htm";
-						else
-							htmltext = "32010-01.htm";
+						htmltext = st.hasQuestItems(MARK) ? "32010-03.htm" : "32010-01.htm";
 						break;
 				}
 				break;

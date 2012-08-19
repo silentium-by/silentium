@@ -14,9 +14,8 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q267_WrathOfVerdure extends Quest implements ScriptFile
-{
-	private final static String qn = "Q267_WrathOfVerdure";
+public class Q267_WrathOfVerdure extends Quest implements ScriptFile {
+	private static final String qn = "Q267_WrathOfVerdure";
 
 	// Items
 	private static final int GOBLIN_CLUB = 1335;
@@ -30,8 +29,7 @@ public class Q267_WrathOfVerdure extends Quest implements ScriptFile
 	// Mob
 	private static final int GOBLIN = 20325;
 
-	public Q267_WrathOfVerdure(int questId, String name, String descr)
-	{
+	public Q267_WrathOfVerdure(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { GOBLIN_CLUB };
@@ -42,27 +40,22 @@ public class Q267_WrathOfVerdure extends Quest implements ScriptFile
 		addKillId(GOBLIN);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q267_WrathOfVerdure(267, "Q267_WrathOfVerdure", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		final String htmltext = event;
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("31853-03.htm"))
-		{
+		if ("31853-03.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("31853-06.htm"))
-		{
+		} else if ("31853-06.htm".equalsIgnoreCase(event)) {
 			st.playSound(QuestState.SOUND_FINISH);
 			st.exitQuest(true);
 		}
@@ -71,43 +64,35 @@ public class Q267_WrathOfVerdure extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
 		String htmltext = Quest.getNoQuestMsg();
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
-				if (player.getRace().ordinal() == 1)
-				{
+				if (player.getRace().ordinal() == 1) {
 					if (player.getLevel() >= 4 && player.getLevel() <= 9)
 						htmltext = "31853-02.htm";
-					else
-					{
+					else {
 						htmltext = "31853-01.htm";
 						st.exitQuest(true);
 					}
-				}
-				else
-				{
+				} else {
 					htmltext = "31853-00.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				int count = st.getQuestItemsCount(GOBLIN_CLUB);
+				final int count = st.getQuestItemsCount(GOBLIN_CLUB);
 
-				if (count > 0)
-				{
+				if (count > 0) {
 					htmltext = "31853-05.htm";
 					st.takeItems(GOBLIN_CLUB, -1);
 					st.rewardItems(SILVERY_LEAF, count);
-				}
-				else
+				} else
 					htmltext = "31853-04.htm";
 				break;
 		}
@@ -116,14 +101,12 @@ public class Q267_WrathOfVerdure extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 
-		if (st.getInt("cond") == 1 && Rnd.get(10) < 5)
-		{
+		if (st.getInt("cond") == 1 && Rnd.get(10) < 5) {
 			st.giveItems(GOBLIN_CLUB, 1);
 			st.playSound(QuestState.SOUND_ITEMGET);
 		}

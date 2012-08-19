@@ -12,37 +12,28 @@ import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.scripting.ScriptFile;
 
-public final class Asterios extends Quest implements ScriptFile
-{
+public final class Asterios extends Quest implements ScriptFile {
 	// Quest NPCs
 	private static final int ASTERIOS = 30154;
 
-	public Asterios(int questId, String name, String descr)
-	{
+	public Asterios(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 		addStartNpc(ASTERIOS);
 		addTalkId(ASTERIOS);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Asterios(-1, "Asterios", "vmasters");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		if (event.contains("-01") || event.contains("-02") || event.contains("-03") || event.contains("-04") || event.contains("-05") || event.contains("-06") || event.contains("-07") || event.contains("-08") || event.contains("-09") || event.contains("-10"))
-			return event;
-		else
-			return null;
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		return event.contains("-01") || event.contains("-02") || event.contains("-03") || event.contains("-04") || event.contains("-05") || event.contains("-06") || event.contains("-07") || event.contains("-08") || event.contains("-09") || event.contains("-10") ? event : null;
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance talker)
-	{
-		switch (talker.getClassId())
-		{
+	public String onTalk(final L2Npc npc, final L2PcInstance talker) {
+		switch (talker.getClassId()) {
 			case elvenFighter:
 				return "30154-01.htm";
 			case elvenMage:

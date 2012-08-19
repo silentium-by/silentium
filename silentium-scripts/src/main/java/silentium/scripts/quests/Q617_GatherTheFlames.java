@@ -7,9 +7,6 @@
  */
 package silentium.scripts.quests;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import silentium.commons.utils.Rnd;
 import silentium.gameserver.configs.MainConfig;
 import silentium.gameserver.model.actor.L2Npc;
@@ -19,9 +16,11 @@ import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 import silentium.gameserver.utils.Util;
 
-public class Q617_GatherTheFlames extends Quest implements ScriptFile
-{
-	private final static String qn = "Q617_GatherTheFlames";
+import java.util.HashMap;
+import java.util.Map;
+
+public class Q617_GatherTheFlames extends Quest implements ScriptFile {
+	private static final String qn = "Q617_GatherTheFlames";
 
 	// NPCs
 	private static final int HILDA = 31271;
@@ -34,7 +33,7 @@ public class Q617_GatherTheFlames extends Quest implements ScriptFile
 	// Droplist
 	private static final Map<Integer, Integer> droplist = new HashMap<>();
 
-	{
+	static {
 		droplist.put(21381, 51);
 		droplist.put(21653, 51);
 		droplist.put(21387, 53);
@@ -64,10 +63,9 @@ public class Q617_GatherTheFlames extends Quest implements ScriptFile
 	}
 
 	// Rewards
-	private static final int reward[] = { 6881, 6883, 6885, 6887, 6891, 6893, 6895, 6897, 6899, 7580 };
+	private static final int[] reward = { 6881, 6883, 6885, 6887, 6891, 6893, 6895, 6897, 6899, 7580 };
 
-	public Q617_GatherTheFlames(int questId, String name, String descr)
-	{
+	public Q617_GatherTheFlames(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { TORCH };
@@ -75,58 +73,44 @@ public class Q617_GatherTheFlames extends Quest implements ScriptFile
 		addStartNpc(VULCAN, HILDA);
 		addTalkId(VULCAN, HILDA, ROONEY);
 
-		for (int mobs : droplist.keySet())
+		for (final int mobs : droplist.keySet())
 			addKillId(mobs);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q617_GatherTheFlames(617, "Q617_GatherTheFlames", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
 		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("31539-03.htm"))
-		{
+		if ("31539-03.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("31271-03.htm"))
-		{
+		} else if ("31271-03.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("31539-05.htm"))
-		{
-			if (st.getQuestItemsCount(TORCH) >= 1000)
-			{
+		} else if ("31539-05.htm".equalsIgnoreCase(event)) {
+			if (st.getQuestItemsCount(TORCH) >= 1000) {
 				htmltext = "31539-07.htm";
 				st.takeItems(TORCH, 1000);
 				st.giveItems(reward[Rnd.get(reward.length)], 1);
 			}
-		}
-		else if (event.equalsIgnoreCase("31539-08.htm"))
-		{
+		} else if ("31539-08.htm".equalsIgnoreCase(event)) {
 			st.takeItems(TORCH, -1);
 			st.exitQuest(true);
-		}
-		else if (Util.isDigit(event))
-		{
-			if (st.getQuestItemsCount(TORCH) >= 1200)
-			{
+		} else if (Util.isDigit(event)) {
+			if (st.getQuestItemsCount(TORCH) >= 1200) {
 				htmltext = "32049-03.htm";
 				st.takeItems(TORCH, 1200);
 				st.giveItems(Integer.valueOf(event), 1);
-			}
-			else
+			} else
 				htmltext = "32049-02.htm";
 		}
 
@@ -134,23 +118,19 @@ public class Q617_GatherTheFlames extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
 		String htmltext = Quest.getNoQuestMsg();
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
-				switch (npc.getNpcId())
-				{
+				switch (npc.getNpcId()) {
 					case VULCAN:
 						if (player.getLevel() >= 74)
 							htmltext = "31539-01.htm";
-						else
-						{
+						else {
 							htmltext = "31539-02.htm";
 							st.exitQuest(true);
 						}
@@ -159,8 +139,7 @@ public class Q617_GatherTheFlames extends Quest implements ScriptFile
 					case HILDA:
 						if (player.getLevel() >= 74)
 							htmltext = "31271-02.htm";
-						else
-						{
+						else {
 							htmltext = "31271-01.htm";
 							st.exitQuest(true);
 						}
@@ -169,13 +148,9 @@ public class Q617_GatherTheFlames extends Quest implements ScriptFile
 				break;
 
 			case QuestState.STARTED:
-				switch (npc.getNpcId())
-				{
+				switch (npc.getNpcId()) {
 					case VULCAN:
-						if (st.getQuestItemsCount(TORCH) >= 1000)
-							htmltext = "31539-04.htm";
-						else
-							htmltext = "31539-05.htm";
+						htmltext = st.getQuestItemsCount(TORCH) >= 1000 ? "31539-04.htm" : "31539-05.htm";
 						break;
 
 					case HILDA:
@@ -183,10 +158,7 @@ public class Q617_GatherTheFlames extends Quest implements ScriptFile
 						break;
 
 					case ROONEY:
-						if (st.getQuestItemsCount(TORCH) >= 1200)
-							htmltext = "32049-01.htm";
-						else
-							htmltext = "32049-02.htm";
+						htmltext = st.getQuestItemsCount(TORCH) >= 1200 ? "32049-01.htm" : "32049-02.htm";
 						break;
 				}
 				break;
@@ -196,28 +168,25 @@ public class Q617_GatherTheFlames extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		L2PcInstance partyMember = getRandomPartyMemberState(player, npc, QuestState.STARTED);
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final L2PcInstance partyMember = getRandomPartyMemberState(player, npc, QuestState.STARTED);
 		if (partyMember == null)
 			return null;
 
-		QuestState st = partyMember.getQuestState(qn);
+		final QuestState st = partyMember.getQuestState(qn);
 
-		if (droplist.containsKey(npc.getNpcId()))
-		{
-			int count = st.getQuestItemsCount(TORCH);
-			int probability = droplist.get(npc.getNpcId());
+		if (droplist.containsKey(npc.getNpcId())) {
+			final int count = st.getQuestItemsCount(TORCH);
+			final int probability = droplist.get(npc.getNpcId());
 			int chance = (int) (probability * MainConfig.RATE_QUEST_DROP);
 			int numItems = chance / 100;
-			chance = chance % 100;
+			chance %= 100;
 
 			if (Rnd.get(100) < chance)
 				numItems++;
 
-			if (numItems > 0)
-			{
-				if (((count + numItems) / 100) > count / 100)
+			if (numItems > 0) {
+				if ((count + numItems) / 100 > count / 100)
 					st.playSound(QuestState.SOUND_MIDDLE);
 				else
 					st.playSound(QuestState.SOUND_ITEMGET);

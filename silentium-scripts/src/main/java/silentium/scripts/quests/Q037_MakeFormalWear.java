@@ -13,8 +13,7 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q037_MakeFormalWear extends Quest implements ScriptFile
-{
+public class Q037_MakeFormalWear extends Quest implements ScriptFile {
 	private static final String qn = "Q037_MakeFormalWear";
 
 	// NPCs
@@ -35,8 +34,7 @@ public class Q037_MakeFormalWear extends Quest implements ScriptFile
 	// Reward
 	private static final int FORMAL_WEAR = 6408;
 
-	public Q037_MakeFormalWear(int questId, String name, String descr)
-	{
+	public Q037_MakeFormalWear(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { SIGNET_RING, ICE_WINE, BOX_OF_COOKIES };
@@ -45,66 +43,49 @@ public class Q037_MakeFormalWear extends Quest implements ScriptFile
 		addTalkId(ALEXIS, LEIKAR, JEREMY, MIST);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q037_MakeFormalWear(37, "Q037_MakeFormalWear", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		final String htmltext = event;
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30842-1.htm"))
-		{
+		if ("30842-1.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("31520-1.htm"))
-		{
+		} else if ("31520-1.htm".equalsIgnoreCase(event)) {
 			st.giveItems(SIGNET_RING, 1);
 			st.set("cond", "2");
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("31521-1.htm"))
-		{
+		} else if ("31521-1.htm".equalsIgnoreCase(event)) {
 			st.takeItems(SIGNET_RING, 1);
 			st.giveItems(ICE_WINE, 1);
 			st.set("cond", "3");
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("31627-1.htm"))
-		{
+		} else if ("31627-1.htm".equalsIgnoreCase(event)) {
 			st.takeItems(ICE_WINE, 1);
 			st.set("cond", "4");
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equals("31521-3.htm"))
-		{
+		} else if ("31521-3.htm".equals(event)) {
 			st.giveItems(BOX_OF_COOKIES, 1);
 			st.set("cond", "5");
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equals("31520-3.htm"))
-		{
+		} else if ("31520-3.htm".equals(event)) {
 			st.takeItems(BOX_OF_COOKIES, 1);
 			st.set("cond", "6");
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equals("31520-5.htm"))
-		{
+		} else if ("31520-5.htm".equals(event)) {
 			st.takeItems(MYSTERIOUS_CLOTH, 1);
 			st.takeItems(JEWEL_BOX, 1);
 			st.takeItems(SEWING_KIT, 1);
 			st.set("cond", "7");
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equals("31520-7.htm"))
-		{
+		} else if ("31520-7.htm".equals(event)) {
 			st.takeItems(DRESS_SHOES_BOX, 1);
 			st.giveItems(FORMAL_WEAR, 1);
 			st.playSound(QuestState.SOUND_FINISH);
@@ -115,29 +96,25 @@ public class Q037_MakeFormalWear extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
+		final QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 60)
 					htmltext = "30842-0.htm";
-				else
-				{
+				else {
 					htmltext = "30842-0a.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				int cond = st.getInt("cond");
-				switch (npc.getNpcId())
-				{
+				final int cond = st.getInt("cond");
+				switch (npc.getNpcId()) {
 					case ALEXIS:
 						if (cond == 1)
 							htmltext = "30842-2.htm";
@@ -148,21 +125,12 @@ public class Q037_MakeFormalWear extends Quest implements ScriptFile
 							htmltext = "31520-0.htm";
 						else if (cond == 2)
 							htmltext = "31520-1a.htm";
-						else if (cond == 5 || cond == 6)
-						{
+						else if (cond == 5 || cond == 6) {
 							if (st.getQuestItemsCount(MYSTERIOUS_CLOTH) > 0 && st.getQuestItemsCount(JEWEL_BOX) > 0 && st.getQuestItemsCount(SEWING_KIT) > 0)
 								htmltext = "31520-4.htm";
-							else if (st.getQuestItemsCount(BOX_OF_COOKIES) > 0)
-								htmltext = "31520-2.htm";
-							else
-								htmltext = "31520-3a.htm";
-						}
-						else if (cond == 7)
-						{
-							if (st.getQuestItemsCount(DRESS_SHOES_BOX) > 0)
-								htmltext = "31520-6.htm";
-							else
-								htmltext = "31520-5a.htm";
+							else htmltext = st.getQuestItemsCount(BOX_OF_COOKIES) > 0 ? "31520-2.htm" : "31520-3a.htm";
+						} else if (cond == 7) {
+							htmltext = st.getQuestItemsCount(DRESS_SHOES_BOX) > 0 ? "31520-6.htm" : "31520-5a.htm";
 						}
 						break;
 

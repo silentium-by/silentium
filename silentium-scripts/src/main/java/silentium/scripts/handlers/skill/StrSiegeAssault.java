@@ -22,46 +22,37 @@ import silentium.gameserver.templates.skills.L2SkillType;
 /**
  * @author _tomciaaa_
  */
-public class StrSiegeAssault implements ISkillHandler
-{
+public class StrSiegeAssault implements ISkillHandler {
 	private static final L2SkillType[] SKILL_IDS = { L2SkillType.STRSIEGEASSAULT };
 
 	@Override
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
-	{
-		if (activeChar == null || !(activeChar instanceof L2PcInstance))
+	public void useSkill(final L2Character activeChar, final L2Skill skill, final L2Object... targets) {
+		if (!(activeChar instanceof L2PcInstance))
 			return;
 
-		L2PcInstance player = (L2PcInstance) activeChar;
+		final L2PcInstance player = (L2PcInstance) activeChar;
 
 		// Checks
-		if (player.checkIfOkToUseStriderSiegeAssault(skill))
-		{
+		if (player.checkIfOkToUseStriderSiegeAssault(skill)) {
 			// damage calculation
 			int damage = 0;
 
-			for (L2Character target : (L2Character[]) targets)
-			{
-				L2ItemInstance weapon = activeChar.getActiveWeaponInstance();
+			for (final L2Character target : (L2Character[]) targets) {
+				final L2ItemInstance weapon = activeChar.getActiveWeaponInstance();
 				if (target.isAlikeDead())
 					continue;
 
-				boolean dual = activeChar.isUsingDualWeapon();
-				byte shld = Formulas.calcShldUse(activeChar, target);
-				boolean crit = Formulas.calcCrit(activeChar.getCriticalHit(target, skill));
-				boolean soul = (weapon != null && weapon.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT && weapon.getItemType() != L2WeaponType.DAGGER);
+				final boolean dual = activeChar.isUsingDualWeapon();
+				final byte shld = Formulas.calcShldUse(activeChar, target);
+				final boolean crit = Formulas.calcCrit(activeChar.getCriticalHit(target, skill));
+				final boolean soul = weapon != null && weapon.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT && weapon.getItemType() != L2WeaponType.DAGGER;
 
-				if (!crit && (skill.getCondition() & L2Skill.COND_CRIT) != 0)
-					damage = 0;
-				else
-					damage = (int) Formulas.calcPhysDam(activeChar, target, skill, shld, crit, dual, soul);
+				damage = !crit && (skill.getCondition() & L2Skill.COND_CRIT) != 0 ? 0 : (int) Formulas.calcPhysDam(activeChar, target, skill, shld, crit, dual, soul);
 
-				if (damage > 0)
-				{
+				if (damage > 0) {
 					activeChar.sendDamageMessage(target, damage, false, false, false);
 					target.reduceCurrentHp(damage, activeChar, skill);
-				}
-				else
+				} else
 					activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.ATTACK_FAILED));
 
 				if (soul && weapon != null)
@@ -71,8 +62,7 @@ public class StrSiegeAssault implements ISkillHandler
 	}
 
 	@Override
-	public L2SkillType[] getSkillIds()
-	{
+	public L2SkillType[] getSkillIds() {
 		return SKILL_IDS;
 	}
 }

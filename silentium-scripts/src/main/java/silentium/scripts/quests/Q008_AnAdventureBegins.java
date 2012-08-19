@@ -13,24 +13,22 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q008_AnAdventureBegins extends Quest implements ScriptFile
-{
+public class Q008_AnAdventureBegins extends Quest implements ScriptFile {
 	private static final String qn = "Q008_AnAdventureBegins";
 
 	// NPCs
-	private final static int JASMINE = 30134;
-	private final static int ROSELYN = 30355;
-	private final static int HARNE = 30144;
+	private static final int JASMINE = 30134;
+	private static final int ROSELYN = 30355;
+	private static final int HARNE = 30144;
 
 	// Items
-	private final static int ROSELYN_NOTE = 7573;
+	private static final int ROSELYN_NOTE = 7573;
 
 	// Rewards
-	private final static int SCROLL_ESCAPE = 7559;
-	private final static int MARK_TRAVELER = 7570;
+	private static final int SCROLL_ESCAPE = 7559;
+	private static final int MARK_TRAVELER = 7570;
 
-	public Q008_AnAdventureBegins(int questId, String name, String descr)
-	{
+	public Q008_AnAdventureBegins(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { ROSELYN_NOTE };
@@ -39,39 +37,30 @@ public class Q008_AnAdventureBegins extends Quest implements ScriptFile
 		addTalkId(JASMINE, ROSELYN, HARNE);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q008_AnAdventureBegins(8, "Q008_AnAdventureBegins", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		final String htmltext = event;
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30134-03.htm"))
-		{
+		if ("30134-03.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("30355-02.htm"))
-		{
+		} else if ("30355-02.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "2");
 			st.giveItems(ROSELYN_NOTE, 1);
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("30144-02.htm"))
-		{
+		} else if ("30144-02.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "3");
 			st.takeItems(ROSELYN_NOTE, 1);
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("30134-06.htm"))
-		{
+		} else if ("30134-06.htm".equalsIgnoreCase(event)) {
 			st.giveItems(MARK_TRAVELER, 1);
 			st.rewardItems(SCROLL_ESCAPE, 1);
 			st.playSound(QuestState.SOUND_FINISH);
@@ -82,29 +71,25 @@ public class Q008_AnAdventureBegins extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
+		final QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
-				if ((player.getLevel() >= 3 && player.getLevel() <= 10) && player.getRace().ordinal() == 2)
+				if (player.getLevel() >= 3 && player.getLevel() <= 10 && player.getRace().ordinal() == 2)
 					htmltext = "30134-02.htm";
-				else
-				{
+				else {
 					htmltext = "30134-01.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				int cond = st.getInt("cond");
-				switch (npc.getNpcId())
-				{
+				final int cond = st.getInt("cond");
+				switch (npc.getNpcId()) {
 					case JASMINE:
 						if (cond == 1 || cond == 2)
 							htmltext = "30134-04.htm";
@@ -113,10 +98,7 @@ public class Q008_AnAdventureBegins extends Quest implements ScriptFile
 						break;
 
 					case ROSELYN:
-						if (st.getQuestItemsCount(ROSELYN_NOTE) == 0)
-							htmltext = "30355-01.htm";
-						else
-							htmltext = "30355-03.htm";
+						htmltext = st.getQuestItemsCount(ROSELYN_NOTE) == 0 ? "30355-01.htm" : "30355-03.htm";
 						break;
 
 					case HARNE:

@@ -34,8 +34,7 @@ import silentium.gameserver.utils.Util;
  * <li>Quests failures && alliance downgrade if you kill an allied mob.</li>
  * </ul>
  */
-public class VarkaSilenosSupport extends Quest implements ScriptFile
-{
+public class VarkaSilenosSupport extends Quest implements ScriptFile {
 	private static final String qn = "VarkaSilenosSupport";
 
 	private static final int ASHAS = 31377; // Hierarch
@@ -64,7 +63,7 @@ public class VarkaSilenosSupport extends Quest implements ScriptFile
 			{ 4354, 1, 3 }, // Vampiric Rage: Requires 3 Nepenthese Seeds
 			{ 4356, 1, 6 }, // Empower: Requires 6 Nepenthese Seeds
 			{ 4357, 1, 6 }
-	// Haste: Requires 6 Nepenthese Seeds
+			// Haste: Requires 6 Nepenthese Seeds
 	};
 
 	/**
@@ -72,13 +71,11 @@ public class VarkaSilenosSupport extends Quest implements ScriptFile
 	 */
 	private static final String[] varkaMissions = { "Q611_AllianceWithVarkaSilenos", "Q612_WarWithKetraOrcs", "Q613_ProveYourCourage", "Q614_SlayTheEnemyCommander", "Q615_MagicalPowerOfFire_Part1", "Q616_MagicalPowerOfFire_Part2" };
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new VarkaSilenosSupport(-1, "VarkaSilenosSupport", "custom");
 	}
 
-	public VarkaSilenosSupport(int id, String name, String descr)
-	{
+	public VarkaSilenosSupport(final int id, final String name, final String descr) {
 		super(id, name, descr);
 
 		addFirstTalkId(ASHAS, NARAN, UDAN, DIYABU, HAGOS, SHIKON, TERANU);
@@ -93,20 +90,16 @@ public class VarkaSilenosSupport extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
 		String htmltext = getNoQuestMsg();
-		QuestState st = player.getQuestState(getName());
+		final QuestState st = player.getQuestState(getName());
 		if (st == null)
 			return htmltext;
 
-		if (Util.isDigit(event))
-		{
+		if (Util.isDigit(event)) {
 			final int eventId = Integer.parseInt(event);
-			if (eventId >= 0 && eventId <= 7)
-			{
-				if (st.getQuestItemsCount(SEED) >= BUFF[eventId - 1][2])
-				{
+			if (eventId >= 0 && eventId <= 7) {
+				if (st.getQuestItemsCount(SEED) >= BUFF[eventId - 1][2]) {
 					st.takeItems(SEED, BUFF[eventId - 1][2]);
 					npc.setTarget(player);
 					npc.doCast(SkillTable.getInstance().getInfo(BUFF[eventId - 1][0], BUFF[eventId - 1][1]));
@@ -114,22 +107,16 @@ public class VarkaSilenosSupport extends Quest implements ScriptFile
 					htmltext = "31379-4.htm";
 				}
 			}
-		}
-		else if (event.equals("Withdraw"))
-		{
+		} else if ("Withdraw".equals(event)) {
 			if (player.getWarehouse().getSize() == 0)
 				htmltext = "31381-0.htm";
-			else
-			{
+			else {
 				player.sendPacket(ActionFailed.STATIC_PACKET);
 				player.setActiveWarehouse(player.getWarehouse());
 				player.sendPacket(new WareHouseWithdrawalList(player, 1));
 			}
-		}
-		else if (event.equals("Teleport"))
-		{
-			switch (player.getAllianceWithVarkaKetra())
-			{
+		} else if ("Teleport".equals(event)) {
+			switch (player.getAllianceWithVarkaKetra()) {
 				case -4:
 					htmltext = "31383-4.htm";
 					break;
@@ -143,8 +130,7 @@ public class VarkaSilenosSupport extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onFirstTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onFirstTalk(final L2Npc npc, final L2PcInstance player) {
 		String htmltext = getNoQuestMsg();
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
@@ -152,20 +138,13 @@ public class VarkaSilenosSupport extends Quest implements ScriptFile
 
 		final int allianceLevel = player.getAllianceWithVarkaKetra();
 
-		switch (npc.getNpcId())
-		{
+		switch (npc.getNpcId()) {
 			case ASHAS:
-				if (allianceLevel < 0)
-					htmltext = "31377-friend.htm";
-				else
-					htmltext = "31377-no.htm";
+				htmltext = allianceLevel < 0 ? "31377-friend.htm" : "31377-no.htm";
 				break;
 
 			case NARAN:
-				if (allianceLevel < 0)
-					htmltext = "31378-friend.htm";
-				else
-					htmltext = "31378-no.htm";
+				htmltext = allianceLevel < 0 ? "31378-friend.htm" : "31378-no.htm";
 				break;
 
 			case UDAN:
@@ -174,12 +153,8 @@ public class VarkaSilenosSupport extends Quest implements ScriptFile
 					htmltext = "31379-3.htm";
 				else if (allianceLevel > -3 && allianceLevel < 0)
 					htmltext = "31379-1.htm";
-				else if (allianceLevel < -2)
-				{
-					if (st.hasQuestItems(SEED))
-						htmltext = "31379-4.htm";
-					else
-						htmltext = "31379-2.htm";
+				else if (allianceLevel < -2) {
+					htmltext = st.hasQuestItems(SEED) ? "31379-4.htm" : "31379-2.htm";
 				}
 				break;
 
@@ -188,15 +163,11 @@ public class VarkaSilenosSupport extends Quest implements ScriptFile
 					htmltext = "31380-pk.htm";
 				else if (allianceLevel >= 0)
 					htmltext = "31380-no.htm";
-				else if (allianceLevel == -1 || allianceLevel == -2)
-					htmltext = "31380-1.htm";
-				else
-					htmltext = "31380-2.htm";
+				else htmltext = allianceLevel == -1 || allianceLevel == -2 ? "31380-1.htm" : "31380-2.htm";
 				break;
 
 			case HAGOS:
-				switch (allianceLevel)
-				{
+				switch (allianceLevel) {
 					case -1:
 						htmltext = "31381-1.htm";
 						break;
@@ -207,17 +178,13 @@ public class VarkaSilenosSupport extends Quest implements ScriptFile
 					default:
 						if (allianceLevel >= 0)
 							htmltext = "31381-no.htm";
-						else if (player.getWarehouse().getSize() == 0)
-							htmltext = "31381-3.htm";
-						else
-							htmltext = "31381-4.htm";
+						else htmltext = player.getWarehouse().getSize() == 0 ? "31381-3.htm" : "31381-4.htm";
 						break;
 				}
 				break;
 
 			case SHIKON:
-				switch (allianceLevel)
-				{
+				switch (allianceLevel) {
 					case -2:
 						htmltext = "31382-1.htm";
 						break;
@@ -239,10 +206,7 @@ public class VarkaSilenosSupport extends Quest implements ScriptFile
 					htmltext = "31383-no.htm";
 				else if (allianceLevel < 0 && allianceLevel > -4)
 					htmltext = "31383-1.htm";
-				else if (allianceLevel == -4)
-					htmltext = "31383-2.htm";
-				else
-					htmltext = "31383-3.htm";
+				else htmltext = allianceLevel == -4 ? "31383-2.htm" : "31383-3.htm";
 				break;
 		}
 
@@ -250,40 +214,32 @@ public class VarkaSilenosSupport extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
 		final L2Party party = player.getParty();
-		if (party != null)
-		{
-			for (L2PcInstance partyMember : party.getPartyMembers())
-			{
+		if (party != null) {
+			for (final L2PcInstance partyMember : party.getPartyMembers()) {
 				if (partyMember != null)
 					testVarkaDemote(partyMember);
 			}
-		}
-		else
+		} else
 			testVarkaDemote(player);
 
 		return null;
 	}
 
 	@Override
-	public String onSkillSee(L2Npc npc, L2PcInstance caster, L2Skill skill, L2Object[] targets, boolean isPet)
-	{
+	public String onSkillSee(final L2Npc npc, final L2PcInstance caster, final L2Skill skill, final L2Object[] targets, final boolean isPet) {
 		// Caster is an allied.
-		if (caster.isAlliedWithVarka())
-		{
+		if (caster.isAlliedWithVarka()) {
 			// Caster's skill is a positive effect ? Go further.
-			switch (skill.getSkillType())
-			{
+			switch (skill.getSkillType()) {
 				case BUFF:
 				case HEAL:
 				case HEAL_PERCENT:
 				case HEAL_STATIC:
 				case BALANCE_LIFE:
 				case HOT:
-					for (L2Character target : (L2Character[]) targets)
-					{
+					for (final L2Character target : (L2Character[]) targets) {
 						// Character isn't existing, is dead or is current caster, we drop check.
 						if (target == null || target.isDead() || target == caster)
 							continue;
@@ -296,16 +252,14 @@ public class VarkaSilenosSupport extends Quest implements ScriptFile
 						final L2PcInstance player = target.getActingPlayer();
 
 						// If player is neutral or enemy, go further.
-						if (!(player.isAlliedWithVarka()))
-						{
+						if (!player.isAlliedWithVarka()) {
 							// If the NPC got that player registered in aggro list, go further.
-							if (((L2Attackable) npc).containsTarget(player))
-							{
+							if (((L2Attackable) npc).containsTarget(player)) {
 								// Save current target for future use.
 								final L2Object oldTarget = npc.getTarget();
 
 								// Curse the heretic or his pet.
-								npc.setTarget((isPet && player.getPet() != null) ? caster.getPet() : caster);
+								npc.setTarget(isPet && player.getPet() != null ? caster.getPet() : caster);
 								npc.doCast(FrequentSkill.VARKA_KETRA_PETRIFICATION.getSkill());
 
 								// Revert to old target && drop the loop.
@@ -325,14 +279,11 @@ public class VarkaSilenosSupport extends Quest implements ScriptFile
 	/**
 	 * That method drops current alliance and retrograde badge.<BR>
 	 * If any Varka quest is in progress, it stops the quest (and drop all related qItems) :
-	 * 
-	 * @param player
-	 *            The player to check.
+	 *
+	 * @param player The player to check.
 	 */
-	private static void testVarkaDemote(L2PcInstance player)
-	{
-		if (player.isAlliedWithVarka())
-		{
+	private static void testVarkaDemote(final L2PcInstance player) {
+		if (player.isAlliedWithVarka()) {
 			// Drop the alliance (old friends become aggro).
 			player.setAllianceWithVarkaKetra(0);
 
@@ -343,35 +294,24 @@ public class VarkaSilenosSupport extends Quest implements ScriptFile
 			item = inventory.getItemByItemId(Varka_Alliance_One);
 			if (item != null)
 				player.destroyItemByItemId("Quest", Varka_Alliance_One, item.getCount(), player, true);
-			else
-			{
+			else {
 				item = inventory.getItemByItemId(Varka_Alliance_Two);
-				if (item != null)
-				{
+				if (item != null) {
 					player.destroyItemByItemId("Quest", Varka_Alliance_Two, item.getCount(), player, true);
 					player.addItem("Quest", Varka_Alliance_One, 1, player.getTarget(), true);
-				}
-				else
-				{
+				} else {
 					item = inventory.getItemByItemId(Varka_Alliance_Three);
-					if (item != null)
-					{
+					if (item != null) {
 						player.destroyItemByItemId("Quest", Varka_Alliance_Three, item.getCount(), player, true);
 						player.addItem("Quest", Varka_Alliance_Two, 1, player.getTarget(), true);
-					}
-					else
-					{
+					} else {
 						item = inventory.getItemByItemId(Varka_Alliance_Four);
-						if (item != null)
-						{
+						if (item != null) {
 							player.destroyItemByItemId("Quest", Varka_Alliance_Four, item.getCount(), player, true);
 							player.addItem("Quest", Varka_Alliance_Three, 1, player.getTarget(), true);
-						}
-						else
-						{
+						} else {
 							item = inventory.getItemByItemId(Varka_Alliance_Five);
-							if (item != null)
-							{
+							if (item != null) {
 								player.destroyItemByItemId("Quest", Varka_Alliance_Five, item.getCount(), player, true);
 								player.addItem("Quest", Varka_Alliance_Four, 1, player.getTarget(), true);
 							}
@@ -381,8 +321,7 @@ public class VarkaSilenosSupport extends Quest implements ScriptFile
 			}
 
 			QuestState pst;
-			for (String mission : varkaMissions)
-			{
+			for (final String mission : varkaMissions) {
 				pst = player.getQuestState(mission);
 				if (pst != null)
 					pst.exitQuest(true);

@@ -21,23 +21,19 @@ import silentium.gameserver.network.serverpackets.ActionFailed;
 import silentium.gameserver.network.serverpackets.SystemMessage;
 import silentium.gameserver.tables.SkillTable;
 
-public class ScrollOfResurrection implements IItemHandler
-{
+public class ScrollOfResurrection implements IItemHandler {
 	@Override
-	public void useItem(L2Playable playable, L2ItemInstance item, boolean forceUse)
-	{
+	public void useItem(final L2Playable playable, final L2ItemInstance item, final boolean forceUse) {
 		if (!(playable instanceof L2PcInstance))
 			return;
 
-		if (!TvTEvent.onScrollUse(playable.getObjectId()))
-		{
+		if (!TvTEvent.onScrollUse(playable.getObjectId())) {
 			playable.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 
 		final L2PcInstance activeChar = (L2PcInstance) playable;
-		if (activeChar.isSitting())
-		{
+		if (activeChar.isSitting()) {
 			activeChar.sendPacket(SystemMessageId.CANT_MOVE_SITTING);
 			return;
 		}
@@ -46,71 +42,60 @@ public class ScrollOfResurrection implements IItemHandler
 			return;
 
 		final L2Character target = (L2Character) activeChar.getTarget();
-		if (target != null && target.isDead())
-		{
+		if (target != null && target.isDead()) {
 			final int itemId = item.getItemId();
 			boolean allIsOk = false;
 
-			if (target instanceof L2PcInstance)
-			{
+			if (target instanceof L2PcInstance) {
 				final L2PcInstance targetPlayer = (L2PcInstance) target;
 
 				// Check if target isn't in a active siege zone.
-				Castle castle = CastleManager.getInstance().getCastle(targetPlayer.getX(), targetPlayer.getY(), targetPlayer.getZ());
-				if (castle != null && castle.getSiege().getIsInProgress())
-				{
+				final Castle castle = CastleManager.getInstance().getCastle(targetPlayer.getX(), targetPlayer.getY(), targetPlayer.getZ());
+				if (castle != null && castle.getSiege().getIsInProgress()) {
 					activeChar.sendPacket(SystemMessageId.CANNOT_BE_RESURRECTED_DURING_SIEGE);
 					return;
 				}
 
 				// Check if the target is in a festival.
-				if (targetPlayer.isFestivalParticipant())
-				{
+				if (targetPlayer.isFestivalParticipant()) {
 					activeChar.sendMessage("You may not resurrect participants in a festival.");
 					return;
 				}
 
-				if (targetPlayer.isReviveRequested())
-				{
+				if (targetPlayer.isReviveRequested()) {
 					if (targetPlayer.isRevivingPet())
 						activeChar.sendPacket(SystemMessageId.MASTER_CANNOT_RES); // While a pet is attempting to resurrect, it
-																					// cannot help in resurrecting its master.
+						// cannot help in resurrecting its master.
 					else
 						activeChar.sendPacket(SystemMessageId.RES_HAS_ALREADY_BEEN_PROPOSED); // Resurrection is already been
-																								// proposed.
+					// proposed.
 
 					return;
-				}
-				else if (itemId == 6387) // Pet scrolls to ress a player.
+				} else if (itemId == 6387) // Pet scrolls to ress a player.
 				{
 					activeChar.sendMessage("You do not have the correct scroll");
 					return;
 				}
 				allIsOk = true;
-			}
-			else if (target instanceof L2PetInstance)
-			{
+			} else if (target instanceof L2PetInstance) {
 				final L2PetInstance targetPet = (L2PetInstance) target;
 
 				// check target is not in a active siege zone
-				Castle castle = CastleManager.getInstance().getCastle(targetPet.getOwner().getX(), targetPet.getOwner().getY(), targetPet.getOwner().getZ());
+				final Castle castle = CastleManager.getInstance().getCastle(targetPet.getOwner().getX(), targetPet.getOwner().getY(), targetPet.getOwner().getZ());
 
-				if (castle != null && castle.getSiege().getIsInProgress())
-				{
+				if (castle != null && castle.getSiege().getIsInProgress()) {
 					activeChar.sendPacket(SystemMessageId.CANNOT_BE_RESURRECTED_DURING_SIEGE);
 					return;
 				}
 
-				if (targetPet.getOwner() != activeChar)
-				{
-					if (targetPet.getOwner().isReviveRequested())
-					{
+				if (targetPet.getOwner() != activeChar) {
+					if (targetPet.getOwner().isReviveRequested()) {
 						if (targetPet.getOwner().isRevivingPet())
 							activeChar.sendPacket(SystemMessageId.RES_HAS_ALREADY_BEEN_PROPOSED); // Resurrection is already been
-																									// proposed.
+							// proposed.
 						else
 							activeChar.sendPacket(SystemMessageId.CANNOT_RES_PET2); // A pet cannot be resurrected while it's
-																					// owner is in the process of resurrecting.
+						// owner is in the process of resurrecting.
 
 						return;
 					}
@@ -118,15 +103,13 @@ public class ScrollOfResurrection implements IItemHandler
 				allIsOk = true;
 			}
 
-			if (allIsOk)
-			{
+			if (allIsOk) {
 				if (!activeChar.destroyItem("Consume", item.getObjectId(), 1, null, false))
 					return;
 
 				int skillId = 0;
 
-				switch (itemId)
-				{
+				switch (itemId) {
 					case 737:
 						skillId = 2014;
 						break; // Scroll of Resurrection
@@ -148,16 +131,13 @@ public class ScrollOfResurrection implements IItemHandler
 						break; // Blessed Scroll of Resurrection Event
 				}
 
-				if (skillId != 0)
-				{
+				if (skillId != 0) {
 					activeChar.useMagic(SkillTable.getInstance().getInfo(skillId, 1), true, true);
 					activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_DISAPPEARED).addItemName(itemId));
 				}
-			}
-			else
+			} else
 				activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
-		}
-		else
+		} else
 			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 	}
 }

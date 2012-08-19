@@ -17,9 +17,8 @@ import silentium.gameserver.network.serverpackets.PledgeShowInfoUpdate;
 import silentium.gameserver.network.serverpackets.SystemMessage;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q510_AClansReputation extends Quest implements ScriptFile
-{
-	private final static String qn = "Q510_AClansReputation";
+public class Q510_AClansReputation extends Quest implements ScriptFile {
+	private static final String qn = "Q510_AClansReputation";
 
 	// NPC
 	private static final int Valdis = 31331;
@@ -30,8 +29,7 @@ public class Q510_AClansReputation extends Quest implements ScriptFile
 	// Reward
 	private static final int CLAN_POINTS_REWARD = 50; // Quantity of points
 
-	public Q510_AClansReputation(int questId, String name, String descr)
-	{
+	public Q510_AClansReputation(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { Claw };
@@ -42,27 +40,22 @@ public class Q510_AClansReputation extends Quest implements ScriptFile
 		addKillId(22215, 22216, 22217);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q510_AClansReputation(510, "Q510_AClansReputation", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		final String htmltext = event;
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("31331-3.htm"))
-		{
+		if ("31331-3.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("31331-6.htm"))
-		{
+		} else if ("31331-6.htm".equalsIgnoreCase(event)) {
 			st.playSound(QuestState.SOUND_FINISH);
 			st.exitQuest(true);
 		}
@@ -71,43 +64,35 @@ public class Q510_AClansReputation extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
+		final QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		L2Clan clan = player.getClan();
+		final L2Clan clan = player.getClan();
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
-				if (!player.isClanLeader())
-				{
+				if (!player.isClanLeader()) {
 					st.exitQuest(true);
 					htmltext = "31331-0.htm";
-				}
-				else if (clan.getLevel() < 5)
-				{
+				} else if (clan.getLevel() < 5) {
 					st.exitQuest(true);
 					htmltext = "31331-0.htm";
-				}
-				else
+				} else
 					htmltext = "31331-1.htm";
 				break;
 
 			case QuestState.STARTED:
-				if (st.getInt("cond") == 1)
-				{
-					int count = st.getQuestItemsCount(Claw);
+				if (st.getInt("cond") == 1) {
+					final int count = st.getQuestItemsCount(Claw);
 					if (count < 1)
 						htmltext = "31331-4.htm";
-					else if (count >= 1)
-					{
+					else if (count >= 1) {
 						htmltext = "31331-7.htm";
 						st.takeItems(Claw, -1);
-						int reward = (CLAN_POINTS_REWARD * count);
+						final int reward = CLAN_POINTS_REWARD * count;
 
 						clan.addReputationScore(reward);
 						player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.CLAN_QUEST_COMPLETED_AND_S1_POINTS_GAINED).addNumber(reward));
@@ -121,15 +106,13 @@ public class Q510_AClansReputation extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
 		// Retrieve the qS of the clan leader.
-		QuestState st = getClanLeaderQuestState(player, 1600);
+		final QuestState st = getClanLeaderQuestState(player, 1600);
 		if (st == null)
 			return null;
 
-		if (st.isStarted())
-		{
+		if (st.isStarted()) {
 			st.giveItems(Claw, 1);
 			st.playSound(QuestState.SOUND_MIDDLE);
 		}

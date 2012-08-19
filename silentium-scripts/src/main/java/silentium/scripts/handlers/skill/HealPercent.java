@@ -20,15 +20,13 @@ import silentium.gameserver.network.serverpackets.StatusUpdate;
 import silentium.gameserver.network.serverpackets.SystemMessage;
 import silentium.gameserver.templates.skills.L2SkillType;
 
-public class HealPercent implements ISkillHandler
-{
+public class HealPercent implements ISkillHandler {
 	private static final L2SkillType[] SKILL_IDS = { L2SkillType.HEAL_PERCENT, L2SkillType.MANAHEAL_PERCENT, L2SkillType.CPHEAL_PERCENT };
 
 	@Override
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
-	{
+	public void useSkill(final L2Character activeChar, final L2Skill skill, final L2Object... targets) {
 		// check for other effects
-		ISkillHandler handler = SkillHandler.getInstance().getSkillHandler(L2SkillType.BUFF);
+		final ISkillHandler handler = SkillHandler.getInstance().getSkillHandler(L2SkillType.BUFF);
 		if (handler != null)
 			handler.useSkill(activeChar, skill, targets);
 
@@ -36,8 +34,7 @@ public class HealPercent implements ISkillHandler
 		boolean hp = false;
 		boolean mp = false;
 
-		switch (skill.getSkillType())
-		{
+		switch (skill.getSkillType()) {
 			case CPHEAL_PERCENT:
 				cp = true;
 				break;
@@ -54,11 +51,10 @@ public class HealPercent implements ISkillHandler
 		StatusUpdate su = null;
 		SystemMessage sm;
 		double amount = 0;
-		boolean full = skill.getPower() == 100.0;
+		final boolean full = skill.getPower() == 100.0;
 		boolean targetPlayer = false;
 
-		for (L2Character target : (L2Character[]) targets)
-		{
+		for (final L2Character target : (L2Character[]) targets) {
 			if (target == null || target.isDead() || target.isInvul())
 				continue;
 
@@ -69,8 +65,7 @@ public class HealPercent implements ISkillHandler
 			targetPlayer = target instanceof L2PcInstance;
 
 			// Cursed weapon owner can't heal or be healed
-			if (target != activeChar)
-			{
+			if (target != activeChar) {
 				if (activeChar instanceof L2PcInstance && ((L2PcInstance) activeChar).isCursedWeaponEquipped())
 					continue;
 
@@ -78,48 +73,33 @@ public class HealPercent implements ISkillHandler
 					continue;
 			}
 
-			if (hp)
-			{
-				amount = Math.min(((full) ? target.getMaxHp() : target.getMaxHp() * skill.getPower() / 100.0), target.getMaxHp() - target.getCurrentHp());
+			if (hp) {
+				amount = Math.min(full ? target.getMaxHp() : target.getMaxHp() * skill.getPower() / 100.0, target.getMaxHp() - target.getCurrentHp());
 				target.setCurrentHp(amount + target.getCurrentHp());
-			}
-			else if (mp)
-			{
-				amount = Math.min(((full) ? target.getMaxMp() : target.getMaxMp() * skill.getPower() / 100.0), target.getMaxMp() - target.getCurrentMp());
+			} else if (mp) {
+				amount = Math.min(full ? target.getMaxMp() : target.getMaxMp() * skill.getPower() / 100.0, target.getMaxMp() - target.getCurrentMp());
 				target.setCurrentMp(amount + target.getCurrentMp());
 			}
 
-			if (targetPlayer)
-			{
+			if (targetPlayer) {
 				su = new StatusUpdate(target);
 
-				if (cp)
-				{
-					amount = Math.min(((full) ? target.getMaxCp() : (target.getMaxCp() * skill.getPower() / 100.0)), target.getMaxCp() - target.getCurrentCp());
+				if (cp) {
+					amount = Math.min(full ? target.getMaxCp() : target.getMaxCp() * skill.getPower() / 100.0, target.getMaxCp() - target.getCurrentCp());
 					target.setCurrentCp(amount + target.getCurrentCp());
 
 					sm = SystemMessage.getSystemMessage(SystemMessageId.S1_CP_WILL_BE_RESTORED);
 					sm.addNumber((int) amount);
 					target.sendPacket(sm);
 					su.addAttribute(StatusUpdate.CUR_CP, (int) target.getCurrentCp());
-				}
-				else if (hp)
-				{
-					if (activeChar != target)
-						sm = SystemMessage.getSystemMessage(SystemMessageId.S2_HP_RESTORED_BY_S1).addCharName(activeChar);
-					else
-						sm = SystemMessage.getSystemMessage(SystemMessageId.S1_HP_RESTORED);
+				} else if (hp) {
+					sm = activeChar != target ? SystemMessage.getSystemMessage(SystemMessageId.S2_HP_RESTORED_BY_S1).addCharName(activeChar) : SystemMessage.getSystemMessage(SystemMessageId.S1_HP_RESTORED);
 
 					sm.addNumber((int) amount);
 					target.sendPacket(sm);
 					su.addAttribute(StatusUpdate.CUR_HP, (int) target.getCurrentHp());
-				}
-				else if (mp)
-				{
-					if (activeChar != target)
-						sm = SystemMessage.getSystemMessage(SystemMessageId.S2_MP_RESTORED_BY_S1).addCharName(activeChar);
-					else
-						sm = SystemMessage.getSystemMessage(SystemMessageId.S1_MP_RESTORED);
+				} else if (mp) {
+					sm = activeChar != target ? SystemMessage.getSystemMessage(SystemMessageId.S2_MP_RESTORED_BY_S1).addCharName(activeChar) : SystemMessage.getSystemMessage(SystemMessageId.S1_MP_RESTORED);
 
 					sm.addNumber((int) amount);
 					target.sendPacket(sm);
@@ -132,8 +112,7 @@ public class HealPercent implements ISkillHandler
 	}
 
 	@Override
-	public L2SkillType[] getSkillIds()
-	{
+	public L2SkillType[] getSkillIds() {
 		return SKILL_IDS;
 	}
 }

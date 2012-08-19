@@ -17,41 +17,37 @@ import silentium.gameserver.network.serverpackets.StatusUpdate;
 import silentium.gameserver.network.serverpackets.SystemMessage;
 import silentium.gameserver.templates.skills.L2SkillType;
 
-public class CombatPointHeal implements ISkillHandler
-{
+public class CombatPointHeal implements ISkillHandler {
 	private static final L2SkillType[] SKILL_IDS = { L2SkillType.COMBATPOINTHEAL };
 
 	@Override
-	public void useSkill(L2Character actChar, L2Skill skill, L2Object[] targets)
-	{
+	public void useSkill(final L2Character actChar, final L2Skill skill, final L2Object... targets) {
 		// check for other effects
-		ISkillHandler handler = SkillHandler.getInstance().getSkillHandler(L2SkillType.BUFF);
+		final ISkillHandler handler = SkillHandler.getInstance().getSkillHandler(L2SkillType.BUFF);
 
 		if (handler != null)
 			handler.useSkill(actChar, skill, targets);
 
-		for (L2Character target : (L2Character[]) targets)
-		{
+		for (final L2Character target : (L2Character[]) targets) {
 			if (target.isInvul())
 				continue;
 
 			double cp = skill.getPower();
 
-			if ((target.getCurrentCp() + cp) >= target.getMaxCp())
+			if (target.getCurrentCp() + cp >= target.getMaxCp())
 				cp = target.getMaxCp() - target.getCurrentCp();
 
 			target.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_CP_WILL_BE_RESTORED).addNumber((int) cp));
 			target.setCurrentCp(cp + target.getCurrentCp());
 
-			StatusUpdate sump = new StatusUpdate(target);
+			final StatusUpdate sump = new StatusUpdate(target);
 			sump.addAttribute(StatusUpdate.CUR_CP, (int) target.getCurrentCp());
 			target.sendPacket(sump);
 		}
 	}
 
 	@Override
-	public L2SkillType[] getSkillIds()
-	{
+	public L2SkillType[] getSkillIds() {
 		return SKILL_IDS;
 	}
 }

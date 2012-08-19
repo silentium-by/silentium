@@ -23,51 +23,42 @@ import silentium.gameserver.templates.skills.L2SkillType;
 
 /**
  * Class handling the Mana damage skill
- * 
+ *
  * @author slyce
  */
-public class Manadam implements ISkillHandler
-{
+public class Manadam implements ISkillHandler {
 	private static final L2SkillType[] SKILL_IDS = { L2SkillType.MANADAM };
 
 	@Override
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
-	{
+	public void useSkill(final L2Character activeChar, final L2Skill skill, final L2Object... targets) {
 		if (activeChar.isAlikeDead())
 			return;
 
 		boolean ss = false;
 		boolean bss = false;
 
-		L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
+		final L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
 
-		if (weaponInst != null)
-		{
-			if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
-			{
+		if (weaponInst != null) {
+			if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT) {
 				bss = true;
 				weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
-			}
-			else if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_SPIRITSHOT)
-			{
+			} else if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_SPIRITSHOT) {
 				ss = true;
 				weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
 			}
 		}
 
-		for (L2Character target : (L2Character[]) targets)
-		{
+		for (L2Character target : (L2Character[]) targets) {
 			if (Formulas.calcSkillReflect(target, skill) == Formulas.SKILL_REFLECT_SUCCEED)
 				target = activeChar;
 
-			boolean acted = Formulas.calcMagicAffected(activeChar, target, skill);
+			final boolean acted = Formulas.calcMagicAffected(activeChar, target, skill);
 			if (target.isInvul() || !acted)
 				activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.MISSED_TARGET));
-			else
-			{
-				if (skill.hasEffects())
-				{
-					byte shld = Formulas.calcShldUse(activeChar, target, skill);
+			else {
+				if (skill.hasEffects()) {
+					final byte shld = Formulas.calcShldUse(activeChar, target, skill);
 					target.stopSkillEffects(skill.getId());
 
 					if (Formulas.calcSkillSuccess(activeChar, target, skill, shld, false, ss, bss))
@@ -76,16 +67,15 @@ public class Manadam implements ISkillHandler
 						activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_RESISTED_YOUR_S2).addCharName(target).addSkillName(skill));
 				}
 
-				double damage = Formulas.calcManaDam(activeChar, target, skill, ss, bss);
+				final double damage = Formulas.calcManaDam(activeChar, target, skill, ss, bss);
 
-				double mp = (damage > target.getCurrentMp() ? target.getCurrentMp() : damage);
+				final double mp = damage > target.getCurrentMp() ? target.getCurrentMp() : damage;
 				target.reduceCurrentMp(mp);
 				if (damage > 0)
 					target.stopEffectsOnDamage(true);
 
-				if (target instanceof L2PcInstance)
-				{
-					StatusUpdate sump = new StatusUpdate(target);
+				if (target instanceof L2PcInstance) {
+					final StatusUpdate sump = new StatusUpdate(target);
 					sump.addAttribute(StatusUpdate.CUR_MP, (int) target.getCurrentMp());
 					target.sendPacket(sump);
 
@@ -97,11 +87,9 @@ public class Manadam implements ISkillHandler
 			}
 		}
 
-		if (skill.hasSelfEffects())
-		{
-			L2Effect effect = activeChar.getFirstEffect(skill.getId());
-			if (effect != null && effect.isSelfEffect())
-			{
+		if (skill.hasSelfEffects()) {
+			final L2Effect effect = activeChar.getFirstEffect(skill.getId());
+			if (effect != null && effect.isSelfEffect()) {
 				// Replace old effect with new one.
 				effect.exit();
 			}
@@ -111,8 +99,7 @@ public class Manadam implements ISkillHandler
 	}
 
 	@Override
-	public L2SkillType[] getSkillIds()
-	{
+	public L2SkillType[] getSkillIds() {
 		return SKILL_IDS;
 	}
 }

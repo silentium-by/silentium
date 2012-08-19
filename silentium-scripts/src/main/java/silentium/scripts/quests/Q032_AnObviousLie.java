@@ -13,9 +13,8 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q032_AnObviousLie extends Quest implements ScriptFile
-{
-	private final static String qn = "Q032_AnObviousLie";
+public class Q032_AnObviousLie extends Quest implements ScriptFile {
+	private static final String qn = "Q032_AnObviousLie";
 
 	// Items
 	private static final int Suede = 1866;
@@ -37,8 +36,7 @@ public class Q032_AnObviousLie extends Quest implements ScriptFile
 	// Monster
 	private static final int Alligator = 20135;
 
-	public Q032_AnObviousLie(int questId, String name, String descr)
-	{
+	public Q032_AnObviousLie(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { Map, MedicinalHerb };
@@ -49,72 +47,53 @@ public class Q032_AnObviousLie extends Quest implements ScriptFile
 		addKillId(Alligator);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q032_AnObviousLie(32, "Q032_AnObviousLie", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
 		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30120-1.htm"))
-		{
+		if ("30120-1.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("30094-1.htm"))
-		{
+		} else if ("30094-1.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "2");
 			st.giveItems(Map, 1);
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("31706-1.htm"))
-		{
+		} else if ("31706-1.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "3");
 			st.takeItems(Map, 1);
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("30094-4.htm"))
-		{
+		} else if ("30094-4.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "5");
 			st.takeItems(MedicinalHerb, 20);
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("30094-7.htm"))
-		{
+		} else if ("30094-7.htm".equalsIgnoreCase(event)) {
 			if (st.getQuestItemsCount(SpiritOre) < 500)
 				htmltext = "30094-5.htm";
-			else
-			{
+			else {
 				st.set("cond", "6");
 				st.takeItems(SpiritOre, 500);
 				st.playSound(QuestState.SOUND_MIDDLE);
 			}
-		}
-		else if (event.equalsIgnoreCase("31706-4.htm"))
-		{
+		} else if ("31706-4.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "7");
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("30094-10.htm"))
-		{
+		} else if ("30094-10.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "8");
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("30094-13.htm"))
+		} else if ("30094-13.htm".equalsIgnoreCase(event))
 			st.playSound(QuestState.SOUND_MIDDLE);
-		else if (event.equalsIgnoreCase("cat"))
-		{
+		else if ("cat".equalsIgnoreCase(event)) {
 			if (st.getQuestItemsCount(Thread) < 1000 || st.getQuestItemsCount(Suede) < 500)
 				htmltext = "30094-11.htm";
-			else
-			{
+			else {
 				htmltext = "30094-14.htm";
 				st.takeItems(Suede, 500);
 				st.takeItems(Thread, 1000);
@@ -122,13 +101,10 @@ public class Q032_AnObviousLie extends Quest implements ScriptFile
 				st.playSound(QuestState.SOUND_FINISH);
 				st.exitQuest(false);
 			}
-		}
-		else if (event.equalsIgnoreCase("racoon"))
-		{
+		} else if ("racoon".equalsIgnoreCase(event)) {
 			if (st.getQuestItemsCount(Thread) < 1000 || st.getQuestItemsCount(Suede) < 500)
 				htmltext = "30094-11.htm";
-			else
-			{
+			else {
 				htmltext = "30094-14.htm";
 				st.takeItems(Suede, 500);
 				st.takeItems(Thread, 1000);
@@ -136,13 +112,10 @@ public class Q032_AnObviousLie extends Quest implements ScriptFile
 				st.playSound(QuestState.SOUND_FINISH);
 				st.exitQuest(false);
 			}
-		}
-		else if (event.equalsIgnoreCase("rabbit"))
-		{
+		} else if ("rabbit".equalsIgnoreCase(event)) {
 			if (st.getQuestItemsCount(Thread) < 1000 || st.getQuestItemsCount(Suede) < 500)
 				htmltext = "30094-11.htm";
-			else
-			{
+			else {
 				htmltext = "30094-14.htm";
 				st.takeItems(Suede, 500);
 				st.takeItems(Thread, 1000);
@@ -156,29 +129,24 @@ public class Q032_AnObviousLie extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
+		final QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
-				if (player.getLevel() < 45)
-				{
+				if (player.getLevel() < 45) {
 					htmltext = "30120-0a.htm";
 					st.exitQuest(true);
-				}
-				else
+				} else
 					htmltext = "30120-0.htm";
 				break;
 
 			case QuestState.STARTED:
-				int cond = st.getInt("cond");
-				switch (npc.getNpcId())
-				{
+				final int cond = st.getInt("cond");
+				switch (npc.getNpcId()) {
 					case Maximilian:
 						if (cond >= 1)
 							htmltext = "30120-2.htm";
@@ -191,23 +159,14 @@ public class Q032_AnObviousLie extends Quest implements ScriptFile
 							htmltext = "30094-2.htm";
 						else if (cond == 4)
 							htmltext = "30094-3.htm";
-						else if (cond == 5)
-						{
-							if (st.getQuestItemsCount(SpiritOre) < 500)
-								htmltext = "30094-5.htm";
-							else
-								htmltext = "30094-6.htm";
-						}
-						else if (cond == 6)
+						else if (cond == 5) {
+							htmltext = st.getQuestItemsCount(SpiritOre) < 500 ? "30094-5.htm" : "30094-6.htm";
+						} else if (cond == 6)
 							htmltext = "30094-8.htm";
 						else if (cond == 7)
 							htmltext = "30094-9.htm";
-						else if (cond == 8)
-						{
-							if (st.getQuestItemsCount(Thread) < 1000 || st.getQuestItemsCount(Suede) < 500)
-								htmltext = "30094-11.htm";
-							else
-								htmltext = "30094-12.htm";
+						else if (cond == 8) {
+							htmltext = st.getQuestItemsCount(Thread) < 1000 || st.getQuestItemsCount(Suede) < 500 ? "30094-11.htm" : "30094-12.htm";
 						}
 						break;
 
@@ -233,9 +192,8 @@ public class Q032_AnObviousLie extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 

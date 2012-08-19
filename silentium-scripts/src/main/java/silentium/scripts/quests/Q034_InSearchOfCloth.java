@@ -13,8 +13,7 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q034_InSearchOfCloth extends Quest implements ScriptFile
-{
+public class Q034_InSearchOfCloth extends Quest implements ScriptFile {
 	private static final String qn = "Q034_InSearchOfCloth";
 
 	// NPCs
@@ -35,8 +34,7 @@ public class Q034_InSearchOfCloth extends Quest implements ScriptFile
 	// Rewards
 	private static final int MYSTERIOUS_CLOTH = 7076;
 
-	public Q034_InSearchOfCloth(int questId, String name, String descr)
-	{
+	public Q034_InSearchOfCloth(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { SPINNERET, SPIDERSILK };
@@ -47,97 +45,82 @@ public class Q034_InSearchOfCloth extends Quest implements ScriptFile
 		addKillId(TRISALIM_SPIDER, TRISALIM_TARANTULA);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q034_InSearchOfCloth(34, "Q034_InSearchOfCloth", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
 		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equals("30088-1.htm"))
-		{
-			st.set("cond", "1");
-			st.setState(QuestState.STARTED);
-			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equals("30294-1.htm"))
-		{
-			st.set("cond", "2");
-			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equals("30088-3.htm"))
-		{
-			st.set("cond", "3");
-			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equals("30165-1.htm"))
-		{
-			st.set("cond", "4");
-			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equals("30165-3.htm"))
-		{
-			st.takeItems(SPINNERET, 10);
-			st.giveItems(SPIDERSILK, 1);
-			st.set("cond", "6");
-			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equals("30088-5.htm"))
-		{
-			if (st.getQuestItemsCount(SUEDE) >= 3000 && st.getQuestItemsCount(THREAD) >= 5000 && st.getQuestItemsCount(SPIDERSILK) == 1)
-			{
-				st.takeItems(SUEDE, 3000);
-				st.takeItems(THREAD, 5000);
-				st.takeItems(SPIDERSILK, 1);
-				st.giveItems(MYSTERIOUS_CLOTH, 1);
-				st.playSound(QuestState.SOUND_FINISH);
-				st.exitQuest(false);
-			}
-			else
-				htmltext = "30088-4a.htm";
+		switch (event) {
+			case "30088-1.htm":
+				st.set("cond", "1");
+				st.setState(QuestState.STARTED);
+				st.playSound(QuestState.SOUND_ACCEPT);
+				break;
+			case "30294-1.htm":
+				st.set("cond", "2");
+				st.playSound(QuestState.SOUND_MIDDLE);
+				break;
+			case "30088-3.htm":
+				st.set("cond", "3");
+				st.playSound(QuestState.SOUND_MIDDLE);
+				break;
+			case "30165-1.htm":
+				st.set("cond", "4");
+				st.playSound(QuestState.SOUND_MIDDLE);
+				break;
+			case "30165-3.htm":
+				st.takeItems(SPINNERET, 10);
+				st.giveItems(SPIDERSILK, 1);
+				st.set("cond", "6");
+				st.playSound(QuestState.SOUND_MIDDLE);
+				break;
+			case "30088-5.htm":
+				if (st.getQuestItemsCount(SUEDE) >= 3000 && st.getQuestItemsCount(THREAD) >= 5000 && st.getQuestItemsCount(SPIDERSILK) == 1) {
+					st.takeItems(SUEDE, 3000);
+					st.takeItems(THREAD, 5000);
+					st.takeItems(SPIDERSILK, 1);
+					st.giveItems(MYSTERIOUS_CLOTH, 1);
+					st.playSound(QuestState.SOUND_FINISH);
+					st.exitQuest(false);
+				} else
+					htmltext = "30088-4a.htm";
+				break;
 		}
 		return htmltext;
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
+		final QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
-				if (player.getLevel() >= 60)
-				{
-					QuestState fwear = player.getQuestState("Q037_MakeFormalWear");
+				if (player.getLevel() >= 60) {
+					final QuestState fwear = player.getQuestState("Q037_MakeFormalWear");
 					if (fwear != null && fwear.getInt("cond") == 6)
 						htmltext = "30088-0.htm";
-					else
-					{
+					else {
 						htmltext = "30088-0a.htm";
 						st.exitQuest(true);
 					}
-				}
-				else
-				{
+				} else {
 					htmltext = "30088-0b.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				int cond = st.getInt("cond");
-				switch (npc.getNpcId())
-				{
+				final int cond = st.getInt("cond");
+				switch (npc.getNpcId()) {
 					case RADIA:
 						if (cond == 1)
 							htmltext = "30088-1a.htm";
@@ -145,12 +128,8 @@ public class Q034_InSearchOfCloth extends Quest implements ScriptFile
 							htmltext = "30088-2.htm";
 						else if (cond == 3)
 							htmltext = "30088-3a.htm";
-						else if (cond == 6)
-						{
-							if (st.getQuestItemsCount(SUEDE) < 3000 || st.getQuestItemsCount(THREAD) < 5000 || st.getQuestItemsCount(SPIDERSILK) < 1)
-								htmltext = "30088-4a.htm";
-							else
-								htmltext = "30088-4.htm";
+						else if (cond == 6) {
+							htmltext = st.getQuestItemsCount(SUEDE) < 3000 || st.getQuestItemsCount(THREAD) < 5000 || st.getQuestItemsCount(SPIDERSILK) < 1 ? "30088-4a.htm" : "30088-4.htm";
 						}
 						break;
 
@@ -183,9 +162,8 @@ public class Q034_InSearchOfCloth extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 

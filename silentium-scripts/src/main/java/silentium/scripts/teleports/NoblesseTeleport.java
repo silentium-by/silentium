@@ -13,15 +13,12 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class NoblesseTeleport extends Quest implements ScriptFile
-{
-	public static void onLoad()
-	{
+public class NoblesseTeleport extends Quest implements ScriptFile {
+	public static void onLoad() {
 		new NoblesseTeleport(-1, "NoblesseTeleport", "teleports");
 	}
 
-	public NoblesseTeleport(int questid, String name, String descr)
-	{
+	public NoblesseTeleport(final int questid, final String name, final String descr) {
 		super(questid, name, descr);
 
 		addStartNpc(30006, 30059, 30080, 30134, 30146, 30177, 30233, 30256, 30320, 30540, 30576, 30836, 30848, 30878, 30899, 31275, 31320, 31964);
@@ -29,15 +26,13 @@ public class NoblesseTeleport extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(getName());
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
+		final QuestState st = player.getQuestState(getName());
 		String htmltext = "";
 
-		if (player.isNoble() == true)
+		if (player.isNoble())
 			htmltext = "noble.htm";
-		else
-		{
+		else {
 			htmltext = "nobleteleporter-no.htm";
 			st.exitQuest(true);
 		}

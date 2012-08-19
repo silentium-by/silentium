@@ -24,14 +24,11 @@ import silentium.gameserver.utils.Util;
 /**
  * @author Kerberos
  */
-public class PetFood implements IItemHandler
-{
+public class PetFood implements IItemHandler {
 	@Override
-	public void useItem(L2Playable playable, L2ItemInstance item, boolean forceUse)
-	{
-		int itemId = item.getItemId();
-		switch (itemId)
-		{
+	public void useItem(final L2Playable playable, final L2ItemInstance item, final boolean forceUse) {
+		final int itemId = item.getItemId();
+		switch (itemId) {
 			case 2515: // Wolf's food
 				useFood(playable, 2048, item);
 				break;
@@ -53,42 +50,33 @@ public class PetFood implements IItemHandler
 		}
 	}
 
-	public boolean useFood(L2Playable activeChar, int magicId, L2ItemInstance item)
-	{
-		L2Skill skill = SkillTable.getInstance().getInfo(magicId, 1);
-		if (skill != null)
-		{
-			if (activeChar instanceof L2PetInstance)
-			{
-				L2PetInstance pet = (L2PetInstance) activeChar;
-				if (pet.destroyItem("Consume", item.getObjectId(), 1, null, false))
-				{
+	public boolean useFood(final L2Playable activeChar, final int magicId, final L2ItemInstance item) {
+		final L2Skill skill = SkillTable.getInstance().getInfo(magicId, 1);
+		if (skill != null) {
+			if (activeChar instanceof L2PetInstance) {
+				final L2PetInstance pet = (L2PetInstance) activeChar;
+				if (pet.destroyItem("Consume", item.getObjectId(), 1, null, false)) {
 					// Send visual effect.
 					activeChar.broadcastPacket(new MagicSkillUse(activeChar, activeChar, magicId, 1, 0, 0));
 
 					// Put current value.
-					pet.setCurrentFed(pet.getCurrentFed() + (skill.getFeed() * MainConfig.PET_FOOD_RATE));
+					pet.setCurrentFed(pet.getCurrentFed() + skill.getFeed() * MainConfig.PET_FOOD_RATE);
 
 					// If pet is still hungry, send an alert.
-					if (pet.getCurrentFed() < (55 / 100f * pet.getPetLevelData().getPetMaxFeed()))
+					if (pet.getCurrentFed() < 55 / 100f * pet.getPetLevelData().getPetMaxFeed())
 						pet.getOwner().sendPacket(SystemMessageId.YOUR_PET_ATE_A_LITTLE_BUT_IS_STILL_HUNGRY);
 
 					return true;
 				}
-			}
-			else if (activeChar instanceof L2PcInstance)
-			{
-				L2PcInstance player = ((L2PcInstance) activeChar);
-				int itemId = item.getItemId();
-				if (player.isMounted())
-				{
-					int food[] = PetDataTable.getInstance().getPetData(player.getMountNpcId()).getFood();
-					if (Util.contains(food, itemId))
-					{
-						if (player.destroyItem("Consume", item.getObjectId(), 1, null, false))
-						{
+			} else if (activeChar instanceof L2PcInstance) {
+				final L2PcInstance player = (L2PcInstance) activeChar;
+				final int itemId = item.getItemId();
+				if (player.isMounted()) {
+					final int[] food = PetDataTable.getInstance().getPetData(player.getMountNpcId()).getFood();
+					if (Util.contains(food, itemId)) {
+						if (player.destroyItem("Consume", item.getObjectId(), 1, null, false)) {
 							player.broadcastPacket(new MagicSkillUse(activeChar, activeChar, magicId, 1, 0, 0));
-							player.setCurrentFeed(player.getCurrentFeed() + (skill.getFeed() * MainConfig.PET_FOOD_RATE));
+							player.setCurrentFeed(player.getCurrentFeed() + skill.getFeed() * MainConfig.PET_FOOD_RATE);
 						}
 						return true;
 					}

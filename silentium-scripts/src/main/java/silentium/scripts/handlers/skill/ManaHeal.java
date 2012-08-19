@@ -18,31 +18,25 @@ import silentium.gameserver.network.serverpackets.SystemMessage;
 import silentium.gameserver.skills.Stats;
 import silentium.gameserver.templates.skills.L2SkillType;
 
-public class ManaHeal implements ISkillHandler
-{
+public class ManaHeal implements ISkillHandler {
 	private static final L2SkillType[] SKILL_IDS = { L2SkillType.MANAHEAL, L2SkillType.MANARECHARGE };
 
 	@Override
-	public void useSkill(L2Character actChar, L2Skill skill, L2Object[] targets)
-	{
-		for (L2Character target : (L2Character[]) targets)
-		{
+	public void useSkill(final L2Character actChar, final L2Skill skill, final L2Object... targets) {
+		for (final L2Character target : (L2Character[]) targets) {
 			if (target.isInvul())
 				continue;
 
 			double mp = skill.getPower();
 
-			if (skill.getSkillType() == L2SkillType.MANAHEAL_PERCENT)
-				mp = target.getMaxMp() * mp / 100.0;
-			else
-				mp = (skill.getSkillType() == L2SkillType.MANARECHARGE) ? target.calcStat(Stats.RECHARGE_MP_RATE, mp, null, null) : mp;
+			mp = skill.getSkillType() == L2SkillType.MANAHEAL_PERCENT ? target.getMaxMp() * mp / 100.0 : skill.getSkillType() == L2SkillType.MANARECHARGE ? target.calcStat(Stats.RECHARGE_MP_RATE, mp, null, null) : mp;
 
 			// It's not to be the IL retail way, but it make the message more logical
-			if ((target.getCurrentMp() + mp) >= target.getMaxMp())
+			if (target.getCurrentMp() + mp >= target.getMaxMp())
 				mp = target.getMaxMp() - target.getCurrentMp();
 
 			target.setCurrentMp(mp + target.getCurrentMp());
-			StatusUpdate sump = new StatusUpdate(target);
+			final StatusUpdate sump = new StatusUpdate(target);
 			sump.addAttribute(StatusUpdate.CUR_MP, (int) target.getCurrentMp());
 			target.sendPacket(sump);
 
@@ -54,8 +48,7 @@ public class ManaHeal implements ISkillHandler
 	}
 
 	@Override
-	public L2SkillType[] getSkillIds()
-	{
+	public L2SkillType[] getSkillIds() {
 		return SKILL_IDS;
 	}
 }

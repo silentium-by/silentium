@@ -9,7 +9,6 @@ package silentium.scripts.vehicle;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import silentium.gameserver.ThreadPoolManager;
 import silentium.gameserver.instancemanager.BoatManager;
 import silentium.gameserver.model.VehiclePathPoint;
@@ -23,8 +22,7 @@ import silentium.gameserver.scripting.ScriptFile;
 /**
  * @author DS
  */
-public class BoatInnadrilTour implements Runnable, ScriptFile
-{
+public class BoatInnadrilTour implements Runnable, ScriptFile {
 	private static final Logger _log = LoggerFactory.getLogger(BoatInnadrilTour.class.getName());
 
 	// Time: 1867s
@@ -51,8 +49,7 @@ public class BoatInnadrilTour implements Runnable, ScriptFile
 
 	private final PlaySound INNADRIL_SOUND;
 
-	public BoatInnadrilTour(L2BoatInstance boat)
-	{
+	public BoatInnadrilTour(final L2BoatInstance boat) {
 		_boat = boat;
 
 		ARRIVED_AT_INNADRIL = new CreatureSay(0, Say2.BOAT, 801, SystemMessageId.INNADRIL_BOAT_ANCHOR_10_MINUTES);
@@ -71,12 +68,9 @@ public class BoatInnadrilTour implements Runnable, ScriptFile
 	}
 
 	@Override
-	public void run()
-	{
-		try
-		{
-			switch (_cycle)
-			{
+	public void run() {
+		try {
+			switch (_cycle) {
 				case 0:
 					BoatManager.getInstance().broadcastPacket(DOCK, DOCK, LEAVE_INNADRIL5);
 					ThreadPoolManager.getInstance().scheduleGeneral(this, 240000);
@@ -122,18 +116,14 @@ public class BoatInnadrilTour implements Runnable, ScriptFile
 			_cycle++;
 			if (_cycle > 9)
 				_cycle = 0;
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			_log.warn(e.getLocalizedMessage(), e);
 		}
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		final L2BoatInstance boat = BoatManager.getInstance().getNewBoat(4, 111264, 226240, -3610, 32768);
-		if (boat != null)
-		{
+		if (boat != null) {
 			boat.registerEngine(new BoatInnadrilTour(boat));
 			boat.runEngine(180000);
 		}

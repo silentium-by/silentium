@@ -16,8 +16,7 @@ import silentium.gameserver.templates.skills.L2SkillType;
 /**
  * @author Forsaiken
  */
-public class GiveSp implements ISkillHandler
-{
+public class GiveSp implements ISkillHandler {
 	private static final L2SkillType[] SKILL_IDS = { L2SkillType.GIVE_SP };
 
 	/**
@@ -25,14 +24,11 @@ public class GiveSp implements ISkillHandler
 	 *      silentium.gameserver.model.L2Object[])
 	 */
 	@Override
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
-	{
-		for (L2Object obj : targets)
-		{
-			L2Character target = (L2Character) obj;
-			if (target != null)
-			{
-				int spToAdd = (int) skill.getPower();
+	public void useSkill(final L2Character activeChar, final L2Skill skill, final L2Object... targets) {
+		for (final L2Object obj : targets) {
+			final L2Character target = (L2Character) obj;
+			if (target != null) {
+				final int spToAdd = (int) skill.getPower();
 				target.addExpAndSp(0, spToAdd);
 			}
 		}
@@ -42,8 +38,7 @@ public class GiveSp implements ISkillHandler
 	 * @see silentium.gameserver.handler.ISkillHandler#getSkillIds()
 	 */
 	@Override
-	public L2SkillType[] getSkillIds()
-	{
+	public L2SkillType[] getSkillIds() {
 		return SKILL_IDS;
 	}
 }

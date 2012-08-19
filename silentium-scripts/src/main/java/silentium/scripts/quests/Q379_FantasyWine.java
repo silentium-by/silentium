@@ -14,23 +14,21 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q379_FantasyWine extends Quest implements ScriptFile
-{
+public class Q379_FantasyWine extends Quest implements ScriptFile {
 	private static final String qn = "Q379_FantasyWine";
 
 	// NPCs
-	private final static int HARLAN = 30074;
+	private static final int HARLAN = 30074;
 
 	// Monsters
-	private final static int ENKU_CHAMPION = 20291;
-	private final static int ENKU_SHAMAN = 20292;
+	private static final int ENKU_CHAMPION = 20291;
+	private static final int ENKU_SHAMAN = 20292;
 
 	// Items
-	private final static int LEAF = 5893;
-	private final static int STONE = 5894;
+	private static final int LEAF = 5893;
+	private static final int STONE = 5894;
 
-	public Q379_FantasyWine(int questId, String name, String descr)
-	{
+	public Q379_FantasyWine(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { LEAF, STONE };
@@ -41,99 +39,81 @@ public class Q379_FantasyWine extends Quest implements ScriptFile
 		addKillId(ENKU_CHAMPION, ENKU_SHAMAN);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q379_FantasyWine(379, "Q379_FantasyWine", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
 		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		int leaf = st.getQuestItemsCount(LEAF);
-		int stone = st.getQuestItemsCount(STONE);
+		final int leaf = st.getQuestItemsCount(LEAF);
+		final int stone = st.getQuestItemsCount(STONE);
 
-		if (event.equalsIgnoreCase("30074-3.htm"))
-		{
+		if ("30074-3.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("30074-6.htm"))
-		{
-			if (leaf == 80 && stone == 100)
-			{
+		} else if ("30074-6.htm".equalsIgnoreCase(event)) {
+			if (leaf == 80 && stone == 100) {
 				st.takeItems(LEAF, 80);
 				st.takeItems(STONE, 100);
-				int rand = Rnd.get(100);
+				final int rand = Rnd.get(100);
 
-				if (rand < 25)
-				{
+				if (rand < 25) {
 					st.giveItems(5956, 1);
 					htmltext = "30074-6.htm";
-				}
-				else if (rand < 50)
-				{
+				} else if (rand < 50) {
 					st.giveItems(5957, 1);
 					htmltext = "30074-7.htm";
-				}
-				else
-				{
+				} else {
 					st.giveItems(5958, 1);
 					htmltext = "30074-8.htm";
 				}
 
 				st.playSound(QuestState.SOUND_FINISH);
 				st.exitQuest(true);
-			}
-			else
+			} else
 				htmltext = "30074-4.htm";
-		}
-		else if (event.equalsIgnoreCase("30074-2a.htm"))
+		} else if ("30074-2a.htm".equalsIgnoreCase(event))
 			st.exitQuest(true);
 
 		return htmltext;
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
+		final QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 20 && player.getLevel() <= 25)
 					htmltext = "30074-0.htm";
-				else
-				{
+				else {
 					htmltext = "30074-0a.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				int cond = st.getInt("cond");
-				int leaf = st.getQuestItemsCount(LEAF);
-				int stone = st.getQuestItemsCount(STONE);
+				final int cond = st.getInt("cond");
+				final int leaf = st.getQuestItemsCount(LEAF);
+				final int stone = st.getQuestItemsCount(STONE);
 
-				if (cond == 1)
-				{
+				if (cond == 1) {
 					if (leaf < 80 && stone < 100)
 						htmltext = "30074-4.htm";
 					else if (leaf == 80 && stone < 100)
 						htmltext = "30074-4a.htm";
 					else if (leaf < 80 & stone == 100)
 						htmltext = "30074-4b.htm";
-				}
-				else if (cond == 2 && leaf == 80 && stone == 100)
+				} else if (cond == 2 && leaf == 80 && stone == 100)
 					htmltext = "30074-5.htm";
 				break;
 		}
@@ -142,26 +122,22 @@ public class Q379_FantasyWine extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 
-		int npcId = npc.getNpcId();
-		if (st.isStarted())
-		{
+		final int npcId = npc.getNpcId();
+		if (st.isStarted()) {
 			if (npcId == ENKU_CHAMPION && st.getQuestItemsCount(LEAF) < 80)
 				st.giveItems(LEAF, 1);
 			else if (npcId == ENKU_SHAMAN && st.getQuestItemsCount(STONE) < 100)
 				st.giveItems(STONE, 1);
 
-			if (st.getQuestItemsCount(LEAF) >= 80 && st.getQuestItemsCount(STONE) >= 100)
-			{
+			if (st.getQuestItemsCount(LEAF) >= 80 && st.getQuestItemsCount(STONE) >= 100) {
 				st.playSound(QuestState.SOUND_MIDDLE);
 				st.set("cond", "2");
-			}
-			else
+			} else
 				st.playSound(QuestState.SOUND_ITEMGET);
 		}
 		return null;

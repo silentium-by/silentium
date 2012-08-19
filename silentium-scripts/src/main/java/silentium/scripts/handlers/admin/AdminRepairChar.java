@@ -7,44 +7,38 @@
  */
 package silentium.scripts.handlers.admin;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import silentium.commons.database.DatabaseFactory;
 import silentium.gameserver.handler.IAdminCommandHandler;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 
-public class AdminRepairChar implements IAdminCommandHandler
-{
-	private static Logger _log = LoggerFactory.getLogger(AdminRepairChar.class.getName());
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+public class AdminRepairChar implements IAdminCommandHandler {
+	private static final Logger _log = LoggerFactory.getLogger(AdminRepairChar.class.getName());
 
 	private static final String[] ADMIN_COMMANDS = { "admin_restore", "admin_repair" };
 
 	@Override
-	public boolean useAdminCommand(String command, L2PcInstance activeChar)
-	{
+	public boolean useAdminCommand(final String command, final L2PcInstance activeChar) {
 		handleRepair(command);
 		return true;
 	}
 
 	@Override
-	public String[] getAdminCommandList()
-	{
+	public String[] getAdminCommandList() {
 		return ADMIN_COMMANDS;
 	}
 
-	private static void handleRepair(String command)
-	{
-		String[] parts = command.split(" ");
+	private static void handleRepair(final String command) {
+		final String[] parts = command.split(" ");
 		if (parts.length != 2)
 			return;
 
-		try (Connection con = DatabaseFactory.getConnection())
-		{
+		try (Connection con = DatabaseFactory.getConnection()) {
 			PreparedStatement statement = con.prepareStatement("UPDATE characters SET x=-84318, y=244579, z=-3730 WHERE char_name=?");
 			statement.setString(1, parts[1]);
 			statement.execute();
@@ -52,18 +46,16 @@ public class AdminRepairChar implements IAdminCommandHandler
 
 			statement = con.prepareStatement("SELECT obj_id FROM characters where char_name=?");
 			statement.setString(1, parts[1]);
-			ResultSet rset = statement.executeQuery();
+			final ResultSet rset = statement.executeQuery();
 			int objId = 0;
-			if (rset.next())
-			{
+			if (rset.next()) {
 				objId = rset.getInt(1);
 			}
 
 			rset.close();
 			statement.close();
 
-			if (objId == 0)
-			{
+			if (objId == 0) {
 				con.close();
 				return;
 			}
@@ -77,9 +69,7 @@ public class AdminRepairChar implements IAdminCommandHandler
 			statement.setInt(1, objId);
 			statement.execute();
 			statement.close();
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			_log.warn("could not repair char:", e);
 		}
 	}

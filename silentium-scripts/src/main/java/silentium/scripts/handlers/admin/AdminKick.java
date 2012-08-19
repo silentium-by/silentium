@@ -7,49 +7,41 @@
  */
 package silentium.scripts.handlers.admin;
 
-import java.util.Collection;
-import java.util.StringTokenizer;
-
 import silentium.gameserver.handler.IAdminCommandHandler;
 import silentium.gameserver.model.L2Object;
 import silentium.gameserver.model.L2World;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 
-public class AdminKick implements IAdminCommandHandler
-{
+import java.util.Collection;
+import java.util.StringTokenizer;
+
+public class AdminKick implements IAdminCommandHandler {
 	private static final String[] ADMIN_COMMANDS = { "admin_character_disconnect", "admin_kick", "admin_kick_non_gm" };
 
 	@Override
-	public boolean useAdminCommand(String command, L2PcInstance activeChar)
-	{
-		if (command.equals("admin_character_disconnect") || command.equals("admin_kick"))
+	public boolean useAdminCommand(final String command, final L2PcInstance activeChar) {
+		if ("admin_character_disconnect".equals(command) || "admin_kick".equals(command))
 			disconnectCharacter(activeChar);
 
-		if (command.startsWith("admin_kick"))
-		{
-			StringTokenizer st = new StringTokenizer(command);
-			if (st.countTokens() > 1)
-			{
+		if (command.startsWith("admin_kick")) {
+			final StringTokenizer st = new StringTokenizer(command);
+			if (st.countTokens() > 1) {
 				st.nextToken();
-				String player = st.nextToken();
-				L2PcInstance plyr = L2World.getInstance().getPlayer(player);
-				if (plyr != null)
-				{
+				final String player = st.nextToken();
+				final L2PcInstance plyr = L2World.getInstance().getPlayer(player);
+				if (plyr != null) {
 					plyr.logout();
 					activeChar.sendMessage(plyr.getName() + " have been kicked from server.");
 				}
 			}
 		}
 
-		if (command.startsWith("admin_kick_non_gm"))
-		{
+		if (command.startsWith("admin_kick_non_gm")) {
 			int counter = 0;
-			Collection<L2PcInstance> pls = L2World.getInstance().getAllPlayers().values();
+			final Collection<L2PcInstance> pls = L2World.getInstance().getAllPlayers().values();
 
-			for (L2PcInstance player : pls)
-			{
-				if (!player.isGM())
-				{
+			for (final L2PcInstance player : pls) {
+				if (!player.isGM()) {
 					counter++;
 					player.logout();
 				}
@@ -59,9 +51,8 @@ public class AdminKick implements IAdminCommandHandler
 		return true;
 	}
 
-	private static void disconnectCharacter(L2PcInstance activeChar)
-	{
-		L2Object target = activeChar.getTarget();
+	private static void disconnectCharacter(final L2PcInstance activeChar) {
+		final L2Object target = activeChar.getTarget();
 		L2PcInstance player = null;
 
 		if (target instanceof L2PcInstance)
@@ -71,16 +62,14 @@ public class AdminKick implements IAdminCommandHandler
 
 		if (player == activeChar)
 			activeChar.sendMessage("You cannot disconnect your own character.");
-		else
-		{
+		else {
 			activeChar.sendMessage(player.getName() + " have been kicked from server.");
 			player.logout();
 		}
 	}
 
 	@Override
-	public String[] getAdminCommandList()
-	{
+	public String[] getAdminCommandList() {
 		return ADMIN_COMMANDS;
 	}
 }

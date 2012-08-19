@@ -22,8 +22,7 @@ import silentium.gameserver.templates.skills.L2SkillType;
 /**
  * @author DS
  */
-public class Cancel implements ISkillHandler
-{
+public class Cancel implements ISkillHandler {
 	private static final L2SkillType[] SKILL_IDS = { L2SkillType.CANCEL, L2SkillType.MAGE_BANE, L2SkillType.WARRIOR_BANE };
 
 	/**
@@ -31,33 +30,25 @@ public class Cancel implements ISkillHandler
 	 *      silentium.gameserver.model.L2Object[])
 	 */
 	@Override
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
-	{
+	public void useSkill(final L2Character activeChar, final L2Skill skill, final L2Object... targets) {
 		final L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
-		if (weaponInst != null)
-		{
-			if (skill.isMagic())
-			{
+		if (weaponInst != null) {
+			if (skill.isMagic()) {
 				if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
 					weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
 				else if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_SPIRITSHOT)
 					weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
 			}
-		}
-		else if (activeChar instanceof L2Summon)
-		{
+		} else if (activeChar instanceof L2Summon) {
 			final L2Summon activeSummon = (L2Summon) activeChar;
 
-			if (skill.isMagic())
-			{
+			if (skill.isMagic()) {
 				if (activeSummon.getChargedSpiritShot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
 					activeSummon.setChargedSpiritShot(L2ItemInstance.CHARGED_NONE);
 				else if (activeSummon.getChargedSpiritShot() == L2ItemInstance.CHARGED_SPIRITSHOT)
 					activeSummon.setChargedSpiritShot(L2ItemInstance.CHARGED_NONE);
 			}
-		}
-		else if (activeChar instanceof L2Npc)
-		{
+		} else if (activeChar instanceof L2Npc) {
 			((L2Npc) activeChar)._soulshotcharged = false;
 			((L2Npc) activeChar)._spiritshotcharged = false;
 		}
@@ -67,8 +58,7 @@ public class Cancel implements ISkillHandler
 		final int cancelLvl, minRate, maxRate;
 
 		cancelLvl = skill.getMagicLevel();
-		switch (skill.getSkillType())
-		{
+		switch (skill.getSkillType()) {
 			case MAGE_BANE:
 			case WARRIOR_BANE:
 				minRate = 40;
@@ -80,8 +70,7 @@ public class Cancel implements ISkillHandler
 				break;
 		}
 
-		for (L2Object obj : targets)
-		{
+		for (final L2Object obj : targets) {
 			if (!(obj instanceof L2Character))
 				continue;
 
@@ -94,18 +83,16 @@ public class Cancel implements ISkillHandler
 			double rate = skill.getPower();
 
 			// Resistance/vulnerability
-			double res = Formulas.calcSkillVulnerability(activeChar, target, skill, skill.getSkillType());
+			final double res = Formulas.calcSkillVulnerability(activeChar, target, skill, skill.getSkillType());
 			rate *= res;
 
 			final L2Effect[] effects = target.getAllEffects();
-			for (int i = effects.length; --i >= 0;)
-			{
+			for (int i = effects.length; --i >= 0; ) {
 				effect = effects[i];
 				if (effect == null)
 					continue;
 
-				switch (skill.getSkillType())
-				{
+				switch (skill.getSkillType()) {
 					case MAGE_BANE:
 						if ("casting_time_down".equalsIgnoreCase(effect.getStackType()))
 							break;
@@ -122,8 +109,7 @@ public class Cancel implements ISkillHandler
 						continue;
 				}
 
-				if (effect.getSkill().getId() == lastCanceledSkillId)
-				{
+				if (effect.getSkill().getId() == lastCanceledSkillId) {
 					effect.exit(); // this skill already canceled
 					continue;
 				}
@@ -144,11 +130,9 @@ public class Cancel implements ISkillHandler
 		}
 
 		// Applying self-effects
-		if (skill.hasSelfEffects())
-		{
+		if (skill.hasSelfEffects()) {
 			effect = activeChar.getFirstEffect(skill.getId());
-			if (effect != null && effect.isSelfEffect())
-			{
+			if (effect != null && effect.isSelfEffect()) {
 				// Replace old effect with new one.
 				effect.exit();
 			}
@@ -156,8 +140,7 @@ public class Cancel implements ISkillHandler
 		}
 	}
 
-	private static boolean calcCancelSuccess(L2Effect effect, int cancelLvl, int baseRate, int minRate, int maxRate)
-	{
+	private static boolean calcCancelSuccess(final L2Effect effect, final int cancelLvl, final int baseRate, final int minRate, final int maxRate) {
 		int rate = 2 * (cancelLvl - effect.getSkill().getMagicLevel());
 		rate += effect.getPeriod() / 120;
 		rate += baseRate;
@@ -174,8 +157,7 @@ public class Cancel implements ISkillHandler
 	 * @see silentium.gameserver.handler.ISkillHandler#getSkillIds()
 	 */
 	@Override
-	public L2SkillType[] getSkillIds()
-	{
+	public L2SkillType[] getSkillIds() {
 		return SKILL_IDS;
 	}
 }

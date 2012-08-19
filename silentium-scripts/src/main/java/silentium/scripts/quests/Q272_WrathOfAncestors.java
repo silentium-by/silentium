@@ -13,8 +13,7 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q272_WrathOfAncestors extends Quest implements ScriptFile
-{
+public class Q272_WrathOfAncestors extends Quest implements ScriptFile {
 	private static final String qn = "Q272_WrathOfAncestors";
 
 	// NPCs
@@ -30,8 +29,7 @@ public class Q272_WrathOfAncestors extends Quest implements ScriptFile
 	// Reward
 	private static final int ADENA = 57;
 
-	public Q272_WrathOfAncestors(int questId, String name, String descr)
-	{
+	public Q272_WrathOfAncestors(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { GRAVE_ROBBERS_HEAD };
@@ -42,21 +40,18 @@ public class Q272_WrathOfAncestors extends Quest implements ScriptFile
 		addKillId(GOBLIN_GRAVE_ROBBER, GOBLIN_TOMB_RAIDER_LEADER);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q272_WrathOfAncestors(272, "Q272_WrathOfAncestors", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		final String htmltext = event;
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30572-03.htm"))
-		{
+		if ("30572-03.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
@@ -66,28 +61,22 @@ public class Q272_WrathOfAncestors extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
 		String htmltext = getNoQuestMsg();
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
-				if (player.getRace().ordinal() == 3)
-				{
+				if (player.getRace().ordinal() == 3) {
 					if (player.getLevel() >= 5 && player.getLevel() <= 16)
 						htmltext = "30572-02.htm";
-					else
-					{
+					else {
 						htmltext = "30572-01.htm";
 						st.exitQuest(true);
 					}
-				}
-				else
-				{
+				} else {
 					htmltext = "30572-00.htm";
 					st.exitQuest(true);
 				}
@@ -96,8 +85,7 @@ public class Q272_WrathOfAncestors extends Quest implements ScriptFile
 			case QuestState.STARTED:
 				if (st.getQuestItemsCount(GRAVE_ROBBERS_HEAD) < 50)
 					htmltext = "30572-04.htm";
-				else
-				{
+				else {
 					htmltext = "30572-05.htm";
 					st.takeItems(GRAVE_ROBBERS_HEAD, -1);
 					st.rewardItems(ADENA, 1500);
@@ -115,9 +103,8 @@ public class Q272_WrathOfAncestors extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 

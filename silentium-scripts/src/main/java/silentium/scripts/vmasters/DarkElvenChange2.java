@@ -9,33 +9,26 @@ package silentium.scripts.vmasters;
 
 import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
-import silentium.gameserver.scripting.ScriptFile;
 
-public class DarkElvenChange2 extends OccupationEngine implements ScriptFile
-{
-	public DarkElvenChange2(int id, String name, String descr)
-	{
+public class DarkElvenChange2 extends OccupationEngine {
+	public DarkElvenChange2(final int id, final String name, final String descr) {
 		super(id, name, descr);
 
-		for (int i : new int[] { 31328, 30195, 30699, 30474, 31324, 30862, 30910, 31285, 31331, 31334, 31974, 32096 })
-		{
+		for (final int i : new int[] { 31328, 30195, 30699, 30474, 31324, 30862, 30910, 31285, 31331, 31334, 31974, 32096 }) {
 			addStartNpc(i);
 			addTalkId(i);
 		}
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new DarkElvenChange2(-1, "DarkElvenChange2", "vmasters");
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
 		if (player.isSubClassActive())
 			return null;
-		if (player.getRace().ordinal() == 2)
-		{
+		if (player.getRace().ordinal() == 2) {
 			if (player.getClassId().getId() == 32) // palus knight
 				return "30474-01.htm";
 			else if (player.getClassId().getId() == 42) // shillien oracle
@@ -46,12 +39,8 @@ public class DarkElvenChange2 extends OccupationEngine implements ScriptFile
 				return "30474-19.htm";
 			else if (player.getClassId().level() == 0) // first occupation change not made yet
 				return "30474-55.htm";
-			else if (player.getClassId().level() >= 2) // second/third occupation change already made
-				return "30474-54.htm";
-			else
-				return "30474-56.htm"; // other conditions
-		}
-		else
+			else return player.getClassId().level() >= 2 ? "30474-54.htm" : "30474-56.htm";
+		} else
 			return "30474-56.htm"; // other races
 	}
 }

@@ -13,9 +13,8 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q049_TheRoadHome extends Quest implements ScriptFile
-{
-	private final static String qn = "Q049_TheRoadHome";
+public class Q049_TheRoadHome extends Quest implements ScriptFile {
+	private static final String qn = "Q049_TheRoadHome";
 
 	// NPCs
 	private static final int GALLADUCCI = 30097;
@@ -33,8 +32,7 @@ public class Q049_TheRoadHome extends Quest implements ScriptFile
 	private static final int MARK_OF_TRAVELER = 7570;
 	private static final int SCROLL_OF_ESCAPE_SPECIAL = 7558;
 
-	public Q049_TheRoadHome(int questId, String name, String descr)
-	{
+	public Q049_TheRoadHome(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { ORDER_DOCUMENT_1, ORDER_DOCUMENT_2, ORDER_DOCUMENT_3, MAGIC_SWORD_HILT, GEMSTONE_POWDER, PURIFIED_MAGIC_NECKLACE };
@@ -43,63 +41,48 @@ public class Q049_TheRoadHome extends Quest implements ScriptFile
 		addTalkId(GALLADUCCI, GENTLER, SANDRA, DUSTIN);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q049_TheRoadHome(49, "Q049_TheRoadHome", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		final String htmltext = event;
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30097-03.htm"))
-		{
+		if ("30097-03.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
 			st.giveItems(ORDER_DOCUMENT_1, 1);
-		}
-		else if (event.equalsIgnoreCase("30094-02.htm"))
-		{
+		} else if ("30094-02.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "2");
 			st.takeItems(ORDER_DOCUMENT_1, 1);
 			st.giveItems(MAGIC_SWORD_HILT, 1);
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("30097-06.htm"))
-		{
+		} else if ("30097-06.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "3");
 			st.takeItems(MAGIC_SWORD_HILT, 1);
 			st.giveItems(ORDER_DOCUMENT_2, 1);
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("30090-02.htm"))
-		{
+		} else if ("30090-02.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "4");
 			st.takeItems(ORDER_DOCUMENT_2, 1);
 			st.giveItems(GEMSTONE_POWDER, 1);
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("30097-09.htm"))
-		{
+		} else if ("30097-09.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "5");
 			st.takeItems(GEMSTONE_POWDER, 1);
 			st.giveItems(ORDER_DOCUMENT_3, 1);
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("30116-02.htm"))
-		{
+		} else if ("30116-02.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "6");
 			st.takeItems(ORDER_DOCUMENT_3, 1);
 			st.giveItems(PURIFIED_MAGIC_NECKLACE, 1);
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("30097-12.htm"))
-		{
+		} else if ("30097-12.htm".equalsIgnoreCase(event)) {
 			st.takeItems(PURIFIED_MAGIC_NECKLACE, 1);
 			st.takeItems(MARK_OF_TRAVELER, -1);
 			st.rewardItems(SCROLL_OF_ESCAPE_SPECIAL, 1);
@@ -111,37 +94,30 @@ public class Q049_TheRoadHome extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
+		final QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
-				if (player.getRace().ordinal() == 4 && player.getLevel() >= 3 && player.getLevel() <= 10)
-				{
+				if (player.getRace().ordinal() == 4 && player.getLevel() >= 3 && player.getLevel() <= 10) {
 					if (st.getQuestItemsCount(MARK_OF_TRAVELER) > 0)
 						htmltext = "30097-02.htm";
-					else
-					{
+					else {
 						htmltext = "30097-01.htm";
 						st.exitQuest(true);
 					}
-				}
-				else
-				{
+				} else {
 					htmltext = "30097-01a.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				int cond = st.getInt("cond");
-				switch (npc.getNpcId())
-				{
+				final int cond = st.getInt("cond");
+				switch (npc.getNpcId()) {
 					case GALLADUCCI:
 						if (cond == 1)
 							htmltext = "30097-04.htm";

@@ -14,11 +14,9 @@ import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.network.SystemMessageId;
 import silentium.gameserver.network.serverpackets.ChooseInventoryItem;
 
-public class EnchantScrolls implements IItemHandler
-{
+public class EnchantScrolls implements IItemHandler {
 	@Override
-	public void useItem(L2Playable playable, L2ItemInstance item, boolean forceUse)
-	{
+	public void useItem(final L2Playable playable, final L2ItemInstance item, final boolean forceUse) {
 		if (!(playable instanceof L2PcInstance))
 			return;
 

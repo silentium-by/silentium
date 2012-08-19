@@ -13,8 +13,7 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q116_BeyondTheHillsOfWinter extends Quest implements ScriptFile
-{
+public class Q116_BeyondTheHillsOfWinter extends Quest implements ScriptFile {
 	private static final String qn = "Q116_BeyondTheHillsOfWinter";
 
 	// NPCs
@@ -30,8 +29,7 @@ public class Q116_BeyondTheHillsOfWinter extends Quest implements ScriptFile
 	// Reward
 	private static final int SSD = 1463;
 
-	public Q116_BeyondTheHillsOfWinter(int questId, String name, String descr)
-	{
+	public Q116_BeyondTheHillsOfWinter(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { GOODS };
@@ -40,41 +38,32 @@ public class Q116_BeyondTheHillsOfWinter extends Quest implements ScriptFile
 		addTalkId(FILAUR, OBI);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q116_BeyondTheHillsOfWinter(116, "Q116_BeyondTheHillsOfWinter", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
 		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30535-02.htm"))
-		{
+		if ("30535-02.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("30535-05.htm"))
-		{
+		} else if ("30535-05.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "2");
 			st.giveItems(GOODS, 1);
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("materials"))
-		{
+		} else if ("materials".equalsIgnoreCase(event)) {
 			htmltext = "32052-02.htm";
 			st.takeItems(GOODS, -1);
 			st.rewardItems(SSD, 1650);
 			st.playSound(QuestState.SOUND_FINISH);
 			st.exitQuest(false);
-		}
-		else if (event.equalsIgnoreCase("adena"))
-		{
+		} else if ("adena".equalsIgnoreCase(event)) {
 			htmltext = "32052-02.htm";
 			st.takeItems(GOODS, -1);
 			st.giveItems(57, 16500);
@@ -86,43 +75,35 @@ public class Q116_BeyondTheHillsOfWinter extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
+		final QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 30 && player.getRace().ordinal() == 4)
 					htmltext = "30535-01.htm";
-				else
-				{
+				else {
 					htmltext = "30535-00.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				int cond = st.getInt("cond");
-				switch (npc.getNpcId())
-				{
+				final int cond = st.getInt("cond");
+				switch (npc.getNpcId()) {
 					case FILAUR:
-						if (cond == 1)
-						{
-							if (st.getQuestItemsCount(BANDAGE) >= 20 && st.getQuestItemsCount(ENERGY_STONE) >= 5 && st.getQuestItemsCount(THIEF_KEY) >= 10)
-							{
+						if (cond == 1) {
+							if (st.getQuestItemsCount(BANDAGE) >= 20 && st.getQuestItemsCount(ENERGY_STONE) >= 5 && st.getQuestItemsCount(THIEF_KEY) >= 10) {
 								htmltext = "30535-03.htm";
 								st.takeItems(BANDAGE, 20);
 								st.takeItems(ENERGY_STONE, 5);
 								st.takeItems(THIEF_KEY, 10);
-							}
-							else
+							} else
 								htmltext = "30535-04.htm";
-						}
-						else if (cond == 2)
+						} else if (cond == 2)
 							htmltext = "30535-05.htm";
 						break;
 

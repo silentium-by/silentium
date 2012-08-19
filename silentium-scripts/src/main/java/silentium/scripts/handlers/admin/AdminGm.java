@@ -9,7 +9,6 @@ package silentium.scripts.handlers.admin;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import silentium.gameserver.data.xml.AccessLevelsData;
 import silentium.gameserver.handler.IAdminCommandHandler;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
@@ -18,35 +17,30 @@ import silentium.gameserver.tables.GmListTable;
 /**
  * This class handles following admin commands: - gm = turns gm mode on/off
  */
-public class AdminGm implements IAdminCommandHandler
-{
-	private static Logger _log = LoggerFactory.getLogger(AdminGm.class.getName());
+public class AdminGm implements IAdminCommandHandler {
+	private static final Logger _log = LoggerFactory.getLogger(AdminGm.class.getName());
 	private static final String[] ADMIN_COMMANDS = { "admin_gm" };
 
 	@Override
-	public boolean useAdminCommand(String command, L2PcInstance activeChar)
-	{
-		if (command.equals("admin_gm"))
+	public boolean useAdminCommand(final String command, final L2PcInstance activeChar) {
+		if ("admin_gm".equals(command))
 			handleGm(activeChar);
 
 		return true;
 	}
 
 	@Override
-	public String[] getAdminCommandList()
-	{
+	public String[] getAdminCommandList() {
 		return ADMIN_COMMANDS;
 	}
 
-	private static void handleGm(L2PcInstance activeChar)
-	{
-		if (activeChar.isGM())
-		{
+	private static void handleGm(final L2PcInstance activeChar) {
+		if (activeChar.isGM()) {
 			GmListTable.getInstance().deleteGm(activeChar);
 			activeChar.setAccessLevel(AccessLevelsData._userAccessLevelNum);
 			activeChar.sendMessage("You no longer have GM status.");
 
-			_log.info("GM: " + activeChar.getName() + " (" + activeChar.getObjectId() + ") turned his GM status off" + ".");
+			_log.info("GM: " + activeChar.getName() + " (" + activeChar.getObjectId() + ") turned his GM status off" + '.');
 		}
 	}
 }

@@ -9,32 +9,25 @@ package silentium.scripts.vmasters;
 
 import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
-import silentium.gameserver.scripting.ScriptFile;
 
-public class ElvenHumanFighters2 extends OccupationEngine implements ScriptFile
-{
-	public ElvenHumanFighters2(int id, String name, String descr)
-	{
+public class ElvenHumanFighters2 extends OccupationEngine {
+	public ElvenHumanFighters2(final int id, final String name, final String descr) {
 		super(id, name, descr);
-		for (int i : new int[] { 30109, 30187, 30689, 30849, 30900, 31965, 32094 })
-		{
+		for (final int i : new int[] { 30109, 30187, 30689, 30849, 30900, 31965, 32094 }) {
 			addStartNpc(i);
 			addTalkId(i);
 		}
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new ElvenHumanFighters2(-1, "ElvenHumanFighters2", "vmasters");
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
 		if (player.isSubClassActive())
 			return null;
-		if (player.getRace().ordinal() == 0 || player.getRace().ordinal() == 1)
-		{
+		if (player.getRace().ordinal() == 0 || player.getRace().ordinal() == 1) {
 			if (player.getClassId().getId() == 19) // elven knight
 				return "30120-01.htm";
 			else if (player.getClassId().getId() == 4) // human knight
@@ -47,12 +40,8 @@ public class ElvenHumanFighters2 extends OccupationEngine implements ScriptFile
 				return "30120-29.htm";
 			else if (player.getClassId().level() == 0) // first occupation change not made yet
 				return "30120-76.htm";
-			else if (player.getClassId().level() >= 2) // second/third occupation change already made
-				return "30120-77.htm";
-			else
-				return "30120-78.htm"; // other conditions
-		}
-		else
+			else return player.getClassId().level() >= 2 ? "30120-77.htm" : "30120-78.htm";
+		} else
 			return "30120-78.htm"; // other races
 	}
 }

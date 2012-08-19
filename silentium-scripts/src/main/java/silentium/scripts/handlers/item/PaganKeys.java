@@ -20,37 +20,32 @@ import silentium.gameserver.network.serverpackets.ActionFailed;
 /**
  * @author chris
  */
-public class PaganKeys implements IItemHandler
-{
+public class PaganKeys implements IItemHandler {
 	public static final int INTERACTION_DISTANCE = 100;
 
 	@Override
-	public void useItem(L2Playable playable, L2ItemInstance item, boolean forceUse)
-	{
-		int itemId = item.getItemId();
+	public void useItem(final L2Playable playable, final L2ItemInstance item, final boolean forceUse) {
+		final int itemId = item.getItemId();
 		if (!(playable instanceof L2PcInstance))
 			return;
 
-		L2PcInstance activeChar = (L2PcInstance) playable;
-		L2Object target = activeChar.getTarget();
+		final L2PcInstance activeChar = (L2PcInstance) playable;
+		final L2Object target = activeChar.getTarget();
 
-		if (!(target instanceof L2DoorInstance))
-		{
+		if (!(target instanceof L2DoorInstance)) {
 			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
-		L2DoorInstance door = (L2DoorInstance) target;
+		final L2DoorInstance door = (L2DoorInstance) target;
 
-		if (!(activeChar.isInsideRadius(door, INTERACTION_DISTANCE, false, false)))
-		{
+		if (!activeChar.isInsideRadius(door, INTERACTION_DISTANCE, false, false)) {
 			activeChar.sendPacket(SystemMessageId.DIST_TOO_FAR_CASTING_STOPPED);
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 
-		if (activeChar.getAbnormalEffect() > 0 || activeChar.isInCombat())
-		{
+		if (activeChar.getAbnormalEffect() > 0 || activeChar.isInCombat()) {
 			activeChar.sendMessage("You cannot use the key now.");
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
@@ -59,8 +54,7 @@ public class PaganKeys implements IItemHandler
 		if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false))
 			return;
 
-		switch (itemId)
-		{
+		switch (itemId) {
 			case 9698:
 				if (door.getDoorId() == 24220020)
 					door.openMe();
@@ -74,14 +68,12 @@ public class PaganKeys implements IItemHandler
 					activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 				break;
 			case 8056:
-				if (door.getDoorId() == 23150004 || door.getDoorId() == 23150003)
-				{
+				if (door.getDoorId() == 23150004 || door.getDoorId() == 23150003) {
 					DoorData.getInstance().getDoor(23150003).openMe();
 					DoorData.getInstance().getDoor(23150003).onOpen();
 					DoorData.getInstance().getDoor(23150004).openMe();
 					DoorData.getInstance().getDoor(23150004).onOpen();
-				}
-				else
+				} else
 					activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 				break;
 		}

@@ -7,8 +7,6 @@
  */
 package silentium.scripts.handlers.admin;
 
-import java.util.StringTokenizer;
-
 import javolution.text.TextBuilder;
 import silentium.gameserver.data.html.StaticHtmPath;
 import silentium.gameserver.handler.IAdminCommandHandler;
@@ -16,114 +14,75 @@ import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.network.serverpackets.AdminForgePacket;
 import silentium.gameserver.network.serverpackets.NpcHtmlMessage;
 
+import java.util.StringTokenizer;
+
 /**
  * This class handles commands for gm to forge packets
- * 
+ *
  * @author Maktakien
  */
-public class AdminPForge implements IAdminCommandHandler
-{
+public class AdminPForge implements IAdminCommandHandler {
 	private static final String[] ADMIN_COMMANDS = { "admin_forge", "admin_forge2", "admin_forge3" };
 
 	@Override
-	public boolean useAdminCommand(String command, L2PcInstance activeChar)
-	{
-		if (command.equals("admin_forge"))
+	public boolean useAdminCommand(final String command, final L2PcInstance activeChar) {
+		if ("admin_forge".equals(command))
 			showMainPage(activeChar);
-		else if (command.startsWith("admin_forge2"))
-		{
-			try
-			{
-				StringTokenizer st = new StringTokenizer(command);
+		else if (command.startsWith("admin_forge2")) {
+			try {
+				final StringTokenizer st = new StringTokenizer(command);
 				st.nextToken();
-				String format = st.nextToken();
+				final String format = st.nextToken();
 				showPage2(activeChar, format);
-			}
-			catch (Exception ex)
-			{
+			} catch (Exception ex) {
 				activeChar.sendMessage("Usage: //forge2 format");
 			}
-		}
-		else if (command.startsWith("admin_forge3"))
-		{
-			try
-			{
-				StringTokenizer st = new StringTokenizer(command);
+		} else if (command.startsWith("admin_forge3")) {
+			try {
+				final StringTokenizer st = new StringTokenizer(command);
 				st.nextToken();
 				String format = st.nextToken();
 				boolean broadcast = false;
 
-				if (format.toLowerCase().equals("broadcast"))
-				{
+				if ("broadcast".equals(format.toLowerCase())) {
 					format = st.nextToken();
 					broadcast = true;
 				}
 
-				AdminForgePacket sp = new AdminForgePacket();
-				for (int i = 0; i < format.length(); i++)
-				{
+				final AdminForgePacket sp = new AdminForgePacket();
+				for (int i = 0; i < format.length(); i++) {
 					String val = st.nextToken();
-					if (val.toLowerCase().equals("$objid"))
-					{
+					if ("$objid".equals(val.toLowerCase())) {
 						val = String.valueOf(activeChar.getObjectId());
-					}
-					else if (val.toLowerCase().equals("$tobjid"))
-					{
+					} else if ("$tobjid".equals(val.toLowerCase())) {
 						val = String.valueOf(activeChar.getTarget().getObjectId());
-					}
-					else if (val.toLowerCase().equals("$bobjid"))
-					{
-						if (activeChar.getBoat() != null)
-						{
+					} else if ("$bobjid".equals(val.toLowerCase())) {
+						if (activeChar.getBoat() != null) {
 							val = String.valueOf(activeChar.getBoat().getObjectId());
 						}
-					}
-					else if (val.toLowerCase().equals("$clanid"))
-					{
+					} else if ("$clanid".equals(val.toLowerCase())) {
 						val = String.valueOf(activeChar.getCharId());
-					}
-					else if (val.toLowerCase().equals("$allyid"))
-					{
+					} else if ("$allyid".equals(val.toLowerCase())) {
 						val = String.valueOf(activeChar.getAllyId());
-					}
-					else if (val.toLowerCase().equals("$tclanid"))
-					{
+					} else if ("$tclanid".equals(val.toLowerCase())) {
 						val = String.valueOf(((L2PcInstance) activeChar.getTarget()).getCharId());
-					}
-					else if (val.toLowerCase().equals("$tallyid"))
-					{
+					} else if ("$tallyid".equals(val.toLowerCase())) {
 						val = String.valueOf(((L2PcInstance) activeChar.getTarget()).getAllyId());
-					}
-					else if (val.toLowerCase().equals("$x"))
-					{
+					} else if ("$x".equals(val.toLowerCase())) {
 						val = String.valueOf(activeChar.getX());
-					}
-					else if (val.toLowerCase().equals("$y"))
-					{
+					} else if ("$y".equals(val.toLowerCase())) {
 						val = String.valueOf(activeChar.getY());
-					}
-					else if (val.toLowerCase().equals("$z"))
-					{
+					} else if ("$z".equals(val.toLowerCase())) {
 						val = String.valueOf(activeChar.getZ());
-					}
-					else if (val.toLowerCase().equals("$heading"))
-					{
+					} else if ("$heading".equals(val.toLowerCase())) {
 						val = String.valueOf(activeChar.getHeading());
-					}
-					else if (val.toLowerCase().equals("$tx"))
-					{
+					} else if ("$tx".equals(val.toLowerCase())) {
 						val = String.valueOf(activeChar.getTarget().getX());
-					}
-					else if (val.toLowerCase().equals("$ty"))
-					{
+					} else if ("$ty".equals(val.toLowerCase())) {
 						val = String.valueOf(activeChar.getTarget().getY());
-					}
-					else if (val.toLowerCase().equals("$tz"))
-					{
+					} else if ("$tz".equals(val.toLowerCase())) {
 						val = String.valueOf(activeChar.getTarget().getZ());
-					}
-					else if (val.toLowerCase().equals("$theading"))
-					{
+					} else if ("$theading".equals(val.toLowerCase())) {
 						val = String.valueOf(((L2PcInstance) activeChar.getTarget()).getHeading());
 					}
 
@@ -136,39 +95,34 @@ public class AdminPForge implements IAdminCommandHandler
 					activeChar.sendPacket(sp);
 
 				showPage3(activeChar, format, command);
-			}
-			catch (Exception ex)
-			{
+			} catch (Exception ex) {
 				activeChar.sendMessage("Usage: //forge or //forge2 format");
 			}
 		}
 		return true;
 	}
 
-	private static void showMainPage(L2PcInstance activeChar)
-	{
+	private static void showMainPage(final L2PcInstance activeChar) {
 		AdminHelpPage.showHelpPage(activeChar, "pforge1.htm");
 	}
 
-	private static void showPage2(L2PcInstance activeChar, String format)
-	{
-		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
+	private static void showPage2(final L2PcInstance activeChar, final String format) {
+		final NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
 		adminReply.setFile(StaticHtmPath.AdminHtmPath + "pforge2.htm");
 		adminReply.replace("%format%", format);
-		TextBuilder replyMSG = new TextBuilder();
+		final TextBuilder replyMSG = new TextBuilder();
 		for (int i = 0; i < format.length(); i++)
-			replyMSG.append(format.charAt(i) + " : <edit var=\"v" + i + "\" width=100><br1>");
+			replyMSG.append(format.charAt(i)).append(" : <edit var=\"v").append(i).append("\" width=100><br1>");
 		adminReply.replace("%valueditors%", replyMSG.toString());
 		replyMSG.clear();
 		for (int i = 0; i < format.length(); i++)
-			replyMSG.append(" \\$v" + i);
+			replyMSG.append(" \\$v").append(i);
 		adminReply.replace("%send%", replyMSG.toString());
 		activeChar.sendPacket(adminReply);
 	}
 
-	private static void showPage3(L2PcInstance activeChar, String format, String command)
-	{
-		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
+	private static void showPage3(final L2PcInstance activeChar, final String format, final String command) {
+		final NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
 		adminReply.setFile(StaticHtmPath.AdminHtmPath + "pforge3.htm");
 		adminReply.replace("%format%", format);
 		adminReply.replace("%command%", command);
@@ -176,8 +130,7 @@ public class AdminPForge implements IAdminCommandHandler
 	}
 
 	@Override
-	public String[] getAdminCommandList()
-	{
+	public String[] getAdminCommandList() {
 		return ADMIN_COMMANDS;
 	}
 }

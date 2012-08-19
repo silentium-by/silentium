@@ -13,20 +13,18 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q011_SecretMeetingWithKetraOrcs extends Quest implements ScriptFile
-{
+public class Q011_SecretMeetingWithKetraOrcs extends Quest implements ScriptFile {
 	private static final String qn = "Q011_SecretMeetingWithKetraOrcs";
 
 	// Npcs
-	private final static int CADMON = 31296;
-	private final static int LEON = 31256;
-	private final static int WAHKAN = 31371;
+	private static final int CADMON = 31296;
+	private static final int LEON = 31256;
+	private static final int WAHKAN = 31371;
 
 	// Items
-	private final static int MUNITIONS_BOX = 7231;
+	private static final int MUNITIONS_BOX = 7231;
 
-	public Q011_SecretMeetingWithKetraOrcs(int questId, String name, String descr)
-	{
+	public Q011_SecretMeetingWithKetraOrcs(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { MUNITIONS_BOX };
@@ -35,33 +33,26 @@ public class Q011_SecretMeetingWithKetraOrcs extends Quest implements ScriptFile
 		addTalkId(CADMON, LEON, WAHKAN);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q011_SecretMeetingWithKetraOrcs(11, "Q011_SecretMeetingWithKetraOrcs", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		final String htmltext = event;
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("31296-03.htm"))
-		{
+		if ("31296-03.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("31256-02.htm"))
-		{
+		} else if ("31256-02.htm".equalsIgnoreCase(event)) {
 			st.giveItems(MUNITIONS_BOX, 1);
 			st.set("cond", "2");
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("31371-02.htm"))
-		{
+		} else if ("31371-02.htm".equalsIgnoreCase(event)) {
 			st.takeItems(MUNITIONS_BOX, 1);
 			st.addExpAndSp(79787, 0);
 			st.playSound(QuestState.SOUND_FINISH);
@@ -72,29 +63,25 @@ public class Q011_SecretMeetingWithKetraOrcs extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
+		final QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 74)
 					htmltext = "31296-01.htm";
-				else
-				{
+				else {
 					htmltext = "31296-02.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				int cond = st.getInt("cond");
-				switch (npc.getNpcId())
-				{
+				final int cond = st.getInt("cond");
+				switch (npc.getNpcId()) {
 					case CADMON:
 						if (cond == 1)
 							htmltext = "31296-04.htm";

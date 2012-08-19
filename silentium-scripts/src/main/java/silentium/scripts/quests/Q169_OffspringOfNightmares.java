@@ -14,9 +14,8 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q169_OffspringOfNightmares extends Quest implements ScriptFile
-{
-	private final static String qn = "Q169_OffspringOfNightmares";
+public class Q169_OffspringOfNightmares extends Quest implements ScriptFile {
+	private static final String qn = "Q169_OffspringOfNightmares";
 
 	// Items
 	private static final int CRACKED_SKULL = 1030;
@@ -26,8 +25,7 @@ public class Q169_OffspringOfNightmares extends Quest implements ScriptFile
 	// NPC
 	private static final int VLASTY = 30145;
 
-	public Q169_OffspringOfNightmares(int questId, String name, String descr)
-	{
+	public Q169_OffspringOfNightmares(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { CRACKED_SKULL, PERFECT_SKULL };
@@ -38,28 +36,23 @@ public class Q169_OffspringOfNightmares extends Quest implements ScriptFile
 		addKillId(20105, 20025);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q169_OffspringOfNightmares(169, "Q169_OffspringOfNightmares", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		final String htmltext = event;
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30145-04.htm"))
-		{
+		if ("30145-04.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("30145-08.htm"))
-		{
-			int reward = 17000 + (st.getQuestItemsCount(CRACKED_SKULL) * 20);
+		} else if ("30145-08.htm".equalsIgnoreCase(event)) {
+			final int reward = 17000 + st.getQuestItemsCount(CRACKED_SKULL) * 20;
 			st.takeItems(PERFECT_SKULL, -1);
 			st.takeItems(CRACKED_SKULL, -1);
 			st.giveItems(BONE_GAITERS, 1);
@@ -72,43 +65,32 @@ public class Q169_OffspringOfNightmares extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
 		String htmltext = Quest.getNoQuestMsg();
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
-				if (player.getRace().ordinal() == 2)
-				{
+				if (player.getRace().ordinal() == 2) {
 					if (player.getLevel() >= 15 && player.getLevel() <= 20)
 						htmltext = "30145-03.htm";
-					else
-					{
+					else {
 						htmltext = "30145-02.htm";
 						st.exitQuest(true);
 					}
-				}
-				else
-				{
+				} else {
 					htmltext = "30145-00.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				int cond = st.getInt("cond");
-				if (cond == 1)
-				{
-					if (st.getQuestItemsCount(CRACKED_SKULL) >= 1)
-						htmltext = "30145-06.htm";
-					else
-						htmltext = "30145-05.htm";
-				}
-				else if (cond == 2)
+				final int cond = st.getInt("cond");
+				if (cond == 1) {
+					htmltext = st.getQuestItemsCount(CRACKED_SKULL) >= 1 ? "30145-06.htm" : "30145-05.htm";
+				} else if (cond == 2)
 					htmltext = "30145-07.htm";
 				break;
 
@@ -121,23 +103,18 @@ public class Q169_OffspringOfNightmares extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 
-		if (st.isStarted())
-		{
-			int chance = Rnd.get(10);
-			if (st.getInt("cond") == 1 && chance == 0)
-			{
+		if (st.isStarted()) {
+			final int chance = Rnd.get(10);
+			if (st.getInt("cond") == 1 && chance == 0) {
 				st.set("cond", "2");
 				st.giveItems(PERFECT_SKULL, 1);
 				st.playSound(QuestState.SOUND_MIDDLE);
-			}
-			else if (chance > 6)
-			{
+			} else if (chance > 6) {
 				st.giveItems(CRACKED_SKULL, 1);
 				st.playSound(QuestState.SOUND_ITEMGET);
 			}

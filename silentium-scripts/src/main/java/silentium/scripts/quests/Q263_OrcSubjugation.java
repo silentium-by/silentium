@@ -14,16 +14,14 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q263_OrcSubjugation extends Quest implements ScriptFile
-{
-	private final static String qn = "Q263_OrcSubjugation";
+public class Q263_OrcSubjugation extends Quest implements ScriptFile {
+	private static final String qn = "Q263_OrcSubjugation";
 
 	// Items
 	private static final int ORC_AMULET = 1116;
 	private static final int ORC_NECKLACE = 1117;
 
-	public Q263_OrcSubjugation(int questId, String name, String descr)
-	{
+	public Q263_OrcSubjugation(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { ORC_AMULET, ORC_NECKLACE };
@@ -34,27 +32,22 @@ public class Q263_OrcSubjugation extends Quest implements ScriptFile
 		addKillId(20385, 20386, 20387, 20388);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q263_OrcSubjugation(263, "Q263_OrcSubjugation", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		final String htmltext = event;
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30346-03.htm"))
-		{
+		if ("30346-03.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("30346-06.htm"))
-		{
+		} else if ("30346-06.htm".equalsIgnoreCase(event)) {
 			st.playSound(QuestState.SOUND_FINISH);
 			st.exitQuest(true);
 		}
@@ -63,41 +56,34 @@ public class Q263_OrcSubjugation extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
 		String htmltext = Quest.getNoQuestMsg();
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
-				if (player.getRace().ordinal() == 2)
-				{
+				if (player.getRace().ordinal() == 2) {
 					if (player.getLevel() >= 8 && player.getLevel() <= 16)
 						htmltext = "30346-02.htm";
-					else
-					{
+					else {
 						htmltext = "30346-01.htm";
 						st.exitQuest(true);
 					}
-				}
-				else
-				{
+				} else {
 					htmltext = "30346-00.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				int amulet = st.getQuestItemsCount(ORC_AMULET);
-				int necklace = st.getQuestItemsCount(ORC_NECKLACE);
+				final int amulet = st.getQuestItemsCount(ORC_AMULET);
+				final int necklace = st.getQuestItemsCount(ORC_NECKLACE);
 
 				if (amulet == 0 && necklace == 0)
 					htmltext = "30346-04.htm";
-				else
-				{
+				else {
 					htmltext = "30346-05.htm";
 					st.rewardItems(57, amulet * 20 + necklace * 30);
 					st.takeItems(ORC_AMULET, -1);
@@ -110,15 +96,13 @@ public class Q263_OrcSubjugation extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 
-		if (st.isStarted() && Rnd.get(10) > 4)
-		{
-			st.giveItems((npc.getNpcId() == 20385) ? ORC_AMULET : ORC_NECKLACE, 1);
+		if (st.isStarted() && Rnd.get(10) > 4) {
+			st.giveItems(npc.getNpcId() == 20385 ? ORC_AMULET : ORC_NECKLACE, 1);
 			st.playSound(QuestState.SOUND_ITEMGET);
 		}
 

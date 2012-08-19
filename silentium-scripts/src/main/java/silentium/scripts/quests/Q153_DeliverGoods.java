@@ -13,8 +13,7 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q153_DeliverGoods extends Quest implements ScriptFile
-{
+public class Q153_DeliverGoods extends Quest implements ScriptFile {
 	private static final String qn = "Q153_DeliverGoods";
 
 	// NPCs
@@ -36,8 +35,7 @@ public class Q153_DeliverGoods extends Quest implements ScriptFile
 	private static final int SoulshotNoGrade = 1835;
 	private static final int RingofKnowledge = 875;
 
-	public Q153_DeliverGoods(int questId, String name, String descr)
-	{
+	public Q153_DeliverGoods(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { DeliveryList, HeavyWoodBox, ClothBundle, ClayPot, JacksonsReceipt, SilviasReceipt, RantsReceipt };
@@ -46,21 +44,18 @@ public class Q153_DeliverGoods extends Quest implements ScriptFile
 		addTalkId(Jackson, Silvia, Arnold, Rant);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q153_DeliverGoods(153, "Q153_DeliverGoods", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		final String htmltext = event;
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30041-02.htm"))
-		{
+		if ("30041-02.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
@@ -74,30 +69,23 @@ public class Q153_DeliverGoods extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
+		final QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
-				if (player.getLevel() >= 2 && player.getLevel() <= 5)
-					htmltext = "30041-01.htm";
-				else
-					htmltext = "30041-00.htm";
+				htmltext = player.getLevel() >= 2 && player.getLevel() <= 5 ? "30041-01.htm" : "30041-00.htm";
 				break;
 
 			case QuestState.STARTED:
-				switch (npc.getNpcId())
-				{
+				switch (npc.getNpcId()) {
 					case Arnold:
 						if (st.getInt("cond") == 1)
 							htmltext = "30041-03.htm";
-						else if (st.getInt("cond") == 2)
-						{
+						else if (st.getInt("cond") == 2) {
 							htmltext = "30041-04.htm";
 							st.takeItems(DeliveryList, 1);
 							st.takeItems(JacksonsReceipt, 1);
@@ -112,42 +100,35 @@ public class Q153_DeliverGoods extends Quest implements ScriptFile
 						break;
 
 					case Jackson:
-						if (st.getQuestItemsCount(HeavyWoodBox) > 0)
-						{
+						if (st.getQuestItemsCount(HeavyWoodBox) > 0) {
 							htmltext = "30002-01.htm";
 							st.takeItems(HeavyWoodBox, 1);
 							st.giveItems(JacksonsReceipt, 1);
-						}
-						else
+						} else
 							htmltext = "30002-02.htm";
 						break;
 
 					case Silvia:
-						if (st.getQuestItemsCount(ClothBundle) > 0)
-						{
+						if (st.getQuestItemsCount(ClothBundle) > 0) {
 							htmltext = "30003-01.htm";
 							st.takeItems(ClothBundle, 1);
 							st.giveItems(SilviasReceipt, 1);
 							st.giveItems(SoulshotNoGrade, 3);
-						}
-						else
+						} else
 							htmltext = "30003-02.htm";
 						break;
 
 					case Rant:
-						if (st.getQuestItemsCount(ClayPot) > 0)
-						{
+						if (st.getQuestItemsCount(ClayPot) > 0) {
 							htmltext = "30054-01.htm";
 							st.takeItems(ClayPot, 1);
 							st.giveItems(RantsReceipt, 1);
-						}
-						else
+						} else
 							htmltext = "30054-02.htm";
 						break;
 				}
 
-				if (st.getInt("cond") == 1 && st.getQuestItemsCount(JacksonsReceipt) > 0 && st.getQuestItemsCount(SilviasReceipt) > 0 && st.getQuestItemsCount(RantsReceipt) > 0)
-				{
+				if (st.getInt("cond") == 1 && st.getQuestItemsCount(JacksonsReceipt) > 0 && st.getQuestItemsCount(SilviasReceipt) > 0 && st.getQuestItemsCount(RantsReceipt) > 0) {
 					st.set("cond", "2");
 					st.playSound(QuestState.SOUND_MIDDLE);
 				}

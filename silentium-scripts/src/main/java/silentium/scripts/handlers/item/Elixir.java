@@ -13,13 +13,10 @@ import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.network.SystemMessageId;
 import silentium.gameserver.network.serverpackets.SystemMessage;
 
-public class Elixir extends ItemSkills
-{
+public class Elixir extends ItemSkills {
 	@Override
-	public void useItem(L2Playable playable, L2ItemInstance item, boolean forceUse)
-	{
-		if (!(playable instanceof L2PcInstance))
-		{
+	public void useItem(final L2Playable playable, final L2ItemInstance item, final boolean forceUse) {
+		if (!(playable instanceof L2PcInstance)) {
 			playable.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.ITEM_NOT_FOR_PETS));
 			return;
 		}

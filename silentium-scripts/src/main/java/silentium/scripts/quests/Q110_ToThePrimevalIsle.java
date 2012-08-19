@@ -13,22 +13,20 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q110_ToThePrimevalIsle extends Quest implements ScriptFile
-{
+public class Q110_ToThePrimevalIsle extends Quest implements ScriptFile {
 	private static final String qn = "Q110_ToThePrimevalIsle";
 
 	// NPCs
-	private final static int ANTON = 31338;
-	private final static int MARQUEZ = 32113;
+	private static final int ANTON = 31338;
+	private static final int MARQUEZ = 32113;
 
 	// Item
-	private final static int ANCIENT_BOOK = 8777;
+	private static final int ANCIENT_BOOK = 8777;
 
 	// Reward
-	private final static int ADENA = 57;
+	private static final int ADENA = 57;
 
-	public Q110_ToThePrimevalIsle(int questId, String name, String descr)
-	{
+	public Q110_ToThePrimevalIsle(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { ANCIENT_BOOK };
@@ -37,28 +35,23 @@ public class Q110_ToThePrimevalIsle extends Quest implements ScriptFile
 		addTalkId(ANTON, MARQUEZ);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q110_ToThePrimevalIsle(110, "Q110_ToThePrimevalIsle", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		final String htmltext = event;
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("31338-02.htm"))
-		{
+		if ("31338-02.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.giveItems(ANCIENT_BOOK, 1);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("32113-03.htm") && st.getQuestItemsCount(ANCIENT_BOOK) == 1)
-		{
+		} else if ("32113-03.htm".equalsIgnoreCase(event) && st.getQuestItemsCount(ANCIENT_BOOK) == 1) {
 			st.playSound(QuestState.SOUND_FINISH);
 			st.rewardItems(ADENA, 169380);
 			st.takeItems(ANCIENT_BOOK, 1);
@@ -69,28 +62,24 @@ public class Q110_ToThePrimevalIsle extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
+		final QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 75)
 					htmltext = "31338-01.htm";
-				else
-				{
+				else {
 					htmltext = "31338-00.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				switch (npc.getNpcId())
-				{
+				switch (npc.getNpcId()) {
 					case ANTON:
 						htmltext = "31338-01c.htm";
 						break;

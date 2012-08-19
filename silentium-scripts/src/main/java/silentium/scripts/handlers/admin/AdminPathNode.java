@@ -7,71 +7,61 @@
  */
 package silentium.scripts.handlers.admin;
 
-import java.util.List;
-
 import silentium.gameserver.configs.MainConfig;
 import silentium.gameserver.geo.pathfinding.AbstractNodeLoc;
 import silentium.gameserver.geo.pathfinding.PathFinding;
 import silentium.gameserver.handler.IAdminCommandHandler;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 
-public class AdminPathNode implements IAdminCommandHandler
-{
+import java.util.List;
+
+public class AdminPathNode implements IAdminCommandHandler {
 	private static final String[] ADMIN_COMMANDS = { "admin_pn_info", "admin_show_path", "admin_path_debug", "admin_show_pn", "admin_find_path", };
 
 	@Override
-	public boolean useAdminCommand(String command, L2PcInstance activeChar)
-	{
-		if (command.equals("admin_pn_info"))
-		{
-			final String[] info = PathFinding.getInstance().getStat();
-			if (info == null)
-				activeChar.sendMessage("Not supported");
-			else
-				for (String msg : info)
-					activeChar.sendMessage(msg);
-		}
-		else if (command.equals("admin_show_path"))
-		{
+	public boolean useAdminCommand(final String command, final L2PcInstance activeChar) {
+		switch (command) {
+			case "admin_pn_info":
+				final String[] info = PathFinding.getInstance().getStat();
+				if (info == null)
+					activeChar.sendMessage("Not supported");
+				else
+					for (final String msg : info)
+						activeChar.sendMessage(msg);
+				break;
+			case "admin_show_path":
 
-		}
-		else if (command.equals("admin_path_debug"))
-		{
+				break;
+			case "admin_path_debug":
 
-		}
-		else if (command.equals("admin_show_pn"))
-		{
+				break;
+			case "admin_show_pn":
 
-		}
-		else if (command.equals("admin_find_path"))
-		{
-			if (MainConfig.GEODATA < 2)
-			{
-				activeChar.sendMessage("PathFinding has not been enabled.");
-				return true;
-			}
-
-			if (activeChar.getTarget() != null)
-			{
-				List<AbstractNodeLoc> path = PathFinding.getInstance().findPath(activeChar.getX(), activeChar.getY(), (short) activeChar.getZ(), activeChar.getTarget().getX(), activeChar.getTarget().getY(), (short) activeChar.getTarget().getZ(), true);
-				if (path == null)
-				{
-					activeChar.sendMessage("No Route!");
+				break;
+			case "admin_find_path":
+				if (MainConfig.GEODATA < 2) {
+					activeChar.sendMessage("PathFinding has not been enabled.");
 					return true;
 				}
 
-				for (AbstractNodeLoc a : path)
-					activeChar.sendMessage("x:" + a.getX() + " y:" + a.getY() + " z:" + a.getZ());
-			}
-			else
-				activeChar.sendMessage("No Target!");
+				if (activeChar.getTarget() != null) {
+					final List<AbstractNodeLoc> path = PathFinding.getInstance().findPath(activeChar.getX(), activeChar.getY(), (short) activeChar.getZ(), activeChar.getTarget().getX(), activeChar.getTarget().getY(), (short) activeChar.getTarget().getZ(), true);
+					if (path == null) {
+						activeChar.sendMessage("No Route!");
+						return true;
+					}
+
+					for (final AbstractNodeLoc a : path)
+						activeChar.sendMessage("x:" + a.getX() + " y:" + a.getY() + " z:" + a.getZ());
+				} else
+					activeChar.sendMessage("No Target!");
+				break;
 		}
 		return true;
 	}
 
 	@Override
-	public String[] getAdminCommandList()
-	{
+	public String[] getAdminCommandList() {
 		return ADMIN_COMMANDS;
 	}
 }

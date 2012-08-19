@@ -12,17 +12,14 @@ import silentium.gameserver.handler.IVoicedCommandHandler;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.network.serverpackets.NpcHtmlMessage;
 
-public class Info implements IVoicedCommandHandler
-{
+public class Info implements IVoicedCommandHandler {
 	private static final String[] VOICED_COMMANDS = { "info" };
 
 	@Override
-	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
-	{
+	public boolean useVoicedCommand(final String command, final L2PcInstance activeChar, final String target) {
 
-		if (command.startsWith("info"))
-		{
-			NpcHtmlMessage html = new NpcHtmlMessage(activeChar.getObjectId());
+		if (command.startsWith("info")) {
+			final NpcHtmlMessage html = new NpcHtmlMessage(activeChar.getObjectId());
 			html.setFile(StaticHtmPath.NpcHtmPath + "info.htm");
 			html.replace("%name%", activeChar.getName());
 			activeChar.sendPacket(html);
@@ -31,8 +28,7 @@ public class Info implements IVoicedCommandHandler
 	}
 
 	@Override
-	public String[] getVoicedCommandList()
-	{
+	public String[] getVoicedCommandList() {
 		return VOICED_COMMANDS;
 	}
 }

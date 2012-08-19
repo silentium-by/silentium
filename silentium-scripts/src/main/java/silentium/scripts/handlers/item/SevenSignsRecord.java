@@ -15,14 +15,12 @@ import silentium.gameserver.network.serverpackets.SSQStatus;
 
 /**
  * Item Handler for Seven Signs Record
- * 
+ *
  * @author Tempy
  */
-public class SevenSignsRecord implements IItemHandler
-{
+public class SevenSignsRecord implements IItemHandler {
 	@Override
-	public void useItem(L2Playable playable, L2ItemInstance item, boolean forceUse)
-	{
+	public void useItem(final L2Playable playable, final L2ItemInstance item, final boolean forceUse) {
 		if (!(playable instanceof L2PcInstance))
 			return;
 

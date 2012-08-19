@@ -13,24 +13,22 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q051_OFullesSpecialBait extends Quest implements ScriptFile
-{
+public class Q051_OFullesSpecialBait extends Quest implements ScriptFile {
 	private static final String qn = "Q051_OFullesSpecialBait";
 
 	// NPC
-	private final static int OFULLE = 31572;
+	private static final int OFULLE = 31572;
 
 	// Item
-	private final static int LOST_BAIT = 7622;
+	private static final int LOST_BAIT = 7622;
 
 	// Reward
-	private final static int ICY_AIR_LURE = 7611;
+	private static final int ICY_AIR_LURE = 7611;
 
 	// Monster
-	private final static int FETTERED_SOUL = 20552;
+	private static final int FETTERED_SOUL = 20552;
 
-	public Q051_OFullesSpecialBait(int questId, String name, String descr)
-	{
+	public Q051_OFullesSpecialBait(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { LOST_BAIT };
@@ -41,27 +39,22 @@ public class Q051_OFullesSpecialBait extends Quest implements ScriptFile
 		addKillId(FETTERED_SOUL);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q051_OFullesSpecialBait(51, "Q051_OFullesSpecialBait", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
 		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("31572-03.htm"))
-		{
+		if ("31572-03.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("31572-07.htm") && st.getQuestItemsCount(LOST_BAIT) == 100)
-		{
+		} else if ("31572-07.htm".equalsIgnoreCase(event) && st.getQuestItemsCount(LOST_BAIT) == 100) {
 			htmltext = "31572-06.htm";
 			st.rewardItems(ICY_AIR_LURE, 4);
 			st.takeItems(LOST_BAIT, 100);
@@ -73,30 +66,24 @@ public class Q051_OFullesSpecialBait extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
+		final QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 36 && player.getLevel() <= 38)
 					htmltext = "31572-01.htm";
-				else
-				{
+				else {
 					htmltext = "31572-02.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				if (st.getQuestItemsCount(LOST_BAIT) == 100)
-					htmltext = "31572-04.htm";
-				else
-					htmltext = "31572-05.htm";
+				htmltext = st.getQuestItemsCount(LOST_BAIT) == 100 ? "31572-04.htm" : "31572-05.htm";
 				break;
 
 			case QuestState.COMPLETED:
@@ -108,9 +95,8 @@ public class Q051_OFullesSpecialBait extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 

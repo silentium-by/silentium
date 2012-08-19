@@ -13,9 +13,8 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q624_TheFinestIngredients_Part1 extends Quest implements ScriptFile
-{
-	private final static String qn = "Q624_TheFinestIngredients_Part1";
+public class Q624_TheFinestIngredients_Part1 extends Quest implements ScriptFile {
+	private static final String qn = "Q624_TheFinestIngredients_Part1";
 
 	// Mobs
 	private static final int NEPENTHES = 21319;
@@ -32,8 +31,7 @@ public class Q624_TheFinestIngredients_Part1 extends Quest implements ScriptFile
 	private static final int CRYSTAL = 7080;
 	private static final int SAUCE = 7205;
 
-	public Q624_TheFinestIngredients_Part1(int questId, String name, String descr)
-	{
+	public Q624_TheFinestIngredients_Part1(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { TRUNK, FOOT, SPICE };
@@ -44,29 +42,23 @@ public class Q624_TheFinestIngredients_Part1 extends Quest implements ScriptFile
 		addKillId(NEPENTHES, ATROX, ATROXSPAWN, BANDERSNATCH);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q624_TheFinestIngredients_Part1(624, "Q624_TheFinestIngredients_Part1", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
 		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("31521-02.htm"))
-		{
+		if ("31521-02.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("31521-05.htm"))
-		{
-			if (st.getQuestItemsCount(TRUNK) >= 50 && st.getQuestItemsCount(FOOT) >= 50 && st.getQuestItemsCount(SPICE) >= 50)
-			{
+		} else if ("31521-05.htm".equalsIgnoreCase(event)) {
+			if (st.getQuestItemsCount(TRUNK) >= 50 && st.getQuestItemsCount(FOOT) >= 50 && st.getQuestItemsCount(SPICE) >= 50) {
 				st.takeItems(TRUNK, -1);
 				st.takeItems(FOOT, -1);
 				st.takeItems(SPICE, -1);
@@ -74,9 +66,7 @@ public class Q624_TheFinestIngredients_Part1 extends Quest implements ScriptFile
 				st.giveItems(SAUCE, 1);
 				st.playSound(QuestState.SOUND_FINISH);
 				st.exitQuest(true);
-			}
-			else
-			{
+			} else {
 				st.set("cond", "1");
 				htmltext = "31521-07.htm";
 			}
@@ -86,35 +76,28 @@ public class Q624_TheFinestIngredients_Part1 extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
 		String htmltext = Quest.getNoQuestMsg();
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 73)
 					htmltext = "31521-01.htm";
-				else
-				{
+				else {
 					htmltext = "31521-03.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				int cond = st.getInt("cond");
+				final int cond = st.getInt("cond");
 				if (cond == 1)
 					htmltext = "31521-06.htm";
-				else if (cond == 2)
-				{
-					if (st.getQuestItemsCount(TRUNK) >= 50 && st.getQuestItemsCount(FOOT) >= 50 && st.getQuestItemsCount(SPICE) >= 50)
-						htmltext = "31521-04.htm";
-					else
-						htmltext = "31521-07.htm";
+				else if (cond == 2) {
+					htmltext = st.getQuestItemsCount(TRUNK) >= 50 && st.getQuestItemsCount(FOOT) >= 50 && st.getQuestItemsCount(SPICE) >= 50 ? "31521-04.htm" : "31521-07.htm";
 				}
 				break;
 		}
@@ -123,16 +106,13 @@ public class Q624_TheFinestIngredients_Part1 extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 
-		if (st.getInt("cond") == 1)
-		{
-			switch (npc.getNpcId())
-			{
+		if (st.getInt("cond") == 1) {
+			switch (npc.getNpcId()) {
 				case NEPENTHES:
 					if (st.dropAlwaysQuestItems(TRUNK, 1, 50))
 						if (st.getQuestItemsCount(FOOT) >= 50 && st.getQuestItemsCount(SPICE) >= 50)

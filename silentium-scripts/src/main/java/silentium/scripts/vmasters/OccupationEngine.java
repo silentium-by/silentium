@@ -7,20 +7,18 @@
  */
 package silentium.scripts.vmasters;
 
-import java.util.HashMap;
-
 import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class OccupationEngine extends Quest implements ScriptFile
-{
-	public HashMap<String, Classes> classList = new HashMap<String, Classes>();
+import java.util.HashMap;
 
-	public OccupationEngine(int questId, String name, String descr)
-	{
+public class OccupationEngine extends Quest implements ScriptFile {
+	public final HashMap<String, Classes> classList = new HashMap<>();
+
+	public OccupationEngine(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 		classList.put("1", new Classes(1, 0, 0, "26", "27", "28", "29", new int[] { 1145 }, true));
 		classList.put("11", new Classes(11, 10, 0, "23", "24", "25", "26", new int[] { 1292 }, true));
@@ -69,20 +67,22 @@ public class OccupationEngine extends Quest implements ScriptFile
 		classList.put("9", new Classes(9, 7, 0, "56", "57", "58", "59", new int[] { 2673, 2734, 3293 }, false));
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new OccupationEngine(-1, "OccupationEngine", "vmasters");
 	}
 
-	public class Classes
-	{
-		public int newClass, reqClass, reqRace;
-		public String low_ni, low_i, ok_ni, ok_i;
-		public int[] reqItems;
-		public boolean first;
+	public class Classes {
+		public final int newClass;
+		public final int reqClass;
+		public final int reqRace;
+		public final String low_ni;
+		public final String low_i;
+		public final String ok_ni;
+		public final String ok_i;
+		public final int[] reqItems;
+		public final boolean first;
 
-		public Classes(int _newClass, int _reqClass, int _reqRace, String _low_ni, String _low_i, String _ok_ni, String _ok_i, int[] _reqItems, boolean _first)
-		{
+		public Classes(final int _newClass, final int _reqClass, final int _reqRace, final String _low_ni, final String _low_i, final String _ok_ni, final String _ok_i, final int[] _reqItems, final boolean _first) {
 			newClass = _newClass;
 			reqClass = _reqClass;
 			reqRace = _reqRace;
@@ -96,36 +96,28 @@ public class OccupationEngine extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(getName());
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		final QuestState st = player.getQuestState(getName());
 		if (event.endsWith(".htm"))
 			return event;
 		String htmltext = getNoQuestMsg();
 		String suffix = "";
-		if (classList.containsKey(event))
-		{
-			Classes val = classList.get(event);
-			if (player.getRace().ordinal() == val.reqRace && player.getClassId().getId() == val.reqClass)
-			{
+		if (classList.containsKey(event)) {
+			final Classes val = classList.get(event);
+			if (player.getRace().ordinal() == val.reqRace && player.getClassId().getId() == val.reqClass) {
 				boolean item = true;
-				for (int i : val.reqItems)
-				{
+				for (final int i : val.reqItems) {
 					if (player.getItemsCount(i) == 0)
 						item = false;
 				}
-				if ((player.getLevel() < 40 && !val.first) || (player.getLevel() < 20 && val.first))
-				{
+				if (player.getLevel() < 40 && !val.first || player.getLevel() < 20 && val.first) {
 					suffix = val.low_i;
 					if (!item)
 						suffix = val.low_ni;
-				}
-				else
-				{
+				} else {
 					if (!item)
 						suffix = val.ok_ni;
-					else
-					{
+					else {
 						suffix = val.ok_i;
 						if (val.first)
 							st.giveItems(8869, 15);
@@ -155,9 +147,8 @@ public class OccupationEngine extends Quest implements ScriptFile
 		return htmltext;
 	}
 
-	public static void change(L2PcInstance player, int newclass, int[] items)
-	{
-		for (int item : items)
+	public static void change(final L2PcInstance player, final int newclass, final int... items) {
+		for (final int item : items)
 			player.takeItems(item, 1);
 		player.setClassId(newclass);
 		player.setBaseClass(newclass);

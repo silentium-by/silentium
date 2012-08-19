@@ -13,15 +13,12 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class ElrokiTeleporters extends Quest implements ScriptFile
-{
-	public static void onLoad()
-	{
+public class ElrokiTeleporters extends Quest implements ScriptFile {
+	public static void onLoad() {
 		new ElrokiTeleporters(-1, "ElrokiTeleporters", "teleports");
 	}
 
-	public ElrokiTeleporters(int questId, String name, String descr)
-	{
+	public ElrokiTeleporters(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		addStartNpc(32111, 32112);
@@ -29,20 +26,17 @@ public class ElrokiTeleporters extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
 		String htmltext = "";
-		QuestState st = player.getQuestState(getName());
-		int npcId = npc.getNpcId();
+		final QuestState st = player.getQuestState(getName());
+		final int npcId = npc.getNpcId();
 
-		if (npcId == 32111)
-		{
+		if (npcId == 32111) {
 			if (player.isInCombat())
 				htmltext = "32111-no.htm";
 			else
 				player.teleToLocation(4990, -1879, -3178);
-		}
-		else if (npcId == 32112)
+		} else if (npcId == 32112)
 			player.teleToLocation(7557, -5513, -3221);
 
 		st.exitQuest(true);

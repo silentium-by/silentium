@@ -13,8 +13,7 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q629_CleanUpTheSwampOfScreams extends Quest implements ScriptFile
-{
+public class Q629_CleanUpTheSwampOfScreams extends Quest implements ScriptFile {
 	private static final String qn = "Q629_CleanUpTheSwampOfScreams";
 
 	// NPC
@@ -27,8 +26,7 @@ public class Q629_CleanUpTheSwampOfScreams extends Quest implements ScriptFile
 	// MOBS / CHANCES
 	private static final int[][] CHANCE = { { 21508, 500000 }, { 21509, 430000 }, { 21510, 520000 }, { 21511, 570000 }, { 21512, 740000 }, { 21513, 530000 }, { 21514, 530000 }, { 21515, 540000 }, { 21516, 550000 }, { 21517, 560000 } };
 
-	public Q629_CleanUpTheSwampOfScreams(int questId, String name, String descr)
-	{
+	public Q629_CleanUpTheSwampOfScreams(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { CLAWS, COIN };
@@ -36,49 +34,37 @@ public class Q629_CleanUpTheSwampOfScreams extends Quest implements ScriptFile
 		addStartNpc(CAPTAIN);
 		addTalkId(CAPTAIN);
 
-		for (int[] i : CHANCE)
+		for (final int[] i : CHANCE)
 			addKillId(i[0]);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q629_CleanUpTheSwampOfScreams(629, "Q629_CleanUpTheSwampOfScreams", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
 		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("31553-1.htm"))
-		{
-			if (player.getLevel() >= 66)
-			{
+		if ("31553-1.htm".equalsIgnoreCase(event)) {
+			if (player.getLevel() >= 66) {
 				st.set("cond", "1");
 				st.setState(QuestState.STARTED);
 				st.playSound(QuestState.SOUND_ACCEPT);
-			}
-			else
-			{
+			} else {
 				htmltext = "31553-0a.htm";
 				st.exitQuest(true);
 			}
-		}
-		else if (event.equalsIgnoreCase("31553-3.htm"))
-		{
-			if (st.getQuestItemsCount(CLAWS) >= 100)
-			{
+		} else if ("31553-3.htm".equalsIgnoreCase(event)) {
+			if (st.getQuestItemsCount(CLAWS) >= 100) {
 				st.takeItems(CLAWS, 100);
 				st.giveItems(COIN, 20);
-			}
-			else
+			} else
 				htmltext = "31553-3a.htm";
-		}
-		else if (event.equalsIgnoreCase("31553-5.htm"))
-		{
+		} else if ("31553-5.htm".equalsIgnoreCase(event)) {
 			st.playSound(QuestState.SOUND_FINISH);
 			st.exitQuest(true);
 		}
@@ -87,37 +73,28 @@ public class Q629_CleanUpTheSwampOfScreams extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
 		String htmltext = Quest.getNoQuestMsg();
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (st.hasQuestItems(7246) || st.hasQuestItems(7247))
-		{
-			switch (st.getState())
-			{
+		if (st.hasQuestItems(7246) || st.hasQuestItems(7247)) {
+			switch (st.getState()) {
 				case QuestState.CREATED:
 					if (player.getLevel() >= 66)
 						htmltext = "31553-0.htm";
-					else
-					{
+					else {
 						htmltext = "31553-0a.htm";
 						st.exitQuest(true);
 					}
 					break;
 
 				case QuestState.STARTED:
-					if (st.getQuestItemsCount(CLAWS) >= 100)
-						htmltext = "31553-2.htm";
-					else
-						htmltext = "31553-1a.htm";
+					htmltext = st.getQuestItemsCount(CLAWS) >= 100 ? "31553-2.htm" : "31553-1a.htm";
 					break;
 			}
-		}
-		else
-		{
+		} else {
 			htmltext = "31553-6.htm";
 			st.exitQuest(true);
 		}
@@ -126,9 +103,8 @@ public class Q629_CleanUpTheSwampOfScreams extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		L2PcInstance partyMember = getRandomPartyMemberState(player, npc, QuestState.STARTED);
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final L2PcInstance partyMember = getRandomPartyMemberState(player, npc, QuestState.STARTED);
 		if (partyMember != null)
 			partyMember.getQuestState(qn).dropQuestItems(CLAWS, 1, 100, CHANCE[npc.getNpcId() - 21508][1]);
 

@@ -14,10 +14,8 @@ import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.model.quest.State;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Alliance extends Quest implements ScriptFile
-{
-	public Alliance(int questId, String name, String descr)
-	{
+public class Alliance extends Quest implements ScriptFile {
+	public Alliance(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		addStartNpc(30026, 30031, 30037, 30066, 30070, 30109, 30115, 30120, 30154, 30174, 30175, 30176, 30187, 30191, 30195, 30288, 30289, 30290, 30297, 30358, 30373, 30462, 30474, 30498, 30499, 30500, 30503, 30504, 30505, 30508, 30511, 30512, 30513, 30520, 30525, 30565, 30594, 30595, 30676, 30677, 30681, 30685, 30687, 30689, 30694, 30699, 30704, 30845, 30847, 30849, 30854, 30857, 30862, 30865, 30894, 30897, 30900, 30905, 30910, 30913, 31269, 31272, 31276, 31279, 31285, 31288, 31314, 31317, 31321, 31324, 31326, 31328, 31331, 31334, 31336, 31755, 31958, 31961, 31965, 31968, 31974, 31977, 31996, 32092, 32093, 32094, 32095, 32096, 32097, 32098);
@@ -25,41 +23,34 @@ public class Alliance extends Quest implements ScriptFile
 		addTalkId(30026, 30031, 30037, 30066, 30070, 30109, 30115, 30120, 30154, 30174, 30175, 30176, 30187, 30191, 30195, 30288, 30289, 30290, 30297, 30358, 30373, 30462, 30474, 30498, 30499, 30500, 30503, 30504, 30505, 30508, 30511, 30512, 30513, 30520, 30525, 30565, 30594, 30595, 30676, 30677, 30681, 30685, 30687, 30689, 30694, 30699, 30704, 30845, 30847, 30849, 30854, 30857, 30862, 30865, 30894, 30897, 30900, 30905, 30910, 30913, 31269, 31272, 31276, 31279, 31285, 31288, 31314, 31317, 31321, 31324, 31326, 31328, 31331, 31334, 31336, 31755, 31958, 31961, 31965, 31968, 31974, 31977, 31996, 32092, 32093, 32094, 32095, 32096, 32097, 32098);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Alliance(-1, "Alliance", "vmasters");
 	}
 
 	@Override
-	public String onEvent(String event, QuestState st)
-	{
-		boolean clanLeader = st.getPlayer().isClanLeader();
-		int clan = st.getPlayer().getClanId();
+	public String onEvent(final String event, final QuestState st) {
+		final boolean clanLeader = st.getPlayer().isClanLeader();
+		final int clan = st.getPlayer().getClanId();
 		String htmltext = event;
 
-		if (event.equalsIgnoreCase("9001-01.htm"))
+		if ("9001-01.htm".equalsIgnoreCase(event))
 			htmltext = "9001-01.htm";
-		else if (clan == 0)
-		{
+		else if (clan == 0) {
 			st.exitQuest(true);
 			htmltext = "<html><body>You must be in Clan.</body></html";
-		}
-		else if (clan != 0 && clanLeader == false)
-		{
+		} else if (clan != 0 && !clanLeader) {
 			st.exitQuest(true);
 			htmltext = "<html><body>You must be Clan Leader.</body></html";
-		}
-		else if (event.equalsIgnoreCase("9001-02.htm"))
+		} else if ("9001-02.htm".equalsIgnoreCase(event))
 			htmltext = "9001-02.htm";
 
 		return htmltext;
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
 		String htmltext = "";
-		QuestState st = player.getQuestState(getName());
+		final QuestState st = player.getQuestState(getName());
 
 		st.set("cond", "0");
 		st.setState(State.STARTED);

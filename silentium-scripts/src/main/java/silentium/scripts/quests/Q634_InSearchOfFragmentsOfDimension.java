@@ -15,20 +15,17 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q634_InSearchOfFragmentsOfDimension extends Quest implements ScriptFile
-{
-	private final static String qn = "Q634_InSearchOfFragmentsOfDimension";
+public class Q634_InSearchOfFragmentsOfDimension extends Quest implements ScriptFile {
+	private static final String qn = "Q634_InSearchOfFragmentsOfDimension";
 
 	// Items
 	private static final int DIMENSION_FRAGMENT = 7079;
 
-	public Q634_InSearchOfFragmentsOfDimension(int questId, String name, String descr)
-	{
+	public Q634_InSearchOfFragmentsOfDimension(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		// Dimensional Gate Keepers.
-		for (int i = 31494; i < 31508; i++)
-		{
+		for (int i = 31494; i < 31508; i++) {
 			addStartNpc(i);
 			addTalkId(i);
 		}
@@ -38,27 +35,22 @@ public class Q634_InSearchOfFragmentsOfDimension extends Quest implements Script
 			addKillId(i);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q634_InSearchOfFragmentsOfDimension(634, "Q634_InSearchOfFragmentsOfDimension", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		final String htmltext = event;
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("02.htm"))
-		{
+		if ("02.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("05.htm"))
-		{
+		} else if ("05.htm".equalsIgnoreCase(event)) {
 			st.playSound(QuestState.SOUND_FINISH);
 			st.exitQuest(true);
 		}
@@ -66,20 +58,17 @@ public class Q634_InSearchOfFragmentsOfDimension extends Quest implements Script
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
+		final QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (st.getPlayer().getLevel() >= 20)
 					htmltext = "01.htm";
-				else
-				{
+				else {
 					htmltext = "01a.htm";
 					st.exitQuest(true);
 				}
@@ -94,23 +83,21 @@ public class Q634_InSearchOfFragmentsOfDimension extends Quest implements Script
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		L2PcInstance partyMember = getRandomPartyMemberState(player, npc, QuestState.STARTED);
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final L2PcInstance partyMember = getRandomPartyMemberState(player, npc, QuestState.STARTED);
 		if (partyMember == null)
 			return null;
 
-		QuestState st = partyMember.getQuestState(qn);
+		final QuestState st = partyMember.getQuestState(qn);
 
 		int itemMultiplier = (int) (80 * MainConfig.RATE_QUEST_DROP) / 1000;
-		int chance = (int) (80 * MainConfig.RATE_QUEST_DROP) % 1000;
+		final int chance = (int) (80 * MainConfig.RATE_QUEST_DROP) % 1000;
 
 		if (Rnd.get(1000) < chance)
 			itemMultiplier++;
 
-		int numItems = (int) (itemMultiplier * (npc.getLevel() * 0.15 + 1.6));
-		if (numItems > 0)
-		{
+		final int numItems = (int) (itemMultiplier * (npc.getLevel() * 0.15 + 1.6));
+		if (numItems > 0) {
 			st.giveItems(DIMENSION_FRAGMENT, numItems);
 			st.playSound(QuestState.SOUND_ITEMGET);
 		}

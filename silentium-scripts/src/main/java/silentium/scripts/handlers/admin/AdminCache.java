@@ -7,60 +7,46 @@
  */
 package silentium.scripts.handlers.admin;
 
-import java.io.File;
-
 import silentium.gameserver.configs.MainConfig;
 import silentium.gameserver.data.crest.CrestCache;
 import silentium.gameserver.data.html.HtmCache;
 import silentium.gameserver.handler.IAdminCommandHandler;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 
+import java.io.File;
+
 /**
  * @author Layanere
  */
-public class AdminCache implements IAdminCommandHandler
-{
+public class AdminCache implements IAdminCommandHandler {
 	private static final String[] ADMIN_COMMANDS = { "admin_reload_cache_path", "admin_reload_cache_file", "admin_fix_cache_crest" };
 
 	@Override
-	public String[] getAdminCommandList()
-	{
+	public String[] getAdminCommandList() {
 		return ADMIN_COMMANDS;
 	}
 
 	@Override
-	public boolean useAdminCommand(String command, L2PcInstance activeChar)
-	{
-		if (command.startsWith("admin_reload_cache_path "))
-		{
-			try
-			{
-				String path = command.split(" ")[1];
+	public boolean useAdminCommand(final String command, final L2PcInstance activeChar) {
+		if (command.startsWith("admin_reload_cache_path ")) {
+			try {
+				final String path = command.split(" ")[1];
 				HtmCache.getInstance().reloadPath(new File(MainConfig.DATAPACK_ROOT, path));
 				activeChar.sendMessage("HTM paths' cache have been reloaded.");
-			}
-			catch (Exception e)
-			{
+			} catch (Exception e) {
 				activeChar.sendMessage("Usage: //reload_cache_path <path>");
 			}
-		}
-		else if (command.startsWith("admin_reload_cache_file "))
-		{
-			try
-			{
-				String path = command.split(" ")[1];
+		} else if (command.startsWith("admin_reload_cache_file ")) {
+			try {
+				final String path = command.split(" ")[1];
 				if (HtmCache.getInstance().loadFile(new File(MainConfig.DATAPACK_ROOT, path)) != null)
 					activeChar.sendMessage("Cache[HTML]: requested file was loaded.");
 				else
 					activeChar.sendMessage("Cache[HTML]: requested file couldn't be loaded.");
-			}
-			catch (Exception e)
-			{
+			} catch (Exception e) {
 				activeChar.sendMessage("Usage: //reload_cache_file <relative_path/file>");
 			}
-		}
-		else if (command.startsWith("admin_fix_cache_crest"))
-		{
+		} else if (command.startsWith("admin_fix_cache_crest")) {
 			CrestCache.convertOldPledgeFiles();
 			activeChar.sendMessage("Cache[Crest]: crests have been fixed.");
 		}

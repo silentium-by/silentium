@@ -21,88 +21,72 @@ import silentium.gameserver.skills.Env;
 import silentium.gameserver.skills.Formulas;
 import silentium.gameserver.templates.skills.L2SkillType;
 
-public class Mdam implements ISkillHandler
-{
+public class Mdam implements ISkillHandler {
 	private static final L2SkillType[] SKILL_IDS = { L2SkillType.MDAM, L2SkillType.DEATHLINK };
 
 	@Override
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
-	{
+	public void useSkill(final L2Character activeChar, final L2Skill skill, final L2Object... targets) {
 		if (activeChar.isAlikeDead())
 			return;
 
 		boolean ss = false;
 		boolean bss = false;
 
-		L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
+		final L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
 
-		if (weaponInst != null)
-		{
-			if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
-			{
+		if (weaponInst != null) {
+			if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT) {
 				bss = true;
 				weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
-			}
-			else if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_SPIRITSHOT)
-			{
+			} else if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_SPIRITSHOT) {
 				ss = true;
 				weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
 			}
 		}
 		// If there is no weapon equipped, check for an active summon.
-		else if (activeChar instanceof L2Summon)
-		{
-			L2Summon activeSummon = (L2Summon) activeChar;
+		else if (activeChar instanceof L2Summon) {
+			final L2Summon activeSummon = (L2Summon) activeChar;
 
-			if (activeSummon.getChargedSpiritShot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
-			{
+			if (activeSummon.getChargedSpiritShot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT) {
 				bss = true;
 				activeSummon.setChargedSpiritShot(L2ItemInstance.CHARGED_NONE);
-			}
-			else if (activeSummon.getChargedSpiritShot() == L2ItemInstance.CHARGED_SPIRITSHOT)
-			{
+			} else if (activeSummon.getChargedSpiritShot() == L2ItemInstance.CHARGED_SPIRITSHOT) {
 				ss = true;
 				activeSummon.setChargedSpiritShot(L2ItemInstance.CHARGED_NONE);
 			}
 		}
 
-		for (L2Character target : (L2Character[]) targets)
-		{
+		for (final L2Character target : (L2Character[]) targets) {
 			if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance && ((L2PcInstance) target).isFakeDeath())
 				target.stopFakeDeath(true);
 			else if (target.isDead())
 				continue;
 
-			boolean mcrit = Formulas.calcMCrit(activeChar.getMCriticalHit(target, skill));
+			final boolean mcrit = Formulas.calcMCrit(activeChar.getMCriticalHit(target, skill));
 			final byte shld = Formulas.calcShldUse(activeChar, target, skill);
 			final byte reflect = Formulas.calcSkillReflect(target, skill);
 
-			int damage = (int) Formulas.calcMagicDam(activeChar, target, skill, shld, ss, bss, mcrit);
+			final int damage = (int) Formulas.calcMagicDam(activeChar, target, skill, shld, ss, bss, mcrit);
 
-			if (damage > 0)
-			{
+			if (damage > 0) {
 				// Manage cast break of the target (calculating rate, sending message...)
 				Formulas.calcCastBreak(target, damage);
 
 				// vengeance reflected damage
 				if ((reflect & Formulas.SKILL_REFLECT_VENGEANCE) != 0)
 					activeChar.reduceCurrentHp(damage, target, skill);
-				else
-				{
+				else {
 					activeChar.sendDamageMessage(target, damage, mcrit, false, false);
 					target.reduceCurrentHp(damage, activeChar, skill);
 				}
 
-				if (skill.hasEffects())
-				{
+				if (skill.hasEffects()) {
 					if ((reflect & Formulas.SKILL_REFLECT_SUCCEED) != 0) // reflect skill effects
 					{
 						activeChar.stopSkillEffects(skill.getId());
 						skill.getEffects(target, activeChar);
 						activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT).addSkillName(skill));
-					}
-					else
-					{
+					} else {
 						// activate attacked effects, if any
 						target.stopSkillEffects(skill.getId());
 						if (Formulas.calcSkillSuccess(activeChar, target, skill, shld, false, ss, bss))
@@ -115,11 +99,9 @@ public class Mdam implements ISkillHandler
 		}
 
 		// self Effect :]
-		if (skill.hasSelfEffects())
-		{
+		if (skill.hasSelfEffects()) {
 			final L2Effect effect = activeChar.getFirstEffect(skill.getId());
-			if (effect != null && effect.isSelfEffect())
-			{
+			if (effect != null && effect.isSelfEffect()) {
 				// Replace old effect with new one.
 				effect.exit();
 			}
@@ -131,8 +113,7 @@ public class Mdam implements ISkillHandler
 	}
 
 	@Override
-	public L2SkillType[] getSkillIds()
-	{
+	public L2SkillType[] getSkillIds() {
 		return SKILL_IDS;
 	}
 }

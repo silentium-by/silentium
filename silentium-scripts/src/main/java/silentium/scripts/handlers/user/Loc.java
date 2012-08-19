@@ -13,18 +13,15 @@ import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.network.SystemMessageId;
 import silentium.gameserver.network.serverpackets.SystemMessage;
 
-public class Loc implements IUserCommandHandler
-{
+public class Loc implements IUserCommandHandler {
 	private static final int[] COMMAND_IDS = { 0 };
 
 	@Override
-	public boolean useUserCommand(int id, L2PcInstance activeChar)
-	{
-		int _nearestTown = MapRegionData.getInstance().getClosestTownNumber(activeChar);
-		SystemMessageId msg;
+	public boolean useUserCommand(final int id, final L2PcInstance activeChar) {
+		final int _nearestTown = MapRegionData.getInstance().getClosestTownNumber(activeChar);
+		final SystemMessageId msg;
 
-		switch (_nearestTown)
-		{
+		switch (_nearestTown) {
 			case 0:
 				msg = SystemMessageId.LOC_TI_S1_S2_S3;
 				break;
@@ -91,8 +88,7 @@ public class Loc implements IUserCommandHandler
 	}
 
 	@Override
-	public int[] getUserCommandList()
-	{
+	public int[] getUserCommandList() {
 		return COMMAND_IDS;
 	}
 }

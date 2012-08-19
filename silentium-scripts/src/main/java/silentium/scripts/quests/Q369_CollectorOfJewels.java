@@ -7,9 +7,6 @@
  */
 package silentium.scripts.quests;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import silentium.commons.utils.Rnd;
 import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
@@ -17,9 +14,11 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q369_CollectorOfJewels extends Quest implements ScriptFile
-{
-	private final static String qn = "Q369_CollectorOfJewels";
+import java.util.HashMap;
+import java.util.Map;
+
+public class Q369_CollectorOfJewels extends Quest implements ScriptFile {
+	private static final String qn = "Q369_CollectorOfJewels";
 
 	// NPC
 	private static final int NELL = 30376;
@@ -34,7 +33,7 @@ public class Q369_CollectorOfJewels extends Quest implements ScriptFile
 	// Droplists
 	private static final Map<Integer, Integer> DROPLIST_FREEZE = new HashMap<>();
 
-	{
+	static {
 		DROPLIST_FREEZE.put(20747, 85);
 		DROPLIST_FREEZE.put(20619, 73);
 		DROPLIST_FREEZE.put(20616, 60);
@@ -42,14 +41,13 @@ public class Q369_CollectorOfJewels extends Quest implements ScriptFile
 
 	private static final Map<Integer, Integer> DROPLIST_FLARE = new HashMap<>();
 
-	{
+	static {
 		DROPLIST_FLARE.put(20612, 77);
 		DROPLIST_FLARE.put(20609, 77);
 		DROPLIST_FLARE.put(20749, 85);
 	}
 
-	public Q369_CollectorOfJewels(int questId, String name, String descr)
-	{
+	public Q369_CollectorOfJewels(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { FLARE_SHARD, FREEZING_SHARD };
@@ -57,38 +55,33 @@ public class Q369_CollectorOfJewels extends Quest implements ScriptFile
 		addStartNpc(NELL);
 		addTalkId(NELL);
 
-		for (int mob : DROPLIST_FREEZE.keySet())
+		for (final int mob : DROPLIST_FREEZE.keySet())
 			addKillId(mob);
 
-		for (int mob : DROPLIST_FLARE.keySet())
+		for (final int mob : DROPLIST_FLARE.keySet())
 			addKillId(mob);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q369_CollectorOfJewels(369, "Q369_CollectorOfJewels", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		final String htmltext = event;
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30376-03.htm"))
-		{
+		if ("30376-03.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
 			st.set("awaitsFreezing", "1");
 			st.set("awaitsFlare", "1");
-		}
-		else if (event.equalsIgnoreCase("30376-07.htm"))
+		} else if ("30376-07.htm".equalsIgnoreCase(event))
 			st.playSound(QuestState.SOUND_ITEMGET);
-		else if (event.equalsIgnoreCase("30376-08.htm"))
-		{
+		else if ("30376-08.htm".equalsIgnoreCase(event)) {
 			st.exitQuest(true);
 			st.playSound(QuestState.SOUND_FINISH);
 		}
@@ -97,34 +90,30 @@ public class Q369_CollectorOfJewels extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
+		final QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 25 && player.getLevel() <= 37)
 					htmltext = "30376-02.htm";
-				else
-				{
+				else {
 					htmltext = "30376-01.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				int cond = st.getInt("cond");
-				int flare = st.getQuestItemsCount(FLARE_SHARD);
-				int freezing = st.getQuestItemsCount(FREEZING_SHARD);
+				final int cond = st.getInt("cond");
+				final int flare = st.getQuestItemsCount(FLARE_SHARD);
+				final int freezing = st.getQuestItemsCount(FREEZING_SHARD);
 
 				if (cond == 1)
 					htmltext = "30376-04.htm";
-				else if (cond == 2 && flare >= 50 && freezing >= 50)
-				{
+				else if (cond == 2 && flare >= 50 && freezing >= 50) {
 					htmltext = "30376-05.htm";
 					st.set("cond", "3");
 					st.rewardItems(ADENA, 12500);
@@ -133,11 +122,9 @@ public class Q369_CollectorOfJewels extends Quest implements ScriptFile
 					st.set("awaitsFreezing", "1");
 					st.set("awaitsFlare", "1");
 					st.playSound(QuestState.SOUND_MIDDLE);
-				}
-				else if (cond == 3)
+				} else if (cond == 3)
 					htmltext = "30376-09.htm";
-				else if (cond == 4 && flare >= 200 && freezing >= 200)
-				{
+				else if (cond == 4 && flare >= 200 && freezing >= 200) {
 					htmltext = "30376-10.htm";
 					st.playSound(QuestState.SOUND_FINISH);
 					st.rewardItems(ADENA, 63500);
@@ -152,21 +139,17 @@ public class Q369_CollectorOfJewels extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		int npcId = npc.getNpcId();
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final int npcId = npc.getNpcId();
 		L2PcInstance partymember = null;
 		int item = 0, chance = 0;
 
-		if (DROPLIST_FREEZE.containsKey(npcId))
-		{
+		if (DROPLIST_FREEZE.containsKey(npcId)) {
 			partymember = getRandomPartyMember(player, npc, "awaitsFreezing", "1");
 
 			item = FREEZING_SHARD;
 			chance = DROPLIST_FREEZE.get(npcId);
-		}
-		else if (DROPLIST_FLARE.containsKey(npcId))
-		{
+		} else if (DROPLIST_FLARE.containsKey(npcId)) {
 			partymember = getRandomPartyMember(player, npc, "awaitsFlare", "1");
 
 			item = FLARE_SHARD;
@@ -176,11 +159,10 @@ public class Q369_CollectorOfJewels extends Quest implements ScriptFile
 		if (partymember == null)
 			return null;
 
-		QuestState st = partymember.getQuestState(qn);
-		int cond = st.getInt("cond");
+		final QuestState st = partymember.getQuestState(qn);
+		final int cond = st.getInt("cond");
 
-		if (cond >= 1 && cond <= 3)
-		{
+		if (cond >= 1 && cond <= 3) {
 			int max = 0;
 
 			if (cond == 1)
@@ -188,8 +170,7 @@ public class Q369_CollectorOfJewels extends Quest implements ScriptFile
 			else if (cond == 3)
 				max = 200;
 
-			if (Rnd.get(100) < chance && st.getQuestItemsCount(item) <= max)
-			{
+			if (Rnd.get(100) < chance && st.getQuestItemsCount(item) <= max) {
 				st.giveItems(item, 1);
 
 				if (st.getQuestItemsCount(FREEZING_SHARD) == max)
@@ -197,12 +178,10 @@ public class Q369_CollectorOfJewels extends Quest implements ScriptFile
 				else if (st.getQuestItemsCount(FLARE_SHARD) == max)
 					st.unset("awaitsFlare");
 
-				if (st.getQuestItemsCount(FLARE_SHARD) == max && st.getQuestItemsCount(FREEZING_SHARD) == max)
-				{
+				if (st.getQuestItemsCount(FLARE_SHARD) == max && st.getQuestItemsCount(FREEZING_SHARD) == max) {
 					st.set("cond", String.valueOf(cond + 1));
 					st.playSound(QuestState.SOUND_MIDDLE);
-				}
-				else
+				} else
 					st.playSound(QuestState.SOUND_ITEMGET);
 			}
 		}

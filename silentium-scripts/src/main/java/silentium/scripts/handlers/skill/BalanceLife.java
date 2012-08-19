@@ -19,14 +19,12 @@ import silentium.gameserver.templates.skills.L2SkillType;
 /**
  * @author earendil
  */
-public class BalanceLife implements ISkillHandler
-{
+public class BalanceLife implements ISkillHandler {
 	private static final L2SkillType[] SKILL_IDS = { L2SkillType.BALANCE_LIFE };
 
 	@Override
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
-	{
-		ISkillHandler handler = SkillHandler.getInstance().getSkillHandler(L2SkillType.BUFF);
+	public void useSkill(final L2Character activeChar, final L2Skill skill, final L2Object... targets) {
+		final ISkillHandler handler = SkillHandler.getInstance().getSkillHandler(L2SkillType.BUFF);
 
 		if (handler != null)
 			handler.useSkill(activeChar, skill, targets);
@@ -36,15 +34,13 @@ public class BalanceLife implements ISkillHandler
 		double fullHP = 0;
 		double currentHPs = 0;
 
-		for (L2Character target : (L2Character[]) targets)
-		{
+		for (final L2Character target : (L2Character[]) targets) {
 			// We should not heal if char is dead
 			if (target == null || target.isDead())
 				continue;
 
 			// Player holding a cursed weapon can't be healed and can't heal
-			if (target != activeChar)
-			{
+			if (target != activeChar) {
 				if (target instanceof L2PcInstance && ((L2PcInstance) target).isCursedWeaponEquipped())
 					continue;
 				else if (player != null && player.isCursedWeaponEquipped())
@@ -55,35 +51,32 @@ public class BalanceLife implements ISkillHandler
 			currentHPs += target.getCurrentHp();
 		}
 
-		double percentHP = currentHPs / fullHP;
+		final double percentHP = currentHPs / fullHP;
 
-		for (L2Character target : (L2Character[]) targets)
-		{
+		for (final L2Character target : (L2Character[]) targets) {
 			if (target == null || target.isDead())
 				continue;
 
 			// Player holding a cursed weapon can't be healed and can't heal
-			if (target != activeChar)
-			{
+			if (target != activeChar) {
 				if (target instanceof L2PcInstance && ((L2PcInstance) target).isCursedWeaponEquipped())
 					continue;
 				else if (player != null && player.isCursedWeaponEquipped())
 					continue;
 			}
 
-			double newHP = target.getMaxHp() * percentHP;
+			final double newHP = target.getMaxHp() * percentHP;
 
 			target.setCurrentHp(newHP);
 
-			StatusUpdate su = new StatusUpdate(target);
+			final StatusUpdate su = new StatusUpdate(target);
 			su.addAttribute(StatusUpdate.CUR_HP, (int) target.getCurrentHp());
 			target.sendPacket(su);
 		}
 	}
 
 	@Override
-	public L2SkillType[] getSkillIds()
-	{
+	public L2SkillType[] getSkillIds() {
 		return SKILL_IDS;
 	}
 }

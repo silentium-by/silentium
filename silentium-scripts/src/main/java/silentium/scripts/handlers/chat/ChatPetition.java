@@ -14,23 +14,20 @@ import silentium.gameserver.network.SystemMessageId;
 
 /**
  * A chat handler
- * 
+ *
  * @author durgus
  */
-public class ChatPetition implements IChatHandler
-{
+public class ChatPetition implements IChatHandler {
 	private static final int[] COMMAND_IDS = { 6, 7 };
 
 	/**
 	 * Handle chat type 'petition player'
-	 * 
+	 *
 	 * @see silentium.gameserver.handler.IChatHandler#handleChat(int, silentium.gameserver.model.actor.instance.L2PcInstance, String, String)
 	 */
 	@Override
-	public void handleChat(int type, L2PcInstance activeChar, String target, String text)
-	{
-		if (!PetitionManager.getInstance().isPlayerInConsultation(activeChar))
-		{
+	public void handleChat(final int type, final L2PcInstance activeChar, final String target, final String text) {
+		if (!PetitionManager.getInstance().isPlayerInConsultation(activeChar)) {
 			activeChar.sendPacket(SystemMessageId.YOU_ARE_NOT_IN_PETITION_CHAT);
 			return;
 		}
@@ -40,12 +37,11 @@ public class ChatPetition implements IChatHandler
 
 	/**
 	 * Returns the chat types registered to this handler
-	 * 
+	 *
 	 * @see silentium.gameserver.handler.IChatHandler#getChatTypeList()
 	 */
 	@Override
-	public int[] getChatTypeList()
-	{
+	public int[] getChatTypeList() {
 		return COMMAND_IDS;
 	}
 }

@@ -16,63 +16,51 @@ import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.network.SystemMessageId;
 import silentium.gameserver.network.serverpackets.SystemMessage;
 
-public class Recipes implements IItemHandler
-{
+public class Recipes implements IItemHandler {
 	@Override
-	public void useItem(L2Playable playable, L2ItemInstance item, boolean forceUse)
-	{
+	public void useItem(final L2Playable playable, final L2ItemInstance item, final boolean forceUse) {
 		if (!(playable instanceof L2PcInstance))
 			return;
 
-		L2PcInstance activeChar = (L2PcInstance) playable;
-		int itemId = item.getItemId();
+		final L2PcInstance activeChar = (L2PcInstance) playable;
+		final int itemId = item.getItemId();
 
-		L2RecipeList rp = RecipeController.getInstance().getRecipeByItemId(itemId);
+		final L2RecipeList rp = RecipeController.getInstance().getRecipeByItemId(itemId);
 		if (rp == null)
 			return;
 
 		if (activeChar.hasRecipeList(rp.getId()))
 			activeChar.sendPacket(SystemMessageId.RECIPE_ALREADY_REGISTERED);
-		else
-		{
-			if (rp.isDwarvenRecipe())
-			{
-				if (activeChar.hasDwarvenCraft())
-				{
+		else {
+			if (rp.isDwarvenRecipe()) {
+				if (activeChar.hasDwarvenCraft()) {
 					if (activeChar.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_MANUFACTURE)
 						activeChar.sendPacket(SystemMessageId.CANT_ALTER_RECIPEBOOK_WHILE_CRAFTING);
 					else if (rp.getLevel() > activeChar.getDwarvenCraft())
 						activeChar.sendPacket(SystemMessageId.CREATE_LVL_TOO_LOW_TO_REGISTER);
 					else if (activeChar.getDwarvenRecipeBook().length >= activeChar.getDwarfRecipeLimit())
 						activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.UP_TO_S1_RECIPES_CAN_REGISTER).addNumber(activeChar.getDwarfRecipeLimit()));
-					else
-					{
+					else {
 						activeChar.registerDwarvenRecipeList(rp);
 						activeChar.destroyItem("Consume", item.getObjectId(), 1, null, false);
 						activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_ADDED).addItemName(itemId));
 					}
-				}
-				else
+				} else
 					activeChar.sendPacket(SystemMessageId.CANT_REGISTER_NO_ABILITY_TO_CRAFT);
-			}
-			else
-			{
-				if (activeChar.hasCommonCraft())
-				{
+			} else {
+				if (activeChar.hasCommonCraft()) {
 					if (activeChar.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_MANUFACTURE)
 						activeChar.sendPacket(SystemMessageId.CANT_ALTER_RECIPEBOOK_WHILE_CRAFTING);
 					else if (rp.getLevel() > activeChar.getCommonCraft())
 						activeChar.sendPacket(SystemMessageId.CREATE_LVL_TOO_LOW_TO_REGISTER);
 					else if (activeChar.getCommonRecipeBook().length >= activeChar.getCommonRecipeLimit())
 						activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.UP_TO_S1_RECIPES_CAN_REGISTER).addNumber(activeChar.getCommonRecipeLimit()));
-					else
-					{
+					else {
 						activeChar.registerCommonRecipeList(rp);
 						activeChar.destroyItem("Consume", item.getObjectId(), 1, null, false);
 						activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_ADDED).addItemName(itemId));
 					}
-				}
-				else
+				} else
 					activeChar.sendPacket(SystemMessageId.CANT_REGISTER_NO_ABILITY_TO_CRAFT);
 			}
 		}

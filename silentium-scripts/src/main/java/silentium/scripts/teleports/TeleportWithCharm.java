@@ -13,21 +13,18 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class TeleportWithCharm extends Quest implements ScriptFile
-{
-	private final static int WHIRPY = 30540;
-	private final static int TAMIL = 30576;
+public class TeleportWithCharm extends Quest implements ScriptFile {
+	private static final int WHIRPY = 30540;
+	private static final int TAMIL = 30576;
 
-	private final static int ORC_GATEKEEPER_CHARM = 1658;
-	private final static int DWARF_GATEKEEPER_TOKEN = 1659;
+	private static final int ORC_GATEKEEPER_CHARM = 1658;
+	private static final int DWARF_GATEKEEPER_TOKEN = 1659;
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new TeleportWithCharm(-1, "TeleportWithCharm", "teleports");
 	}
 
-	public TeleportWithCharm(int questId, String name, String descr)
-	{
+	public TeleportWithCharm(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		addStartNpc(WHIRPY, TAMIL);
@@ -35,30 +32,22 @@ public class TeleportWithCharm extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(getName());
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
+		final QuestState st = player.getQuestState(getName());
 		String htmltext = "";
 
-		int npcId = npc.getNpcId();
-		if (npcId == WHIRPY)
-		{
-			if (st.getQuestItemsCount(DWARF_GATEKEEPER_TOKEN) >= 1)
-			{
+		final int npcId = npc.getNpcId();
+		if (npcId == WHIRPY) {
+			if (st.getQuestItemsCount(DWARF_GATEKEEPER_TOKEN) >= 1) {
 				st.takeItems(DWARF_GATEKEEPER_TOKEN, 1);
 				player.teleToLocation(-80826, 149775, -3043);
-			}
-			else
+			} else
 				htmltext = "30540-01.htm";
-		}
-		else if (npcId == TAMIL)
-		{
-			if (st.getQuestItemsCount(ORC_GATEKEEPER_CHARM) >= 1)
-			{
+		} else if (npcId == TAMIL) {
+			if (st.getQuestItemsCount(ORC_GATEKEEPER_CHARM) >= 1) {
 				st.takeItems(ORC_GATEKEEPER_CHARM, 1);
 				player.teleToLocation(-80826, 149775, -3043);
-			}
-			else
+			} else
 				htmltext = "30576-01.htm";
 		}
 

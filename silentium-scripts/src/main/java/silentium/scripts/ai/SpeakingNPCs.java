@@ -19,11 +19,10 @@ import silentium.gameserver.scripting.ScriptFile;
  * It sends back the good string following the action and the npcId.<br>
  * <br>
  * <font color="red"><b><u>TODO:</b></u> Replace the system of switch by an XML, once a decent amount of NPCs is mapped.</font>
- * 
+ *
  * @author Tryskell
  */
-public class SpeakingNPCs extends DefaultMonsterAI implements ScriptFile
-{
+public class SpeakingNPCs extends DefaultMonsterAI implements ScriptFile {
 	private static final int[] NPC_IDS = { 18212, //
 			18213, //
 			18214, //
@@ -68,28 +67,24 @@ public class SpeakingNPCs extends DefaultMonsterAI implements ScriptFile
 			27247, //
 			27249 };
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new SpeakingNPCs(-1, "SpeakingNPCs", "ai");
 	}
 
-	public SpeakingNPCs(int questId, String name, String descr)
-	{
+	public SpeakingNPCs(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
-		this.registerMobs(NPC_IDS, QuestEventType.ON_ATTACK, QuestEventType.ON_KILL);
+		registerMobs(NPC_IDS, QuestEventType.ON_ATTACK, QuestEventType.ON_KILL);
 	}
 
 	@Override
-	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isPet)
-	{
+	public String onAttack(final L2Npc npc, final L2PcInstance attacker, final int damage, final boolean isPet) {
 		if (npc.hasSpoken())
 			return super.onAttack(npc, attacker, damage, isPet);
 
-		int npcId = npc.getNpcId();
+		final int npcId = npc.getNpcId();
 		String message = "";
 
-		switch (npcId)
-		{
+		switch (npcId) {
 			case 18212:
 			case 18213:
 			case 18214:
@@ -151,13 +146,11 @@ public class SpeakingNPCs extends DefaultMonsterAI implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		int npcId = npc.getNpcId();
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final int npcId = npc.getNpcId();
 		String message = "";
 
-		switch (npcId)
-		{
+		switch (npcId) {
 			case 18212:
 			case 18213:
 			case 18214:

@@ -14,9 +14,8 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q257_TheGuardIsBusy extends Quest implements ScriptFile
-{
-	private final static String qn = "Q257_TheGuardIsBusy";
+public class Q257_TheGuardIsBusy extends Quest implements ScriptFile {
+	private static final String qn = "Q257_TheGuardIsBusy";
 
 	// NPC
 	private static final int GILBERT = 30039;
@@ -31,8 +30,7 @@ public class Q257_TheGuardIsBusy extends Quest implements ScriptFile
 	private static final int SPIRITSHOT_FOR_BEGINNERS = 5790;
 	private static final int SOULSHOT_FOR_BEGINNERS = 5789;
 
-	public Q257_TheGuardIsBusy(int questId, String name, String descr)
-	{
+	public Q257_TheGuardIsBusy(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { ORC_AMULET, ORC_NECKLACE, WEREWOLF_FANG, GLUDIO_LORDS_MARK };
@@ -43,28 +41,23 @@ public class Q257_TheGuardIsBusy extends Quest implements ScriptFile
 		addKillId(20006, 20093, 20096, 20098, 20130, 20131, 20132, 20342, 20343);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q257_TheGuardIsBusy(257, "Q257_TheGuardIsBusy", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		final String htmltext = event;
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30039-03.htm"))
-		{
+		if ("30039-03.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
 			st.giveItems(GLUDIO_LORDS_MARK, 1);
-		}
-		else if (event.equalsIgnoreCase("30039-05.htm"))
-		{
+		} else if ("30039-05.htm".equalsIgnoreCase(event)) {
 			st.takeItems(GLUDIO_LORDS_MARK, 1);
 			st.exitQuest(true);
 			st.playSound(QuestState.SOUND_FINISH);
@@ -74,58 +67,50 @@ public class Q257_TheGuardIsBusy extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
 		String htmltext = Quest.getNoQuestMsg();
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (st.getPlayer().getLevel() >= 6 && st.getPlayer().getLevel() <= 16)
 					htmltext = "30039-02.htm";
-				else
-				{
+				else {
 					htmltext = "30039-01.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				int orc_a = st.getQuestItemsCount(ORC_AMULET);
-				int orc_n = st.getQuestItemsCount(ORC_NECKLACE);
-				int fang = st.getQuestItemsCount(WEREWOLF_FANG);
+				final int orc_a = st.getQuestItemsCount(ORC_AMULET);
+				final int orc_n = st.getQuestItemsCount(ORC_NECKLACE);
+				final int fang = st.getQuestItemsCount(WEREWOLF_FANG);
 
 				if (orc_a + orc_n + fang == 0)
 					htmltext = "30039-04.htm";
-				else
-				{
+				else {
 					htmltext = "30039-07.htm";
 
 					st.takeItems(ORC_AMULET, -1);
 					st.takeItems(ORC_NECKLACE, -1);
 					st.takeItems(WEREWOLF_FANG, -1);
 
-					int reward = (10 * orc_a) + 20 * (orc_n + fang);
+					int reward = 10 * orc_a + 20 * (orc_n + fang);
 					if (orc_a + orc_n + fang >= 10)
 						reward += 1000;
 
 					st.rewardItems(57, reward);
 
-					if (player.isNewbie() && st.getInt("Reward") == 0)
-					{
+					if (player.isNewbie() && st.getInt("Reward") == 0) {
 						st.showQuestionMark(26);
 						st.set("Reward", "1");
 
-						if (player.isMageClass())
-						{
+						if (player.isMageClass()) {
 							st.playTutorialVoice("tutorial_voice_027");
 							st.giveItems(SPIRITSHOT_FOR_BEGINNERS, 3000);
-						}
-						else
-						{
+						} else {
 							st.playTutorialVoice("tutorial_voice_026");
 							st.giveItems(SOULSHOT_FOR_BEGINNERS, 6000);
 						}
@@ -138,19 +123,16 @@ public class Q257_TheGuardIsBusy extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 
-		if (st.isStarted() && st.getQuestItemsCount(GLUDIO_LORDS_MARK) == 1)
-		{
+		if (st.isStarted() && st.getQuestItemsCount(GLUDIO_LORDS_MARK) == 1) {
 			int chance = 5;
 			int item = WEREWOLF_FANG;
 
-			switch (npc.getNpcId())
-			{
+			switch (npc.getNpcId()) {
 				case 20006:
 				case 20130:
 				case 20131:
@@ -172,8 +154,7 @@ public class Q257_TheGuardIsBusy extends Quest implements ScriptFile
 					break;
 			}
 
-			if (Rnd.get(10) < chance)
-			{
+			if (Rnd.get(10) < chance) {
 				st.giveItems(item, 1);
 				st.playSound(QuestState.SOUND_ITEMGET);
 			}

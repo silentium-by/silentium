@@ -14,25 +14,21 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class SearchingMaster extends DefaultMonsterAI implements ScriptFile
-{
+public class SearchingMaster extends DefaultMonsterAI implements ScriptFile {
 	private static final int[] mobs = { 20965, 20966, 20967, 20968, 20969, 20970, 20971, 20972, 20973 };
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new SearchingMaster(-1, "SearchingMaster", "ai");
 	}
 
-	public SearchingMaster(int questId, String name, String descr)
-	{
+	public SearchingMaster(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
-		for (int id : mobs)
+		for (final int id : mobs)
 			addAttackId(id);
 	}
 
 	@Override
-	public String onAttack(L2Npc npc, L2PcInstance player, int damage, boolean isPet)
-	{
+	public String onAttack(final L2Npc npc, final L2PcInstance player, final int damage, final boolean isPet) {
 		if (player == null)
 			return null;
 

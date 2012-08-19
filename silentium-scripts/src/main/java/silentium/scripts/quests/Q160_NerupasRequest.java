@@ -13,9 +13,8 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q160_NerupasRequest extends Quest implements ScriptFile
-{
-	private final static String qn = "Q160_NerupasRequest";
+public class Q160_NerupasRequest extends Quest implements ScriptFile {
+	private static final String qn = "Q160_NerupasRequest";
 
 	// Items
 	private static final int SILVERY_SPIDERSILK = 1026;
@@ -32,8 +31,7 @@ public class Q160_NerupasRequest extends Quest implements ScriptFile
 	private static final int CREAMEES = 30149;
 	private static final int JULIA = 30152;
 
-	public Q160_NerupasRequest(int questId, String name, String descr)
-	{
+	public Q160_NerupasRequest(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { SILVERY_SPIDERSILK, UNOS_RECEIPT, CELS_TICKET, NIGHTSHADE_LEAF };
@@ -42,21 +40,18 @@ public class Q160_NerupasRequest extends Quest implements ScriptFile
 		addTalkId(NERUPA, UNOREN, CREAMEES, JULIA);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q160_NerupasRequest(160, "Q160_NerupasRequest", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		final String htmltext = event;
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30370-04.htm"))
-		{
+		if ("30370-04.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
@@ -67,44 +62,35 @@ public class Q160_NerupasRequest extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
+		final QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
-				if (player.getRace().ordinal() == 1)
-				{
+				if (player.getRace().ordinal() == 1) {
 					if (player.getLevel() >= 3 && player.getLevel() <= 7)
 						htmltext = "30370-03.htm";
-					else
-					{
+					else {
 						htmltext = "30370-02.htm";
 						st.exitQuest(true);
 					}
-				}
-				else
-				{
+				} else {
 					htmltext = "30370-00.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				int cond = st.getInt("cond");
-				switch (npc.getNpcId())
-				{
+				final int cond = st.getInt("cond");
+				switch (npc.getNpcId()) {
 					case NERUPA:
 						if (cond >= 1 && cond <= 3)
 							htmltext = "30370-05.htm";
-						else if (cond == 4)
-						{
-							if (st.getQuestItemsCount(NIGHTSHADE_LEAF) == 1)
-							{
+						else if (cond == 4) {
+							if (st.getQuestItemsCount(NIGHTSHADE_LEAF) == 1) {
 								htmltext = "30370-06.htm";
 								st.playSound(QuestState.SOUND_FINISH);
 								st.takeItems(NIGHTSHADE_LEAF, 1);
@@ -116,45 +102,39 @@ public class Q160_NerupasRequest extends Quest implements ScriptFile
 						break;
 
 					case UNOREN:
-						if (cond == 1)
-						{
+						if (cond == 1) {
 							st.set("cond", "2");
 							htmltext = "30147-01.htm";
 							st.playSound(QuestState.SOUND_MIDDLE);
 							st.takeItems(SILVERY_SPIDERSILK, 1);
 							st.giveItems(UNOS_RECEIPT, 1);
-						}
-						else if (cond == 2)
+						} else if (cond == 2)
 							htmltext = "30147-02.htm";
 						else if (cond == 4)
 							htmltext = "30147-03.htm";
 						break;
 
 					case CREAMEES:
-						if (cond == 2)
-						{
+						if (cond == 2) {
 							st.set("cond", "3");
 							htmltext = "30149-01.htm";
 							st.takeItems(UNOS_RECEIPT, 1);
 							st.giveItems(CELS_TICKET, 1);
 							st.playSound(QuestState.SOUND_MIDDLE);
-						}
-						else if (cond == 3)
+						} else if (cond == 3)
 							htmltext = "30149-02.htm";
 						else if (cond == 4)
 							htmltext = "30149-03.htm";
 						break;
 
 					case JULIA:
-						if (cond == 3)
-						{
+						if (cond == 3) {
 							st.set("cond", "4");
 							htmltext = "30152-01.htm";
 							st.takeItems(CELS_TICKET, -1);
 							st.giveItems(NIGHTSHADE_LEAF, 1);
 							st.playSound(QuestState.SOUND_MIDDLE);
-						}
-						else if (cond == 4)
+						} else if (cond == 4)
 							htmltext = "30152-02.htm";
 						break;
 				}

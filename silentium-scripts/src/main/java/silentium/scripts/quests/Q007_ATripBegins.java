@@ -13,24 +13,22 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q007_ATripBegins extends Quest implements ScriptFile
-{
+public class Q007_ATripBegins extends Quest implements ScriptFile {
 	private static final String qn = "Q007_ATripBegins";
 
 	// NPCs
-	private final static int MIRABEL = 30146;
-	private final static int ARIEL = 30148;
-	private final static int ASTERIOS = 30154;
+	private static final int MIRABEL = 30146;
+	private static final int ARIEL = 30148;
+	private static final int ASTERIOS = 30154;
 
 	// Items
-	private final static int ARIEL_RECO = 7572;
+	private static final int ARIEL_RECO = 7572;
 
 	// Rewards
-	private final static int MARK_TRAVELER = 7570;
-	private final static int SCROLL_GIRAN = 7559;
+	private static final int MARK_TRAVELER = 7570;
+	private static final int SCROLL_GIRAN = 7559;
 
-	public Q007_ATripBegins(int questId, String name, String descr)
-	{
+	public Q007_ATripBegins(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { ARIEL_RECO };
@@ -39,39 +37,30 @@ public class Q007_ATripBegins extends Quest implements ScriptFile
 		addTalkId(MIRABEL, ARIEL, ASTERIOS);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q007_ATripBegins(7, "Q007_ATripBegins", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		final String htmltext = event;
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30146-03.htm"))
-		{
+		if ("30146-03.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("30148-02.htm"))
-		{
+		} else if ("30148-02.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "2");
 			st.giveItems(ARIEL_RECO, 1);
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("30154-02.htm"))
-		{
+		} else if ("30154-02.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "3");
 			st.takeItems(ARIEL_RECO, 1);
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("30146-06.htm"))
-		{
+		} else if ("30146-06.htm".equalsIgnoreCase(event)) {
 			st.giveItems(MARK_TRAVELER, 1);
 			st.rewardItems(SCROLL_GIRAN, 1);
 			st.playSound(QuestState.SOUND_FINISH);
@@ -82,34 +71,28 @@ public class Q007_ATripBegins extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
+		final QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
-				if (player.getRace().ordinal() != 1)
-				{
+				if (player.getRace().ordinal() != 1) {
 					htmltext = "30146-01.htm";
 					st.exitQuest(true);
-				}
-				else if (player.getLevel() >= 3 && player.getLevel() <= 10)
+				} else if (player.getLevel() >= 3 && player.getLevel() <= 10)
 					htmltext = "30146-02.htm";
-				else
-				{
+				else {
 					htmltext = "30146-01a.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				int cond = st.getInt("cond");
-				switch (npc.getNpcId())
-				{
+				final int cond = st.getInt("cond");
+				switch (npc.getNpcId()) {
 					case MIRABEL:
 						if (cond == 1 || cond == 2)
 							htmltext = "30146-04.htm";
@@ -125,10 +108,7 @@ public class Q007_ATripBegins extends Quest implements ScriptFile
 						break;
 
 					case ASTERIOS:
-						if (cond == 2 && st.getQuestItemsCount(ARIEL_RECO) == 1)
-							htmltext = "30154-01.htm";
-						else
-							htmltext = "30154-03.htm";
+						htmltext = cond == 2 && st.getQuestItemsCount(ARIEL_RECO) == 1 ? "30154-01.htm" : "30154-03.htm";
 						break;
 				}
 				break;

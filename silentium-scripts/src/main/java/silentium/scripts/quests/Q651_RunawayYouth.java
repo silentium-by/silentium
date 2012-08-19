@@ -15,8 +15,7 @@ import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.network.serverpackets.MagicSkillUse;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q651_RunawayYouth extends Quest implements ScriptFile
-{
+public class Q651_RunawayYouth extends Quest implements ScriptFile {
 	private static final String qn = "Q651_RunawayYouth";
 
 	// NPCs
@@ -32,8 +31,7 @@ public class Q651_RunawayYouth extends Quest implements ScriptFile
 	// Current position
 	private int _currentPosition = 0;
 
-	public Q651_RunawayYouth(int questId, String name, String descr)
-	{
+	public Q651_RunawayYouth(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		addStartNpc(IVAN);
@@ -42,23 +40,19 @@ public class Q651_RunawayYouth extends Quest implements ScriptFile
 		addSpawn(IVAN, 118600, -161235, -1119, 0, false, 0);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q651_RunawayYouth(651, "Q651_RunawayYouth", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
 		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("32014-04.htm"))
-		{
-			if (st.hasQuestItems(SOE))
-			{
+		if ("32014-04.htm".equalsIgnoreCase(event)) {
+			if (st.hasQuestItems(SOE)) {
 				st.set("cond", "1");
 				st.setState(QuestState.STARTED);
 				st.takeItems(SOE, 1);
@@ -67,12 +61,9 @@ public class Q651_RunawayYouth extends Quest implements ScriptFile
 				htmltext = "32014-03.htm";
 				npc.broadcastPacket(new MagicSkillUse(npc, npc, 2013, 1, 3500, 0));
 				startQuestTimer("apparition_npc", 4000, npc, player);
-			}
-			else
+			} else
 				st.exitQuest(true);
-		}
-		else if (event.equalsIgnoreCase("apparition_npc"))
-		{
+		} else if ("apparition_npc".equalsIgnoreCase(event)) {
 			int chance = Rnd.get(3);
 
 			// Loop to avoid to spawn to the same place.
@@ -91,28 +82,24 @@ public class Q651_RunawayYouth extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
+		final QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 26)
 					htmltext = "32014-02.htm";
-				else
-				{
+				else {
 					htmltext = "32014-01.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				switch (npc.getNpcId())
-				{
+				switch (npc.getNpcId()) {
 					case BATIDAE:
 						htmltext = "31989-01.htm";
 						st.rewardItems(57, 2883);

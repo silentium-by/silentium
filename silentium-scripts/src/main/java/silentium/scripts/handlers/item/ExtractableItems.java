@@ -7,11 +7,8 @@
  */
 package silentium.scripts.handlers.item;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import silentium.commons.utils.Rnd;
 import silentium.gameserver.handler.IItemHandler;
 import silentium.gameserver.model.L2ExtractableProduct;
@@ -22,26 +19,25 @@ import silentium.gameserver.network.SystemMessageId;
 import silentium.gameserver.tables.ItemTable;
 import silentium.gameserver.templates.item.L2EtcItem;
 
+import java.util.List;
+
 /**
  * @author FBIagent 11/12/2006
  */
-public class ExtractableItems implements IItemHandler
-{
-	private static Logger _log = LoggerFactory.getLogger(ItemTable.class.getName());
+public class ExtractableItems implements IItemHandler {
+	private static final Logger _log = LoggerFactory.getLogger(ItemTable.class.getName());
 
 	@Override
-	public void useItem(L2Playable playable, L2ItemInstance item, boolean forceUse)
-	{
+	public void useItem(final L2Playable playable, final L2ItemInstance item, final boolean forceUse) {
 		if (!(playable instanceof L2PcInstance))
 			return;
 
-		L2PcInstance activeChar = (L2PcInstance) playable;
+		final L2PcInstance activeChar = (L2PcInstance) playable;
 
-		L2EtcItem etcitem = (L2EtcItem) item.getItem();
-		List<L2ExtractableProduct> exitem = etcitem.getExtractableItems();
+		final L2EtcItem etcitem = (L2EtcItem) item.getItem();
+		final List<L2ExtractableProduct> exitem = etcitem.getExtractableItems();
 
-		if (exitem == null)
-		{
+		if (exitem == null) {
 			_log.info("No extractable data defined for " + etcitem);
 			return;
 		}
@@ -53,19 +49,14 @@ public class ExtractableItems implements IItemHandler
 		boolean created = false;
 
 		// calculate extraction
-		for (L2ExtractableProduct expi : exitem)
-		{
-			if (Rnd.get(100000) <= expi.getChance())
-			{
-				int min = expi.getMin();
-				int max = expi.getMax();
-				int createItemID = expi.getId();
+		for (final L2ExtractableProduct expi : exitem) {
+			if (Rnd.get(100000) <= expi.getChance()) {
+				final int min = expi.getMin();
+				final int max = expi.getMax();
+				final int createItemID = expi.getId();
 
 				int createitemAmount = 0;
-				if (max == min)
-					createitemAmount = min;
-				else
-					createitemAmount = Rnd.get(max - min + 1) + min;
+				createitemAmount = max == min ? min : Rnd.get(max - min + 1) + min;
 
 				activeChar.addItem("Extract", createItemID, createitemAmount, activeChar, true);
 				created = true;

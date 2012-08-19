@@ -19,36 +19,30 @@ import silentium.gameserver.network.serverpackets.ActionFailed;
 import silentium.gameserver.templates.item.L2Weapon;
 import silentium.gameserver.templates.skills.L2SkillType;
 
-public class FishingSkill implements ISkillHandler
-{
+public class FishingSkill implements ISkillHandler {
 	private static final L2SkillType[] SKILL_IDS = { L2SkillType.PUMPING, L2SkillType.REELING };
 
 	@Override
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
-	{
-		if (activeChar == null || !(activeChar instanceof L2PcInstance))
+	public void useSkill(final L2Character activeChar, final L2Skill skill, final L2Object... targets) {
+		if (!(activeChar instanceof L2PcInstance))
 			return;
 
-		L2PcInstance player = (L2PcInstance) activeChar;
+		final L2PcInstance player = (L2PcInstance) activeChar;
 
-		L2Fishing fish = player.getFishCombat();
-		if (fish == null)
-		{
-			if (skill.getSkillType() == L2SkillType.PUMPING)
-			{
+		final L2Fishing fish = player.getFishCombat();
+		if (fish == null) {
+			if (skill.getSkillType() == L2SkillType.PUMPING) {
 				// Pumping skill is available only while fishing
 				player.sendPacket(SystemMessageId.CAN_USE_PUMPING_ONLY_WHILE_FISHING);
-			}
-			else if (skill.getSkillType() == L2SkillType.REELING)
-			{
+			} else if (skill.getSkillType() == L2SkillType.REELING) {
 				// Reeling skill is available only while fishing
 				player.sendPacket(SystemMessageId.CAN_USE_REELING_ONLY_WHILE_FISHING);
 			}
 			player.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
-		L2Weapon weaponItem = player.getActiveWeaponItem();
-		L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
+		final L2Weapon weaponItem = player.getActiveWeaponItem();
+		final L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
 
 		if (weaponInst == null || weaponItem == null)
 			return;
@@ -57,7 +51,7 @@ public class FishingSkill implements ISkillHandler
 		int pen = 0;
 		if (weaponInst.getChargedFishshot())
 			SS = 2;
-		double gradebonus = 1 + weaponItem.getCrystalType() * 0.1;
+		final double gradebonus = 1 + weaponItem.getCrystalType() * 0.1;
 		int dmg = (int) (skill.getPower() * gradebonus * SS);
 
 		if (player.getSkillLevel(1315) <= skill.getLevel() - 2) // 1315 - Fish Expertise
@@ -65,7 +59,7 @@ public class FishingSkill implements ISkillHandler
 			// Penalty
 			player.sendPacket(SystemMessageId.REELING_PUMPING_3_LEVELS_HIGHER_THAN_FISHING_PENALTY);
 			pen = 50;
-			int penatlydmg = dmg - pen;
+			final int penatlydmg = dmg - pen;
 			dmg = penatlydmg;
 		}
 
@@ -80,8 +74,7 @@ public class FishingSkill implements ISkillHandler
 	}
 
 	@Override
-	public L2SkillType[] getSkillIds()
-	{
+	public L2SkillType[] getSkillIds() {
 		return SKILL_IDS;
 	}
 }

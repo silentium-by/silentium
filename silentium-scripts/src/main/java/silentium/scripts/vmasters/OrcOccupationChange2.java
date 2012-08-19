@@ -9,33 +9,26 @@ package silentium.scripts.vmasters;
 
 import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
-import silentium.gameserver.scripting.ScriptFile;
 
-public class OrcOccupationChange2 extends OccupationEngine implements ScriptFile
-{
-	public OrcOccupationChange2(int id, String name, String descr)
-	{
+public class OrcOccupationChange2 extends OccupationEngine {
+	public OrcOccupationChange2(final int id, final String name, final String descr) {
 		super(id, name, descr);
 
-		for (int npc : new int[] { 30513, 30681, 30704, 30865, 30913, 31288, 31326, 31977 })
-		{
+		for (final int npc : new int[] { 30513, 30681, 30704, 30865, 30913, 31288, 31326, 31977 }) {
 			addStartNpc(npc);
 			addTalkId(npc);
 		}
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new OrcOccupationChange2(-1, "OrcOccupationChange2", "vmasters");
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
 		if (player.isSubClassActive())
 			return null;
-		if (player.getRace().ordinal() == 3)
-		{
+		if (player.getRace().ordinal() == 3) {
 			if (player.getClassId().getId() == 47)
 				return "30513-01.htm";
 			else if (player.getClassId().getId() == 45)
@@ -46,8 +39,7 @@ public class OrcOccupationChange2 extends OccupationEngine implements ScriptFile
 				return "30513-33.htm";
 			else if (player.getClassId().level() >= 2)
 				return "30513-32.htm";
-		}
-		else
+		} else
 			return "30513-34.htm";
 		return null;
 	}

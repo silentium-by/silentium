@@ -13,21 +13,19 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q261_CollectorsDream extends Quest implements ScriptFile
-{
+public class Q261_CollectorsDream extends Quest implements ScriptFile {
 	private static final String qn = "Q261_CollectorsDream";
 
 	// NPC
-	private final static int ALSHUPES = 30222;
+	private static final int ALSHUPES = 30222;
 
 	// Items
-	private final static int GIANT_SPIDER_LEG = 1087;
+	private static final int GIANT_SPIDER_LEG = 1087;
 
 	// Reward
-	private final static int ADENA = 57;
+	private static final int ADENA = 57;
 
-	public Q261_CollectorsDream(int questId, String name, String descr)
-	{
+	public Q261_CollectorsDream(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { GIANT_SPIDER_LEG };
@@ -38,21 +36,18 @@ public class Q261_CollectorsDream extends Quest implements ScriptFile
 		addKillId(20308, 20460, 20466);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q261_CollectorsDream(261, "Q261_CollectorsDream", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		final String htmltext = event;
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30222-03.htm"))
-		{
+		if ("30222-03.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
@@ -62,36 +57,31 @@ public class Q261_CollectorsDream extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
+		final QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 15 && player.getLevel() <= 21)
 					htmltext = "30222-02.htm";
-				else
-				{
+				else {
 					htmltext = "30222-01.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				if (st.getInt("cond") == 2)
-				{
+				if (st.getInt("cond") == 2) {
 					htmltext = "30222-05.htm";
 					st.takeItems(GIANT_SPIDER_LEG, -1);
 					st.rewardItems(ADENA, 1000);
 					st.addExpAndSp(2000, 0);
 					st.exitQuest(true);
 					st.playSound(QuestState.SOUND_FINISH);
-				}
-				else
+				} else
 					htmltext = "30222-04.htm";
 				break;
 
@@ -104,9 +94,8 @@ public class Q261_CollectorsDream extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 

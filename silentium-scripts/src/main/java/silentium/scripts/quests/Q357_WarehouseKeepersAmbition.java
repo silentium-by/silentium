@@ -14,9 +14,8 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q357_WarehouseKeepersAmbition extends Quest implements ScriptFile
-{
-	private final static String qn = "Q357_WarehouseKeepersAmbition";
+public class Q357_WarehouseKeepersAmbition extends Quest implements ScriptFile {
+	private static final String qn = "Q357_WarehouseKeepersAmbition";
 
 	// NPC
 	private static final int SILVA = 30686;
@@ -28,8 +27,7 @@ public class Q357_WarehouseKeepersAmbition extends Quest implements ScriptFile
 	private static final int REWARD1 = 900;
 	private static final int REWARD2 = 10000;
 
-	public Q357_WarehouseKeepersAmbition(int questId, String name, String descr)
-	{
+	public Q357_WarehouseKeepersAmbition(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { JADE_CRYSTAL };
@@ -40,45 +38,34 @@ public class Q357_WarehouseKeepersAmbition extends Quest implements ScriptFile
 		addKillId(20594, 20595, 20596, 20597);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q357_WarehouseKeepersAmbition(357, "Q357_WarehouseKeepersAmbition", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
 		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30686-2.htm"))
-		{
+		if ("30686-2.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
 		}
 		// If number of qItems are >= 100, give the extra reward, else, give the normal reward.
-		else if (event.equalsIgnoreCase("30686-7.htm"))
-		{
-			int count = st.getQuestItemsCount(JADE_CRYSTAL);
-			if (count >= 1)
-			{
-				int reward;
-				if (count >= 100)
-					reward = (st.getQuestItemsCount(JADE_CRYSTAL) * REWARD1) + REWARD2;
-				else
-					reward = st.getQuestItemsCount(JADE_CRYSTAL) * REWARD1;
+		else if ("30686-7.htm".equalsIgnoreCase(event)) {
+			final int count = st.getQuestItemsCount(JADE_CRYSTAL);
+			if (count >= 1) {
+				final int reward;
+				reward = count >= 100 ? st.getQuestItemsCount(JADE_CRYSTAL) * REWARD1 + REWARD2 : st.getQuestItemsCount(JADE_CRYSTAL) * REWARD1;
 
 				st.takeItems(JADE_CRYSTAL, -1);
 				st.rewardItems(57, reward);
-			}
-			else
+			} else
 				htmltext = "30686-4.htm";
-		}
-		else if (event.equalsIgnoreCase("30686-8.htm"))
-		{
+		} else if ("30686-8.htm".equalsIgnoreCase(event)) {
 			st.playSound(QuestState.SOUND_FINISH);
 			st.exitQuest(true);
 		}
@@ -86,20 +73,17 @@ public class Q357_WarehouseKeepersAmbition extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
+		final QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 47 && player.getLevel() <= 57)
 					htmltext = "30686-0.htm";
-				else
-				{
+				else {
 					htmltext = "30686-0a.htm";
 					st.exitQuest(true);
 				}
@@ -116,16 +100,14 @@ public class Q357_WarehouseKeepersAmbition extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		L2PcInstance partyMember = getRandomPartyMemberState(player, npc, QuestState.STARTED);
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final L2PcInstance partyMember = getRandomPartyMemberState(player, npc, QuestState.STARTED);
 		if (partyMember == null)
 			return null;
 
-		QuestState st = partyMember.getQuestState(qn);
+		final QuestState st = partyMember.getQuestState(qn);
 
-		if (Rnd.get(100) < 50)
-		{
+		if (Rnd.get(100) < 50) {
 			st.giveItems(JADE_CRYSTAL, 1);
 			st.playSound(QuestState.SOUND_ITEMGET);
 		}

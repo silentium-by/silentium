@@ -9,7 +9,6 @@ package silentium.scripts.handlers.skill;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import silentium.gameserver.handler.ISkillHandler;
 import silentium.gameserver.model.L2Object;
 import silentium.gameserver.model.L2Skill;
@@ -20,18 +19,16 @@ import silentium.gameserver.templates.skills.L2SkillType;
 /**
  * @author _drunk_
  */
-public class DrainSoul implements ISkillHandler
-{
-	private static Logger _log = LoggerFactory.getLogger(DrainSoul.class.getName());
+public class DrainSoul implements ISkillHandler {
+	private static final Logger _log = LoggerFactory.getLogger(DrainSoul.class.getName());
 	private static final L2SkillType[] SKILL_IDS = { L2SkillType.DRAIN_SOUL };
 
 	@Override
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
-	{
+	public void useSkill(final L2Character activeChar, final L2Skill skill, final L2Object... targets) {
 		if (!(activeChar instanceof L2PcInstance))
 			return;
 
-		L2Object[] targetList = skill.getTargetList(activeChar);
+		final L2Object[] targetList = skill.getTargetList(activeChar);
 
 		if (targetList == null)
 			return;
@@ -40,8 +37,7 @@ public class DrainSoul implements ISkillHandler
 	}
 
 	@Override
-	public L2SkillType[] getSkillIds()
-	{
+	public L2SkillType[] getSkillIds() {
 		return SKILL_IDS;
 	}
 }

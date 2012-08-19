@@ -14,8 +14,7 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q355_FamilyHonor extends Quest implements ScriptFile
-{
+public class Q355_FamilyHonor extends Quest implements ScriptFile {
 	private static final String qn = "Q355_FamilyHonor";
 
 	// NPCs
@@ -30,8 +29,7 @@ public class Q355_FamilyHonor extends Quest implements ScriptFile
 	private static final int STATUE_REPLICA = 4353;
 	private static final int STATUE_FORGERY = 4354;
 
-	public Q355_FamilyHonor(int questId, String name, String descr)
-	{
+	public Q355_FamilyHonor(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { GALIBREDO_BUST };
@@ -42,35 +40,28 @@ public class Q355_FamilyHonor extends Quest implements ScriptFile
 		addKillId(20767, 20768, 20769, 20770);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q355_FamilyHonor(355, "Q355_FamilyHonor", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
 		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30181-2.htm"))
-		{
+		if ("30181-2.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("30181-4b.htm"))
-		{
-			int count = st.getQuestItemsCount(GALIBREDO_BUST);
-			if (count > 0)
-			{
+		} else if ("30181-4b.htm".equalsIgnoreCase(event)) {
+			final int count = st.getQuestItemsCount(GALIBREDO_BUST);
+			if (count > 0) {
 				htmltext = "30181-4.htm";
 
 				int reward = 2800 + count * 120;
-				if (count >= 100)
-				{
+				if (count >= 100) {
 					htmltext = "30181-4a.htm";
 					reward += 5000;
 				}
@@ -78,45 +69,31 @@ public class Q355_FamilyHonor extends Quest implements ScriptFile
 				st.takeItems(GALIBREDO_BUST, count);
 				st.rewardItems(57, reward);
 			}
-		}
-		else if (event.equalsIgnoreCase("30929-7.htm"))
-		{
-			if (st.getQuestItemsCount(WORK_OF_BERONA) > 0)
-			{
-				int appraising = Rnd.get(100);
-				if (appraising <= 20)
-				{
+		} else if ("30929-7.htm".equalsIgnoreCase(event)) {
+			if (st.getQuestItemsCount(WORK_OF_BERONA) > 0) {
+				final int appraising = Rnd.get(100);
+				if (appraising <= 20) {
 					htmltext = "30929-2.htm";
 					st.takeItems(WORK_OF_BERONA, 1);
-				}
-				else if (appraising <= 40 && appraising >= 20)
-				{
+				} else if (appraising <= 40 && appraising >= 20) {
 					htmltext = "30929-3.htm";
 					st.takeItems(WORK_OF_BERONA, 1);
 					st.giveItems(STATUE_REPLICA, 1);
-				}
-				else if (appraising <= 60 && appraising >= 40)
-				{
+				} else if (appraising <= 60 && appraising >= 40) {
 					htmltext = "30929-4.htm";
 					st.takeItems(WORK_OF_BERONA, 1);
 					st.giveItems(STATUE_ORIGINAL, 1);
-				}
-				else if (appraising <= 80 && appraising >= 60)
-				{
+				} else if (appraising <= 80 && appraising >= 60) {
 					htmltext = "30929-5.htm";
 					st.takeItems(WORK_OF_BERONA, 1);
 					st.giveItems(STATUE_FORGERY, 1);
-				}
-				else if (appraising <= 100 && appraising >= 80)
-				{
+				} else if (appraising <= 100 && appraising >= 80) {
 					htmltext = "30929-6.htm";
 					st.takeItems(WORK_OF_BERONA, 1);
 					st.giveItems(STATUE_PROTOTYPE, 1);
 				}
 			}
-		}
-		else if (event.equalsIgnoreCase("30181-6.htm"))
-		{
+		} else if ("30181-6.htm".equalsIgnoreCase(event)) {
 			st.playSound(QuestState.SOUND_FINISH);
 			st.exitQuest(true);
 		}
@@ -125,33 +102,26 @@ public class Q355_FamilyHonor extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
+		final QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 36 && player.getLevel() <= 49)
 					htmltext = "30181-0.htm";
-				else
-				{
+				else {
 					htmltext = "30181-0a.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				switch (npc.getNpcId())
-				{
+				switch (npc.getNpcId()) {
 					case GALIBREDO:
-						if (st.getQuestItemsCount(GALIBREDO_BUST) > 0)
-							htmltext = "30181-3a.htm";
-						else
-							htmltext = "30181-3.htm";
+						htmltext = st.getQuestItemsCount(GALIBREDO_BUST) > 0 ? "30181-3a.htm" : "30181-3.htm";
 						break;
 
 					case PATRIN:
@@ -165,17 +135,15 @@ public class Q355_FamilyHonor extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		L2PcInstance partyMember = getRandomPartyMemberState(player, npc, QuestState.STARTED);
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final L2PcInstance partyMember = getRandomPartyMemberState(player, npc, QuestState.STARTED);
 		if (partyMember == null)
 			return null;
 
-		QuestState st = partyMember.getQuestState(qn);
+		final QuestState st = partyMember.getQuestState(qn);
 
-		int chance = Rnd.get(100);
-		if (chance < 40)
-		{
+		final int chance = Rnd.get(100);
+		if (chance < 40) {
 			st.giveItems(GALIBREDO_BUST, 1);
 			if (chance < 20)
 				st.giveItems(WORK_OF_BERONA, 1);

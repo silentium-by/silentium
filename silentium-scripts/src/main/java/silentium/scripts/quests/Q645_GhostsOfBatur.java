@@ -7,9 +7,6 @@
  */
 package silentium.scripts.quests;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import silentium.commons.utils.Rnd;
 import silentium.gameserver.configs.MainConfig;
 import silentium.gameserver.model.actor.L2Npc;
@@ -18,8 +15,10 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q645_GhostsOfBatur extends Quest implements ScriptFile
-{
+import java.util.HashMap;
+import java.util.Map;
+
+public class Q645_GhostsOfBatur extends Quest implements ScriptFile {
 	private static final String qn = "Q645_GhostsOfBatur";
 
 	// NPC
@@ -31,7 +30,7 @@ public class Q645_GhostsOfBatur extends Quest implements ScriptFile
 	// Rewards
 	private static final Map<String, int[]> Rewards = new HashMap<>();
 
-	{
+	static {
 		Rewards.put("BDH", new int[] { 1878, 18 });
 		Rewards.put("CKS", new int[] { 1879, 7 });
 		Rewards.put("STL", new int[] { 1880, 4 });
@@ -40,8 +39,7 @@ public class Q645_GhostsOfBatur extends Quest implements ScriptFile
 		Rewards.put("STM", new int[] { 1883, 2 });
 	}
 
-	public Q645_GhostsOfBatur(int questId, String name, String descr)
-	{
+	public Q645_GhostsOfBatur(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		addStartNpc(KARUDA);
@@ -50,44 +48,34 @@ public class Q645_GhostsOfBatur extends Quest implements ScriptFile
 		addKillId(22007, 22009, 22010, 22011, 22012, 22013, 22014, 22015, 22016);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q645_GhostsOfBatur(645, "Q645_GhostsOfBatur", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
 		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("32017-03.htm"))
-		{
-			if (player.getLevel() >= 23 && player.getLevel() <= 36)
-			{
+		if ("32017-03.htm".equalsIgnoreCase(event)) {
+			if (player.getLevel() >= 23 && player.getLevel() <= 36) {
 				st.set("cond", "1");
 				st.setState(QuestState.STARTED);
 				st.playSound(QuestState.SOUND_ACCEPT);
-			}
-			else
-			{
+			} else {
 				htmltext = "32017-02.htm";
 				st.exitQuest(true);
 			}
-		}
-		else if (Rewards.containsKey(event))
-		{
-			if (st.getQuestItemsCount(GRAVE_GOODS) == 180)
-			{
+		} else if (Rewards.containsKey(event)) {
+			if (st.getQuestItemsCount(GRAVE_GOODS) == 180) {
 				htmltext = "32017-07.htm";
 				st.takeItems(GRAVE_GOODS, -1);
 				st.giveItems(Rewards.get(event)[0], Rewards.get(event)[1]);
 				st.playSound(QuestState.SOUND_FINISH);
 				st.exitQuest(true);
-			}
-			else
+			} else
 				htmltext = "32017-04.htm";
 		}
 
@@ -95,29 +83,23 @@ public class Q645_GhostsOfBatur extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
 		String htmltext = Quest.getNoQuestMsg();
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				htmltext = "32017-01.htm";
 				break;
 
 			case QuestState.STARTED:
-				int cond = st.getInt("cond");
+				final int cond = st.getInt("cond");
 				if (cond == 1)
 					htmltext = "32017-04.htm";
-				else if (cond == 2)
-				{
-					if (st.getQuestItemsCount(GRAVE_GOODS) == 180)
-						htmltext = "32017-05.htm";
-					else
-						htmltext = "32017-01.htm";
+				else if (cond == 2) {
+					htmltext = st.getQuestItemsCount(GRAVE_GOODS) == 180 ? "32017-05.htm" : "32017-01.htm";
 				}
 				break;
 		}
@@ -126,33 +108,28 @@ public class Q645_GhostsOfBatur extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		L2PcInstance partyMember = getRandomPartyMember(player, npc, "1");
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final L2PcInstance partyMember = getRandomPartyMember(player, npc, "1");
 		if (partyMember == null)
 			return null;
 
-		QuestState st = partyMember.getQuestState(qn);
-		int count = st.getQuestItemsCount(GRAVE_GOODS);
+		final QuestState st = partyMember.getQuestState(qn);
+		final int count = st.getQuestItemsCount(GRAVE_GOODS);
 
-		if (count < 180)
-		{
+		if (count < 180) {
 			int chance = (int) (75 * MainConfig.RATE_QUEST_DROP);
 			int numItems = chance / 100;
-			chance = chance % 100;
+			chance %= 100;
 
 			if (Rnd.get(100) < chance)
 				numItems++;
 
-			if (numItems > 0)
-			{
-				if (count + numItems >= 180)
-				{
+			if (numItems > 0) {
+				if (count + numItems >= 180) {
 					numItems = 180 - count;
 					st.playSound(QuestState.SOUND_MIDDLE);
 					st.set("cond", "2");
-				}
-				else
+				} else
 					st.playSound(QuestState.SOUND_ITEMGET);
 
 				st.giveItems(GRAVE_GOODS, numItems);

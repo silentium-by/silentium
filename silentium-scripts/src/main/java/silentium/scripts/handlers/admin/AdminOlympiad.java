@@ -9,55 +9,36 @@ package silentium.scripts.handlers.admin;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import silentium.gameserver.handler.IAdminCommandHandler;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.olympiad.Olympiad;
 
-public class AdminOlympiad implements IAdminCommandHandler
-{
-	private static Logger _log = LoggerFactory.getLogger(AdminOlympiad.class.getName());
+public class AdminOlympiad implements IAdminCommandHandler {
+	private static final Logger _log = LoggerFactory.getLogger(AdminOlympiad.class.getName());
 	private static final String[] ADMIN_COMMANDS = { "admin_endoly", "admin_manualhero", "admin_saveoly", "admin_sethero", "admin_setnoble" };
 
 	@Override
-	public boolean useAdminCommand(String command, L2PcInstance activeChar)
-	{
-		if (command.startsWith("admin_endoly"))
-		{
-			try
-			{
+	public boolean useAdminCommand(final String command, final L2PcInstance activeChar) {
+		if (command.startsWith("admin_endoly")) {
+			try {
 				Olympiad.getInstance().manualSelectHeroes();
-			}
-			catch (Exception e)
-			{
+			} catch (Exception e) {
 				_log.warn("An error occured while ending olympiad: " + e);
 			}
 			activeChar.sendMessage("Heroes have been formed.");
-		}
-		else if (command.startsWith("admin_manualhero") || command.startsWith("admin_sethero"))
-		{
+		} else if (command.startsWith("admin_manualhero") || command.startsWith("admin_sethero")) {
 			L2PcInstance target = null;
-			if (activeChar.getTarget() instanceof L2PcInstance)
-				target = (L2PcInstance) activeChar.getTarget();
-			else
-				target = activeChar;
+			target = activeChar.getTarget() instanceof L2PcInstance ? (L2PcInstance) activeChar.getTarget() : activeChar;
 
 			target.setHero(!target.isHero());
 			target.broadcastUserInfo();
 			activeChar.sendMessage("You have modified " + target.getName() + "'s hero status.");
-		}
-		else if (command.startsWith("admin_saveoly"))
-		{
+		} else if (command.startsWith("admin_saveoly")) {
 			Olympiad.getInstance().saveOlympiadStatus();
 			activeChar.sendMessage("Olympiad stats have been saved.");
-		}
-		else if (command.startsWith("admin_setnoble"))
-		{
+		} else if (command.startsWith("admin_setnoble")) {
 			L2PcInstance target = null;
-			if (activeChar.getTarget() instanceof L2PcInstance)
-				target = (L2PcInstance) activeChar.getTarget();
-			else
-				target = activeChar;
+			target = activeChar.getTarget() instanceof L2PcInstance ? (L2PcInstance) activeChar.getTarget() : activeChar;
 
 			target.setNoble(!target.isNoble(), true);
 			activeChar.sendMessage("You have modified " + target.getName() + "'s noble status.");
@@ -66,8 +47,7 @@ public class AdminOlympiad implements IAdminCommandHandler
 	}
 
 	@Override
-	public String[] getAdminCommandList()
-	{
+	public String[] getAdminCommandList() {
 		return ADMIN_COMMANDS;
 	}
 }

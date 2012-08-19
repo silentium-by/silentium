@@ -13,8 +13,7 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q347_GoGetTheCalculator extends Quest implements ScriptFile
-{
+public class Q347_GoGetTheCalculator extends Quest implements ScriptFile {
 	private static final String qn = "Q347_GoGetTheCalculator";
 
 	// NPCs
@@ -28,8 +27,7 @@ public class Q347_GoGetTheCalculator extends Quest implements ScriptFile
 	private static final int CALCULATOR_Q = 4285;
 	private static final int CALCULATOR_REAL = 4393;
 
-	public Q347_GoGetTheCalculator(int questId, String name, String descr)
-	{
+	public Q347_GoGetTheCalculator(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { 4286 };
@@ -40,29 +38,23 @@ public class Q347_GoGetTheCalculator extends Quest implements ScriptFile
 		addKillId(20540);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q347_GoGetTheCalculator(347, "Q347_GoGetTheCalculator", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
 		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30526-05.htm"))
-		{
+		if ("30526-05.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("30533-03.htm"))
-		{
-			if (st.getQuestItemsCount(57) >= 100)
-			{
+		} else if ("30533-03.htm".equalsIgnoreCase(event)) {
+			if (st.getQuestItemsCount(57) >= 100) {
 				htmltext = "30533-02.htm";
 				st.takeItems(57, 100);
 
@@ -73,25 +65,19 @@ public class Q347_GoGetTheCalculator extends Quest implements ScriptFile
 
 				st.playSound(QuestState.SOUND_MIDDLE);
 			}
-		}
-		else if (event.equalsIgnoreCase("30532-02.htm"))
-		{
+		} else if ("30532-02.htm".equalsIgnoreCase(event)) {
 			if (st.getInt("cond") == 2)
 				st.set("cond", "4");
 			else
 				st.set("cond", "3");
 
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("30526-08.htm"))
-		{
+		} else if ("30526-08.htm".equalsIgnoreCase(event)) {
 			st.takeItems(CALCULATOR_Q, -1);
 			st.giveItems(CALCULATOR_REAL, 1);
 			st.playSound(QuestState.SOUND_FINISH);
 			st.exitQuest(true);
-		}
-		else if (event.equalsIgnoreCase("30526-09.htm"))
-		{
+		} else if ("30526-09.htm".equalsIgnoreCase(event)) {
 			st.takeItems(CALCULATOR_Q, -1);
 			st.rewardItems(57, 1000);
 			st.playSound(QuestState.SOUND_FINISH);
@@ -102,31 +88,22 @@ public class Q347_GoGetTheCalculator extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
+		final QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
-				if (player.getLevel() >= 12)
-					htmltext = "30526-01.htm";
-				else
-					htmltext = "30526-00.htm";
+				htmltext = player.getLevel() >= 12 ? "30526-01.htm" : "30526-00.htm";
 				break;
 
 			case QuestState.STARTED:
-				int cond = st.getInt("cond");
-				switch (npc.getNpcId())
-				{
+				final int cond = st.getInt("cond");
+				switch (npc.getNpcId()) {
 					case BRUNON:
-						if (st.getQuestItemsCount(CALCULATOR_Q) == 0)
-							htmltext = "30526-06.htm";
-						else
-							htmltext = "30526-07.htm";
+						htmltext = st.getQuestItemsCount(CALCULATOR_Q) == 0 ? "30526-06.htm" : "30526-07.htm";
 						break;
 
 					case SPIRON:
@@ -146,26 +123,20 @@ public class Q347_GoGetTheCalculator extends Quest implements ScriptFile
 					case SILVERA:
 						if (cond < 4)
 							htmltext = "30527-00.htm";
-						else if (cond == 4)
-						{
+						else if (cond == 4) {
 							htmltext = "30527-01.htm";
 							st.set("cond", "5");
 							st.playSound(QuestState.SOUND_MIDDLE);
-						}
-						else if (cond == 5)
-						{
-							if (st.getQuestItemsCount(GEMSTONE_BEAST_CRYSTAL) >= 10)
-							{
+						} else if (cond == 5) {
+							if (st.getQuestItemsCount(GEMSTONE_BEAST_CRYSTAL) >= 10) {
 								htmltext = "30527-03.htm";
 								st.set("cond", "6");
 								st.takeItems(GEMSTONE_BEAST_CRYSTAL, -1);
 								st.giveItems(CALCULATOR_Q, 1);
 								st.playSound(QuestState.SOUND_MIDDLE);
-							}
-							else
+							} else
 								htmltext = "30527-02.htm";
-						}
-						else if (cond == 6)
+						} else if (cond == 6)
 							htmltext = "30527-04.htm";
 						break;
 				}
@@ -176,9 +147,8 @@ public class Q347_GoGetTheCalculator extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 

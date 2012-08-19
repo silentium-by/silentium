@@ -23,13 +23,11 @@ import silentium.gameserver.tables.GmListTable;
  * - gmchat_menu : same as gmchat, but displays the admin panel after chat<br>
  * - snoop : spy the targeted player
  */
-public class AdminGmChat implements IAdminCommandHandler
-{
+public class AdminGmChat implements IAdminCommandHandler {
 	private static final String[] ADMIN_COMMANDS = { "admin_gmchat", "admin_gmchat_menu", "admin_snoop" };
 
 	@Override
-	public boolean useAdminCommand(String command, L2PcInstance activeChar)
-	{
+	public boolean useAdminCommand(final String command, final L2PcInstance activeChar) {
 		if (command.startsWith("admin_gmchat"))
 			handleGmChat(command, activeChar);
 		else if (command.startsWith("admin_snoop"))
@@ -45,8 +43,7 @@ public class AdminGmChat implements IAdminCommandHandler
 	 * @param command
 	 * @param activeChar
 	 */
-	private static void snoop(String command, L2PcInstance activeChar)
-	{
+	private static void snoop(final String command, final L2PcInstance activeChar) {
 		L2Object target = null;
 		if (command.length() > 12)
 			target = L2World.getInstance().getPlayer(command.substring(12));
@@ -54,19 +51,17 @@ public class AdminGmChat implements IAdminCommandHandler
 		if (target == null)
 			target = activeChar.getTarget();
 
-		if (target == null)
-		{
+		if (target == null) {
 			activeChar.sendPacket(SystemMessageId.SELECT_TARGET);
 			return;
 		}
 
-		if (!(target instanceof L2PcInstance))
-		{
+		if (!(target instanceof L2PcInstance)) {
 			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 			return;
 		}
 
-		L2PcInstance player = (L2PcInstance) target;
+		final L2PcInstance player = (L2PcInstance) target;
 		player.addSnooper(activeChar);
 		activeChar.addSnooped(player);
 	}
@@ -75,31 +70,23 @@ public class AdminGmChat implements IAdminCommandHandler
 	 * @param command
 	 * @param activeChar
 	 */
-	private static void handleGmChat(String command, L2PcInstance activeChar)
-	{
-		try
-		{
+	private static void handleGmChat(final String command, final L2PcInstance activeChar) {
+		try {
 			int offset = 0;
-			String text;
+			final String text;
 
-			if (command.startsWith("admin_gmchat_menu"))
-				offset = 18;
-			else
-				offset = 13;
+			offset = command.startsWith("admin_gmchat_menu") ? 18 : 13;
 
 			text = command.substring(offset);
-			CreatureSay cs = new CreatureSay(0, Say2.ALLIANCE, activeChar.getName(), text);
+			final CreatureSay cs = new CreatureSay(0, Say2.ALLIANCE, activeChar.getName(), text);
 			GmListTable.broadcastToGMs(cs);
-		}
-		catch (StringIndexOutOfBoundsException e)
-		{
+		} catch (StringIndexOutOfBoundsException e) {
 			// empty message.. ignore
 		}
 	}
 
 	@Override
-	public String[] getAdminCommandList()
-	{
+	public String[] getAdminCommandList() {
 		return ADMIN_COMMANDS;
 	}
 }

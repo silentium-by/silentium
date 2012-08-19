@@ -28,8 +28,7 @@ import silentium.gameserver.utils.Util;
  * <li>Pterosaurs and Tyrannosaurus : can see through Silent Move.</li>
  * </ul>
  */
-public class PrimevalIsle extends DefaultMonsterAI implements ScriptFile
-{
+public class PrimevalIsle extends DefaultMonsterAI implements ScriptFile {
 	private static final int[] _sprigants = { 18345, 18346 };
 
 	private static final int[] MOBIDS = { 22199, 22215, 22216, 22217 };
@@ -39,16 +38,14 @@ public class PrimevalIsle extends DefaultMonsterAI implements ScriptFile
 	private static final L2Skill ANESTHESIA = SkillTable.getInstance().getInfo(5085, 1);
 	private static final L2Skill POISON = SkillTable.getInstance().getInfo(5086, 1);
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new PrimevalIsle(-1, "PrimevalIsle", "ai/group");
 	}
 
-	public PrimevalIsle(int id, String name, String descr)
-	{
+	public PrimevalIsle(final int id, final String name, final String descr) {
 		super(id, name, descr);
 
-		for (L2Spawn npc : SpawnTable.getInstance().getSpawnTable())
+		for (final L2Spawn npc : SpawnTable.getInstance().getSpawnTable())
 			if (Util.contains(MOBIDS, npc.getNpcId()) && npc.getLastSpawn() != null && npc.getLastSpawn() instanceof L2Attackable)
 				((L2Attackable) npc.getLastSpawn()).seeThroughSilentMove(true);
 
@@ -58,35 +55,31 @@ public class PrimevalIsle extends DefaultMonsterAI implements ScriptFile
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
 		if (!(npc instanceof L2Attackable))
 			return null;
 
-		if (event.equalsIgnoreCase("skill"))
-		{
+		if ("skill".equalsIgnoreCase(event)) {
 			// If no one is inside aggro range, drop the task.
-			if (npc.getKnownList().getKnownCharactersInRadius(npc.getAggroRange()).isEmpty())
-			{
+			if (npc.getKnownList().getKnownCharactersInRadius(npc.getAggroRange()).isEmpty()) {
 				cancelQuestTimer("skill", npc, null);
 				return null;
 			}
 
 			npc.setTarget(npc);
-			npc.doCast((npc.getNpcId() == 18345) ? ANESTHESIA : POISON);
+			npc.doCast(npc.getNpcId() == 18345 ? ANESTHESIA : POISON);
 		}
 		return null;
 	}
 
 	@Override
-	public String onAggroRangeEnter(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onAggroRangeEnter(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
 		if (player == null)
 			return null;
 
 		// Instant use
 		npc.setTarget(npc);
-		npc.doCast((npc.getNpcId() == 18345) ? ANESTHESIA : POISON);
+		npc.doCast(npc.getNpcId() == 18345 ? ANESTHESIA : POISON);
 
 		// Launch a task every 15sec.
 		if (getQuestTimer("skill", npc, null) == null)
@@ -96,8 +89,7 @@ public class PrimevalIsle extends DefaultMonsterAI implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance killer, boolean isPet)
-	{
+	public String onKill(final L2Npc npc, final L2PcInstance killer, final boolean isPet) {
 		if (getQuestTimer("skill", npc, null) != null)
 			cancelQuestTimer("skill", npc, null);
 
@@ -105,29 +97,26 @@ public class PrimevalIsle extends DefaultMonsterAI implements ScriptFile
 	}
 
 	@Override
-	public String onAttack(L2Npc npc, L2PcInstance player, int damage, boolean isPet)
-	{
+	public String onAttack(final L2Npc npc, final L2PcInstance player, final int damage, final boolean isPet) {
 		if (player == null)
 			return null;
 
 		// Retrieve the attacker.
-		final L2Character originalAttacker = (isPet ? player.getPet() : player);
+		final L2Character originalAttacker = isPet ? player.getPet() : player;
 
 		// Make all mobs found in a radius 2k aggressive towards attacker.
-		for (L2Character obj : player.getKnownList().getKnownCharactersInRadius(2000))
-		{
+		for (final L2Character obj : player.getKnownList().getKnownCharactersInRadius(2000)) {
 			if (obj == null || !(obj instanceof L2Attackable) || obj.isDead() || obj == npc)
 				continue;
 
-			((L2Attackable) obj).getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, originalAttacker, 1);
+			obj.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, originalAttacker, 1);
 		}
 
 		return null;
 	}
 
 	@Override
-	public String onSpawn(L2Npc npc)
-	{
+	public String onSpawn(final L2Npc npc) {
 		if (npc instanceof L2Attackable)
 			((L2Attackable) npc).seeThroughSilentMove(true);
 

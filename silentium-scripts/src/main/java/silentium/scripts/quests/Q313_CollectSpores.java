@@ -13,8 +13,7 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q313_CollectSpores extends Quest implements ScriptFile
-{
+public class Q313_CollectSpores extends Quest implements ScriptFile {
 	private static final String qn = "Q313_CollectSpores";
 
 	// NPC
@@ -23,8 +22,7 @@ public class Q313_CollectSpores extends Quest implements ScriptFile
 	// Item
 	private static final int SporeSac = 1118;
 
-	public Q313_CollectSpores(int questId, String name, String descr)
-	{
+	public Q313_CollectSpores(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { SporeSac };
@@ -35,21 +33,18 @@ public class Q313_CollectSpores extends Quest implements ScriptFile
 		addKillId(20509); // SporeFungus
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q313_CollectSpores(313, "Q313_CollectSpores", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		final String htmltext = event;
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30150-05.htm"))
-		{
+		if ("30150-05.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
@@ -59,38 +54,31 @@ public class Q313_CollectSpores extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
+		final QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 8 && player.getLevel() <= 13)
 					htmltext = "30150-03.htm";
-				else
-				{
+				else {
 					htmltext = "30150-02.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				int cond = st.getInt("cond");
+				final int cond = st.getInt("cond");
 				if (cond == 1)
 					htmltext = "30150-06.htm";
-				else if (cond == 2)
-				{
-					if (st.getQuestItemsCount(SporeSac) < 10)
-					{
+				else if (cond == 2) {
+					if (st.getQuestItemsCount(SporeSac) < 10) {
 						st.set("cond", "1");
 						htmltext = "30150-06.htm";
-					}
-					else
-					{
+					} else {
 						htmltext = "30150-07.htm";
 						st.takeItems(SporeSac, -1);
 						st.rewardItems(57, 3500);
@@ -105,9 +93,8 @@ public class Q313_CollectSpores extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 

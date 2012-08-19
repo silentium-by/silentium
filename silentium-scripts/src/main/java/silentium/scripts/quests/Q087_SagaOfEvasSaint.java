@@ -10,14 +10,12 @@ package silentium.scripts.quests;
 /**
  * @author Emperorc
  */
-public class Q087_SagaOfEvasSaint extends SagasSuperClass
-{
-	public static String qn1 = "Q087_SagaOfEvasSaint";
-	public static int qnu = 87;
-	public static String qna = "quests";
+public class Q087_SagaOfEvasSaint extends SagasSuperClass {
+	public static final String qn1 = "Q087_SagaOfEvasSaint";
+	public static final int qnu = 87;
+	public static final String qna = "quests";
 
-	public Q087_SagaOfEvasSaint()
-	{
+	public Q087_SagaOfEvasSaint() {
 		super(qnu, qn1, qna);
 
 		NPC = new int[] { 30191, 31626, 31588, 31280, 31620, 31646, 31649, 31653, 31654, 31655, 31657, 31280 };

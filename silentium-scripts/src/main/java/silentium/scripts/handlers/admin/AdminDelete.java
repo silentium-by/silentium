@@ -19,36 +19,30 @@ import silentium.gameserver.tables.SpawnTable;
 /**
  * This class handles following admin commands: - delete = deletes target
  */
-public class AdminDelete implements IAdminCommandHandler
-{
+public class AdminDelete implements IAdminCommandHandler {
 	private static final String[] ADMIN_COMMANDS = { "admin_delete" };
 
 	@Override
-	public boolean useAdminCommand(String command, L2PcInstance activeChar)
-	{
-		if (command.equals("admin_delete"))
+	public boolean useAdminCommand(final String command, final L2PcInstance activeChar) {
+		if ("admin_delete".equals(command))
 			handleDelete(activeChar);
 
 		return true;
 	}
 
 	@Override
-	public String[] getAdminCommandList()
-	{
+	public String[] getAdminCommandList() {
 		return ADMIN_COMMANDS;
 	}
 
-	private static void handleDelete(L2PcInstance activeChar)
-	{
-		L2Object obj = activeChar.getTarget();
-		if (obj != null && obj instanceof L2Npc)
-		{
-			L2Npc target = (L2Npc) obj;
+	private static void handleDelete(final L2PcInstance activeChar) {
+		final L2Object obj = activeChar.getTarget();
+		if (obj instanceof L2Npc) {
+			final L2Npc target = (L2Npc) obj;
 			target.deleteMe();
 
-			L2Spawn spawn = target.getSpawn();
-			if (spawn != null)
-			{
+			final L2Spawn spawn = target.getSpawn();
+			if (spawn != null) {
 				spawn.stopRespawn();
 
 				if (RaidBossSpawnManager.getInstance().isDefined(spawn.getNpcId()))
@@ -57,9 +51,8 @@ public class AdminDelete implements IAdminCommandHandler
 					SpawnTable.getInstance().deleteSpawn(spawn, true);
 			}
 
-			activeChar.sendMessage("Deleted " + target.getName() + " from " + target.getObjectId() + ".");
-		}
-		else
+			activeChar.sendMessage("Deleted " + target.getName() + " from " + target.getObjectId() + '.');
+		} else
 			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 	}
 }

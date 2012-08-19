@@ -19,22 +19,19 @@ import silentium.gameserver.templates.item.L2Item;
 import silentium.gameserver.templates.item.L2Weapon;
 import silentium.gameserver.utils.Broadcast;
 
-public class SoulShots implements IItemHandler
-{
+public class SoulShots implements IItemHandler {
 	@Override
-	public void useItem(L2Playable playable, L2ItemInstance item, boolean forceUse)
-	{
+	public void useItem(final L2Playable playable, final L2ItemInstance item, final boolean forceUse) {
 		if (!(playable instanceof L2PcInstance))
 			return;
 
-		L2PcInstance activeChar = (L2PcInstance) playable;
-		L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
-		L2Weapon weaponItem = activeChar.getActiveWeaponItem();
-		int itemId = item.getItemId();
+		final L2PcInstance activeChar = (L2PcInstance) playable;
+		final L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
+		final L2Weapon weaponItem = activeChar.getActiveWeaponItem();
+		final int itemId = item.getItemId();
 
 		// Check if soulshot can be used
-		if (weaponInst == null || weaponItem.getSoulShotCount() == 0)
-		{
+		if (weaponInst == null || weaponItem.getSoulShotCount() == 0) {
 			if (!activeChar.getAutoSoulShot().contains(itemId))
 				activeChar.sendPacket(SystemMessageId.CANNOT_USE_SOULSHOTS);
 			return;
@@ -43,8 +40,7 @@ public class SoulShots implements IItemHandler
 		final int weaponGrade = weaponItem.getCrystalType();
 		boolean gradeCheck = true;
 
-		switch (weaponGrade)
-		{
+		switch (weaponGrade) {
 			case L2Item.CRYSTAL_NONE:
 				if (itemId != 5789 && itemId != 1835)
 					gradeCheck = false;
@@ -71,8 +67,7 @@ public class SoulShots implements IItemHandler
 				break;
 		}
 
-		if (!gradeCheck)
-		{
+		if (!gradeCheck) {
 			if (!activeChar.getAutoSoulShot().contains(itemId))
 				activeChar.sendPacket(SystemMessageId.SOULSHOTS_GRADE_MISMATCH);
 
@@ -81,20 +76,17 @@ public class SoulShots implements IItemHandler
 
 		activeChar.soulShotLock.lock();
 
-		try
-		{
+		try {
 			// Check if soulshot is already active
 			if (weaponInst.getChargedSoulshot() != L2ItemInstance.CHARGED_NONE)
 				return;
 
 			// Consume Soul shots if player has enough of them
-			int saSSCount = (int) activeChar.getStat().calcStat(Stats.SOULSHOT_COUNT, 0, null, null);
-			int SSCount = saSSCount == 0 ? weaponItem.getSoulShotCount() : saSSCount;
+			final int saSSCount = (int) activeChar.getStat().calcStat(Stats.SOULSHOT_COUNT, 0, null, null);
+			final int SSCount = saSSCount == 0 ? weaponItem.getSoulShotCount() : saSSCount;
 
-			if (!CustomConfig.UNLIM_SSHOTS)
-			{
-				if (!activeChar.destroyItemWithoutTrace("Consume", item.getObjectId(), SSCount, null, false))
-				{
+			if (!CustomConfig.UNLIM_SSHOTS) {
+				if (!activeChar.destroyItemWithoutTrace("Consume", item.getObjectId(), SSCount, null, false)) {
 					if (!activeChar.disableAutoShot(itemId))
 						activeChar.sendPacket(SystemMessageId.NOT_ENOUGH_SOULSHOTS);
 
@@ -104,15 +96,12 @@ public class SoulShots implements IItemHandler
 
 			// Charge soulshot
 			weaponInst.setChargedSoulshot(L2ItemInstance.CHARGED_SOULSHOT);
-		}
-		finally
-		{
+		} finally {
 			activeChar.soulShotLock.unlock();
 		}
 
 		int skillId = 0;
-		switch (itemId)
-		{
+		switch (itemId) {
 			case 1835:
 			case 5789:
 				skillId = 2039;

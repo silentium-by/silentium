@@ -13,25 +13,23 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q109_InSearchOfTheNest extends Quest implements ScriptFile
-{
+public class Q109_InSearchOfTheNest extends Quest implements ScriptFile {
 	private static final String qn = "Q109_InSearchOfTheNest";
 
 	// NPCs
-	private final static int PIERCE = 31553;
-	private final static int KAHMAN = 31554;
-	private final static int SCOUT_CORPSE = 32015;
+	private static final int PIERCE = 31553;
+	private static final int KAHMAN = 31554;
+	private static final int SCOUT_CORPSE = 32015;
 
 	// Items
-	private final static int SCOUT_MEMO = 8083;
-	private final static int RECRUIT_BADGE = 7246;
-	private final static int SOLDIER_BADGE = 7247;
+	private static final int SCOUT_MEMO = 8083;
+	private static final int RECRUIT_BADGE = 7246;
+	private static final int SOLDIER_BADGE = 7247;
 
 	// Reward
-	private final static int ADENA = 57;
+	private static final int ADENA = 57;
 
-	public Q109_InSearchOfTheNest(int questId, String name, String descr)
-	{
+	public Q109_InSearchOfTheNest(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { SCOUT_MEMO };
@@ -40,39 +38,30 @@ public class Q109_InSearchOfTheNest extends Quest implements ScriptFile
 		addTalkId(PIERCE, SCOUT_CORPSE, KAHMAN);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q109_InSearchOfTheNest(109, "Q109_InSearchOfTheNest", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		final String htmltext = event;
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("31553-01.htm"))
-		{
+		if ("31553-01.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("32015-02.htm"))
-		{
+		} else if ("32015-02.htm".equalsIgnoreCase(event)) {
 			st.giveItems(SCOUT_MEMO, 1);
 			st.set("cond", "2");
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("31553-03.htm"))
-		{
+		} else if ("31553-03.htm".equalsIgnoreCase(event)) {
 			st.takeItems(SCOUT_MEMO, 1);
 			st.set("cond", "3");
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("31554-02.htm"))
-		{
+		} else if ("31554-02.htm".equalsIgnoreCase(event)) {
 			st.rewardItems(ADENA, 5168);
 			st.playSound(QuestState.SOUND_FINISH);
 			st.exitQuest(false);
@@ -82,30 +71,26 @@ public class Q109_InSearchOfTheNest extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
+		final QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				// Must worn one or other Golden Ram Badge in order to be accepted.
 				if (player.getLevel() >= 66 && (st.getQuestItemsCount(RECRUIT_BADGE) > 0 || st.getQuestItemsCount(SOLDIER_BADGE) > 0))
 					htmltext = "31553-00.htm";
-				else
-				{
+				else {
 					htmltext = "31553-00a.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				int cond = st.getInt("cond");
-				switch (npc.getNpcId())
-				{
+				final int cond = st.getInt("cond");
+				switch (npc.getNpcId()) {
 					case PIERCE:
 						if (cond == 1)
 							htmltext = "31553-01a.htm";

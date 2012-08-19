@@ -14,8 +14,7 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q325_GrimCollector extends Quest implements ScriptFile
-{
+public class Q325_GrimCollector extends Quest implements ScriptFile {
 	private static final String qn = "Q325_GrimCollector";
 
 	// Items
@@ -35,8 +34,7 @@ public class Q325_GrimCollector extends Quest implements ScriptFile
 	private static final int VARSAK = 30342;
 	private static final int SAMED = 30434;
 
-	public Q325_GrimCollector(int questId, String name, String descr)
-	{
+	public Q325_GrimCollector(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { ZOMBIE_HEAD, ZOMBIE_HEART, ZOMBIE_LIVER, SKULL, RIB_BONE, SPINE, ARM_BONE, THIGH_BONE, COMPLETE_SKELETON, ANATOMY_DIAGRAM };
@@ -47,21 +45,17 @@ public class Q325_GrimCollector extends Quest implements ScriptFile
 		addKillId(20026, 20029, 20035, 20042, 20045, 20457, 20458, 20051, 20514, 20515);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q325_GrimCollector(325, "Q325_GrimCollector", "quests");
 	}
 
-	private int getNumberOfPieces(QuestState st)
-	{
+	private int getNumberOfPieces(final QuestState st) {
 		return st.getQuestItemsCount(ZOMBIE_HEAD) + st.getQuestItemsCount(SPINE) + st.getQuestItemsCount(ARM_BONE) + st.getQuestItemsCount(ZOMBIE_HEART) + st.getQuestItemsCount(ZOMBIE_LIVER) + st.getQuestItemsCount(SKULL) + st.getQuestItemsCount(RIB_BONE) + st.getQuestItemsCount(THIGH_BONE) + st.getQuestItemsCount(COMPLETE_SKELETON);
 	}
 
-	private void payback(QuestState st)
-	{
-		int count = getNumberOfPieces(st);
-		if (count > 0)
-		{
+	private void payback(final QuestState st) {
+		final int count = getNumberOfPieces(st);
+		if (count > 0) {
 			int reward = 30 * st.getQuestItemsCount(ZOMBIE_HEAD) + 20 * st.getQuestItemsCount(ZOMBIE_HEART) + 20 * st.getQuestItemsCount(ZOMBIE_LIVER) + 100 * st.getQuestItemsCount(SKULL) + 40 * st.getQuestItemsCount(RIB_BONE) + 14 * st.getQuestItemsCount(SPINE) + 14 * st.getQuestItemsCount(ARM_BONE) + 14 * st.getQuestItemsCount(THIGH_BONE) + 341 * st.getQuestItemsCount(COMPLETE_SKELETON);
 			if (count > 10)
 				reward += 1629;
@@ -84,65 +78,48 @@ public class Q325_GrimCollector extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
 		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30336-03.htm"))
-		{
+		if ("30336-03.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("30434-03.htm"))
-		{
+		} else if ("30434-03.htm".equalsIgnoreCase(event)) {
 			st.giveItems(ANATOMY_DIAGRAM, 1);
 			st.playSound(QuestState.SOUND_ITEMGET);
-		}
-		else if (event.equalsIgnoreCase("30434-06.htm"))
-		{
+		} else if ("30434-06.htm".equalsIgnoreCase(event)) {
 			st.takeItems(ANATOMY_DIAGRAM, -1);
 			payback(st);
 			st.playSound(QuestState.SOUND_FINISH);
 			st.exitQuest(true);
-		}
-		else if (event.equalsIgnoreCase("30434-07.htm"))
-		{
+		} else if ("30434-07.htm".equalsIgnoreCase(event)) {
 			payback(st);
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("30434-09.htm"))
-		{
-			int skeletons = st.getQuestItemsCount(COMPLETE_SKELETON);
-			if (skeletons > 0)
-			{
+		} else if ("30434-09.htm".equalsIgnoreCase(event)) {
+			final int skeletons = st.getQuestItemsCount(COMPLETE_SKELETON);
+			if (skeletons > 0) {
 				st.takeItems(COMPLETE_SKELETON, -1);
 				st.playSound(QuestState.SOUND_MIDDLE);
 				st.rewardItems(57, 543 + 341 * skeletons);
 			}
-		}
-		else if (event.equalsIgnoreCase("30342-03.htm"))
-		{
-			if (st.getQuestItemsCount(SPINE) > 0 && st.getQuestItemsCount(ARM_BONE) > 0 && st.getQuestItemsCount(SKULL) > 0 && st.getQuestItemsCount(RIB_BONE) > 0 && st.getQuestItemsCount(THIGH_BONE) > 0)
-			{
+		} else if ("30342-03.htm".equalsIgnoreCase(event)) {
+			if (st.getQuestItemsCount(SPINE) > 0 && st.getQuestItemsCount(ARM_BONE) > 0 && st.getQuestItemsCount(SKULL) > 0 && st.getQuestItemsCount(RIB_BONE) > 0 && st.getQuestItemsCount(THIGH_BONE) > 0) {
 				st.takeItems(SPINE, 1);
 				st.takeItems(SKULL, 1);
 				st.takeItems(ARM_BONE, 1);
 				st.takeItems(RIB_BONE, 1);
 				st.takeItems(THIGH_BONE, 1);
 
-				if (Rnd.get(10) < 9)
-				{
+				if (Rnd.get(10) < 9) {
 					st.giveItems(COMPLETE_SKELETON, 1);
 					st.playSound(QuestState.SOUND_ITEMGET);
-				}
-				else
+				} else
 					htmltext = "30342-04.htm";
-			}
-			else
+			} else
 				htmltext = "30342-02.htm";
 		}
 
@@ -150,41 +127,33 @@ public class Q325_GrimCollector extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
+		final QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 15 && player.getLevel() <= 26)
 					htmltext = "30336-02.htm";
-				else
-				{
+				else {
 					htmltext = "30336-01.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				switch (npc.getNpcId())
-				{
+				switch (npc.getNpcId()) {
 					case CURTIS:
-						htmltext = (st.getQuestItemsCount(ANATOMY_DIAGRAM) < 1) ? "30336-04.htm" : "30336-05.htm";
+						htmltext = st.getQuestItemsCount(ANATOMY_DIAGRAM) < 1 ? "30336-04.htm" : "30336-05.htm";
 						break;
 
 					case SAMED:
 						if (st.getQuestItemsCount(ANATOMY_DIAGRAM) == 0)
 							htmltext = "30434-01.htm";
-						else
-						{
-							if (getNumberOfPieces(st) == 0)
-								htmltext = "30434-04.htm";
-							else
-								htmltext = (st.getQuestItemsCount(COMPLETE_SKELETON) == 0) ? "30434-05.htm" : "30434-08.htm";
+						else {
+							htmltext = getNumberOfPieces(st) == 0 ? "30434-04.htm" : st.getQuestItemsCount(COMPLETE_SKELETON) == 0 ? "30434-05.htm" : "30434-08.htm";
 						}
 						break;
 
@@ -199,20 +168,16 @@ public class Q325_GrimCollector extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 
-		if (st.isStarted() && st.getQuestItemsCount(ANATOMY_DIAGRAM) > 0)
-		{
-			int n = Rnd.get(100);
-			switch (npc.getNpcId())
-			{
+		if (st.isStarted() && st.getQuestItemsCount(ANATOMY_DIAGRAM) > 0) {
+			final int n = Rnd.get(100);
+			switch (npc.getNpcId()) {
 				case 20026:
-					if (n <= 90)
-					{
+					if (n <= 90) {
 						st.playSound(QuestState.SOUND_ITEMGET);
 						if (n <= 40)
 							st.giveItems(ZOMBIE_HEAD, 1);
@@ -234,8 +199,7 @@ public class Q325_GrimCollector extends Quest implements ScriptFile
 					break;
 
 				case 20035:
-					if (n <= 79)
-					{
+					if (n <= 79) {
 						st.playSound(QuestState.SOUND_ITEMGET);
 						if (n <= 5)
 							st.giveItems(SKULL, 1);
@@ -249,8 +213,7 @@ public class Q325_GrimCollector extends Quest implements ScriptFile
 					break;
 
 				case 20042:
-					if (n <= 86)
-					{
+					if (n <= 86) {
 						st.playSound(QuestState.SOUND_ITEMGET);
 						if (n <= 6)
 							st.giveItems(SKULL, 1);
@@ -264,8 +227,7 @@ public class Q325_GrimCollector extends Quest implements ScriptFile
 					break;
 
 				case 20045:
-					if (n <= 97)
-					{
+					if (n <= 97) {
 						st.playSound(QuestState.SOUND_ITEMGET);
 						if (n <= 9)
 							st.giveItems(SKULL, 1);
@@ -279,8 +241,7 @@ public class Q325_GrimCollector extends Quest implements ScriptFile
 					break;
 
 				case 20051:
-					if (n <= 99)
-					{
+					if (n <= 99) {
 						st.playSound(QuestState.SOUND_ITEMGET);
 						if (n <= 9)
 							st.giveItems(SKULL, 1);
@@ -294,8 +255,7 @@ public class Q325_GrimCollector extends Quest implements ScriptFile
 					break;
 
 				case 20514:
-					if (n <= 51)
-					{
+					if (n <= 51) {
 						st.playSound(QuestState.SOUND_ITEMGET);
 						if (n <= 2)
 							st.giveItems(SKULL, 1);
@@ -311,8 +271,7 @@ public class Q325_GrimCollector extends Quest implements ScriptFile
 					break;
 
 				case 20515:
-					if (n <= 60)
-					{
+					if (n <= 60) {
 						st.playSound(QuestState.SOUND_ITEMGET);
 						if (n <= 3)
 							st.giveItems(SKULL, 1);

@@ -22,11 +22,10 @@ import silentium.gameserver.scripting.ScriptFile;
 /**
  * @author Slyce
  */
-public class PolymorphingOnAttack extends DefaultMonsterAI implements ScriptFile
-{
+public class PolymorphingOnAttack extends DefaultMonsterAI implements ScriptFile {
 	private static final TIntObjectHashMap<Integer[]> MOBSPAWNS = new TIntObjectHashMap<>();
 
-	{
+	static {
 		MOBSPAWNS.put(21258, new Integer[] { 21259, 100, 100, -1 }); // Fallen Orc Shaman -> Sharp Talon Tiger (always polymorphs)
 		MOBSPAWNS.put(21261, new Integer[] { 21262, 100, 20, 0 }); // Ol Mahum Transcender 1st stage
 		MOBSPAWNS.put(21262, new Integer[] { 21263, 100, 10, 1 }); // Ol Mahum Transcender 2nd stage
@@ -44,36 +43,29 @@ public class PolymorphingOnAttack extends DefaultMonsterAI implements ScriptFile
 
 	protected static final String[][] MOBTEXTS = { new String[] { "Enough fooling around. Get ready to die!", "You idiot! I've just been toying with you!", "Now the fun starts!" }, new String[] { "I must admit, no one makes my blood boil quite like you do!", "Now the battle begins!", "Witness my true power!" }, new String[] { "Prepare to die!", "I'll double my strength!", "You have more skill than I thought" } };
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new PolymorphingOnAttack(-1, "polymorphing_on_attack", "ai");
 	}
 
-	public PolymorphingOnAttack(int questId, String name, String descr)
-	{
+	public PolymorphingOnAttack(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
-		for (int id : MOBSPAWNS.keys())
-			super.addAttackId(id);
+		for (final int id : MOBSPAWNS.keys())
+			addAttackId(id);
 	}
 
 	@Override
-	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isPet)
-	{
-		if (npc.isVisible() && !npc.isDead())
-		{
+	public String onAttack(final L2Npc npc, final L2PcInstance attacker, final int damage, final boolean isPet) {
+		if (npc.isVisible() && !npc.isDead()) {
 			final Integer[] tmp = MOBSPAWNS.get(npc.getNpcId());
-			if (tmp != null)
-			{
-				if (npc.getCurrentHp() <= (npc.getMaxHp() * tmp[1] / 100.0) && Rnd.get(100) < tmp[2])
-				{
-					if (tmp[3] >= 0)
-					{
-						String text = MOBTEXTS[tmp[3]][Rnd.get(MOBTEXTS[tmp[3]].length)];
+			if (tmp != null) {
+				if (npc.getCurrentHp() <= npc.getMaxHp() * tmp[1] / 100.0 && Rnd.get(100) < tmp[2]) {
+					if (tmp[3] >= 0) {
+						final String text = MOBTEXTS[tmp[3]][Rnd.get(MOBTEXTS[tmp[3]].length)];
 						npc.broadcastPacket(new CreatureSay(npc.getObjectId(), Say2.ALL, npc.getName(), text));
 					}
 					npc.deleteMe();
-					L2Attackable newNpc = (L2Attackable) addSpawn(tmp[0], npc.getX(), npc.getY(), npc.getZ() + 10, npc.getHeading(), false, 0, true);
-					L2Character originalAttacker = isPet ? attacker.getPet() : attacker;
+					final L2Attackable newNpc = (L2Attackable) addSpawn(tmp[0], npc.getX(), npc.getY(), npc.getZ() + 10, npc.getHeading(), false, 0, true);
+					final L2Character originalAttacker = isPet ? attacker.getPet() : attacker;
 					newNpc.setRunning();
 					newNpc.addDamageHate(originalAttacker, 0, 500);
 					newNpc.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, originalAttacker);

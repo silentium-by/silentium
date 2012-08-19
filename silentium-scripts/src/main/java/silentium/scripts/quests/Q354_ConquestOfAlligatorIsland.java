@@ -14,8 +14,7 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q354_ConquestOfAlligatorIsland extends Quest implements ScriptFile
-{
+public class Q354_ConquestOfAlligatorIsland extends Quest implements ScriptFile {
 	private static final String qn = "Q354_ConquestOfAlligatorIsland";
 
 	// Items
@@ -26,8 +25,7 @@ public class Q354_ConquestOfAlligatorIsland extends Quest implements ScriptFile
 	// NPC
 	private static final int KLUCK = 30895;
 
-	public Q354_ConquestOfAlligatorIsland(int questId, String name, String descr)
-	{
+	public Q354_ConquestOfAlligatorIsland(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { ALLIGATOR_TOOTH, TORN_MAP_FRAGMENT };
@@ -38,38 +36,29 @@ public class Q354_ConquestOfAlligatorIsland extends Quest implements ScriptFile
 		addKillId(20804, 20805, 20806, 20807, 20808, 20991);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q354_ConquestOfAlligatorIsland(354, "Q354_ConquestOfAlligatorIsland", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
 		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30895-02.htm"))
-		{
+		if ("30895-02.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("30895-03.htm"))
-		{
+		} else if ("30895-03.htm".equalsIgnoreCase(event)) {
 			if (st.getQuestItemsCount(TORN_MAP_FRAGMENT) > 0)
 				htmltext = "30895-03a.htm";
-		}
-		else if (event.equalsIgnoreCase("30895-05.htm"))
-		{
-			int amount = st.getQuestItemsCount(ALLIGATOR_TOOTH);
-			if (amount > 0)
-			{
+		} else if ("30895-05.htm".equalsIgnoreCase(event)) {
+			final int amount = st.getQuestItemsCount(ALLIGATOR_TOOTH);
+			if (amount > 0) {
 				int reward = amount * 220 + 3100;
-				if (amount >= 100)
-				{
+				if (amount >= 100) {
 					reward += 7600;
 					htmltext = "30895-05b.htm";
 				}
@@ -78,19 +67,14 @@ public class Q354_ConquestOfAlligatorIsland extends Quest implements ScriptFile
 				st.takeItems(ALLIGATOR_TOOTH, -1);
 				st.rewardItems(57, reward);
 			}
-		}
-		else if (event.equalsIgnoreCase("30895-07.htm"))
-		{
-			if (st.getQuestItemsCount(TORN_MAP_FRAGMENT) >= 10)
-			{
+		} else if ("30895-07.htm".equalsIgnoreCase(event)) {
+			if (st.getQuestItemsCount(TORN_MAP_FRAGMENT) >= 10) {
 				htmltext = "30895-08.htm";
 				st.takeItems(TORN_MAP_FRAGMENT, 10);
 				st.giveItems(PIRATES_TREASURE_MAP, 1);
 				st.playSound(QuestState.SOUND_ITEMGET);
 			}
-		}
-		else if (event.equalsIgnoreCase("30895-09.htm"))
-		{
+		} else if ("30895-09.htm".equalsIgnoreCase(event)) {
 			st.playSound(QuestState.SOUND_FINISH);
 			st.exitQuest(true);
 		}
@@ -99,27 +83,19 @@ public class Q354_ConquestOfAlligatorIsland extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
 		String htmltext = Quest.getNoQuestMsg();
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
-				if (player.getLevel() >= 38 && player.getLevel() <= 49)
-					htmltext = "30895-01.htm";
-				else
-					htmltext = "30895-00.htm";
+				htmltext = player.getLevel() >= 38 && player.getLevel() <= 49 ? "30895-01.htm" : "30895-00.htm";
 				break;
 
 			case QuestState.STARTED:
-				if (st.getQuestItemsCount(TORN_MAP_FRAGMENT) > 0)
-					htmltext = "30895-03a.htm";
-				else
-					htmltext = "30895-03.htm";
+				htmltext = st.getQuestItemsCount(TORN_MAP_FRAGMENT) > 0 ? "30895-03a.htm" : "30895-03.htm";
 				break;
 		}
 
@@ -127,24 +103,20 @@ public class Q354_ConquestOfAlligatorIsland extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		L2PcInstance partyMember = getRandomPartyMemberState(player, npc, QuestState.STARTED);
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final L2PcInstance partyMember = getRandomPartyMemberState(player, npc, QuestState.STARTED);
 		if (partyMember == null)
 			return null;
 
-		QuestState st = partyMember.getQuestState(qn);
+		final QuestState st = partyMember.getQuestState(qn);
 
-		int random = Rnd.get(100);
-		if (random < 45)
-		{
+		final int random = Rnd.get(100);
+		if (random < 45) {
 			st.giveItems(ALLIGATOR_TOOTH, 1);
-			if (random < 10)
-			{
+			if (random < 10) {
 				st.giveItems(TORN_MAP_FRAGMENT, 1);
 				st.playSound(QuestState.SOUND_MIDDLE);
-			}
-			else
+			} else
 				st.playSound(QuestState.SOUND_ITEMGET);
 		}
 

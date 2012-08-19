@@ -34,20 +34,17 @@ import silentium.scripts.ai.Baium;
  * <li>31759, Teleportation Cubic : Teleport out of Lair of Valakas</li>
  * <li>31862, Angelic Vortex : Baium Teleport (3 different HTMs according of situation)</li>
  * </ul>
- * 
+ *
  * @author Plim, original python script by Emperorc
  */
-public class GrandBossTeleporters extends Quest implements ScriptFile
-{
+public class GrandBossTeleporters extends Quest implements ScriptFile {
 	private static final String qn = "GrandBossTeleporters";
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new GrandBossTeleporters(-1, "GrandBossTeleporters", "teleports");
 	}
 
-	public GrandBossTeleporters(int questId, String name, String descr)
-	{
+	public GrandBossTeleporters(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		addFirstTalkId(31862);
@@ -55,37 +52,32 @@ public class GrandBossTeleporters extends Quest implements ScriptFile
 		addTalkId(13001, 31859, 31384, 31385, 31540, 31686, 31687, 31759, 31862);
 	}
 
-	private Quest valakasAI()
-	{
+	private Quest valakasAI() {
 		return QuestManager.getInstance().getQuest("valakas");
 	}
 
-	private Quest antharasAI()
-	{
+	private Quest antharasAI() {
 		return QuestManager.getInstance().getQuest("antharas");
 	}
 
 	private static int playerCount = 0;
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
 		String htmltext = "";
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
 			st = newQuestState(player);
 
-		if (event.equalsIgnoreCase("baium"))
-		{
+		if ("baium".equalsIgnoreCase(event)) {
 			// Player is mounted on a wyvern, cancel it.
 			if (player.isFlying())
 				htmltext = "31862-05.htm";
-			// Player hasn't blooded fabric, cancel it.
+				// Player hasn't blooded fabric, cancel it.
 			else if (!st.hasQuestItems(4295))
 				htmltext = "31862-03.htm";
-			// All is ok, take the item and teleport the player inside.
-			else
-			{
+				// All is ok, take the item and teleport the player inside.
+			else {
 				st.takeItems(4295, 1);
 
 				// allow entry for the player for the next 30 secs.
@@ -93,26 +85,21 @@ public class GrandBossTeleporters extends Quest implements ScriptFile
 				player.teleToLocation(113100, 14500, 10077);
 				return null;
 			}
-		}
-		else if (event.equalsIgnoreCase("baium_story"))
+		} else if ("baium_story".equalsIgnoreCase(event))
 			htmltext = "31862-02.htm";
-		else if (event.equalsIgnoreCase("31540"))
-		{
-			if (st.hasQuestItems(7267))
-			{
+		else if ("31540".equalsIgnoreCase(event)) {
+			if (st.hasQuestItems(7267)) {
 				st.takeItems(7267, 1);
 				player.teleToLocation(183813, -115157, -3303);
 				st.set("allowEnter", "1");
-			}
-			else
+			} else
 				htmltext = "31540-06.htm";
 		}
 		return htmltext;
 	}
 
 	@Override
-	public String onFirstTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onFirstTalk(final L2Npc npc, final L2PcInstance player) {
 		String htmltext = "";
 		QuestState st = player.getQuestState(qn);
 		if (st == null)
@@ -122,31 +109,25 @@ public class GrandBossTeleporters extends Quest implements ScriptFile
 
 		if (baiumState == Baium.AWAKE)
 			htmltext = "31862-01.htm";
-		else if (baiumState == Baium.DEAD)
-			htmltext = "31862-04.htm";
-		else
-			htmltext = "31862-00.htm";
+		else htmltext = baiumState == Baium.DEAD ? "31862-04.htm" : "31862-00.htm";
 
 		return htmltext;
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
 		String htmltext = "";
-		QuestState st = player.getQuestState(getName());
+		final QuestState st = player.getQuestState(getName());
 		if (st == null)
 			return null;
 
-		switch (npc.getNpcId())
-		{
+		switch (npc.getNpcId()) {
 			case 13001:
-				if (antharasAI() != null)
-				{
-					int status = GrandBossManager.getInstance().getBossStatus(29019);
-					int statusW = GrandBossManager.getInstance().getBossStatus(29066);
-					int statusN = GrandBossManager.getInstance().getBossStatus(29067);
-					int statusS = GrandBossManager.getInstance().getBossStatus(29068);
+				if (antharasAI() != null) {
+					final int status = GrandBossManager.getInstance().getBossStatus(29019);
+					final int statusW = GrandBossManager.getInstance().getBossStatus(29066);
+					final int statusN = GrandBossManager.getInstance().getBossStatus(29067);
+					final int statusS = GrandBossManager.getInstance().getBossStatus(29068);
 
 					if (status == 2 || statusW == 2 || statusN == 2 || statusS == 2)
 						htmltext = "13001-02.htm";
@@ -154,22 +135,19 @@ public class GrandBossTeleporters extends Quest implements ScriptFile
 						htmltext = "13001-01.htm";
 					else if (status == 0 || status == 1) // If entrance to see Antharas is unlocked (he is Dormant or Waiting)
 					{
-						if (st.hasQuestItems(3865))
-						{
+						if (st.hasQuestItems(3865)) {
 							st.takeItems(3865, 1);
-							L2BossZone zone = GrandBossManager.getInstance().getZone(179700, 113800, -7709);
+							final L2BossZone zone = GrandBossManager.getInstance().getZone(179700, 113800, -7709);
 							if (zone != null)
 								zone.allowPlayerEntry(player, 30);
 
 							player.teleToLocation(179700 + Rnd.get(700), 113800 + Rnd.get(2100), -7709);
 
-							if (status == 0)
-							{
-								L2GrandBossInstance antharas = GrandBossManager.getInstance().getBoss(29019);
+							if (status == 0) {
+								final L2GrandBossInstance antharas = GrandBossManager.getInstance().getBoss(29019);
 								antharasAI().notifyEvent("waiting", antharas, player);
 							}
-						}
-						else
+						} else
 							htmltext = "13001-03.htm";
 					}
 				}
@@ -180,18 +158,15 @@ public class GrandBossTeleporters extends Quest implements ScriptFile
 				break;
 
 			case 31385:
-				if (valakasAI() != null)
-				{
-					int status = GrandBossManager.getInstance().getBossStatus(29028);
+				if (valakasAI() != null) {
+					final int status = GrandBossManager.getInstance().getBossStatus(29028);
 
-					if (status == 0 || status == 1)
-					{
+					if (status == 0 || status == 1) {
 						if (playerCount >= 200)
 							htmltext = "31385-03.htm";
-						else if (st.getInt("allowEnter") == 1)
-						{
+						else if (st.getInt("allowEnter") == 1) {
 							st.unset("allowEnter");
-							L2BossZone zone = GrandBossManager.getInstance().getZone(212852, -114842, -1632);
+							final L2BossZone zone = GrandBossManager.getInstance().getZone(212852, -114842, -1632);
 							if (zone != null)
 								zone.allowPlayerEntry(player, 30);
 
@@ -199,22 +174,15 @@ public class GrandBossTeleporters extends Quest implements ScriptFile
 
 							playerCount++;
 
-							if (status == 0)
-							{
-								L2GrandBossInstance valakas = GrandBossManager.getInstance().getBoss(29028);
+							if (status == 0) {
+								final L2GrandBossInstance valakas = GrandBossManager.getInstance().getBoss(29028);
 								valakasAI().startQuestTimer("1001", NPCConfig.WAIT_TIME_VALAKAS, valakas, null);
 								GrandBossManager.getInstance().setBossStatus(29028, 1);
 							}
-						}
-						else
+						} else
 							htmltext = "31385-04.htm";
-					}
-					else if (status == 2)
-						htmltext = "31385-02.htm";
-					else
-						htmltext = "31385-01.htm";
-				}
-				else
+					} else htmltext = status == 2 ? "31385-02.htm" : "31385-01.htm";
+				} else
 					htmltext = "31385-01.htm";
 				break;
 
@@ -237,10 +205,7 @@ public class GrandBossTeleporters extends Quest implements ScriptFile
 					htmltext = "31540-02.htm";
 				else if (playerCount < 150)
 					htmltext = "31540-03.htm";
-				else if (playerCount < 200)
-					htmltext = "31540-04.htm";
-				else
-					htmltext = "31540-05.htm";
+				else htmltext = playerCount < 200 ? "31540-04.htm" : "31540-05.htm";
 				break;
 
 			case 31759:

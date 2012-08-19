@@ -19,14 +19,12 @@ import silentium.gameserver.templates.skills.L2SkillType;
 /**
  * @author _drunk_
  */
-public class TakeCastle implements ISkillHandler
-{
+public class TakeCastle implements ISkillHandler {
 	private static final L2SkillType[] SKILL_IDS = { L2SkillType.TAKECASTLE };
 
 	@Override
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
-	{
-		if (activeChar == null || !(activeChar instanceof L2PcInstance))
+	public void useSkill(final L2Character activeChar, final L2Skill skill, final L2Object... targets) {
+		if (!(activeChar instanceof L2PcInstance))
 			return;
 
 		final L2PcInstance player = (L2PcInstance) activeChar;
@@ -41,8 +39,7 @@ public class TakeCastle implements ISkillHandler
 	}
 
 	@Override
-	public L2SkillType[] getSkillIds()
-	{
+	public L2SkillType[] getSkillIds() {
 		return SKILL_IDS;
 	}
 }

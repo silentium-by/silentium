@@ -9,7 +9,6 @@ package silentium.scripts.handlers.admin;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import silentium.gameserver.handler.IAdminCommandHandler;
 import silentium.gameserver.model.L2Object;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
@@ -17,19 +16,16 @@ import silentium.gameserver.model.actor.instance.L2PcInstance;
 /**
  * This class handles following admin commands: - invul = turns invulnerability on/off
  */
-public class AdminInvul implements IAdminCommandHandler
-{
-	private static Logger _log = LoggerFactory.getLogger(AdminInvul.class.getName());
+public class AdminInvul implements IAdminCommandHandler {
+	private static final Logger _log = LoggerFactory.getLogger(AdminInvul.class.getName());
 	private static final String[] ADMIN_COMMANDS = { "admin_invul", "admin_setinvul" };
 
 	@Override
-	public boolean useAdminCommand(String command, L2PcInstance activeChar)
-	{
-		if (command.equals("admin_invul"))
+	public boolean useAdminCommand(final String command, final L2PcInstance activeChar) {
+		if ("admin_invul".equals(command))
 			handleInvul(activeChar);
-		if (command.equals("admin_setinvul"))
-		{
-			L2Object target = activeChar.getTarget();
+		if ("admin_setinvul".equals(command)) {
+			final L2Object target = activeChar.getTarget();
 			if (target instanceof L2PcInstance)
 				handleInvul((L2PcInstance) target);
 		}
@@ -37,27 +33,22 @@ public class AdminInvul implements IAdminCommandHandler
 	}
 
 	@Override
-	public String[] getAdminCommandList()
-	{
+	public String[] getAdminCommandList() {
 		return ADMIN_COMMANDS;
 	}
 
-	private static void handleInvul(L2PcInstance activeChar)
-	{
-		String text;
-		if (activeChar.isInvul())
-		{
+	private static void handleInvul(final L2PcInstance activeChar) {
+		final String text;
+		if (activeChar.isInvul()) {
 			activeChar.setIsInvul(false);
 			text = activeChar.getName() + " is now mortal.";
 
-			_log.info("GM: Gm removed invul mode from character " + activeChar.getName() + "(" + activeChar.getObjectId() + ")");
-		}
-		else
-		{
+			_log.info("GM: Gm removed invul mode from character " + activeChar.getName() + '(' + activeChar.getObjectId() + ')');
+		} else {
 			activeChar.setIsInvul(true);
 			text = activeChar.getName() + " is now invulnerable.";
 
-			_log.info("GM: Gm activated invul mode for character " + activeChar.getName() + "(" + activeChar.getObjectId() + ")");
+			_log.info("GM: Gm activated invul mode for character " + activeChar.getName() + '(' + activeChar.getObjectId() + ')');
 		}
 		activeChar.sendMessage(text);
 	}

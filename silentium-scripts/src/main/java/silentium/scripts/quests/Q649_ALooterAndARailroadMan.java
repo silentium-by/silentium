@@ -13,9 +13,8 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q649_ALooterAndARailroadMan extends Quest implements ScriptFile
-{
-	private final static String qn = "Q649_ALooterAndARailroadMan";
+public class Q649_ALooterAndARailroadMan extends Quest implements ScriptFile {
+	private static final String qn = "Q649_ALooterAndARailroadMan";
 
 	// Item
 	private static final int THIEF_GUILD_MARK = 8099;
@@ -23,8 +22,7 @@ public class Q649_ALooterAndARailroadMan extends Quest implements ScriptFile
 	// NPC
 	private static final int OBI = 32052;
 
-	public Q649_ALooterAndARailroadMan(int questId, String name, String descr)
-	{
+	public Q649_ALooterAndARailroadMan(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { THIEF_GUILD_MARK };
@@ -35,31 +33,25 @@ public class Q649_ALooterAndARailroadMan extends Quest implements ScriptFile
 		addKillId(22017, 22018, 22019, 22021, 22022, 22023, 22024, 22026);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q649_ALooterAndARailroadMan(649, "Q649_ALooterAndARailroadMan", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
 		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("32052-1.htm"))
-		{
+		if ("32052-1.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("32052-3.htm"))
-		{
+		} else if ("32052-3.htm".equalsIgnoreCase(event)) {
 			if (st.getQuestItemsCount(THIEF_GUILD_MARK) < 200)
 				htmltext = "32052-3a.htm";
-			else
-			{
+			else {
 				st.takeItems(THIEF_GUILD_MARK, -1);
 				st.rewardItems(57, 21698);
 				st.playSound(QuestState.SOUND_FINISH);
@@ -71,39 +63,32 @@ public class Q649_ALooterAndARailroadMan extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
 		String htmltext = Quest.getNoQuestMsg();
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 30)
 					htmltext = "32052-0.htm";
-				else
-				{
+				else {
 					htmltext = "32052-0a.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				if (st.getQuestItemsCount(THIEF_GUILD_MARK) == 200)
-					htmltext = "32052-2.htm";
-				else
-					htmltext = "32052-2a.htm";
+				htmltext = st.getQuestItemsCount(THIEF_GUILD_MARK) == 200 ? "32052-2.htm" : "32052-2a.htm";
 				break;
 		}
 		return htmltext;
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 

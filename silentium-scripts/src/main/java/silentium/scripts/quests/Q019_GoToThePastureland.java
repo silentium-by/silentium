@@ -12,20 +12,18 @@ import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 
-public class Q019_GoToThePastureland extends Quest
-{
-	private final static String qn = "Q019_GoToThePastureland";
+public class Q019_GoToThePastureland extends Quest {
+	private static final String qn = "Q019_GoToThePastureland";
 
 	// Items
-	private final static int YoungWildBeastMeat = 7547;
-	private final static int Adena = 57;
+	private static final int YoungWildBeastMeat = 7547;
+	private static final int Adena = 57;
 
 	// NPCs
-	private final static int Vladimir = 31302;
-	private final static int Tunatun = 31537;
+	private static final int Vladimir = 31302;
+	private static final int Tunatun = 31537;
 
-	public Q019_GoToThePastureland(int questId, String name, String descr)
-	{
+	public Q019_GoToThePastureland(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { YoungWildBeastMeat };
@@ -34,62 +32,49 @@ public class Q019_GoToThePastureland extends Quest
 		addTalkId(Vladimir, Tunatun);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void main(final String... args) {
 		new Q019_GoToThePastureland(19, "Q019_GoToThePastureland", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
 		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("31302-01.htm"))
-		{
+		if ("31302-01.htm".equalsIgnoreCase(event)) {
 			st.setState(QuestState.STARTED);
 			st.set("cond", "1");
 			st.giveItems(YoungWildBeastMeat, 1);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("019_finish"))
-		{
-			if (st.getQuestItemsCount(YoungWildBeastMeat) == 1)
-			{
+		} else if ("019_finish".equalsIgnoreCase(event)) {
+			if (st.getQuestItemsCount(YoungWildBeastMeat) == 1) {
 				htmltext = "31537-01.htm";
 				st.takeItems(YoungWildBeastMeat, 1);
 				st.rewardItems(Adena, 30000);
 				st.playSound(QuestState.SOUND_FINISH);
 				st.exitQuest(false);
-			}
-			else
+			} else
 				htmltext = "31537-02.htm";
 		}
 		return htmltext;
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
 		String htmltext = getNoQuestMsg();
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
-				if (player.getLevel() >= 63)
-					htmltext = "31302-00.htm";
-				else
-					htmltext = "31302-03.htm";
+				htmltext = player.getLevel() >= 63 ? "31302-00.htm" : "31302-03.htm";
 				break;
 
 			case QuestState.STARTED:
-				switch (npc.getNpcId())
-				{
+				switch (npc.getNpcId()) {
 					case Vladimir:
 						htmltext = "31302-02.htm";
 						break;

@@ -13,28 +13,23 @@ import silentium.gameserver.model.actor.instance.L2PcInstance;
 /**
  * @author Kirito
  */
-public class Stat implements IVoicedCommandHandler
-{
+public class Stat implements IVoicedCommandHandler {
 	private static final String[] VOICED_COMMANDS = { "stat" };
 
 	@Override
-	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
-	{
-		if (command.equalsIgnoreCase("stat"))
-		{
-			if (activeChar.getTarget() == null)
-			{
+	public boolean useVoicedCommand(final String command, final L2PcInstance activeChar, final String target) {
+		if ("stat".equalsIgnoreCase(command)) {
+			if (activeChar.getTarget() == null) {
 				activeChar.sendMessage("Select target.");
 				return false;
 			}
-			if (!(activeChar.getTarget() instanceof L2PcInstance))
-			{
+			if (!(activeChar.getTarget() instanceof L2PcInstance)) {
 				activeChar.sendMessage("You can get information only about the player.");
 
 				return false;
 			}
 
-			L2PcInstance targetp = (L2PcInstance) activeChar.getTarget();
+			final L2PcInstance targetp = (L2PcInstance) activeChar.getTarget();
 			activeChar.sendMessage("Name: " + targetp.getName());
 			activeChar.sendMessage("Level: " + targetp.getLevel());
 			activeChar.sendMessage("Adena: " + targetp.getAdena());
@@ -47,8 +42,7 @@ public class Stat implements IVoicedCommandHandler
 	}
 
 	@Override
-	public String[] getVoicedCommandList()
-	{
+	public String[] getVoicedCommandList() {
 		return VOICED_COMMANDS;
 	}
 }

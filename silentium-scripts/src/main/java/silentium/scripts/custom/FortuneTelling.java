@@ -13,13 +13,12 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class FortuneTelling extends Quest implements ScriptFile
-{
+public class FortuneTelling extends Quest implements ScriptFile {
 	private static final String qn = "FortuneTelling";
 
-	private final static String BODY = "<html><body>Шаман Мине:<br>Я вижу, что перед Вами возникает изображение... Трудно передать словами то, что я видел.<br>Как я могу поведать это? Хорошо, тогда слушайте:<br><br><center>";
-	private final static String END = "</center><br><br>Примите эти слова близко к сердцу. Вы должны серьезно рассмотреть их значение...</body></html>";
-	private final static String[] FORTUNE = { "То, что Вы отдали вернется к Вам выгодой.", "Когда-нибудь дракон приобретете крылья орла.", "Будьте осторожны, поскольку Вы можете быть сражены, если Вы испытываете недостаток в ясном мнении.", "Новое рассмотрение дела или начало могут быть успешными как изменение тени.",
+	private static final String BODY = "<html><body>Шаман Мине:<br>Я вижу, что перед Вами возникает изображение... Трудно передать словами то, что я видел.<br>Как я могу поведать это? Хорошо, тогда слушайте:<br><br><center>";
+	private static final String END = "</center><br><br>Примите эти слова близко к сердцу. Вы должны серьезно рассмотреть их значение...</body></html>";
+	private static final String[] FORTUNE = { "То, что Вы отдали вернется к Вам выгодой.", "Когда-нибудь дракон приобретете крылья орла.", "Будьте осторожны, поскольку Вы можете быть сражены, если Вы испытываете недостаток в ясном мнении.", "Новое рассмотрение дела или начало могут быть успешными как изменение тени.",
 			"Вы можете нервничать и чувствовать себя беспокоящимся из-за неблагоприятных ситуаций.", "Вы можете встретить человека, которого Вы стремились увидеть.", "Вы можете встретить много новых людей, но будет трудно найти прекрасного человека, который покорит Ваше сердце.", "Удача и возможность могут быть впереди, как будто они преподнесены в золотой ложке.",
 			"Будьте уверены и действуйте всегда стойко. Вы сможете достигнуть совершенства во время нескольких непостоянных ситуациях.", "Может быть случай, когда Вы ищите утешения у людей.", "Будьте всегда независимы.", "Не расслабляйтесь со своими предосторожностями.",
 			"Наблюдайте за людьми, которые проходят мимо, так как Вы можете встретить человека, который сможет помочь Вам.", "Слушайте совет, который дан Вам со скромным отношением.", "Сосредоточьтесь на том, чтобы контачить с аналогично мыслящими людьми. Они могут присоединиться к Вам для большой миссии в будущем.",
@@ -32,16 +31,14 @@ public class FortuneTelling extends Quest implements ScriptFile
 			"Мелочи составляют большие вещи, а ценность тривиальные вопросы.", "Вас будут ждать большие ошибки, если Вы будете не в состоянии исправить маленькие.", "На мгновение задержите важное решение.", "Лекарство необходимо для излечения от тяжелой болезни." };
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
+		final QuestState st = player.getQuestState(qn);
 		String htmltext = "";
 		if (st == null)
 			return "";
 		if (st.getQuestItemsCount(57) < 1000)
 			htmltext = "lowadena.htm";
-		else
-		{
+		else {
 			st.takeItems(57, 1000);
 			st.getRandom(45);
 			htmltext = BODY + FORTUNE[st.getRandom(45)] + END;
@@ -50,13 +47,11 @@ public class FortuneTelling extends Quest implements ScriptFile
 		return htmltext;
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new FortuneTelling(-1, "FortuneTelling", "custom");
 	}
 
-	public FortuneTelling(int id, String name, String desc)
-	{
+	public FortuneTelling(final int id, final String name, final String desc) {
 		super(id, name, desc);
 		addStartNpc(32616);
 		addTalkId(32616);

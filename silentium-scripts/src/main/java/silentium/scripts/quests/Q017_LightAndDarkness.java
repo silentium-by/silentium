@@ -12,22 +12,20 @@ import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 
-public class Q017_LightAndDarkness extends Quest
-{
-	private final static String qn = "Q017_LightAndDarkness";
+public class Q017_LightAndDarkness extends Quest {
+	private static final String qn = "Q017_LightAndDarkness";
 
 	// Items
-	private final static int BloodOfSaint = 7168;
+	private static final int BloodOfSaint = 7168;
 
 	// NPCs
-	private final static int Hierarch = 31517;
-	private final static int AltarOfSaints1 = 31508;
-	private final static int AltarOfSaints2 = 31509;
-	private final static int AltarOfSaints3 = 31510;
-	private final static int AltarOfSaints4 = 31511;
+	private static final int Hierarch = 31517;
+	private static final int AltarOfSaints1 = 31508;
+	private static final int AltarOfSaints2 = 31509;
+	private static final int AltarOfSaints3 = 31510;
+	private static final int AltarOfSaints4 = 31511;
 
-	public Q017_LightAndDarkness(int questId, String name, String descr)
-	{
+	public Q017_LightAndDarkness(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { BloodOfSaint };
@@ -36,110 +34,83 @@ public class Q017_LightAndDarkness extends Quest
 		addTalkId(Hierarch, AltarOfSaints1, AltarOfSaints2, AltarOfSaints3, AltarOfSaints4);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void main(final String... args) {
 		new Q017_LightAndDarkness(17, "Q017_LightAndDarkness", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
 		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("31517-04.htm"))
-		{
+		if ("31517-04.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.giveItems(BloodOfSaint, 4);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("31508-02.htm"))
-		{
-			if (st.getQuestItemsCount(BloodOfSaint) >= 1)
-			{
+		} else if ("31508-02.htm".equalsIgnoreCase(event)) {
+			if (st.getQuestItemsCount(BloodOfSaint) >= 1) {
 				st.set("cond", "2");
 				st.takeItems(BloodOfSaint, 1);
 				st.playSound(QuestState.SOUND_MIDDLE);
-			}
-			else
+			} else
 				htmltext = "31508-03.htm";
-		}
-		else if (event.equalsIgnoreCase("31509-02.htm"))
-		{
-			if (st.getQuestItemsCount(BloodOfSaint) >= 1)
-			{
+		} else if ("31509-02.htm".equalsIgnoreCase(event)) {
+			if (st.getQuestItemsCount(BloodOfSaint) >= 1) {
 				st.set("cond", "3");
 				st.takeItems(BloodOfSaint, 1);
 				st.playSound(QuestState.SOUND_MIDDLE);
-			}
-			else
+			} else
 				htmltext = "31509-03.htm";
-		}
-		else if (event.equalsIgnoreCase("31510-02.htm"))
-		{
-			if (st.getQuestItemsCount(BloodOfSaint) >= 1)
-			{
+		} else if ("31510-02.htm".equalsIgnoreCase(event)) {
+			if (st.getQuestItemsCount(BloodOfSaint) >= 1) {
 				st.set("cond", "4");
 				st.takeItems(BloodOfSaint, 1);
 				st.playSound(QuestState.SOUND_MIDDLE);
-			}
-			else
+			} else
 				htmltext = "31510-03.htm";
-		}
-		else if (event.equalsIgnoreCase("31511-02.htm"))
-		{
-			if (st.getQuestItemsCount(BloodOfSaint) >= 1)
-			{
+		} else if ("31511-02.htm".equalsIgnoreCase(event)) {
+			if (st.getQuestItemsCount(BloodOfSaint) >= 1) {
 				st.set("cond", "5");
 				st.takeItems(BloodOfSaint, 1);
 				st.playSound(QuestState.SOUND_MIDDLE);
-			}
-			else
+			} else
 				htmltext = "31511-03.htm";
 		}
 		return htmltext;
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
 		String htmltext = getNoQuestMsg();
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 61)
 					htmltext = "31517-01.htm";
-				else
-				{
+				else {
 					htmltext = "31517-03.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				int cond = st.getInt("cond");
-				switch (npc.getNpcId())
-				{
+				final int cond = st.getInt("cond");
+				switch (npc.getNpcId()) {
 					case Hierarch:
-						if (cond >= 1 && cond <= 4)
-						{
+						if (cond >= 1 && cond <= 4) {
 							if (st.getQuestItemsCount(BloodOfSaint) >= 1)
 								htmltext = "31517-05.htm";
-							else
-							{
+							else {
 								htmltext = "31517-06.htm";
 								st.exitQuest(true);
 							}
-						}
-						else if (cond == 5)
-						{
+						} else if (cond == 5) {
 							htmltext = "31517-07.htm";
 							st.addExpAndSp(105527, 0);
 							st.playSound(QuestState.SOUND_FINISH);

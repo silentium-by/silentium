@@ -9,32 +9,25 @@ package silentium.scripts.vmasters;
 
 import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
-import silentium.gameserver.scripting.ScriptFile;
 
-public class ElvenHumanMystics2 extends OccupationEngine implements ScriptFile
-{
-	public ElvenHumanMystics2(int id, String name, String descr)
-	{
+public class ElvenHumanMystics2 extends OccupationEngine {
+	public ElvenHumanMystics2(final int id, final String name, final String descr) {
 		super(id, name, descr);
-		for (int i : new int[] { 30115, 30174, 30176, 30694, 30854, 31996 })
-		{
+		for (final int i : new int[] { 30115, 30174, 30176, 30694, 30854, 31996 }) {
 			addStartNpc(i);
 			addTalkId(i);
 		}
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new ElvenHumanMystics2(-1, "ElvenHumanMystics2", "vmasters");
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
 		if (player.isSubClassActive())
 			return null;
-		if (player.getRace().ordinal() == 0 || player.getRace().ordinal() == 1)
-		{
+		if (player.getRace().ordinal() == 0 || player.getRace().ordinal() == 1) {
 			if (player.getClassId().getId() == 26) // elven wizard
 				return "30115-01.htm";
 			else if (player.getClassId().getId() == 11) // human wizard
@@ -43,12 +36,8 @@ public class ElvenHumanMystics2 extends OccupationEngine implements ScriptFile
 				return "30115-38.htm";
 			else if (player.getClassId().level() == 1) // buffers/oracles
 				return "30115-40.htm";
-			else if (player.getClassId().level() >= 2) // second/third occupation change already made
-				return "30115-25.htm";
-			else
-				return "30115-40.htm"; // other conditions
-		}
-		else
+			else return player.getClassId().level() >= 2 ? "30115-25.htm" : "30115-40.htm";
+		} else
 			return "30115-40.htm"; // other races
 	}
 }

@@ -15,8 +15,7 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q688_DefeatTheElrokianRaiders extends Quest implements ScriptFile
-{
+public class Q688_DefeatTheElrokianRaiders extends Quest implements ScriptFile {
 	private static final String qn = "Q688_DefeatTheElrokianRaiders";
 
 	// Item
@@ -28,8 +27,7 @@ public class Q688_DefeatTheElrokianRaiders extends Quest implements ScriptFile
 	// Monster
 	private static final int ELROKI = 22214;
 
-	public Q688_DefeatTheElrokianRaiders(int questId, String name, String descr)
-	{
+	public Q688_DefeatTheElrokianRaiders(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { DINOSAUR_FANG_NECKLACE };
@@ -40,52 +38,40 @@ public class Q688_DefeatTheElrokianRaiders extends Quest implements ScriptFile
 		addKillId(ELROKI);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q688_DefeatTheElrokianRaiders(688, "Q688_DefeatTheElrokianRaiders", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
 		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		int count = st.getQuestItemsCount(DINOSAUR_FANG_NECKLACE);
-		if (event.equalsIgnoreCase("None"))
+		final int count = st.getQuestItemsCount(DINOSAUR_FANG_NECKLACE);
+		if ("None".equalsIgnoreCase(event))
 			return null;
 
-		if (event.equalsIgnoreCase("32105-03.htm"))
-		{
+		if ("32105-03.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("32105-08.htm"))
-		{
-			if (count > 0)
-			{
+		} else if ("32105-08.htm".equalsIgnoreCase(event)) {
+			if (count > 0) {
 				st.takeItems(DINOSAUR_FANG_NECKLACE, -1);
 				st.rewardItems(57, count * 3000);
 			}
 			st.playSound(QuestState.SOUND_FINISH);
 			st.exitQuest(true);
-		}
-		else if (event.equalsIgnoreCase("32105-06.htm"))
-		{
+		} else if ("32105-06.htm".equalsIgnoreCase(event)) {
 			st.takeItems(DINOSAUR_FANG_NECKLACE, -1);
 			st.rewardItems(57, count * 3000);
-		}
-		else if (event.equalsIgnoreCase("32105-07.htm"))
-		{
-			if (count >= 100)
-			{
+		} else if ("32105-07.htm".equalsIgnoreCase(event)) {
+			if (count >= 100) {
 				st.takeItems(DINOSAUR_FANG_NECKLACE, 100);
 				st.rewardItems(57, 450000);
-			}
-			else
+			} else
 				htmltext = "32105-04.htm";
 		}
 
@@ -93,30 +79,24 @@ public class Q688_DefeatTheElrokianRaiders extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
 		String htmltext = getNoQuestMsg();
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 75)
 					htmltext = "32105-01.htm";
-				else
-				{
+				else {
 					htmltext = "32105-00.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				if (!st.hasQuestItems(DINOSAUR_FANG_NECKLACE))
-					htmltext = "32105-04.htm";
-				else
-					htmltext = "32105-05.htm";
+				htmltext = !st.hasQuestItems(DINOSAUR_FANG_NECKLACE) ? "32105-04.htm" : "32105-05.htm";
 				break;
 		}
 
@@ -124,23 +104,21 @@ public class Q688_DefeatTheElrokianRaiders extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		L2PcInstance partyMember = getRandomPartyMemberState(player, npc, QuestState.STARTED);
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final L2PcInstance partyMember = getRandomPartyMemberState(player, npc, QuestState.STARTED);
 		if (partyMember == null)
 			return null;
 
-		QuestState st = partyMember.getQuestState(qn);
+		final QuestState st = partyMember.getQuestState(qn);
 
 		int chance = (int) (50 * MainConfig.RATE_QUEST_DROP);
 		int numItems = chance / 100;
-		chance = chance % 100;
+		chance %= 100;
 
 		if (Rnd.get(100) < chance)
 			numItems++;
 
-		if (numItems > 0)
-		{
+		if (numItems > 0) {
 			st.giveItems(DINOSAUR_FANG_NECKLACE, numItems);
 			st.playSound(QuestState.SOUND_ITEMGET);
 		}

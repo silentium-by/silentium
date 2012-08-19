@@ -14,9 +14,8 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q338_AlligatorHunter extends Quest implements ScriptFile
-{
-	private final static String qn = "Q338_AlligatorHunter";
+public class Q338_AlligatorHunter extends Quest implements ScriptFile {
+	private static final String qn = "Q338_AlligatorHunter";
 
 	// Mob
 	private static final int ALLIGATOR = 20135;
@@ -27,8 +26,7 @@ public class Q338_AlligatorHunter extends Quest implements ScriptFile
 	// Item
 	private static final int ALLIGATOR_PELTS = 4337;
 
-	public Q338_AlligatorHunter(int questId, String name, String descr)
-	{
+	public Q338_AlligatorHunter(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { ALLIGATOR_PELTS };
@@ -39,43 +37,31 @@ public class Q338_AlligatorHunter extends Quest implements ScriptFile
 		addKillId(ALLIGATOR);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q338_AlligatorHunter(338, "Q338_AlligatorHunter", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
 		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30892-02.htm"))
-		{
+		if ("30892-02.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("30892-05.htm"))
-		{
+		} else if ("30892-05.htm".equalsIgnoreCase(event)) {
 			int count = st.getQuestItemsCount(ALLIGATOR_PELTS);
-			if (count > 0)
-			{
-				if (count > 10)
-					count = count * 60 + 3430;
-				else
-					count = count * 60;
+			if (count > 0) {
+				count = count > 10 ? count * 60 + 3430 : 60;
 
 				st.takeItems(ALLIGATOR_PELTS, -1);
 				st.rewardItems(57, count);
-			}
-			else
+			} else
 				htmltext = "30892-04.htm";
-		}
-		else if (event.equalsIgnoreCase("30892-08.htm"))
-		{
+		} else if ("30892-08.htm".equalsIgnoreCase(event)) {
 			st.playSound(QuestState.SOUND_FINISH);
 			st.exitQuest(true);
 		}
@@ -84,27 +70,19 @@ public class Q338_AlligatorHunter extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
 		String htmltext = Quest.getNoQuestMsg();
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
-				if (player.getLevel() >= 40 && player.getLevel() <= 47)
-					htmltext = "30892-01.htm";
-				else
-					htmltext = "30892-00.htm";
+				htmltext = player.getLevel() >= 40 && player.getLevel() <= 47 ? "30892-01.htm" : "30892-00.htm";
 				break;
 
 			case QuestState.STARTED:
-				if (st.getQuestItemsCount(ALLIGATOR_PELTS) > 0)
-					htmltext = "30892-03.htm";
-				else
-					htmltext = "30892-04.htm";
+				htmltext = st.getQuestItemsCount(ALLIGATOR_PELTS) > 0 ? "30892-03.htm" : "30892-04.htm";
 				break;
 		}
 
@@ -112,14 +90,12 @@ public class Q338_AlligatorHunter extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 
-		if (st.isStarted() && Rnd.get(10) < 5)
-		{
+		if (st.isStarted() && Rnd.get(10) < 5) {
 			st.giveItems(ALLIGATOR_PELTS, 1);
 			st.playSound(QuestState.SOUND_ITEMGET);
 		}

@@ -22,45 +22,38 @@ import silentium.gameserver.templates.skills.L2SkillType;
 /**
  * @author _drunk_
  */
-public class Spoil implements ISkillHandler
-{
+public class Spoil implements ISkillHandler {
 	private static final L2SkillType[] SKILL_IDS = { L2SkillType.SPOIL };
 
 	@Override
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
-	{
+	public void useSkill(final L2Character activeChar, final L2Skill skill, final L2Object... targets) {
 		if (!(activeChar instanceof L2PcInstance))
 			return;
 
 		if (targets == null)
 			return;
 
-		for (L2Object tgt : targets)
-		{
+		for (final L2Object tgt : targets) {
 			if (!(tgt instanceof L2MonsterInstance))
 				continue;
 
-			L2MonsterInstance target = (L2MonsterInstance) tgt;
+			final L2MonsterInstance target = (L2MonsterInstance) tgt;
 
-			if (target.isSpoil())
-			{
+			if (target.isSpoil()) {
 				activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.ALREADY_SPOILED));
 				continue;
 			}
 
 			// SPOIL SYSTEM by Lbaldi
 			boolean spoil = false;
-			if (!target.isDead())
-			{
+			if (!target.isDead()) {
 				spoil = Formulas.calcMagicSuccess(activeChar, (L2Character) tgt, skill);
 
-				if (spoil)
-				{
+				if (spoil) {
 					target.setSpoil(true);
 					target.setIsSpoiledBy(activeChar.getObjectId());
 					activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.SPOIL_SUCCESS));
-				}
-				else
+				} else
 					activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_RESISTED_YOUR_S2).addCharName(target).addSkillName(skill.getDisplayId()));
 
 				target.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, activeChar);
@@ -69,8 +62,7 @@ public class Spoil implements ISkillHandler
 	}
 
 	@Override
-	public L2SkillType[] getSkillIds()
-	{
+	public L2SkillType[] getSkillIds() {
 		return SKILL_IDS;
 	}
 }

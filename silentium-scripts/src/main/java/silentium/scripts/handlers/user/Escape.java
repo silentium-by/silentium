@@ -16,21 +16,17 @@ import silentium.gameserver.network.serverpackets.ActionFailed;
 import silentium.gameserver.network.serverpackets.PlaySound;
 import silentium.gameserver.tables.SkillTable;
 
-public class Escape implements IUserCommandHandler
-{
+public class Escape implements IUserCommandHandler {
 	private static final int[] COMMAND_IDS = { 52 };
 
 	@Override
-	public boolean useUserCommand(int id, L2PcInstance activeChar)
-	{
+	public boolean useUserCommand(final int id, final L2PcInstance activeChar) {
 		// Thanks nbd
-		if (!TvTEvent.onEscapeUse(activeChar.getObjectId()))
-		{
+		if (!TvTEvent.onEscapeUse(activeChar.getObjectId())) {
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return false;
 		}
-		if (activeChar.isCastingNow() || activeChar.isMovementDisabled() || activeChar.isOutOfControl() || activeChar.isInOlympiadMode() || activeChar.inObserverMode() || activeChar.isFestivalParticipant() || activeChar.isInJail() || (GrandBossManager.getInstance().getZone(activeChar) != null && !activeChar.isGM()))
-		{
+		if (activeChar.isCastingNow() || activeChar.isMovementDisabled() || activeChar.isOutOfControl() || activeChar.isInOlympiadMode() || activeChar.inObserverMode() || activeChar.isFestivalParticipant() || activeChar.isInJail() || GrandBossManager.getInstance().getZone(activeChar) != null && !activeChar.isGM()) {
 			activeChar.sendMessage("Your current state doesn't allow you to use the /unstuck command.");
 			return false;
 		}
@@ -38,8 +34,7 @@ public class Escape implements IUserCommandHandler
 		// Official timer 5 minutes, for GM 1 second
 		if (activeChar.getAccessLevel().isGm())
 			activeChar.doCast(SkillTable.getInstance().getInfo(2100, 1));
-		else
-		{
+		else {
 			activeChar.sendPacket(new PlaySound("systemmsg_e.809"));
 			activeChar.sendPacket(SystemMessageId.STUCK_TRANSPORT_IN_FIVE_MINUTES);
 
@@ -50,8 +45,7 @@ public class Escape implements IUserCommandHandler
 	}
 
 	@Override
-	public int[] getUserCommandList()
-	{
+	public int[] getUserCommandList() {
 		return COMMAND_IDS;
 	}
 }

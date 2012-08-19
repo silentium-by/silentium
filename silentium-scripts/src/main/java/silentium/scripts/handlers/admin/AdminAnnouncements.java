@@ -7,79 +7,58 @@
  */
 package silentium.scripts.handlers.admin;
 
-import java.util.Collection;
-
 import silentium.gameserver.Announcements;
 import silentium.gameserver.handler.IAdminCommandHandler;
 import silentium.gameserver.model.L2World;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
+
+import java.util.Collection;
 
 /**
  * This class handles following admin commands: - announce text = announces text to all players - list_announcements = show menu -
  * reload_announcements = reloads announcements from txt file - announce_announcements = announce all stored announcements to all players -
  * add_announcement text = adds text to startup announcements - del_announcement id = deletes announcement with respective id
  */
-public class AdminAnnouncements implements IAdminCommandHandler
-{
+public class AdminAnnouncements implements IAdminCommandHandler {
 	private static final String[] ADMIN_COMMANDS = { "admin_list_announcements", "admin_reload_announcements", "admin_announce_announcements", "admin_add_announcement", "admin_del_announcement", "admin_announce", "admin_announce_menu" };
 
 	@Override
-	public boolean useAdminCommand(String command, L2PcInstance activeChar)
-	{
-		if (command.equals("admin_list_announcements"))
-		{
+	public boolean useAdminCommand(final String command, final L2PcInstance activeChar) {
+		if ("admin_list_announcements".equals(command)) {
 			Announcements.getInstance().listAnnouncements(activeChar);
-		}
-		else if (command.equals("admin_reload_announcements"))
-		{
+		} else if ("admin_reload_announcements".equals(command)) {
 			Announcements.getInstance().loadAnnouncements();
 			Announcements.getInstance().listAnnouncements(activeChar);
-		}
-		else if (command.startsWith("admin_announce_menu"))
-		{
+		} else if (command.startsWith("admin_announce_menu")) {
 			Announcements.handleAnnounce(command, 20);
 			Announcements.getInstance().listAnnouncements(activeChar);
-		}
-		else if (command.equals("admin_announce_announcements"))
-		{
-			Collection<L2PcInstance> pls = L2World.getInstance().getAllPlayers().values();
+		} else if ("admin_announce_announcements".equals(command)) {
+			final Collection<L2PcInstance> pls = L2World.getInstance().getAllPlayers().values();
 
-			for (L2PcInstance player : pls)
+			for (final L2PcInstance player : pls)
 				Announcements.getInstance().showAnnouncements(player);
 
 			Announcements.getInstance().listAnnouncements(activeChar);
-		}
-		else if (command.startsWith("admin_add_announcement"))
-		{
+		} else if (command.startsWith("admin_add_announcement")) {
 			// FIXME the player can send only 16 chars (if you try to send more it sends null), remove this function or not?
-			if (!command.equals("admin_add_announcement"))
-			{
-				try
-				{
-					String val = command.substring(23);
+			if (!"admin_add_announcement".equals(command)) {
+				try {
+					final String val = command.substring(23);
 					Announcements.getInstance().addAnnouncement(val);
 					Announcements.getInstance().listAnnouncements(activeChar);
-				}
-				catch (StringIndexOutOfBoundsException e)
-				{
+				} catch (StringIndexOutOfBoundsException e) {
 				}// ignore errors
 			}
-		}
-		else if (command.startsWith("admin_del_announcement"))
-		{
-			try
-			{
-				int val = new Integer(command.substring(23)).intValue();
+		} else if (command.startsWith("admin_del_announcement")) {
+			try {
+				final int val = Integer.parseInt(command.substring(23));
 				Announcements.getInstance().delAnnouncement(val);
 				Announcements.getInstance().listAnnouncements(activeChar);
-			}
-			catch (StringIndexOutOfBoundsException e)
-			{
+			} catch (StringIndexOutOfBoundsException e) {
 			}
 		}
 		// Command is admin announce
-		else if (command.startsWith("admin_announce"))
-		{
+		else if (command.startsWith("admin_announce")) {
 			// Call method from another class
 			Announcements.handleAnnounce(command, 15);
 		}
@@ -87,8 +66,7 @@ public class AdminAnnouncements implements IAdminCommandHandler
 	}
 
 	@Override
-	public String[] getAdminCommandList()
-	{
+	public String[] getAdminCommandList() {
 		return ADMIN_COMMANDS;
 	}
 }

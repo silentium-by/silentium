@@ -13,21 +13,19 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q029_ChestCaughtWithABaitOfEarth extends Quest implements ScriptFile
-{
+public class Q029_ChestCaughtWithABaitOfEarth extends Quest implements ScriptFile {
 	private static final String qn = "Q029_ChestCaughtWithABaitOfEarth";
 
 	// NPCs
-	private final static int Willie = 31574;
-	private final static int Anabel = 30909;
+	private static final int Willie = 31574;
+	private static final int Anabel = 30909;
 
 	// Items
-	private final static int SmallPurpleTreasureChest = 6507;
-	private final static int SmallGlassBox = 7627;
-	private final static int PlatedLeatherGloves = 2455;
+	private static final int SmallPurpleTreasureChest = 6507;
+	private static final int SmallGlassBox = 7627;
+	private static final int PlatedLeatherGloves = 2455;
 
-	public Q029_ChestCaughtWithABaitOfEarth(int questId, String name, String descr)
-	{
+	public Q029_ChestCaughtWithABaitOfEarth(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { SmallGlassBox };
@@ -36,105 +34,83 @@ public class Q029_ChestCaughtWithABaitOfEarth extends Quest implements ScriptFil
 		addTalkId(Willie, Anabel);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q029_ChestCaughtWithABaitOfEarth(29, "Q029_ChestCaughtWithABaitOfEarth", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
 		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("31574-04.htm"))
-		{
+		if ("31574-04.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("31574-07.htm"))
-		{
-			if (st.getQuestItemsCount(SmallPurpleTreasureChest) == 1)
-			{
+		} else if ("31574-07.htm".equalsIgnoreCase(event)) {
+			if (st.getQuestItemsCount(SmallPurpleTreasureChest) == 1) {
 				st.set("cond", "2");
 				st.takeItems(SmallPurpleTreasureChest, 1);
 				st.giveItems(SmallGlassBox, 1);
-			}
-			else
+			} else
 				htmltext = "31574-08.htm";
-		}
-		else if (event.equalsIgnoreCase("30909-02.htm"))
-		{
-			if (st.getQuestItemsCount(SmallGlassBox) == 1)
-			{
+		} else if ("30909-02.htm".equalsIgnoreCase(event)) {
+			if (st.getQuestItemsCount(SmallGlassBox) == 1) {
 				htmltext = "30909-02.htm";
 				st.takeItems(SmallGlassBox, 1);
 				st.giveItems(PlatedLeatherGloves, 1);
 				st.playSound(QuestState.SOUND_FINISH);
 				st.exitQuest(false);
-			}
-			else
-				htmltext = ("30909-03.htm");
+			} else
+				htmltext = "30909-03.htm";
 		}
 
 		return htmltext;
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
+		final QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
-				if (player.getLevel() >= 48 && player.getLevel() <= 50)
-				{
-					QuestState st2 = player.getQuestState("Q052_WilliesSpecialBait");
-					if (st2 != null)
-					{
+				if (player.getLevel() >= 48 && player.getLevel() <= 50) {
+					final QuestState st2 = player.getQuestState("Q052_WilliesSpecialBait");
+					if (st2 != null) {
 						if (st2.isCompleted())
 							htmltext = "31574-01.htm";
-						else
-						{
+						else {
 							htmltext = "31574-02.htm";
 							st.exitQuest(true);
 						}
-					}
-					else
-					{
+					} else {
 						htmltext = "31574-03.htm";
 						st.exitQuest(true);
 					}
-				}
-				else
+				} else
 					htmltext = "31574-02.htm";
 				break;
 
 			case QuestState.STARTED:
-				int cond = st.getInt("cond");
-				switch (npc.getNpcId())
-				{
+				final int cond = st.getInt("cond");
+				switch (npc.getNpcId()) {
 					case Willie:
-						if (cond == 1)
-						{
-							htmltext = ("31574-05.htm");
+						if (cond == 1) {
+							htmltext = "31574-05.htm";
 							if (st.getQuestItemsCount(SmallPurpleTreasureChest) == 0)
-								htmltext = ("31574-06.htm");
-						}
-						else if (cond == 2)
-							htmltext = ("31574-09.htm");
+								htmltext = "31574-06.htm";
+						} else if (cond == 2)
+							htmltext = "31574-09.htm";
 						break;
 
 					case Anabel:
 						if (cond == 2)
-							htmltext = ("30909-01.htm");
+							htmltext = "30909-01.htm";
 						break;
 				}
 				break;

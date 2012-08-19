@@ -7,9 +7,6 @@
  */
 package silentium.scripts.handlers.chat;
 
-import java.util.Collection;
-import java.util.StringTokenizer;
-
 import silentium.gameserver.handler.IChatHandler;
 import silentium.gameserver.handler.IVoicedCommandHandler;
 import silentium.gameserver.handler.VoicedCommandHandler;
@@ -17,49 +14,43 @@ import silentium.gameserver.model.BlockList;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.network.serverpackets.CreatureSay;
 
+import java.util.Collection;
+import java.util.StringTokenizer;
+
 /**
  * A chat handler
- * 
+ *
  * @author durgus
  */
-public class ChatAll implements IChatHandler
-{
+public class ChatAll implements IChatHandler {
 	private static final int[] COMMAND_IDS = { 0 };
 
 	/**
 	 * Handle chat type 'all'
-	 * 
+	 *
 	 * @see silentium.gameserver.handler.IChatHandler#handleChat(int, silentium.gameserver.model.actor.instance.L2PcInstance, String, String)
 	 */
 	@Override
-	public void handleChat(int type, L2PcInstance activeChar, String target, String text)
-	{
-		if (text.startsWith("."))
-		{
-			StringTokenizer st = new StringTokenizer(text);
-			IVoicedCommandHandler vch;
+	public void handleChat(final int type, final L2PcInstance activeChar, String target, final String text) {
+		if (text.startsWith(".")) {
+			final StringTokenizer st = new StringTokenizer(text);
+			final IVoicedCommandHandler vch;
 			String command = "";
-			if (st.countTokens() > 1)
-			{
+			if (st.countTokens() > 1) {
 				command = st.nextToken().substring(1);
 				target = text.substring(command.length() + 2);
 				vch = VoicedCommandHandler.getInstance().getHandler(command);
-			}
-			else
-			{
+			} else {
 				command = text.substring(1);
 				vch = VoicedCommandHandler.getInstance().getHandler(command);
 			}
 			if (vch != null)
 				vch.useVoicedCommand(command, activeChar, target);
-		}
-		else
-		{
-			CreatureSay cs = new CreatureSay(activeChar.getObjectId(), type, activeChar.getName(), text);
-			Collection<L2PcInstance> plrs = activeChar.getKnownList().getKnownPlayers().values();
+		} else {
+			final CreatureSay cs = new CreatureSay(activeChar.getObjectId(), type, activeChar.getName(), text);
+			final Collection<L2PcInstance> plrs = activeChar.getKnownList().getKnownPlayers().values();
 
-			for (L2PcInstance player : plrs)
-			{
+			for (final L2PcInstance player : plrs) {
 				if (player != null && activeChar.isInsideRadius(player, 1250, false, true) && !BlockList.isBlocked(player, activeChar))
 					player.sendPacket(cs);
 			}
@@ -70,12 +61,11 @@ public class ChatAll implements IChatHandler
 
 	/**
 	 * Returns the chat types registered to this handler
-	 * 
+	 *
 	 * @see silentium.gameserver.handler.IChatHandler#getChatTypeList()
 	 */
 	@Override
-	public int[] getChatTypeList()
-	{
+	public int[] getChatTypeList() {
 		return COMMAND_IDS;
 	}
 }

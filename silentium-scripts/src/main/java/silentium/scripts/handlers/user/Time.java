@@ -13,35 +13,27 @@ import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.network.SystemMessageId;
 import silentium.gameserver.network.serverpackets.SystemMessage;
 
-public class Time implements IUserCommandHandler
-{
+public class Time implements IUserCommandHandler {
 	private static final int[] COMMAND_IDS = { 77 };
 
 	@Override
-	public boolean useUserCommand(int id, L2PcInstance activeChar)
-	{
+	public boolean useUserCommand(final int id, final L2PcInstance activeChar) {
 		if (COMMAND_IDS[0] != id)
 			return false;
 
-		int t = GameTimeController.getInstance().getGameTime();
-		int h = (t / 60) % 24;
+		final int t = GameTimeController.getInstance().getGameTime();
+		final int h = t / 60 % 24;
 
-		String m;
-		if (t % 60 < 10)
-			m = "0" + t % 60;
-		else
-			m = "" + t % 60;
+		final String m;
+		m = t % 60 < 10 ? "0" + t % 60 : String.valueOf(t % 60);
 
-		SystemMessage sm;
+		final SystemMessage sm;
 
-		if (GameTimeController.getInstance().isNowNight())
-		{
+		if (GameTimeController.getInstance().isNowNight()) {
 			sm = SystemMessage.getSystemMessage(SystemMessageId.TIME_S1_S2_IN_THE_NIGHT);
 			sm.addNumber(h);
 			sm.addString(m);
-		}
-		else
-		{
+		} else {
 			sm = SystemMessage.getSystemMessage(SystemMessageId.TIME_S1_S2_IN_THE_DAY);
 			sm.addNumber(h);
 			sm.addString(m);
@@ -51,8 +43,7 @@ public class Time implements IUserCommandHandler
 	}
 
 	@Override
-	public int[] getUserCommandList()
-	{
+	public int[] getUserCommandList() {
 		return COMMAND_IDS;
 	}
 }

@@ -14,23 +14,21 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q356_DigUpTheSeaOfSpores extends Quest implements ScriptFile
-{
-	private final static String qn = "Q356_DigUpTheSeaOfSpores";
+public class Q356_DigUpTheSeaOfSpores extends Quest implements ScriptFile {
+	private static final String qn = "Q356_DigUpTheSeaOfSpores";
 
 	// Items
-	private final static int HERB_SPORE = 5866;
-	private final static int CARN_SPORE = 5865;
+	private static final int HERB_SPORE = 5866;
+	private static final int CARN_SPORE = 5865;
 
 	// NPC
-	private final static int GAUEN = 30717;
+	private static final int GAUEN = 30717;
 
 	// Monsters
-	private final static int ROTTING_TREE = 20558;
-	private final static int SPORE_ZOMBIE = 20562;
+	private static final int ROTTING_TREE = 20558;
+	private static final int SPORE_ZOMBIE = 20562;
 
-	public Q356_DigUpTheSeaOfSpores(int questId, String name, String descr)
-	{
+	public Q356_DigUpTheSeaOfSpores(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { HERB_SPORE, CARN_SPORE };
@@ -41,49 +39,38 @@ public class Q356_DigUpTheSeaOfSpores extends Quest implements ScriptFile
 		addKillId(ROTTING_TREE, SPORE_ZOMBIE);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q356_DigUpTheSeaOfSpores(356, "Q356_DigUpTheSeaOfSpores", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		final String htmltext = event;
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30717-06.htm"))
-		{
+		if ("30717-06.htm".equalsIgnoreCase(event)) {
 			st.setState(QuestState.STARTED);
 			st.set("cond", "1");
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("30717-17.htm"))
-		{
+		} else if ("30717-17.htm".equalsIgnoreCase(event)) {
 			st.takeItems(HERB_SPORE, 50);
 			st.takeItems(CARN_SPORE, 50);
 			st.rewardItems(57, 20950);
 			st.playSound(QuestState.SOUND_FINISH);
 			st.exitQuest(true);
-		}
-		else if (event.equalsIgnoreCase("30717-14.htm"))
-		{
+		} else if ("30717-14.htm".equalsIgnoreCase(event)) {
 			st.takeItems(HERB_SPORE, 50);
 			st.takeItems(CARN_SPORE, 50);
 			st.addExpAndSp(35000, 2600);
 			st.playSound(QuestState.SOUND_FINISH);
 			st.exitQuest(true);
-		}
-		else if (event.equalsIgnoreCase("30717-12.htm"))
-		{
+		} else if ("30717-12.htm".equalsIgnoreCase(event)) {
 			st.takeItems(HERB_SPORE, 50);
 			st.addExpAndSp(24500, 0);
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("30717-13.htm"))
-		{
+		} else if ("30717-13.htm".equalsIgnoreCase(event)) {
 			st.takeItems(CARN_SPORE, 50);
 			st.addExpAndSp(0, 1820);
 			st.playSound(QuestState.SOUND_MIDDLE);
@@ -93,36 +80,26 @@ public class Q356_DigUpTheSeaOfSpores extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
 		String htmltext = getNoQuestMsg();
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
-				if (player.getLevel() >= 43 && player.getLevel() <= 51)
-					htmltext = "30717-02.htm";
-				else
-					htmltext = "30717-01.htm";
+				htmltext = player.getLevel() >= 43 && player.getLevel() <= 51 ? "30717-02.htm" : "30717-01.htm";
 				break;
 
 			case QuestState.STARTED:
-				int cond = st.getInt("cond");
+				final int cond = st.getInt("cond");
 				if (cond == 1)
 					htmltext = "30717-07.htm";
-				else if (cond == 2)
-				{
+				else if (cond == 2) {
 					if (st.getQuestItemsCount(HERB_SPORE) >= 50)
 						htmltext = "30717-08.htm";
-					else if (st.getQuestItemsCount(CARN_SPORE) >= 50)
-						htmltext = "30717-09.htm";
-					else
-						htmltext = "30717-07.htm";
-				}
-				else if (cond == 3)
+					else htmltext = st.getQuestItemsCount(CARN_SPORE) >= 50 ? "30717-09.htm" : "30717-07.htm";
+				} else if (cond == 3)
 					htmltext = "30717-10.htm";
 				break;
 		}
@@ -131,53 +108,40 @@ public class Q356_DigUpTheSeaOfSpores extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 
-		int cond = st.getInt("cond");
-		if (st.isStarted() && cond < 3 && Rnd.get(10) < 5)
-		{
-			switch (npc.getNpcId())
-			{
+		final int cond = st.getInt("cond");
+		if (st.isStarted() && cond < 3 && Rnd.get(10) < 5) {
+			switch (npc.getNpcId()) {
 				case ROTTING_TREE:
-					if (st.getQuestItemsCount(HERB_SPORE) < 50)
-					{
+					if (st.getQuestItemsCount(HERB_SPORE) < 50) {
 						st.giveItems(HERB_SPORE, 1);
 
-						if (cond == 2 && (st.getQuestItemsCount(CARN_SPORE) >= 50 && st.getQuestItemsCount(HERB_SPORE) >= 50))
-						{
+						if (cond == 2 && st.getQuestItemsCount(CARN_SPORE) >= 50 && st.getQuestItemsCount(HERB_SPORE) >= 50) {
 							st.set("cond", "3");
 							st.playSound(QuestState.SOUND_MIDDLE);
-						}
-						else if (cond == 1 && (st.getQuestItemsCount(CARN_SPORE) >= 50 || st.getQuestItemsCount(HERB_SPORE) >= 50))
-						{
+						} else if (cond == 1 && (st.getQuestItemsCount(CARN_SPORE) >= 50 || st.getQuestItemsCount(HERB_SPORE) >= 50)) {
 							st.set("cond", "2");
 							st.playSound(QuestState.SOUND_MIDDLE);
-						}
-						else
+						} else
 							st.playSound(QuestState.SOUND_ITEMGET);
 					}
 					break;
 
 				case SPORE_ZOMBIE:
-					if (st.getQuestItemsCount(CARN_SPORE) < 50)
-					{
+					if (st.getQuestItemsCount(CARN_SPORE) < 50) {
 						st.giveItems(CARN_SPORE, 1);
 
-						if (cond == 2 && (st.getQuestItemsCount(CARN_SPORE) >= 50 && st.getQuestItemsCount(HERB_SPORE) >= 50))
-						{
+						if (cond == 2 && st.getQuestItemsCount(CARN_SPORE) >= 50 && st.getQuestItemsCount(HERB_SPORE) >= 50) {
 							st.set("cond", "3");
 							st.playSound(QuestState.SOUND_MIDDLE);
-						}
-						else if (cond == 1 && (st.getQuestItemsCount(CARN_SPORE) >= 50 || st.getQuestItemsCount(HERB_SPORE) >= 50))
-						{
+						} else if (cond == 1 && (st.getQuestItemsCount(CARN_SPORE) >= 50 || st.getQuestItemsCount(HERB_SPORE) >= 50)) {
 							st.set("cond", "2");
 							st.playSound(QuestState.SOUND_MIDDLE);
-						}
-						else
+						} else
 							st.playSound(QuestState.SOUND_ITEMGET);
 					}
 					break;

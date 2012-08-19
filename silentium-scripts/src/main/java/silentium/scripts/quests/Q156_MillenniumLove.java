@@ -13,9 +13,8 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q156_MillenniumLove extends Quest implements ScriptFile
-{
-	private final static String qn = "Q156_MillenniumLove";
+public class Q156_MillenniumLove extends Quest implements ScriptFile {
+	private static final String qn = "Q156_MillenniumLove";
 
 	// Items
 	private static final int RYLITHS_LETTER = 1022;
@@ -25,8 +24,7 @@ public class Q156_MillenniumLove extends Quest implements ScriptFile
 	private static final int LILITH = 30368;
 	private static final int BAENEDES = 30369;
 
-	public Q156_MillenniumLove(int questId, String name, String descr)
-	{
+	public Q156_MillenniumLove(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { RYLITHS_LETTER, THEONS_DIARY };
@@ -35,35 +33,28 @@ public class Q156_MillenniumLove extends Quest implements ScriptFile
 		addTalkId(LILITH, BAENEDES);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q156_MillenniumLove(156, "Q156_MillenniumLove", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		final String htmltext = event;
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30368-04.htm"))
-		{
+		if ("30368-04.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.giveItems(RYLITHS_LETTER, 1);
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("30369-02.htm"))
-		{
+		} else if ("30369-02.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "2");
 			st.takeItems(RYLITHS_LETTER, -1);
 			st.giveItems(THEONS_DIARY, 1);
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("30369-03.htm"))
-		{
+		} else if ("30369-03.htm".equalsIgnoreCase(event)) {
 			st.takeItems(RYLITHS_LETTER, -1);
 			st.addExpAndSp(3000, 0);
 			st.playSound(QuestState.SOUND_FINISH);
@@ -74,33 +65,28 @@ public class Q156_MillenniumLove extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
 		String htmltext = Quest.getNoQuestMsg();
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 15 && player.getLevel() <= 19)
 					htmltext = "30368-01.htm";
-				else
-				{
+				else {
 					htmltext = "30368-00.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				switch (npc.getNpcId())
-				{
+				switch (npc.getNpcId()) {
 					case LILITH:
 						if (st.getQuestItemsCount(RYLITHS_LETTER) == 1)
 							htmltext = "30368-05.htm";
-						else if (st.getQuestItemsCount(THEONS_DIARY) == 1)
-						{
+						else if (st.getQuestItemsCount(THEONS_DIARY) == 1) {
 							htmltext = "30368-06.htm";
 							st.takeItems(THEONS_DIARY, -1);
 							st.giveItems(5250, 1);

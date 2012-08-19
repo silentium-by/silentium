@@ -7,64 +7,45 @@
  */
 package silentium.scripts.handlers.admin;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import silentium.commons.database.DatabaseFactory;
+import silentium.gameserver.handler.IAdminCommandHandler;
+import silentium.gameserver.model.actor.instance.L2PcInstance;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Calendar;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import silentium.commons.database.DatabaseFactory;
-import silentium.gameserver.handler.IAdminCommandHandler;
-import silentium.gameserver.model.actor.instance.L2PcInstance;
-
-public class AdminPremium implements IAdminCommandHandler
-{
+public class AdminPremium implements IAdminCommandHandler {
 	private static final String[] ADMIN_COMMANDS = { "admin_premium_menu", "admin_premium_add1", "admin_premium_add2", "admin_premium_add3" };
 	private static final String UPDATE_PREMIUMSERVICE = "UPDATE character_premium SET premium_service=?,enddate=? WHERE account_name=?";
 	private static final Logger _log = LoggerFactory.getLogger(AdminPremium.class.getName());
 
 	@Override
-	public boolean useAdminCommand(String command, L2PcInstance activeChar)
-	{
-		if (command.equals("admin_premium_menu"))
-		{
+	public boolean useAdminCommand(final String command, final L2PcInstance activeChar) {
+		if ("admin_premium_menu".equals(command)) {
 			AdminHelpPage.showHelpPage(activeChar, "premium_menu.htm");
-		}
-		else if (command.startsWith("admin_premium_add1"))
-		{
-			try
-			{
-				String val = command.substring(19);
+		} else if (command.startsWith("admin_premium_add1")) {
+			try {
+				final String val = command.substring(19);
 				addPremiumServices(1, val);
-			}
-			catch (StringIndexOutOfBoundsException e)
-			{
+			} catch (StringIndexOutOfBoundsException e) {
 				activeChar.sendMessage("Err");
 			}
-		}
-		else if (command.startsWith("admin_premium_add2"))
-		{
-			try
-			{
-				String val = command.substring(19);
+		} else if (command.startsWith("admin_premium_add2")) {
+			try {
+				final String val = command.substring(19);
 				addPremiumServices(2, val);
-			}
-			catch (StringIndexOutOfBoundsException e)
-			{
+			} catch (StringIndexOutOfBoundsException e) {
 				activeChar.sendMessage("Err");
 			}
-		}
-		else if (command.startsWith("admin_premium_add3"))
-		{
-			try
-			{
-				String val = command.substring(19);
+		} else if (command.startsWith("admin_premium_add3")) {
+			try {
+				final String val = command.substring(19);
 				addPremiumServices(3, val);
-			}
-			catch (StringIndexOutOfBoundsException e)
-			{
+			} catch (StringIndexOutOfBoundsException e) {
 				activeChar.sendMessage("Err");
 			}
 		}
@@ -72,42 +53,32 @@ public class AdminPremium implements IAdminCommandHandler
 	}
 
 	@Override
-	public String[] getAdminCommandList()
-	{
+	public String[] getAdminCommandList() {
 		return ADMIN_COMMANDS;
 	}
 
-	private void addPremiumServices(int Months, String AccName)
-	{
+	private void addPremiumServices(final int Months, final String AccName) {
 		Connection con = null;
-		try
-		{
-			Calendar finishtime = Calendar.getInstance();
+		try {
+			final Calendar finishtime = Calendar.getInstance();
 			finishtime.setTimeInMillis(System.currentTimeMillis());
 			finishtime.set(Calendar.SECOND, 0);
 			finishtime.add(Calendar.MONTH, Months);
 
 			con = DatabaseFactory.getConnection();
-			PreparedStatement statement = con.prepareStatement(UPDATE_PREMIUMSERVICE);
+			final PreparedStatement statement = con.prepareStatement(UPDATE_PREMIUMSERVICE);
 			statement.setInt(1, 1);
 			statement.setLong(2, finishtime.getTimeInMillis());
 			statement.setString(3, AccName);
 			statement.execute();
 			statement.close();
-		}
-		catch (SQLException e)
-		{
+		} catch (SQLException e) {
 			_log.info("PremiumService:  Could not increase data");
-		}
-		finally
-		{
-			try
-			{
+		} finally {
+			try {
 				if (con != null)
 					con.close();
-			}
-			catch (SQLException e)
-			{
+			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}

@@ -7,8 +7,6 @@
  */
 package silentium.scripts.handlers.admin;
 
-import java.util.StringTokenizer;
-
 import silentium.gameserver.configs.ConfigEngine;
 import silentium.gameserver.data.crest.CrestCache;
 import silentium.gameserver.data.html.HtmCache;
@@ -26,6 +24,8 @@ import silentium.gameserver.tables.ItemTable;
 import silentium.gameserver.tables.NpcTable;
 import silentium.gameserver.tables.SkillTable;
 
+import java.util.StringTokenizer;
+
 /**
  * This class handles following admin commands:<br>
  * <br>
@@ -38,138 +38,90 @@ import silentium.gameserver.tables.SkillTable;
  * - script_load = loads following script. MUSTN'T be used instead of //reload quest !<br>
  * - manualhero = cycles olympiad and calculate new heroes.
  */
-public class AdminAdmin implements IAdminCommandHandler
-{
+public class AdminAdmin implements IAdminCommandHandler {
 	private static final String[] ADMIN_COMMANDS = { "admin_admin", "admin_admin1", "admin_admin2", "admin_admin3", "admin_admin4", "admin_gmliston", "admin_gmlistoff", "admin_silence", "admin_tradeoff", "admin_reload" };
 
 	@Override
-	public boolean useAdminCommand(String command, L2PcInstance activeChar)
-	{
+	public boolean useAdminCommand(final String command, final L2PcInstance activeChar) {
 		if (command.startsWith("admin_admin"))
 			showMainPage(activeChar, command);
-		else if (command.startsWith("admin_gmliston"))
-		{
+		else if (command.startsWith("admin_gmliston")) {
 			GmListTable.getInstance().showGm(activeChar);
 			activeChar.sendMessage("Registered into GMList.");
-		}
-		else if (command.startsWith("admin_gmlistoff"))
-		{
+		} else if (command.startsWith("admin_gmlistoff")) {
 			GmListTable.getInstance().hideGm(activeChar);
 			activeChar.sendMessage("Removed from GMList.");
-		}
-		else if (command.startsWith("admin_silence"))
-		{
+		} else if (command.startsWith("admin_silence")) {
 			if (activeChar.isInRefusalMode()) // already in message refusal mode
 			{
 				activeChar.setInRefusalMode(false);
 				activeChar.sendPacket(SystemMessageId.MESSAGE_ACCEPTANCE_MODE);
-			}
-			else
-			{
+			} else {
 				activeChar.setInRefusalMode(true);
 				activeChar.sendPacket(SystemMessageId.MESSAGE_REFUSAL_MODE);
 			}
-		}
-		else if (command.startsWith("admin_tradeoff"))
-		{
-			try
-			{
-				String mode = command.substring(15);
-				if (mode.equalsIgnoreCase("on"))
-				{
+		} else if (command.startsWith("admin_tradeoff")) {
+			try {
+				final String mode = command.substring(15);
+				if ("on".equalsIgnoreCase(mode)) {
 					activeChar.setTradeRefusal(true);
 					activeChar.sendMessage("Trade refusal enabled");
-				}
-				else if (mode.equalsIgnoreCase("off"))
-				{
+				} else if ("off".equalsIgnoreCase(mode)) {
 					activeChar.setTradeRefusal(false);
 					activeChar.sendMessage("Trade refusal disabled");
 				}
-			}
-			catch (Exception ex)
-			{
-				if (activeChar.getTradeRefusal())
-				{
+			} catch (Exception ex) {
+				if (activeChar.getTradeRefusal()) {
 					activeChar.setTradeRefusal(false);
 					activeChar.sendMessage("Trade refusal disabled");
-				}
-				else
-				{
+				} else {
 					activeChar.setTradeRefusal(true);
 					activeChar.sendMessage("Trade refusal enabled");
 				}
 			}
-		}
-		else if (command.startsWith("admin_reload"))
-		{
-			StringTokenizer st = new StringTokenizer(command);
+		} else if (command.startsWith("admin_reload")) {
+			final StringTokenizer st = new StringTokenizer(command);
 			st.nextToken();
-			try
-			{
-				String type = st.nextToken();
-				if (type.startsWith("acar"))
-				{
+			try {
+				final String type = st.nextToken();
+				if (type.startsWith("acar")) {
 					AdminCommandAccessRightsData.getInstance().reload();
 					activeChar.sendMessage("Admin commands rights have been reloaded.");
-				}
-				else if (type.startsWith("config"))
-				{
+				} else if (type.startsWith("config")) {
 					ConfigEngine.init();
 					activeChar.sendMessage("Configs files have been reloaded.");
-				}
-				else if (type.startsWith("crest"))
-				{
+				} else if (type.startsWith("crest")) {
 					CrestCache.load();
 					activeChar.sendMessage("Crests have been reloaded.");
-				}
-				else if (type.startsWith("door"))
-				{
+				} else if (type.startsWith("door")) {
 					DoorData.getInstance().reload();
 					activeChar.sendMessage("Doors instance has been reloaded.");
-				}
-				else if (type.startsWith("htm"))
-				{
+				} else if (type.startsWith("htm")) {
 					HtmCache.getInstance().reload();
 					activeChar.sendMessage("The HTM cache has been reloaded.");
-				}
-				else if (type.startsWith("item"))
-				{
+				} else if (type.startsWith("item")) {
 					ItemTable.getInstance().reload();
 					activeChar.sendMessage("Items' templates have been reloaded.");
-				}
-				else if (type.equals("multisell"))
-				{
+				} else if ("multisell".equals(type)) {
 					L2Multisell.getInstance().reload();
 					activeChar.sendMessage("The multisell instance has been reloaded.");
-				}
-				else if (type.equals("npc"))
-				{
+				} else if ("npc".equals(type)) {
 					NpcTable.getInstance().reloadAllNpc();
 					activeChar.sendMessage("NPCs templates have been reloaded.");
-				}
-				else if (type.startsWith("npcwalker"))
-				{
+				} else if (type.startsWith("npcwalker")) {
 					NpcWalkerRoutesData.getInstance().reload();
 					activeChar.sendMessage("NPCwalkers' routes have been reloaded.");
-				}
-				else if (type.startsWith("skill"))
-				{
+				} else if (type.startsWith("skill")) {
 					SkillTable.getInstance().reload();
 					activeChar.sendMessage("Skills' XMLs have been reloaded.");
-				}
-				else if (type.startsWith("teleport"))
-				{
+				} else if (type.startsWith("teleport")) {
 					TeleportLocationData.getInstance().reload();
 					activeChar.sendMessage("The teleport location table has been reloaded.");
-				}
-				else if (type.startsWith("zone"))
-				{
+				} else if (type.startsWith("zone")) {
 					ZoneManager.getInstance().reload();
 					activeChar.sendMessage("Zones have been reloaded.");
 				}
-			}
-			catch (Exception e)
-			{
+			} catch (Exception e) {
 				activeChar.sendMessage("Usage : //reload <acar|config|crest|door|htm|item|multisell>");
 				activeChar.sendMessage("Usage : //reload <npc|npcwalker|quest|scripts|skill|teleport|zone>");
 			}
@@ -179,25 +131,19 @@ public class AdminAdmin implements IAdminCommandHandler
 	}
 
 	@Override
-	public String[] getAdminCommandList()
-	{
+	public String[] getAdminCommandList() {
 		return ADMIN_COMMANDS;
 	}
 
-	private static void showMainPage(L2PcInstance activeChar, String command)
-	{
+	private static void showMainPage(final L2PcInstance activeChar, final String command) {
 		int mode = 0;
 		String filename = null;
-		try
-		{
+		try {
 			mode = Integer.parseInt(command.substring(11));
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 		}
 
-		switch (mode)
-		{
+		switch (mode) {
 			case 1:
 				filename = "main";
 				break;

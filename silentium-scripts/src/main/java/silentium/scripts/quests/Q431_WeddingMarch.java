@@ -15,9 +15,8 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q431_WeddingMarch extends Quest implements ScriptFile
-{
-	private final static String qn = "Q431_WeddingMarch";
+public class Q431_WeddingMarch extends Quest implements ScriptFile {
+	private static final String qn = "Q431_WeddingMarch";
 
 	// NPC
 	private static final int KANTABILON = 31042;
@@ -28,8 +27,7 @@ public class Q431_WeddingMarch extends Quest implements ScriptFile
 	// Reward
 	private static final int WEDDING_ECHO_CRYSTAL = 7062;
 
-	public Q431_WeddingMarch(int questId, String name, String descr)
-	{
+	public Q431_WeddingMarch(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { SILVER_CRYSTAL };
@@ -40,31 +38,25 @@ public class Q431_WeddingMarch extends Quest implements ScriptFile
 		addKillId(20786, 20787);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q431_WeddingMarch(431, "Q431_WeddingMarch", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
 		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("31042-02.htm"))
-		{
+		if ("31042-02.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("31042-05.htm"))
-		{
+		} else if ("31042-05.htm".equalsIgnoreCase(event)) {
 			if (st.getQuestItemsCount(SILVER_CRYSTAL) < 50)
 				htmltext = "31042-03.htm";
-			else
-			{
+			else {
 				st.takeItems(SILVER_CRYSTAL, -1);
 				st.giveItems(WEDDING_ECHO_CRYSTAL, 25);
 				st.playSound(QuestState.SOUND_FINISH);
@@ -76,35 +68,28 @@ public class Q431_WeddingMarch extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
 		String htmltext = Quest.getNoQuestMsg();
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 38 && player.getLevel() <= 43)
 					htmltext = "31042-01.htm";
-				else
-				{
+				else {
 					htmltext = "31042-00.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				int cond = st.getInt("cond");
+				final int cond = st.getInt("cond");
 				if (cond == 1)
 					htmltext = "31042-02.htm";
-				else if (cond == 2)
-				{
-					if (st.getQuestItemsCount(SILVER_CRYSTAL) < 50)
-						htmltext = "31042-03.htm";
-					else
-						htmltext = "31042-04.htm";
+				else if (cond == 2) {
+					htmltext = st.getQuestItemsCount(SILVER_CRYSTAL) < 50 ? "31042-03.htm" : "31042-04.htm";
 				}
 				break;
 		}
@@ -113,33 +98,28 @@ public class Q431_WeddingMarch extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		L2PcInstance partyMember = getRandomPartyMember(player, npc, "1");
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final L2PcInstance partyMember = getRandomPartyMember(player, npc, "1");
 		if (partyMember == null)
 			return null;
 
-		QuestState st = partyMember.getQuestState(qn);
-		int count = st.getQuestItemsCount(SILVER_CRYSTAL);
+		final QuestState st = partyMember.getQuestState(qn);
+		final int count = st.getQuestItemsCount(SILVER_CRYSTAL);
 
-		if (st.getInt("cond") == 1 && count < 50)
-		{
+		if (st.getInt("cond") == 1 && count < 50) {
 			int chance = (int) (100 * MainConfig.RATE_QUEST_DROP);
 			int numItems = chance / 100;
-			chance = chance % 100;
+			chance %= 100;
 
 			if (Rnd.get(100) < chance)
 				numItems++;
 
-			if (numItems > 0)
-			{
-				if (count + numItems >= 50)
-				{
+			if (numItems > 0) {
+				if (count + numItems >= 50) {
 					numItems = 50 - count;
 					st.set("cond", "2");
 					st.playSound(QuestState.SOUND_MIDDLE);
-				}
-				else
+				} else
 					st.playSound(QuestState.SOUND_ITEMGET);
 
 				st.giveItems(SILVER_CRYSTAL, numItems);

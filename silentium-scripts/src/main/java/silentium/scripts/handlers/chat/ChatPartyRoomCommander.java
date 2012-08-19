@@ -13,26 +13,22 @@ import silentium.gameserver.network.serverpackets.CreatureSay;
 
 /**
  * A chat handler
- * 
+ *
  * @author durgus
  */
-public class ChatPartyRoomCommander implements IChatHandler
-{
+public class ChatPartyRoomCommander implements IChatHandler {
 	private static final int[] COMMAND_IDS = { 15 };
 
 	/**
 	 * Handle chat type 'party room commander'
-	 * 
+	 *
 	 * @see silentium.gameserver.handler.IChatHandler#handleChat(int, silentium.gameserver.model.actor.instance.L2PcInstance, String, String)
 	 */
 	@Override
-	public void handleChat(int type, L2PcInstance activeChar, String target, String text)
-	{
-		if (activeChar.isInParty())
-		{
-			if (activeChar.getParty().isInCommandChannel() && activeChar.getParty().getCommandChannel().getChannelLeader().equals(activeChar))
-			{
-				CreatureSay cs = new CreatureSay(activeChar.getObjectId(), type, activeChar.getName(), text);
+	public void handleChat(final int type, final L2PcInstance activeChar, final String target, final String text) {
+		if (activeChar.isInParty()) {
+			if (activeChar.getParty().isInCommandChannel() && activeChar.getParty().getCommandChannel().getChannelLeader().equals(activeChar)) {
+				final CreatureSay cs = new CreatureSay(activeChar.getObjectId(), type, activeChar.getName(), text);
 				activeChar.getParty().getCommandChannel().broadcastCSToChannelMembers(cs, activeChar);
 			}
 		}
@@ -40,12 +36,11 @@ public class ChatPartyRoomCommander implements IChatHandler
 
 	/**
 	 * Returns the chat types registered to this handler
-	 * 
+	 *
 	 * @see silentium.gameserver.handler.IChatHandler#getChatTypeList()
 	 */
 	@Override
-	public int[] getChatTypeList()
-	{
+	public int[] getChatTypeList() {
 		return COMMAND_IDS;
 	}
 }

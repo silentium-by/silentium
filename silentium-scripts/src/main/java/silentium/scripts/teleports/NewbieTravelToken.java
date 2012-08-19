@@ -7,20 +7,19 @@
  */
 package silentium.scripts.teleports;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class NewbieTravelToken extends Quest implements ScriptFile
-{
-	private final static Map<String, int[]> data = new HashMap<>();
+import java.util.HashMap;
+import java.util.Map;
 
-	{
+public class NewbieTravelToken extends Quest implements ScriptFile {
+	private static final Map<String, int[]> data = new HashMap<>();
+
+	static {
 		data.put("30600", new int[] { 12160, 16554, -4583 }); // DE
 		data.put("30601", new int[] { 115594, -177993, -912 }); // DW
 		data.put("30599", new int[] { 45470, 48328, -3059 }); // EV
@@ -28,15 +27,13 @@ public class NewbieTravelToken extends Quest implements ScriptFile
 		data.put("30598", new int[] { -84053, 243343, -3729 }); // TI
 	}
 
-	private final static int TOKEN = 8542;
+	private static final int TOKEN = 8542;
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new NewbieTravelToken(-1, "NewbieTravelToken", "teleports");
 	}
 
-	public NewbieTravelToken(int questId, String name, String descr)
-	{
+	public NewbieTravelToken(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		addStartNpc(30598, 30599, 30600, 30601, 30602);
@@ -44,24 +41,20 @@ public class NewbieTravelToken extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
 		QuestState st = player.getQuestState(getName());
 		if (st == null)
 			st = newQuestState(player);
 
-		if (data.containsKey(event))
-		{
-			int x = data.get(event)[0];
-			int y = data.get(event)[1];
-			int z = data.get(event)[2];
+		if (data.containsKey(event)) {
+			final int x = data.get(event)[0];
+			final int y = data.get(event)[1];
+			final int z = data.get(event)[2];
 
-			if (st.getQuestItemsCount(TOKEN) != 0)
-			{
+			if (st.getQuestItemsCount(TOKEN) != 0) {
 				st.takeItems(TOKEN, 1);
 				st.getPlayer().teleToLocation(x, y, z);
-			}
-			else
+			} else
 				return "notoken.htm";
 		}
 		st.exitQuest(true);
@@ -69,18 +62,15 @@ public class NewbieTravelToken extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
 		String htmltext = "";
-		QuestState st = player.getQuestState(getName());
-		int npcId = npc.getNpcId();
+		final QuestState st = player.getQuestState(getName());
+		final int npcId = npc.getNpcId();
 
-		if (player.getLevel() >= 20)
-		{
+		if (player.getLevel() >= 20) {
 			htmltext = "wronglevel.htm";
 			st.exitQuest(true);
-		}
-		else
+		} else
 			htmltext = npcId + ".htm";
 
 		return htmltext;

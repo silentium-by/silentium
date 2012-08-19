@@ -17,22 +17,18 @@ import silentium.gameserver.network.serverpackets.SystemMessage;
 /**
  * @author Chris
  */
-public class ChannelLeave implements IUserCommandHandler
-{
+public class ChannelLeave implements IUserCommandHandler {
 	private static final int[] COMMAND_IDS = { 96 };
 
 	@Override
-	public boolean useUserCommand(int id, L2PcInstance activeChar)
-	{
+	public boolean useUserCommand(final int id, final L2PcInstance activeChar) {
 		if (id != COMMAND_IDS[0])
 			return false;
 
-		if (activeChar.isInParty())
-		{
-			if (activeChar.getParty().isLeader(activeChar) && activeChar.getParty().isInCommandChannel())
-			{
-				L2CommandChannel channel = activeChar.getParty().getCommandChannel();
-				L2Party party = activeChar.getParty();
+		if (activeChar.isInParty()) {
+			if (activeChar.getParty().isLeader(activeChar) && activeChar.getParty().isInCommandChannel()) {
+				final L2CommandChannel channel = activeChar.getParty().getCommandChannel();
+				final L2Party party = activeChar.getParty();
 				channel.removeParty(party);
 
 				party.getLeader().sendPacket(SystemMessageId.LEFT_COMMAND_CHANNEL);
@@ -44,8 +40,7 @@ public class ChannelLeave implements IUserCommandHandler
 	}
 
 	@Override
-	public int[] getUserCommandList()
-	{
+	public int[] getUserCommandList() {
 		return COMMAND_IDS;
 	}
 }

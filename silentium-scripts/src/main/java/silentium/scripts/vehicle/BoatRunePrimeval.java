@@ -9,7 +9,6 @@ package silentium.scripts.vehicle;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import silentium.gameserver.ThreadPoolManager;
 import silentium.gameserver.instancemanager.BoatManager;
 import silentium.gameserver.model.VehiclePathPoint;
@@ -23,8 +22,7 @@ import silentium.gameserver.scripting.ScriptFile;
 /**
  * @author DS
  */
-public class BoatRunePrimeval implements Runnable, ScriptFile
-{
+public class BoatRunePrimeval implements Runnable, ScriptFile {
 	private static final Logger _log = LoggerFactory.getLogger(BoatRunePrimeval.class.getName());
 
 	// Time: 239s
@@ -53,8 +51,7 @@ public class BoatRunePrimeval implements Runnable, ScriptFile
 	private final PlaySound RUNE_SOUND;
 	private final PlaySound PRIMEVAL_SOUND;
 
-	public BoatRunePrimeval(L2BoatInstance boat)
-	{
+	public BoatRunePrimeval(final L2BoatInstance boat) {
 		_boat = boat;
 
 		ARRIVED_AT_RUNE = new CreatureSay(0, Say2.BOAT, 801, SystemMessageId.ARRIVED_AT_RUNE);
@@ -70,12 +67,9 @@ public class BoatRunePrimeval implements Runnable, ScriptFile
 	}
 
 	@Override
-	public void run()
-	{
-		try
-		{
-			switch (_cycle)
-			{
+	public void run() {
+		try {
+			switch (_cycle) {
 				case 0:
 					BoatManager.getInstance().dockShip(BoatManager.RUNE_HARBOR, false);
 					BoatManager.getInstance().broadcastPackets(RUNE_DOCK[0], PRIMEVAL_DOCK, LEAVING_RUNE, RUNE_SOUND);
@@ -92,8 +86,7 @@ public class BoatRunePrimeval implements Runnable, ScriptFile
 					_boat.executePath(PRIMEVAL_TO_RUNE);
 					break;
 				case 3:
-					if (BoatManager.getInstance().dockBusy(BoatManager.RUNE_HARBOR))
-					{
+					if (BoatManager.getInstance().dockBusy(BoatManager.RUNE_HARBOR)) {
 						if (_shoutCount == 0)
 							BoatManager.getInstance().broadcastPacket(RUNE_DOCK[0], PRIMEVAL_DOCK, BUSY_RUNE);
 
@@ -116,18 +109,14 @@ public class BoatRunePrimeval implements Runnable, ScriptFile
 			_cycle++;
 			if (_cycle > 4)
 				_cycle = 0;
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			_log.warn(e.getLocalizedMessage(), e);
 		}
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		final L2BoatInstance boat = BoatManager.getInstance().getNewBoat(5, 34381, -37680, -3610, 40785);
-		if (boat != null)
-		{
+		if (boat != null) {
 			boat.registerEngine(new BoatRunePrimeval(boat));
 			boat.runEngine(180000);
 			BoatManager.getInstance().dockShip(BoatManager.RUNE_HARBOR, true);

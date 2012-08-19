@@ -9,7 +9,6 @@ package silentium.scripts.handlers.admin;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import silentium.gameserver.TradeController;
 import silentium.gameserver.handler.IAdminCommandHandler;
 import silentium.gameserver.model.L2TradeList;
@@ -20,59 +19,45 @@ import silentium.gameserver.network.serverpackets.BuyList;
 /**
  * This class handles following admin commands: - gmshop = shows menu - buy id = shows shop with respective id
  */
-public class AdminShop implements IAdminCommandHandler
-{
-	private static Logger _log = LoggerFactory.getLogger(AdminShop.class.getName());
+public class AdminShop implements IAdminCommandHandler {
+	private static final Logger _log = LoggerFactory.getLogger(AdminShop.class.getName());
 
 	private static final String[] ADMIN_COMMANDS = { "admin_buy", "admin_gmshop" };
 
 	@Override
-	public boolean useAdminCommand(String command, L2PcInstance activeChar)
-	{
-		if (command.startsWith("admin_buy"))
-		{
-			try
-			{
+	public boolean useAdminCommand(final String command, final L2PcInstance activeChar) {
+		if (command.startsWith("admin_buy")) {
+			try {
 				handleBuyRequest(activeChar, command.substring(10));
-			}
-			catch (IndexOutOfBoundsException e)
-			{
+			} catch (IndexOutOfBoundsException e) {
 				activeChar.sendMessage("Please specify buylist.");
 			}
-		}
-		else if (command.equals("admin_gmshop"))
+		} else if ("admin_gmshop".equals(command))
 			AdminHelpPage.showHelpPage(activeChar, "gmshops.htm");
 
 		return true;
 	}
 
 	@Override
-	public String[] getAdminCommandList()
-	{
+	public String[] getAdminCommandList() {
 		return ADMIN_COMMANDS;
 	}
 
-	private static void handleBuyRequest(L2PcInstance activeChar, String command)
-	{
+	private static void handleBuyRequest(final L2PcInstance activeChar, final String command) {
 		int val = -1;
-		try
-		{
+		try {
 			val = Integer.parseInt(command);
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			_log.warn("admin buylist failed:" + command);
 		}
 
-		L2TradeList list = TradeController.getInstance().getBuyList(val);
+		final L2TradeList list = TradeController.getInstance().getBuyList(val);
 
-		if (list != null)
-		{
+		if (list != null) {
 			activeChar.sendPacket(new BuyList(list, activeChar.getAdena(), 0));
 
-			_log.info("GM: " + activeChar.getName() + "(" + activeChar.getObjectId() + ") opened GM shop id " + val);
-		}
-		else
+			_log.info("GM: " + activeChar.getName() + '(' + activeChar.getObjectId() + ") opened GM shop id " + val);
+		} else
 			_log.warn("no buylist with id:" + val);
 
 		activeChar.sendPacket(ActionFailed.STATIC_PACKET);

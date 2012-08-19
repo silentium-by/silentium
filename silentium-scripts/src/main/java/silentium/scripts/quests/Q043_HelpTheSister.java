@@ -13,26 +13,24 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q043_HelpTheSister extends Quest implements ScriptFile
-{
+public class Q043_HelpTheSister extends Quest implements ScriptFile {
 	private static final String qn = "Q043_HelpTheSister";
 
 	// NPCs
-	private final static int COOPER = 30829;
-	private final static int GALLADUCCI = 30097;
+	private static final int COOPER = 30829;
+	private static final int GALLADUCCI = 30097;
 
 	// Items
-	private final static int CRAFTED_DAGGER = 220;
-	private final static int MAP_PIECE = 7550;
-	private final static int MAP = 7551;
-	private final static int PET_TICKET = 7584;
+	private static final int CRAFTED_DAGGER = 220;
+	private static final int MAP_PIECE = 7550;
+	private static final int MAP = 7551;
+	private static final int PET_TICKET = 7584;
 
 	// Monsters
-	private final static int SPECTER = 20171;
-	private final static int SORROW_MAIDEN = 20197;
+	private static final int SPECTER = 20171;
+	private static final int SORROW_MAIDEN = 20197;
 
-	public Q043_HelpTheSister(int questId, String name, String descr)
-	{
+	public Q043_HelpTheSister(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { MAP_PIECE, MAP };
@@ -43,46 +41,35 @@ public class Q043_HelpTheSister extends Quest implements ScriptFile
 		addKillId(SPECTER, SORROW_MAIDEN);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q043_HelpTheSister(43, "Q043_HelpTheSister", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		final String htmltext = event;
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30829-01.htm"))
-		{
+		if ("30829-01.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("30829-03.htm") && st.getQuestItemsCount(CRAFTED_DAGGER) >= 1)
-		{
+		} else if ("30829-03.htm".equalsIgnoreCase(event) && st.getQuestItemsCount(CRAFTED_DAGGER) >= 1) {
 			st.set("cond", "2");
 			st.takeItems(CRAFTED_DAGGER, 1);
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("30829-05.htm") && st.getQuestItemsCount(MAP_PIECE) >= 30)
-		{
+		} else if ("30829-05.htm".equalsIgnoreCase(event) && st.getQuestItemsCount(MAP_PIECE) >= 30) {
 			st.takeItems(MAP_PIECE, 30);
 			st.giveItems(MAP, 1);
 			st.set("cond", "4");
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("30097-06.htm") && st.getQuestItemsCount(MAP) == 1)
-		{
+		} else if ("30097-06.htm".equalsIgnoreCase(event) && st.getQuestItemsCount(MAP) == 1) {
 			st.takeItems(MAP, 1);
 			st.set("cond", "5");
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("30829-07.htm"))
-		{
+		} else if ("30829-07.htm".equalsIgnoreCase(event)) {
 			st.giveItems(PET_TICKET, 1);
 			st.playSound(QuestState.SOUND_FINISH);
 			st.exitQuest(false);
@@ -92,35 +79,28 @@ public class Q043_HelpTheSister extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
+		final QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 26)
 					htmltext = "30829-00.htm";
-				else
-				{
+				else {
 					htmltext = "<html><body>This quest can only be taken by characters that have a minimum level of 26. Return when you are more experienced.</body></html>";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				int cond = st.getInt("cond");
-				switch (npc.getNpcId())
-				{
+				final int cond = st.getInt("cond");
+				switch (npc.getNpcId()) {
 					case COOPER:
 						if (cond == 1)
-							if (st.getQuestItemsCount(CRAFTED_DAGGER) == 0)
-								htmltext = "30829-01a.htm";
-							else
-								htmltext = "30829-02.htm";
+							htmltext = st.getQuestItemsCount(CRAFTED_DAGGER) == 0 ? "30829-01a.htm" : "30829-02.htm";
 						else if (cond == 2)
 							htmltext = "30829-03a.htm";
 						else if (cond == 3)
@@ -149,9 +129,8 @@ public class Q043_HelpTheSister extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 

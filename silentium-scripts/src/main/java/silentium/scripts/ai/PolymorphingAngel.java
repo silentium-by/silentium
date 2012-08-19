@@ -7,23 +7,22 @@
  */
 package silentium.scripts.ai;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import silentium.gameserver.ai.DefaultMonsterAI;
 import silentium.gameserver.model.actor.L2Attackable;
 import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.scripting.ScriptFile;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Angel spawns... When one of the angels in the keys dies, the other angel will spawn.
  */
-public class PolymorphingAngel extends DefaultMonsterAI implements ScriptFile
-{
+public class PolymorphingAngel extends DefaultMonsterAI implements ScriptFile {
 	private static final Map<Integer, Integer> ANGELSPAWNS = new HashMap<>();
 
-	{
+	static {
 		ANGELSPAWNS.put(20830, 20859);
 		ANGELSPAWNS.put(21067, 21068);
 		ANGELSPAWNS.put(21062, 21063);
@@ -31,26 +30,22 @@ public class PolymorphingAngel extends DefaultMonsterAI implements ScriptFile
 		ANGELSPAWNS.put(21070, 21071);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new PolymorphingAngel(-1, "polymorphing_angel", "ai");
 	}
 
-	public PolymorphingAngel(int questId, String name, String descr)
-	{
+	public PolymorphingAngel(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
-		for (int mob : ANGELSPAWNS.keySet())
+		for (final int mob : ANGELSPAWNS.keySet())
 			addKillId(mob);
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance killer, boolean isPet)
-	{
-		int npcId = npc.getNpcId();
-		if (ANGELSPAWNS.containsKey(npcId))
-		{
-			L2Attackable newNpc = (L2Attackable) addSpawn(ANGELSPAWNS.get(npcId), npc);
+	public String onKill(final L2Npc npc, final L2PcInstance killer, final boolean isPet) {
+		final int npcId = npc.getNpcId();
+		if (ANGELSPAWNS.containsKey(npcId)) {
+			final L2Attackable newNpc = (L2Attackable) addSpawn(ANGELSPAWNS.get(npcId), npc);
 			newNpc.setRunning();
 		}
 		return super.onKill(npc, killer, isPet);

@@ -7,9 +7,6 @@
  */
 package silentium.scripts.handlers.skill;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import silentium.gameserver.handler.ISkillHandler;
 import silentium.gameserver.model.L2Object;
 import silentium.gameserver.model.L2Skill;
@@ -21,25 +18,23 @@ import silentium.gameserver.skills.Formulas;
 import silentium.gameserver.taskmanager.DecayTaskManager;
 import silentium.gameserver.templates.skills.L2SkillType;
 
-public class Resurrect implements ISkillHandler
-{
+import java.util.ArrayList;
+import java.util.List;
+
+public class Resurrect implements ISkillHandler {
 	private static final L2SkillType[] SKILL_IDS = { L2SkillType.RESURRECT };
 
 	@Override
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
-	{
+	public void useSkill(final L2Character activeChar, final L2Skill skill, final L2Object... targets) {
 		final L2PcInstance player = activeChar.getActingPlayer();
 
 		L2Character target = null;
-		List<L2Character> targetToRes = new ArrayList<>();
+		final List<L2Character> targetToRes = new ArrayList<>();
 
-		for (L2Object victim : targets)
-		{
-			if (victim instanceof L2PcInstance)
-			{
+		for (final L2Object victim : targets) {
+			if (victim instanceof L2PcInstance) {
 				// Check for same party or for same clan, if target is for clan.
-				if (skill.getTargetType() == SkillTargetType.TARGET_CORPSE_CLAN)
-				{
+				if (skill.getTargetType() == SkillTargetType.TARGET_CORPSE_CLAN) {
 					if (player.getClanId() != ((L2PcInstance) victim).getClanId())
 						continue;
 				}
@@ -53,24 +48,18 @@ public class Resurrect implements ISkillHandler
 		if (targetToRes.isEmpty())
 			activeChar.abortCast();
 
-		for (L2Character cha : targetToRes)
-		{
-			if (activeChar instanceof L2PcInstance)
-			{
+		for (final L2Character cha : targetToRes) {
+			if (activeChar instanceof L2PcInstance) {
 				if (cha instanceof L2PcInstance)
 					((L2PcInstance) cha).reviveRequest((L2PcInstance) activeChar, skill, false);
-				else if (cha instanceof L2PetInstance)
-				{
+				else if (cha instanceof L2PetInstance) {
 					if (((L2PetInstance) cha).getOwner() == activeChar)
 						cha.doRevive(Formulas.calculateSkillResurrectRestorePercent(skill.getPower(), activeChar));
 					else
 						((L2PetInstance) cha).getOwner().reviveRequest((L2PcInstance) activeChar, skill, true);
-				}
-				else
+				} else
 					cha.doRevive(Formulas.calculateSkillResurrectRestorePercent(skill.getPower(), activeChar));
-			}
-			else
-			{
+			} else {
 				DecayTaskManager.getInstance().cancelDecayTask(cha);
 				cha.doRevive(Formulas.calculateSkillResurrectRestorePercent(skill.getPower(), activeChar));
 			}
@@ -78,8 +67,7 @@ public class Resurrect implements ISkillHandler
 	}
 
 	@Override
-	public L2SkillType[] getSkillIds()
-	{
+	public L2SkillType[] getSkillIds() {
 		return SKILL_IDS;
 	}
 }

@@ -13,20 +13,15 @@ import silentium.gameserver.model.actor.instance.L2PcInstance;
 /**
  * @author lord_rex
  */
-public class ExpGain implements IVoicedCommandHandler
-{
-	private String[] _voicedCommands = { "expon", "xpon", "expoff", "xpoff" };
+public class ExpGain implements IVoicedCommandHandler {
+	private final String[] _voicedCommands = { "expon", "xpon", "expoff", "xpoff" };
 
 	@Override
-	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
-	{
-		if (command.equalsIgnoreCase("expon") || command.equalsIgnoreCase("xpon"))
-		{
+	public boolean useVoicedCommand(final String command, final L2PcInstance activeChar, final String target) {
+		if ("expon".equalsIgnoreCase(command) || "xpon".equalsIgnoreCase(command)) {
 			activeChar.setExpOn(true);
 			activeChar.sendMessage("You can gain Experience by killing mobs.");
-		}
-		else if (command.equalsIgnoreCase("expoff") || command.equalsIgnoreCase("xpoff"))
-		{
+		} else if ("expoff".equalsIgnoreCase(command) || "xpoff".equalsIgnoreCase(command)) {
 			activeChar.setExpOn(false);
 			activeChar.sendMessage("You can not gain Experience by killing mobs.");
 		}
@@ -34,8 +29,7 @@ public class ExpGain implements IVoicedCommandHandler
 	}
 
 	@Override
-	public String[] getVoicedCommandList()
-	{
+	public String[] getVoicedCommandList() {
 		return _voicedCommands;
 	}
 }

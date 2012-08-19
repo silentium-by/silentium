@@ -24,59 +24,48 @@ import silentium.gameserver.templates.skills.L2SkillType;
 /**
  * @author _drunk_
  */
-public class Sweep implements ISkillHandler
-{
+public class Sweep implements ISkillHandler {
 	private static final L2SkillType[] SKILL_IDS = { L2SkillType.SWEEP };
 
 	@Override
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
-	{
+	public void useSkill(final L2Character activeChar, final L2Skill skill, final L2Object... targets) {
 		if (!(activeChar instanceof L2PcInstance))
 			return;
 
-		L2PcInstance player = (L2PcInstance) activeChar;
-		InventoryUpdate iu = MainConfig.FORCE_INVENTORY_UPDATE ? null : new InventoryUpdate();
+		final L2PcInstance player = (L2PcInstance) activeChar;
+		final InventoryUpdate iu = MainConfig.FORCE_INVENTORY_UPDATE ? null : new InventoryUpdate();
 		boolean send = false;
 
-		for (int index = 0; index < targets.length; index++)
-		{
-			if (!(targets[index] instanceof L2Attackable))
+		for (final L2Object target1 : targets) {
+			if (!(target1 instanceof L2Attackable))
 				continue;
-			L2Attackable target = (L2Attackable) targets[index];
+			final L2Attackable target = (L2Attackable) target1;
 			L2Attackable.RewardItem[] items = null;
 			boolean isSweeping = false;
-			synchronized (target)
-			{
-				if (target.isSweepActive())
-				{
+			synchronized (target) {
+				if (target.isSweepActive()) {
 					items = target.takeSweep();
 					isSweeping = true;
 				}
 			}
-			if (isSweeping)
-			{
+			if (isSweeping) {
 				if (items == null || items.length == 0)
 					continue;
-				for (L2Attackable.RewardItem ritem : items)
-				{
+				for (final L2Attackable.RewardItem ritem : items) {
 					if (player.isInParty())
 						player.getParty().distributeItem(player, ritem, true, target);
-					else
-					{
-						L2ItemInstance item = player.getInventory().addItem("Sweep", ritem.getItemId(), ritem.getCount(), player, target);
+					else {
+						final L2ItemInstance item = player.getInventory().addItem("Sweep", ritem.getItemId(), ritem.getCount(), player, target);
 						if (iu != null)
 							iu.addItem(item);
 						send = true;
 
 						SystemMessage smsg;
-						if (ritem.getCount() > 1)
-						{
+						if (ritem.getCount() > 1) {
 							smsg = SystemMessage.getSystemMessage(SystemMessageId.EARNED_S2_S1_S); // earned $s2$s1
 							smsg.addItemName(ritem.getItemId());
 							smsg.addNumber(ritem.getCount());
-						}
-						else
-						{
+						} else {
 							smsg = SystemMessage.getSystemMessage(SystemMessageId.EARNED_ITEM_S1); // earned $s1
 							smsg.addItemName(ritem.getItemId());
 						}
@@ -87,8 +76,7 @@ public class Sweep implements ISkillHandler
 			}
 			target.endDecayTask();
 
-			if (send)
-			{
+			if (send) {
 				if (iu != null)
 					player.sendPacket(iu);
 				else
@@ -98,8 +86,7 @@ public class Sweep implements ISkillHandler
 	}
 
 	@Override
-	public L2SkillType[] getSkillIds()
-	{
+	public L2SkillType[] getSkillIds() {
 		return SKILL_IDS;
 	}
 }

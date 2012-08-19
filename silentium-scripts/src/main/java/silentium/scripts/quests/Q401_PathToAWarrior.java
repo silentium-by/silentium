@@ -15,8 +15,7 @@ import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.network.serverpackets.SocialAction;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q401_PathToAWarrior extends Quest implements ScriptFile
-{
+public class Q401_PathToAWarrior extends Quest implements ScriptFile {
 	private static final String qn = "Q401_PathToAWarrior";
 
 	// Items
@@ -33,8 +32,7 @@ public class Q401_PathToAWarrior extends Quest implements ScriptFile
 	private static final int Auron = 30010;
 	private static final int Simplon = 30253;
 
-	public Q401_PathToAWarrior(int questId, String name, String descr)
-	{
+	public Q401_PathToAWarrior(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { AuronsLetter, WarriorGuildMark, RustedBronzeSword1, RustedBronzeSword2, RustedBronzeSword3, SimplonsLetter, PoisonSpiderLeg };
@@ -45,64 +43,46 @@ public class Q401_PathToAWarrior extends Quest implements ScriptFile
 		addKillId(20035, 20038, 20042, 20043);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q401_PathToAWarrior(401, "Q401_PathToAWarrior", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
 		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30010-05.htm"))
-		{
-			if (player.getClassId().getId() == 0x00)
-			{
-				if (player.getLevel() >= 19)
-				{
-					if (st.getQuestItemsCount(MedallionOfWarrior) == 1)
-					{
+		if ("30010-05.htm".equalsIgnoreCase(event)) {
+			if (player.getClassId().getId() == 0x00) {
+				if (player.getLevel() >= 19) {
+					if (st.getQuestItemsCount(MedallionOfWarrior) == 1) {
 						htmltext = "30010-04.htm";
 						st.exitQuest(true);
 					}
-				}
-				else
-				{
+				} else {
 					htmltext = "30010-02.htm";
 					st.exitQuest(true);
 				}
-			}
-			else if (player.getClassId().getId() == 0x01)
-			{
+			} else if (player.getClassId().getId() == 0x01) {
 				htmltext = "30010-03.htm";
 				st.exitQuest(true);
-			}
-			else
-			{
+			} else {
 				htmltext = "30010-02b.htm";
 				st.exitQuest(true);
 			}
-		}
-		else if (event.equalsIgnoreCase("30010-06.htm"))
-		{
+		} else if ("30010-06.htm".equalsIgnoreCase(event)) {
 			st.setState(QuestState.STARTED);
 			st.set("cond", "1");
 			st.giveItems(AuronsLetter, 1);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("30253-02.htm"))
-		{
+		} else if ("30253-02.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "2");
 			st.playSound(QuestState.SOUND_MIDDLE);
 			st.takeItems(AuronsLetter, 1);
 			st.giveItems(WarriorGuildMark, 1);
-		}
-		else if (event.equalsIgnoreCase("30010-11.htm"))
-		{
+		} else if ("30010-11.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "5");
 			st.takeItems(RustedBronzeSword2, 1);
 			st.giveItems(RustedBronzeSword3, 1);
@@ -114,23 +94,20 @@ public class Q401_PathToAWarrior extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
 		String htmltext = getNoQuestMsg();
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				htmltext = "30010-01.htm";
 				break;
 
 			case QuestState.STARTED:
-				int cond = st.getInt("cond");
-				switch (npc.getNpcId())
-				{
+				final int cond = st.getInt("cond");
+				switch (npc.getNpcId()) {
 					case Auron:
 						if (cond == 1)
 							htmltext = "30010-07.htm";
@@ -140,8 +117,7 @@ public class Q401_PathToAWarrior extends Quest implements ScriptFile
 							htmltext = "30010-09.htm";
 						else if (cond == 5)
 							htmltext = "30010-12.htm";
-						else if (cond == 6)
-						{
+						else if (cond == 6) {
 							htmltext = "30010-13.htm";
 							st.takeItems(RustedBronzeSword3, 1);
 							st.takeItems(PoisonSpiderLeg, -1);
@@ -158,15 +134,12 @@ public class Q401_PathToAWarrior extends Quest implements ScriptFile
 					case Simplon:
 						if (cond == 1)
 							htmltext = "30253-01.htm";
-						else if (cond == 2)
-						{
+						else if (cond == 2) {
 							if (st.getQuestItemsCount(RustedBronzeSword1) == 0)
 								htmltext = "30253-03.htm";
 							else if (st.getQuestItemsCount(RustedBronzeSword1) <= 9)
 								htmltext = "30253-03b.htm";
-						}
-						else if (cond == 3)
-						{
+						} else if (cond == 3) {
 							st.set("cond", "4");
 							st.playSound(QuestState.SOUND_MIDDLE);
 							st.takeItems(WarriorGuildMark, 1);
@@ -174,8 +147,7 @@ public class Q401_PathToAWarrior extends Quest implements ScriptFile
 							st.giveItems(RustedBronzeSword2, 1);
 							st.giveItems(SimplonsLetter, 1);
 							htmltext = "30253-04.htm";
-						}
-						else if (cond == 4)
+						} else if (cond == 4)
 							htmltext = "30253-05.htm";
 						break;
 				}
@@ -186,14 +158,12 @@ public class Q401_PathToAWarrior extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final QuestState st = player.getQuestState(qn);
 		if (st == null || !st.isStarted())
 			return null;
 
-		switch (npc.getNpcId())
-		{
+		switch (npc.getNpcId()) {
 			case 20035:
 			case 20042:
 				if (st.getInt("cond") == 2)
@@ -203,7 +173,7 @@ public class Q401_PathToAWarrior extends Quest implements ScriptFile
 
 			case 20038:
 			case 20043:
-				if (st.getInt("cond") == 5 && (st.getItemEquipped(Inventory.PAPERDOLL_RHAND) == RustedBronzeSword3))
+				if (st.getInt("cond") == 5 && st.getItemEquipped(Inventory.PAPERDOLL_RHAND) == RustedBronzeSword3)
 					if (st.dropAlwaysQuestItems(PoisonSpiderLeg, 1, 20))
 						st.set("cond", "6");
 				break;

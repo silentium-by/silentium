@@ -16,67 +16,58 @@ import silentium.gameserver.network.serverpackets.CreatureSay;
 
 /**
  * A chat handler
- * 
+ *
  * @author durgus
  */
-public class ChatTell implements IChatHandler
-{
+public class ChatTell implements IChatHandler {
 	private static final int[] COMMAND_IDS = { 2 };
 
 	/**
 	 * Handle chat type 'tell'
-	 * 
+	 *
 	 * @see silentium.gameserver.handler.IChatHandler#handleChat(int, silentium.gameserver.model.actor.instance.L2PcInstance, String, String)
 	 */
 	@Override
-	public void handleChat(int type, L2PcInstance activeChar, String target, String text)
-	{
+	public void handleChat(final int type, final L2PcInstance activeChar, final String target, final String text) {
 		// Return if no target is set.
 		if (target == null)
 			return;
 
 		final L2PcInstance receiver = L2World.getInstance().getPlayer(target);
-		if (receiver != null)
-		{
-			if (activeChar.equals(receiver))
-			{
+		if (receiver != null) {
+			if (activeChar.equals(receiver)) {
 				activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 				return;
 			}
 
-			if (receiver.isInJail() || receiver.isChatBanned())
-			{
+			if (receiver.isInJail() || receiver.isChatBanned()) {
 				activeChar.sendPacket(SystemMessageId.TARGET_IS_CHAT_BANNED);
 				return;
 			}
 
-			if (receiver.getClient().isDetached())
-			{
+			if (receiver.getClient().isDetached()) {
 				activeChar.sendPacket(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME);
 				return;
 			}
 
-			if (!activeChar.isGM() && (receiver.isInRefusalMode() || BlockList.isBlocked(receiver, activeChar)))
-			{
+			if (!activeChar.isGM() && (receiver.isInRefusalMode() || BlockList.isBlocked(receiver, activeChar))) {
 				activeChar.sendPacket(SystemMessageId.THE_PERSON_IS_IN_MESSAGE_REFUSAL_MODE);
 				return;
 			}
 
 			receiver.sendPacket(new CreatureSay(activeChar.getObjectId(), type, activeChar.getName(), text));
 			activeChar.sendPacket(new CreatureSay(activeChar.getObjectId(), type, "->" + receiver.getName(), text));
-		}
-		else
+		} else
 			activeChar.sendPacket(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME);
 	}
 
 	/**
 	 * Returns the chat types registered to this handler
-	 * 
+	 *
 	 * @see silentium.gameserver.handler.IChatHandler#getChatTypeList()
 	 */
 	@Override
-	public int[] getChatTypeList()
-	{
+	public int[] getChatTypeList() {
 		return COMMAND_IDS;
 	}
 }

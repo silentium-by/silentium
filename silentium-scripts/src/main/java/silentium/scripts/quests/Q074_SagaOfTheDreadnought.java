@@ -10,14 +10,12 @@ package silentium.scripts.quests;
 /**
  * @author Emperorc
  */
-public class Q074_SagaOfTheDreadnought extends SagasSuperClass
-{
-	public static String qn1 = "Q074_SagaOfTheDreadnought";
-	public static int qnu = 74;
-	public static String qna = "quests";
+public class Q074_SagaOfTheDreadnought extends SagasSuperClass {
+	public static final String qn1 = "Q074_SagaOfTheDreadnought";
+	public static final int qnu = 74;
+	public static final String qna = "quests";
 
-	public Q074_SagaOfTheDreadnought()
-	{
+	public Q074_SagaOfTheDreadnought() {
 		super(qnu, qn1, qna);
 
 		NPC = new int[] { 30850, 31624, 31298, 31276, 31595, 31646, 31648, 31650, 31654, 31655, 31657, 31522 };

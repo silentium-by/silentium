@@ -14,8 +14,7 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q614_SlayTheEnemyCommander extends Quest implements ScriptFile
-{
+public class Q614_SlayTheEnemyCommander extends Quest implements ScriptFile {
 	private static final String qn = "Q614_SlayTheEnemyCommander";
 
 	// Quest Items
@@ -23,8 +22,7 @@ public class Q614_SlayTheEnemyCommander extends Quest implements ScriptFile
 	private static final int Wisdom_Feather = 7230;
 	private static final int Varka_Alliance_Four = 7224;
 
-	public Q614_SlayTheEnemyCommander(int questId, String name, String descr)
-	{
+	public Q614_SlayTheEnemyCommander(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { Tayr_Head };
@@ -35,53 +33,39 @@ public class Q614_SlayTheEnemyCommander extends Quest implements ScriptFile
 		addKillId(25302); // Tayr
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q614_SlayTheEnemyCommander(614, "Q614_SlayTheEnemyCommander", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
 		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("31377-04.htm"))
-		{
-			if (player.getAllianceWithVarkaKetra() <= -4 && st.getQuestItemsCount(Varka_Alliance_Four) > 0 && st.getQuestItemsCount(Wisdom_Feather) == 0)
-			{
-				if (player.getLevel() >= 75)
-				{
+		if ("31377-04.htm".equalsIgnoreCase(event)) {
+			if (player.getAllianceWithVarkaKetra() <= -4 && st.getQuestItemsCount(Varka_Alliance_Four) > 0 && st.getQuestItemsCount(Wisdom_Feather) == 0) {
+				if (player.getLevel() >= 75) {
 					st.set("cond", "1");
 					st.setState(QuestState.STARTED);
 					st.playSound(QuestState.SOUND_ACCEPT);
-				}
-				else
-				{
+				} else {
 					htmltext = "31377-03.htm";
 					st.exitQuest(true);
 				}
-			}
-			else
-			{
+			} else {
 				htmltext = "31377-02.htm";
 				st.exitQuest(true);
 			}
-		}
-		else if (event.equalsIgnoreCase("31377-07.htm"))
-		{
-			if (st.getQuestItemsCount(Tayr_Head) == 1)
-			{
+		} else if ("31377-07.htm".equalsIgnoreCase(event)) {
+			if (st.getQuestItemsCount(Tayr_Head) == 1) {
 				st.takeItems(Tayr_Head, -1);
 				st.giveItems(Wisdom_Feather, 1);
 				st.addExpAndSp(10000, 0);
 				st.playSound(QuestState.SOUND_FINISH);
 				st.exitQuest(true);
-			}
-			else
-			{
+			} else {
 				htmltext = "31377-06.htm";
 				st.set("cond", "1");
 				st.playSound(QuestState.SOUND_ACCEPT);
@@ -92,24 +76,19 @@ public class Q614_SlayTheEnemyCommander extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
 		String htmltext = Quest.getNoQuestMsg();
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				htmltext = "31377-01.htm";
 				break;
 
 			case QuestState.STARTED:
-				if (st.getQuestItemsCount(Tayr_Head) > 0)
-					htmltext = "31377-05.htm";
-				else
-					htmltext = "31377-06.htm";
+				htmltext = st.getQuestItemsCount(Tayr_Head) > 0 ? "31377-05.htm" : "31377-06.htm";
 				break;
 		}
 
@@ -117,30 +96,23 @@ public class Q614_SlayTheEnemyCommander extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
 		final L2Party party = player.getParty();
-		if (party != null)
-		{
-			for (L2PcInstance partyMember : party.getPartyMembers())
-			{
+		if (party != null) {
+			for (final L2PcInstance partyMember : party.getPartyMembers()) {
 				if (partyMember != null)
 					rewardPlayer(partyMember);
 			}
-		}
-		else
+		} else
 			rewardPlayer(player);
 
 		return null;
 	}
 
-	private static void rewardPlayer(L2PcInstance player)
-	{
-		if (player.getAllianceWithVarkaKetra() <= -4)
-		{
-			QuestState st = player.getQuestState(qn);
-			if (st.getInt("cond") == 1 && st.getQuestItemsCount(Varka_Alliance_Four) > 0)
-			{
+	private static void rewardPlayer(final L2PcInstance player) {
+		if (player.getAllianceWithVarkaKetra() <= -4) {
+			final QuestState st = player.getQuestState(qn);
+			if (st.getInt("cond") == 1 && st.getQuestItemsCount(Varka_Alliance_Four) > 0) {
 				st.set("cond", "2");
 				st.giveItems(Tayr_Head, 1);
 				st.playSound(QuestState.SOUND_ITEMGET);

@@ -10,14 +10,12 @@ package silentium.scripts.quests;
 /**
  * @author Emperorc
  */
-public class Q076_SagaOfTheGrandKhavatari extends SagasSuperClass
-{
-	public static String qn1 = "Q076_SagaOfTheGrandKhavatari";
-	public static int qnu = 76;
-	public static String qna = "quests";
+public class Q076_SagaOfTheGrandKhavatari extends SagasSuperClass {
+	public static final String qn1 = "Q076_SagaOfTheGrandKhavatari";
+	public static final int qnu = 76;
+	public static final String qna = "quests";
 
-	public Q076_SagaOfTheGrandKhavatari()
-	{
+	public Q076_SagaOfTheGrandKhavatari() {
 		super(qnu, qn1, qna);
 
 		NPC = new int[] { 31339, 31624, 31589, 31290, 31637, 31646, 31647, 31652, 31654, 31655, 31659, 31290 };

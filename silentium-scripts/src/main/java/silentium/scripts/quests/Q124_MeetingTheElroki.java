@@ -13,8 +13,7 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q124_MeetingTheElroki extends Quest implements ScriptFile
-{
+public class Q124_MeetingTheElroki extends Quest implements ScriptFile {
 	private static final String qn = "Q124_MeetingTheElroki";
 
 	// NPCs
@@ -24,60 +23,44 @@ public class Q124_MeetingTheElroki extends Quest implements ScriptFile
 	private static final int KARAKAWEI = 32117;
 	private static final int MANTARASA = 32118;
 
-	public Q124_MeetingTheElroki(int questId, String name, String descr)
-	{
+	public Q124_MeetingTheElroki(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		addStartNpc(MARQUEZ);
 		addTalkId(MARQUEZ, MUSHIKA, ASAMAH, KARAKAWEI, MANTARASA);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q124_MeetingTheElroki(124, "Q124_MeetingTheElroki", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		final String htmltext = event;
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("32113-03.htm"))
-		{
+		if ("32113-03.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("32113-04.htm"))
-		{
+		} else if ("32113-04.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "2");
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("32114-02.htm"))
-		{
+		} else if ("32114-02.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "3");
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("32115-04.htm"))
-		{
+		} else if ("32115-04.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "4");
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("32117-02.htm"))
-		{
+		} else if ("32117-02.htm".equalsIgnoreCase(event)) {
 			if (st.getInt("cond") == 4)
 				st.set("progress", "1");
-		}
-		else if (event.equalsIgnoreCase("32117-03.htm"))
-		{
+		} else if ("32117-03.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "5");
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("32118-02.htm"))
-		{
+		} else if ("32118-02.htm".equalsIgnoreCase(event)) {
 			st.giveItems(8778, 1); // Egg
 			st.set("cond", "6");
 			st.playSound(QuestState.SOUND_MIDDLE);
@@ -87,29 +70,25 @@ public class Q124_MeetingTheElroki extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
+		final QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 75)
 					htmltext = "32113-01.htm";
-				else
-				{
+				else {
 					htmltext = "32113-01a.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				int cond = st.getInt("cond");
-				switch (npc.getNpcId())
-				{
+				final int cond = st.getInt("cond");
+				switch (npc.getNpcId()) {
 					case MARQUEZ:
 						if (cond == 1)
 							htmltext = "32113-03.htm";
@@ -127,8 +106,7 @@ public class Q124_MeetingTheElroki extends Quest implements ScriptFile
 					case ASAMAH:
 						if (cond == 3)
 							htmltext = "32115-01.htm";
-						else if (cond == 6)
-						{
+						else if (cond == 6) {
 							htmltext = "32115-05.htm";
 							st.takeItems(8778, -1);
 							st.rewardItems(57, 71318);
@@ -138,13 +116,11 @@ public class Q124_MeetingTheElroki extends Quest implements ScriptFile
 						break;
 
 					case KARAKAWEI:
-						if (cond == 4)
-						{
+						if (cond == 4) {
 							htmltext = "32117-01.htm";
 							if (st.getInt("progress") == 1)
 								htmltext = "32117-02.htm";
-						}
-						else if (cond >= 5)
+						} else if (cond >= 5)
 							htmltext = "32117-04.htm";
 						break;
 
@@ -158,10 +134,7 @@ public class Q124_MeetingTheElroki extends Quest implements ScriptFile
 				break;
 
 			case QuestState.COMPLETED:
-				if (npc.getNpcId() == ASAMAH)
-					htmltext = "32115-06.htm";
-				else
-					htmltext = Quest.getAlreadyCompletedMsg();
+				htmltext = npc.getNpcId() == ASAMAH ? "32115-06.htm" : Quest.getAlreadyCompletedMsg();
 				break;
 		}
 

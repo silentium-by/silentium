@@ -7,8 +7,6 @@
  */
 package silentium.scripts.custom;
 
-import java.util.Map;
-
 import javolution.util.FastMap;
 import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
@@ -17,12 +15,13 @@ import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 import silentium.gameserver.utils.Util;
 
+import java.util.Map;
+
 /**
  * @authors DrLecter (python), Plim (java)
  * @notes Formerly based on Elektra's script
  */
-public class EchoCrystals extends Quest implements ScriptFile
-{
+public class EchoCrystals extends Quest implements ScriptFile {
 	private static final String qn = "EchoCrystals";
 
 	private static final int ADENA = 57;
@@ -30,66 +29,54 @@ public class EchoCrystals extends Quest implements ScriptFile
 
 	private static final Map<Integer, ScoreData> SCORES = new FastMap<>();
 
-	private class ScoreData
-	{
+	private class ScoreData {
 		private final int _crystalId;
 		private final String _okMsg;
 		private final String _noAdenaMsg;
 		private final String _noScoreMsg;
 
-		public ScoreData(int crystalId, String okMsg, String noAdenaMsg, String noScoreMsg)
-		{
-			super();
-
+		ScoreData(final int crystalId, final String okMsg, final String noAdenaMsg, final String noScoreMsg) {
 			_crystalId = crystalId;
 			_okMsg = okMsg;
 			_noAdenaMsg = noAdenaMsg;
 			_noScoreMsg = noScoreMsg;
 		}
 
-		public int getCrystalId()
-		{
+		public int getCrystalId() {
 			return _crystalId;
 		}
 
-		public String getOkMsg()
-		{
+		public String getOkMsg() {
 			return _okMsg;
 		}
 
-		public String getNoAdenaMsg()
-		{
+		public String getNoAdenaMsg() {
 			return _noAdenaMsg;
 		}
 
-		public String getNoScoreMsg()
-		{
+		public String getNoScoreMsg() {
 			return _noScoreMsg;
 		}
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
 		String htmltext = "";
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 
-		if (st != null && Util.isDigit(event))
-		{
-			int score = Integer.parseInt(event);
-			if (SCORES.containsKey(score))
-			{
-				int crystal = SCORES.get(score).getCrystalId();
-				String ok = SCORES.get(score).getOkMsg();
-				String noadena = SCORES.get(score).getNoAdenaMsg();
-				String noscore = SCORES.get(score).getNoScoreMsg();
+		if (st != null && Util.isDigit(event)) {
+			final int score = Integer.parseInt(event);
+			if (SCORES.containsKey(score)) {
+				final int crystal = SCORES.get(score).getCrystalId();
+				final String ok = SCORES.get(score).getOkMsg();
+				final String noadena = SCORES.get(score).getNoAdenaMsg();
+				final String noscore = SCORES.get(score).getNoScoreMsg();
 
 				if (st.getQuestItemsCount(score) == 0)
 					htmltext = npc.getNpcId() + "-" + noscore + ".htm";
 				else if (st.getQuestItemsCount(ADENA) < COST)
 					htmltext = npc.getNpcId() + "-" + noadena + ".htm";
-				else
-				{
+				else {
 					st.takeItems(ADENA, COST);
 					st.giveItems(crystal, 1);
 					htmltext = npc.getNpcId() + "-" + ok + ".htm";
@@ -101,18 +88,15 @@ public class EchoCrystals extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
 		return "1.htm";
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new EchoCrystals(-1, "EchoCrystals", "custom");
 	}
 
-	public EchoCrystals(int questId, String name, String descr)
-	{
+	public EchoCrystals(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		// Initialize Map

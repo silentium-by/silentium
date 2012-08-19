@@ -17,16 +17,13 @@ import silentium.gameserver.network.SystemMessageId;
 import silentium.gameserver.tables.NpcTable;
 import silentium.gameserver.templates.chars.L2NpcTemplate;
 
-public class ChristmasTree implements IItemHandler
-{
+public class ChristmasTree implements IItemHandler {
 	@Override
-	public void useItem(L2Playable playable, L2ItemInstance item, boolean forceUse)
-	{
-		L2PcInstance activeChar = (L2PcInstance) playable;
+	public void useItem(final L2Playable playable, final L2ItemInstance item, final boolean forceUse) {
+		final L2PcInstance activeChar = (L2PcInstance) playable;
 		L2NpcTemplate template = null;
 
-		switch (item.getItemId())
-		{
+		switch (item.getItemId()) {
 			case 5560:
 				template = NpcTable.getInstance().getTemplate(13006);
 				break;
@@ -42,18 +39,15 @@ public class ChristmasTree implements IItemHandler
 		if (target == null)
 			target = activeChar;
 
-		try
-		{
-			L2Spawn spawn = new L2Spawn(template);
+		try {
+			final L2Spawn spawn = new L2Spawn(template);
 			spawn.setLocx(target.getX());
 			spawn.setLocy(target.getY());
 			spawn.setLocz(target.getZ());
 			spawn.doSpawn();
 
 			activeChar.destroyItem("Consume", item.getObjectId(), 1, null, false);
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			activeChar.sendPacket(SystemMessageId.TARGET_CANT_FOUND);
 		}
 	}

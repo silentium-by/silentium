@@ -12,16 +12,14 @@ import silentium.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * Support for /mount command.
- * 
+ *
  * @author Tempy
  */
-public class Mount implements IUserCommandHandler
-{
+public class Mount implements IUserCommandHandler {
 	private static final int[] COMMAND_IDS = { 61 };
 
 	@Override
-	public synchronized boolean useUserCommand(int id, L2PcInstance activeChar)
-	{
+	public synchronized boolean useUserCommand(final int id, final L2PcInstance activeChar) {
 		if (id != COMMAND_IDS[0])
 			return false;
 
@@ -29,8 +27,7 @@ public class Mount implements IUserCommandHandler
 	}
 
 	@Override
-	public int[] getUserCommandList()
-	{
+	public int[] getUserCommandList() {
 		return COMMAND_IDS;
 	}
 }

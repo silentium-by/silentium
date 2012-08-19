@@ -7,9 +7,6 @@
  */
 package silentium.scripts.handlers.admin;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import silentium.gameserver.handler.IAdminCommandHandler;
 import silentium.gameserver.model.AutoSpawnHandler;
 import silentium.gameserver.model.AutoSpawnHandler.AutoSpawnInstance;
@@ -20,123 +17,100 @@ import silentium.gameserver.network.serverpackets.SystemMessage;
 import silentium.gameserver.tables.NpcTable;
 import silentium.gameserver.tables.SpawnTable;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Admin Command Handler for Mammon NPCs
- * 
+ *
  * @author Tempy
  */
-public class AdminMammon implements IAdminCommandHandler
-{
+public class AdminMammon implements IAdminCommandHandler {
 	private static final String[] ADMIN_COMMANDS = { "admin_mammon_find", "admin_mammon_respawn", "admin_list_spawns", "admin_msg" };
 
 	private final boolean _isSealValidation = SevenSigns.getInstance().isSealValidationPeriod();
 
 	@Override
-	public boolean useAdminCommand(String command, L2PcInstance activeChar)
-	{
+	public boolean useAdminCommand(final String command, final L2PcInstance activeChar) {
 		int npcId = 0;
 		int teleportIndex = -1;
-		AutoSpawnInstance blackSpawnInst = AutoSpawnHandler.getInstance().getAutoSpawnInstance(SevenSigns.MAMMON_BLACKSMITH_ID, false);
-		AutoSpawnInstance merchSpawnInst = AutoSpawnHandler.getInstance().getAutoSpawnInstance(SevenSigns.MAMMON_MERCHANT_ID, false);
+		final AutoSpawnInstance blackSpawnInst = AutoSpawnHandler.getInstance().getAutoSpawnInstance(SevenSigns.MAMMON_BLACKSMITH_ID, false);
+		final AutoSpawnInstance merchSpawnInst = AutoSpawnHandler.getInstance().getAutoSpawnInstance(SevenSigns.MAMMON_MERCHANT_ID, false);
 
-		if (command.startsWith("admin_mammon_find"))
-		{
-			try
-			{
+		if (command.startsWith("admin_mammon_find")) {
+			try {
 				if (command.length() > 17)
 					teleportIndex = Integer.parseInt(command.substring(18));
-			}
-			catch (Exception NumberFormatException)
-			{
+			} catch (Exception NumberFormatException) {
 				activeChar.sendMessage("Usage: //mammon_find [teleportIndex] (where 1 = Blacksmith, 2 = Merchant)");
 			}
 
-			if (!_isSealValidation)
-			{
+			if (!_isSealValidation) {
 				activeChar.sendMessage("The competition period is currently in effect.");
 				return true;
 			}
-			if (blackSpawnInst != null)
-			{
-				L2Npc[] blackInst = blackSpawnInst.getNPCInstanceList();
-				if (blackInst.length > 0)
-				{
-					int x1 = blackInst[0].getX(), y1 = blackInst[0].getY(), z1 = blackInst[0].getZ();
-					activeChar.sendMessage("Blacksmith of Mammon: " + x1 + " " + y1 + " " + z1);
+			if (blackSpawnInst != null) {
+				final L2Npc[] blackInst = blackSpawnInst.getNPCInstanceList();
+				if (blackInst.length > 0) {
+					final int x1 = blackInst[0].getX();
+					final int y1 = blackInst[0].getY();
+					final int z1 = blackInst[0].getZ();
+					activeChar.sendMessage("Blacksmith of Mammon: " + x1 + ' ' + y1 + ' ' + z1);
 					if (teleportIndex == 1)
 						activeChar.teleToLocation(x1, y1, z1, true);
 				}
-			}
-			else
+			} else
 				activeChar.sendMessage("Blacksmith of Mammon isn't registered for spawn.");
-			if (merchSpawnInst != null)
-			{
-				L2Npc[] merchInst = merchSpawnInst.getNPCInstanceList();
-				if (merchInst.length > 0)
-				{
-					int x2 = merchInst[0].getX(), y2 = merchInst[0].getY(), z2 = merchInst[0].getZ();
-					activeChar.sendMessage("Merchant of Mammon: " + x2 + " " + y2 + " " + z2);
+			if (merchSpawnInst != null) {
+				final L2Npc[] merchInst = merchSpawnInst.getNPCInstanceList();
+				if (merchInst.length > 0) {
+					final int x2 = merchInst[0].getX();
+					final int y2 = merchInst[0].getY();
+					final int z2 = merchInst[0].getZ();
+					activeChar.sendMessage("Merchant of Mammon: " + x2 + ' ' + y2 + ' ' + z2);
 					if (teleportIndex == 2)
 						activeChar.teleToLocation(x2, y2, z2, true);
 				}
-			}
-			else
+			} else
 				activeChar.sendMessage("Merchant of Mammon isn't registered for spawn.");
-		}
-		else if (command.startsWith("admin_mammon_respawn"))
-		{
-			if (!_isSealValidation)
-			{
+		} else if (command.startsWith("admin_mammon_respawn")) {
+			if (!_isSealValidation) {
 				activeChar.sendMessage("The competition period is currently in effect.");
 				return true;
 			}
-			if (merchSpawnInst != null)
-			{
-				long merchRespawn = AutoSpawnHandler.getInstance().getTimeToNextSpawn(merchSpawnInst);
-				activeChar.sendMessage("The Merchant of Mammon will respawn in " + (merchRespawn / 60000) + " minute(s).");
-			}
-			else
+			if (merchSpawnInst != null) {
+				final long merchRespawn = AutoSpawnHandler.getInstance().getTimeToNextSpawn(merchSpawnInst);
+				activeChar.sendMessage("The Merchant of Mammon will respawn in " + merchRespawn / 60000 + " minute(s).");
+			} else
 				activeChar.sendMessage("Merchant of Mammon isn't registered for spawn.");
-			if (blackSpawnInst != null)
-			{
-				long blackRespawn = AutoSpawnHandler.getInstance().getTimeToNextSpawn(blackSpawnInst);
-				activeChar.sendMessage("The Blacksmith of Mammon will respawn in " + (blackRespawn / 60000) + " minute(s).");
-			}
-			else
+			if (blackSpawnInst != null) {
+				final long blackRespawn = AutoSpawnHandler.getInstance().getTimeToNextSpawn(blackSpawnInst);
+				activeChar.sendMessage("The Blacksmith of Mammon will respawn in " + blackRespawn / 60000 + " minute(s).");
+			} else
 				activeChar.sendMessage("Blacksmith of Mammon isn't registered for spawn.");
-		}
-		else if (command.startsWith("admin_list_spawns"))
-		{
-			try
-			{
-				String[] params = command.split(" ");
-				Pattern pattern = Pattern.compile("[0-9]*");
-				Matcher regexp = pattern.matcher(params[1]);
+		} else if (command.startsWith("admin_list_spawns")) {
+			try {
+				final String[] params = command.split(" ");
+				final Pattern pattern = Pattern.compile("[0-9]*");
+				final Matcher regexp = pattern.matcher(params[1]);
 				if (regexp.matches())
 					npcId = Integer.parseInt(params[1]);
-				else
-				{
+				else {
 					params[1] = params[1].replace('_', ' ');
 					npcId = NpcTable.getInstance().getTemplateByName(params[1]).getNpcId();
 				}
 				if (params.length > 2)
 					teleportIndex = Integer.parseInt(params[2]);
-			}
-			catch (Exception e)
-			{
+			} catch (Exception e) {
 				activeChar.sendPacket(SystemMessage.sendString("Command format is //list_spawns <npcId|npc_name> [tele_index]"));
 			}
 			SpawnTable.getInstance().findNPCInstances(activeChar, npcId, teleportIndex, false);
 		}
 		// Used for testing SystemMessage IDs - Use //msg <ID>
-		else if (command.startsWith("admin_msg"))
-		{
-			try
-			{
+		else if (command.startsWith("admin_msg")) {
+			try {
 				activeChar.sendPacket(SystemMessage.getSystemMessage(Integer.parseInt(command.substring(10).trim())));
-			}
-			catch (Exception e)
-			{
+			} catch (Exception e) {
 				activeChar.sendMessage("Command format: //msg <SYSTEM_MSG_ID>");
 				return false;
 			}
@@ -146,8 +120,7 @@ public class AdminMammon implements IAdminCommandHandler
 	}
 
 	@Override
-	public String[] getAdminCommandList()
-	{
+	public String[] getAdminCommandList() {
 		return ADMIN_COMMANDS;
 	}
 }

@@ -18,29 +18,25 @@ import silentium.gameserver.network.serverpackets.Dice;
 import silentium.gameserver.network.serverpackets.SystemMessage;
 import silentium.gameserver.utils.Broadcast;
 
-public class RollingDice implements IItemHandler
-{
+public class RollingDice implements IItemHandler {
 	@Override
-	public void useItem(L2Playable playable, L2ItemInstance item, boolean forceUse)
-	{
+	public void useItem(final L2Playable playable, final L2ItemInstance item, final boolean forceUse) {
 		if (!(playable instanceof L2PcInstance))
 			return;
 
-		L2PcInstance activeChar = (L2PcInstance) playable;
-		int itemId = item.getItemId();
+		final L2PcInstance activeChar = (L2PcInstance) playable;
+		final int itemId = item.getItemId();
 
-		if (itemId == 4625 || itemId == 4626 || itemId == 4627 || itemId == 4628)
-		{
-			int number = rollDice(activeChar);
-			if (number == 0)
-			{
+		if (itemId == 4625 || itemId == 4626 || itemId == 4627 || itemId == 4628) {
+			final int number = rollDice(activeChar);
+			if (number == 0) {
 				activeChar.sendPacket(SystemMessageId.YOU_MAY_NOT_THROW_THE_DICE_AT_THIS_TIME_TRY_AGAIN_LATER);
 				return;
 			}
 
 			Broadcast.toSelfAndKnownPlayers(activeChar, new Dice(activeChar.getObjectId(), item.getItemId(), number, activeChar.getX() - 30, activeChar.getY() - 30, activeChar.getZ()));
 
-			SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.S1_ROLLED_S2);
+			final SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.S1_ROLLED_S2);
 			sm.addPcName(activeChar);
 			sm.addNumber(number);
 
@@ -52,8 +48,7 @@ public class RollingDice implements IItemHandler
 		}
 	}
 
-	private static int rollDice(L2PcInstance player)
-	{
+	private static int rollDice(final L2PcInstance player) {
 		if (!player.getFloodProtectors().getRollDice().tryPerformAction("rollDice"))
 			return 0;
 

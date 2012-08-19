@@ -15,8 +15,7 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q638_SeekersOfTheHolyGrail extends Quest implements ScriptFile
-{
+public class Q638_SeekersOfTheHolyGrail extends Quest implements ScriptFile {
 	private static final String qn = "Q638_SeekersOfTheHolyGrail";
 
 	// NPC
@@ -25,8 +24,7 @@ public class Q638_SeekersOfTheHolyGrail extends Quest implements ScriptFile
 	// Item
 	private static final int TOTEM = 8068;
 
-	public Q638_SeekersOfTheHolyGrail(int questId, String name, String descr)
-	{
+	public Q638_SeekersOfTheHolyGrail(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { TOTEM };
@@ -38,27 +36,22 @@ public class Q638_SeekersOfTheHolyGrail extends Quest implements ScriptFile
 			addKillId(i);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q638_SeekersOfTheHolyGrail(638, "Q638_SeekersOfTheHolyGrail", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		final String htmltext = event;
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("31328-02.htm"))
-		{
+		if ("31328-02.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("31328-06.htm"))
-		{
+		} else if ("31328-06.htm".equalsIgnoreCase(event)) {
 			st.playSound(QuestState.SOUND_FINISH);
 			st.exitQuest(true);
 		}
@@ -67,32 +60,28 @@ public class Q638_SeekersOfTheHolyGrail extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
+		final QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 73)
 					htmltext = "31328-01.htm";
-				else
-				{
+				else {
 					htmltext = "31328-00.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				if (st.getQuestItemsCount(TOTEM) >= 2000)
-				{
+				if (st.getQuestItemsCount(TOTEM) >= 2000) {
 					htmltext = "31328-03.htm";
 					st.takeItems(TOTEM, 2000);
 
-					int chance = Rnd.get(3);
+					final int chance = Rnd.get(3);
 					if (chance == 0)
 						st.rewardItems(959, 1);
 					else if (chance == 1)
@@ -101,8 +90,7 @@ public class Q638_SeekersOfTheHolyGrail extends Quest implements ScriptFile
 						st.rewardItems(57, 3576000);
 
 					st.playSound(QuestState.SOUND_MIDDLE);
-				}
-				else
+				} else
 					htmltext = "31328-04.htm";
 				break;
 		}
@@ -111,23 +99,21 @@ public class Q638_SeekersOfTheHolyGrail extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		L2PcInstance partyMember = getRandomPartyMemberState(player, npc, QuestState.STARTED);
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final L2PcInstance partyMember = getRandomPartyMemberState(player, npc, QuestState.STARTED);
 		if (partyMember == null)
 			return null;
 
-		QuestState st = partyMember.getQuestState(qn);
+		final QuestState st = partyMember.getQuestState(qn);
 
 		int chance = (int) (30 * MainConfig.RATE_QUEST_DROP);
 		int numItems = chance / 100;
-		chance = chance % 100;
+		chance %= 100;
 
 		if (Rnd.get(100) < chance)
 			numItems++;
 
-		if (numItems > 0)
-		{
+		if (numItems > 0) {
 			st.giveItems(TOTEM, numItems);
 			st.playSound(QuestState.SOUND_ITEMGET);
 		}

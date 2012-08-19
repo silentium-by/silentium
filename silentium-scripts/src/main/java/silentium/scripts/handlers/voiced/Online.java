@@ -14,22 +14,19 @@ import silentium.gameserver.model.actor.instance.L2PcInstance;
 /**
  * @author horr1f1k
  */
-public class Online implements IVoicedCommandHandler
-{
+public class Online implements IVoicedCommandHandler {
 	private static final String[] VOICED_COMMANDS = { "online" };
 
 	@Override
-	public boolean useVoicedCommand(String command, L2PcInstance player, String target)
-	{
-		if (command.equalsIgnoreCase("online"))
+	public boolean useVoicedCommand(final String command, final L2PcInstance player, final String target) {
+		if ("online".equalsIgnoreCase(command))
 			player.sendMessage("Online: " + L2World.getInstance().getAllPlayers().size() + " players.");
 		return true;
 
 	}
 
 	@Override
-	public String[] getVoicedCommandList()
-	{
+	public String[] getVoicedCommandList() {
 		return VOICED_COMMANDS;
 	}
 }

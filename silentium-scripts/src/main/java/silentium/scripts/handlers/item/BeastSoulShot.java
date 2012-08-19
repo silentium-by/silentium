@@ -21,14 +21,12 @@ import silentium.gameserver.utils.Broadcast;
 
 /**
  * Beast SoulShot Handler
- * 
+ *
  * @author Tempy
  */
-public class BeastSoulShot implements IItemHandler
-{
+public class BeastSoulShot implements IItemHandler {
 	@Override
-	public void useItem(L2Playable playable, L2ItemInstance item, boolean forceUse)
-	{
+	public void useItem(final L2Playable playable, final L2ItemInstance item, final boolean forceUse) {
 		if (playable == null)
 			return;
 
@@ -36,30 +34,26 @@ public class BeastSoulShot implements IItemHandler
 		if (activeOwner == null)
 			return;
 
-		if (playable instanceof L2Summon)
-		{
+		if (playable instanceof L2Summon) {
 			activeOwner.sendPacket(SystemMessageId.PET_CANNOT_USE_ITEM);
 			return;
 		}
 
 		final L2Summon activePet = activeOwner.getPet();
-		if (activePet == null)
-		{
+		if (activePet == null) {
 			activeOwner.sendPacket(SystemMessageId.PETS_ARE_NOT_AVAILABLE_AT_THIS_TIME);
 			return;
 		}
 
-		if (activePet.isDead())
-		{
+		if (activePet.isDead()) {
 			activeOwner.sendPacket(SystemMessageId.SOULSHOTS_AND_SPIRITSHOTS_ARE_NOT_AVAILABLE_FOR_A_DEAD_PET);
 			return;
 		}
 
 		final int itemId = item.getItemId();
-		short shotConsumption = activePet.getSoulShotsPerHit();
+		final short shotConsumption = activePet.getSoulShotsPerHit();
 
-		if (!(item.getCount() > shotConsumption))
-		{
+		if (!(item.getCount() > shotConsumption)) {
 			// Not enough Soulshots to use.
 			if (!activeOwner.disableAutoShot(itemId))
 				activeOwner.sendPacket(SystemMessageId.NOT_ENOUGH_SOULSHOTS_FOR_PET);
@@ -69,17 +63,14 @@ public class BeastSoulShot implements IItemHandler
 		L2ItemInstance weaponInst = null;
 
 		if (activePet instanceof L2PetInstance)
-			weaponInst = ((L2PetInstance) activePet).getActiveWeaponInstance();
+			weaponInst = activePet.getActiveWeaponInstance();
 
-		if (weaponInst == null)
-		{
+		if (weaponInst == null) {
 			if (activePet.getChargedSoulShot() != L2ItemInstance.CHARGED_NONE)
 				return;
 
 			activePet.setChargedSoulShot(L2ItemInstance.CHARGED_SOULSHOT);
-		}
-		else
-		{
+		} else {
 			// SoulShots are already active.
 			if (weaponInst.getChargedSoulshot() != L2ItemInstance.CHARGED_NONE)
 				return;
@@ -88,10 +79,8 @@ public class BeastSoulShot implements IItemHandler
 		}
 
 		// If the player doesn't have enough beast soulshot remaining, remove any auto soulshot task.
-		if (!CustomConfig.UNLIM_SHOTS)
-		{
-			if (!activeOwner.destroyItemWithoutTrace("Consume", item.getObjectId(), shotConsumption, null, false))
-			{
+		if (!CustomConfig.UNLIM_SHOTS) {
+			if (!activeOwner.destroyItemWithoutTrace("Consume", item.getObjectId(), shotConsumption, null, false)) {
 				if (!activeOwner.disableAutoShot(itemId))
 					activeOwner.sendPacket(SystemMessageId.NOT_ENOUGH_SOULSHOTS_FOR_PET);
 				return;

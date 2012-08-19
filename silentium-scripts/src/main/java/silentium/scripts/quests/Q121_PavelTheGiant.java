@@ -13,43 +13,36 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q121_PavelTheGiant extends Quest implements ScriptFile
-{
+public class Q121_PavelTheGiant extends Quest implements ScriptFile {
 	private static final String qn = "Q121_PavelTheGiant";
 
 	// NPCs
-	private final static int NEWYEAR = 31961;
-	private final static int YUMI = 32041;
+	private static final int NEWYEAR = 31961;
+	private static final int YUMI = 32041;
 
-	public Q121_PavelTheGiant(int questId, String name, String descr)
-	{
+	public Q121_PavelTheGiant(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		addStartNpc(NEWYEAR);
 		addTalkId(NEWYEAR, YUMI);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q121_PavelTheGiant(121, "Q121_PavelTheGiant", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		final String htmltext = event;
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("31961-2.htm"))
-		{
+		if ("31961-2.htm".equalsIgnoreCase(event)) {
 			st.setState(QuestState.STARTED);
 			st.set("cond", "1");
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("32041-2.htm"))
-		{
+		} else if ("32041-2.htm".equalsIgnoreCase(event)) {
 			st.playSound(QuestState.SOUND_FINISH);
 			st.addExpAndSp(10000, 0);
 			st.setState(QuestState.COMPLETED);
@@ -59,28 +52,24 @@ public class Q121_PavelTheGiant extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
 		String htmltext = getNoQuestMsg();
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 46)
 					htmltext = "31961-1.htm";
-				else
-				{
+				else {
 					htmltext = "31961-1a.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				switch (npc.getNpcId())
-				{
+				switch (npc.getNpcId()) {
 					case NEWYEAR:
 						htmltext = "31961-2a.htm";
 						break;

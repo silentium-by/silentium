@@ -18,11 +18,10 @@ import silentium.gameserver.network.serverpackets.NpcHtmlMessage;
 
 /**
  * Tvt info.
- * 
+ *
  * @author denser
  */
-public class TvTVoicedInfo implements IVoicedCommandHandler
-{
+public class TvTVoicedInfo implements IVoicedCommandHandler {
 	private static final String[] _voicedCommands = { "tvt" };
 
 	/**
@@ -34,16 +33,12 @@ public class TvTVoicedInfo implements IVoicedCommandHandler
 	private static final String HTML = HtmCache.getInstance().getHtm(StaticHtmPath.ModsHtmPath + "TvT/Status.htm");
 
 	@Override
-	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
-	{
-		if (command.equals("tvt"))
-		{
-			if (TvTEvent.isStarting() || TvTEvent.isStarted())
-			{
-				String htmContent = (USE_STATIC_HTML && !HTML.isEmpty()) ? HTML : HtmCache.getInstance().getHtm(StaticHtmPath.ModsHtmPath + "TvT/Status.htm");
-				try
-				{
-					NpcHtmlMessage npcHtmlMessage = new NpcHtmlMessage(5);
+	public boolean useVoicedCommand(final String command, final L2PcInstance activeChar, final String target) {
+		if ("tvt".equals(command)) {
+			if (TvTEvent.isStarting() || TvTEvent.isStarted()) {
+				final String htmContent = USE_STATIC_HTML && !HTML.isEmpty() ? HTML : HtmCache.getInstance().getHtm(StaticHtmPath.ModsHtmPath + "TvT/Status.htm");
+				try {
+					final NpcHtmlMessage npcHtmlMessage = new NpcHtmlMessage(5);
 
 					npcHtmlMessage.setHtml(htmContent);
 					// npcHtmlMessage.replace("%objectId%",
@@ -55,22 +50,18 @@ public class TvTVoicedInfo implements IVoicedCommandHandler
 					npcHtmlMessage.replace("%team2playercount%", String.valueOf(TvTEvent.getTeamsPlayerCounts()[1]));
 					npcHtmlMessage.replace("%team2points%", String.valueOf(TvTEvent.getTeamsPoints()[1]));
 					activeChar.sendPacket(npcHtmlMessage);
-				}
-				catch (Exception e)
-				{
+				} catch (Exception e) {
 					_log.warn("wrong TvT voiced: " + e);
 				}
 
-			}
-			else
+			} else
 				activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 		}
 		return true;
 	}
 
 	@Override
-	public String[] getVoicedCommandList()
-	{
+	public String[] getVoicedCommandList() {
 		return _voicedCommands;
 	}
 }

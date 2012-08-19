@@ -16,25 +16,21 @@ import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.network.SystemMessageId;
 import silentium.gameserver.tables.SkillTable;
 
-public class BeastSpice implements IItemHandler
-{
+public class BeastSpice implements IItemHandler {
 	@Override
-	public void useItem(L2Playable playable, L2ItemInstance item, boolean forceUse)
-	{
+	public void useItem(final L2Playable playable, final L2ItemInstance item, final boolean forceUse) {
 		if (!(playable instanceof L2PcInstance))
 			return;
 
-		L2PcInstance activeChar = (L2PcInstance) playable;
+		final L2PcInstance activeChar = (L2PcInstance) playable;
 
-		if (!(activeChar.getTarget() instanceof L2FeedableBeastInstance))
-		{
+		if (!(activeChar.getTarget() instanceof L2FeedableBeastInstance)) {
 			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 			return;
 		}
 
 		int skillId = 0;
-		switch (item.getItemId())
-		{
+		switch (item.getItemId()) {
 			case 6643:
 				skillId = 2188;
 				break;
@@ -43,7 +39,7 @@ public class BeastSpice implements IItemHandler
 				break;
 		}
 
-		L2Skill skill = SkillTable.getInstance().getInfo(skillId, 1);
+		final L2Skill skill = SkillTable.getInstance().getInfo(skillId, 1);
 		if (skill != null)
 			activeChar.useMagic(skill, false, false);
 	}

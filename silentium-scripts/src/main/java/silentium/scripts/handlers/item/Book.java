@@ -16,28 +16,23 @@ import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.network.serverpackets.ActionFailed;
 import silentium.gameserver.network.serverpackets.NpcHtmlMessage;
 
-public class Book implements IItemHandler
-{
+public class Book implements IItemHandler {
 	@Override
-	public void useItem(L2Playable playable, L2ItemInstance item, boolean forceUse)
-	{
+	public void useItem(final L2Playable playable, final L2ItemInstance item, final boolean forceUse) {
 		if (!(playable instanceof L2PcInstance))
 			return;
-		L2PcInstance activeChar = (L2PcInstance) playable;
+		final L2PcInstance activeChar = (L2PcInstance) playable;
 		final int itemId = item.getItemId();
 
-		String filename = StaticHtmPath.HelpHtmPath + itemId + ".htm";
-		String content = HtmCache.getInstance().getHtm(filename);
+		final String filename = StaticHtmPath.HelpHtmPath + itemId + ".htm";
+		final String content = HtmCache.getInstance().getHtm(filename);
 
-		if (content == null)
-		{
-			NpcHtmlMessage html = new NpcHtmlMessage(1);
+		if (content == null) {
+			final NpcHtmlMessage html = new NpcHtmlMessage(1);
 			html.setHtml("<html><body>My Text is missing:<br>" + filename + "</body></html>");
 			activeChar.sendPacket(html);
-		}
-		else
-		{
-			NpcHtmlMessage itemReply = new NpcHtmlMessage(5, itemId);
+		} else {
+			final NpcHtmlMessage itemReply = new NpcHtmlMessage(5, itemId);
 			itemReply.setHtml(content);
 			itemReply.disableValidation();
 			activeChar.sendPacket(itemReply);

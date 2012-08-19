@@ -14,9 +14,8 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q262_TradeWithTheIvoryTower extends Quest implements ScriptFile
-{
-	private final static String qn = "Q262_TradeWithTheIvoryTower";
+public class Q262_TradeWithTheIvoryTower extends Quest implements ScriptFile {
+	private static final String qn = "Q262_TradeWithTheIvoryTower";
 
 	// NPC
 	private static final int Vollodos = 30137;
@@ -24,8 +23,7 @@ public class Q262_TradeWithTheIvoryTower extends Quest implements ScriptFile
 	// Item
 	private static final int FUNGUS_SAC = 707;
 
-	public Q262_TradeWithTheIvoryTower(int questId, String name, String descr)
-	{
+	public Q262_TradeWithTheIvoryTower(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { FUNGUS_SAC };
@@ -36,21 +34,18 @@ public class Q262_TradeWithTheIvoryTower extends Quest implements ScriptFile
 		addKillId(20400, 20007);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q262_TradeWithTheIvoryTower(262, "Q262_TradeWithTheIvoryTower", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		final String htmltext = event;
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30137-03.htm"))
-		{
+		if ("30137-03.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
@@ -60,20 +55,17 @@ public class Q262_TradeWithTheIvoryTower extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
 		String htmltext = Quest.getNoQuestMsg();
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 8 && player.getLevel() <= 16)
 					htmltext = "30137-02.htm";
-				else
-				{
+				else {
 					htmltext = "30137-01.htm";
 					st.exitQuest(true);
 				}
@@ -82,8 +74,7 @@ public class Q262_TradeWithTheIvoryTower extends Quest implements ScriptFile
 			case QuestState.STARTED:
 				if (st.getQuestItemsCount(FUNGUS_SAC) < 10)
 					htmltext = "30137-04.htm";
-				else
-				{
+				else {
 					htmltext = "30137-05.htm";
 					st.takeItems(FUNGUS_SAC, -1);
 					st.rewardItems(57, 3000);
@@ -97,22 +88,18 @@ public class Q262_TradeWithTheIvoryTower extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 
-		if (st.getInt("cond") == 1)
-		{
-			if (Rnd.get(10) < ((npc.getNpcId() == 20400) ? 4 : 3))
-			{
+		if (st.getInt("cond") == 1) {
+			if (Rnd.get(10) < (npc.getNpcId() == 20400 ? 4 : 3)) {
 				st.giveItems(FUNGUS_SAC, 1);
 
 				if (st.getQuestItemsCount(FUNGUS_SAC) < 10)
 					st.playSound(QuestState.SOUND_ITEMGET);
-				else
-				{
+				else {
 					st.set("cond", "2");
 					st.playSound(QuestState.SOUND_MIDDLE);
 				}

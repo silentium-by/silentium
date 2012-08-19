@@ -14,8 +14,7 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q661_MakingTheHarvestGroundsSafe extends Quest implements ScriptFile
-{
+public class Q661_MakingTheHarvestGroundsSafe extends Quest implements ScriptFile {
 	private static final String qn = "Q661_MakingTheHarvestGroundsSafe";
 
 	// NPC
@@ -34,8 +33,7 @@ public class Q661_MakingTheHarvestGroundsSafe extends Quest implements ScriptFil
 	private static final int CLOUDY_BEAST = 21096;
 	private static final int YOUNG_ARANEID = 21097;
 
-	public Q661_MakingTheHarvestGroundsSafe(int questId, String name, String descr)
-	{
+	public Q661_MakingTheHarvestGroundsSafe(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { STING_OF_GIANT_PB, CLOUDY_GEM, TALON_OF_YA };
@@ -46,33 +44,28 @@ public class Q661_MakingTheHarvestGroundsSafe extends Quest implements ScriptFil
 		addKillId(GIANT_PB, CLOUDY_BEAST, YOUNG_ARANEID);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q661_MakingTheHarvestGroundsSafe(661, "Q661_MakingTheHarvestGroundsSafe", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		final String htmltext = event;
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30210-02.htm"))
-		{
+		if ("30210-02.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("30210-04.htm"))
-		{
-			int item1 = st.getQuestItemsCount(STING_OF_GIANT_PB);
-			int item2 = st.getQuestItemsCount(CLOUDY_GEM);
-			int item3 = st.getQuestItemsCount(TALON_OF_YA);
+		} else if ("30210-04.htm".equalsIgnoreCase(event)) {
+			final int item1 = st.getQuestItemsCount(STING_OF_GIANT_PB);
+			final int item2 = st.getQuestItemsCount(CLOUDY_GEM);
+			final int item3 = st.getQuestItemsCount(TALON_OF_YA);
 			int sum = 0;
 
-			sum = (item1 * 57) + (item2 * 56) + (item3 * 60);
+			sum = item1 * 57 + item2 * 56 + item3 * 60;
 
 			if (item1 + item2 + item3 >= 10)
 				sum += 2871;
@@ -81,38 +74,31 @@ public class Q661_MakingTheHarvestGroundsSafe extends Quest implements ScriptFil
 			st.takeItems(CLOUDY_GEM, item2);
 			st.takeItems(TALON_OF_YA, item3);
 			st.rewardItems(ADENA, sum);
-		}
-		else if (event.equalsIgnoreCase("30210-06.htm"))
+		} else if ("30210-06.htm".equalsIgnoreCase(event))
 			st.exitQuest(true);
 
 		return htmltext;
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
+		final QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 21)
 					htmltext = "30210-01.htm";
-				else
-				{
+				else {
 					htmltext = "30210-01a.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				if (st.hasQuestItems(STING_OF_GIANT_PB) || st.hasQuestItems(CLOUDY_GEM) || st.hasQuestItems(TALON_OF_YA))
-					htmltext = "30210-03.htm";
-				else
-					htmltext = "30210-05.htm";
+				htmltext = st.hasQuestItems(STING_OF_GIANT_PB) || st.hasQuestItems(CLOUDY_GEM) || st.hasQuestItems(TALON_OF_YA) ? "30210-03.htm" : "30210-05.htm";
 				break;
 		}
 
@@ -120,16 +106,13 @@ public class Q661_MakingTheHarvestGroundsSafe extends Quest implements ScriptFil
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 
-		if (st.isStarted() && Rnd.get(10) < 5)
-		{
-			switch (npc.getNpcId())
-			{
+		if (st.isStarted() && Rnd.get(10) < 5) {
+			switch (npc.getNpcId()) {
 				case GIANT_PB:
 					st.giveItems(STING_OF_GIANT_PB, 1);
 					break;

@@ -19,8 +19,7 @@ import silentium.gameserver.utils.Util;
 /**
  * @authors L2Emu Team (python), Nyaran (java)
  */
-public class NpcLocationInfo extends Quest implements ScriptFile
-{
+public class NpcLocationInfo extends Quest implements ScriptFile {
 	private static final String qn = "NpcLocationInfo";
 
 	private static final int[] NPCRADAR = {
@@ -198,26 +197,21 @@ public class NpcLocationInfo extends Quest implements ScriptFile
 	};
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
 		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 
 		if (st == null)
 			return htmltext;
 
-		if (Util.isDigit(event))
-		{
+		if (Util.isDigit(event)) {
 			htmltext = null;
-			int npcId = Integer.parseInt(event);
+			final int npcId = Integer.parseInt(event);
 
-			if (Util.contains(NPCRADAR, npcId))
-			{
+			if (Util.contains(NPCRADAR, npcId)) {
 				int x = 0, y = 0, z = 0;
-				for (L2Spawn spawn : SpawnTable.getInstance().getSpawnTable())
-				{
-					if (npcId == spawn.getNpcId())
-					{
+				for (final L2Spawn spawn : SpawnTable.getInstance().getSpawnTable()) {
+					if (npcId == spawn.getNpcId()) {
 						x = spawn.getLocx();
 						y = spawn.getLocy();
 						z = spawn.getLocz();
@@ -233,18 +227,15 @@ public class NpcLocationInfo extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		return String.valueOf(npc.getNpcId()) + ".htm";
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
+		return npc.getNpcId() + ".htm";
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new NpcLocationInfo(-1, "NpcLocationInfo", "custom");
 	}
 
-	public NpcLocationInfo(int id, String name, String descr)
-	{
+	public NpcLocationInfo(final int id, final String name, final String descr) {
 		super(id, name, descr);
 
 		addStartNpc(30598, 30599, 30600, 30601, 30602);

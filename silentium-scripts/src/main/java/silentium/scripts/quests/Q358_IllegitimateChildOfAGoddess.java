@@ -14,18 +14,16 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q358_IllegitimateChildOfAGoddess extends Quest implements ScriptFile
-{
+public class Q358_IllegitimateChildOfAGoddess extends Quest implements ScriptFile {
 	private static final String qn = "Q358_IllegitimateChildOfAGoddess";
 
 	// Item
 	private static final int SCALE = 5868;
 
 	// Reward
-	private static final int REWARD[] = { 6329, 6331, 6333, 6335, 6337, 6339, 5364, 5366 };
+	private static final int[] REWARD = { 6329, 6331, 6333, 6335, 6337, 6339, 5364, 5366 };
 
-	public Q358_IllegitimateChildOfAGoddess(int questId, String name, String descr)
-	{
+	public Q358_IllegitimateChildOfAGoddess(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { SCALE };
@@ -36,21 +34,18 @@ public class Q358_IllegitimateChildOfAGoddess extends Quest implements ScriptFil
 		addKillId(20672, 20673); // Trives, Falibati
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q358_IllegitimateChildOfAGoddess(358, "Q358_IllegitimateChildOfAGoddess", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		final String htmltext = event;
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30862-05.htm"))
-		{
+		if ("30862-05.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
@@ -59,20 +54,17 @@ public class Q358_IllegitimateChildOfAGoddess extends Quest implements ScriptFil
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
 		String htmltext = Quest.getNoQuestMsg();
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 63 && player.getLevel() <= 67)
 					htmltext = "30862-02.htm";
-				else
-				{
+				else {
 					htmltext = "30862-01.htm";
 					st.exitQuest(true);
 				}
@@ -81,8 +73,7 @@ public class Q358_IllegitimateChildOfAGoddess extends Quest implements ScriptFil
 			case QuestState.STARTED:
 				if (st.getQuestItemsCount(SCALE) < 108)
 					htmltext = "30862-06.htm";
-				else
-				{
+				else {
 					htmltext = "30862-07.htm";
 					st.takeItems(SCALE, -1);
 					st.giveItems(REWARD[Rnd.get(REWARD.length)], 1);
@@ -96,9 +87,8 @@ public class Q358_IllegitimateChildOfAGoddess extends Quest implements ScriptFil
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 

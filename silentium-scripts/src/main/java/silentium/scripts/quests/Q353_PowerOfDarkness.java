@@ -14,8 +14,7 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q353_PowerOfDarkness extends Quest implements ScriptFile
-{
+public class Q353_PowerOfDarkness extends Quest implements ScriptFile {
 	private static final String qn = "Q353_PowerOfDarkness";
 
 	// NPC
@@ -24,8 +23,7 @@ public class Q353_PowerOfDarkness extends Quest implements ScriptFile
 	// Item
 	private static final int STONE = 5862;
 
-	public Q353_PowerOfDarkness(int questId, String name, String descr)
-	{
+	public Q353_PowerOfDarkness(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { STONE };
@@ -36,27 +34,22 @@ public class Q353_PowerOfDarkness extends Quest implements ScriptFile
 		addKillId(20284, 20245, 20244, 20283);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q353_PowerOfDarkness(353, "Q353_PowerOfDarkness", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		final String htmltext = event;
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("31044-04.htm"))
-		{
+		if ("31044-04.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("31044-08.htm"))
-		{
+		} else if ("31044-08.htm".equalsIgnoreCase(event)) {
 			st.exitQuest(true);
 			st.playSound(QuestState.SOUND_FINISH);
 		}
@@ -65,31 +58,27 @@ public class Q353_PowerOfDarkness extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
 		String htmltext = Quest.getNoQuestMsg();
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 55 && player.getLevel() <= 60)
 					htmltext = "31044-02.htm";
-				else
-				{
+				else {
 					htmltext = "31044-01.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				int stones = st.getQuestItemsCount(STONE);
+				final int stones = st.getQuestItemsCount(STONE);
 				if (stones == 0)
 					htmltext = "31044-05.htm";
-				else
-				{
+				else {
 					htmltext = "31044-06.htm";
 					st.takeItems(STONE, -1);
 					st.rewardItems(57, 2500 + 230 * stones);
@@ -101,14 +90,12 @@ public class Q353_PowerOfDarkness extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 
-		if (st.isStarted() && Rnd.get(100) < 25)
-		{
+		if (st.isStarted() && Rnd.get(100) < 25) {
 			st.giveItems(STONE, 1);
 			st.playSound(QuestState.SOUND_ITEMGET);
 		}

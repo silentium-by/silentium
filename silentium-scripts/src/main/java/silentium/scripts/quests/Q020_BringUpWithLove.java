@@ -12,21 +12,19 @@ import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 
-public class Q020_BringUpWithLove extends Quest
-{
-	private final static String qn = "Q020_BringUpWithLove";
+public class Q020_BringUpWithLove extends Quest {
+	private static final String qn = "Q020_BringUpWithLove";
 
 	// Item
-	private final static int JEWEL_OF_INNOCENCE = 7185;
+	private static final int JEWEL_OF_INNOCENCE = 7185;
 
 	// Reward
-	private final static int ADENA = 57;
+	private static final int ADENA = 57;
 
 	// NPC
-	private final static int TUNATUN = 31537;
+	private static final int TUNATUN = 31537;
 
-	public Q020_BringUpWithLove(int questId, String name, String descr)
-	{
+	public Q020_BringUpWithLove(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { JEWEL_OF_INNOCENCE };
@@ -35,27 +33,22 @@ public class Q020_BringUpWithLove extends Quest
 		addTalkId(TUNATUN);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void main(final String... args) {
 		new Q020_BringUpWithLove(20, "Q020_BringUpWithLove", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		final String htmltext = event;
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("31537-09.htm"))
-		{
+		if ("31537-09.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("31537-12.htm"))
-		{
+		} else if ("31537-12.htm".equalsIgnoreCase(event)) {
 			st.takeItems(JEWEL_OF_INNOCENCE, -1);
 			st.rewardItems(ADENA, 68500);
 			st.playSound(QuestState.SOUND_FINISH);
@@ -66,27 +59,19 @@ public class Q020_BringUpWithLove extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
 		String htmltext = getNoQuestMsg();
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
-				if (player.getLevel() >= 65)
-					htmltext = "31537-01.htm";
-				else
-					htmltext = "31537-02.htm";
+				htmltext = player.getLevel() >= 65 ? "31537-01.htm" : "31537-02.htm";
 				break;
 
 			case QuestState.STARTED:
-				if (st.getQuestItemsCount(JEWEL_OF_INNOCENCE) >= 1)
-					htmltext = "31537-11.htm";
-				else
-					htmltext = "31537-10.htm";
+				htmltext = st.getQuestItemsCount(JEWEL_OF_INNOCENCE) >= 1 ? "31537-11.htm" : "31537-10.htm";
 				break;
 
 			case QuestState.COMPLETED:

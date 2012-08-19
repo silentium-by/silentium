@@ -13,8 +13,7 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q303_CollectArrowheads extends Quest implements ScriptFile
-{
+public class Q303_CollectArrowheads extends Quest implements ScriptFile {
 	private static final String qn = "Q303_CollectArrowheads";
 
 	// NPC
@@ -23,8 +22,7 @@ public class Q303_CollectArrowheads extends Quest implements ScriptFile
 	// Item
 	private static final int ORCISH_ARROWHEAD = 963;
 
-	public Q303_CollectArrowheads(int questId, String name, String descr)
-	{
+	public Q303_CollectArrowheads(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { ORCISH_ARROWHEAD };
@@ -35,21 +33,18 @@ public class Q303_CollectArrowheads extends Quest implements ScriptFile
 		addKillId(20361);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q303_CollectArrowheads(303, "Q303_CollectArrowheads", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		final String htmltext = event;
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30029-03.htm"))
-		{
+		if ("30029-03.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
@@ -58,20 +53,17 @@ public class Q303_CollectArrowheads extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
+		final QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 10 && player.getLevel() <= 14)
 					htmltext = "30029-02.htm";
-				else
-				{
+				else {
 					htmltext = "30029-01.htm";
 					st.exitQuest(true);
 				}
@@ -80,8 +72,7 @@ public class Q303_CollectArrowheads extends Quest implements ScriptFile
 			case QuestState.STARTED:
 				if (st.getQuestItemsCount(ORCISH_ARROWHEAD) < 10)
 					htmltext = "30029-04.htm";
-				else
-				{
+				else {
 					htmltext = "30029-05.htm";
 					st.takeItems(ORCISH_ARROWHEAD, -1);
 					st.rewardItems(57, 1000);
@@ -95,9 +86,8 @@ public class Q303_CollectArrowheads extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 

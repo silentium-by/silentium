@@ -14,9 +14,8 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q159_ProtectTheWaterSource extends Quest implements ScriptFile
-{
-	private final static String qn = "Q159_ProtectTheWaterSource";
+public class Q159_ProtectTheWaterSource extends Quest implements ScriptFile {
+	private static final String qn = "Q159_ProtectTheWaterSource";
 
 	// Items
 	private static final int PLAGUE_DUST = 1035;
@@ -32,8 +31,7 @@ public class Q159_ProtectTheWaterSource extends Quest implements ScriptFile
 	// Reward
 	private static final int ADENA = 57;
 
-	public Q159_ProtectTheWaterSource(int questId, String name, String descr)
-	{
+	public Q159_ProtectTheWaterSource(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { PLAGUE_DUST, HYACINTH_CHARM1, HYACINTH_CHARM2 };
@@ -44,21 +42,18 @@ public class Q159_ProtectTheWaterSource extends Quest implements ScriptFile
 		addKillId(PLAGUE_ZOMBIE);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q159_ProtectTheWaterSource(159, "Q159_ProtectTheWaterSource", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		final String htmltext = event;
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30154-04.htm"))
-		{
+		if ("30154-04.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
@@ -69,50 +64,41 @@ public class Q159_ProtectTheWaterSource extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
+		final QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
-				if (player.getRace().ordinal() == 1)
-				{
+				if (player.getRace().ordinal() == 1) {
 					if (player.getLevel() >= 12 && player.getLevel() <= 18)
 						htmltext = "30154-03.htm";
-					else
-					{
+					else {
 						htmltext = "30154-02.htm";
 						st.exitQuest(true);
 					}
-				}
-				else
-				{
+				} else {
 					htmltext = "30154-00.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				int cond = st.getInt("cond");
+				final int cond = st.getInt("cond");
 				if (cond == 1)
 					htmltext = "30154-05.htm";
-				else if (cond == 2)
-				{
+				else if (cond == 2) {
 					st.set("cond", "3");
 					htmltext = "30154-06.htm";
 					st.takeItems(PLAGUE_DUST, -1);
 					st.takeItems(HYACINTH_CHARM1, -1);
 					st.giveItems(HYACINTH_CHARM2, 1);
 					st.playSound(QuestState.SOUND_MIDDLE);
-				}
-				else if (cond == 3)
+				} else if (cond == 3)
 					htmltext = "30154-07.htm";
-				else if (cond == 4)
-				{
+				else if (cond == 4) {
 					htmltext = "30154-08.htm";
 					st.takeItems(PLAGUE_DUST, -1);
 					st.takeItems(HYACINTH_CHARM2, -1);
@@ -131,17 +117,14 @@ public class Q159_ProtectTheWaterSource extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 
-		switch (st.getInt("cond"))
-		{
+		switch (st.getInt("cond")) {
 			case 1:
-				if (Rnd.get(10) < 4)
-				{
+				if (Rnd.get(10) < 4) {
 					st.set("cond", "2");
 					st.playSound(QuestState.SOUND_MIDDLE);
 					st.giveItems(PLAGUE_DUST, 1);

@@ -14,8 +14,7 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q371_ShriekOfGhosts extends Quest implements ScriptFile
-{
+public class Q371_ShriekOfGhosts extends Quest implements ScriptFile {
 	private static final String qn = "Q371_ShriekOfGhosts";
 
 	// NPCs
@@ -31,8 +30,7 @@ public class Q371_ShriekOfGhosts extends Quest implements ScriptFile
 	private static final int HALLATE_KNIGHT = 20820;
 	private static final int HALLATE_COMMANDER = 20824;
 
-	public Q371_ShriekOfGhosts(int questId, String name, String descr)
-	{
+	public Q371_ShriekOfGhosts(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { URN, PORCELAIN };
@@ -43,78 +41,56 @@ public class Q371_ShriekOfGhosts extends Quest implements ScriptFile
 		addKillId(HALLATE_WARRIOR, HALLATE_KNIGHT, HALLATE_COMMANDER);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q371_ShriekOfGhosts(371, "Q371_ShriekOfGhosts", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
 		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30867-03.htm"))
-		{
+		if ("30867-03.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("30867-07.htm"))
-		{
+		} else if ("30867-07.htm".equalsIgnoreCase(event)) {
 			int urns = st.getQuestItemsCount(URN);
-			if (urns > 0)
-			{
+			if (urns > 0) {
 				st.takeItems(URN, urns);
-				if (urns >= 100)
-				{
+				if (urns >= 100) {
 					urns += 13;
 					htmltext = "30867-08.htm";
-				}
-				else
+				} else
 					urns += 7;
 				st.rewardItems(57, urns * 1000);
 			}
-		}
-		else if (event.equalsIgnoreCase("30867-10.htm"))
-		{
+		} else if ("30867-10.htm".equalsIgnoreCase(event)) {
 			st.playSound(QuestState.SOUND_GIVEUP);
 			st.exitQuest(true);
-		}
-		else if (event.equalsIgnoreCase("APPR"))
-		{
-			if (st.hasQuestItems(PORCELAIN))
-			{
-				int chance = Rnd.get(100);
+		} else if ("APPR".equalsIgnoreCase(event)) {
+			if (st.hasQuestItems(PORCELAIN)) {
+				final int chance = Rnd.get(100);
 
 				st.takeItems(PORCELAIN, 1);
 
-				if (chance < 2)
-				{
+				if (chance < 2) {
 					st.giveItems(6003, 1);
 					htmltext = "30929-03.htm";
-				}
-				else if (chance < 32)
-				{
+				} else if (chance < 32) {
 					st.giveItems(6004, 1);
 					htmltext = "30929-04.htm";
-				}
-				else if (chance < 62)
-				{
+				} else if (chance < 62) {
 					st.giveItems(6005, 1);
 					htmltext = "30929-05.htm";
-				}
-				else if (chance < 77)
-				{
+				} else if (chance < 77) {
 					st.giveItems(6006, 1);
 					htmltext = "30929-06.htm";
-				}
-				else
+				} else
 					htmltext = "30929-07.htm";
-			}
-			else
+			} else
 				htmltext = "30929-02.htm";
 		}
 
@@ -122,33 +98,26 @@ public class Q371_ShriekOfGhosts extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
 		String htmltext = Quest.getNoQuestMsg();
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 59 && player.getLevel() <= 71)
 					htmltext = "30867-02.htm";
-				else
-				{
+				else {
 					htmltext = "30867-01.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				switch (npc.getNpcId())
-				{
+				switch (npc.getNpcId()) {
 					case REVA:
-						if (st.hasQuestItems(URN))
-							htmltext = (st.hasQuestItems(PORCELAIN)) ? "30867-05.htm" : "30867-04.htm";
-						else
-							htmltext = "30867-06.htm";
+						htmltext = st.hasQuestItems(URN) ? st.hasQuestItems(PORCELAIN) ? "30867-05.htm" : "30867-04.htm" : "30867-06.htm";
 						break;
 
 					case PATRIN:
@@ -162,37 +131,32 @@ public class Q371_ShriekOfGhosts extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		L2PcInstance partyMember = getRandomPartyMemberState(player, npc, QuestState.STARTED);
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final L2PcInstance partyMember = getRandomPartyMemberState(player, npc, QuestState.STARTED);
 		if (partyMember == null)
 			return null;
 
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 
-		int chance = Rnd.get(100);
-		switch (npc.getNpcId())
-		{
+		final int chance = Rnd.get(100);
+		switch (npc.getNpcId()) {
 			case HALLATE_WARRIOR:
-				if (chance < 43)
-				{
-					st.giveItems((chance < 38) ? URN : PORCELAIN, 1);
+				if (chance < 43) {
+					st.giveItems(chance < 38 ? URN : PORCELAIN, 1);
 					st.playSound(QuestState.SOUND_ITEMGET);
 				}
 				break;
 
 			case HALLATE_KNIGHT:
-				if (chance < 56)
-				{
-					st.giveItems((chance < 48) ? URN : PORCELAIN, 1);
+				if (chance < 56) {
+					st.giveItems(chance < 48 ? URN : PORCELAIN, 1);
 					st.playSound(QuestState.SOUND_ITEMGET);
 				}
 				break;
 
 			case HALLATE_COMMANDER:
-				if (chance < 58)
-				{
-					st.giveItems((chance < 50) ? URN : PORCELAIN, 1);
+				if (chance < 58) {
+					st.giveItems(chance < 50 ? URN : PORCELAIN, 1);
 					st.playSound(QuestState.SOUND_ITEMGET);
 				}
 				break;

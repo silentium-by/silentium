@@ -16,11 +16,9 @@ import silentium.gameserver.network.serverpackets.ShowMiniMap;
 /**
  * This class provides handling for items that should display a map when double clicked.
  */
-public class Maps implements IItemHandler
-{
+public class Maps implements IItemHandler {
 	@Override
-	public void useItem(L2Playable playable, L2ItemInstance item, boolean forceUse)
-	{
+	public void useItem(final L2Playable playable, final L2ItemInstance item, final boolean forceUse) {
 		if (!(playable instanceof L2PcInstance))
 			return;
 

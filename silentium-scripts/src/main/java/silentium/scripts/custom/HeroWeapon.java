@@ -14,17 +14,14 @@ import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 import silentium.gameserver.utils.Util;
 
-public class HeroWeapon extends Quest implements ScriptFile
-{
-	private final static int[] weaponIds = { 6611, 6612, 6613, 6614, 6615, 6616, 6617, 6618, 6619, 6620, 6621 };
+public class HeroWeapon extends Quest implements ScriptFile {
+	private static final int[] weaponIds = { 6611, 6612, 6613, 6614, 6615, 6616, 6617, 6618, 6619, 6620, 6621 };
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new HeroWeapon(-1, "HeroWeapon", "custom");
 	}
 
-	public HeroWeapon(int questId, String name, String descr)
-	{
+	public HeroWeapon(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		addStartNpc(31690, 31769, 31770, 31771, 31772, 31773);
@@ -32,11 +29,10 @@ public class HeroWeapon extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(getName());
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		final QuestState st = player.getQuestState(getName());
 
-		int weaponId = Integer.valueOf(event);
+		final int weaponId = Integer.valueOf(event);
 		if (Util.contains(weaponIds, weaponId))
 			st.giveItems(weaponId, 1);
 
@@ -45,27 +41,20 @@ public class HeroWeapon extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
 		String htmltext = "";
-		QuestState st = player.getQuestState(getName());
+		final QuestState st = player.getQuestState(getName());
 		if (st == null)
 			newQuestState(player);
 
-		if (st != null)
-		{
-			if (player.isHero())
-			{
-				if (hasHeroWeapon(player))
-				{
+		if (st != null) {
+			if (player.isHero()) {
+				if (hasHeroWeapon(player)) {
 					htmltext = "already_have_weapon.htm";
 					st.exitQuest(true);
-				}
-				else
+				} else
 					htmltext = "weapon_list.htm";
-			}
-			else
-			{
+			} else {
 				htmltext = "no_hero.htm";
 				st.exitQuest(true);
 			}
@@ -74,10 +63,8 @@ public class HeroWeapon extends Quest implements ScriptFile
 		return htmltext;
 	}
 
-	private boolean hasHeroWeapon(L2PcInstance player)
-	{
-		for (int i : weaponIds)
-		{
+	private boolean hasHeroWeapon(final L2PcInstance player) {
+		for (final int i : weaponIds) {
 			if (player.getInventory().getItemByItemId(i) != null)
 				return true;
 		}

@@ -18,22 +18,19 @@ import silentium.gameserver.templates.item.L2Item;
 import silentium.gameserver.templates.item.L2Weapon;
 import silentium.gameserver.utils.Broadcast;
 
-public class BlessedSpiritShot implements IItemHandler
-{
+public class BlessedSpiritShot implements IItemHandler {
 	@Override
-	public synchronized void useItem(L2Playable playable, L2ItemInstance item, boolean forceUse)
-	{
+	public synchronized void useItem(final L2Playable playable, final L2ItemInstance item, final boolean forceUse) {
 		if (!(playable instanceof L2PcInstance))
 			return;
 
-		L2PcInstance activeChar = (L2PcInstance) playable;
-		L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
-		L2Weapon weaponItem = activeChar.getActiveWeaponItem();
-		int itemId = item.getItemId();
+		final L2PcInstance activeChar = (L2PcInstance) playable;
+		final L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
+		final L2Weapon weaponItem = activeChar.getActiveWeaponItem();
+		final int itemId = item.getItemId();
 
 		// Check if bss can be used
-		if (weaponInst == null || weaponItem == null || weaponItem.getSpiritShotCount() == 0)
-		{
+		if (weaponInst == null || weaponItem == null || weaponItem.getSpiritShotCount() == 0) {
 			if (!activeChar.getAutoSoulShot().contains(itemId))
 				activeChar.sendPacket(SystemMessageId.CANNOT_USE_SPIRITSHOTS);
 			return;
@@ -47,8 +44,7 @@ public class BlessedSpiritShot implements IItemHandler
 		final int weaponGrade = weaponItem.getCrystalType();
 		boolean gradeCheck = true;
 
-		switch (weaponGrade)
-		{
+		switch (weaponGrade) {
 			case L2Item.CRYSTAL_NONE:
 				if (itemId != 3947)
 					gradeCheck = false;
@@ -75,8 +71,7 @@ public class BlessedSpiritShot implements IItemHandler
 				break;
 		}
 
-		if (!gradeCheck)
-		{
+		if (!gradeCheck) {
 			if (!activeChar.getAutoSoulShot().contains(itemId))
 				activeChar.sendPacket(SystemMessageId.SPIRITSHOTS_GRADE_MISMATCH);
 
@@ -84,10 +79,8 @@ public class BlessedSpiritShot implements IItemHandler
 		}
 
 		// Consume bss if player has enough of them
-		if (!CustomConfig.UNLIM_SSHOTS)
-		{
-			if (!activeChar.destroyItemWithoutTrace("Consume", item.getObjectId(), weaponItem.getSpiritShotCount(), null, false))
-			{
+		if (!CustomConfig.UNLIM_SSHOTS) {
+			if (!activeChar.destroyItemWithoutTrace("Consume", item.getObjectId(), weaponItem.getSpiritShotCount(), null, false)) {
 				if (!activeChar.disableAutoShot(itemId))
 					activeChar.sendPacket(SystemMessageId.NOT_ENOUGH_SPIRITSHOTS);
 
@@ -99,8 +92,7 @@ public class BlessedSpiritShot implements IItemHandler
 		weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT);
 
 		int skillId = 0;
-		switch (itemId)
-		{
+		switch (itemId) {
 			case 3947:
 				skillId = 2061;
 				break;

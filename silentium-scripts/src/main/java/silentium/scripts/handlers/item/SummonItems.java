@@ -11,8 +11,6 @@
  */
 package silentium.scripts.handlers.item;
 
-import java.util.Collection;
-
 import silentium.gameserver.ThreadPoolManager;
 import silentium.gameserver.data.xml.SummonItemsData;
 import silentium.gameserver.handler.IItemHandler;
@@ -28,20 +26,16 @@ import silentium.gameserver.model.actor.instance.L2PetInstance;
 import silentium.gameserver.model.actor.instance.L2XmassTreeInstance;
 import silentium.gameserver.model.entity.TvTEvent;
 import silentium.gameserver.network.SystemMessageId;
-import silentium.gameserver.network.serverpackets.MagicSkillLaunched;
-import silentium.gameserver.network.serverpackets.MagicSkillUse;
-import silentium.gameserver.network.serverpackets.PetItemList;
-import silentium.gameserver.network.serverpackets.SetupGauge;
-import silentium.gameserver.network.serverpackets.SystemMessage;
+import silentium.gameserver.network.serverpackets.*;
 import silentium.gameserver.tables.NpcTable;
 import silentium.gameserver.templates.chars.L2NpcTemplate;
 import silentium.gameserver.utils.Broadcast;
 
-public class SummonItems implements IItemHandler
-{
+import java.util.Collection;
+
+public class SummonItems implements IItemHandler {
 	@Override
-	public void useItem(L2Playable playable, L2ItemInstance item, boolean forceUse)
-	{
+	public void useItem(final L2Playable playable, final L2ItemInstance item, final boolean forceUse) {
 		if (!(playable instanceof L2PcInstance))
 			return;
 
@@ -50,8 +44,7 @@ public class SummonItems implements IItemHandler
 		if (!TvTEvent.onItemSummon(playable.getObjectId()))
 			return;
 
-		if (activeChar.isSitting())
-		{
+		if (activeChar.isSitting()) {
 			activeChar.sendPacket(SystemMessageId.CANT_MOVE_SITTING);
 			return;
 		}
@@ -64,20 +57,17 @@ public class SummonItems implements IItemHandler
 
 		final L2SummonItem sitem = SummonItemsData.getInstance().getSummonItem(item.getItemId());
 
-		if ((activeChar.getPet() != null || activeChar.isMounted()) && sitem.isPetSummon())
-		{
+		if ((activeChar.getPet() != null || activeChar.isMounted()) && sitem.isPetSummon()) {
 			activeChar.sendPacket(SystemMessageId.SUMMON_ONLY_ONE);
 			return;
 		}
 
-		if (activeChar.isAttackingNow())
-		{
+		if (activeChar.isAttackingNow()) {
 			activeChar.sendPacket(SystemMessageId.YOU_CANNOT_SUMMON_IN_COMBAT);
 			return;
 		}
 
-		if (activeChar.isCursedWeaponEquipped() && sitem.isPetSummon())
-		{
+		if (activeChar.isCursedWeaponEquipped() && sitem.isPetSummon()) {
 			activeChar.sendPacket(SystemMessageId.STRIDER_CANT_BE_RIDDEN_WHILE_IN_BATTLE);
 			return;
 		}
@@ -92,23 +82,18 @@ public class SummonItems implements IItemHandler
 
 		activeChar.stopMove(null, false);
 
-		switch (sitem.getType())
-		{
+		switch (sitem.getType()) {
 			case 0: // static summons (like Christmas tree)
-				try
-				{
-					Collection<L2Character> characters = activeChar.getKnownList().getKnownCharactersInRadius(1200);
-					for (L2Character ch : characters)
-					{
-						if (ch instanceof L2XmassTreeInstance && npcTemplate.isSpecialTree())
-						{
+				try {
+					final Collection<L2Character> characters = activeChar.getKnownList().getKnownCharactersInRadius(1200);
+					for (final L2Character ch : characters) {
+						if (ch instanceof L2XmassTreeInstance && npcTemplate.isSpecialTree()) {
 							activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.CANNOT_SUMMON_S1_AGAIN).addCharName(ch));
 							return;
 						}
 					}
 
-					if (activeChar.destroyItem("Summon", item.getObjectId(), 1, null, false))
-					{
+					if (activeChar.destroyItem("Summon", item.getObjectId(), 1, null, false)) {
 						final L2Spawn spawn = new L2Spawn(npcTemplate);
 						spawn.setLocx(activeChar.getX());
 						spawn.setLocy(activeChar.getY());
@@ -119,9 +104,7 @@ public class SummonItems implements IItemHandler
 						npc.setTitle(activeChar.getName());
 						npc.setIsRunning(false); // broadcast info
 					}
-				}
-				catch (Exception e)
-				{
+				} catch (Exception e) {
 					activeChar.sendPacket(SystemMessageId.TARGET_CANT_FOUND);
 				}
 				break;
@@ -142,53 +125,43 @@ public class SummonItems implements IItemHandler
 		}
 	}
 
-	static class PetSummonFeedWait implements Runnable
-	{
+	static class PetSummonFeedWait implements Runnable {
 		private final L2PcInstance _activeChar;
 		private final L2PetInstance _petSummon;
 
-		PetSummonFeedWait(L2PcInstance activeChar, L2PetInstance petSummon)
-		{
+		PetSummonFeedWait(final L2PcInstance activeChar, final L2PetInstance petSummon) {
 			_activeChar = activeChar;
 			_petSummon = petSummon;
 		}
 
 		@Override
-		public void run()
-		{
-			try
-			{
+		public void run() {
+			try {
 				if (_petSummon.getCurrentFed() <= 0)
 					_petSummon.unSummon(_activeChar);
 				else
 					_petSummon.startFeed();
-			}
-			catch (Exception e)
-			{
+			} catch (Exception e) {
 				_log.warn(e.getLocalizedMessage(), e);
 			}
 		}
 	}
 
 	// TODO: this should be inside skill handler
-	static class PetSummonFinalizer implements Runnable
-	{
+	static class PetSummonFinalizer implements Runnable {
 		private final L2PcInstance _activeChar;
 		private final L2ItemInstance _item;
 		private final L2NpcTemplate _npcTemplate;
 
-		PetSummonFinalizer(L2PcInstance activeChar, L2NpcTemplate npcTemplate, L2ItemInstance item)
-		{
+		PetSummonFinalizer(final L2PcInstance activeChar, final L2NpcTemplate npcTemplate, final L2ItemInstance item) {
 			_activeChar = activeChar;
 			_npcTemplate = npcTemplate;
 			_item = item;
 		}
 
 		@Override
-		public void run()
-		{
-			try
-			{
+		public void run() {
+			try {
 				_activeChar.sendPacket(new MagicSkillLaunched(_activeChar, 2046, 1));
 				_activeChar.setIsCastingNow(false);
 
@@ -203,8 +176,7 @@ public class SummonItems implements IItemHandler
 				petSummon.setShowSummonAnimation(true);
 				petSummon.setTitle(_activeChar.getName());
 
-				if (!petSummon.isRespawned())
-				{
+				if (!petSummon.isRespawned()) {
 					petSummon.setCurrentHp(petSummon.getMaxHp());
 					petSummon.setCurrentMp(petSummon.getMaxMp());
 					petSummon.getStat().setExp(petSummon.getExpForThisLevel());
@@ -231,9 +203,7 @@ public class SummonItems implements IItemHandler
 
 				petSummon.getOwner().sendPacket(new PetItemList(petSummon));
 				petSummon.broadcastStatusUpdate();
-			}
-			catch (Exception e)
-			{
+			} catch (Exception e) {
 				_log.warn(e.getLocalizedMessage(), e);
 			}
 		}

@@ -25,8 +25,7 @@ import silentium.gameserver.templates.skills.L2SkillType;
 /**
  * @author Steuf
  */
-public class Blow implements ISkillHandler
-{
+public class Blow implements ISkillHandler {
 	private static final L2SkillType[] SKILL_IDS = { L2SkillType.BLOW };
 
 	public static final int FRONT = 50;
@@ -34,8 +33,7 @@ public class Blow implements ISkillHandler
 	public static final int BEHIND = 70;
 
 	@Override
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
-	{
+	public void useSkill(final L2Character activeChar, final L2Skill skill, final L2Object... targets) {
 		if (activeChar.isAlikeDead())
 			return;
 
@@ -44,10 +42,9 @@ public class Blow implements ISkillHandler
 		if (weapon == null)
 			return;
 
-		final boolean soul = (weapon.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT && weapon.getItemType() == L2WeaponType.DAGGER);
+		final boolean soul = weapon.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT && weapon.getItemType() == L2WeaponType.DAGGER;
 
-		for (L2Character target : (L2Character[]) targets)
-		{
+		for (final L2Character target : (L2Character[]) targets) {
 			if (target.isAlikeDead())
 				continue;
 
@@ -61,21 +58,19 @@ public class Blow implements ISkillHandler
 			// If skill requires Crit or skill requires behind, calculate chance based on DEX, Position and on self BUFF
 			boolean success = true;
 			if ((skill.getCondition() & L2Skill.COND_BEHIND) != 0)
-				success = (_successChance == BEHIND);
+				success = _successChance == BEHIND;
 			if ((skill.getCondition() & L2Skill.COND_CRIT) != 0)
-				success = (success && Formulas.calcBlow(activeChar, target, _successChance));
+				success = success && Formulas.calcBlow(activeChar, target, _successChance);
 
-			if (success)
-			{
+			if (success) {
 				// Calculate skill evasion
-				boolean skillIsEvaded = Formulas.calcPhysicalSkillEvasion(target, skill);
-				if (skillIsEvaded)
-				{
+				final boolean skillIsEvaded = Formulas.calcPhysicalSkillEvasion(target, skill);
+				if (skillIsEvaded) {
 					if (activeChar instanceof L2PcInstance)
-						((L2PcInstance) activeChar).sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_DODGES_ATTACK).addCharName(target));
+						activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_DODGES_ATTACK).addCharName(target));
 
 					if (target instanceof L2PcInstance)
-						((L2PcInstance) target).sendPacket(SystemMessage.getSystemMessage(SystemMessageId.AVOIDED_S1_ATTACK).addCharName(activeChar));
+						target.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.AVOIDED_S1_ATTACK).addCharName(activeChar));
 
 					// no futher calculations needed.
 					continue;
@@ -83,29 +78,23 @@ public class Blow implements ISkillHandler
 
 				// Calculate skill reflect
 				final byte reflect = Formulas.calcSkillReflect(target, skill);
-				if (skill.hasEffects())
-				{
-					if (reflect == Formulas.SKILL_REFLECT_SUCCEED)
-					{
+				if (skill.hasEffects()) {
+					if (reflect == Formulas.SKILL_REFLECT_SUCCEED) {
 						activeChar.stopSkillEffects(skill.getId());
 						skill.getEffects(target, activeChar);
 						activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT).addSkillName(skill));
-					}
-					else
-					{
+					} else {
 						final byte shld = Formulas.calcShldUse(activeChar, target, skill);
 						target.stopSkillEffects(skill.getId());
-						if (Formulas.calcSkillSuccess(activeChar, target, skill, shld, false, false, true))
-						{
+						if (Formulas.calcSkillSuccess(activeChar, target, skill, shld, false, false, true)) {
 							skill.getEffects(activeChar, target, new Env(shld, false, false, false));
 							target.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT).addSkillName(skill));
-						}
-						else
+						} else
 							activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_RESISTED_YOUR_S2).addCharName(target).addSkillName(skill));
 					}
 				}
 
-				byte shld = Formulas.calcShldUse(activeChar, target, skill);
+				final byte shld = Formulas.calcShldUse(activeChar, target, skill);
 
 				// Crit rate base crit rate for skill, modified with STR bonus
 				boolean crit = false;
@@ -113,16 +102,13 @@ public class Blow implements ISkillHandler
 					crit = true;
 
 				double damage = (int) Formulas.calcBlowDamage(activeChar, target, skill, shld, soul);
-				if (crit)
-				{
+				if (crit) {
 					damage *= 2;
 					// Vicious Stance is special after C5, and only for BLOW skills
-					L2Effect vicious = activeChar.getFirstEffect(312);
-					if (vicious != null && damage > 1)
-					{
-						for (Func func : vicious.getStatFuncs())
-						{
-							Env env = new Env();
+					final L2Effect vicious = activeChar.getFirstEffect(312);
+					if (vicious != null && damage > 1) {
+						for (final Func func : vicious.getStatFuncs()) {
+							final Env env = new Env();
 							env.player = activeChar;
 							env.target = target;
 							env.skill = skill;
@@ -139,8 +125,7 @@ public class Blow implements ISkillHandler
 				target.reduceCurrentHp(damage, activeChar, skill);
 
 				// vengeance reflected damage
-				if ((reflect & Formulas.SKILL_REFLECT_VENGEANCE) != 0)
-				{
+				if ((reflect & Formulas.SKILL_REFLECT_VENGEANCE) != 0) {
 					if (target instanceof L2PcInstance)
 						target.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.COUNTERED_S1_ATTACK).addCharName(activeChar));
 
@@ -148,7 +133,7 @@ public class Blow implements ISkillHandler
 						activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_PERFORMING_COUNTERATTACK).addCharName(target));
 
 					// Formula from Diego post, 700 from rpg tests
-					double vegdamage = (700 * target.getPAtk(activeChar) / activeChar.getPDef(target));
+					final double vegdamage = 700 * target.getPAtk(activeChar) / activeChar.getPDef(target);
 					activeChar.reduceCurrentHp(vegdamage, target, skill);
 				}
 
@@ -156,17 +141,15 @@ public class Blow implements ISkillHandler
 				Formulas.calcCastBreak(target, damage);
 
 				if (activeChar instanceof L2PcInstance)
-					((L2PcInstance) activeChar).sendDamageMessage(target, (int) damage, false, true, false);
-			}
-			else
+					activeChar.sendDamageMessage(target, (int) damage, false, true, false);
+			} else
 				activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.ATTACK_FAILED));
 
 			// Possibility of a lethal strike
 			Formulas.calcLethalHit(activeChar, target, skill);
 
 			// Self Effect
-			if (skill.hasSelfEffects())
-			{
+			if (skill.hasSelfEffects()) {
 				final L2Effect effect = activeChar.getFirstEffect(skill.getId());
 				if (effect != null && effect.isSelfEffect())
 					effect.exit();
@@ -176,8 +159,7 @@ public class Blow implements ISkillHandler
 	}
 
 	@Override
-	public L2SkillType[] getSkillIds()
-	{
+	public L2SkillType[] getSkillIds() {
 		return SKILL_IDS;
 	}
 }

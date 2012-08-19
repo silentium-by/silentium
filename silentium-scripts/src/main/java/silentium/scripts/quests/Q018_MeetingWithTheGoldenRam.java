@@ -12,21 +12,19 @@ import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 
-public class Q018_MeetingWithTheGoldenRam extends Quest
-{
-	private final static String qn = "Q018_MeetingWithTheGoldenRam";
+public class Q018_MeetingWithTheGoldenRam extends Quest {
+	private static final String qn = "Q018_MeetingWithTheGoldenRam";
 
 	// Items
-	private final static int Adena = 57;
-	private final static int SupplyBox = 7245;
+	private static final int Adena = 57;
+	private static final int SupplyBox = 7245;
 
 	// NPCs
-	private final static int Donal = 31314;
-	private final static int Daisy = 31315;
-	private final static int Abercrombie = 31555;
+	private static final int Donal = 31314;
+	private static final int Daisy = 31315;
+	private static final int Abercrombie = 31555;
 
-	public Q018_MeetingWithTheGoldenRam(int questId, String name, String descr)
-	{
+	public Q018_MeetingWithTheGoldenRam(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { SupplyBox };
@@ -35,33 +33,26 @@ public class Q018_MeetingWithTheGoldenRam extends Quest
 		addTalkId(Donal, Daisy, Abercrombie);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void main(final String... args) {
 		new Q018_MeetingWithTheGoldenRam(18, "Q018_MeetingWithTheGoldenRam", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		final String htmltext = event;
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("31314-03.htm"))
-		{
+		if ("31314-03.htm".equalsIgnoreCase(event)) {
 			st.setState(QuestState.STARTED);
 			st.set("cond", "1");
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("31315-02.htm"))
-		{
+		} else if ("31315-02.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "2");
 			st.giveItems(SupplyBox, 1);
 			st.playSound(QuestState.SOUND_MIDDLE);
-		}
-		else if (event.equalsIgnoreCase("31555-02.htm"))
-		{
+		} else if ("31555-02.htm".equalsIgnoreCase(event)) {
 			st.takeItems(SupplyBox, 1);
 			st.rewardItems(Adena, 15000);
 			st.addExpAndSp(50000, 0);
@@ -72,29 +63,25 @@ public class Q018_MeetingWithTheGoldenRam extends Quest
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
 		String htmltext = getNoQuestMsg();
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 66 && player.getLevel() <= 76)
 					htmltext = "31314-01.htm";
-				else
-				{
+				else {
 					htmltext = "31314-02.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				int cond = st.getInt("cond");
-				switch (npc.getNpcId())
-				{
+				final int cond = st.getInt("cond");
+				switch (npc.getNpcId()) {
 					case Donal:
 						htmltext = "31314-04.htm";
 						break;

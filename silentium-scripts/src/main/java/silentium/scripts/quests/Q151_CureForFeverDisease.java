@@ -14,9 +14,8 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q151_CureForFeverDisease extends Quest implements ScriptFile
-{
-	private final static String qn = "Q151_CureForFeverDisease";
+public class Q151_CureForFeverDisease extends Quest implements ScriptFile {
+	private static final String qn = "Q151_CureForFeverDisease";
 
 	// Items
 	private static final int POISON_SAC = 703;
@@ -26,8 +25,7 @@ public class Q151_CureForFeverDisease extends Quest implements ScriptFile
 	private static final int ELIAS = 30050;
 	private static final int YOHANES = 30032;
 
-	public Q151_CureForFeverDisease(int questId, String name, String descr)
-	{
+	public Q151_CureForFeverDisease(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { FEVER_MEDICINE, POISON_SAC };
@@ -38,21 +36,18 @@ public class Q151_CureForFeverDisease extends Quest implements ScriptFile
 		addKillId(20103, 20106, 20108);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q151_CureForFeverDisease(151, "Q151_CureForFeverDisease", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		final String htmltext = event;
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30050-03.htm"))
-		{
+		if ("30050-03.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
@@ -62,36 +57,31 @@ public class Q151_CureForFeverDisease extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
 		String htmltext = Quest.getNoQuestMsg();
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 15 && player.getLevel() <= 21)
 					htmltext = "30050-02.htm";
-				else
-				{
+				else {
 					htmltext = "30050-01.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				int cond = st.getInt("cond");
-				switch (npc.getNpcId())
-				{
+				final int cond = st.getInt("cond");
+				switch (npc.getNpcId()) {
 					case ELIAS:
 						if (cond == 1)
 							htmltext = "30050-04.htm";
 						else if (cond == 2)
 							htmltext = "30050-05.htm";
-						else if (cond == 3)
-						{
+						else if (cond == 3) {
 							htmltext = "30050-06.htm";
 							st.takeItems(FEVER_MEDICINE, 1);
 							st.giveItems(102, 1);
@@ -101,15 +91,13 @@ public class Q151_CureForFeverDisease extends Quest implements ScriptFile
 						break;
 
 					case YOHANES:
-						if (cond == 2)
-						{
+						if (cond == 2) {
 							htmltext = "30032-01.htm";
 							st.set("cond", "3");
 							st.takeItems(POISON_SAC, 1);
 							st.giveItems(FEVER_MEDICINE, 1);
 							st.playSound(QuestState.SOUND_MIDDLE);
-						}
-						else if (cond == 3)
+						} else if (cond == 3)
 							htmltext = "30032-02.htm";
 						break;
 				}
@@ -124,14 +112,12 @@ public class Q151_CureForFeverDisease extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 
-		if (st.getInt("cond") == 1 && Rnd.get(5) == 0)
-		{
+		if (st.getInt("cond") == 1 && Rnd.get(5) == 0) {
 			st.set("cond", "2");
 			st.giveItems(POISON_SAC, 1);
 			st.playSound(QuestState.SOUND_ITEMGET);

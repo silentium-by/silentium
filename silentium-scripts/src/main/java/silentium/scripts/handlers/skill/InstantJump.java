@@ -25,27 +25,24 @@ import silentium.gameserver.utils.Util;
 /**
  * @author Didldak Some parts taken from EffectWarp, which cannot be used for this case.
  */
-public class InstantJump implements ISkillHandler
-{
+public class InstantJump implements ISkillHandler {
 	private static final L2SkillType[] SKILL_IDS = { L2SkillType.INSTANT_JUMP };
 
 	@Override
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
-	{
-		L2Character target = (L2Character) targets[0];
+	public void useSkill(final L2Character activeChar, final L2Skill skill, final L2Object... targets) {
+		final L2Character target = (L2Character) targets[0];
 
-		if (Formulas.calcPhysicalSkillEvasion(target, skill))
-		{
+		if (Formulas.calcPhysicalSkillEvasion(target, skill)) {
 			if (activeChar instanceof L2PcInstance)
-				((L2PcInstance) activeChar).sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_DODGES_ATTACK).addCharName(target));
+				activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_DODGES_ATTACK).addCharName(target));
 
 			return;
 		}
 
 		int x = 0, y = 0, z = 0;
 
-		int px = target.getX();
-		int py = target.getY();
+		final int px = target.getX();
+		final int py = target.getY();
 		double ph = Util.convertHeadingToDegree(target.getHeading());
 
 		ph += 180;
@@ -53,10 +50,10 @@ public class InstantJump implements ISkillHandler
 		if (ph > 360)
 			ph -= 360;
 
-		ph = (Math.PI * ph) / 180;
+		ph = Math.PI * ph / 180;
 
-		x = (int) (px + (25 * Math.cos(ph)));
-		y = (int) (py + (25 * Math.sin(ph)));
+		x = (int) (px + 25 * Math.cos(ph));
+		y = (int) (py + 25 * Math.sin(ph));
 		z = target.getZ();
 
 		activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
@@ -72,8 +69,7 @@ public class InstantJump implements ISkillHandler
 	 * @see silentium.gameserver.handler.ISkillHandler#getSkillIds()
 	 */
 	@Override
-	public L2SkillType[] getSkillIds()
-	{
+	public L2SkillType[] getSkillIds() {
 		return SKILL_IDS;
 	}
 }

@@ -22,19 +22,17 @@ import silentium.gameserver.utils.Broadcast;
 /**
  * @author -Nemesiss-
  */
-public class FishShots implements IItemHandler
-{
+public class FishShots implements IItemHandler {
 	private static final int[] SKILL_IDS = { 2181, 2182, 2183, 2184, 2185, 2186 };
 
 	@Override
-	public void useItem(L2Playable playable, L2ItemInstance item, boolean forceUse)
-	{
+	public void useItem(final L2Playable playable, final L2ItemInstance item, final boolean forceUse) {
 		if (!(playable instanceof L2PcInstance))
 			return;
 
-		L2PcInstance activeChar = (L2PcInstance) playable;
-		L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
-		L2Weapon weaponItem = activeChar.getActiveWeaponItem();
+		final L2PcInstance activeChar = (L2PcInstance) playable;
+		final L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
+		final L2Weapon weaponItem = activeChar.getActiveWeaponItem();
 
 		if (weaponInst == null || weaponItem.getItemType() != L2WeaponType.FISHINGROD)
 			return;
@@ -43,13 +41,12 @@ public class FishShots implements IItemHandler
 		if (weaponInst.getChargedFishshot())
 			return;
 
-		int FishshotId = item.getItemId();
-		int grade = weaponItem.getCrystalType();
-		int count = item.getCount();
+		final int FishshotId = item.getItemId();
+		final int grade = weaponItem.getCrystalType();
+		final int count = item.getCount();
 
 		// 1479 - That is the wrong grade of soulshot for that fishing pole.
-		if ((grade == L2Item.CRYSTAL_NONE && FishshotId != 6535) || (grade == L2Item.CRYSTAL_D && FishshotId != 6536) || (grade == L2Item.CRYSTAL_C && FishshotId != 6537) || (grade == L2Item.CRYSTAL_B && FishshotId != 6538) || (grade == L2Item.CRYSTAL_A && FishshotId != 6539) || (FishshotId != 6540 && grade == L2Item.CRYSTAL_S))
-		{
+		if (grade == L2Item.CRYSTAL_NONE && FishshotId != 6535 || grade == L2Item.CRYSTAL_D && FishshotId != 6536 || grade == L2Item.CRYSTAL_C && FishshotId != 6537 || grade == L2Item.CRYSTAL_B && FishshotId != 6538 || grade == L2Item.CRYSTAL_A && FishshotId != 6539 || FishshotId != 6540 && grade == L2Item.CRYSTAL_S) {
 			activeChar.sendPacket(SystemMessageId.WRONG_FISHINGSHOT_GRADE);
 			return;
 		}
@@ -59,7 +56,7 @@ public class FishShots implements IItemHandler
 
 		weaponInst.setChargedFishshot(true);
 		activeChar.destroyItemWithoutTrace("Consume", item.getObjectId(), 1, null, false);
-		L2Object oldTarget = activeChar.getTarget();
+		final L2Object oldTarget = activeChar.getTarget();
 		activeChar.setTarget(activeChar);
 
 		Broadcast.toSelfAndKnownPlayers(activeChar, new MagicSkillUse(activeChar, SKILL_IDS[grade], 1, 0, 0));

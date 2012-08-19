@@ -13,24 +13,22 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q050_LanoscosSpecialBait extends Quest implements ScriptFile
-{
+public class Q050_LanoscosSpecialBait extends Quest implements ScriptFile {
 	private static final String qn = "Q050_LanoscosSpecialBait";
 
 	// NPC
-	private final static int LANOSCO = 31570;
+	private static final int LANOSCO = 31570;
 
 	// Item
-	private final static int ESSENCE_OF_WIND = 7621;
+	private static final int ESSENCE_OF_WIND = 7621;
 
 	// Reward
-	private final static int WIND_FISHING_LURE = 7610;
+	private static final int WIND_FISHING_LURE = 7610;
 
 	// Monster
-	private final static int SINGING_WIND = 21026;
+	private static final int SINGING_WIND = 21026;
 
-	public Q050_LanoscosSpecialBait(int questId, String name, String descr)
-	{
+	public Q050_LanoscosSpecialBait(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { ESSENCE_OF_WIND };
@@ -41,27 +39,22 @@ public class Q050_LanoscosSpecialBait extends Quest implements ScriptFile
 		addKillId(SINGING_WIND);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q050_LanoscosSpecialBait(50, "Q050_LanoscosSpecialBait", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
 		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("31570-03.htm"))
-		{
+		if ("31570-03.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("31570-07.htm") && st.getQuestItemsCount(ESSENCE_OF_WIND) == 100)
-		{
+		} else if ("31570-07.htm".equalsIgnoreCase(event) && st.getQuestItemsCount(ESSENCE_OF_WIND) == 100) {
 			htmltext = "31570-06.htm";
 			st.rewardItems(WIND_FISHING_LURE, 4);
 			st.takeItems(ESSENCE_OF_WIND, 100);
@@ -72,30 +65,24 @@ public class Q050_LanoscosSpecialBait extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
+		final QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 27 && player.getLevel() <= 29)
 					htmltext = "31570-01.htm";
-				else
-				{
+				else {
 					htmltext = "31570-02.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				if (st.getQuestItemsCount(ESSENCE_OF_WIND) == 100)
-					htmltext = "31570-04.htm";
-				else
-					htmltext = "31570-05.htm";
+				htmltext = st.getQuestItemsCount(ESSENCE_OF_WIND) == 100 ? "31570-04.htm" : "31570-05.htm";
 				break;
 
 			case QuestState.COMPLETED:
@@ -106,9 +93,8 @@ public class Q050_LanoscosSpecialBait extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 

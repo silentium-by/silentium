@@ -14,8 +14,7 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q375_WhisperOfDreams_Part2 extends Quest implements ScriptFile
-{
+public class Q375_WhisperOfDreams_Part2 extends Quest implements ScriptFile {
 	private static final String qn = "Q375_WhisperOfDreams_Part2";
 
 	// NPCs
@@ -33,8 +32,7 @@ public class Q375_WhisperOfDreams_Part2 extends Quest implements ScriptFile
 	// Rewards : A grade robe recipes
 	private static final int[] REWARDS = { 5346, 5348, 5350, 5352, 5354 };
 
-	public Q375_WhisperOfDreams_Part2(int questId, String name, String descr)
-	{
+	public Q375_WhisperOfDreams_Part2(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { KARIK_HORN, CAVE_HOWLER_SKULL };
@@ -45,29 +43,24 @@ public class Q375_WhisperOfDreams_Part2 extends Quest implements ScriptFile
 		addKillId(KARIK, CAVE_HOWLER);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q375_WhisperOfDreams_Part2(375, "Q375_WhisperOfDreams_Part2", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		final String htmltext = event;
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
 		// Manakia
-		if (event.equalsIgnoreCase("30515-03.htm"))
-		{
+		if ("30515-03.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
 			st.takeItems(MYSTERIOUS_STONE, 1);
-		}
-		else if (event.equalsIgnoreCase("30515-07.htm"))
-		{
+		} else if ("30515-07.htm".equalsIgnoreCase(event)) {
 			st.playSound(QuestState.SOUND_FINISH);
 			st.exitQuest(true);
 		}
@@ -75,43 +68,34 @@ public class Q375_WhisperOfDreams_Part2 extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
 		String htmltext = getNoQuestMsg();
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
-				if (st.hasQuestItems(MYSTERIOUS_STONE))
-				{
-					if (player.getLevel() < 60 || player.getLevel() > 74)
-					{
+				if (st.hasQuestItems(MYSTERIOUS_STONE)) {
+					if (player.getLevel() < 60 || player.getLevel() > 74) {
 						htmltext = "30515-01.htm";
 						st.exitQuest(true);
-					}
-					else
+					} else
 						htmltext = "30515-02.htm";
-				}
-				else
-				{
+				} else {
 					htmltext = "30515-01.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				if (st.getQuestItemsCount(KARIK_HORN) >= 100 && st.getQuestItemsCount(CAVE_HOWLER_SKULL) >= 100)
-				{
+				if (st.getQuestItemsCount(KARIK_HORN) >= 100 && st.getQuestItemsCount(CAVE_HOWLER_SKULL) >= 100) {
 					htmltext = "30515-05.htm";
 					st.takeItems(KARIK_HORN, 100);
 					st.takeItems(CAVE_HOWLER_SKULL, 100);
 					st.giveItems(REWARDS[Rnd.get(5)], 1);
 					st.playSound(QuestState.SOUND_MIDDLE);
-				}
-				else
+				} else
 					htmltext = "30515-04.htm";
 				break;
 		}
@@ -119,17 +103,15 @@ public class Q375_WhisperOfDreams_Part2 extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
 		// Drop horn or skull to anyone.
-		L2PcInstance partyMember = getRandomPartyMemberState(player, npc, QuestState.STARTED);
+		final L2PcInstance partyMember = getRandomPartyMemberState(player, npc, QuestState.STARTED);
 		if (partyMember == null)
 			return null;
 
-		QuestState st = partyMember.getQuestState(qn);
+		final QuestState st = partyMember.getQuestState(qn);
 
-		switch (npc.getNpcId())
-		{
+		switch (npc.getNpcId()) {
 			case KARIK:
 				st.dropQuestItems(KARIK_HORN, 1, 100, 500000);
 				break;

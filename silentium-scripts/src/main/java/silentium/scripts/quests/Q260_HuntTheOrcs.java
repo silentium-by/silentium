@@ -14,8 +14,7 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q260_HuntTheOrcs extends Quest implements ScriptFile
-{
+public class Q260_HuntTheOrcs extends Quest implements ScriptFile {
 	private static final String qn = "Q260_HuntTheOrcs";
 
 	// NPC
@@ -33,8 +32,7 @@ public class Q260_HuntTheOrcs extends Quest implements ScriptFile
 	private static final int KABOO_ORC_FIGHTER_LEADER = 20472;
 	private static final int KABOO_ORC_FIGHTER_LIEUTENANT = 20473;
 
-	public Q260_HuntTheOrcs(int questId, String name, String descr)
-	{
+	public Q260_HuntTheOrcs(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { ORC_AMULET, ORCS_NECKLACE };
@@ -45,27 +43,22 @@ public class Q260_HuntTheOrcs extends Quest implements ScriptFile
 		addKillId(KABOO_ORC, KABOO_ORC_ARCHER, KABOO_ORC_GRUNT, KABOO_ORC_FIGHTER, KABOO_ORC_FIGHTER_LEADER, KABOO_ORC_FIGHTER_LIEUTENANT);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q260_HuntTheOrcs(260, "Q260_HuntTheOrcs", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		final String htmltext = event;
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30221-03.htm"))
-		{
+		if ("30221-03.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("30221-06.htm"))
-		{
+		} else if ("30221-06.htm".equalsIgnoreCase(event)) {
 			st.exitQuest(true);
 			st.playSound(QuestState.SOUND_FINISH);
 		}
@@ -74,41 +67,34 @@ public class Q260_HuntTheOrcs extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
+		final QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
-				if (player.getRace().ordinal() == 1)
-				{
+				if (player.getRace().ordinal() == 1) {
 					if (player.getLevel() >= 6 && player.getLevel() <= 16)
 						htmltext = "30221-02.htm";
-					else
-					{
+					else {
 						htmltext = "30221-01.htm";
 						st.exitQuest(true);
 					}
-				}
-				else
-				{
+				} else {
 					htmltext = "30221-00.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				int amulet = st.getQuestItemsCount(ORC_AMULET);
-				int necklace = st.getQuestItemsCount(ORCS_NECKLACE);
+				final int amulet = st.getQuestItemsCount(ORC_AMULET);
+				final int necklace = st.getQuestItemsCount(ORCS_NECKLACE);
 
 				if (amulet == 0 && necklace == 0)
 					htmltext = "30221-04.htm";
-				else
-				{
+				else {
 					htmltext = "30221-05.htm";
 					st.takeItems(ORC_AMULET, -1);
 					st.takeItems(ORCS_NECKLACE, -1);
@@ -121,16 +107,13 @@ public class Q260_HuntTheOrcs extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 
-		if (st.isStarted() && Rnd.get(10) < 4)
-		{
-			switch (npc.getNpcId())
-			{
+		if (st.isStarted() && Rnd.get(10) < 4) {
+			switch (npc.getNpcId()) {
 				case KABOO_ORC:
 				case KABOO_ORC_GRUNT:
 				case KABOO_ORC_ARCHER:

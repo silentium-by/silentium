@@ -14,27 +14,23 @@ import silentium.gameserver.model.actor.L2Character;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.templates.skills.L2SkillType;
 
-public class Dummy implements ISkillHandler
-{
+public class Dummy implements ISkillHandler {
 	private static final L2SkillType[] SKILL_IDS = { L2SkillType.DUMMY, L2SkillType.BEAST_FEED };
 
 	@Override
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
-	{
+	public void useSkill(final L2Character activeChar, final L2Skill skill, final L2Object... targets) {
 		if (!(activeChar instanceof L2PcInstance))
 			return;
 
-		if (skill.getSkillType() == L2SkillType.BEAST_FEED)
-		{
-			L2Object[] targetList = skill.getTargetList(activeChar);
+		if (skill.getSkillType() == L2SkillType.BEAST_FEED) {
+			final L2Object[] targetList = skill.getTargetList(activeChar);
 			if (targetList == null)
 				return;
 		}
 	}
 
 	@Override
-	public L2SkillType[] getSkillIds()
-	{
+	public L2SkillType[] getSkillIds() {
 		return SKILL_IDS;
 	}
 }

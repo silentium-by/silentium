@@ -16,11 +16,9 @@ import silentium.gameserver.network.serverpackets.ShowXMasSeal;
 /**
  * @author devScarlet & mrTJO
  */
-public class SpecialXMas implements IItemHandler
-{
+public class SpecialXMas implements IItemHandler {
 	@Override
-	public void useItem(L2Playable playable, L2ItemInstance item, boolean forceUse)
-	{
+	public void useItem(final L2Playable playable, final L2ItemInstance item, final boolean forceUse) {
 		if (!(playable instanceof L2PcInstance))
 			return;
 

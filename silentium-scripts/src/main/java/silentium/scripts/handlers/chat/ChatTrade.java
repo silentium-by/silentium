@@ -7,8 +7,6 @@
  */
 package silentium.scripts.handlers.chat;
 
-import java.util.Collection;
-
 import silentium.gameserver.data.xml.MapRegionData;
 import silentium.gameserver.handler.IChatHandler;
 import silentium.gameserver.model.BlockList;
@@ -16,29 +14,28 @@ import silentium.gameserver.model.L2World;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.network.serverpackets.CreatureSay;
 
+import java.util.Collection;
+
 /**
  * A chat handler
- * 
+ *
  * @author durgus
  */
-public class ChatTrade implements IChatHandler
-{
+public class ChatTrade implements IChatHandler {
 	private static final int[] COMMAND_IDS = { 8 };
 
 	/**
 	 * Handle chat type 'trade'
-	 * 
+	 *
 	 * @see silentium.gameserver.handler.IChatHandler#handleChat(int, silentium.gameserver.model.actor.instance.L2PcInstance, String, String)
 	 */
 	@Override
-	public void handleChat(int type, L2PcInstance activeChar, String target, String text)
-	{
-		CreatureSay cs = new CreatureSay(activeChar.getObjectId(), type, activeChar.getName(), text);
-		Collection<L2PcInstance> pls = L2World.getInstance().getAllPlayers().values();
-		int region = MapRegionData.getInstance().getMapRegion(activeChar.getX(), activeChar.getY());
+	public void handleChat(final int type, final L2PcInstance activeChar, final String target, final String text) {
+		final CreatureSay cs = new CreatureSay(activeChar.getObjectId(), type, activeChar.getName(), text);
+		final Collection<L2PcInstance> pls = L2World.getInstance().getAllPlayers().values();
+		final int region = MapRegionData.getInstance().getMapRegion(activeChar.getX(), activeChar.getY());
 
-		for (L2PcInstance player : pls)
-		{
+		for (final L2PcInstance player : pls) {
 			if (!BlockList.isBlocked(player, activeChar))
 				if (region == MapRegionData.getInstance().getMapRegion(player.getX(), player.getY()))
 					player.sendPacket(cs);
@@ -47,12 +44,11 @@ public class ChatTrade implements IChatHandler
 
 	/**
 	 * Returns the chat types registered to this handler
-	 * 
+	 *
 	 * @see silentium.gameserver.handler.IChatHandler#getChatTypeList()
 	 */
 	@Override
-	public int[] getChatTypeList()
-	{
+	public int[] getChatTypeList() {
 		return COMMAND_IDS;
 	}
 }

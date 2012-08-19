@@ -13,9 +13,8 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q167_DwarvenKinship extends Quest implements ScriptFile
-{
-	private final static String qn = "Q167_DwarvenKinship";
+public class Q167_DwarvenKinship extends Quest implements ScriptFile {
+	private static final String qn = "Q167_DwarvenKinship";
 
 	// Items
 	private static final int CARLON_LETTER = 1076;
@@ -27,8 +26,7 @@ public class Q167_DwarvenKinship extends Quest implements ScriptFile
 	private static final int NORMAN = 30210;
 	private static final int HAPROCK = 30255;
 
-	public Q167_DwarvenKinship(int questId, String name, String descr)
-	{
+	public Q167_DwarvenKinship(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { CARLON_LETTER, NORMANS_LETTER };
@@ -37,42 +35,33 @@ public class Q167_DwarvenKinship extends Quest implements ScriptFile
 		addTalkId(CARLON, HAPROCK, NORMAN);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q167_DwarvenKinship(167, "Q167_DwarvenKinship", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		final String htmltext = event;
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30350-04.htm"))
-		{
+		if ("30350-04.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.giveItems(CARLON_LETTER, 1);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("30255-03.htm"))
-		{
+		} else if ("30255-03.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "2");
 			st.takeItems(CARLON_LETTER, 1);
 			st.giveItems(NORMANS_LETTER, 1);
 			st.rewardItems(ADENA, 2000);
-		}
-		else if (event.equalsIgnoreCase("30255-04.htm"))
-		{
+		} else if ("30255-04.htm".equalsIgnoreCase(event)) {
 			st.takeItems(CARLON_LETTER, 1);
 			st.rewardItems(ADENA, 3000);
 			st.playSound(QuestState.SOUND_FINISH);
 			st.exitQuest(false);
-		}
-		else if (event.equalsIgnoreCase("30210-02.htm"))
-		{
+		} else if ("30210-02.htm".equalsIgnoreCase(event)) {
 			st.takeItems(NORMANS_LETTER, 1);
 			st.rewardItems(ADENA, 20000);
 			st.playSound(QuestState.SOUND_FINISH);
@@ -83,29 +72,25 @@ public class Q167_DwarvenKinship extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
 		String htmltext = Quest.getNoQuestMsg();
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 15)
 					htmltext = "30350-03.htm";
-				else
-				{
+				else {
 					htmltext = "30350-02.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				int cond = st.getInt("cond");
-				switch (npc.getNpcId())
-				{
+				final int cond = st.getInt("cond");
+				switch (npc.getNpcId()) {
 					case CARLON:
 						if (cond == 1)
 							htmltext = "30350-05.htm";

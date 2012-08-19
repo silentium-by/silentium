@@ -15,33 +15,24 @@ import silentium.gameserver.network.serverpackets.ExShowScreenMessage;
 import silentium.gameserver.network.serverpackets.NormalCamera;
 import silentium.gameserver.network.serverpackets.SpecialCamera;
 
-public class AdminCamera implements IAdminCommandHandler
-{
+public class AdminCamera implements IAdminCommandHandler {
 	private static final String[] ADMIN_COMMANDS = { "admin_camera", "admin_cameramode" };
 
 	@Override
-	public boolean useAdminCommand(String command, L2PcInstance activeChar)
-	{
-		if (command.startsWith("admin_camera "))
-		{
-			try
-			{
+	public boolean useAdminCommand(final String command, final L2PcInstance activeChar) {
+		if (command.startsWith("admin_camera ")) {
+			try {
 				final L2Character target = (L2Character) activeChar.getTarget();
 				final String[] com = command.split(" ");
 
 				target.broadcastPacket(new SpecialCamera(target.getObjectId(), Integer.parseInt(com[1]), Integer.parseInt(com[2]), Integer.parseInt(com[3]), Integer.parseInt(com[4]), Integer.parseInt(com[5]), Integer.parseInt(com[6]), Integer.parseInt(com[7]), Integer.parseInt(com[8]), Integer.parseInt(com[9])));
-			}
-			catch (Exception e)
-			{
+			} catch (Exception e) {
 				activeChar.sendMessage("Usage: //camera dist yaw pitch time duration turn rise widescreen unknown");
 				return false;
 			}
-		}
-		else if (command.equals("admin_cameramode"))
-		{
+		} else if ("admin_cameramode".equals(command)) {
 			// lolcheck. But basically, chance to be invisible AND rooted is kinda null, except with this command
-			if (!(activeChar.getAppearance().getInvisible() && activeChar.isImmobilized()))
-			{
+			if (!(activeChar.getAppearance().getInvisible() && activeChar.isImmobilized())) {
 				activeChar.setTarget(null);
 				activeChar.setIsImmobilized(true);
 				activeChar.sendPacket(new CameraMode(1));
@@ -53,9 +44,7 @@ public class AdminCamera implements IAdminCommandHandler
 				activeChar.spawnMe();
 
 				activeChar.sendPacket(new ExShowScreenMessage(1, 0, 2, false, 1, 0, 0, false, 5000, true, "To remove this text, press ALT+H. To exit, press ALT+H and type //cameramode"));
-			}
-			else
-			{
+			} else {
 				activeChar.setIsImmobilized(false);
 				activeChar.sendPacket(new CameraMode(0));
 				activeChar.sendPacket(NormalCamera.STATIC_PACKET);
@@ -72,8 +61,7 @@ public class AdminCamera implements IAdminCommandHandler
 	}
 
 	@Override
-	public String[] getAdminCommandList()
-	{
+	public String[] getAdminCommandList() {
 		return ADMIN_COMMANDS;
 	}
 }

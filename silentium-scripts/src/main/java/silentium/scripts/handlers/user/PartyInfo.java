@@ -16,28 +16,25 @@ import silentium.gameserver.network.serverpackets.SystemMessage;
 /**
  * Support for /partyinfo command Added by Tempy - 28 Jul 05
  */
-public class PartyInfo implements IUserCommandHandler
-{
+public class PartyInfo implements IUserCommandHandler {
 	private static final int[] COMMAND_IDS = { 81 };
 
 	@Override
-	public boolean useUserCommand(int id, L2PcInstance activeChar)
-	{
+	public boolean useUserCommand(final int id, final L2PcInstance activeChar) {
 		if (id != COMMAND_IDS[0])
 			return false;
 
 		if (!activeChar.isInParty())
 			return false;
 
-		L2Party playerParty = activeChar.getParty();
-		int memberCount = playerParty.getMemberCount();
-		int lootDistribution = playerParty.getLootDistribution();
-		String partyLeader = playerParty.getPartyMembers().get(0).getName();
+		final L2Party playerParty = activeChar.getParty();
+		final int memberCount = playerParty.getMemberCount();
+		final int lootDistribution = playerParty.getLootDistribution();
+		final String partyLeader = playerParty.getPartyMembers().get(0).getName();
 
 		activeChar.sendPacket(SystemMessageId.PARTY_INFORMATION);
 
-		switch (lootDistribution)
-		{
+		switch (lootDistribution) {
 			case L2Party.ITEM_LOOTER:
 				activeChar.sendPacket(SystemMessageId.LOOTING_FINDERS_KEEPERS);
 				break;
@@ -61,8 +58,7 @@ public class PartyInfo implements IUserCommandHandler
 	}
 
 	@Override
-	public int[] getUserCommandList()
-	{
+	public int[] getUserCommandList() {
 		return COMMAND_IDS;
 	}
 }

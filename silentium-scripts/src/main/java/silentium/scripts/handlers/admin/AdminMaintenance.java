@@ -7,10 +7,6 @@
  */
 package silentium.scripts.handlers.admin;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.StringTokenizer;
-
 import silentium.gameserver.GameTimeController;
 import silentium.gameserver.LoginServerThread;
 import silentium.gameserver.Shutdown;
@@ -22,91 +18,70 @@ import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.network.gameserverpackets.ServerStatus;
 import silentium.gameserver.network.serverpackets.NpcHtmlMessage;
 
-public class AdminMaintenance implements IAdminCommandHandler
-{
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.StringTokenizer;
+
+public class AdminMaintenance implements IAdminCommandHandler {
 	private static final String[] ADMIN_COMMANDS = { "admin_server",
 
-	"admin_server_shutdown", "admin_server_restart", "admin_server_abort",
+			"admin_server_shutdown", "admin_server_restart", "admin_server_abort",
 
-	"admin_server_gm_only", "admin_server_all", "admin_server_max_player", };
+			"admin_server_gm_only", "admin_server_all", "admin_server_max_player", };
 
 	@Override
-	public boolean useAdminCommand(String command, L2PcInstance activeChar)
-	{
-		if (command.equals("admin_server"))
+	public boolean useAdminCommand(final String command, final L2PcInstance activeChar) {
+		if ("admin_server".equals(command))
 			sendHtmlForm(activeChar);
-		else if (command.startsWith("admin_server_shutdown"))
-		{
-			try
-			{
-				int val = Integer.parseInt(command.substring(22));
+		else if (command.startsWith("admin_server_shutdown")) {
+			try {
+				final int val = Integer.parseInt(command.substring(22));
 				serverShutdown(activeChar, val, false);
-			}
-			catch (StringIndexOutOfBoundsException e)
-			{
+			} catch (StringIndexOutOfBoundsException e) {
 				sendHtmlForm(activeChar);
 			}
-		}
-		else if (command.startsWith("admin_server_restart"))
-		{
-			try
-			{
-				int val = Integer.parseInt(command.substring(21));
+		} else if (command.startsWith("admin_server_restart")) {
+			try {
+				final int val = Integer.parseInt(command.substring(21));
 				serverShutdown(activeChar, val, true);
-			}
-			catch (StringIndexOutOfBoundsException e)
-			{
+			} catch (StringIndexOutOfBoundsException e) {
 				sendHtmlForm(activeChar);
 			}
-		}
-		else if (command.startsWith("admin_server_abort"))
-		{
+		} else if (command.startsWith("admin_server_abort")) {
 			serverAbort(activeChar);
-		}
-		else if (command.equals("admin_server_gm_only"))
-		{
+		} else if ("admin_server_gm_only".equals(command)) {
 			gmOnly();
 			activeChar.sendMessage("Server is now GMonly");
 			sendHtmlForm(activeChar);
-		}
-		else if (command.equals("admin_server_all"))
-		{
+		} else if ("admin_server_all".equals(command)) {
 			allowToAll();
 			activeChar.sendMessage("Server isn't GMonly anymore");
 			sendHtmlForm(activeChar);
-		}
-		else if (command.startsWith("admin_server_max_player"))
-		{
-			StringTokenizer st = new StringTokenizer(command);
-			if (st.countTokens() > 1)
-			{
+		} else if (command.startsWith("admin_server_max_player")) {
+			final StringTokenizer st = new StringTokenizer(command);
+			if (st.countTokens() > 1) {
 				st.nextToken();
-				String number = st.nextToken();
-				try
-				{
-					LoginServerThread.getInstance().setMaxPlayer(new Integer(number).intValue());
-					activeChar.sendMessage("maxPlayer set to " + new Integer(number).intValue());
+				final String number = st.nextToken();
+				try {
+					LoginServerThread.getInstance().setMaxPlayer(Integer.parseInt(number));
+					activeChar.sendMessage("maxPlayer set to " + number);
 					sendHtmlForm(activeChar);
-				}
-				catch (NumberFormatException e)
-				{
+				} catch (NumberFormatException e) {
 					activeChar.sendMessage("Max players must be a number.");
 				}
-			}
-			else
+			} else
 				activeChar.sendMessage("Format is server_max_player <max>");
 		}
 		return true;
 	}
 
-	private static void sendHtmlForm(L2PcInstance activeChar)
-	{
-		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
-		int t = GameTimeController.getInstance().getGameTime();
-		int h = t / 60;
-		int m = t % 60;
-		SimpleDateFormat format = new SimpleDateFormat("h:mm a");
-		Calendar cal = Calendar.getInstance();
+	private static void sendHtmlForm(final L2PcInstance activeChar) {
+		final NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
+		final int t = GameTimeController.getInstance().getGameTime();
+		final int h = t / 60;
+		final int m = t % 60;
+		final SimpleDateFormat format = new SimpleDateFormat("h:mm a");
+		final Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.HOUR_OF_DAY, h);
 		cal.set(Calendar.MINUTE, m);
 		adminReply.setFile(StaticHtmPath.AdminHtmPath + "maintenance.htm");
@@ -119,31 +94,26 @@ public class AdminMaintenance implements IAdminCommandHandler
 		activeChar.sendPacket(adminReply);
 	}
 
-	private static void allowToAll()
-	{
+	private static void allowToAll() {
 		LoginServerThread.getInstance().setServerStatus(ServerStatus.STATUS_AUTO);
 		MainConfig.SERVER_GMONLY = false;
 	}
 
-	private static void gmOnly()
-	{
+	private static void gmOnly() {
 		LoginServerThread.getInstance().setServerStatus(ServerStatus.STATUS_GM_ONLY);
 		MainConfig.SERVER_GMONLY = true;
 	}
 
-	private static void serverShutdown(L2PcInstance activeChar, int seconds, boolean restart)
-	{
+	private static void serverShutdown(final L2PcInstance activeChar, final int seconds, final boolean restart) {
 		Shutdown.getInstance().startShutdown(activeChar, null, seconds, restart);
 	}
 
-	private static void serverAbort(L2PcInstance activeChar)
-	{
+	private static void serverAbort(final L2PcInstance activeChar) {
 		Shutdown.getInstance().abort(activeChar);
 	}
 
 	@Override
-	public String[] getAdminCommandList()
-	{
+	public String[] getAdminCommandList() {
 		return ADMIN_COMMANDS;
 	}
 }

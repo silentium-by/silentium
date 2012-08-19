@@ -20,22 +20,19 @@ import silentium.gameserver.network.serverpackets.SystemMessage;
 import silentium.gameserver.tables.ItemTable;
 import silentium.gameserver.templates.skills.L2SkillType;
 
-public class Extractable implements ISkillHandler
-{
+public class Extractable implements ISkillHandler {
 	private static final L2SkillType[] SKILL_IDS = { L2SkillType.EXTRACTABLE, L2SkillType.EXTRACTABLE_FISH };
 
 	@Override
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
-	{
+	public void useSkill(final L2Character activeChar, final L2Skill skill, final L2Object... targets) {
 		if (!(activeChar instanceof L2PcInstance))
 			return;
 
-		L2ExtractableSkill exItem = skill.getExtractableSkill();
+		final L2ExtractableSkill exItem = skill.getExtractableSkill();
 		if (exItem == null)
 			return;
 
-		if (exItem.getProductItemsArray().isEmpty())
-		{
+		if (exItem.getProductItemsArray().isEmpty()) {
 			_log.warn("Extractable Item Skill with no data, probably wrong/empty table with Skill Id: " + skill.getId());
 			return;
 		}
@@ -43,17 +40,14 @@ public class Extractable implements ISkillHandler
 		final double rndNum = 100 * Rnd.nextDouble();
 		double chance = 0;
 		double chanceFrom = 0;
-		int[] createItemID = new int[20];
-		int[] createAmount = new int[20];
+		final int[] createItemID = new int[20];
+		final int[] createAmount = new int[20];
 
 		// calculate extraction
-		for (L2ExtractableProductItem expi : exItem.getProductItemsArray())
-		{
+		for (final L2ExtractableProductItem expi : exItem.getProductItemsArray()) {
 			chance = expi.getChance();
-			if ((rndNum >= chanceFrom) && (rndNum <= (chance + chanceFrom)))
-			{
-				for (int i = 0; i < expi.getId().length; i++)
-				{
+			if (rndNum >= chanceFrom && rndNum <= chance + chanceFrom) {
+				for (int i = 0; i < expi.getId().length; i++) {
 					createItemID[i] = expi.getId()[i];
 					createAmount[i] = expi.getAmount()[i];
 				}
@@ -62,26 +56,22 @@ public class Extractable implements ISkillHandler
 			chanceFrom += chance;
 		}
 
-		L2PcInstance player = (L2PcInstance) activeChar;
-		if (player.isSubClassActive() && skill.getReuseDelay() > 0)
-		{
+		final L2PcInstance player = (L2PcInstance) activeChar;
+		if (player.isSubClassActive() && skill.getReuseDelay() > 0) {
 			player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_CANNOT_BE_USED).addSkillName(skill));
 			return;
 		}
 
-		if (createItemID[0] <= 0 || createItemID.length == 0)
-		{
+		if (createItemID[0] <= 0 || createItemID.length == 0) {
 			player.sendPacket(SystemMessageId.NOTHING_INSIDE_THAT);
 			return;
 		}
 
-		for (int i = 0; i < createItemID.length; i++)
-		{
+		for (int i = 0; i < createItemID.length; i++) {
 			if (createItemID[i] <= 0)
 				return;
 
-			if (ItemTable.getInstance().createDummyItem(createItemID[i]) == null)
-			{
+			if (ItemTable.getInstance().createDummyItem(createItemID[i]) == null) {
 				_log.warn("createItemID " + createItemID[i] + " doesn't have template!");
 				player.sendPacket(SystemMessageId.NOTHING_INSIDE_THAT);
 				return;
@@ -89,20 +79,16 @@ public class Extractable implements ISkillHandler
 
 			if (ItemTable.getInstance().createDummyItem(createItemID[i]).isStackable())
 				player.addItem("Extract", createItemID[i], createAmount[i], targets[0], false);
-			else
-			{
+			else {
 				for (int j = 0; j < createAmount[i]; j++)
 					player.addItem("Extract", createItemID[i], 1, targets[0], false);
 			}
 
-			SystemMessage sm;
-			if (createItemID[i] == 57)
-			{
+			final SystemMessage sm;
+			if (createItemID[i] == 57) {
 				sm = SystemMessage.getSystemMessage(SystemMessageId.EARNED_S1_ADENA);
 				sm.addNumber(createAmount[i]);
-			}
-			else
-			{
+			} else {
 				sm = SystemMessage.getSystemMessage(SystemMessageId.EARNED_S2_S1_S);
 				sm.addItemName(createItemID[i]);
 				if (createAmount[i] > 1)
@@ -113,8 +99,7 @@ public class Extractable implements ISkillHandler
 	}
 
 	@Override
-	public L2SkillType[] getSkillIds()
-	{
+	public L2SkillType[] getSkillIds() {
 		return SKILL_IDS;
 	}
 }

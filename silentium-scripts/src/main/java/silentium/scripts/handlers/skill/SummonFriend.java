@@ -21,39 +21,32 @@ import silentium.gameserver.utils.Util;
 /**
  * @authors BiTi, Sami
  */
-public class SummonFriend implements ISkillHandler
-{
+public class SummonFriend implements ISkillHandler {
 	private static final L2SkillType[] SKILL_IDS = { L2SkillType.SUMMON_FRIEND };
 
 	@Override
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
-	{
+	public void useSkill(final L2Character activeChar, final L2Skill skill, final L2Object... targets) {
 		if (!(activeChar instanceof L2PcInstance))
 			return;
 
-		L2PcInstance activePlayer = (L2PcInstance) activeChar;
+		final L2PcInstance activePlayer = (L2PcInstance) activeChar;
 
 		if (!L2PcInstance.checkSummonerStatus(activePlayer))
 			return;
 
-		try
-		{
-			for (L2Character target : (L2Character[]) targets)
-			{
+		try {
+			for (final L2Character target : (L2Character[]) targets) {
 				if (activeChar == target)
 					continue;
 
-				if (target instanceof L2PcInstance)
-				{
-					L2PcInstance targetPlayer = (L2PcInstance) target;
+				if (target instanceof L2PcInstance) {
+					final L2PcInstance targetPlayer = (L2PcInstance) target;
 
 					if (!L2PcInstance.checkSummonTargetStatus(targetPlayer, activePlayer))
 						continue;
 
-					if (!Util.checkIfInRange(50, activeChar, target, false))
-					{
-						if (!targetPlayer.teleportRequest(activePlayer, skill))
-						{
+					if (!Util.checkIfInRange(50, activeChar, target, false)) {
+						if (!targetPlayer.teleportRequest(activePlayer, skill)) {
 							activePlayer.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_ALREADY_SUMMONED).addPcName(targetPlayer));
 							continue;
 						}
@@ -68,25 +61,20 @@ public class SummonFriend implements ISkillHandler
 							confirm.addRequesterId(activePlayer.getObjectId());
 							target.sendPacket(confirm);
 							confirm = null;
-						}
-						else
-						{
+						} else {
 							L2PcInstance.teleToTarget(targetPlayer, activePlayer, skill);
 							targetPlayer.teleportRequest(null, null);
 						}
 					}
 				}
 			}
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			_log.warn(e.getLocalizedMessage(), e);
 		}
 	}
 
 	@Override
-	public L2SkillType[] getSkillIds()
-	{
+	public L2SkillType[] getSkillIds() {
 		return SKILL_IDS;
 	}
 }

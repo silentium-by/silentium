@@ -13,24 +13,22 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q052_WilliesSpecialBait extends Quest implements ScriptFile
-{
+public class Q052_WilliesSpecialBait extends Quest implements ScriptFile {
 	private static final String qn = "Q052_WilliesSpecialBait";
 
 	// NPC
-	private final static int WILLIE = 31574;
+	private static final int WILLIE = 31574;
 
 	// Item
-	private final static int TARLK_EYE = 7623;
+	private static final int TARLK_EYE = 7623;
 
 	// Reward
-	private final static int EARTH_FISHING_LURE = 7612;
+	private static final int EARTH_FISHING_LURE = 7612;
 
 	// Monster
-	private final static int TARLK_BASILISK = 20573;
+	private static final int TARLK_BASILISK = 20573;
 
-	public Q052_WilliesSpecialBait(int questId, String name, String descr)
-	{
+	public Q052_WilliesSpecialBait(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { TARLK_EYE };
@@ -41,27 +39,22 @@ public class Q052_WilliesSpecialBait extends Quest implements ScriptFile
 		addKillId(TARLK_BASILISK);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q052_WilliesSpecialBait(52, "Q052_WilliesSpecialBait", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
 		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("31574-03.htm"))
-		{
+		if ("31574-03.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("31574-07.htm") && st.getQuestItemsCount(TARLK_EYE) == 100)
-		{
+		} else if ("31574-07.htm".equalsIgnoreCase(event) && st.getQuestItemsCount(TARLK_EYE) == 100) {
 			htmltext = "31574-06.htm";
 			st.rewardItems(EARTH_FISHING_LURE, 4);
 			st.takeItems(TARLK_EYE, 100);
@@ -73,30 +66,24 @@ public class Q052_WilliesSpecialBait extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
+		final QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 48 && player.getLevel() <= 50)
 					htmltext = "31574-01.htm";
-				else
-				{
+				else {
 					htmltext = "31574-02.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				if (st.getQuestItemsCount(TARLK_EYE) == 100)
-					htmltext = "31574-04.htm";
-				else
-					htmltext = "31574-05.htm";
+				htmltext = st.getQuestItemsCount(TARLK_EYE) == 100 ? "31574-04.htm" : "31574-05.htm";
 				break;
 
 			case QuestState.COMPLETED:
@@ -108,9 +95,8 @@ public class Q052_WilliesSpecialBait extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 

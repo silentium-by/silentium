@@ -24,8 +24,7 @@ import silentium.gameserver.templates.skills.L2SkillType;
 /*
  * Just a quick draft to support Wrath skill. Missing angle based calculation etc.
  */
-public class CpDamPercent implements ISkillHandler
-{
+public class CpDamPercent implements ISkillHandler {
 	private static final L2SkillType[] SKILL_IDS = { L2SkillType.CPDAMPERCENT };
 
 	/**
@@ -33,8 +32,7 @@ public class CpDamPercent implements ISkillHandler
 	 *      silentium.gameserver.model.L2Object[])
 	 */
 	@Override
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
-	{
+	public void useSkill(final L2Character activeChar, final L2Skill skill, final L2Object... targets) {
 		if (activeChar.isAlikeDead())
 			return;
 
@@ -42,54 +40,44 @@ public class CpDamPercent implements ISkillHandler
 		boolean sps = false;
 		boolean bss = false;
 
-		L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
+		final L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
 
-		if (weaponInst != null)
-		{
-			if (skill.isMagic())
-			{
+		if (weaponInst != null) {
+			if (skill.isMagic()) {
 				if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
 					bss = true;
 				else if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_SPIRITSHOT)
 					sps = true;
-			}
-			else if (weaponInst.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT)
+			} else if (weaponInst.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT)
 				ss = true;
 		}
 		// If there is no weapon equipped, check for an active summon.
-		else if (activeChar instanceof L2Summon)
-		{
-			L2Summon activeSummon = (L2Summon) activeChar;
+		else if (activeChar instanceof L2Summon) {
+			final L2Summon activeSummon = (L2Summon) activeChar;
 
-			if (activeSummon.getChargedSpiritShot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
-			{
+			if (activeSummon.getChargedSpiritShot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT) {
 				bss = true;
 				activeSummon.setChargedSpiritShot(L2ItemInstance.CHARGED_NONE);
-			}
-			else if (activeSummon.getChargedSpiritShot() == L2ItemInstance.CHARGED_SPIRITSHOT)
-			{
+			} else if (activeSummon.getChargedSpiritShot() == L2ItemInstance.CHARGED_SPIRITSHOT) {
 				ss = true;
 				activeSummon.setChargedSpiritShot(L2ItemInstance.CHARGED_NONE);
 			}
-		}
-		else if (activeChar instanceof L2Npc)
-		{
+		} else if (activeChar instanceof L2Npc) {
 			ss = ((L2Npc) activeChar)._soulshotcharged;
 			((L2Npc) activeChar)._soulshotcharged = false;
 			bss = ((L2Npc) activeChar)._spiritshotcharged;
 			((L2Npc) activeChar)._spiritshotcharged = false;
 		}
 
-		for (L2Character target : (L2Character[]) targets)
-		{
+		for (final L2Character target : (L2Character[]) targets) {
 			if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance && ((L2PcInstance) target).isFakeDeath())
 				target.stopFakeDeath(true);
 			else if (target.isDead() || target.isInvul())
 				continue;
 
-			byte shld = Formulas.calcShldUse(activeChar, target, skill);
+			final byte shld = Formulas.calcShldUse(activeChar, target, skill);
 
-			int damage = (int) (target.getCurrentCp() * (skill.getPower() / 100));
+			final int damage = (int) (target.getCurrentCp() * skill.getPower() / 100);
 
 			// Manage cast break of the target (calculating rate, sending message...)
 			Formulas.calcCastBreak(target, damage);
@@ -104,8 +92,7 @@ public class CpDamPercent implements ISkillHandler
 	}
 
 	@Override
-	public L2SkillType[] getSkillIds()
-	{
+	public L2SkillType[] getSkillIds() {
 		return SKILL_IDS;
 	}
 }

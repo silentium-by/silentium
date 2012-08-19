@@ -15,8 +15,7 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q368_TrespassingIntoTheSacredArea extends Quest implements ScriptFile
-{
+public class Q368_TrespassingIntoTheSacredArea extends Quest implements ScriptFile {
 	private static final String qn = "Q368_TrespassingIntoTheSacredArea";
 
 	// NPC
@@ -25,8 +24,7 @@ public class Q368_TrespassingIntoTheSacredArea extends Quest implements ScriptFi
 	// Item
 	private static final int FANG = 5881;
 
-	public Q368_TrespassingIntoTheSacredArea(int questId, String name, String descr)
-	{
+	public Q368_TrespassingIntoTheSacredArea(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { FANG };
@@ -36,27 +34,22 @@ public class Q368_TrespassingIntoTheSacredArea extends Quest implements ScriptFi
 		addKillId(20794, 20795, 20796, 20797);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q368_TrespassingIntoTheSacredArea(368, "Q368_TrespassingIntoTheSacredArea", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		final String htmltext = event;
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30926-02.htm"))
-		{
+		if ("30926-02.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("30926-05.htm"))
-		{
+		} else if ("30926-05.htm".equalsIgnoreCase(event)) {
 			st.playSound(QuestState.SOUND_FINISH);
 			st.exitQuest(true);
 		}
@@ -65,32 +58,28 @@ public class Q368_TrespassingIntoTheSacredArea extends Quest implements ScriptFi
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
+		final QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 36 && player.getLevel() <= 48)
 					htmltext = "30926-01.htm";
-				else
-				{
+				else {
 					htmltext = "30926-01a.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				int fangs = st.getQuestItemsCount(FANG);
+				final int fangs = st.getQuestItemsCount(FANG);
 				if (fangs == 0)
 					htmltext = "30926-03.htm";
-				else
-				{
-					int reward = 250 * fangs + (fangs > 10 ? 5730 : 2000);
+				else {
+					final int reward = 250 * fangs + (fangs > 10 ? 5730 : 2000);
 					htmltext = "30926-04.htm";
 					st.takeItems(5881, -1);
 					st.rewardItems(57, reward);
@@ -102,23 +91,21 @@ public class Q368_TrespassingIntoTheSacredArea extends Quest implements ScriptFi
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		L2PcInstance partyMember = getRandomPartyMemberState(player, npc, QuestState.STARTED);
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final L2PcInstance partyMember = getRandomPartyMemberState(player, npc, QuestState.STARTED);
 		if (partyMember == null)
 			return null;
 
-		QuestState st = partyMember.getQuestState(qn);
+		final QuestState st = partyMember.getQuestState(qn);
 
 		int chance = (int) (33 * MainConfig.RATE_QUEST_DROP);
 		int numItems = chance / 100;
-		chance = chance % 100;
+		chance %= 100;
 
 		if (Rnd.get(100) < chance)
 			numItems++;
 
-		if (numItems > 0)
-		{
+		if (numItems > 0) {
 			st.giveItems(FANG, 1);
 			st.playSound(QuestState.SOUND_ITEMGET);
 		}

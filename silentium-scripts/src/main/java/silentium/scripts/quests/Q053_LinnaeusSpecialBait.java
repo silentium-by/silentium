@@ -13,24 +13,22 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q053_LinnaeusSpecialBait extends Quest implements ScriptFile
-{
+public class Q053_LinnaeusSpecialBait extends Quest implements ScriptFile {
 	private static final String qn = "Q053_LinnaeusSpecialBait";
 
 	// NPC
-	private final static int LINNAEUS = 31577;
+	private static final int LINNAEUS = 31577;
 
 	// Item
-	private final static int CRIMSON_DRAKE_HEART = 7624;
+	private static final int CRIMSON_DRAKE_HEART = 7624;
 
 	// Reward
-	private final static int FLAMING_FISHING_LURE = 7613;
+	private static final int FLAMING_FISHING_LURE = 7613;
 
 	// Monster
-	private final static int CRIMSON_DRAKE = 20670;
+	private static final int CRIMSON_DRAKE = 20670;
 
-	public Q053_LinnaeusSpecialBait(int questId, String name, String descr)
-	{
+	public Q053_LinnaeusSpecialBait(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { CRIMSON_DRAKE_HEART };
@@ -41,27 +39,22 @@ public class Q053_LinnaeusSpecialBait extends Quest implements ScriptFile
 		addKillId(CRIMSON_DRAKE);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q053_LinnaeusSpecialBait(53, "Q053_LinnaeusSpecialBait", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
 		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("31577-03.htm"))
-		{
+		if ("31577-03.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
-		}
-		else if (event.equalsIgnoreCase("31577-07.htm") && st.getQuestItemsCount(CRIMSON_DRAKE_HEART) == 100)
-		{
+		} else if ("31577-07.htm".equalsIgnoreCase(event) && st.getQuestItemsCount(CRIMSON_DRAKE_HEART) == 100) {
 			htmltext = "31577-06.htm";
 			st.rewardItems(FLAMING_FISHING_LURE, 4);
 			st.takeItems(CRIMSON_DRAKE_HEART, 100);
@@ -73,30 +66,24 @@ public class Q053_LinnaeusSpecialBait extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
+		final QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 60 && player.getLevel() <= 62)
 					htmltext = "31577-01.htm";
-				else
-				{
+				else {
 					htmltext = "31577-02.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				if (st.getQuestItemsCount(CRIMSON_DRAKE_HEART) == 100)
-					htmltext = "31577-04.htm";
-				else
-					htmltext = "31577-05.htm";
+				htmltext = st.getQuestItemsCount(CRIMSON_DRAKE_HEART) == 100 ? "31577-04.htm" : "31577-05.htm";
 				break;
 
 			case QuestState.COMPLETED:
@@ -108,9 +95,8 @@ public class Q053_LinnaeusSpecialBait extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 

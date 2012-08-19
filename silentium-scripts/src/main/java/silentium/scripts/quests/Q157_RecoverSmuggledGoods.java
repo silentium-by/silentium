@@ -13,24 +13,22 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q157_RecoverSmuggledGoods extends Quest implements ScriptFile
-{
+public class Q157_RecoverSmuggledGoods extends Quest implements ScriptFile {
 	private static final String qn = "Q157_RecoverSmuggledGoods";
 
 	// NPC
-	private final static int WILFORD = 30005;
+	private static final int WILFORD = 30005;
 
 	// Monster
-	private final static int TOAD = 20121;
+	private static final int TOAD = 20121;
 
 	// Item
-	private final static int ADAMANTITE_ORE = 1024;
+	private static final int ADAMANTITE_ORE = 1024;
 
 	// Reward
-	private final static int BUCKLER = 20;
+	private static final int BUCKLER = 20;
 
-	public Q157_RecoverSmuggledGoods(int questId, String name, String descr)
-	{
+	public Q157_RecoverSmuggledGoods(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { ADAMANTITE_ORE };
@@ -41,21 +39,18 @@ public class Q157_RecoverSmuggledGoods extends Quest implements ScriptFile
 		addKillId(TOAD);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q157_RecoverSmuggledGoods(157, "Q157_RecoverSmuggledGoods", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		final String htmltext = event;
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30005-05.htm"))
-		{
+		if ("30005-05.htm".equalsIgnoreCase(event)) {
 			st.set("cond", "1");
 			st.setState(QuestState.STARTED);
 			st.playSound(QuestState.SOUND_ACCEPT);
@@ -65,31 +60,27 @@ public class Q157_RecoverSmuggledGoods extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
+		final QuestState st = player.getQuestState(qn);
 		String htmltext = getNoQuestMsg();
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getLevel() >= 5 && player.getLevel() <= 9)
 					htmltext = "30005-03.htm";
-				else
-				{
+				else {
 					htmltext = "30005-02.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				int cond = st.getInt("cond");
+				final int cond = st.getInt("cond");
 				if (cond == 1 && st.getQuestItemsCount(ADAMANTITE_ORE) < 20)
 					htmltext = "30005-06.htm";
-				else if (cond == 2 && st.getQuestItemsCount(ADAMANTITE_ORE) >= 20)
-				{
+				else if (cond == 2 && st.getQuestItemsCount(ADAMANTITE_ORE) >= 20) {
 					htmltext = "30005-07.htm";
 					st.takeItems(ADAMANTITE_ORE, 20);
 					st.giveItems(BUCKLER, 1);
@@ -106,9 +97,8 @@ public class Q157_RecoverSmuggledGoods extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 

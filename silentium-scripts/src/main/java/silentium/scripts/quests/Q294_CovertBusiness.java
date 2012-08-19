@@ -13,8 +13,7 @@ import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
 import silentium.gameserver.scripting.ScriptFile;
 
-public class Q294_CovertBusiness extends Quest implements ScriptFile
-{
+public class Q294_CovertBusiness extends Quest implements ScriptFile {
 	private static final String qn = "Q294_CovertBusiness";
 
 	// Item
@@ -30,8 +29,7 @@ public class Q294_CovertBusiness extends Quest implements ScriptFile
 	// NPCs
 	private static final int Keef = 30534;
 
-	public Q294_CovertBusiness(int questId, String name, String descr)
-	{
+	public Q294_CovertBusiness(final int questId, final String name, final String descr) {
 		super(questId, name, descr);
 
 		questItemIds = new int[] { BatFang };
@@ -42,21 +40,18 @@ public class Q294_CovertBusiness extends Quest implements ScriptFile
 		addKillId(Barded, Blade);
 	}
 
-	public static void onLoad()
-	{
+	public static void onLoad() {
 		new Q294_CovertBusiness(294, "Q294_CovertBusiness", "quests");
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = event;
-		QuestState st = player.getQuestState(qn);
+	public String onAdvEvent(final String event, final L2Npc npc, final L2PcInstance player) {
+		final String htmltext = event;
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		if (event.equalsIgnoreCase("30534-03.htm"))
-		{
+		if ("30534-03.htm".equalsIgnoreCase(event)) {
 			st.setState(QuestState.STARTED);
 			st.set("cond", "1");
 			st.playSound(QuestState.SOUND_ACCEPT);
@@ -66,31 +61,27 @@ public class Q294_CovertBusiness extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
+	public String onTalk(final L2Npc npc, final L2PcInstance player) {
 		String htmltext = getNoQuestMsg();
-		QuestState st = player.getQuestState(qn);
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return htmltext;
 
-		switch (st.getState())
-		{
+		switch (st.getState()) {
 			case QuestState.CREATED:
 				if (player.getRace().ordinal() == 4 && player.getLevel() >= 10 && player.getLevel() <= 16)
 					htmltext = "30534-02.htm";
-				else
-				{
+				else {
 					htmltext = "30534-01.htm";
 					st.exitQuest(true);
 				}
 				break;
 
 			case QuestState.STARTED:
-				int cond = st.getInt("cond");
+				final int cond = st.getInt("cond");
 				if (cond == 1)
 					htmltext = "30534-04.htm";
-				else if (cond == 2)
-				{
+				else if (cond == 2) {
 					htmltext = "30534-05.htm";
 					st.takeItems(BatFang, -1);
 					st.giveItems(RingOfRaccoon, 1);
@@ -105,9 +96,8 @@ public class Q294_CovertBusiness extends Quest implements ScriptFile
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		QuestState st = player.getQuestState(qn);
+	public String onKill(final L2Npc npc, final L2PcInstance player, final boolean isPet) {
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
 			return null;
 
