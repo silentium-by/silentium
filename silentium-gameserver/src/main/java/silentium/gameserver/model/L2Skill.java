@@ -7,32 +7,14 @@
  */
 package silentium.gameserver.model;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.StringTokenizer;
-
 import javolution.util.FastList;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import silentium.gameserver.configs.MainConfig;
 import silentium.gameserver.data.xml.SkillTreeData;
 import silentium.gameserver.geo.GeoData;
-import silentium.gameserver.model.actor.L2Attackable;
-import silentium.gameserver.model.actor.L2Character;
-import silentium.gameserver.model.actor.L2Npc;
-import silentium.gameserver.model.actor.L2Playable;
-import silentium.gameserver.model.actor.L2Summon;
-import silentium.gameserver.model.actor.instance.L2ArtefactInstance;
-import silentium.gameserver.model.actor.instance.L2ChestInstance;
-import silentium.gameserver.model.actor.instance.L2CubicInstance;
-import silentium.gameserver.model.actor.instance.L2DoorInstance;
-import silentium.gameserver.model.actor.instance.L2PcInstance;
-import silentium.gameserver.model.actor.instance.L2PetInstance;
-import silentium.gameserver.model.actor.instance.L2SiegeFlagInstance;
-import silentium.gameserver.model.actor.instance.L2SummonInstance;
+import silentium.gameserver.model.actor.*;
+import silentium.gameserver.model.actor.instance.*;
 import silentium.gameserver.model.entity.TvTEvent;
 import silentium.gameserver.network.SystemMessageId;
 import silentium.gameserver.network.serverpackets.SystemMessage;
@@ -51,6 +33,11 @@ import silentium.gameserver.templates.item.L2Armor;
 import silentium.gameserver.templates.item.L2ArmorType;
 import silentium.gameserver.templates.skills.L2SkillType;
 import silentium.gameserver.utils.Util;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.StringTokenizer;
 
 public abstract class L2Skill implements IChanceSkillTrigger
 {
@@ -398,7 +385,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 		_triggeredId = set.getInteger("triggeredId", 0);
 		_triggeredLevel = set.getInteger("triggeredLevel", 0);
 		_chanceType = set.getString("chanceType", "");
-		if (!_chanceType.isEmpty() && !_chanceType.isEmpty())
+		if (!_chanceType.isEmpty())
 			_chanceCondition = ChanceCondition.parse(set);
 
 		_isOffensive = set.getBool("offensive", isSkillTypeOffensive());
@@ -2264,7 +2251,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 
 	/**
 	 * Warning: this method doesn't consider modifier (shield, ss, sps, bss) for secondary effects
-	 * 
+	 *
 	 * @param effector
 	 * @param effected
 	 * @return An array of L2Effect.
@@ -2281,7 +2268,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 	 * <br>
 	 * This new feature works following next rules: <li>To enable feature, effectPower must be over -1 (check DocumentSkill#attachEffect for
 	 * further information)</li> <li>If main skill fails, secondary effect always fail</li>
-	 * 
+	 *
 	 * @param effector
 	 * @param effected
 	 * @param env
