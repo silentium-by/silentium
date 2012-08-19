@@ -7,14 +7,13 @@
  */
 package silentium.commons.database;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import silentium.commons.ServerType;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import silentium.commons.ServerType;
 
 /**
  * @author ProGramMoS (created the source)
@@ -22,8 +21,7 @@ import silentium.commons.ServerType;
  * @author Demon (rework)
  * @author Tatanka (full rework)
  */
-public class DatabaseTuning
-{
+public class DatabaseTuning {
 	private static Logger _log = LoggerFactory.getLogger(DatabaseTuning.class.getName());
 
 	// TODO сделать так, чтобы все нужные таблицы сами находились.
@@ -39,44 +37,37 @@ public class DatabaseTuning
 	private static final String AUTH_SERVER_TABLES_CHECK_QUERY = "CHECK TABLE " + AUTH_SERVER_TABLES;
 	private static final String AUTH_SERVER_TABLES_REPAIR_QUERY = "REPAIR TABLE " + AUTH_SERVER_TABLES;
 
-	public static void start()
-	{
+	public static void start() {
 		_log.info("Start tuning database...");
 
 		for (final DatabaseTuningType tuningType : DatabaseTuningType.values())
 			tuningType.tune();
 	}
 
-	private enum DatabaseTuningType
-	{
+	private enum DatabaseTuningType {
 		OPTIMIZE(GAME_SERVER_TABLES_OPTIMIZE_QUERY, AUTH_SERVER_TABLES_OPTIMIZE_QUERY), CHECK(GAME_SERVER_TABLES_CHECK_QUERY, AUTH_SERVER_TABLES_CHECK_QUERY), REPAIR(GAME_SERVER_TABLES_REPAIR_QUERY, AUTH_SERVER_TABLES_REPAIR_QUERY);
 
 		private final String gameServerQuery;
 		private final String authServerQuery;
 
-		DatabaseTuningType(final String gameServerQuery, final String authServerQuery)
-		{
+		DatabaseTuningType(final String gameServerQuery, final String authServerQuery) {
 			this.gameServerQuery = gameServerQuery;
 			this.authServerQuery = authServerQuery;
 		}
 
-		void tune()
-		{
-			try (Connection con = DatabaseFactory.getConnection())
-			{
+		void tune() {
+			try (Connection con = DatabaseFactory.getConnection()) {
 				PreparedStatement statement;
 
-				if (ServerType.serverMode == ServerType.MODE_GAMESERVER)
+				if (ServerType.SERVER_TYPE == ServerType.GAMESERVER)
 					statement = con.prepareStatement(gameServerQuery);
-				else if (ServerType.serverMode == ServerType.MODE_LOGINSERVER)
+				else if (ServerType.SERVER_TYPE == ServerType.AUTHSERVER)
 					statement = con.prepareStatement(authServerQuery);
 				else
 					return;
 
 				statement.execute();
-			}
-			catch (SQLException e)
-			{
+			} catch (SQLException e) {
 				_log.info("Tuning failed." + e.getLocalizedMessage());
 			}
 		}

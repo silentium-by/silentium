@@ -7,15 +7,8 @@
  */
 package silentium.gameserver;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.util.Calendar;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import silentium.commons.ServerType;
 import silentium.commons.database.DatabaseFactory;
 import silentium.commons.database.DatabaseTuning;
@@ -34,21 +27,10 @@ import silentium.gameserver.data.xml.*;
 import silentium.gameserver.data.xml.parsers.XMLDocumentFactory;
 import silentium.gameserver.geo.GeoData;
 import silentium.gameserver.geo.pathfinding.PathFinding;
-import silentium.gameserver.handler.AdminCommandHandler;
-import silentium.gameserver.handler.ChatHandler;
-import silentium.gameserver.handler.ItemHandler;
-import silentium.gameserver.handler.SkillHandler;
-import silentium.gameserver.handler.UserCommandHandler;
-import silentium.gameserver.handler.VoicedCommandHandler;
+import silentium.gameserver.handler.*;
 import silentium.gameserver.idfactory.IdFactory;
 import silentium.gameserver.instancemanager.*;
-import silentium.gameserver.model.AutoChatHandler;
-import silentium.gameserver.model.AutoSpawnHandler;
-import silentium.gameserver.model.L2Manor;
-import silentium.gameserver.model.L2Multisell;
-import silentium.gameserver.model.L2World;
-import silentium.gameserver.model.PartyMatchRoomList;
-import silentium.gameserver.model.PartyMatchWaitingList;
+import silentium.gameserver.model.*;
 import silentium.gameserver.model.entity.Hero;
 import silentium.gameserver.model.entity.MonsterRace;
 import silentium.gameserver.model.entity.TvTManager;
@@ -59,19 +41,17 @@ import silentium.gameserver.model.olympiad.OlympiadGameManager;
 import silentium.gameserver.network.L2GameClient;
 import silentium.gameserver.network.L2GamePacketHandler;
 import silentium.gameserver.scripting.L2ScriptEngineManager;
-import silentium.gameserver.tables.CharNameTable;
-import silentium.gameserver.tables.ClanTable;
-import silentium.gameserver.tables.GmListTable;
-import silentium.gameserver.tables.ItemTable;
-import silentium.gameserver.tables.NpcTable;
-import silentium.gameserver.tables.PetDataTable;
-import silentium.gameserver.tables.SkillTable;
-import silentium.gameserver.tables.SpawnTable;
+import silentium.gameserver.tables.*;
 import silentium.gameserver.taskmanager.KnownListUpdateTaskManager;
 import silentium.gameserver.taskmanager.TaskManager;
 
-public class GameServer
-{
+import java.io.File;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.Calendar;
+
+public class GameServer {
 	private static final Logger _log = LoggerFactory.getLogger(GameServer.class.getName());
 
 	private final SelectorThread<L2GameClient> _selectorThread;
@@ -81,13 +61,11 @@ public class GameServer
 	private final LoginServerThread _loginThread;
 	public static final Calendar dateTimeServerStarted = Calendar.getInstance();
 
-	public SelectorThread<L2GameClient> getSelectorThread()
-	{
+	public SelectorThread<L2GameClient> getSelectorThread() {
 		return _selectorThread;
 	}
 
-	public GameServer() throws Exception
-	{
+	public GameServer() throws Exception {
 		gameServer = this;
 
 		IdFactory.getInstance();
@@ -235,15 +213,12 @@ public class GameServer
 		KnownListUpdateTaskManager.getInstance();
 		MovieMakerManager.getInstance();
 
-		if (MainConfig.DEADLOCK_DETECTOR)
-		{
+		if (MainConfig.DEADLOCK_DETECTOR) {
 			_log.info("Deadlock detector is enabled. Timer: " + MainConfig.DEADLOCK_CHECK_INTERVAL + "s.");
 			_deadDetectThread = new DeadLockDetector(MainConfig.DEADLOCK_CHECK_INTERVAL);
 			_deadDetectThread.setDaemon(true);
 			_deadDetectThread.start();
-		}
-		else
-		{
+		} else {
 			_log.info("Deadlock detector is disabled.");
 			_deadDetectThread = null;
 		}
@@ -267,33 +242,25 @@ public class GameServer
 		_selectorThread = new SelectorThread<>(sc, _gamePacketHandler, _gamePacketHandler, _gamePacketHandler, new IPv4Filter());
 
 		InetAddress bindAddress = null;
-		if (!MainConfig.GAMESERVER_HOSTNAME.equals("*"))
-		{
-			try
-			{
+		if (!MainConfig.GAMESERVER_HOSTNAME.equals("*")) {
+			try {
 				bindAddress = InetAddress.getByName(MainConfig.GAMESERVER_HOSTNAME);
-			}
-			catch (UnknownHostException e1)
-			{
+			} catch (UnknownHostException e1) {
 				_log.error("WARNING: The GameServer bind address is invalid, using all available IPs. Reason: " + e1.getMessage(), e1);
 			}
 		}
 
-		try
-		{
+		try {
 			_selectorThread.openServerSocket(bindAddress, MainConfig.PORT_GAME);
-		}
-		catch (IOException e)
-		{
+		} catch (IOException e) {
 			_log.error("FATAL: Failed to open server socket. Reason: " + e.getMessage(), e);
 			System.exit(1);
 		}
 		_selectorThread.start();
 	}
 
-	public static void main(String[] args) throws Exception
-	{
-		ServerType.serverMode = ServerType.MODE_GAMESERVER;
+	public static void main(String[] args) throws Exception {
+		ServerType.SERVER_TYPE = ServerType.GAMESERVER;
 
 		// Create log folder
 		final File logFolder = new File("./log");

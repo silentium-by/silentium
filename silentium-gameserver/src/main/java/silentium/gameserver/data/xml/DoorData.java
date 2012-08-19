@@ -8,16 +8,11 @@
 package silentium.gameserver.data.xml;
 
 import gnu.trove.map.hash.TIntObjectHashMap;
-
-import java.io.File;
-import java.util.ArrayList;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
-
 import silentium.gameserver.configs.MainConfig;
 import silentium.gameserver.data.xml.parsers.XMLDocumentFactory;
 import silentium.gameserver.geo.pathfinding.AbstractNodeLoc;
@@ -30,20 +25,20 @@ import silentium.gameserver.model.entity.ClanHall;
 import silentium.gameserver.templates.StatsSet;
 import silentium.gameserver.templates.chars.L2CharTemplate;
 
-public class DoorData
-{
+import java.io.File;
+import java.util.ArrayList;
+
+public class DoorData {
 	private static final Logger _log = LoggerFactory.getLogger(DoorData.class.getName());
 
 	private final TIntObjectHashMap<L2DoorInstance> _staticItems;
 	private final TIntObjectHashMap<ArrayList<L2DoorInstance>> _regions;
 
-	public static DoorData getInstance()
-	{
+	public static DoorData getInstance() {
 		return SingletonHolder._instance;
 	}
 
-	protected DoorData()
-	{
+	protected DoorData() {
 		_staticItems = new TIntObjectHashMap<>();
 		_regions = new TIntObjectHashMap<>();
 
@@ -51,18 +46,15 @@ public class DoorData
 		onStart();
 	}
 
-	public void reload()
-	{
+	public void reload() {
 		_staticItems.clear();
 		_regions.clear();
 
 		parseData();
 	}
 
-	public void parseData()
-	{
-		try
-		{
+	public void parseData() {
+		try {
 			File f = new File(MainConfig.DATAPACK_ROOT + "/data/xml/doors.xml");
 			Document doc = XMLDocumentFactory.getInstance().loadDocument(f);
 
@@ -81,20 +73,15 @@ public class DoorData
 			boolean unlockable = false;
 			int collisionRadius = 0;
 
-			for (Node n = doc.getFirstChild(); n != null; n = n.getNextSibling())
-			{
-				if ("list".equalsIgnoreCase(n.getNodeName()))
-				{
-					for (Node d = n.getFirstChild(); d != null; d = d.getNextSibling())
-					{
-						if (d.getNodeName().equalsIgnoreCase("door"))
-						{
+			for (Node n = doc.getFirstChild(); n != null; n = n.getNextSibling()) {
+				if ("list".equalsIgnoreCase(n.getNodeName())) {
+					for (Node d = n.getFirstChild(); d != null; d = d.getNextSibling()) {
+						if (d.getNodeName().equalsIgnoreCase("door")) {
 							attrs = d.getAttributes();
 
 							// Verify if the door got an id, else skip it
 							att = attrs.getNamedItem("id");
-							if (att == null)
-							{
+							if (att == null) {
 								_log.error("DoorData: Missing id for door, skipping.");
 								continue;
 							}
@@ -102,49 +89,35 @@ public class DoorData
 
 							// Verify if the door got a name, else skip it
 							att = attrs.getNamedItem("name");
-							if (att == null)
-							{
+							if (att == null) {
 								_log.error("DoorData: Missing name for door id: " + id + ", skipping.");
 								continue;
 							}
 							name = String.valueOf(att.getNodeValue());
 
-							for (Node c = d.getFirstChild(); c != null; c = c.getNextSibling())
-							{
+							for (Node c = d.getFirstChild(); c != null; c = c.getNextSibling()) {
 								attrs = c.getAttributes();
-								if ("castle".equalsIgnoreCase(c.getNodeName()))
-								{
+								if ("castle".equalsIgnoreCase(c.getNodeName())) {
 									castleId = Integer.valueOf(attrs.getNamedItem("id").getNodeValue());
-								}
-								else if ("siegableclanhall".equalsIgnoreCase(c.getNodeName()))
-								{
+								} else if ("siegableclanhall".equalsIgnoreCase(c.getNodeName())) {
 									// FIXME sChId = Integer.valueOf(attrs.getNamedItem("id").getNodeValue());
-								}
-								else if ("position".equalsIgnoreCase(c.getNodeName()))
-								{
+								} else if ("position".equalsIgnoreCase(c.getNodeName())) {
 									x = Integer.valueOf(attrs.getNamedItem("x").getNodeValue());
 									y = Integer.valueOf(attrs.getNamedItem("y").getNodeValue());
 									z = Integer.valueOf(attrs.getNamedItem("z").getNodeValue());
-								}
-								else if ("minpos".equalsIgnoreCase(c.getNodeName()))
-								{
+								} else if ("minpos".equalsIgnoreCase(c.getNodeName())) {
 									rangeXMin = Integer.valueOf(attrs.getNamedItem("x").getNodeValue());
 									rangeYMin = Integer.valueOf(attrs.getNamedItem("y").getNodeValue());
 									rangeZMin = Integer.valueOf(attrs.getNamedItem("z").getNodeValue());
-								}
-								else if ("maxpos".equalsIgnoreCase(c.getNodeName()))
-								{
+								} else if ("maxpos".equalsIgnoreCase(c.getNodeName())) {
 									rangeXMax = Integer.valueOf(attrs.getNamedItem("x").getNodeValue());
 									rangeYMax = Integer.valueOf(attrs.getNamedItem("y").getNodeValue());
 									rangeZMax = Integer.valueOf(attrs.getNamedItem("z").getNodeValue());
-								}
-								else if ("stats".equalsIgnoreCase(c.getNodeName()))
-								{
+								} else if ("stats".equalsIgnoreCase(c.getNodeName())) {
 									hp = Integer.valueOf(attrs.getNamedItem("hp").getNodeValue());
 									pdef = Integer.valueOf(attrs.getNamedItem("pdef").getNodeValue());
 									mdef = Integer.valueOf(attrs.getNamedItem("mdef").getNodeValue());
-								}
-								else if ("unlockable".equalsIgnoreCase(c.getNodeName()))
+								} else if ("unlockable".equalsIgnoreCase(c.getNodeName()))
 									unlockable = Boolean.valueOf(attrs.getNamedItem("val").getNodeValue());
 							}
 
@@ -213,11 +186,9 @@ public class DoorData
 							door.setOpen(false);
 
 							// Attach door to a castle if a castleId is found
-							if (castleId > 0)
-							{
+							if (castleId > 0) {
 								Castle castle = CastleManager.getInstance().getCastleById(castleId);
-								if (castle != null)
-								{
+								if (castle != null) {
 									// Set the door as a wall if door name contains "wall".
 									if (name.contains("wall"))
 										door.setIsWall(true);
@@ -230,8 +201,7 @@ public class DoorData
 
 							// Test door, and attach it to a CH if a CH is found near
 							ClanHall clanhall = ClanHallManager.getInstance().getNearbyClanHall(door.getX(), door.getY(), 500);
-							if (clanhall != null)
-							{
+							if (clanhall != null) {
 								clanhall.getDoors().add(door); // Add the door to CH doors list.
 								door.setClanHall(clanhall);
 
@@ -246,83 +216,70 @@ public class DoorData
 			}
 
 			_log.info("DoorData: Loaded " + _staticItems.size() + " doors templates for " + _regions.size() + " regions.");
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			_log.warn("DoorData: Error while creating table: " + e);
 		}
 	}
 
-	public L2DoorInstance getDoor(Integer id)
-	{
+	public L2DoorInstance getDoor(Integer id) {
 		return _staticItems.get(id);
 	}
 
-	public void putDoor(L2DoorInstance door)
-	{
+	public void putDoor(L2DoorInstance door) {
 		_staticItems.put(door.getDoorId(), door);
 
 		if (_regions.contains(door.getMapRegion()))
 			_regions.get(door.getMapRegion()).add(door);
-		else
-		{
+		else {
 			final ArrayList<L2DoorInstance> region = new ArrayList<>();
 			region.add(door);
 			_regions.put(door.getMapRegion(), region);
 		}
 	}
 
-	public L2DoorInstance[] getDoors()
-	{
+	public L2DoorInstance[] getDoors() {
 		return _staticItems.values(new L2DoorInstance[0]);
 	}
 
 	/**
 	 * Performs a check and sets up a scheduled task for those doors that require auto opening/closing.
 	 */
-	public void checkAutoOpen()
-	{
+	public void checkAutoOpen() {
 		for (L2DoorInstance doorInst : getDoors())
 			// Garden of Eva (every 7 minutes)
 			if (doorInst.getDoorName().startsWith("Eva"))
 				doorInst.setAutoActionDelay(420000);
 
-			// Tower of Insolence (every 5 minutes)
+				// Tower of Insolence (every 5 minutes)
 			else if (doorInst.getDoorName().startsWith("hubris"))
 				doorInst.setAutoActionDelay(300000);
 	}
 
-	public boolean checkIfDoorsBetween(AbstractNodeLoc start, AbstractNodeLoc end)
-	{
+	public boolean checkIfDoorsBetween(AbstractNodeLoc start, AbstractNodeLoc end) {
 		return checkIfDoorsBetween(start.getX(), start.getY(), start.getZ(), end.getX(), end.getY(), end.getZ());
 	}
 
-	public boolean checkIfDoorsBetween(int x, int y, int z, int tx, int ty, int tz)
-	{
+	public boolean checkIfDoorsBetween(int x, int y, int z, int tx, int ty, int tz) {
 		ArrayList<L2DoorInstance> allDoors;
 
 		allDoors = _regions.get(MapRegionData.getInstance().getMapRegion(x, y));
 		if (allDoors == null)
 			return false;
 
-		for (L2DoorInstance doorInst : allDoors)
-		{
+		for (L2DoorInstance doorInst : allDoors) {
 			if (doorInst.getXMax() == 0)
 				continue;
 
 			// line segment goes through box
 			// first basic checks to stop most calculations short
 			// phase 1, x
-			if ((x <= doorInst.getXMax() && tx >= doorInst.getXMin()) || (tx <= doorInst.getXMax() && x >= doorInst.getXMin()))
-			{
+			if ((x <= doorInst.getXMax() && tx >= doorInst.getXMin()) || (tx <= doorInst.getXMax() && x >= doorInst.getXMin())) {
 				// phase 2, y
-				if ((y <= doorInst.getYMax() && ty >= doorInst.getYMin()) || (ty <= doorInst.getYMax() && y >= doorInst.getYMin()))
-				{
+				if ((y <= doorInst.getYMax() && ty >= doorInst.getYMin()) || (ty <= doorInst.getYMax() && y >= doorInst.getYMin())) {
 					// phase 3, basically only z remains but now we calculate it with another formula (by rage)
 					// in some cases the direct line check (only) in the beginning isn't sufficient,
 					// when char z changes a lot along the path
-					if (doorInst.getCurrentHp() > 0 && !doorInst.getOpen())
-					{
+					if (doorInst.getCurrentHp() > 0 && !doorInst.getOpen()) {
 						int px1 = doorInst.getXMin();
 						int py1 = doorInst.getYMin();
 						int pz1 = doorInst.getZMin();
@@ -345,8 +302,7 @@ public class DoorData
 						int fy = (int) (y - m * p);
 						int fz = (int) (z - n * p);
 
-						if ((Math.min(x, tx) <= fx && fx <= Math.max(x, tx)) && (Math.min(y, ty) <= fy && fy <= Math.max(y, ty)) && (Math.min(z, tz) <= fz && fz <= Math.max(z, tz)))
-						{
+						if ((Math.min(x, tx) <= fx && fx <= Math.max(x, tx)) && (Math.min(y, ty) <= fy && fy <= Math.max(y, ty)) && (Math.min(z, tz) <= fz && fz <= Math.max(z, tz))) {
 							if (((fx >= px1 && fx <= px2) || (fx >= px2 && fx <= px1)) && ((fy >= py1 && fy <= py2) || (fy >= py2 && fy <= py1)) && ((fz >= pz1 && fz <= pz2) || (fz >= pz2 && fz <= pz1)))
 								return true; // Door between
 						}
@@ -357,10 +313,8 @@ public class DoorData
 		return false;
 	}
 
-	public void onStart()
-	{
-		try
-		{
+	public void onStart() {
+		try {
 			// Open following doors at server start: coliseums, ToI - RB Area Doors
 			getDoor(24190001).openMe();
 			getDoor(24190002).openMe();
@@ -375,15 +329,12 @@ public class DoorData
 
 			// Schedules a task to automatically open/close doors
 			checkAutoOpen();
-		}
-		catch (NullPointerException e)
-		{
-			_log.warn("There are errors in your Door.csv file. Please update door.csv", e);
+		} catch (NullPointerException e) {
+			_log.warn("There are errors in your doors.xml file. Please update doors.xml", e);
 		}
 	}
 
-	private static class SingletonHolder
-	{
+	private static class SingletonHolder {
 		protected static final DoorData _instance = new DoorData();
 	}
 }

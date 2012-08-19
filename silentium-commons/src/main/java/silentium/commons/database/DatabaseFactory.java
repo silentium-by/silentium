@@ -18,19 +18,16 @@ import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class DatabaseFactory
-{
+public class DatabaseFactory {
 	private static final Logger log = LoggerFactory.getLogger(DatabaseFactory.class);
 
 	private static BoneCP connectionPool;
 
-	public static void init()
-	{
+	public static void init() {
 		final File configFile = new File("./config/database-config.xml");
 
-		try (FileInputStream fis = new FileInputStream(configFile))
-		{
-			final BoneCPConfig config = new BoneCPConfig(fis, getSectionName());
+		try (FileInputStream fis = new FileInputStream(configFile)) {
+			final BoneCPConfig config = new BoneCPConfig(fis, ServerType.SERVER_TYPE.name().toLowerCase());
 
 			log.info("DatabaseFactory: jdbc url '{}'.", config.getJdbcUrl());
 			log.info("DatabaseFactory: user name '{}'.", config.getUsername());
@@ -40,38 +37,22 @@ public class DatabaseFactory
 
 			// Test the connection
 			connectionPool.getConnection().close();
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			throw new Error("DatabaseFactory: Failed to init database connections: " + e.getMessage(), e);
 		}
 	}
 
-	private static String getSectionName()
-	{
-		if (ServerType.serverMode == ServerType.MODE_GAMESERVER)
-			return "gameserver";
-
-		return "authserver";
-	}
-
-	public static void shutdown()
-	{
+	public static void shutdown() {
 		connectionPool.shutdown();
 	}
 
-	public static Connection getConnection()
-	{
+	public static Connection getConnection() {
 		Connection con = null;
 
-		while (con == null)
-		{
-			try
-			{
+		while (con == null) {
+			try {
 				con = connectionPool.getConnection();
-			}
-			catch (SQLException e)
-			{
+			} catch (SQLException e) {
 				log.warn("DatabaseFactory: getConnection() failed, trying again " + e.getMessage());
 			}
 		}
