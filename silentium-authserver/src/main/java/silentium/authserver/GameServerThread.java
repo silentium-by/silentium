@@ -18,10 +18,7 @@ import silentium.authserver.network.serverpackets.ServerBasePacket;
 import silentium.commons.crypt.NewCrypt;
 import silentium.commons.utils.Util;
 
-import java.io.BufferedOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -348,7 +345,7 @@ public class GameServerThread extends Thread {
 		_connection = con;
 		_connectionIp = con.getInetAddress().getHostAddress();
 		try {
-			_in = _connection.getInputStream();
+			_in = new BufferedInputStream(_connection.getInputStream());
 			_out = new BufferedOutputStream(_connection.getOutputStream());
 		} catch (IOException e) {
 			e.printStackTrace();

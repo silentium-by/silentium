@@ -13,8 +13,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import silentium.commons.ServerType;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -26,8 +28,9 @@ public class DatabaseFactory {
 	public static void init() {
 		final File configFile = new File("./config/database-config.xml");
 
-		try (FileInputStream fis = new FileInputStream(configFile)) {
-			final BoneCPConfig config = new BoneCPConfig(fis, ServerType.SERVER_TYPE.name().toLowerCase());
+		try (FileInputStream fis = new FileInputStream(configFile); InputStream bis =
+				new BufferedInputStream(fis)) {
+			final BoneCPConfig config = new BoneCPConfig(bis, ServerType.SERVER_TYPE.name().toLowerCase());
 
 			log.info("DatabaseFactory: jdbc url '{}'.", config.getJdbcUrl());
 			log.info("DatabaseFactory: user name '{}'.", config.getUsername());

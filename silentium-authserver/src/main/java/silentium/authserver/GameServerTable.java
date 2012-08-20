@@ -17,6 +17,7 @@ import silentium.authserver.network.gameserverpackets.ServerStatus;
 import silentium.commons.database.DatabaseFactory;
 import silentium.commons.utils.Rnd;
 
+import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.math.BigInteger;
@@ -71,13 +72,14 @@ public class GameServerTable {
 	}
 
 	private static void loadServerNames() {
-		try (InputStream in = new FileInputStream("./config/servername.xml")) {
+		try (InputStream in = new FileInputStream("./config/servername.xml"); InputStream bis =
+				new BufferedInputStream(in)) {
 			final XMLStreamReaderImpl xpp = new XMLStreamReaderImpl();
-			xpp.setInput(new UTF8StreamReader().setInput(in));
+			xpp.setInput(new UTF8StreamReader().setInput(bis));
 			for (int e = xpp.getEventType(); e != XMLStreamConstants.END_DOCUMENT; e = xpp.next()) {
 				if (e == XMLStreamConstants.START_ELEMENT) {
 					if ("server".equals(xpp.getLocalName().toString())) {
-						final Integer id = new Integer(xpp.getAttributeValue(null, "id").toString());
+						final int id = Integer.parseInt(xpp.getAttributeValue(null, "id").toString());
 						final String name = xpp.getAttributeValue(null, "name").toString();
 						_serverNames.put(id, name);
 					}

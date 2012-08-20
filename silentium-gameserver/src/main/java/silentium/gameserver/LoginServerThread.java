@@ -7,10 +7,25 @@
  */
 package silentium.gameserver;
 
-import java.io.BufferedOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import javolution.util.FastList;
+import javolution.util.FastMap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import silentium.commons.crypt.NewCrypt;
+import silentium.commons.utils.Rnd;
+import silentium.commons.utils.Util;
+import silentium.gameserver.configs.HexidConfig;
+import silentium.gameserver.configs.MainConfig;
+import silentium.gameserver.model.L2World;
+import silentium.gameserver.model.actor.instance.L2PcInstance;
+import silentium.gameserver.network.L2GameClient;
+import silentium.gameserver.network.L2GameClient.GameClientState;
+import silentium.gameserver.network.gameserverpackets.*;
+import silentium.gameserver.network.loginserverpackets.*;
+import silentium.gameserver.network.serverpackets.AuthLoginFail;
+import silentium.gameserver.network.serverpackets.CharSelectInfo;
+
+import java.io.*;
 import java.math.BigInteger;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -23,39 +38,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import javolution.util.FastList;
-import javolution.util.FastMap;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import silentium.commons.crypt.NewCrypt;
-import silentium.commons.utils.Rnd;
-import silentium.commons.utils.Util;
-import silentium.gameserver.configs.HexidConfig;
-import silentium.gameserver.configs.MainConfig;
-import silentium.gameserver.model.L2World;
-import silentium.gameserver.model.actor.instance.L2PcInstance;
-import silentium.gameserver.network.L2GameClient;
-import silentium.gameserver.network.L2GameClient.GameClientState;
-import silentium.gameserver.network.gameserverpackets.AuthRequest;
-import silentium.gameserver.network.gameserverpackets.BlowFishKey;
-import silentium.gameserver.network.gameserverpackets.ChangeAccessLevel;
-import silentium.gameserver.network.gameserverpackets.GameServerBasePacket;
-import silentium.gameserver.network.gameserverpackets.PlayerAuthRequest;
-import silentium.gameserver.network.gameserverpackets.PlayerInGame;
-import silentium.gameserver.network.gameserverpackets.PlayerLogout;
-import silentium.gameserver.network.gameserverpackets.ServerStatus;
-import silentium.gameserver.network.loginserverpackets.AuthResponse;
-import silentium.gameserver.network.loginserverpackets.InitLS;
-import silentium.gameserver.network.loginserverpackets.KickPlayer;
-import silentium.gameserver.network.loginserverpackets.LoginServerFail;
-import silentium.gameserver.network.loginserverpackets.PlayerAuthResponse;
-import silentium.gameserver.network.serverpackets.AuthLoginFail;
-import silentium.gameserver.network.serverpackets.CharSelectInfo;
-
-public class LoginServerThread extends Thread
-{
+public class LoginServerThread extends Thread {
 	protected static final Logger _log = LoggerFactory.getLogger(LoginServerThread.class.getName());
 
 	private static final int REVISION = 0x0102;
@@ -91,20 +74,16 @@ public class LoginServerThread extends Thread
 	private final String _gameExternalHost;
 	private final String _gameInternalHost;
 
-	protected LoginServerThread()
-	{
+	protected LoginServerThread() {
 		super("LoginServerThread");
 		_port = MainConfig.GAME_SERVER_LOGIN_PORT;
 		_gamePort = MainConfig.PORT_GAME;
 		_hostname = MainConfig.GAME_SERVER_LOGIN_HOST;
 		_hexID = HexidConfig.HEX_ID;
-		if (_hexID == null)
-		{
+		if (_hexID == null) {
 			_requestID = MainConfig.REQUEST_ID;
 			_hexID = generateHex(16);
-		}
-		else
-		{
+		} else {
 			_requestID = HexidConfig.SERVER_ID;
 		}
 		_acceptAlternate = MainConfig.ACCEPT_ALTERNATE_ID;
@@ -116,39 +95,33 @@ public class LoginServerThread extends Thread
 		_maxPlayer = MainConfig.MAXIMUM_ONLINE_USERS;
 	}
 
-	public static LoginServerThread getInstance()
-	{
+	public static LoginServerThread getInstance() {
 		return SingletonHolder._instance;
 	}
 
 	@Override
-	public void run()
-	{
-		while (!isInterrupted())
-		{
+	public void run() {
+		while (!isInterrupted()) {
 			int lengthHi = 0;
 			int lengthLo = 0;
 			int length = 0;
 			boolean checksumOk = false;
-			try
-			{
+			try {
 				// Connection
 				_log.info("Connecting to login on " + _hostname + ":" + _port);
 				_loginSocket = new Socket(_hostname, _port);
-				_in = _loginSocket.getInputStream();
+				_in = new BufferedInputStream(_loginSocket.getInputStream());
 				_out = new BufferedOutputStream(_loginSocket.getOutputStream());
 
 				// init Blowfish
 				_blowfishKey = generateHex(40);
 				_blowfish = new NewCrypt("_;v.]05-31!|+-%xT!^[$\00");
-				while (!isInterrupted())
-				{
+				while (!isInterrupted()) {
 					lengthLo = _in.read();
 					lengthHi = _in.read();
 					length = lengthHi * 256 + lengthLo;
 
-					if (lengthHi < 0)
-					{
+					if (lengthHi < 0) {
 						_log.trace("LoginServerThread: Login terminated the connection.");
 						break;
 					}
@@ -159,15 +132,13 @@ public class LoginServerThread extends Thread
 					int newBytes = 0;
 					int left = length - 2;
 
-					while (newBytes != -1 && receivedBytes < length - 2)
-					{
+					while (newBytes != -1 && receivedBytes < length - 2) {
 						newBytes = _in.read(incoming, receivedBytes, left);
 						receivedBytes = receivedBytes + newBytes;
 						left -= newBytes;
 					}
 
-					if (receivedBytes != length - 2)
-					{
+					if (receivedBytes != length - 2) {
 						_log.warn("Incomplete Packet is sent to the server, closing connection.(LS)");
 						break;
 					}
@@ -176,8 +147,7 @@ public class LoginServerThread extends Thread
 					byte[] decrypt = _blowfish.decrypt(incoming);
 					checksumOk = NewCrypt.verifyChecksum(decrypt);
 
-					if (!checksumOk)
-					{
+					if (!checksumOk) {
 						_log.warn("Incorrect packet checksum, ignoring packet (LS)");
 						break;
 					}
@@ -185,28 +155,23 @@ public class LoginServerThread extends Thread
 					_log.debug("[C]\n" + Util.printData(decrypt));
 
 					int packetType = decrypt[0] & 0xff;
-					switch (packetType)
-					{
+					switch (packetType) {
 						case 0x00:
 							InitLS init = new InitLS(decrypt);
 							_log.debug("Init received");
 
-							if (init.getRevision() != REVISION)
-							{
+							if (init.getRevision() != REVISION) {
 								_log.warn("/!\\ Revision mismatch between LS and GS /!\\");
 								break;
 							}
 
-							try
-							{
+							try {
 								KeyFactory kfac = KeyFactory.getInstance("RSA");
 								BigInteger modulus = new BigInteger(init.getRSAKey());
 								RSAPublicKeySpec kspec1 = new RSAPublicKeySpec(modulus, RSAKeyGenParameterSpec.F4);
 								_publicKey = (RSAPublicKey) kfac.generatePublic(kspec1);
 								_log.debug("RSA key set up");
-							}
-							catch (GeneralSecurityException e)
-							{
+							} catch (GeneralSecurityException e) {
 								_log.warn("Troubles while init the public key send by login");
 								break;
 							}
@@ -259,8 +224,7 @@ public class LoginServerThread extends Thread
 								st.addAttribute(ServerStatus.SERVER_LIST_STATUS, ServerStatus.STATUS_AUTO);
 
 							sendPacket(st);
-							if (L2World.getInstance().getAllPlayersCount() > 0)
-							{
+							if (L2World.getInstance().getAllPlayersCount() > 0) {
 								FastList<String> playerList = new FastList<>();
 
 								Collection<L2PcInstance> pls = L2World.getInstance().getAllPlayers().values();
@@ -275,19 +239,15 @@ public class LoginServerThread extends Thread
 							PlayerAuthResponse par = new PlayerAuthResponse(decrypt);
 							String account = par.getAccount();
 							WaitingClient wcToRemove = null;
-							synchronized (_waitingClients)
-							{
-								for (WaitingClient wc : _waitingClients)
-								{
+							synchronized (_waitingClients) {
+								for (WaitingClient wc : _waitingClients) {
 									if (wc.account.equals(account))
 										wcToRemove = wc;
 								}
 							}
 
-							if (wcToRemove != null)
-							{
-								if (par.isAuthed())
-								{
+							if (wcToRemove != null) {
+								if (par.isAuthed()) {
 									_log.debug("Login accepted player " + wcToRemove.account + " waited(" + (GameTimeController.getGameTicks() - wcToRemove.timestamp) + "ms)");
 									PlayerInGame pig = new PlayerInGame(par.getAccount());
 									sendPacket(pig);
@@ -296,9 +256,7 @@ public class LoginServerThread extends Thread
 									CharSelectInfo cl = new CharSelectInfo(wcToRemove.account, wcToRemove.gameClient.getSessionId().playOkID1);
 									wcToRemove.gameClient.getConnection().sendPacket(cl);
 									wcToRemove.gameClient.setCharSelection(cl.getCharInfo());
-								}
-								else
-								{
+								} else {
 									_log.warn("Session key is not correct. closing connection");
 									wcToRemove.gameClient.getConnection().sendPacket(new AuthLoginFail(1));
 									wcToRemove.gameClient.closeNow();
@@ -312,67 +270,47 @@ public class LoginServerThread extends Thread
 							break;
 					}
 				}
-			}
-			catch (UnknownHostException e)
-			{
+			} catch (UnknownHostException e) {
 				_log.debug(e.getLocalizedMessage(), e);
-			}
-			catch (IOException e)
-			{
+			} catch (IOException e) {
 				_log.info("No connection found with loginserver, next try in 10 seconds.");
-			}
-			finally
-			{
-				try
-				{
+			} finally {
+				try {
 					_loginSocket.close();
 					if (isInterrupted())
 						return;
-				}
-				catch (Exception e)
-				{
+				} catch (Exception e) {
 				}
 			}
 
 			// 10 seconds tempo before another try
-			try
-			{
+			try {
 				Thread.sleep(10000);
-			}
-			catch (InterruptedException e)
-			{
+			} catch (InterruptedException e) {
 			}
 		}
 	}
 
-	public void addWaitingClientAndSendRequest(String acc, L2GameClient client, SessionKey key)
-	{
+	public void addWaitingClientAndSendRequest(String acc, L2GameClient client, SessionKey key) {
 		_log.debug(String.valueOf(key));
 
 		WaitingClient wc = new WaitingClient(acc, client, key);
-		synchronized (_waitingClients)
-		{
+		synchronized (_waitingClients) {
 			_waitingClients.add(wc);
 		}
 		PlayerAuthRequest par = new PlayerAuthRequest(acc, key);
 
-		try
-		{
+		try {
 			sendPacket(par);
-		}
-		catch (IOException e)
-		{
+		} catch (IOException e) {
 			_log.warn("Error while sending player auth request.", e);
 		}
 	}
 
-	public void removeWaitingClient(L2GameClient client)
-	{
+	public void removeWaitingClient(L2GameClient client) {
 		WaitingClient toRemove = null;
-		synchronized (_waitingClients)
-		{
-			for (WaitingClient c : _waitingClients)
-			{
+		synchronized (_waitingClients) {
+			for (WaitingClient c : _waitingClients) {
 				if (c.gameClient == client)
 					toRemove = c;
 			}
@@ -382,60 +320,45 @@ public class LoginServerThread extends Thread
 		}
 	}
 
-	public void sendLogout(String account)
-	{
+	public void sendLogout(String account) {
 		if (account == null)
 			return;
 
 		PlayerLogout pl = new PlayerLogout(account);
-		try
-		{
+		try {
 			sendPacket(pl);
-		}
-		catch (IOException e)
-		{
+		} catch (IOException e) {
 			_log.warn("Error while sending logout packet to login.", e);
-		}
-		finally
-		{
+		} finally {
 			_accountsInGameServer.remove(account);
 		}
 	}
 
-	public void addGameServerLogin(String account, L2GameClient client)
-	{
+	public void addGameServerLogin(String account, L2GameClient client) {
 		_accountsInGameServer.put(account, client);
 	}
 
-	public void sendAccessLevel(String account, int level)
-	{
+	public void sendAccessLevel(String account, int level) {
 		ChangeAccessLevel cal = new ChangeAccessLevel(account, level);
-		try
-		{
+		try {
 			sendPacket(cal);
-		}
-		catch (IOException e)
-		{
+		} catch (IOException e) {
 			_log.warn(e.getLocalizedMessage(), e);
 		}
 	}
 
-	private static String hexToString(byte[] hex)
-	{
+	private static String hexToString(byte[] hex) {
 		return new BigInteger(hex).toString(16);
 	}
 
-	public void doKickPlayer(String account)
-	{
-		if (_accountsInGameServer.get(account) != null)
-		{
+	public void doKickPlayer(String account) {
+		if (_accountsInGameServer.get(account) != null) {
 			_accountsInGameServer.get(account).closeNow();
 			LoginServerThread.getInstance().sendLogout(account);
 		}
 	}
 
-	public static byte[] generateHex(int size)
-	{
+	public static byte[] generateHex(int size) {
 		byte[] array = new byte[size];
 		Rnd.nextBytes(array);
 
@@ -444,8 +367,7 @@ public class LoginServerThread extends Thread
 		return array;
 	}
 
-	private void sendPacket(GameServerBasePacket sl) throws IOException
-	{
+	private void sendPacket(GameServerBasePacket sl) throws IOException {
 		byte[] data = sl.getContent();
 		NewCrypt.appendChecksum(data);
 
@@ -463,55 +385,43 @@ public class LoginServerThread extends Thread
 		}
 	}
 
-	public void setMaxPlayer(int maxPlayer)
-	{
+	public void setMaxPlayer(int maxPlayer) {
 		sendServerStatus(ServerStatus.MAX_PLAYERS, maxPlayer);
 		_maxPlayer = maxPlayer;
 	}
 
-	public int getMaxPlayer()
-	{
+	public int getMaxPlayer() {
 		return _maxPlayer;
 	}
 
-	public void sendServerStatus(int id, int value)
-	{
+	public void sendServerStatus(int id, int value) {
 		ServerStatus ss = new ServerStatus();
 		ss.addAttribute(id, value);
-		try
-		{
+		try {
 			sendPacket(ss);
-		}
-		catch (IOException e)
-		{
+		} catch (IOException e) {
 			_log.warn(e.getLocalizedMessage(), e);
 		}
 	}
 
-	public String getStatusString()
-	{
+	public String getStatusString() {
 		return ServerStatus.STATUS_STRING[_status];
 	}
 
-	public boolean isClockShown()
-	{
+	public boolean isClockShown() {
 		return MainConfig.SERVER_LIST_CLOCK;
 	}
 
-	public boolean isBracketShown()
-	{
+	public boolean isBracketShown() {
 		return MainConfig.SERVER_LIST_BRACKET;
 	}
 
-	public String getServerName()
-	{
+	public String getServerName() {
 		return _serverName;
 	}
 
-	public void setServerStatus(int status)
-	{
-		switch (status)
-		{
+	public void setServerStatus(int status) {
+		switch (status) {
 			case ServerStatus.STATUS_AUTO:
 				sendServerStatus(ServerStatus.SERVER_LIST_STATUS, ServerStatus.STATUS_AUTO);
 				_status = status;
@@ -541,15 +451,13 @@ public class LoginServerThread extends Thread
 		}
 	}
 
-	public static class SessionKey
-	{
+	public static class SessionKey {
 		public int playOkID1;
 		public int playOkID2;
 		public int loginOkID1;
 		public int loginOkID2;
 
-		public SessionKey(int loginOK1, int loginOK2, int playOK1, int playOK2)
-		{
+		public SessionKey(int loginOK1, int loginOK2, int playOK1, int playOK2) {
 			playOkID1 = playOK1;
 			playOkID2 = playOK2;
 			loginOkID1 = loginOK1;
@@ -557,21 +465,18 @@ public class LoginServerThread extends Thread
 		}
 
 		@Override
-		public String toString()
-		{
+		public String toString() {
 			return "PlayOk: " + playOkID1 + " " + playOkID2 + " LoginOk:" + loginOkID1 + " " + loginOkID2;
 		}
 	}
 
-	private class WaitingClient
-	{
+	private class WaitingClient {
 		public int timestamp;
 		public String account;
 		public L2GameClient gameClient;
 		public SessionKey session;
 
-		public WaitingClient(String acc, L2GameClient client, SessionKey key)
-		{
+		public WaitingClient(String acc, L2GameClient client, SessionKey key) {
 			account = acc;
 			timestamp = GameTimeController.getGameTicks();
 			gameClient = client;
@@ -579,8 +484,7 @@ public class LoginServerThread extends Thread
 		}
 	}
 
-	private static class SingletonHolder
-	{
+	private static class SingletonHolder {
 		protected static final LoginServerThread _instance = new LoginServerThread();
 	}
 }

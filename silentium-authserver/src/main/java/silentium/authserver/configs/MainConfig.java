@@ -10,6 +10,7 @@ package silentium.authserver.configs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -55,9 +56,10 @@ public final class MainConfig {
 
 		final File config = new File("./config/loginserver.properties");
 
-		try (InputStream is = new FileInputStream(config)) {
+		try (InputStream is = new FileInputStream(config); InputStream bis =
+				new BufferedInputStream(is)) {
 			final Properties server = new Properties();
-			server.load(is);
+			server.load(bis);
 
 			GAME_SERVER_LOGIN_HOST = server.getProperty("LoginHostname", "*");
 			GAME_SERVER_LOGIN_PORT = Integer.parseInt(server.getProperty("LoginPort", "9013"));
