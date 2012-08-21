@@ -30,7 +30,7 @@ public class DatabaseFactory {
 
 		try (FileInputStream fis = new FileInputStream(configFile); InputStream bis =
 				new BufferedInputStream(fis)) {
-			final BoneCPConfig config = new BoneCPConfig(bis, ServerType.SERVER_TYPE.name().toLowerCase());
+			final BoneCPConfig config = new BoneCPConfig(bis, ServerType.getServerTypeName());
 
 			log.info("DatabaseFactory: jdbc url '{}'.", config.getJdbcUrl());
 			log.info("DatabaseFactory: user name '{}'.", config.getUsername());

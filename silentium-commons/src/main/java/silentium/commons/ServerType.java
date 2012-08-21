@@ -16,4 +16,8 @@ public enum ServerType {
 	NONE;
 
 	public static ServerType SERVER_TYPE = NONE;
+
+	public static String getServerTypeName() {
+		return SERVER_TYPE.name().toLowerCase();
+	}
 }
