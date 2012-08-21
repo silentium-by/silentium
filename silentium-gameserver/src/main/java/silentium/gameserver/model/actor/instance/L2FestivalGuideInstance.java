@@ -301,15 +301,15 @@ public final class L2FestivalGuideInstance extends L2NpcInstance
 					if (overallData != null)
 						overallScore = overallData.getInteger("score");
 
-					strBuffer.append(SevenSignsFestival.getFestivalName(_festivalType) + " festival.<br>");
+					strBuffer.append(SevenSignsFestival.getFestivalName(_festivalType)).append(" festival.<br>");
 
 					if (dawnScore > 0)
-						strBuffer.append("Dawn: " + calculateDate(dawnData.getString("date")) + ". Score " + dawnScore + "<br>" + dawnData.getString("members") + "<br>");
+						strBuffer.append("Dawn: ").append(calculateDate(dawnData.getString("date"))).append(". Score ").append(dawnScore).append("<br>").append(dawnData.getString("members")).append("<br>");
 					else
 						strBuffer.append("Dawn: No record exists. Score 0<br>");
 
 					if (duskScore > 0)
-						strBuffer.append("Dusk: " + calculateDate(duskData.getString("date")) + ". Score " + duskScore + "<br>" + duskData.getString("members") + "<br>");
+						strBuffer.append("Dusk: ").append(calculateDate(duskData.getString("date"))).append(". Score ").append(duskScore).append("<br>").append(duskData.getString("members")).append("<br>");
 					else
 						strBuffer.append("Dusk: No record exists. Score 0<br>");
 
@@ -320,12 +320,12 @@ public final class L2FestivalGuideInstance extends L2NpcInstance
 						if (overallData.getString("cabal").equals("dawn"))
 							cabalStr = "Children of Dawn";
 
-						strBuffer.append("Consecutive top scores: " + calculateDate(overallData.getString("date")) + ". Score " + overallScore + "<br>Affilated side: " + cabalStr + "<br>" + overallData.getString("members") + "<br>");
+						strBuffer.append("Consecutive top scores: ").append(calculateDate(overallData.getString("date"))).append(". Score ").append(overallScore).append("<br>Affilated side: ").append(cabalStr).append("<br>").append(overallData.getString("members")).append("<br>");
 					}
 					else
 						strBuffer.append("Consecutive top scores: No record exists. Score 0<br>");
 
-					strBuffer.append("<a action=\"bypass -h npc_" + getObjectId() + "_Chat 0\">Go back.</a></body></html>");
+					strBuffer.append("<a action=\"bypass -h npc_").append(getObjectId()).append("_Chat 0\">Go back.</a></body></html>");
 
 					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 					html.setHtml(strBuffer.toString());
@@ -492,7 +492,7 @@ public final class L2FestivalGuideInstance extends L2NpcInstance
 			else if (dawnScore == duskScore)
 				winningCabal = "None";
 
-			tableHtml.append("<tr><td width=\"100\" align=\"center\">" + festivalName + "</td><td align=\"center\" width=\"35\">" + duskScore + "</td><td align=\"center\" width=\"35\">" + dawnScore + "</td><td align=\"center\" width=\"130\">" + winningCabal + "</td></tr>");
+			tableHtml.append("<tr><td width=\"100\" align=\"center\">").append(festivalName).append("</td><td align=\"center\" width=\"35\">").append(duskScore).append("</td><td align=\"center\" width=\"35\">").append(dawnScore).append("</td><td align=\"center\" width=\"130\">").append(winningCabal).append("</td></tr>");
 		}
 
 		return tableHtml.toString();
@@ -508,7 +508,7 @@ public final class L2FestivalGuideInstance extends L2NpcInstance
 			int accumScore = SevenSignsFestival.getInstance().getAccumulatedBonus(i);
 			String festivalName = SevenSignsFestival.getFestivalName(i);
 
-			tableHtml.append("<tr><td align=\"center\" width=\"150\">" + festivalName + "</td><td align=\"center\" width=\"150\">" + accumScore + "</td></tr>");
+			tableHtml.append("<tr><td align=\"center\" width=\"150\">").append(festivalName).append("</td><td align=\"center\" width=\"150\">").append(accumScore).append("</td></tr>");
 		}
 
 		return tableHtml.toString();

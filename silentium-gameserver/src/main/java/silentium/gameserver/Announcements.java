@@ -62,11 +62,10 @@ public class Announcements
 
 	public void showAnnouncements(L2PcInstance activeChar)
 	{
-		for (int i = 0; i < _announcements.size(); i++)
-		{
-			CreatureSay cs = new CreatureSay(0, Say2.ANNOUNCEMENT, activeChar.getName(), _announcements.get(i));
-			activeChar.sendPacket(cs);
-		}
+        for (String _announcement : _announcements) {
+            CreatureSay cs = new CreatureSay(0, Say2.ANNOUNCEMENT, activeChar.getName(), _announcement);
+            activeChar.sendPacket(cs);
+        }
 	}
 
 	public void listAnnouncements(L2PcInstance activeChar)
@@ -77,8 +76,8 @@ public class Announcements
 		TextBuilder replyMSG = new TextBuilder("<br>");
 		for (int i = 0; i < _announcements.size(); i++)
 		{
-			replyMSG.append("<table width=260><tr><td width=220>" + _announcements.get(i) + "</td><td width=40>");
-			replyMSG.append("<button value=\"Delete\" action=\"bypass -h admin_del_announcement " + i + "\" width=60 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr></table>");
+			replyMSG.append("<table width=260><tr><td width=220>").append(_announcements.get(i)).append("</td><td width=40>");
+			replyMSG.append("<button value=\"Delete\" action=\"bypass -h admin_del_announcement ").append(i).append("\" width=60 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr></table>");
 		}
 		adminReply.replace("%announces%", replyMSG.toString());
 		activeChar.sendPacket(adminReply);
@@ -126,11 +125,10 @@ public class Announcements
 		final File file = new File("./config/announcements.txt");
 		try (FileWriter save = new FileWriter(file))
 		{
-			for (int i = 0; i < _announcements.size(); i++)
-			{
-				save.write(_announcements.get(i));
-				save.write("\r\n");
-			}
+            for (String _announcement : _announcements) {
+                save.write(_announcement);
+                save.write("\r\n");
+            }
 		}
 		catch (IOException e)
 		{

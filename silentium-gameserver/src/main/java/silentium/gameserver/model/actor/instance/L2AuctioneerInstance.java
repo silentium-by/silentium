@@ -518,7 +518,7 @@ public final class L2AuctioneerInstance extends L2NpcInstance
 			items.append(" [");
 			items.append(a.getBidders().size());
 			items.append("]</a></font></td>");
-			items.append("<td>" + Util.formatDate(a.getEndDate(), "yy/MM/dd"));
+			items.append("<td>").append(Util.formatDate(a.getEndDate(), "yy/MM/dd"));
 			items.append("</td>");
 			items.append("<td><font color=\"aaffff\">");
 			items.append(a.getStartingBid());

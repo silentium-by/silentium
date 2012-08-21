@@ -789,12 +789,12 @@ public class L2SignsPriestInstance extends L2NpcInstance
 						int sealOwner = SevenSigns.getInstance().getSealOwner(i);
 
 						if (sealOwner != SevenSigns.CABAL_NULL)
-							contentBuffer.append("[" + SevenSigns.getSealName(i, false) + ": " + SevenSigns.getCabalName(sealOwner) + "]<br>");
+							contentBuffer.append("[").append(SevenSigns.getSealName(i, false)).append(": ").append(SevenSigns.getCabalName(sealOwner)).append("]<br>");
 						else
-							contentBuffer.append("[" + SevenSigns.getSealName(i, false) + ": Nothingness]<br>");
+							contentBuffer.append("[").append(SevenSigns.getSealName(i, false)).append(": Nothingness]<br>");
 					}
 
-					contentBuffer.append("<a action=\"bypass -h npc_" + getObjectId() + "_Chat 0\">Go back.</a></body></html>");
+					contentBuffer.append("<a action=\"bypass -h npc_").append(getObjectId()).append("_Chat 0\">Go back.</a></body></html>");
 
 					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 					html.setHtml(contentBuffer.toString());

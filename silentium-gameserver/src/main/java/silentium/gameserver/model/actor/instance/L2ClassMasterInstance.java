@@ -324,7 +324,7 @@ public final class L2ClassMasterInstance extends L2NpcInstance
 		for (int _itemId : NPCConfig.CLASS_MASTER_SETTINGS.getRequireItems(level).keys())
 		{
 			int _count = NPCConfig.CLASS_MASTER_SETTINGS.getRequireItems(level).get(_itemId);
-			sb.append("<tr><td><font color=\"LEVEL\">" + _count + "</font></td><td>" + ItemTable.getInstance().getTemplate(_itemId).getName() + "</td></tr>");
+			sb.append("<tr><td><font color=\"LEVEL\">").append(_count).append("</font></td><td>").append(ItemTable.getInstance().getTemplate(_itemId).getName()).append("</td></tr>");
 		}
 		return sb.toString();
 	}

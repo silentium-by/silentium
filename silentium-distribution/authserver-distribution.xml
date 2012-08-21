@@ -54,11 +54,6 @@
             <outputDirectory>/authserver/config</outputDirectory>
         </fileSet>
 
-        <fileSet>
-            <directory>../silentium-datapack/sql</directory>
-            <outputDirectory>/sql</outputDirectory>
-        </fileSet>
-
     </fileSets>
 
 </assembly>

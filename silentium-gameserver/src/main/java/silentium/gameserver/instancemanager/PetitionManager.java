@@ -469,11 +469,11 @@ public final class PetitionManager
 			htmlContent.append("<tr><td>");
 
 			if (currPetition.getState() != PetitionState.In_Process)
-				htmlContent.append("<button value=\"View\" action=\"bypass -h admin_view_petition " + currPetition.getId() + "\" " + "width=\"40\" height=\"15\" back=\"sek.cbui94\" fore=\"sek.cbui92\">");
+				htmlContent.append("<button value=\"View\" action=\"bypass -h admin_view_petition ").append(currPetition.getId()).append("\" ").append("width=\"40\" height=\"15\" back=\"sek.cbui94\" fore=\"sek.cbui92\">");
 			else
 				htmlContent.append("<font color=\"999999\">In Process</font>");
 
-			htmlContent.append("</td><td>" + currPetition.getPetitioner().getName() + "</td><td>" + currPetition.getTypeAsString() + "</td><td>" + dateFormat.format(new Date(currPetition.getSubmitTime())) + "</td></tr>");
+			htmlContent.append("</td><td>").append(currPetition.getPetitioner().getName()).append("</td><td>").append(currPetition.getTypeAsString()).append("</td><td>").append(dateFormat.format(new Date(currPetition.getSubmitTime()))).append("</td></tr>");
 		}
 
 		htmlContent.append("</table><br><button value=\"Refresh\" action=\"bypass -h admin_view_petitions\" width=\"50\" " + "height=\"15\" back=\"sek.cbui94\" fore=\"sek.cbui92\"><br><button value=\"Back\" action=\"bypass -h admin_admin\" " + "width=\"40\" height=\"15\" back=\"sek.cbui94\" fore=\"sek.cbui92\"></center></body></html>");
@@ -509,13 +509,13 @@ public final class PetitionManager
 		TextBuilder htmlContent = new TextBuilder("<html><body>");
 		SimpleDateFormat dateFormat = new SimpleDateFormat("EEE dd MMM HH:mm z");
 
-		htmlContent.append("<center><br><font color=\"LEVEL\">Petition #" + currPetition.getId() + "</font><br1>");
+		htmlContent.append("<center><br><font color=\"LEVEL\">Petition #").append(currPetition.getId()).append("</font><br1>");
 		htmlContent.append("<img src=\"L2UI.SquareGray\" width=\"200\" height=\"1\"></center><br>");
-		htmlContent.append("Submit Time: " + dateFormat.format(new Date(currPetition.getSubmitTime())) + "<br1>");
-		htmlContent.append("Petitioner: " + currPetition.getPetitioner().getName() + "<br1>");
-		htmlContent.append("Petition Type: " + currPetition.getTypeAsString() + "<br>" + currPetition.getContent() + "<br>");
-		htmlContent.append("<center><button value=\"Accept\" action=\"bypass -h admin_accept_petition " + currPetition.getId() + "\"" + "width=\"50\" height=\"15\" back=\"sek.cbui94\" fore=\"sek.cbui92\"><br1>");
-		htmlContent.append("<button value=\"Reject\" action=\"bypass -h admin_reject_petition " + currPetition.getId() + "\" " + "width=\"50\" height=\"15\" back=\"sek.cbui94\" fore=\"sek.cbui92\"><br>");
+		htmlContent.append("Submit Time: ").append(dateFormat.format(new Date(currPetition.getSubmitTime()))).append("<br1>");
+		htmlContent.append("Petitioner: ").append(currPetition.getPetitioner().getName()).append("<br1>");
+		htmlContent.append("Petition Type: ").append(currPetition.getTypeAsString()).append("<br>").append(currPetition.getContent()).append("<br>");
+		htmlContent.append("<center><button value=\"Accept\" action=\"bypass -h admin_accept_petition ").append(currPetition.getId()).append("\"").append("width=\"50\" height=\"15\" back=\"sek.cbui94\" fore=\"sek.cbui92\"><br1>");
+		htmlContent.append("<button value=\"Reject\" action=\"bypass -h admin_reject_petition ").append(currPetition.getId()).append("\" ").append("width=\"50\" height=\"15\" back=\"sek.cbui94\" fore=\"sek.cbui92\"><br>");
 		htmlContent.append("<button value=\"Back\" action=\"bypass -h admin_view_petitions\" width=\"40\" height=\"15\" back=\"sek.cbui94\" " + "fore=\"sek.cbui92\"></center>");
 		htmlContent.append("</body></html>");
 
