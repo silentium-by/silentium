@@ -44,7 +44,7 @@ public class MovieMakerManager
 		{
 			TextBuilder sb = new TextBuilder();
 			for (Sequence s : _sequence.values())
-				sb.append("<tr><td>Id: " + s._sequenceId + "</td></tr>");
+				sb.append("<tr><td>Id: ").append(s._sequenceId).append("</td></tr>");
 
 			html.setFile(StaticHtmPath.AdminHtmPath + "movie/main_notempty.htm");
 			html.replace("%sequences%", sb.toString());

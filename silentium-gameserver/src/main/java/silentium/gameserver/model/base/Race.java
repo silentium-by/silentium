@@ -13,5 +13,5 @@ package silentium.gameserver.model.base;
  */
 public enum Race
 {
-	Human, Elf, DarkElf, Orc, Dwarf;
+	Human, Elf, DarkElf, Orc, Dwarf
 }

@@ -84,7 +84,7 @@ public class FriendsBBSManager extends BaseBBSManager
 					continue;
 
 				L2PcInstance friend = L2World.getInstance().getPlayer(friendName);
-				flString.append("<a action=\"bypass _friendselect;" + id + "\">" + friendName + "</a>&nbsp;" + (friend == null ? "(off)" : "(on)") + "<br1>");
+				flString.append("<a action=\"bypass _friendselect;").append(id).append("\">").append(friendName).append("</a>&nbsp;").append(friend == null ? "(off)" : "(on)").append("<br1>");
 			}
 
 			content = content.replaceAll("%friendslist%", flString.toString());
@@ -103,7 +103,7 @@ public class FriendsBBSManager extends BaseBBSManager
 				if (friendName == null)
 					continue;
 
-				sflString.append("<a action=\"bypass _frienddeselect;" + id + "\">" + friendName + "</a>" + "<br1>");
+				sflString.append("<a action=\"bypass _frienddeselect;").append(id).append("\">").append(friendName).append("</a>").append("<br1>");
 			}
 
 			content = content.replaceAll("%selectedFriendsList%", sflString.toString());

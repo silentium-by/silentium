@@ -21,7 +21,7 @@ public final class FlyToLocation extends L2GameServerPacket
 
 	public enum FlyType
 	{
-		THROW_UP, THROW_HORIZONTAL, DUMMY; // no effect
+		THROW_UP, THROW_HORIZONTAL, DUMMY // no effect
 	}
 
 	public FlyToLocation(L2Character cha, int destX, int destY, int destZ, FlyType type)
