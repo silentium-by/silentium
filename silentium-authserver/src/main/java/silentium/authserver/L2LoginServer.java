@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import silentium.authserver.configs.MainConfig;
 import silentium.commons.ServerType;
+import silentium.commons.configuration.PropertiesParser;
 import silentium.commons.database.DatabaseFactory;
 import silentium.commons.database.DatabaseTuning;
 import silentium.commons.network.mmocore.SelectorConfig;
@@ -53,7 +54,7 @@ public class L2LoginServer {
 		Util.printSection("L2J");
 
 		// Initialize config
-		MainConfig.load();
+        PropertiesParser.parse();
 
 		Util.printSection("Database");
 		DatabaseFactory.init();

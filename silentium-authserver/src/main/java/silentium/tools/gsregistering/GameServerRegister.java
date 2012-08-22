@@ -9,6 +9,7 @@ package silentium.tools.gsregistering;
 
 import silentium.authserver.GameServerTable;
 import silentium.authserver.configs.MainConfig;
+import silentium.commons.configuration.PropertiesParser;
 import silentium.commons.database.DatabaseFactory;
 import silentium.commons.utils.HexUtils;
 
@@ -25,7 +26,7 @@ public class GameServerRegister {
 	private static boolean _choiceOk;
 
 	public static void main(final String... args) throws IOException {
-		MainConfig.load();
+        PropertiesParser.parse();
 		DatabaseFactory.init();
 
 		final LineNumberReader _in = new LineNumberReader(new InputStreamReader(System.in));

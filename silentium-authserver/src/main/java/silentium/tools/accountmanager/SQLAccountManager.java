@@ -7,7 +7,7 @@
  */
 package silentium.tools.accountmanager;
 
-import silentium.authserver.configs.MainConfig;
+import silentium.commons.configuration.PropertiesParser;
 import silentium.commons.crypt.Base64;
 import silentium.commons.database.DatabaseFactory;
 
@@ -33,7 +33,7 @@ public class SQLAccountManager {
 	private static String _mode = "";
 
 	public static void main(final String... args) throws SQLException, IOException, NoSuchAlgorithmException {
-		MainConfig.load();
+        PropertiesParser.parse();
 		DatabaseFactory.init();
 
 		System.out.println("Please choose an option:");
