@@ -53,7 +53,7 @@ public @interface Property {
 	 *
 	 * @return returns class that will be used to transform value
 	 */
-	Class<? extends PropertyTransformer<?>> propertyTransformer() default PropertyTransformer.class;
+	Class<? extends PropertyTransformer> propertyTransformer() default PropertyTransformer.class;
 
 	/**
 	 * Represents default value that will be parsed if key not found. If this key equals(default) {@link #DEFAULT_VALUE}

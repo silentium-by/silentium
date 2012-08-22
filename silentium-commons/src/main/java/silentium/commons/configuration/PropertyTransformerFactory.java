@@ -24,14 +24,13 @@ public class PropertyTransformerFactory {
 	 * @return instance of PropertyTransformer
 	 * @throws TransformationException if can't instantiate {@link org.bnsworld.commons.configuration.PropertyTransformer}
 	 */
-	public static PropertyTransformer<?> newTransformer(final Class clazzToTransform,
-	                                                    Class<? extends PropertyTransformer<?>> tc)
+	public static PropertyTransformer<?> newTransformer(final Class<?> clazzToTransform,
+	                                                    Class<? extends PropertyTransformer> tc)
 			throws TransformationException {
 
 		// Just a hack, we can't set null to annotation value
-		if (tc == PropertyTransformer.class) {
+		if (tc == PropertyTransformer.class)
 			tc = null;
-		}
 
 		if (tc != null)
 			try {
@@ -60,9 +59,9 @@ public class PropertyTransformerFactory {
 				return StringTransformer.SHARED_INSTANCE;
 			else if (clazzToTransform.isEnum())
 				return EnumTransformer.SHARED_INSTANCE;
-				// TODO: Implement Map
-				//else if (ClassUtils.isSubclass(clazzToTransform, Map.class))
-				//	return MapTransformer.SHARED_INSTANCE;
+			// TODO: Implement Map
+			//else if (ClassUtils.isSubclass(clazzToTransform, Map.class))
+			//	return MapTransformer.SHARED_INSTANCE;
 			else if (ClassUtils.isSubclass(clazzToTransform, Collection.class))
 				return CollectionTransformer.SHARED_INSTANCE;
 			else if (clazzToTransform.isArray())

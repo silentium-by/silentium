@@ -36,7 +36,7 @@ public class EnumTransformer implements PropertyTransformer<Enum<?>> {
 	@Override
 	@SuppressWarnings("unchecked")
 	public Enum<?> transform(final String value, final Field field) throws TransformationException {
-		final Class<? extends Enum<?>> clazz = (Class<? extends Enum<?>>) field.getType();
+		final Class<? extends Enum> clazz = (Class<? extends Enum>) field.getType();
 
 		try {
 			return Enum.valueOf(clazz, value);
