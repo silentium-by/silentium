@@ -234,7 +234,7 @@ abstract class AbstractAI implements Ctrl
 	synchronized void changeIntention(CtrlIntention intention, Object arg0, Object arg1)
 	{
 		/*
-		 * if (MainConfig.DEBUG) _log.warn("AbstractAI: changeIntention -> " + intention + " " + arg0 + " " + arg1);
+		 * _log.debug("AbstractAI: changeIntention -> " + intention + " " + arg0 + " " + arg1);
 		 */
 
 		_intention = intention;
@@ -291,7 +291,7 @@ abstract class AbstractAI implements Ctrl
 	public final void setIntention(CtrlIntention intention, Object arg0, Object arg1)
 	{
 		/*
-		 * if (MainConfig.DEBUG) _log.warn("AbstractAI: setIntention -> " + intention + " " + arg0 + " " + arg1);
+		 * _log.debug("AbstractAI: setIntention -> " + intention + " " + arg0 + " " + arg1);
 		 */
 
 		// Stop the follow mode if necessary
@@ -391,7 +391,7 @@ abstract class AbstractAI implements Ctrl
 			return;
 
 		/*
-		 * if (MainConfig.DEBUG) _log.warn("AbstractAI: notifyEvent -> " + evt + " " + arg0 + " " + arg1);
+		 * _log.debug("AbstractAI: notifyEvent -> " + evt + " " + arg0 + " " + arg1);
 		 */
 
 		switch (evt)
@@ -627,7 +627,7 @@ abstract class AbstractAI implements Ctrl
 	protected void clientStopMoving(L2CharPosition pos)
 	{
 		/*
-		 * if (MainConfig.DEBUG) _log.warn("clientStopMoving();");
+		 * _log.debug("clientStopMoving();");
 		 */
 
 		// Stop movement of the L2Character

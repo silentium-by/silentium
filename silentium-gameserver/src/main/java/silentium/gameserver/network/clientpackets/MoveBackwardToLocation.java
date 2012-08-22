@@ -31,7 +31,6 @@ public class MoveBackwardToLocation extends L2GameClientPacket
 	// For geodata
 	private int _curX;
 	private int _curY;
-	@SuppressWarnings("unused")
 	private int _curZ;
 
 	@Override

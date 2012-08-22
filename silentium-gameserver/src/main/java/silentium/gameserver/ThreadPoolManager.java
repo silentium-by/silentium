@@ -158,12 +158,6 @@ public class ThreadPoolManager
 		}
 	}
 
-	@Deprecated
-	public boolean removeEffect(RunnableScheduledFuture<?> r)
-	{
-		return _effectsScheduledThreadPool.remove(r);
-	}
-
 	public ScheduledFuture<?> scheduleGeneral(Runnable r, long delay)
 	{
 		try
@@ -189,12 +183,6 @@ public class ThreadPoolManager
 		{
 			return null; /* shutdown, ignore */
 		}
-	}
-
-	@Deprecated
-	public boolean removeGeneral(RunnableScheduledFuture<?> r)
-	{
-		return _generalScheduledThreadPool.remove(r);
 	}
 
 	public ScheduledFuture<?> scheduleAi(Runnable r, long delay)

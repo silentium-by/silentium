@@ -14,7 +14,6 @@ package silentium.gameserver.network.clientpackets;
  */
 public class SuperCmdSummonCmd extends L2GameClientPacket
 {
-	@SuppressWarnings("unused")
 	private String _summonName;
 
 	@Override

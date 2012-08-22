@@ -56,7 +56,7 @@ public class PlayerAI extends PlayableAI
 	synchronized void changeIntention(CtrlIntention intention, Object arg0, Object arg1)
 	{
 		/*
-		 * if (MainConfig.DEBUG) _log.warn("PlayerAI: changeIntention -> " + intention + " " + arg0 + " " + arg1);
+		 * _log.debug("PlayerAI: changeIntention -> " + intention + " " + arg0 + " " + arg1);
 		 */
 
 		// do nothing unless CAST intention

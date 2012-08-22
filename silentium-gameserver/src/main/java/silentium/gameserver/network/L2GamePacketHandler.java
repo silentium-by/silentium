@@ -501,7 +501,7 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 					case 0x9d:
 						// RequestSkillCoolTime
 						/*
-						 * if (MainConfig.DEBUG) _log.info("Request Skill Cool Time .. ignored"); msg = null;
+						 * _log.debug("Request Skill Cool Time .. ignored"); msg = null;
 						 */
 						break;
 					case 0x9e:

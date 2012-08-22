@@ -63,8 +63,6 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>> i
 	private SessionKey _sessionId;
 	private L2PcInstance _activeChar;
 	private final ReentrantLock _activeCharLock = new ReentrantLock();
-
-	@SuppressWarnings("unused")
 	private boolean _isAuthedGG;
 	private final long _connectionStartTime;
 	private CharSelectInfoPackage[] _charSlotMapping = null;

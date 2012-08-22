@@ -27,7 +27,6 @@ public class RequestBuyProcure extends L2GameClientPacket
 {
 	private static final int BATCH_LENGTH = 8; // length of the one item
 
-	@SuppressWarnings("unused")
 	private int _listId;
 	private Procure[] _items = null;
 

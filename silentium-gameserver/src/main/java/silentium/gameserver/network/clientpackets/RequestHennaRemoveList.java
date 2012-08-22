@@ -17,7 +17,6 @@ import silentium.gameserver.network.serverpackets.HennaRemoveList;
  */
 public final class RequestHennaRemoveList extends L2GameClientPacket
 {
-	@SuppressWarnings("unused")
 	private int _unknown;
 
 	@Override

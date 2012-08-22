@@ -32,9 +32,7 @@ public class GameServerListener extends FloodProtectedListener {
 	 */
 	@Override
 	public void addClient(final Socket s) {
-		if (MainConfig.DEBUG) {
-			_log.info("Received gameserver connection from: " + s.getInetAddress().getHostAddress());
-		}
+		_log.debug("Received gameserver connection from: " + s.getInetAddress().getHostAddress());
 		final GameServerThread gst = new GameServerThread(s);
 		_gameServers.add(gst);
 	}

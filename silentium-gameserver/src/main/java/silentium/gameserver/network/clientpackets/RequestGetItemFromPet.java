@@ -16,7 +16,6 @@ public final class RequestGetItemFromPet extends L2GameClientPacket
 {
 	private int _objectId;
 	private int _amount;
-	@SuppressWarnings("unused")
 	private int _unknown;
 
 	@Override

@@ -19,7 +19,6 @@ import silentium.gameserver.model.actor.instance.L2PcInstance;
 public class ExListPartyMatchingWaitingRoom extends L2GameServerPacket
 {
 	private final L2PcInstance _activeChar;
-	@SuppressWarnings("unused")
 	private final int _page;
 	private final int _minlvl;
 	private final int _maxlvl;

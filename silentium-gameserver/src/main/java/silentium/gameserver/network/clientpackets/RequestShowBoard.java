@@ -12,7 +12,6 @@ import silentium.gameserver.configs.MainConfig;
 
 public final class RequestShowBoard extends L2GameClientPacket
 {
-	@SuppressWarnings("unused")
 	private int _unknown;
 
 	@Override

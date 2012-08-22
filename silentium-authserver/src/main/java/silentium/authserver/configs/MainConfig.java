@@ -12,26 +12,17 @@ import silentium.commons.configuration.annotations.Property;
 
 @PropertiesFile(propertiesPatch = "./config/loginserver.properties")
 public final class MainConfig {
-	@Property(key = "AcceptAlternateID", defaultValue = "True")
-	public static boolean ACCEPT_ALTERNATE_ID;
-	
 	@Property(key = "AcceptNewGameServer", defaultValue = "True")
 	public static boolean ACCEPT_NEW_GAMESERVER;
 	
 	@Property(key = "AutoCreateAccounts", defaultValue = "True")
 	public static boolean AUTO_CREATE_ACCOUNTS;
 	
-	@Property(key = "Debug", defaultValue = "false")
-	public static boolean DEBUG;
-	
 	@Property(key = "Developer", defaultValue = "false")
 	public static boolean DEVELOPER;
 	
 	@Property(key = "EnableFloodProtection", defaultValue = "True")
 	public static boolean FLOOD_PROTECTION;
-	
-	@Property(key = "ForceGGAuth", defaultValue = "false")
-	public static boolean FORCE_GGAUTH;
 	
 	@Property(key = "LogLoginController", defaultValue = "False")
 	public static boolean LOG_LOGIN_CONTROLLER;
@@ -48,11 +39,8 @@ public final class MainConfig {
 	@Property(key = "FastConnectionTime", defaultValue = "350")
 	public static int FAST_CONNECTION_TIME;
 	
-	@Property(key = "LoginPort", defaultValue = "9013")
+	@Property(key = "LoginPort", defaultValue = "9014")
 	public static int GAME_SERVER_LOGIN_PORT;
-	
-	@Property(key = "IpUpdateTime", defaultValue = "")
-	public static int IP_UPDATE_TIME;
 	
 	@Property(key = "LoginBlockAfterBan", defaultValue = "600")
 	public static int LOGIN_BLOCK_AFTER_BAN;
@@ -68,9 +56,6 @@ public final class MainConfig {
 	
 	@Property(key = "LoginserverPort", defaultValue = "2106")
 	public static int PORT_LOGIN;
-	
-	@Property(key = "RequestServerID", defaultValue = "0")
-	public static int REQUEST_ID;
 	
 	@Property(key = "ExternalHostname", defaultValue = "localhost")
 	public static String EXTERNAL_HOSTNAME;

@@ -19,7 +19,6 @@ import silentium.gameserver.model.actor.instance.L2PcInstance;
 public class RequestDismissPartyRoom extends L2GameClientPacket
 {
 	private int _roomid;
-	@SuppressWarnings("unused")
 	private int _data2;
 
 	@Override

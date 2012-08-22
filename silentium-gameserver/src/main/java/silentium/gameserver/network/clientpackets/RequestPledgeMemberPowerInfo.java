@@ -19,7 +19,6 @@ import silentium.gameserver.network.serverpackets.PledgeReceivePowerInfo;
  */
 public final class RequestPledgeMemberPowerInfo extends L2GameClientPacket
 {
-	@SuppressWarnings("unused")
 	private int _unk1;
 	private String _player;
 

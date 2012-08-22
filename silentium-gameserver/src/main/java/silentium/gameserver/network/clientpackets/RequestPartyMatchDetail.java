@@ -23,11 +23,8 @@ import silentium.gameserver.network.serverpackets.SystemMessage;
 public final class RequestPartyMatchDetail extends L2GameClientPacket
 {
 	private int _roomid;
-	@SuppressWarnings("unused")
 	private int _unk1;
-	@SuppressWarnings("unused")
 	private int _unk2;
-	@SuppressWarnings("unused")
 	private int _unk3;
 
 	@Override

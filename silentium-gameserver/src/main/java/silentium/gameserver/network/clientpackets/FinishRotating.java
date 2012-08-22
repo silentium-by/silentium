@@ -13,7 +13,6 @@ import silentium.gameserver.network.serverpackets.StopRotation;
 public final class FinishRotating extends L2GameClientPacket
 {
 	private int _degree;
-	@SuppressWarnings("unused")
 	private int _unknown;
 
 	@Override

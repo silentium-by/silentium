@@ -21,7 +21,6 @@ import silentium.gameserver.network.serverpackets.ExClosePartyRoom;
 public final class RequestWithdrawPartyRoom extends L2GameClientPacket
 {
 	private int _roomid;
-	@SuppressWarnings("unused")
 	private int _unk1;
 
 	@Override

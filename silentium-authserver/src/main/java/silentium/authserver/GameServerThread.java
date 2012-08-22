@@ -105,9 +105,7 @@ public class GameServerThread extends Thread {
 					return;
 				}
 
-				if (MainConfig.DEBUG) {
-					_log.warn("[C]\n" + Util.printData(data));
-				}
+				_log.debug("[C]\n" + Util.printData(data));
 
 				final int packetType = data[0] & 0xff;
 				switch (packetType) {
@@ -156,22 +154,18 @@ public class GameServerThread extends Thread {
 		final BlowFishKey bfk = new BlowFishKey(data, _privateKey);
 		_blowfishKey = bfk.getKey();
 		_blowfish = new NewCrypt(_blowfishKey);
-
-		if (MainConfig.DEBUG)
-			_log.info("New BlowFish key received, Blowfih Engine initialized:");
+		_log.debug("New BlowFish key received, Blowfih Engine initialized:");
 	}
 
 	private void onGameServerAuth(final byte... data) throws IOException {
 		final GameServerAuth gsa = new GameServerAuth(data);
-		if (MainConfig.DEBUG)
-			_log.info("Auth request received");
+		_log.debug("Auth request received");
 
 		handleRegProcess(gsa);
 		if (isAuthed()) {
 			final AuthResponse ar = new AuthResponse(_gsi.getId());
 			sendPacket(ar);
-			if (MainConfig.DEBUG)
-				_log.info("Authed: id: " + _gsi.getId());
+			_log.debug("Authed: id: " + _gsi.getId());
 		}
 	}
 
@@ -181,8 +175,7 @@ public class GameServerThread extends Thread {
 			final List<String> newAccounts = pig.getAccounts();
 			for (final String account : newAccounts) {
 				_accountsOnGameServer.add(account);
-				if (MainConfig.DEBUG)
-					_log.info("Account " + account + " logged in GameServer: [" + getServerId() + "] " + GameServerTable.getInstance().getServerNameById(getServerId()));
+				_log.debug("Account " + account + " logged in GameServer: [" + getServerId() + "] " + GameServerTable.getInstance().getServerNameById(getServerId()));
 			}
 		} else
 			forceClose(LoginServerFail.NOT_AUTHED);
@@ -192,8 +185,7 @@ public class GameServerThread extends Thread {
 		if (isAuthed()) {
 			final PlayerLogout plo = new PlayerLogout(data);
 			_accountsOnGameServer.remove(plo.getAccount());
-			if (MainConfig.DEBUG)
-				_log.info("Player " + plo.getAccount() + " logged out from gameserver [" + getServerId() + "] " + GameServerTable.getInstance().getServerNameById(getServerId()));
+			_log.debug("Player " + plo.getAccount() + " logged out from gameserver [" + getServerId() + "] " + GameServerTable.getInstance().getServerNameById(getServerId()));
 		} else
 			forceClose(LoginServerFail.NOT_AUTHED);
 	}
@@ -211,22 +203,18 @@ public class GameServerThread extends Thread {
 		if (isAuthed()) {
 			final PlayerAuthRequest par = new PlayerAuthRequest(data);
 			final PlayerAuthResponse authResponse;
-			if (MainConfig.DEBUG)
-				_log.info("auth request received for Player " + par.getAccount());
+			_log.debug("auth request received for Player " + par.getAccount());
 
 			final SessionKey key = LoginController.getInstance().getKeyForAccount(par.getAccount());
 			if (key != null && key.equals(par.getKey())) {
-				if (MainConfig.DEBUG)
-					_log.info("auth request: OK");
+				_log.debug("auth request: OK");
 
 				LoginController.getInstance().removeAuthedLoginClient(par.getAccount());
 				authResponse = new PlayerAuthResponse(par.getAccount(), true);
 			} else {
-				if (MainConfig.DEBUG) {
-					_log.info("auth request: NO");
-					_log.info("session key from self: " + key);
-					_log.info("session key sent: " + par.getKey());
-				}
+				_log.debug("auth request: NO");
+				_log.debug("session key from self: " + key);
+				_log.debug("session key sent: " + par.getKey());
 				authResponse = new PlayerAuthResponse(par.getAccount(), false);
 			}
 			sendPacket(authResponse);
@@ -236,11 +224,7 @@ public class GameServerThread extends Thread {
 
 	private void onReceiveServerStatus(final byte... data) {
 		if (isAuthed()) {
-			if (MainConfig.DEBUG)
-				_log.info("ServerStatus received");
-
-			@SuppressWarnings("unused") final
-			ServerStatus ss = new ServerStatus(data, getServerId()); // will do the actions by itself
+			_log.debug("ServerStatus received");
 		} else
 			forceClose(LoginServerFail.NOT_AUTHED);
 	}
@@ -364,9 +348,8 @@ public class GameServerThread extends Thread {
 	private void sendPacket(final ServerBasePacket sl) throws IOException {
 		byte[] data = sl.getContent();
 		NewCrypt.appendChecksum(data);
-		if (MainConfig.DEBUG) {
-			_log.debug("[S] " + sl.getClass().getSimpleName() + ":\n" + Util.printData(data));
-		}
+		_log.debug("[S] " + sl.getClass().getSimpleName() + ":\n" + Util.printData(data));
+
 		data = _blowfish.crypt(data);
 
 		final int len = data.length + 2;

@@ -19,7 +19,6 @@ import silentium.gameserver.templates.item.L2Henna;
  */
 public final class RequestHennaList extends L2GameClientPacket
 {
-	@SuppressWarnings("unused")
 	private int _unknown;
 
 	@Override

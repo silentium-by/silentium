@@ -20,7 +20,6 @@ public final class RequestRecipeShopMakeItem extends L2GameClientPacket
 {
 	private int _id;
 	private int _recipeId;
-	@SuppressWarnings("unused")
 	private int _unknow;
 
 	@Override

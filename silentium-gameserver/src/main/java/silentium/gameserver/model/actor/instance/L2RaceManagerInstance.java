@@ -32,8 +32,6 @@ public class L2RaceManagerInstance extends L2NpcInstance
 	public static final int LANES = 8;
 	public static final int WINDOW_START = 0;
 
-	@SuppressWarnings("unused")
-	private static List<Race> _history;
 	private static List<L2RaceManagerInstance> _managers;
 	protected static int _raceNumber = 4;
 
@@ -61,7 +59,6 @@ public class L2RaceManagerInstance extends L2NpcInstance
 		if (_notInitialized)
 		{
 			_notInitialized = false;
-			_history = new FastList<>();
 			_managers = new FastList<>();
 
 			ThreadPoolManager s = ThreadPoolManager.getInstance();

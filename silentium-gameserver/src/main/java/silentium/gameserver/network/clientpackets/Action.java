@@ -18,7 +18,6 @@ public final class Action extends L2GameClientPacket
 {
 	// cddddc
 	private int _objectId;
-	@SuppressWarnings("unused")
 	private int _originX, _originY, _originZ;
 	private int _actionId;
 

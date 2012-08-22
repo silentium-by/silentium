@@ -1259,7 +1259,6 @@ public class SevenSignsFestival implements SpawnListener
 				// Give this cabal the festival points, while deducting them from the other.
 				SevenSigns.getInstance().addFestivalScore(oracle, contribPoints);
 
-				// if (MainConfig.DEBUG)
 				_log.info("SevenSignsFestival: This is the highest score overall so far for the " + getFestivalName(festivalId) + " festival!");
 			}
 

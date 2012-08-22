@@ -17,22 +17,8 @@ import java.util.Properties;
 public final class MainConfig extends ConfigEngine
 {
 	public static String LOGIN_BIND_ADDRESS;
-	public static int PORT_LOGIN;
-	public static boolean ACCEPT_NEW_GAMESERVER;
 	public static int REQUEST_ID;
 	public static boolean ACCEPT_ALTERNATE_ID;
-	public static int LOGIN_TRY_BEFORE_BAN;
-	public static int LOGIN_BLOCK_AFTER_BAN;
-	public static boolean LOG_LOGIN_CONTROLLER;
-	public static boolean SHOW_LICENCE;
-	public static int IP_UPDATE_TIME;
-	public static boolean FORCE_GGAUTH;
-	public static boolean AUTO_CREATE_ACCOUNTS;
-	public static boolean FLOOD_PROTECTION;
-	public static int FAST_CONNECTION_LIMIT;
-	public static int NORMAL_CONNECTION_TIME;
-	public static int FAST_CONNECTION_TIME;
-	public static int MAX_CONNECTION_PER_IP;
 	public static String GAMESERVER_HOSTNAME;
 	public static int PORT_GAME;
 	public static String EXTERNAL_HOSTNAME;

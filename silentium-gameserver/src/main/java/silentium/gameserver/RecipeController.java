@@ -227,7 +227,6 @@ public class RecipeController
 		}
 	}
 
-	@SuppressWarnings("unused")
 	private class RecipeItemMaker implements Runnable
 	{
 		protected boolean _isValid;

@@ -19,11 +19,9 @@ import silentium.gameserver.network.serverpackets.PledgeShowMemberListUpdate;
  */
 public final class RequestPledgeReorganizeMember extends L2GameClientPacket
 {
-	@SuppressWarnings("unused")
 	private int _unk1;
 	private String _memberName;
 	private int _newPledgeType;
-	@SuppressWarnings("unused")
 	private String _unk2;
 
 	@Override

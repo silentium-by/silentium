@@ -17,9 +17,7 @@ public final class AttackRequest extends L2GameClientPacket
 {
 	// cddddc
 	private int _objectId;
-	@SuppressWarnings("unused")
 	private int _originX, _originY, _originZ;
-	@SuppressWarnings("unused")
 	private int _attackId;
 
 	@Override

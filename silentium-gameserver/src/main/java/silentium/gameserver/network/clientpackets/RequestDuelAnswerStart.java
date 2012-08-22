@@ -20,7 +20,6 @@ import silentium.gameserver.network.serverpackets.SystemMessage;
 public final class RequestDuelAnswerStart extends L2GameClientPacket
 {
 	private int _partyDuel;
-	@SuppressWarnings("unused")
 	private int _unk1;
 	private int _response;
 

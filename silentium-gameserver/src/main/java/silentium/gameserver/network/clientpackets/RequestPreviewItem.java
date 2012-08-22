@@ -37,7 +37,6 @@ public final class RequestPreviewItem extends L2GameClientPacket
 {
 	protected L2PcInstance _activeChar;
 	private Map<Integer, Integer> _itemList;
-	@SuppressWarnings("unused")
 	private int _unk;
 	private int _listId;
 	private int _count;

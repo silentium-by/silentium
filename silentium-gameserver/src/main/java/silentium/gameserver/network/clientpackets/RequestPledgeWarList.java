@@ -18,7 +18,6 @@ import silentium.gameserver.network.serverpackets.PledgeReceiveWarList;
  */
 public final class RequestPledgeWarList extends L2GameClientPacket
 {
-	@SuppressWarnings("unused")
 	private int _unk1;
 	private int _tab;
 
