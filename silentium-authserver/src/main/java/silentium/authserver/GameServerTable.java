@@ -85,6 +85,7 @@ public class GameServerTable {
 					}
 				}
 			}
+			xpp.close();
 		} catch (Exception e) {
 			_log.error("servername.xml could not be loaded.");
 		}
