@@ -28,8 +28,8 @@ public class Q615_MagicalPowerOfFire_Part1 extends Quest implements ScriptFile {
 	private static final int RED_TOTEM = 7243;
 	private static final int DIVINE_STONE = 7081;
 
-	public Q615_MagicalPowerOfFire_Part1(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q615_MagicalPowerOfFire_Part1(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { STOLEN_RED_TOTEM };
 
@@ -41,7 +41,7 @@ public class Q615_MagicalPowerOfFire_Part1 extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q615_MagicalPowerOfFire_Part1(615, "Q615_MagicalPowerOfFire_Part1", "quests");
+		new Q615_MagicalPowerOfFire_Part1(615, "Q615_MagicalPowerOfFire_Part1", "", "quests");
 	}
 
 	@Override

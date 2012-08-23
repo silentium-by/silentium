@@ -28,8 +28,8 @@ public class Q277_GatekeepersOffering extends Quest implements ScriptFile {
 	// Monster
 	private static final int GRAYSTONE_GOLEM = 20333;
 
-	public Q277_GatekeepersOffering(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q277_GatekeepersOffering(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		addStartNpc(TAMIL);
 		addTalkId(TAMIL);
@@ -38,7 +38,7 @@ public class Q277_GatekeepersOffering extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q277_GatekeepersOffering(277, "Q277_GatekeepersOffering", "quests");
+		new Q277_GatekeepersOffering(277, "Q277_GatekeepersOffering", "", "quests");
 	}
 
 	@Override

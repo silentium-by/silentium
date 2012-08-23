@@ -24,11 +24,11 @@ public class GatekeeperSpirit extends Quest implements ScriptFile {
 	private static final int Anakim = 25286;
 
 	public static void onLoad() {
-		new GatekeeperSpirit(-1, "GatekeeperSpirit", "teleports");
+		new GatekeeperSpirit(-1, "GatekeeperSpirit", "", "teleports");
 	}
 
-	public GatekeeperSpirit(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public GatekeeperSpirit(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		addStartNpc(EnterGk);
 		addFirstTalkId(EnterGk);

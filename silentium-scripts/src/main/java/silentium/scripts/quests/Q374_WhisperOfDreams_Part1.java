@@ -43,8 +43,8 @@ public class Q374_WhisperOfDreams_Part1 extends Quest implements ScriptFile {
 					{ 5489, 6, 15550 } // Tallum Stockings, 6, 15550 adena
 			};
 
-	public Q374_WhisperOfDreams_Part1(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q374_WhisperOfDreams_Part1(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { DEATH_WAVE_LIGHT, CAVE_BEAST_TOOTH, SEALED_MYSTERIOUS_STONE, MYSTERIOUS_STONE };
 
@@ -55,7 +55,7 @@ public class Q374_WhisperOfDreams_Part1 extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q374_WhisperOfDreams_Part1(374, "Q374_WhisperOfDreams_Part1", "quests");
+		new Q374_WhisperOfDreams_Part1(374, "Q374_WhisperOfDreams_Part1", "", "quests");
 	}
 
 	@Override

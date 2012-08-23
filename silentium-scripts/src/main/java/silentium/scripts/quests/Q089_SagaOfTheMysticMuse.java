@@ -11,12 +11,13 @@ package silentium.scripts.quests;
  * @author Emperorc
  */
 public class Q089_SagaOfTheMysticMuse extends SagasSuperClass {
-	public static final String qn1 = "Q089_SagaOfTheMysticMuse";
-	public static final int qnu = 89;
-	public static final String qna = "quests";
+	private static final String name = "Q089_SagaOfTheMysticMuse";
+	private static final int scriptId = 89;
+	private static final String dname = "";
+	private static final String path = "quests";
 
 	public Q089_SagaOfTheMysticMuse() {
-		super(qnu, qn1, qna);
+		super(scriptId, name, dname, path);
 
 		NPC = new int[] { 30174, 31627, 31283, 31283, 31643, 31646, 31648, 31651, 31654, 31655, 31658, 31283 };
 
@@ -24,7 +25,7 @@ public class Q089_SagaOfTheMysticMuse extends SagasSuperClass {
 
 		Mob = new int[] { 27251, 27238, 27255 };
 
-		qn = qn1;
+		qn = name;
 		classid = 103;
 		prevclass = 0x1b;
 

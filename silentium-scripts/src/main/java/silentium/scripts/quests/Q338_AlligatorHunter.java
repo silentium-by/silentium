@@ -26,8 +26,8 @@ public class Q338_AlligatorHunter extends Quest implements ScriptFile {
 	// Item
 	private static final int ALLIGATOR_PELTS = 4337;
 
-	public Q338_AlligatorHunter(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q338_AlligatorHunter(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { ALLIGATOR_PELTS };
 
@@ -38,7 +38,7 @@ public class Q338_AlligatorHunter extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q338_AlligatorHunter(338, "Q338_AlligatorHunter", "quests");
+		new Q338_AlligatorHunter(338, "Q338_AlligatorHunter", "", "quests");
 	}
 
 	@Override

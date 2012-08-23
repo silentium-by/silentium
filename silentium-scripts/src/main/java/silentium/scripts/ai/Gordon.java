@@ -44,11 +44,11 @@ public class Gordon extends DefaultMonsterAI implements ScriptFile {
 	private static boolean _isSpawned = false;
 
 	public static void onLoad() {
-		new Gordon(-1, "gordon", "ai");
+		new Gordon(-1, "gordon", "", "ai");
 	}
 
-	public Gordon(final int id, final String name, final String descr) {
-		super(id, name, descr);
+	public Gordon(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 		final int[] mobs = { GORDON };
 		registerMobs(mobs, QuestEventType.ON_ATTACK, QuestEventType.ON_KILL, QuestEventType.ON_SPAWN);
 		// wait 2 minutes after Start AI

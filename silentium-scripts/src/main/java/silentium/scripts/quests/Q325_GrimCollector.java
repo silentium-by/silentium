@@ -34,8 +34,8 @@ public class Q325_GrimCollector extends Quest implements ScriptFile {
 	private static final int VARSAK = 30342;
 	private static final int SAMED = 30434;
 
-	public Q325_GrimCollector(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q325_GrimCollector(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { ZOMBIE_HEAD, ZOMBIE_HEART, ZOMBIE_LIVER, SKULL, RIB_BONE, SPINE, ARM_BONE, THIGH_BONE, COMPLETE_SKELETON, ANATOMY_DIAGRAM };
 
@@ -46,7 +46,7 @@ public class Q325_GrimCollector extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q325_GrimCollector(325, "Q325_GrimCollector", "quests");
+		new Q325_GrimCollector(325, "Q325_GrimCollector", "", "quests");
 	}
 
 	private int getNumberOfPieces(final QuestState st) {

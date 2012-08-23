@@ -23,8 +23,8 @@ public class Q012_SecretMeetingWithVarkaSilenos extends Quest {
 	// Items
 	private static final int MUNITIONS_BOX = 7232;
 
-	public Q012_SecretMeetingWithVarkaSilenos(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q012_SecretMeetingWithVarkaSilenos(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { MUNITIONS_BOX };
 
@@ -33,7 +33,7 @@ public class Q012_SecretMeetingWithVarkaSilenos extends Quest {
 	}
 
 	public static void main(final String... args) {
-		new Q012_SecretMeetingWithVarkaSilenos(12, "Q012_SecretMeetingWithVarkaSilenos", "quests");
+		new Q012_SecretMeetingWithVarkaSilenos(12, "Q012_SecretMeetingWithVarkaSilenos", "", "quests");
 	}
 
 	@Override

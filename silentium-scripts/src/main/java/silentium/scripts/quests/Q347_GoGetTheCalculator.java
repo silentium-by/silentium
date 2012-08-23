@@ -27,8 +27,8 @@ public class Q347_GoGetTheCalculator extends Quest implements ScriptFile {
 	private static final int CALCULATOR_Q = 4285;
 	private static final int CALCULATOR_REAL = 4393;
 
-	public Q347_GoGetTheCalculator(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q347_GoGetTheCalculator(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { 4286 };
 
@@ -39,7 +39,7 @@ public class Q347_GoGetTheCalculator extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q347_GoGetTheCalculator(347, "Q347_GoGetTheCalculator", "quests");
+		new Q347_GoGetTheCalculator(347, "Q347_GoGetTheCalculator", "", "quests");
 	}
 
 	@Override

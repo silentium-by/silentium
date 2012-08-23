@@ -32,8 +32,8 @@ public class Q152_ShardsOfGolem extends Quest implements ScriptFile {
 	// Mob
 	private static final int STONE_GOLEM = 20016;
 
-	public Q152_ShardsOfGolem(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q152_ShardsOfGolem(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { HARRYS_RECEIPT1, HARRYS_RECEIPT2, GOLEM_SHARD, TOOL_BOX };
 
@@ -44,7 +44,7 @@ public class Q152_ShardsOfGolem extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q152_ShardsOfGolem(152, "Q152_ShardsOfGolem", "quests");
+		new Q152_ShardsOfGolem(152, "Q152_ShardsOfGolem", "", "quests");
 	}
 
 	@Override

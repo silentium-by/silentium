@@ -51,11 +51,11 @@ public class DrChaos extends Quest implements ScriptFile {
 	private static final byte DEAD = 2; // Dr. Chaos has been killed and has not yet spawned.
 
 	public static void onLoad() {
-		new DrChaos(-1, "drchaos", "ai");
+		new DrChaos(-1, "drchaos", "", "ai");
 	}
 
-	public DrChaos(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public DrChaos(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		addFirstTalkId(DOCTOR_CHAOS); // Different HTMs following actual humor.
 		addSpawnId(DOCTOR_CHAOS); // Timer activation at 30sec + paranoia activity.

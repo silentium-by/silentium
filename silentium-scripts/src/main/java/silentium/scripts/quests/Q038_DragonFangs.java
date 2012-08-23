@@ -45,8 +45,8 @@ public class Q038_DragonFangs extends Quest implements ScriptFile {
 		droplist.put(20356, new int[] { 6, TOOTH_OF_DRAGON, 50, 50 });
 	}
 
-	public Q038_DragonFangs(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q038_DragonFangs(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { FEATHER_ORNAMENT, TOOTH_OF_TOTEM, TOOTH_OF_DRAGON, LETTER_OF_IRIS, LETTER_OF_ROHMER };
 
@@ -58,7 +58,7 @@ public class Q038_DragonFangs extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q038_DragonFangs(38, "Q038_DragonFangs", "quests");
+		new Q038_DragonFangs(38, "Q038_DragonFangs", "", "quests");
 	}
 
 	@Override

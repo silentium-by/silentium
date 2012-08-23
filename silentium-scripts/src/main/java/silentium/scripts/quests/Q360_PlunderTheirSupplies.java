@@ -25,8 +25,8 @@ public class Q360_PlunderTheirSupplies extends Quest implements ScriptFile {
 	private static final int SUSPICIOUS_DOCUMENT = 5871;
 	private static final int RECIPE_OF_SUPPLY = 5870;
 
-	public Q360_PlunderTheirSupplies(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q360_PlunderTheirSupplies(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { RECIPE_OF_SUPPLY, SUPPLY_ITEM, SUSPICIOUS_DOCUMENT };
 
@@ -37,7 +37,7 @@ public class Q360_PlunderTheirSupplies extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q360_PlunderTheirSupplies(360, "Q360_PlunderTheirSupplies", "quests");
+		new Q360_PlunderTheirSupplies(360, "Q360_PlunderTheirSupplies", "", "quests");
 	}
 
 	@Override

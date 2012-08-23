@@ -28,8 +28,8 @@ public class Q006_StepIntoTheFuture extends Quest implements ScriptFile {
 	private static final int MARK_TRAVELER = 7570;
 	private static final int SCROLL_GIRAN = 7559;
 
-	public Q006_StepIntoTheFuture(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q006_StepIntoTheFuture(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { BAULRO_LETTER };
 
@@ -38,7 +38,7 @@ public class Q006_StepIntoTheFuture extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q006_StepIntoTheFuture(6, "Q006_StepIntoTheFuture", "quests");
+		new Q006_StepIntoTheFuture(6, "Q006_StepIntoTheFuture", "", "quests");
 	}
 
 	@Override

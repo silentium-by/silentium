@@ -27,8 +27,8 @@ public class Q357_WarehouseKeepersAmbition extends Quest implements ScriptFile {
 	private static final int REWARD1 = 900;
 	private static final int REWARD2 = 10000;
 
-	public Q357_WarehouseKeepersAmbition(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q357_WarehouseKeepersAmbition(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { JADE_CRYSTAL };
 
@@ -39,7 +39,7 @@ public class Q357_WarehouseKeepersAmbition extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q357_WarehouseKeepersAmbition(357, "Q357_WarehouseKeepersAmbition", "quests");
+		new Q357_WarehouseKeepersAmbition(357, "Q357_WarehouseKeepersAmbition", "", "quests");
 	}
 
 	@Override

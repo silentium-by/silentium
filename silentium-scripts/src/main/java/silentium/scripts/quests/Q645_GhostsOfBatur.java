@@ -39,8 +39,8 @@ public class Q645_GhostsOfBatur extends Quest implements ScriptFile {
 		Rewards.put("STM", new int[] { 1883, 2 });
 	}
 
-	public Q645_GhostsOfBatur(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q645_GhostsOfBatur(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		addStartNpc(KARUDA);
 		addTalkId(KARUDA);
@@ -49,7 +49,7 @@ public class Q645_GhostsOfBatur extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q645_GhostsOfBatur(645, "Q645_GhostsOfBatur", "quests");
+		new Q645_GhostsOfBatur(645, "Q645_GhostsOfBatur", "", "quests");
 	}
 
 	@Override

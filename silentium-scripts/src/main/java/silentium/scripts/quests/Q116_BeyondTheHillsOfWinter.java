@@ -29,8 +29,8 @@ public class Q116_BeyondTheHillsOfWinter extends Quest implements ScriptFile {
 	// Reward
 	private static final int SSD = 1463;
 
-	public Q116_BeyondTheHillsOfWinter(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q116_BeyondTheHillsOfWinter(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { GOODS };
 
@@ -39,7 +39,7 @@ public class Q116_BeyondTheHillsOfWinter extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q116_BeyondTheHillsOfWinter(116, "Q116_BeyondTheHillsOfWinter", "quests");
+		new Q116_BeyondTheHillsOfWinter(116, "Q116_BeyondTheHillsOfWinter", "", "quests");
 	}
 
 	@Override

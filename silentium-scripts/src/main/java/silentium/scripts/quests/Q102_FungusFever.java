@@ -32,8 +32,8 @@ public class Q102_FungusFever extends Quest implements ScriptFile {
 	private static final int SWORD_OF_SENTINEL_ID = 743;
 	private static final int STAFF_OF_SENTINEL_ID = 744;
 
-	public Q102_FungusFever(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q102_FungusFever(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 		addStartNpc(30284);
 		addTalkId(30284, 30156, 30217, 30219, 30221, 30285);
 		addKillId(20013, 20019);
@@ -41,7 +41,7 @@ public class Q102_FungusFever extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q102_FungusFever(102, "Q102_FungusFever", "quests");
+		new Q102_FungusFever(102, "Q102_FungusFever", "", "quests");
 	}
 
 	private void check(final QuestState st) {

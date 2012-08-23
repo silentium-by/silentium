@@ -20,15 +20,15 @@ public class Q122_OminousNews extends Quest implements ScriptFile {
 	private static final int MOIRA = 31979;
 	private static final int KARUDA = 32017;
 
-	public Q122_OminousNews(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q122_OminousNews(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		addStartNpc(MOIRA);
 		addTalkId(MOIRA, KARUDA);
 	}
 
 	public static void onLoad() {
-		new Q122_OminousNews(122, "Q122_OminousNews", "quests");
+		new Q122_OminousNews(122, "Q122_OminousNews", "", "quests");
 	}
 
 	@Override

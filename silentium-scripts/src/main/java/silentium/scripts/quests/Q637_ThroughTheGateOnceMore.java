@@ -26,8 +26,8 @@ public class Q637_ThroughTheGateOnceMore extends Quest implements ScriptFile {
 	// Reward
 	private static final int MARK = 8067;
 
-	public Q637_ThroughTheGateOnceMore(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q637_ThroughTheGateOnceMore(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { NECRO_HEART };
 
@@ -38,7 +38,7 @@ public class Q637_ThroughTheGateOnceMore extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q637_ThroughTheGateOnceMore(637, "Q637_ThroughTheGateOnceMore", "quests");
+		new Q637_ThroughTheGateOnceMore(637, "Q637_ThroughTheGateOnceMore", "", "quests");
 	}
 
 	@Override

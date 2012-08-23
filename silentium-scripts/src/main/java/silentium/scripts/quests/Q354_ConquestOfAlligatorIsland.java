@@ -25,8 +25,8 @@ public class Q354_ConquestOfAlligatorIsland extends Quest implements ScriptFile 
 	// NPC
 	private static final int KLUCK = 30895;
 
-	public Q354_ConquestOfAlligatorIsland(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q354_ConquestOfAlligatorIsland(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { ALLIGATOR_TOOTH, TORN_MAP_FRAGMENT };
 
@@ -37,7 +37,7 @@ public class Q354_ConquestOfAlligatorIsland extends Quest implements ScriptFile 
 	}
 
 	public static void onLoad() {
-		new Q354_ConquestOfAlligatorIsland(354, "Q354_ConquestOfAlligatorIsland", "quests");
+		new Q354_ConquestOfAlligatorIsland(354, "Q354_ConquestOfAlligatorIsland", "", "quests");
 	}
 
 	@Override

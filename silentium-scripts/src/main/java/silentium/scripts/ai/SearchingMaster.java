@@ -18,11 +18,11 @@ public class SearchingMaster extends DefaultMonsterAI implements ScriptFile {
 	private static final int[] mobs = { 20965, 20966, 20967, 20968, 20969, 20970, 20971, 20972, 20973 };
 
 	public static void onLoad() {
-		new SearchingMaster(-1, "SearchingMaster", "ai");
+		new SearchingMaster(-1, "SearchingMaster", "", "ai");
 	}
 
-	public SearchingMaster(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public SearchingMaster(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 		for (final int id : mobs)
 			addAttackId(id);
 	}

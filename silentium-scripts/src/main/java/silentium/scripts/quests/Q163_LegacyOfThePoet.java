@@ -29,8 +29,8 @@ public class Q163_LegacyOfThePoet extends Quest implements ScriptFile {
 	// Reward
 	private static final int ADENA = 57;
 
-	public Q163_LegacyOfThePoet(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q163_LegacyOfThePoet(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { RUMIELS_POEM_1, RUMIELS_POEM_2, RUMIELS_POEM_3, RUMIELS_POEM_4 };
 
@@ -41,7 +41,7 @@ public class Q163_LegacyOfThePoet extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q163_LegacyOfThePoet(163, "Q163_LegacyOfThePoet", "quests");
+		new Q163_LegacyOfThePoet(163, "Q163_LegacyOfThePoet", "", "quests");
 	}
 
 	@Override

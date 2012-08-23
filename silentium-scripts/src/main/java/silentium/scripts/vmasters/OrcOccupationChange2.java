@@ -11,8 +11,8 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 
 public class OrcOccupationChange2 extends OccupationEngine {
-	public OrcOccupationChange2(final int id, final String name, final String descr) {
-		super(id, name, descr);
+	public OrcOccupationChange2(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		for (final int npc : new int[] { 30513, 30681, 30704, 30865, 30913, 31288, 31326, 31977 }) {
 			addStartNpc(npc);
@@ -21,7 +21,7 @@ public class OrcOccupationChange2 extends OccupationEngine {
 	}
 
 	public static void onLoad() {
-		new OrcOccupationChange2(-1, "OrcOccupationChange2", "vmasters");
+		new OrcOccupationChange2(-1, "OrcOccupationChange2", "", "vmasters");
 	}
 
 	@Override

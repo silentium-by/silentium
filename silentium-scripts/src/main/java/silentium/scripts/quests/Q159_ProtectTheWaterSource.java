@@ -31,8 +31,8 @@ public class Q159_ProtectTheWaterSource extends Quest implements ScriptFile {
 	// Reward
 	private static final int ADENA = 57;
 
-	public Q159_ProtectTheWaterSource(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q159_ProtectTheWaterSource(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { PLAGUE_DUST, HYACINTH_CHARM1, HYACINTH_CHARM2 };
 
@@ -43,7 +43,7 @@ public class Q159_ProtectTheWaterSource extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q159_ProtectTheWaterSource(159, "Q159_ProtectTheWaterSource", "quests");
+		new Q159_ProtectTheWaterSource(159, "Q159_ProtectTheWaterSource", "", "quests");
 	}
 
 	@Override

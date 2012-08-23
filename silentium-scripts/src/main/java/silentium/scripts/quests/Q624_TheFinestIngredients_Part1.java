@@ -31,8 +31,8 @@ public class Q624_TheFinestIngredients_Part1 extends Quest implements ScriptFile
 	private static final int CRYSTAL = 7080;
 	private static final int SAUCE = 7205;
 
-	public Q624_TheFinestIngredients_Part1(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q624_TheFinestIngredients_Part1(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { TRUNK, FOOT, SPICE };
 
@@ -43,7 +43,7 @@ public class Q624_TheFinestIngredients_Part1 extends Quest implements ScriptFile
 	}
 
 	public static void onLoad() {
-		new Q624_TheFinestIngredients_Part1(624, "Q624_TheFinestIngredients_Part1", "quests");
+		new Q624_TheFinestIngredients_Part1(624, "Q624_TheFinestIngredients_Part1", "", "quests");
 	}
 
 	@Override

@@ -30,15 +30,15 @@ public class Q048_ToTheImmortalPlateau extends Quest implements ScriptFile {
 	private static final int SCROLL_OF_ESCAPE_SPECIAL = 7557;
 	private static final int RACE = 3;
 
-	public Q048_ToTheImmortalPlateau(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q048_ToTheImmortalPlateau(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 		addStartNpc(30097);
 		addTalkId(30097, 30094, 30090, 30116);
 		questItemIds = new int[] { GALLADUCCIS_ORDER_DOCUMENT_ID_1, GALLADUCCIS_ORDER_DOCUMENT_ID_2, GALLADUCCIS_ORDER_DOCUMENT_ID_3, MAGIC_SWORD_HILT_ID, GEMSTONE_POWDER_ID, PURIFIED_MAGIC_NECKLACE_ID };
 	}
 
 	public static void onLoad() {
-		new Q048_ToTheImmortalPlateau(48, "Q048_ToTheImmortalPlateau", "quests");
+		new Q048_ToTheImmortalPlateau(48, "Q048_ToTheImmortalPlateau", "", "quests");
 	}
 
 	@Override

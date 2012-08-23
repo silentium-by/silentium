@@ -28,8 +28,8 @@ public class Q157_RecoverSmuggledGoods extends Quest implements ScriptFile {
 	// Reward
 	private static final int BUCKLER = 20;
 
-	public Q157_RecoverSmuggledGoods(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q157_RecoverSmuggledGoods(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { ADAMANTITE_ORE };
 
@@ -40,7 +40,7 @@ public class Q157_RecoverSmuggledGoods extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q157_RecoverSmuggledGoods(157, "Q157_RecoverSmuggledGoods", "quests");
+		new Q157_RecoverSmuggledGoods(157, "Q157_RecoverSmuggledGoods", "", "quests");
 	}
 
 	@Override

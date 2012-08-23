@@ -35,8 +35,8 @@ public class Q153_DeliverGoods extends Quest implements ScriptFile {
 	private static final int SoulshotNoGrade = 1835;
 	private static final int RingofKnowledge = 875;
 
-	public Q153_DeliverGoods(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q153_DeliverGoods(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { DeliveryList, HeavyWoodBox, ClothBundle, ClayPot, JacksonsReceipt, SilviasReceipt, RantsReceipt };
 
@@ -45,7 +45,7 @@ public class Q153_DeliverGoods extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q153_DeliverGoods(153, "Q153_DeliverGoods", "quests");
+		new Q153_DeliverGoods(153, "Q153_DeliverGoods", "", "quests");
 	}
 
 	@Override

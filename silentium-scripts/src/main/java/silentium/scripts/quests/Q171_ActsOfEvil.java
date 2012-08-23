@@ -41,8 +41,8 @@ public class Q171_ActsOfEvil extends Quest implements ScriptFile {
 	private static final int NETI = 30425;
 	private static final int BURAI = 30617;
 
-	public Q171_ActsOfEvil(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q171_ActsOfEvil(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { RANGERS_REPORT1, RANGERS_REPORT2, RANGERS_REPORT3, RANGERS_REPORT4, OL_MAHUM_HEAD, CARGOBOX, TYRAS_BILL, CERTIFICATE, BLADE_MOLD, WEAPON_TRADE_CONTRACT };
 
@@ -53,7 +53,7 @@ public class Q171_ActsOfEvil extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q171_ActsOfEvil(171, "Q171_ActsOfEvil", "quests");
+		new Q171_ActsOfEvil(171, "Q171_ActsOfEvil", "", "quests");
 	}
 
 	@Override

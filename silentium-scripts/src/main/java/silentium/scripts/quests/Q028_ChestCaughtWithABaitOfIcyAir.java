@@ -24,8 +24,8 @@ public class Q028_ChestCaughtWithABaitOfIcyAir extends Quest {
 	private static final int KikisLetter = 7626;
 	private static final int ElvenRing = 881;
 
-	public Q028_ChestCaughtWithABaitOfIcyAir(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q028_ChestCaughtWithABaitOfIcyAir(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { KikisLetter };
 
@@ -34,7 +34,7 @@ public class Q028_ChestCaughtWithABaitOfIcyAir extends Quest {
 	}
 
 	public static void main(final String... args) {
-		new Q028_ChestCaughtWithABaitOfIcyAir(28, "Q028_ChestCaughtWithABaitOfIcyAir", "quests");
+		new Q028_ChestCaughtWithABaitOfIcyAir(28, "Q028_ChestCaughtWithABaitOfIcyAir", "", "quests");
 	}
 
 	@Override

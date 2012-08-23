@@ -25,8 +25,8 @@ public class Q170_DangerousSeduction extends Quest implements ScriptFile {
 	// Mob
 	private static final int MERKENIS = 27022;
 
-	public Q170_DangerousSeduction(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q170_DangerousSeduction(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { NIGHTMARE_CRYSTAL };
 
@@ -37,7 +37,7 @@ public class Q170_DangerousSeduction extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q170_DangerousSeduction(170, "Q170_DangerousSeduction", "quests");
+		new Q170_DangerousSeduction(170, "Q170_DangerousSeduction", "", "quests");
 	}
 
 	@Override

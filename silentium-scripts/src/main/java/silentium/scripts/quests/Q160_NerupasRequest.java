@@ -31,8 +31,8 @@ public class Q160_NerupasRequest extends Quest implements ScriptFile {
 	private static final int CREAMEES = 30149;
 	private static final int JULIA = 30152;
 
-	public Q160_NerupasRequest(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q160_NerupasRequest(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { SILVERY_SPIDERSILK, UNOS_RECEIPT, CELS_TICKET, NIGHTSHADE_LEAF };
 
@@ -41,7 +41,7 @@ public class Q160_NerupasRequest extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q160_NerupasRequest(160, "Q160_NerupasRequest", "quests");
+		new Q160_NerupasRequest(160, "Q160_NerupasRequest", "", "quests");
 	}
 
 	@Override

@@ -29,8 +29,8 @@ public class Q294_CovertBusiness extends Quest implements ScriptFile {
 	// NPCs
 	private static final int Keef = 30534;
 
-	public Q294_CovertBusiness(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q294_CovertBusiness(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { BatFang };
 
@@ -41,7 +41,7 @@ public class Q294_CovertBusiness extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q294_CovertBusiness(294, "Q294_CovertBusiness", "quests");
+		new Q294_CovertBusiness(294, "Q294_CovertBusiness", "", "quests");
 	}
 
 	@Override

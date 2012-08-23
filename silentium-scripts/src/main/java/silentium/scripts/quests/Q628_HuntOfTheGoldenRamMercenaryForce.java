@@ -46,8 +46,8 @@ public class Q628_HuntOfTheGoldenRamMercenaryForce extends Quest implements Scri
 		chances.put(21517, 37);
 	}
 
-	public Q628_HuntOfTheGoldenRamMercenaryForce(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q628_HuntOfTheGoldenRamMercenaryForce(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { CHITIN, CHITIN2, RECRUIT, SOLDIER };
 
@@ -58,7 +58,7 @@ public class Q628_HuntOfTheGoldenRamMercenaryForce extends Quest implements Scri
 	}
 
 	public static void onLoad() {
-		new Q628_HuntOfTheGoldenRamMercenaryForce(628, "Q628_HuntOfTheGoldenRamMercenaryForce", "quests");
+		new Q628_HuntOfTheGoldenRamMercenaryForce(628, "Q628_HuntOfTheGoldenRamMercenaryForce", "", "quests");
 	}
 
 	@Override

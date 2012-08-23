@@ -29,8 +29,8 @@ public class Q355_FamilyHonor extends Quest implements ScriptFile {
 	private static final int STATUE_REPLICA = 4353;
 	private static final int STATUE_FORGERY = 4354;
 
-	public Q355_FamilyHonor(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q355_FamilyHonor(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { GALIBREDO_BUST };
 
@@ -41,7 +41,7 @@ public class Q355_FamilyHonor extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q355_FamilyHonor(355, "Q355_FamilyHonor", "quests");
+		new Q355_FamilyHonor(355, "Q355_FamilyHonor", "", "quests");
 	}
 
 	@Override

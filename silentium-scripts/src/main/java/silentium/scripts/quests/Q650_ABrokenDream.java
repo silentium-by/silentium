@@ -27,8 +27,8 @@ public class Q650_ABrokenDream extends Quest implements ScriptFile {
 	private static final int CREWMAN = 22027;
 	private static final int VAGABOND = 22028;
 
-	public Q650_ABrokenDream(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q650_ABrokenDream(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { DREAM_FRAGMENT };
 
@@ -38,7 +38,7 @@ public class Q650_ABrokenDream extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q650_ABrokenDream(650, "Q650_ABrokenDream", "quests");
+		new Q650_ABrokenDream(650, "Q650_ABrokenDream", "", "quests");
 	}
 
 	@Override

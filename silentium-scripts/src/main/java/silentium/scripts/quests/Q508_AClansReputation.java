@@ -47,8 +47,8 @@ public class Q508_AClansReputation extends Quest implements ScriptFile {
 	// Radar
 	private static final int[][] radar = { { 192346, 21528, -3648 }, { 191979, 54902, -7658 }, { 170038, -26236, -3824 }, { 171762, 55028, -5992 }, { 117232, -9476, -3320 }, { 144218, -5816, -4722 } };
 
-	public Q508_AClansReputation(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q508_AClansReputation(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { THEMIS_SCALE, NUCLEUS_OF_HEKATON_PRIME, TIPHON_SHARD, GLAKIS_NUCLEUS, RAHHAS_FANG, NUCLEUS_OF_FLAMESTONE_GIANT };
 
@@ -59,7 +59,7 @@ public class Q508_AClansReputation extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q508_AClansReputation(508, "Q508_AClansReputation", "quests");
+		new Q508_AClansReputation(508, "Q508_AClansReputation", "", "quests");
 	}
 
 	@Override

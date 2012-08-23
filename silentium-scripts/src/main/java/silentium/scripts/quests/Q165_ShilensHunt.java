@@ -23,8 +23,8 @@ public class Q165_ShilensHunt extends Quest implements ScriptFile {
 	// NPC
 	private static final int NELSYA = 30348;
 
-	public Q165_ShilensHunt(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q165_ShilensHunt(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { DARK_BEZOAR };
 
@@ -35,7 +35,7 @@ public class Q165_ShilensHunt extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q165_ShilensHunt(165, "Q165_ShilensHunt", "quests");
+		new Q165_ShilensHunt(165, "Q165_ShilensHunt", "", "quests");
 	}
 
 	@Override

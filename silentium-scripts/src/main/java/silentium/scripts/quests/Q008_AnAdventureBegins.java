@@ -28,8 +28,8 @@ public class Q008_AnAdventureBegins extends Quest implements ScriptFile {
 	private static final int SCROLL_ESCAPE = 7559;
 	private static final int MARK_TRAVELER = 7570;
 
-	public Q008_AnAdventureBegins(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q008_AnAdventureBegins(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { ROSELYN_NOTE };
 
@@ -38,7 +38,7 @@ public class Q008_AnAdventureBegins extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q008_AnAdventureBegins(8, "Q008_AnAdventureBegins", "quests");
+		new Q008_AnAdventureBegins(8, "Q008_AnAdventureBegins", "", "quests");
 	}
 
 	@Override

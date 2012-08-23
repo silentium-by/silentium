@@ -22,8 +22,8 @@ public class Q164_BloodFiend extends Quest implements ScriptFile {
 	// Reward
 	private static final int ADENA = 57;
 
-	public Q164_BloodFiend(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q164_BloodFiend(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { KIRUNAK_SKULL };
 
@@ -34,7 +34,7 @@ public class Q164_BloodFiend extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q164_BloodFiend(164, "Q164_BloodFiend", "quests");
+		new Q164_BloodFiend(164, "Q164_BloodFiend", "", "quests");
 	}
 
 	@Override

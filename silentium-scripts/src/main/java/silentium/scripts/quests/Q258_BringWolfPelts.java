@@ -34,8 +34,8 @@ public class Q258_BringWolfPelts extends Quest implements ScriptFile {
 	private static final int Short_Leather_Gloves = 1119;
 	private static final int Tunic = 426;
 
-	public Q258_BringWolfPelts(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q258_BringWolfPelts(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { WOLF_PELT };
 
@@ -46,7 +46,7 @@ public class Q258_BringWolfPelts extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q258_BringWolfPelts(258, "Q258_BringWolfPelts", "quests");
+		new Q258_BringWolfPelts(258, "Q258_BringWolfPelts", "", "quests");
 	}
 
 	@Override

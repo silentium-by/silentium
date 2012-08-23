@@ -11,12 +11,13 @@ package silentium.scripts.quests;
  * @author Emperorc
  */
 public class Q084_SagaOfTheGhostSentinel extends SagasSuperClass {
-	public static final String qn1 = "Q084_SagaOfTheGhostSentinel";
-	public static final int qnu = 84;
-	public static final String qna = "quests";
+	private static final String name = "Q084_SagaOfTheGhostSentinel";
+	private static final int scriptId = 84;
+	private static final String dname = "";
+	private static final String path = "quests";
 
 	public Q084_SagaOfTheGhostSentinel() {
-		super(qnu, qn1, qna);
+		super(scriptId, name, dname, path);
 
 		NPC = new int[] { 30702, 31587, 31604, 31640, 31635, 31646, 31649, 31652, 31654, 31655, 31659, 31641 };
 
@@ -24,7 +25,7 @@ public class Q084_SagaOfTheGhostSentinel extends SagasSuperClass {
 
 		Mob = new int[] { 27298, 27233, 27307 };
 
-		qn = qn1;
+		qn = name;
 		classid = 109;
 		prevclass = 0x25;
 

@@ -30,8 +30,8 @@ public class Q299_GatherIngredientsForPie extends Quest implements ScriptFile {
 	private static final int WASP_WORKER = 20934;
 	private static final int WASP_LEADER = 20935;
 
-	public Q299_GatherIngredientsForPie(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q299_GatherIngredientsForPie(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { FRUIT_BASKET, AVELLAN_SPICE, HONEY_POUCH };
 
@@ -42,7 +42,7 @@ public class Q299_GatherIngredientsForPie extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q299_GatherIngredientsForPie(299, "Q299_GatherIngredientsForPie", "quests");
+		new Q299_GatherIngredientsForPie(299, "Q299_GatherIngredientsForPie", "", "quests");
 	}
 
 	@Override

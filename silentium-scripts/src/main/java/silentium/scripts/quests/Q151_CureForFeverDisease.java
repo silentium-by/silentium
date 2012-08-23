@@ -25,8 +25,8 @@ public class Q151_CureForFeverDisease extends Quest implements ScriptFile {
 	private static final int ELIAS = 30050;
 	private static final int YOHANES = 30032;
 
-	public Q151_CureForFeverDisease(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q151_CureForFeverDisease(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { FEVER_MEDICINE, POISON_SAC };
 
@@ -37,7 +37,7 @@ public class Q151_CureForFeverDisease extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q151_CureForFeverDisease(151, "Q151_CureForFeverDisease", "quests");
+		new Q151_CureForFeverDisease(151, "Q151_CureForFeverDisease", "", "quests");
 	}
 
 	@Override

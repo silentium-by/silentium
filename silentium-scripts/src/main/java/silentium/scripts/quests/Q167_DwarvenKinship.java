@@ -26,8 +26,8 @@ public class Q167_DwarvenKinship extends Quest implements ScriptFile {
 	private static final int NORMAN = 30210;
 	private static final int HAPROCK = 30255;
 
-	public Q167_DwarvenKinship(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q167_DwarvenKinship(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { CARLON_LETTER, NORMANS_LETTER };
 
@@ -36,7 +36,7 @@ public class Q167_DwarvenKinship extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q167_DwarvenKinship(167, "Q167_DwarvenKinship", "quests");
+		new Q167_DwarvenKinship(167, "Q167_DwarvenKinship", "", "quests");
 	}
 
 	@Override

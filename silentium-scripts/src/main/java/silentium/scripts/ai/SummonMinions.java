@@ -38,11 +38,11 @@ public class SummonMinions extends DefaultMonsterAI implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new SummonMinions(-1, "SummonMinions", "ai");
+		new SummonMinions(-1, "SummonMinions", "", "ai");
 	}
 
-	public SummonMinions(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public SummonMinions(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 		final int[] temp = { 20767, 21524, 21531, 21539 };
 		registerMobs(temp, QuestEventType.ON_ATTACK, QuestEventType.ON_KILL);
 	}

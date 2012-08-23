@@ -26,8 +26,8 @@ public class Q276_TotemOfTheHestui extends Quest implements ScriptFile {
 	private static final int HESTUIS_TOTEM = 1500;
 	private static final int LEATHER_PANTS = 29;
 
-	public Q276_TotemOfTheHestui(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q276_TotemOfTheHestui(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { KASHA_PARASITE, KASHA_CRYSTAL };
 
@@ -38,7 +38,7 @@ public class Q276_TotemOfTheHestui extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q276_TotemOfTheHestui(276, "Q276_TotemOfTheHestui", "quests");
+		new Q276_TotemOfTheHestui(276, "Q276_TotemOfTheHestui", "", "quests");
 	}
 
 	@Override

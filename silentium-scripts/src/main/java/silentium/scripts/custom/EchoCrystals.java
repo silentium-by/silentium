@@ -93,11 +93,11 @@ public class EchoCrystals extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new EchoCrystals(-1, "EchoCrystals", "custom");
+		new EchoCrystals(-1, "EchoCrystals", "", "custom");
 	}
 
-	public EchoCrystals(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public EchoCrystals(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		// Initialize Map
 		SCORES.put(4410, new ScoreData(4411, "01", "02", "03"));

@@ -52,9 +52,9 @@ public class SagasSuperClass extends Quest implements ScriptFile {
 
 	private static final int[] QuestClass = { 0x05, 0x14, 0x15, 0x02, 0x03, 0x2e, 0x30, 0x33, 0x34, 0x08, 0x17, 0x24, 0x09, 0x18, 0x25, 0x10, 0x11, 0x1e, 0x0c, 0x1b, 0x28, 0x0e, 0x1c, 0x29, 0x0d, 0x06, 0x22, 0x21, 0x2b, 0x37, 0x39 };
 
-	public SagasSuperClass(final int id, final String name, final String descr) {
-		super(id, name, descr);
-		qnu = id;
+	public SagasSuperClass(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
+		qnu = scriptId;
 	}
 
 	public void registerNPCs() {
@@ -716,7 +716,7 @@ public class SagasSuperClass extends Quest implements ScriptFile {
 
 	public static void onLoad() {
 		// initialize superclass
-		new SagasSuperClass(-1, "SagasSuperClass", "quests");
+		new SagasSuperClass(-1, "SagasSuperClass", "", "quests");
 
 		// initialize subclasses
 		_scripts.add(new Q087_SagaOfEvasSaint());

@@ -35,8 +35,8 @@ public class Q652_AnAgedExAdventurer extends Quest implements ScriptFile {
 	// Current position
 	private int _currentPosition = 0;
 
-	public Q652_AnAgedExAdventurer(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q652_AnAgedExAdventurer(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		addStartNpc(TANTAN);
 		addTalkId(TANTAN, SARA);
@@ -45,7 +45,7 @@ public class Q652_AnAgedExAdventurer extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q652_AnAgedExAdventurer(652, "Q652_AnAgedExAdventurer", "quests");
+		new Q652_AnAgedExAdventurer(652, "Q652_AnAgedExAdventurer", "", "quests");
 	}
 
 	@Override

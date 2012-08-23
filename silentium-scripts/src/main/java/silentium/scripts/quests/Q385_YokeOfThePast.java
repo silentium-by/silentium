@@ -74,8 +74,8 @@ public class Q385_YokeOfThePast extends Quest implements ScriptFile {
 		Chance.put(21255, 86);
 	}
 
-	public Q385_YokeOfThePast(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q385_YokeOfThePast(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { ANCIENT_SCROLL };
 
@@ -88,7 +88,7 @@ public class Q385_YokeOfThePast extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q385_YokeOfThePast(385, "Q385_YokeOfThePast", "quests");
+		new Q385_YokeOfThePast(385, "Q385_YokeOfThePast", "", "quests");
 	}
 
 	@Override

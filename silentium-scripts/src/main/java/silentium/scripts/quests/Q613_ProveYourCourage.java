@@ -22,8 +22,8 @@ public class Q613_ProveYourCourage extends Quest implements ScriptFile {
 	private static final int Valor_Feather = 7229;
 	private static final int Varka_Alliance_Three = 7223;
 
-	public Q613_ProveYourCourage(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q613_ProveYourCourage(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { Hekaton_Head };
 
@@ -34,7 +34,7 @@ public class Q613_ProveYourCourage extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q613_ProveYourCourage(613, "Q613_ProveYourCourage", "quests");
+		new Q613_ProveYourCourage(613, "Q613_ProveYourCourage", "", "quests");
 	}
 
 	@Override

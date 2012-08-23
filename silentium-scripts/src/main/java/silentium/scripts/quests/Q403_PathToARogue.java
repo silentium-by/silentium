@@ -35,8 +35,8 @@ public class Q403_PathToARogue extends Quest implements ScriptFile {
 	private static final int Bezique = 30379;
 	private static final int Neti = 30425;
 
-	public Q403_PathToARogue(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q403_PathToARogue(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { Letter, Bones, Horseshoe, Bill, StolenJewelry, StolenTomes, StolenRing, StolenNecklace, NetisBow, NetisDagger };
 
@@ -47,7 +47,7 @@ public class Q403_PathToARogue extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q403_PathToARogue(403, "Q403_PathToARogue", "quests");
+		new Q403_PathToARogue(403, "Q403_PathToARogue", "", "quests");
 	}
 
 	@Override

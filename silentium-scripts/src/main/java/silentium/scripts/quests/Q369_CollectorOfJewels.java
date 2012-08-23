@@ -47,8 +47,8 @@ public class Q369_CollectorOfJewels extends Quest implements ScriptFile {
 		DROPLIST_FLARE.put(20749, 85);
 	}
 
-	public Q369_CollectorOfJewels(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q369_CollectorOfJewels(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { FLARE_SHARD, FREEZING_SHARD };
 
@@ -63,7 +63,7 @@ public class Q369_CollectorOfJewels extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q369_CollectorOfJewels(369, "Q369_CollectorOfJewels", "quests");
+		new Q369_CollectorOfJewels(369, "Q369_CollectorOfJewels", "", "quests");
 	}
 
 	@Override

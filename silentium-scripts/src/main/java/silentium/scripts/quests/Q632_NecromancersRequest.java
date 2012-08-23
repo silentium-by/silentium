@@ -26,8 +26,8 @@ public class Q632_NecromancersRequest extends Quest implements ScriptFile {
 	private static final int VAMPIRE_HEART = 7542;
 	private static final int ZOMBIE_BRAIN = 7543;
 
-	public Q632_NecromancersRequest(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q632_NecromancersRequest(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { VAMPIRE_HEART, ZOMBIE_BRAIN };
 
@@ -39,7 +39,7 @@ public class Q632_NecromancersRequest extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q632_NecromancersRequest(632, "Q632_NecromancersRequest", "quests");
+		new Q632_NecromancersRequest(632, "Q632_NecromancersRequest", "", "quests");
 	}
 
 	@Override

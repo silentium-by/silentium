@@ -35,8 +35,8 @@ public class Q246_PossessorOfAPreciousSoul extends Quest implements ScriptFile {
 	private static final int JUDGE_OF_SPLENDOR = 21544;
 	private static final int BARAKIEL = 25325;
 
-	public Q246_PossessorOfAPreciousSoul(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q246_PossessorOfAPreciousSoul(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { WATERBINDER, EVERGREEN, RAIN_SONG, RELIC_BOX };
 
@@ -47,7 +47,7 @@ public class Q246_PossessorOfAPreciousSoul extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q246_PossessorOfAPreciousSoul(246, "Q246_PossessorOfAPreciousSoul", "quests");
+		new Q246_PossessorOfAPreciousSoul(246, "Q246_PossessorOfAPreciousSoul", "", "quests");
 	}
 
 	@Override

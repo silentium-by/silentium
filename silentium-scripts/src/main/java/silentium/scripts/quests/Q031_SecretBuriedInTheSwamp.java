@@ -30,8 +30,8 @@ public class Q031_SecretBuriedInTheSwamp extends Quest implements ScriptFile {
 	private static final int ForgottenMonument4 = 31664;
 	private static final int CorpseOfDwarf = 31665;
 
-	public Q031_SecretBuriedInTheSwamp(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q031_SecretBuriedInTheSwamp(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { KrorinsJournal };
 
@@ -40,7 +40,7 @@ public class Q031_SecretBuriedInTheSwamp extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q031_SecretBuriedInTheSwamp(31, "Q031_SecretBuriedInTheSwamp", "quests");
+		new Q031_SecretBuriedInTheSwamp(31, "Q031_SecretBuriedInTheSwamp", "", "quests");
 	}
 
 	@Override

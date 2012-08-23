@@ -33,8 +33,8 @@ public class Q296_TarantulasSpiderSilk extends Quest implements ScriptFile {
 	private static final int HUNTER_TARANTULA = 20403;
 	private static final int PLUNDER_TARANTULA = 20508;
 
-	public Q296_TarantulasSpiderSilk(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q296_TarantulasSpiderSilk(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { TARANTULA_SPIDER_SILK, TARANTULA_SPINNERETTE };
 
@@ -44,7 +44,7 @@ public class Q296_TarantulasSpiderSilk extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q296_TarantulasSpiderSilk(296, "Q296_TarantulasSpiderSilk", "quests");
+		new Q296_TarantulasSpiderSilk(296, "Q296_TarantulasSpiderSilk", "", "quests");
 	}
 
 	@Override

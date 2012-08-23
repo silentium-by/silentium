@@ -26,8 +26,8 @@ public class Q642_APowerfulPrimevalCreature extends Quest implements ScriptFile 
 	// Rewards
 	private static final int[] REWARDS = { 8690, 8692, 8694, 8696, 8698, 8700, 8702, 8704, 8706, 8708, 8710 };
 
-	public Q642_APowerfulPrimevalCreature(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q642_APowerfulPrimevalCreature(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { DINOSAUR_TISSUE, DINOSAUR_EGG };
 
@@ -39,7 +39,7 @@ public class Q642_APowerfulPrimevalCreature extends Quest implements ScriptFile 
 	}
 
 	public static void onLoad() {
-		new Q642_APowerfulPrimevalCreature(642, "Q642_APowerfulPrimevalCreature", "quests");
+		new Q642_APowerfulPrimevalCreature(642, "Q642_APowerfulPrimevalCreature", "", "quests");
 	}
 
 	@Override

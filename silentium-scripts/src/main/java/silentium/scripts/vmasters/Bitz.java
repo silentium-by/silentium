@@ -16,14 +16,14 @@ public final class Bitz extends Quest implements ScriptFile {
 	// Quest NPCs
 	private static final int BITZ = 30026;
 
-	public Bitz(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Bitz(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 		addStartNpc(BITZ);
 		addTalkId(BITZ);
 	}
 
 	public static void onLoad() {
-		new Bitz(-1, "Bitz", "vmasters");
+		new Bitz(-1, "Bitz", "", "vmasters");
 	}
 
 	@Override

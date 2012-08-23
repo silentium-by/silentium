@@ -11,12 +11,13 @@ package silentium.scripts.quests;
  * @author Emperorc
  */
 public class Q088_SagaOfTheArchmage extends SagasSuperClass {
-	public static final String qn1 = "Q088_SagaOfTheArchmage";
-	public static final int qnu = 88;
-	public static final String qna = "quests";
+	private static final String name = "Q088_SagaOfTheArchmage";
+	private static final int scriptId = 88;
+	private static final String dname = "";
+	private static final String path = "quests";
 
 	public Q088_SagaOfTheArchmage() {
-		super(qnu, qn1, qna);
+		super(scriptId, name, dname, path);
 
 		NPC = new int[] { 30176, 31627, 31282, 31282, 31590, 31646, 31647, 31650, 31654, 31655, 31657, 31282 };
 
@@ -24,7 +25,7 @@ public class Q088_SagaOfTheArchmage extends SagasSuperClass {
 
 		Mob = new int[] { 27250, 27237, 27254 };
 
-		qn = qn1;
+		qn = name;
 		classid = 94;
 		prevclass = 0x0c;
 

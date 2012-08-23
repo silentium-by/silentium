@@ -83,8 +83,8 @@ public class Q605_AllianceWithKetraOrcs extends Quest implements ScriptFile {
 
 	private static final int Mane = 7233;
 
-	public Q605_AllianceWithKetraOrcs(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q605_AllianceWithKetraOrcs(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { Varka_Badge_Soldier, Varka_Badge_Officer, Varka_Badge_Captain };
 
@@ -96,7 +96,7 @@ public class Q605_AllianceWithKetraOrcs extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q605_AllianceWithKetraOrcs(605, "Q605_AllianceWithKetraOrcs", "quests");
+		new Q605_AllianceWithKetraOrcs(605, "Q605_AllianceWithKetraOrcs", "", "quests");
 	}
 
 	@Override

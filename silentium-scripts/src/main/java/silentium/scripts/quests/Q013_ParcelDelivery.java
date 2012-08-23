@@ -22,8 +22,8 @@ public class Q013_ParcelDelivery extends Quest {
 	// Item
 	private static final int PACKAGE = 7263;
 
-	public Q013_ParcelDelivery(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q013_ParcelDelivery(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { PACKAGE };
 
@@ -32,7 +32,7 @@ public class Q013_ParcelDelivery extends Quest {
 	}
 
 	public static void main(final String... args) {
-		new Q013_ParcelDelivery(13, "Q013_ParcelDelivery", "quests");
+		new Q013_ParcelDelivery(13, "Q013_ParcelDelivery", "", "quests");
 	}
 
 	@Override

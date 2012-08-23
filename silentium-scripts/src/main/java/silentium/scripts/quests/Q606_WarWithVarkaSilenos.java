@@ -23,8 +23,8 @@ public class Q606_WarWithVarkaSilenos extends Quest implements ScriptFile {
 	private static final int Horn = 7186;
 	private static final int Mane = 7233;
 
-	public Q606_WarWithVarkaSilenos(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q606_WarWithVarkaSilenos(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { Mane };
 
@@ -33,7 +33,7 @@ public class Q606_WarWithVarkaSilenos extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q606_WarWithVarkaSilenos(606, "Q606_WarWithVarkaSilenos", "quests");
+		new Q606_WarWithVarkaSilenos(606, "Q606_WarWithVarkaSilenos", "", "quests");
 	}
 
 	@Override

@@ -25,15 +25,15 @@ public class Q009_IntoTheCityOfHumans extends Quest implements ScriptFile {
 	public final int MARK_OF_TRAVELER = 7570;
 	public final int SCROLL_OF_ESCAPE_GIRAN = 7126;
 
-	public Q009_IntoTheCityOfHumans(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q009_IntoTheCityOfHumans(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		addStartNpc(PETUKAI);
 		addTalkId(PETUKAI, TANAPI, TAMIL);
 	}
 
 	public static void onLoad() {
-		new Q009_IntoTheCityOfHumans(9, "Q009_IntoTheCityOfHumans", "quests");
+		new Q009_IntoTheCityOfHumans(9, "Q009_IntoTheCityOfHumans", "", "quests");
 	}
 
 	@Override

@@ -41,11 +41,11 @@ public class GrandBossTeleporters extends Quest implements ScriptFile {
 	private static final String qn = "GrandBossTeleporters";
 
 	public static void onLoad() {
-		new GrandBossTeleporters(-1, "GrandBossTeleporters", "teleports");
+		new GrandBossTeleporters(-1, "GrandBossTeleporters", "", "teleports");
 	}
 
-	public GrandBossTeleporters(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public GrandBossTeleporters(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		addFirstTalkId(31862);
 		addStartNpc(13001, 31859, 31384, 31385, 31540, 31686, 31687, 31759, 31862);

@@ -51,8 +51,8 @@ public class Q105_SkirmishWithTheOrcs extends Quest implements ScriptFile {
 	private static final int SOULSHOT_FOR_BEGINNERS = 5789;
 	private static final int[] crystals = { 4412, 4413, 4414, 4415, 4416 };
 
-	public Q105_SkirmishWithTheOrcs(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q105_SkirmishWithTheOrcs(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { KENDNELLS_ORDER1, KENDNELLS_ORDER2, KENDNELLS_ORDER3, KENDNELLS_ORDER4, KENDNELLS_ORDER5, KENDNELLS_ORDER6, KENDNELLS_ORDER7, KENDNELLS_ORDER8, KABOO_CHIEF_TORC1, KABOO_CHIEF_TORC2 };
 
@@ -63,7 +63,7 @@ public class Q105_SkirmishWithTheOrcs extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q105_SkirmishWithTheOrcs(105, "Q105_SkirmishWithTheOrcs", "quests");
+		new Q105_SkirmishWithTheOrcs(105, "Q105_SkirmishWithTheOrcs", "", "quests");
 	}
 
 	@Override

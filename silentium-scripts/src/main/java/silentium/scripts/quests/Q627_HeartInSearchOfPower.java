@@ -39,8 +39,8 @@ public class Q627_HeartInSearchOfPower extends Quest implements ScriptFile {
 		Rewards.put("mold", new int[] { 4041, 3, 17200 });
 	}
 
-	public Q627_HeartInSearchOfPower(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q627_HeartInSearchOfPower(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { BEAD_OF_OBEDIENCE };
 
@@ -51,7 +51,7 @@ public class Q627_HeartInSearchOfPower extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q627_HeartInSearchOfPower(627, "Q627_HeartInSearchOfPower", "quests");
+		new Q627_HeartInSearchOfPower(627, "Q627_HeartInSearchOfPower", "", "quests");
 	}
 
 	@Override

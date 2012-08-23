@@ -25,8 +25,8 @@ public class Q261_CollectorsDream extends Quest implements ScriptFile {
 	// Reward
 	private static final int ADENA = 57;
 
-	public Q261_CollectorsDream(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q261_CollectorsDream(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { GIANT_SPIDER_LEG };
 
@@ -37,7 +37,7 @@ public class Q261_CollectorsDream extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q261_CollectorsDream(261, "Q261_CollectorsDream", "quests");
+		new Q261_CollectorsDream(261, "Q261_CollectorsDream", "", "quests");
 	}
 
 	@Override

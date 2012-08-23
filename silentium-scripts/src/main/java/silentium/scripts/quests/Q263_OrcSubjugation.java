@@ -21,8 +21,8 @@ public class Q263_OrcSubjugation extends Quest implements ScriptFile {
 	private static final int ORC_AMULET = 1116;
 	private static final int ORC_NECKLACE = 1117;
 
-	public Q263_OrcSubjugation(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q263_OrcSubjugation(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { ORC_AMULET, ORC_NECKLACE };
 
@@ -33,7 +33,7 @@ public class Q263_OrcSubjugation extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q263_OrcSubjugation(263, "Q263_OrcSubjugation", "quests");
+		new Q263_OrcSubjugation(263, "Q263_OrcSubjugation", "", "quests");
 	}
 
 	@Override

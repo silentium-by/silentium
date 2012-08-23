@@ -60,8 +60,8 @@ public class Q039_RedEyedInvaders extends Quest implements ScriptFile {
 	private static final int BABY_DUCK_RODE = 6529;
 	private static final int FISHING_SHOT_NG = 6535;
 
-	public Q039_RedEyedInvaders(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q039_RedEyedInvaders(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { BLACK_BONE_NECKLACE, RED_BONE_NECKLACE, INCENSE_POUCH, GEM_OF_MAILLE };
 
@@ -72,7 +72,7 @@ public class Q039_RedEyedInvaders extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q039_RedEyedInvaders(39, "Q039_RedEyedInvaders", "quests");
+		new Q039_RedEyedInvaders(39, "Q039_RedEyedInvaders", "", "quests");
 	}
 
 	@Override

@@ -26,8 +26,8 @@ public class Q362_BardsMandolin extends Quest implements ScriptFile {
 	private static final int GALION = 30958;
 	private static final int WOODROW = 30837;
 
-	public Q362_BardsMandolin(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q362_BardsMandolin(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { SWAN_FLUTE, SWAN_LETTER };
 
@@ -36,7 +36,7 @@ public class Q362_BardsMandolin extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q362_BardsMandolin(362, "Q362_BardsMandolin", "quests");
+		new Q362_BardsMandolin(362, "Q362_BardsMandolin", "", "quests");
 	}
 
 	@Override

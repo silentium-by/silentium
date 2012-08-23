@@ -44,11 +44,11 @@ public class PolymorphingOnAttack extends DefaultMonsterAI implements ScriptFile
 	protected static final String[][] MOBTEXTS = { new String[] { "Enough fooling around. Get ready to die!", "You idiot! I've just been toying with you!", "Now the fun starts!" }, new String[] { "I must admit, no one makes my blood boil quite like you do!", "Now the battle begins!", "Witness my true power!" }, new String[] { "Prepare to die!", "I'll double my strength!", "You have more skill than I thought" } };
 
 	public static void onLoad() {
-		new PolymorphingOnAttack(-1, "polymorphing_on_attack", "ai");
+		new PolymorphingOnAttack(-1, "polymorphing_on_attack", "", "ai");
 	}
 
-	public PolymorphingOnAttack(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public PolymorphingOnAttack(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 		for (final int id : MOBSPAWNS.keys())
 			addAttackId(id);
 	}

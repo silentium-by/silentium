@@ -28,8 +28,8 @@ public class Q053_LinnaeusSpecialBait extends Quest implements ScriptFile {
 	// Monster
 	private static final int CRIMSON_DRAKE = 20670;
 
-	public Q053_LinnaeusSpecialBait(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q053_LinnaeusSpecialBait(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { CRIMSON_DRAKE_HEART };
 
@@ -40,7 +40,7 @@ public class Q053_LinnaeusSpecialBait extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q053_LinnaeusSpecialBait(53, "Q053_LinnaeusSpecialBait", "quests");
+		new Q053_LinnaeusSpecialBait(53, "Q053_LinnaeusSpecialBait", "", "quests");
 	}
 
 	@Override

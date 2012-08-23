@@ -26,8 +26,8 @@ public class Q316_DestroyPlagueCarriers extends Quest implements ScriptFile {
 	private static final int Sukar_Wererat_Leader = 20047;
 	private static final int Varool_Foulclaw = 27020;
 
-	public Q316_DestroyPlagueCarriers(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q316_DestroyPlagueCarriers(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { Wererat_Fang, Varool_Foulclaws_Fang };
 
@@ -38,7 +38,7 @@ public class Q316_DestroyPlagueCarriers extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q316_DestroyPlagueCarriers(316, "Q316_DestroyPlagueCarriers", "quests");
+		new Q316_DestroyPlagueCarriers(316, "Q316_DestroyPlagueCarriers", "", "quests");
 	}
 
 	@Override

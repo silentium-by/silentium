@@ -24,8 +24,8 @@ public class Q638_SeekersOfTheHolyGrail extends Quest implements ScriptFile {
 	// Item
 	private static final int TOTEM = 8068;
 
-	public Q638_SeekersOfTheHolyGrail(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q638_SeekersOfTheHolyGrail(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { TOTEM };
 
@@ -37,7 +37,7 @@ public class Q638_SeekersOfTheHolyGrail extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q638_SeekersOfTheHolyGrail(638, "Q638_SeekersOfTheHolyGrail", "quests");
+		new Q638_SeekersOfTheHolyGrail(638, "Q638_SeekersOfTheHolyGrail", "", "quests");
 	}
 
 	@Override

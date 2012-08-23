@@ -22,8 +22,8 @@ public class Q014_WhereaboutsOfTheArchaeologist extends Quest {
 	// Items
 	private static final int LETTER = 7253;
 
-	public Q014_WhereaboutsOfTheArchaeologist(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q014_WhereaboutsOfTheArchaeologist(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { LETTER };
 
@@ -32,7 +32,7 @@ public class Q014_WhereaboutsOfTheArchaeologist extends Quest {
 	}
 
 	public static void main(final String... args) {
-		new Q014_WhereaboutsOfTheArchaeologist(14, "Q014_WhereaboutsOfTheArchaeologist", "quests");
+		new Q014_WhereaboutsOfTheArchaeologist(14, "Q014_WhereaboutsOfTheArchaeologist", "", "quests");
 	}
 
 	@Override

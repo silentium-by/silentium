@@ -38,8 +38,8 @@ public class Q345_MethodToRaiseTheDead extends Quest implements ScriptFile {
 	private static final int BILL_OF_IASON_HEINE = 4310;
 	private static final int IMPERIAL_DIAMOND = 3456;
 
-	public Q345_MethodToRaiseTheDead(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q345_MethodToRaiseTheDead(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { VICTIMS_ARM_BONE, VICTIMS_THIGH_BONE, VICTIMS_SKULL, VICTIMS_RIB_BONE, VICTIMS_SPINE, POWDER_TO_SUMMON_DEAD_SOULS, USELESS_BONE_PIECES };
 
@@ -50,7 +50,7 @@ public class Q345_MethodToRaiseTheDead extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q345_MethodToRaiseTheDead(345, "Q345_MethodToRaiseTheDead", "quests");
+		new Q345_MethodToRaiseTheDead(345, "Q345_MethodToRaiseTheDead", "", "quests");
 	}
 
 	@Override

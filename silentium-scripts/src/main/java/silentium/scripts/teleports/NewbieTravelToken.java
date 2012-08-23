@@ -30,11 +30,11 @@ public class NewbieTravelToken extends Quest implements ScriptFile {
 	private static final int TOKEN = 8542;
 
 	public static void onLoad() {
-		new NewbieTravelToken(-1, "NewbieTravelToken", "teleports");
+		new NewbieTravelToken(-1, "NewbieTravelToken", "", "teleports");
 	}
 
-	public NewbieTravelToken(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public NewbieTravelToken(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		addStartNpc(30598, 30599, 30600, 30601, 30602);
 		addTalkId(30598, 30599, 30600, 30601, 30602);

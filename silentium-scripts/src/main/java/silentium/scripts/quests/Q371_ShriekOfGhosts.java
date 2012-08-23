@@ -30,8 +30,8 @@ public class Q371_ShriekOfGhosts extends Quest implements ScriptFile {
 	private static final int HALLATE_KNIGHT = 20820;
 	private static final int HALLATE_COMMANDER = 20824;
 
-	public Q371_ShriekOfGhosts(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q371_ShriekOfGhosts(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { URN, PORCELAIN };
 
@@ -42,7 +42,7 @@ public class Q371_ShriekOfGhosts extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q371_ShriekOfGhosts(371, "Q371_ShriekOfGhosts", "quests");
+		new Q371_ShriekOfGhosts(371, "Q371_ShriekOfGhosts", "", "quests");
 	}
 
 	@Override

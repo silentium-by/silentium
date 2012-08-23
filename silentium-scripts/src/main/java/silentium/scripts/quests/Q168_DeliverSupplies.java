@@ -30,8 +30,8 @@ public class Q168_DeliverSupplies extends Quest implements ScriptFile {
 	private static final int KRISTIN = 30357;
 	private static final int HARANT = 30360;
 
-	public Q168_DeliverSupplies(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q168_DeliverSupplies(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { SENTRY_BLADE1, OLD_BRONZE_SWORD, JENNIES_LETTER, SENTRY_BLADE2, SENTRY_BLADE3 };
 
@@ -40,7 +40,7 @@ public class Q168_DeliverSupplies extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q168_DeliverSupplies(168, "Q168_DeliverSupplies", "quests");
+		new Q168_DeliverSupplies(168, "Q168_DeliverSupplies", "", "quests");
 	}
 
 	@Override

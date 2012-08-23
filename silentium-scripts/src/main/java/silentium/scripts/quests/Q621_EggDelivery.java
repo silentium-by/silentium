@@ -34,8 +34,8 @@ public class Q621_EggDelivery extends Quest implements ScriptFile {
 	private static final int HASTE_POT = 1062;
 	private static final int[] RECIPES = { 6847, 6849, 6851 };
 
-	public Q621_EggDelivery(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q621_EggDelivery(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { EGG, FEE };
 
@@ -44,7 +44,7 @@ public class Q621_EggDelivery extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q621_EggDelivery(621, "Q621_EggDelivery", "quests");
+		new Q621_EggDelivery(621, "Q621_EggDelivery", "", "quests");
 	}
 
 	@Override

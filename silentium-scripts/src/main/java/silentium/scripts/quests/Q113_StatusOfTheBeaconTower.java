@@ -23,8 +23,8 @@ public class Q113_StatusOfTheBeaconTower extends Quest implements ScriptFile {
 	// Item
 	private static final int BOX = 8086;
 
-	public Q113_StatusOfTheBeaconTower(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q113_StatusOfTheBeaconTower(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { BOX };
 
@@ -33,7 +33,7 @@ public class Q113_StatusOfTheBeaconTower extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q113_StatusOfTheBeaconTower(113, "Q113_StatusOfTheBeaconTower", "quests");
+		new Q113_StatusOfTheBeaconTower(113, "Q113_StatusOfTheBeaconTower", "", "quests");
 	}
 
 	@Override

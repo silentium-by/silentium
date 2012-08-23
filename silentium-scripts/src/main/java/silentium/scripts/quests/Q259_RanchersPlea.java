@@ -33,8 +33,8 @@ public class Q259_RanchersPlea extends Quest implements ScriptFile {
 	private static final int HEALING_POTION = 1061;
 	private static final int WOODEN_ARROW = 17;
 
-	public Q259_RanchersPlea(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q259_RanchersPlea(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { GIANT_SPIDER_SKIN };
 
@@ -45,7 +45,7 @@ public class Q259_RanchersPlea extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q259_RanchersPlea(259, "Q259_RanchersPlea", "quests");
+		new Q259_RanchersPlea(259, "Q259_RanchersPlea", "", "quests");
 	}
 
 	@Override

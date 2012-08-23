@@ -29,8 +29,8 @@ public class Q166_MassOfDarkness extends Quest implements ScriptFile {
 	private static final int GARMIELS_SCRIPTURE = 1091;
 	private static final int ADENA = 57;
 
-	public Q166_MassOfDarkness(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q166_MassOfDarkness(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { UNDRIAS_LETTER, CEREMONIAL_DAGGER, DREVIANT_WINE, GARMIELS_SCRIPTURE };
 
@@ -39,7 +39,7 @@ public class Q166_MassOfDarkness extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q166_MassOfDarkness(166, "Q166_MassOfDarkness", "quests");
+		new Q166_MassOfDarkness(166, "Q166_MassOfDarkness", "", "quests");
 	}
 
 	@Override

@@ -29,8 +29,8 @@ public class Q406_PathToAnElvenKnight extends Quest implements ScriptFile {
 	private static final int Sorius = 30327;
 	private static final int Kluto = 30317;
 
-	public Q406_PathToAnElvenKnight(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q406_PathToAnElvenKnight(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { SoriusLetter, KlutoBox, TopazPiece, EmeraldPiece, KlutosMemo };
 
@@ -42,7 +42,7 @@ public class Q406_PathToAnElvenKnight extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q406_PathToAnElvenKnight(406, "Q406_PathToAnElvenKnight", "quests");
+		new Q406_PathToAnElvenKnight(406, "Q406_PathToAnElvenKnight", "", "quests");
 	}
 
 	@Override

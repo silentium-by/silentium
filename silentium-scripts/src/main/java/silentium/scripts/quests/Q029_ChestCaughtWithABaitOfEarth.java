@@ -25,8 +25,8 @@ public class Q029_ChestCaughtWithABaitOfEarth extends Quest implements ScriptFil
 	private static final int SmallGlassBox = 7627;
 	private static final int PlatedLeatherGloves = 2455;
 
-	public Q029_ChestCaughtWithABaitOfEarth(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q029_ChestCaughtWithABaitOfEarth(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { SmallGlassBox };
 
@@ -35,7 +35,7 @@ public class Q029_ChestCaughtWithABaitOfEarth extends Quest implements ScriptFil
 	}
 
 	public static void onLoad() {
-		new Q029_ChestCaughtWithABaitOfEarth(29, "Q029_ChestCaughtWithABaitOfEarth", "quests");
+		new Q029_ChestCaughtWithABaitOfEarth(29, "Q029_ChestCaughtWithABaitOfEarth", "", "quests");
 	}
 
 	@Override

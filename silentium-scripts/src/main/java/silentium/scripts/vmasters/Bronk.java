@@ -16,14 +16,14 @@ public final class Bronk extends Quest implements ScriptFile {
 	// Quest NPCs
 	private static final int BRONK = 30525;
 
-	public Bronk(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Bronk(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 		addStartNpc(BRONK);
 		addTalkId(BRONK);
 	}
 
 	public static void onLoad() {
-		new Bronk(-1, "Bronk", "vmasters");
+		new Bronk(-1, "Bronk", "", "vmasters");
 	}
 
 	@Override

@@ -28,8 +28,8 @@ public class Q050_LanoscosSpecialBait extends Quest implements ScriptFile {
 	// Monster
 	private static final int SINGING_WIND = 21026;
 
-	public Q050_LanoscosSpecialBait(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q050_LanoscosSpecialBait(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { ESSENCE_OF_WIND };
 
@@ -40,7 +40,7 @@ public class Q050_LanoscosSpecialBait extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q050_LanoscosSpecialBait(50, "Q050_LanoscosSpecialBait", "quests");
+		new Q050_LanoscosSpecialBait(50, "Q050_LanoscosSpecialBait", "", "quests");
 	}
 
 	@Override

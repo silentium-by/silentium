@@ -25,8 +25,8 @@ public class Q328_SenseForBusiness extends Quest implements ScriptFile {
 	private static final int MONSTER_EYE_CARCASS = 1347;
 	private static final int BASILISK_GIZZARD = 1348;
 
-	public Q328_SenseForBusiness(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q328_SenseForBusiness(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { MONSTER_EYE_LENS, MONSTER_EYE_CARCASS, BASILISK_GIZZARD };
 
@@ -37,7 +37,7 @@ public class Q328_SenseForBusiness extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q328_SenseForBusiness(328, "Q328_SenseForBusiness", "quests");
+		new Q328_SenseForBusiness(328, "Q328_SenseForBusiness", "", "quests");
 	}
 
 	@Override

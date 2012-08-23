@@ -24,8 +24,8 @@ public class Q011_SecretMeetingWithKetraOrcs extends Quest implements ScriptFile
 	// Items
 	private static final int MUNITIONS_BOX = 7231;
 
-	public Q011_SecretMeetingWithKetraOrcs(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q011_SecretMeetingWithKetraOrcs(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { MUNITIONS_BOX };
 
@@ -34,7 +34,7 @@ public class Q011_SecretMeetingWithKetraOrcs extends Quest implements ScriptFile
 	}
 
 	public static void onLoad() {
-		new Q011_SecretMeetingWithKetraOrcs(11, "Q011_SecretMeetingWithKetraOrcs", "quests");
+		new Q011_SecretMeetingWithKetraOrcs(11, "Q011_SecretMeetingWithKetraOrcs", "", "quests");
 	}
 
 	@Override

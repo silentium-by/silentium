@@ -16,14 +16,14 @@ public final class Kakai extends Quest implements ScriptFile {
 	// Quest NPCs
 	private static final int KAKAI = 30565;
 
-	public Kakai(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Kakai(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 		addStartNpc(KAKAI);
 		addTalkId(KAKAI);
 	}
 
 	public static void onLoad() {
-		new Kakai(-1, "Kakai", "vmasters");
+		new Kakai(-1, "Kakai", "", "vmasters");
 	}
 
 	@Override

@@ -30,8 +30,8 @@ public class Q004_LongliveThePaagrioLord extends Quest implements ScriptFile {
 		npc_gifts.put(30587, 1546);
 	}
 
-	public Q004_LongliveThePaagrioLord(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q004_LongliveThePaagrioLord(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { 1541, 1542, 1543, 1544, 1545, 1546 };
 
@@ -40,7 +40,7 @@ public class Q004_LongliveThePaagrioLord extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q004_LongliveThePaagrioLord(4, "Q004_LongliveThePaagrioLord", "quests");
+		new Q004_LongliveThePaagrioLord(4, "Q004_LongliveThePaagrioLord", "", "quests");
 	}
 
 	@Override

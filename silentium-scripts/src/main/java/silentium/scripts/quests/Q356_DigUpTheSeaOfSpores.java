@@ -28,8 +28,8 @@ public class Q356_DigUpTheSeaOfSpores extends Quest implements ScriptFile {
 	private static final int ROTTING_TREE = 20558;
 	private static final int SPORE_ZOMBIE = 20562;
 
-	public Q356_DigUpTheSeaOfSpores(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q356_DigUpTheSeaOfSpores(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { HERB_SPORE, CARN_SPORE };
 
@@ -40,7 +40,7 @@ public class Q356_DigUpTheSeaOfSpores extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q356_DigUpTheSeaOfSpores(356, "Q356_DigUpTheSeaOfSpores", "quests");
+		new Q356_DigUpTheSeaOfSpores(356, "Q356_DigUpTheSeaOfSpores", "", "quests");
 	}
 
 	@Override

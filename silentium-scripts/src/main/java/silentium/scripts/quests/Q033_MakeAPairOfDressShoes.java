@@ -29,15 +29,15 @@ public class Q033_MakeAPairOfDressShoes extends Quest implements ScriptFile {
 	// Rewards
 	public static final int DRESS_SHOES_BOX = 7113;
 
-	public Q033_MakeAPairOfDressShoes(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q033_MakeAPairOfDressShoes(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		addStartNpc(WOODLEY);
 		addTalkId(WOODLEY, IAN, LEIKAR);
 	}
 
 	public static void onLoad() {
-		new Q033_MakeAPairOfDressShoes(33, "Q033_MakeAPairOfDressShoes", "quests");
+		new Q033_MakeAPairOfDressShoes(33, "Q033_MakeAPairOfDressShoes", "", "quests");
 	}
 
 	@Override

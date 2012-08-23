@@ -28,8 +28,8 @@ public class Q379_FantasyWine extends Quest implements ScriptFile {
 	private static final int LEAF = 5893;
 	private static final int STONE = 5894;
 
-	public Q379_FantasyWine(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q379_FantasyWine(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { LEAF, STONE };
 
@@ -40,7 +40,7 @@ public class Q379_FantasyWine extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q379_FantasyWine(379, "Q379_FantasyWine", "quests");
+		new Q379_FantasyWine(379, "Q379_FantasyWine", "", "quests");
 	}
 
 	@Override

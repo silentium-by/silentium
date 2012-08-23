@@ -33,8 +33,8 @@ public class Q661_MakingTheHarvestGroundsSafe extends Quest implements ScriptFil
 	private static final int CLOUDY_BEAST = 21096;
 	private static final int YOUNG_ARANEID = 21097;
 
-	public Q661_MakingTheHarvestGroundsSafe(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q661_MakingTheHarvestGroundsSafe(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { STING_OF_GIANT_PB, CLOUDY_GEM, TALON_OF_YA };
 
@@ -45,7 +45,7 @@ public class Q661_MakingTheHarvestGroundsSafe extends Quest implements ScriptFil
 	}
 
 	public static void onLoad() {
-		new Q661_MakingTheHarvestGroundsSafe(661, "Q661_MakingTheHarvestGroundsSafe", "quests");
+		new Q661_MakingTheHarvestGroundsSafe(661, "Q661_MakingTheHarvestGroundsSafe", "", "quests");
 	}
 
 	@Override

@@ -40,8 +40,8 @@ public class Q022_TragedyInVonHellmannForest extends Quest {
 	private static L2Npc GhostOfPriestInstance = null;
 	private static L2Npc SoulOfWellInstance = null;
 
-	public Q022_TragedyInVonHellmannForest(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q022_TragedyInVonHellmannForest(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { LostSkullOfElf, ReportBox, SealedReportBox, LetterOfInnocentin, JewelOfAdventurerRed, JewelOfAdventurerGreen };
 
@@ -53,7 +53,7 @@ public class Q022_TragedyInVonHellmannForest extends Quest {
 	}
 
 	public static void main(final String... args) {
-		new Q022_TragedyInVonHellmannForest(22, "Q022_TragedyInVonHellmannForest", "quests");
+		new Q022_TragedyInVonHellmannForest(22, "Q022_TragedyInVonHellmannForest", "", "quests");
 	}
 
 	@Override

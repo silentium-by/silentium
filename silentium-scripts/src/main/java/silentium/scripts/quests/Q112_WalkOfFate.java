@@ -24,15 +24,15 @@ public class Q112_WalkOfFate extends Quest implements ScriptFile {
 	private static final int ADENA = 57;
 	private static final int ENCHANT_D = 956;
 
-	public Q112_WalkOfFate(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q112_WalkOfFate(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		addStartNpc(LIVINA);
 		addTalkId(LIVINA, KARUDA);
 	}
 
 	public static void onLoad() {
-		new Q112_WalkOfFate(112, "Q112_WalkOfFate", "quests");
+		new Q112_WalkOfFate(112, "Q112_WalkOfFate", "", "quests");
 	}
 
 	@Override

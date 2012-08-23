@@ -31,8 +31,8 @@ public class Q653_WildMaiden extends Quest implements ScriptFile {
 	// Current position
 	private int _currentPosition = 0;
 
-	public Q653_WildMaiden(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q653_WildMaiden(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		addStartNpc(SUKI);
 		addTalkId(SUKI, GALIBREDO);
@@ -41,7 +41,7 @@ public class Q653_WildMaiden extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q653_WildMaiden(653, "Q653_WildMaiden", "quests");
+		new Q653_WildMaiden(653, "Q653_WildMaiden", "", "quests");
 	}
 
 	@Override

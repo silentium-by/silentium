@@ -36,8 +36,8 @@ public class Q032_AnObviousLie extends Quest implements ScriptFile {
 	// Monster
 	private static final int Alligator = 20135;
 
-	public Q032_AnObviousLie(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q032_AnObviousLie(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { Map, MedicinalHerb };
 
@@ -48,7 +48,7 @@ public class Q032_AnObviousLie extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q032_AnObviousLie(32, "Q032_AnObviousLie", "quests");
+		new Q032_AnObviousLie(32, "Q032_AnObviousLie", "", "quests");
 	}
 
 	@Override

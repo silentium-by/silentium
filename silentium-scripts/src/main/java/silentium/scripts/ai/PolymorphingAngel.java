@@ -31,11 +31,11 @@ public class PolymorphingAngel extends DefaultMonsterAI implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new PolymorphingAngel(-1, "polymorphing_angel", "ai");
+		new PolymorphingAngel(-1, "polymorphing_angel", "", "ai");
 	}
 
-	public PolymorphingAngel(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public PolymorphingAngel(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		for (final int mob : ANGELSPAWNS.keySet())
 			addKillId(mob);

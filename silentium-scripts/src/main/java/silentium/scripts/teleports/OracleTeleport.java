@@ -35,11 +35,11 @@ public class OracleTeleport extends Quest implements ScriptFile {
 			new Location(172570, -17605, -4899), new Location(83347, 209215, -5437), new Location(42495, 143944, -5381), new Location(45666, 170300, -4981), new Location(77138, 78389, -5125), new Location(139903, 79674, -5429), new Location(-20021, 13499, -4901), new Location(113418, 84535, -6541), new Location(-52940, -250272, -7907), new Location(46499, 170301, -4979), new Location(-20280, -250785, -8163), new Location(140673, 79680, -5437), new Location(-19182, 13503, -4899), new Location(12837, -248483, -9579) };
 
 	public static void onLoad() {
-		new OracleTeleport(-1, "OracleTeleport", "teleports");
+		new OracleTeleport(-1, "OracleTeleport", "", "teleports");
 	}
 
-	public OracleTeleport(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public OracleTeleport(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		for (final int posters : RIFT_POSTERS) {
 			addStartNpc(posters);

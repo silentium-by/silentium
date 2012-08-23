@@ -37,8 +37,8 @@ public class Q631_DeliciousTopChoiceMeat extends Quest implements ScriptFile {
 		Rewards.put("6", new int[] { 4044, 5 });
 	}
 
-	public Q631_DeliciousTopChoiceMeat(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q631_DeliciousTopChoiceMeat(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { TOP_QUALITY_MEAT };
 
@@ -56,7 +56,7 @@ public class Q631_DeliciousTopChoiceMeat extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q631_DeliciousTopChoiceMeat(631, "Q631_DeliciousTopChoiceMeat", "quests");
+		new Q631_DeliciousTopChoiceMeat(631, "Q631_DeliciousTopChoiceMeat", "", "quests");
 	}
 
 	@Override

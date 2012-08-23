@@ -32,11 +32,11 @@ public class HotSpringDisease extends DefaultMonsterAI implements ScriptFile {
 	private static final int DISEASE_CHANCE = 1;
 
 	public static void onLoad() {
-		new HotSpringDisease(-1, "HotSpringDisease", "ai");
+		new HotSpringDisease(-1, "HotSpringDisease", "", "ai");
 	}
 
-	public HotSpringDisease(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public HotSpringDisease(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 		registerMobs(disease1mobs, QuestEventType.ON_ATTACK_ACT);
 	}
 

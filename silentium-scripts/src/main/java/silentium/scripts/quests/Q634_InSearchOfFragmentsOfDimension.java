@@ -21,8 +21,8 @@ public class Q634_InSearchOfFragmentsOfDimension extends Quest implements Script
 	// Items
 	private static final int DIMENSION_FRAGMENT = 7079;
 
-	public Q634_InSearchOfFragmentsOfDimension(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q634_InSearchOfFragmentsOfDimension(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		// Dimensional Gate Keepers.
 		for (int i = 31494; i < 31508; i++) {
@@ -36,7 +36,7 @@ public class Q634_InSearchOfFragmentsOfDimension extends Quest implements Script
 	}
 
 	public static void onLoad() {
-		new Q634_InSearchOfFragmentsOfDimension(634, "Q634_InSearchOfFragmentsOfDimension", "quests");
+		new Q634_InSearchOfFragmentsOfDimension(634, "Q634_InSearchOfFragmentsOfDimension", "", "quests");
 	}
 
 	@Override

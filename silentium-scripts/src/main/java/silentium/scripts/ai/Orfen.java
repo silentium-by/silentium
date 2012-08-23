@@ -52,11 +52,11 @@ public class Orfen extends DefaultMonsterAI implements ScriptFile {
 	private static final byte DEAD = 1;
 
 	public static void onLoad() {
-		new Orfen(-1, "orfen", "ai");
+		new Orfen(-1, "orfen", "", "ai");
 	}
 
-	public Orfen(final int id, final String name, final String descr) {
-		super(id, name, descr);
+	public Orfen(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 		final int[] mobs = { ORFEN, RAIKEL_LEOS, RIBA_IREN };
 		registerMobs(mobs);
 		_IsTeleported = false;

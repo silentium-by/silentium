@@ -28,8 +28,8 @@ public class Q007_ATripBegins extends Quest implements ScriptFile {
 	private static final int MARK_TRAVELER = 7570;
 	private static final int SCROLL_GIRAN = 7559;
 
-	public Q007_ATripBegins(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q007_ATripBegins(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { ARIEL_RECO };
 
@@ -38,7 +38,7 @@ public class Q007_ATripBegins extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q007_ATripBegins(7, "Q007_ATripBegins", "quests");
+		new Q007_ATripBegins(7, "Q007_ATripBegins", "", "quests");
 	}
 
 	@Override

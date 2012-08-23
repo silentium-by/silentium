@@ -20,15 +20,15 @@ public class Q015_SweetWhispers extends Quest {
 	private static final int Hierarch = 31517;
 	private static final int MysteriousNecromancer = 31518;
 
-	public Q015_SweetWhispers(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q015_SweetWhispers(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		addStartNpc(Vladimir);
 		addTalkId(Vladimir, Hierarch, MysteriousNecromancer);
 	}
 
 	public static void main(final String... args) {
-		new Q015_SweetWhispers(15, "Q015_SweetWhispers", "quests");
+		new Q015_SweetWhispers(15, "Q015_SweetWhispers", "", "quests");
 	}
 
 	@Override

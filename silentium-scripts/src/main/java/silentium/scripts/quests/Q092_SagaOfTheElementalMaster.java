@@ -11,12 +11,13 @@ package silentium.scripts.quests;
  * @author Emperorc
  */
 public class Q092_SagaOfTheElementalMaster extends SagasSuperClass {
-	public static final String qn1 = "Q092_SagaOfTheElementalMaster";
-	public static final int qnu = 92;
-	public static final String qna = "quests";
+	private static final String name = "Q092_SagaOfTheElementalMaster";
+	private static final int scriptId = 92;
+	private static final String dname = "";
+	private static final String path = "quests";
 
 	public Q092_SagaOfTheElementalMaster() {
-		super(qnu, qn1, qna);
+		super(scriptId, name, dname, path);
 
 		NPC = new int[] { 30174, 31281, 31614, 31614, 31629, 31646, 31648, 31652, 31654, 31655, 31659, 31614 };
 
@@ -24,7 +25,7 @@ public class Q092_SagaOfTheElementalMaster extends SagasSuperClass {
 
 		Mob = new int[] { 27314, 27241, 27311 };
 
-		qn = qn1;
+		qn = name;
 		classid = 104;
 		prevclass = 0x1c;
 

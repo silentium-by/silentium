@@ -22,8 +22,8 @@ public class Q341_HuntingForWildBeasts extends Quest implements ScriptFile {
 	// Item
 	private static final int BEAR_SKIN = 4259;
 
-	public Q341_HuntingForWildBeasts(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q341_HuntingForWildBeasts(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { BEAR_SKIN };
 
@@ -35,7 +35,7 @@ public class Q341_HuntingForWildBeasts extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q341_HuntingForWildBeasts(341, "Q341_HuntingForWildBeasts", "quests");
+		new Q341_HuntingForWildBeasts(341, "Q341_HuntingForWildBeasts", "", "quests");
 	}
 
 	@Override

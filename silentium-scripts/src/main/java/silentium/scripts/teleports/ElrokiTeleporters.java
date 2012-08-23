@@ -15,11 +15,11 @@ import silentium.gameserver.scripting.ScriptFile;
 
 public class ElrokiTeleporters extends Quest implements ScriptFile {
 	public static void onLoad() {
-		new ElrokiTeleporters(-1, "ElrokiTeleporters", "teleports");
+		new ElrokiTeleporters(-1, "ElrokiTeleporters", "", "teleports");
 	}
 
-	public ElrokiTeleporters(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public ElrokiTeleporters(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		addStartNpc(32111, 32112);
 		addTalkId(32111, 32112);

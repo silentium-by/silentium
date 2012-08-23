@@ -16,14 +16,14 @@ public final class Reed extends Quest implements ScriptFile {
 	// Quest NPCs
 	private static final int REED = 30520;
 
-	public Reed(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Reed(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 		addStartNpc(REED);
 		addTalkId(REED);
 	}
 
 	public static void onLoad() {
-		new Reed(-1, "Reed", "vmasters");
+		new Reed(-1, "Reed", "", "vmasters");
 	}
 
 	@Override

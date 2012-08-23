@@ -24,8 +24,8 @@ public class Q352_HelpRoodRaiseANewPet extends Quest implements ScriptFile {
 	private static final int LIENRIK_EGG_1 = 5860;
 	private static final int LIENRIK_EGG_2 = 5861;
 
-	public Q352_HelpRoodRaiseANewPet(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q352_HelpRoodRaiseANewPet(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { LIENRIK_EGG_1, LIENRIK_EGG_2 };
 
@@ -36,7 +36,7 @@ public class Q352_HelpRoodRaiseANewPet extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q352_HelpRoodRaiseANewPet(352, "Q352_HelpRoodRaiseANewPet", "quests");
+		new Q352_HelpRoodRaiseANewPet(352, "Q352_HelpRoodRaiseANewPet", "", "quests");
 	}
 
 	@Override

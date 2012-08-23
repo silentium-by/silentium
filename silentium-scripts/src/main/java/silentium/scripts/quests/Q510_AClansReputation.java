@@ -29,8 +29,8 @@ public class Q510_AClansReputation extends Quest implements ScriptFile {
 	// Reward
 	private static final int CLAN_POINTS_REWARD = 50; // Quantity of points
 
-	public Q510_AClansReputation(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q510_AClansReputation(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { Claw };
 
@@ -41,7 +41,7 @@ public class Q510_AClansReputation extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q510_AClansReputation(510, "Q510_AClansReputation", "quests");
+		new Q510_AClansReputation(510, "Q510_AClansReputation", "", "quests");
 	}
 
 	@Override

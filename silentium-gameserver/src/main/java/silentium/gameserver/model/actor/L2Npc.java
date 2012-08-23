@@ -1343,7 +1343,7 @@ public class L2Npc extends L2Character
 			if (q == null)
 				continue;
 
-			StringUtil.append(sb, "<a action=\"bypass -h npc_", String.valueOf(npc.getObjectId()), "_Quest ", q.getName(), "\">[", q.getDescr());
+			StringUtil.append(sb, "<a action=\"bypass -h npc_", String.valueOf(npc.getObjectId()), "_Quest ", q.getName(), "\">[", q.getScriptPath());
 
 			QuestState qs = player.getQuestState(q.getScriptName());
 			if (qs != null)

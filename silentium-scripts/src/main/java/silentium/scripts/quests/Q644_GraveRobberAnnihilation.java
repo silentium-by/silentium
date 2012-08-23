@@ -37,8 +37,8 @@ public class Q644_GraveRobberAnnihilation extends Quest implements ScriptFile {
 	// NPC
 	private static final int KARUDA = 32017;
 
-	public Q644_GraveRobberAnnihilation(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q644_GraveRobberAnnihilation(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { GOODS };
 
@@ -49,7 +49,7 @@ public class Q644_GraveRobberAnnihilation extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q644_GraveRobberAnnihilation(644, "Q644_GraveRobberAnnihilation", "quests");
+		new Q644_GraveRobberAnnihilation(644, "Q644_GraveRobberAnnihilation", "", "quests");
 	}
 
 	@Override

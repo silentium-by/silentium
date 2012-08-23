@@ -28,11 +28,11 @@ public class ToiVortex extends Quest implements ScriptFile {
 	private static final int RED_DIMENSION_STONE = 4403;
 
 	public static void onLoad() {
-		new ToiVortex(-1, "ToiVortex", "teleports");
+		new ToiVortex(-1, "ToiVortex", "", "teleports");
 	}
 
-	public ToiVortex(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public ToiVortex(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 		addStartNpc(DIMENSION_VORTEX_1, DIMENSION_VORTEX_2, DIMENSION_VORTEX_3, NPC_EXIT);
 		addTalkId(DIMENSION_VORTEX_1, DIMENSION_VORTEX_2, DIMENSION_VORTEX_3, NPC_EXIT);
 	}

@@ -25,8 +25,8 @@ public class Q030_ChestCaughtWithABaitOfFire extends Quest implements ScriptFile
 	private static final int MusicalScore = 7628;
 	private static final int NecklaceOfProtection = 916;
 
-	public Q030_ChestCaughtWithABaitOfFire(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q030_ChestCaughtWithABaitOfFire(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { MusicalScore };
 
@@ -35,7 +35,7 @@ public class Q030_ChestCaughtWithABaitOfFire extends Quest implements ScriptFile
 	}
 
 	public static void onLoad() {
-		new Q030_ChestCaughtWithABaitOfFire(30, "Q030_ChestCaughtWithABaitOfFire", "quests");
+		new Q030_ChestCaughtWithABaitOfFire(30, "Q030_ChestCaughtWithABaitOfFire", "", "quests");
 	}
 
 	@Override

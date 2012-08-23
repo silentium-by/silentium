@@ -11,12 +11,13 @@ package silentium.scripts.quests;
  * @author Emperorc
  */
 public class Q082_SagaOfTheSagittarius extends SagasSuperClass {
-	public static final String qn1 = "Q082_SagaOfTheSagittarius";
-	public static final int qnu = 82;
-	public static final String qna = "quests";
+	private static final String name = "Q082_SagaOfTheSagittarius";
+	private static final int scriptId = 82;
+	private static final String dname = "";
+	private static final String path = "quests";
 
 	public Q082_SagaOfTheSagittarius() {
-		super(qnu, qn1, qna);
+		super(scriptId, name, dname, path);
 
 		NPC = new int[] { 30702, 31627, 31604, 31640, 31633, 31646, 31647, 31650, 31654, 31655, 31657, 31641 };
 
@@ -24,7 +25,7 @@ public class Q082_SagaOfTheSagittarius extends SagasSuperClass {
 
 		Mob = new int[] { 27296, 27231, 27305 };
 
-		qn = qn1;
+		qn = name;
 		classid = 92;
 		prevclass = 0x09;
 

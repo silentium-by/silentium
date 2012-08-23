@@ -34,8 +34,8 @@ public class Q034_InSearchOfCloth extends Quest implements ScriptFile {
 	// Rewards
 	private static final int MYSTERIOUS_CLOTH = 7076;
 
-	public Q034_InSearchOfCloth(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q034_InSearchOfCloth(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { SPINNERET, SPIDERSILK };
 
@@ -46,7 +46,7 @@ public class Q034_InSearchOfCloth extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q034_InSearchOfCloth(34, "Q034_InSearchOfCloth", "quests");
+		new Q034_InSearchOfCloth(34, "Q034_InSearchOfCloth", "", "quests");
 	}
 
 	@Override

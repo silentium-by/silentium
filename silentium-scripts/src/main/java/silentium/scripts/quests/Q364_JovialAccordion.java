@@ -32,8 +32,8 @@ public class Q364_JovialAccordion extends Quest implements ScriptFile {
 	private static final int STOLEN_CLOTHES = 4322;
 	private static final int ECHO = 4421;
 
-	public Q364_JovialAccordion(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q364_JovialAccordion(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { KEY_1, KEY_2, STOLEN_BEER, STOLEN_CLOTHES };
 
@@ -42,7 +42,7 @@ public class Q364_JovialAccordion extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q364_JovialAccordion(364, "Q364_JovialAccordion", "quests");
+		new Q364_JovialAccordion(364, "Q364_JovialAccordion", "", "quests");
 	}
 
 	@Override

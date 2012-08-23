@@ -11,12 +11,13 @@ package silentium.scripts.quests;
  * @author Emperorc
  */
 public class Q072_SagaOfTheSwordMuse extends SagasSuperClass {
-	public static final String qn1 = "Q072_SagaOfTheSwordMuse";
-	public static final int qnu = 72;
-	public static final String qna = "quests";
+	private static final String name = "Q072_SagaOfTheSwordMuse";
+	private static final int scriptId = 72;
+	private static final String dname = "";
+	private static final String path = "quests";
 
 	public Q072_SagaOfTheSwordMuse() {
-		super(qnu, qn1, qna);
+		super(scriptId, name, dname, path);
 
 		NPC = new int[] { 30853, 31624, 31583, 31537, 31618, 31646, 31649, 31652, 31654, 31655, 31659, 31281 };
 
@@ -24,7 +25,7 @@ public class Q072_SagaOfTheSwordMuse extends SagasSuperClass {
 
 		Mob = new int[] { 27288, 27221, 27280 };
 
-		qn = qn1;
+		qn = name;
 		classid = 100;
 		prevclass = 0x15;
 

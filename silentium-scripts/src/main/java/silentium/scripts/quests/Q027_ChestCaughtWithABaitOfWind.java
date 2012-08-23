@@ -24,8 +24,8 @@ public class Q027_ChestCaughtWithABaitOfWind extends Quest {
 	private static final int StrangeBlueprint = 7625;
 	private static final int BlackPearlRing = 880;
 
-	public Q027_ChestCaughtWithABaitOfWind(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q027_ChestCaughtWithABaitOfWind(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { StrangeBlueprint };
 
@@ -34,7 +34,7 @@ public class Q027_ChestCaughtWithABaitOfWind extends Quest {
 	}
 
 	public static void main(final String... args) {
-		new Q027_ChestCaughtWithABaitOfWind(27, "Q027_ChestCaughtWithABaitOfWind", "quests");
+		new Q027_ChestCaughtWithABaitOfWind(27, "Q027_ChestCaughtWithABaitOfWind", "", "quests");
 	}
 
 	@Override

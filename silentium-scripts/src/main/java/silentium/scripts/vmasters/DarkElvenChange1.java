@@ -11,8 +11,8 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 
 public class DarkElvenChange1 extends OccupationEngine {
-	public DarkElvenChange1(final int id, final String name, final String descr) {
-		super(id, name, descr);
+	public DarkElvenChange1(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		for (final int i : new int[] { 30290, 30297, 30462, 32160 }) {
 			addStartNpc(i);
@@ -21,7 +21,7 @@ public class DarkElvenChange1 extends OccupationEngine {
 	}
 
 	public static void onLoad() {
-		new DarkElvenChange1(-1, "DarkElvenChange1", "vmasters");
+		new DarkElvenChange1(-1, "DarkElvenChange1", "", "vmasters");
 	}
 
 	@Override

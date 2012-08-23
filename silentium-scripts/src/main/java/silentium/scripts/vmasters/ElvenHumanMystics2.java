@@ -11,8 +11,8 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 
 public class ElvenHumanMystics2 extends OccupationEngine {
-	public ElvenHumanMystics2(final int id, final String name, final String descr) {
-		super(id, name, descr);
+	public ElvenHumanMystics2(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 		for (final int i : new int[] { 30115, 30174, 30176, 30694, 30854, 31996 }) {
 			addStartNpc(i);
 			addTalkId(i);
@@ -20,7 +20,7 @@ public class ElvenHumanMystics2 extends OccupationEngine {
 	}
 
 	public static void onLoad() {
-		new ElvenHumanMystics2(-1, "ElvenHumanMystics2", "vmasters");
+		new ElvenHumanMystics2(-1, "ElvenHumanMystics2", "", "vmasters");
 	}
 
 	@Override

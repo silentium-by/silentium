@@ -28,8 +28,8 @@ public class Q609_MagicalPowerOfWater_Part1 extends Quest implements ScriptFile 
 	private static final int GREEN_TOTEM = 7238;
 	private static final int DIVINE_STONE = 7081;
 
-	public Q609_MagicalPowerOfWater_Part1(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q609_MagicalPowerOfWater_Part1(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { STOLEN_GREEN_TOTEM };
 
@@ -41,7 +41,7 @@ public class Q609_MagicalPowerOfWater_Part1 extends Quest implements ScriptFile 
 	}
 
 	public static void onLoad() {
-		new Q609_MagicalPowerOfWater_Part1(609, "Q609_MagicalPowerOfWater_Part1", "quests");
+		new Q609_MagicalPowerOfWater_Part1(609, "Q609_MagicalPowerOfWater_Part1", "", "quests");
 	}
 
 	@Override

@@ -11,12 +11,13 @@ package silentium.scripts.quests;
  * @author Emperorc
  */
 public class Q079_SagaOfTheAdventurer extends SagasSuperClass {
-	public static final String qn1 = "Q079_SagaOfTheAdventurer";
-	public static final int qnu = 79;
-	public static final String qna = "quests";
+	private static final String name = "Q079_SagaOfTheAdventurer";
+	private static final int scriptId = 79;
+	private static final String dname = "";
+	private static final String path = "quests";
 
 	public Q079_SagaOfTheAdventurer() {
-		super(qnu, qn1, qna);
+		super(scriptId, name, dname, path);
 
 		NPC = new int[] { 31603, 31584, 31579, 31615, 31619, 31646, 31647, 31651, 31654, 31655, 31658, 31616 };
 
@@ -24,7 +25,7 @@ public class Q079_SagaOfTheAdventurer extends SagasSuperClass {
 
 		Mob = new int[] { 27299, 27228, 27302 };
 
-		qn = qn1;
+		qn = name;
 		classid = 93;
 		prevclass = 0x08;
 

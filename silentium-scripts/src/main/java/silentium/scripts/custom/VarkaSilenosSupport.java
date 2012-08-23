@@ -72,11 +72,11 @@ public class VarkaSilenosSupport extends Quest implements ScriptFile {
 	private static final String[] varkaMissions = { "Q611_AllianceWithVarkaSilenos", "Q612_WarWithKetraOrcs", "Q613_ProveYourCourage", "Q614_SlayTheEnemyCommander", "Q615_MagicalPowerOfFire_Part1", "Q616_MagicalPowerOfFire_Part2" };
 
 	public static void onLoad() {
-		new VarkaSilenosSupport(-1, "VarkaSilenosSupport", "custom");
+		new VarkaSilenosSupport(-1, "VarkaSilenosSupport", "", "custom");
 	}
 
-	public VarkaSilenosSupport(final int id, final String name, final String descr) {
-		super(id, name, descr);
+	public VarkaSilenosSupport(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		addFirstTalkId(ASHAS, NARAN, UDAN, DIYABU, HAGOS, SHIKON, TERANU);
 		addTalkId(UDAN, HAGOS, TERANU);

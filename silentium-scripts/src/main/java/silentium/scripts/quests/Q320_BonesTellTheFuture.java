@@ -20,8 +20,8 @@ public class Q320_BonesTellTheFuture extends Quest implements ScriptFile {
 	// Quest item
 	private final int BONE_FRAGMENT = 809;
 
-	public Q320_BonesTellTheFuture(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q320_BonesTellTheFuture(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { BONE_FRAGMENT };
 
@@ -32,7 +32,7 @@ public class Q320_BonesTellTheFuture extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q320_BonesTellTheFuture(320, "Q320_BonesTellTheFuture", "quests");
+		new Q320_BonesTellTheFuture(320, "Q320_BonesTellTheFuture", "", "quests");
 	}
 
 	@Override

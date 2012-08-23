@@ -39,8 +39,8 @@ public class Q640_TheZeroHour extends Quest implements ScriptFile {
 		REWARDS.put("9", new int[] { 123, 1893, 5 });
 	}
 
-	public Q640_TheZeroHour(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q640_TheZeroHour(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 		questItemIds = new int[] { FANG };
 
 		addStartNpc(KAHMAN);
@@ -51,7 +51,7 @@ public class Q640_TheZeroHour extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q640_TheZeroHour(640, "Q640_TheZeroHour", "quests");
+		new Q640_TheZeroHour(640, "Q640_TheZeroHour", "", "quests");
 	}
 
 	@Override

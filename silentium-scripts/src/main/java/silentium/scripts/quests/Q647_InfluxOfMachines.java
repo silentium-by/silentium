@@ -27,8 +27,8 @@ public class Q647_InfluxOfMachines extends Quest implements ScriptFile {
 	// Low B-grade weapons recipes
 	private static final int[] recipes = { 4963, 4964, 4965, 4966, 4967, 4968, 4969, 4970, 4971, 4972 };
 
-	public Q647_InfluxOfMachines(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q647_InfluxOfMachines(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { DESTROYED_GOLEM_SHARD };
 
@@ -40,7 +40,7 @@ public class Q647_InfluxOfMachines extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q647_InfluxOfMachines(647, "Q647_InfluxOfMachines", "quests");
+		new Q647_InfluxOfMachines(647, "Q647_InfluxOfMachines", "", "quests");
 	}
 
 	@Override

@@ -23,8 +23,8 @@ public class Q353_PowerOfDarkness extends Quest implements ScriptFile {
 	// Item
 	private static final int STONE = 5862;
 
-	public Q353_PowerOfDarkness(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q353_PowerOfDarkness(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { STONE };
 
@@ -35,7 +35,7 @@ public class Q353_PowerOfDarkness extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q353_PowerOfDarkness(353, "Q353_PowerOfDarkness", "quests");
+		new Q353_PowerOfDarkness(353, "Q353_PowerOfDarkness", "", "quests");
 	}
 
 	@Override

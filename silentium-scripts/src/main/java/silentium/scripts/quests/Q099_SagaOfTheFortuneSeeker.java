@@ -11,12 +11,13 @@ package silentium.scripts.quests;
  * @author Emperorc
  */
 public class Q099_SagaOfTheFortuneSeeker extends SagasSuperClass {
-	public static final String qn1 = "Q099_SagaOfTheFortuneSeeker";
-	public static final int qnu = 99;
-	public static final String qna = "quests";
+	private static final String name = "Q099_SagaOfTheFortuneSeeker";
+	private static final int scriptId = 99;
+	private static final String dname = "";
+	private static final String path = "quests";
 
 	public Q099_SagaOfTheFortuneSeeker() {
-		super(qnu, qn1, qna);
+		super(scriptId, name, dname, path);
 
 		NPC = new int[] { 31594, 31623, 31600, 31600, 31601, 31646, 31649, 31650, 31654, 31655, 31657, 31600 };
 
@@ -24,7 +25,7 @@ public class Q099_SagaOfTheFortuneSeeker extends SagasSuperClass {
 
 		Mob = new int[] { 27259, 27248, 27309 };
 
-		qn = qn1;
+		qn = name;
 		classid = 117;
 		prevclass = 0x37;
 

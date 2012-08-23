@@ -16,14 +16,14 @@ public final class Biotin extends Quest implements ScriptFile {
 	// Quest NPCs
 	private static final int BIOTIN = 30031;
 
-	public Biotin(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Biotin(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 		addStartNpc(BIOTIN);
 		addTalkId(BIOTIN);
 	}
 
 	public static void onLoad() {
-		new Biotin(-1, "Biotin", "vmasters");
+		new Biotin(-1, "Biotin", "", "vmasters");
 	}
 
 	@Override

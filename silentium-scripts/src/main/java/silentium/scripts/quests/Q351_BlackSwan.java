@@ -28,8 +28,8 @@ public class Q351_BlackSwan extends Quest implements ScriptFile {
 	private static final int BARREL_OF_LEAGUE = 4298;
 	private static final int BILL_OF_IASON_HEINE = 4310;
 
-	public Q351_BlackSwan(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q351_BlackSwan(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { ORDER_OF_GOSTA, BARREL_OF_LEAGUE, LIZARD_FANG };
 
@@ -40,7 +40,7 @@ public class Q351_BlackSwan extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q351_BlackSwan(351, "Q351_BlackSwan", "quests");
+		new Q351_BlackSwan(351, "Q351_BlackSwan", "", "quests");
 	}
 
 	@Override

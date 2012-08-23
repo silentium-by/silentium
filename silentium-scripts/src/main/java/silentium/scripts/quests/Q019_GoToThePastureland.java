@@ -23,8 +23,8 @@ public class Q019_GoToThePastureland extends Quest {
 	private static final int Vladimir = 31302;
 	private static final int Tunatun = 31537;
 
-	public Q019_GoToThePastureland(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q019_GoToThePastureland(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { YoungWildBeastMeat };
 
@@ -33,7 +33,7 @@ public class Q019_GoToThePastureland extends Quest {
 	}
 
 	public static void main(final String... args) {
-		new Q019_GoToThePastureland(19, "Q019_GoToThePastureland", "quests");
+		new Q019_GoToThePastureland(19, "Q019_GoToThePastureland", "", "quests");
 	}
 
 	@Override

@@ -23,8 +23,8 @@ public class Q300_HuntingLetoLizardman extends Quest implements ScriptFile {
 	// Item
 	private static final int BRACELET = 7139;
 
-	public Q300_HuntingLetoLizardman(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q300_HuntingLetoLizardman(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { BRACELET };
 
@@ -35,7 +35,7 @@ public class Q300_HuntingLetoLizardman extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q300_HuntingLetoLizardman(300, "Q300_HuntingLetoLizardman", "quests");
+		new Q300_HuntingLetoLizardman(300, "Q300_HuntingLetoLizardman", "", "quests");
 	}
 
 	@Override

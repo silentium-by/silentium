@@ -69,9 +69,9 @@ public class DefaultMonsterAI extends Quest
 		}
 	}
 
-	public DefaultMonsterAI(int questId, String name, String descr)
+	public DefaultMonsterAI(int questId, String name, String dname, String path)
 	{
-		super(questId, name, descr);
+		super(questId, name, dname, path);
 	}
 
 	@Override
@@ -192,7 +192,7 @@ public class DefaultMonsterAI extends Quest
 
 	public static void initialize()
 	{
-		final DefaultMonsterAI ai = new DefaultMonsterAI(-1, "DefaultMonsterAI", "DefaultMonsterAI");
+		final DefaultMonsterAI ai = new DefaultMonsterAI(-1, "DefaultMonsterAI", "", "DefaultMonsterAI");
 
 		// register all mobs here...
 		for (int level = 1; level < 100; level++)

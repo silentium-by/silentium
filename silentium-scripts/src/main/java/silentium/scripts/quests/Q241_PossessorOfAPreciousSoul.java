@@ -50,8 +50,8 @@ public class Q241_PossessorOfAPreciousSoul extends Quest implements ScriptFile {
 	private static final int HELLFIRE_OIL = 6033;
 	private static final int VIRGILS_LETTER = 7677;
 
-	public Q241_PossessorOfAPreciousSoul(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q241_PossessorOfAPreciousSoul(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { LEGEND_OF_SEVENTEEN, MALRUK_SUCCUBUS_CLAW, ECHO_CRYSTAL, POETRY_BOOK, CRIMSON_MOSS, RAHORAKTIS_MEDICINE };
 
@@ -62,7 +62,7 @@ public class Q241_PossessorOfAPreciousSoul extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q241_PossessorOfAPreciousSoul(241, "Q241_PossessorOfAPreciousSoul", "quests");
+		new Q241_PossessorOfAPreciousSoul(241, "Q241_PossessorOfAPreciousSoul", "", "quests");
 	}
 
 	@Override

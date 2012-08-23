@@ -23,8 +23,8 @@ public class Q358_IllegitimateChildOfAGoddess extends Quest implements ScriptFil
 	// Reward
 	private static final int[] REWARD = { 6329, 6331, 6333, 6335, 6337, 6339, 5364, 5366 };
 
-	public Q358_IllegitimateChildOfAGoddess(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q358_IllegitimateChildOfAGoddess(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { SCALE };
 
@@ -35,7 +35,7 @@ public class Q358_IllegitimateChildOfAGoddess extends Quest implements ScriptFil
 	}
 
 	public static void onLoad() {
-		new Q358_IllegitimateChildOfAGoddess(358, "Q358_IllegitimateChildOfAGoddess", "quests");
+		new Q358_IllegitimateChildOfAGoddess(358, "Q358_IllegitimateChildOfAGoddess", "", "quests");
 	}
 
 	@Override

@@ -65,8 +65,8 @@ public class Q617_GatherTheFlames extends Quest implements ScriptFile {
 	// Rewards
 	private static final int[] reward = { 6881, 6883, 6885, 6887, 6891, 6893, 6895, 6897, 6899, 7580 };
 
-	public Q617_GatherTheFlames(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q617_GatherTheFlames(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { TORCH };
 
@@ -78,7 +78,7 @@ public class Q617_GatherTheFlames extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q617_GatherTheFlames(617, "Q617_GatherTheFlames", "quests");
+		new Q617_GatherTheFlames(617, "Q617_GatherTheFlames", "", "quests");
 	}
 
 	@Override

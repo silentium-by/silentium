@@ -28,8 +28,8 @@ public class Q101_SwordOfSolidarity extends Quest implements ScriptFile {
 	private static final int ALLTRANS_NOTE_ID = 742;
 	private static final int SWORD_OF_SOLIDARITY_ID = 738;
 
-	public Q101_SwordOfSolidarity(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q101_SwordOfSolidarity(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 		addStartNpc(30008);
 		addTalkId(30008, 30283);
 		addKillId(20361, 20362);
@@ -37,7 +37,7 @@ public class Q101_SwordOfSolidarity extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q101_SwordOfSolidarity(101, "Q101_SwordOfSolidarity", "quests");
+		new Q101_SwordOfSolidarity(101, "Q101_SwordOfSolidarity", "", "quests");
 	}
 
 	@Override

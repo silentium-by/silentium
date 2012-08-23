@@ -22,8 +22,8 @@ public class Q319_ScentOfDeath extends Quest implements ScriptFile {
 	// Item
 	private static final int ZOMBIE_SKIN = 1045;
 
-	public Q319_ScentOfDeath(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q319_ScentOfDeath(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { ZOMBIE_SKIN };
 
@@ -34,7 +34,7 @@ public class Q319_ScentOfDeath extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q319_ScentOfDeath(319, "Q319_ScentOfDeath", "quests");
+		new Q319_ScentOfDeath(319, "Q319_ScentOfDeath", "", "quests");
 	}
 
 	@Override

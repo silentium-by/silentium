@@ -29,8 +29,8 @@ public class Q109_InSearchOfTheNest extends Quest implements ScriptFile {
 	// Reward
 	private static final int ADENA = 57;
 
-	public Q109_InSearchOfTheNest(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q109_InSearchOfTheNest(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { SCOUT_MEMO };
 
@@ -39,7 +39,7 @@ public class Q109_InSearchOfTheNest extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q109_InSearchOfTheNest(109, "Q109_InSearchOfTheNest", "quests");
+		new Q109_InSearchOfTheNest(109, "Q109_InSearchOfTheNest", "", "quests");
 	}
 
 	@Override

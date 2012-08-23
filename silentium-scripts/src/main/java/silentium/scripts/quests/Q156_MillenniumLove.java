@@ -24,8 +24,8 @@ public class Q156_MillenniumLove extends Quest implements ScriptFile {
 	private static final int LILITH = 30368;
 	private static final int BAENEDES = 30369;
 
-	public Q156_MillenniumLove(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q156_MillenniumLove(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { RYLITHS_LETTER, THEONS_DIARY };
 
@@ -34,7 +34,7 @@ public class Q156_MillenniumLove extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q156_MillenniumLove(156, "Q156_MillenniumLove", "quests");
+		new Q156_MillenniumLove(156, "Q156_MillenniumLove", "", "quests");
 	}
 
 	@Override

@@ -18,11 +18,11 @@ public class HeroWeapon extends Quest implements ScriptFile {
 	private static final int[] weaponIds = { 6611, 6612, 6613, 6614, 6615, 6616, 6617, 6618, 6619, 6620, 6621 };
 
 	public static void onLoad() {
-		new HeroWeapon(-1, "HeroWeapon", "custom");
+		new HeroWeapon(-1, "HeroWeapon", "", "custom");
 	}
 
-	public HeroWeapon(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public HeroWeapon(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		addStartNpc(31690, 31769, 31770, 31771, 31772, 31773);
 		addTalkId(31690, 31769, 31770, 31771, 31772, 31773);

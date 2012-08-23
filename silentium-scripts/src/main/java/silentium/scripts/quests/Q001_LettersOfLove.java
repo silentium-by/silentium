@@ -30,8 +30,8 @@ public class Q001_LettersOfLove extends Quest implements ScriptFile {
 	// Reward
 	private static final int NECKLACE = 906;
 
-	public Q001_LettersOfLove(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q001_LettersOfLove(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { DARINGS_LETTER, RAPUNZELS_KERCHIEF, DARINGS_RECEIPT, BAULROS_POTION };
 
@@ -40,7 +40,7 @@ public class Q001_LettersOfLove extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q001_LettersOfLove(1, "Q001_LettersOfLove", "quests");
+		new Q001_LettersOfLove(1, "Q001_LettersOfLove", "", "quests");
 	}
 
 	@Override

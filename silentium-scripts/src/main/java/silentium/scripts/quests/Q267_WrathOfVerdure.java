@@ -29,8 +29,8 @@ public class Q267_WrathOfVerdure extends Quest implements ScriptFile {
 	// Mob
 	private static final int GOBLIN = 20325;
 
-	public Q267_WrathOfVerdure(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q267_WrathOfVerdure(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { GOBLIN_CLUB };
 
@@ -41,7 +41,7 @@ public class Q267_WrathOfVerdure extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q267_WrathOfVerdure(267, "Q267_WrathOfVerdure", "quests");
+		new Q267_WrathOfVerdure(267, "Q267_WrathOfVerdure", "", "quests");
 	}
 
 	@Override

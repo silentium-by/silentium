@@ -11,12 +11,13 @@ package silentium.scripts.quests;
  * @author Emperorc
  */
 public class Q078_SagaOfTheDoomcryer extends SagasSuperClass {
-	public static final String qn1 = "Q078_SagaOfTheDoomcryer";
-	public static final int qnu = 78;
-	public static final String qna = "quests";
+	private static final String name = "Q078_SagaOfTheDoomcryer";
+	private static final int scriptId = 78;
+	private static final String dname = "";
+	private static final String path = "quests";
 
 	public Q078_SagaOfTheDoomcryer() {
-		super(qnu, qn1, qna);
+		super(scriptId, name, dname, path);
 
 		NPC = new int[] { 31336, 31624, 31589, 31290, 31642, 31646, 31649, 31650, 31654, 31655, 31657, 31290 };
 
@@ -24,7 +25,7 @@ public class Q078_SagaOfTheDoomcryer extends SagasSuperClass {
 
 		Mob = new int[] { 27295, 27227, 27285 };
 
-		qn = qn1;
+		qn = name;
 		classid = 116;
 		prevclass = 0x34;
 

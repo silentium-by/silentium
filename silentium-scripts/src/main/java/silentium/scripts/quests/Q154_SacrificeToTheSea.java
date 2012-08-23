@@ -29,8 +29,8 @@ public class Q154_SacrificeToTheSea extends Quest implements ScriptFile {
 	// Reward
 	private static final int EARING = 113;
 
-	public Q154_SacrificeToTheSea(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q154_SacrificeToTheSea(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { FOX_FUR, FOX_FUR_YARN, MAIDEN_DOLL };
 
@@ -42,7 +42,7 @@ public class Q154_SacrificeToTheSea extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q154_SacrificeToTheSea(154, "Q154_SacrificeToTheSea", "quests");
+		new Q154_SacrificeToTheSea(154, "Q154_SacrificeToTheSea", "", "quests");
 	}
 
 	@Override

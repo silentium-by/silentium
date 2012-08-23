@@ -36,8 +36,8 @@ public class Q162_CurseOfTheUndergroundFortress extends Quest implements ScriptF
 	private static final int ADENA = 57;
 	private static final int BONE_SHIELD = 625;
 
-	public Q162_CurseOfTheUndergroundFortress(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q162_CurseOfTheUndergroundFortress(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { BONE_FRAGMENT, ELF_SKULL };
 
@@ -48,7 +48,7 @@ public class Q162_CurseOfTheUndergroundFortress extends Quest implements ScriptF
 	}
 
 	public static void onLoad() {
-		new Q162_CurseOfTheUndergroundFortress(162, "Q162_CurseOfTheUndergroundFortress", "quests");
+		new Q162_CurseOfTheUndergroundFortress(162, "Q162_CurseOfTheUndergroundFortress", "", "quests");
 	}
 
 	@Override

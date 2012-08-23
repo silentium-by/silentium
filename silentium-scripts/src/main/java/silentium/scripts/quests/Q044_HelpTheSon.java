@@ -30,8 +30,8 @@ public class Q044_HelpTheSon extends Quest implements ScriptFile {
 	private static final int MAILLE_GUARD = 20921;
 	private static final int MAILLE_SCOUT = 20920;
 
-	public Q044_HelpTheSon(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q044_HelpTheSon(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { GEMSTONE_FRAGMENT, GEMSTONE };
 
@@ -42,7 +42,7 @@ public class Q044_HelpTheSon extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q044_HelpTheSon(44, "Q044_HelpTheSon", "quests");
+		new Q044_HelpTheSon(44, "Q044_HelpTheSon", "", "quests");
 	}
 
 	@Override

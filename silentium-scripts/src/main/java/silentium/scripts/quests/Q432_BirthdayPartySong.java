@@ -22,8 +22,8 @@ public class Q432_BirthdayPartySong extends Quest implements ScriptFile {
 	// Item
 	private static final int RED_CRYSTAL = 7541;
 
-	public Q432_BirthdayPartySong(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q432_BirthdayPartySong(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { RED_CRYSTAL };
 
@@ -34,7 +34,7 @@ public class Q432_BirthdayPartySong extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q432_BirthdayPartySong(432, "Q432_BirthdayPartySong", "quests");
+		new Q432_BirthdayPartySong(432, "Q432_BirthdayPartySong", "", "quests");
 	}
 
 	@Override

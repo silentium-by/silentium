@@ -24,8 +24,8 @@ public class Q329_CuriosityOfADwarf extends Quest implements ScriptFile {
 	private static final int Golem_Heartstone = 1346;
 	private static final int Broken_Heartstone = 1365;
 
-	public Q329_CuriosityOfADwarf(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q329_CuriosityOfADwarf(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		addStartNpc(Rolento);
 		addTalkId(Rolento);
@@ -34,7 +34,7 @@ public class Q329_CuriosityOfADwarf extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q329_CuriosityOfADwarf(329, "Q329_CuriosityOfADwarf", "quests");
+		new Q329_CuriosityOfADwarf(329, "Q329_CuriosityOfADwarf", "", "quests");
 	}
 
 	@Override

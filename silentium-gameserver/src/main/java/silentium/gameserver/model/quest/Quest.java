@@ -71,7 +71,8 @@ public class Quest extends ManagedScript
 
 	private final int _questId;
 	private final String _name;
-	private final String _descr;
+	private final String _dname;
+	private final String _path;
 	private final byte _initialState = State.CREATED;
 	protected boolean _onEnterWorld = false;
 	// NOTE: questItemIds will be overridden by child classes. Ideally, it should be
@@ -103,23 +104,20 @@ public class Quest extends ManagedScript
 	 *            : int pointing out the ID of the quest
 	 * @param name
 	 *            : String corresponding to the name of the quest
-	 * @param descr
+	 * @param path
 	 *            : String for the description of the quest
 	 */
-	public Quest(int questId, String name, String descr)
+	public Quest(int questId, String name, String dname, String path)
 	{
 		_questId = questId;
 		_name = name;
-		_descr = descr;
+		_dname = dname;
+		_path = path;
 
 		if (questId != 0)
-		{
 			QuestManager.getInstance().addQuest(this);
-		}
 		else
-		{
 			_allEventsS.put(name, this);
-		}
 		init_LoadGlobalData();
 	}
 
@@ -207,7 +205,7 @@ public class Quest extends ManagedScript
 	}
 
 	/**
-	 * Return name of the quest
+	 * Return name of the class
 	 * 
 	 * @return String
 	 */
@@ -217,13 +215,23 @@ public class Quest extends ManagedScript
 	}
 
 	/**
-	 * Return description of the quest
+	 * Return display name of the class
 	 * 
 	 * @return String
 	 */
-	public String getDescr()
+	public String getDisplayName()
 	{
-		return _descr;
+		return _dname;
+	}
+
+	/**
+	 * Return path of the class
+	 * 
+	 * @return String
+	 */
+	public String getScriptPath()
+	{
+		return _path;
 	}
 
 	/**
@@ -1953,7 +1961,7 @@ public class Quest extends ManagedScript
 	 */
 	public String getHtm(String fileName)
 	{
-		return HtmCache.getInstance().getHtm(StaticHtmPath.ScriptsHtmPath + getDescr().toLowerCase() + "/" + getName() + "/" + fileName);
+		return HtmCache.getInstance().getHtm(StaticHtmPath.ScriptsHtmPath + getScriptPath().toLowerCase() + "/" + getName() + "/" + fileName);
 	}
 
 	/**

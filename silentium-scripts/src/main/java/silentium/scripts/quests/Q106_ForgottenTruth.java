@@ -20,8 +20,8 @@ import silentium.gameserver.scripting.ScriptFile;
 public class Q106_ForgottenTruth extends Quest implements ScriptFile {
 	private static final String qn = "Q106_ForgottenTruth";
 
-	public Q106_ForgottenTruth(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q106_ForgottenTruth(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 		addStartNpc(30358);
 		addTalkId(30358, 30133);
 		addKillId(27070);
@@ -36,7 +36,7 @@ public class Q106_ForgottenTruth extends Quest implements ScriptFile {
 	private static final int ELDRITCH_DAGGER = 989;
 
 	public static void onLoad() {
-		new Q106_ForgottenTruth(-1, "Q106_ForgottenTruth", "quests");
+		new Q106_ForgottenTruth(-1, "Q106_ForgottenTruth", "", "quests");
 	}
 
 	@Override

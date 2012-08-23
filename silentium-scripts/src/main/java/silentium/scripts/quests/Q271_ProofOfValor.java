@@ -29,8 +29,8 @@ public class Q271_ProofOfValor extends Quest implements ScriptFile {
 	// Mob
 	private static final int KASHA_WOLF = 20475;
 
-	public Q271_ProofOfValor(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q271_ProofOfValor(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { KASHA_WOLF_FANG };
 
@@ -41,7 +41,7 @@ public class Q271_ProofOfValor extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q271_ProofOfValor(271, "Q271_ProofOfValor", "quests");
+		new Q271_ProofOfValor(271, "Q271_ProofOfValor", "", "quests");
 	}
 
 	@Override

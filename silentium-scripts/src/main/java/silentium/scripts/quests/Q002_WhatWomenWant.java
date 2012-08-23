@@ -33,8 +33,8 @@ public class Q002_WhatWomenWant extends Quest implements ScriptFile {
 	private static final int ADENA = 57;
 	private static final int MYSTICS_EARRING = 113;
 
-	public Q002_WhatWomenWant(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q002_WhatWomenWant(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { ARUJIENS_LETTER1, ARUJIENS_LETTER2, ARUJIENS_LETTER3, POETRY_BOOK, GREENIS_LETTER };
 
@@ -43,7 +43,7 @@ public class Q002_WhatWomenWant extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q002_WhatWomenWant(2, "Q002_WhatWomenWant", "quests");
+		new Q002_WhatWomenWant(2, "Q002_WhatWomenWant", "", "quests");
 	}
 
 	@Override

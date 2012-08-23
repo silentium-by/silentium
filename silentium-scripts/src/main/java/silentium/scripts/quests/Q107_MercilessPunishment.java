@@ -35,8 +35,8 @@ public class Q107_MercilessPunishment extends Quest implements ScriptFile {
 	private static final int CRYSTAL_CELEBRATION = 4416;
 	private static final int SOULSHOT_NO_GRADE_FOR_BEGINNERS_ID = 5789;
 
-	public Q107_MercilessPunishment(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q107_MercilessPunishment(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 		addStartNpc(30568);
 		addTalkId(30568, 30580);
 		addKillId(27041);
@@ -44,7 +44,7 @@ public class Q107_MercilessPunishment extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q107_MercilessPunishment(-1, "Q107_MercilessPunishment", "quests");
+		new Q107_MercilessPunishment(-1, "Q107_MercilessPunishment", "", "quests");
 	}
 
 	@Override

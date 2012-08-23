@@ -16,14 +16,14 @@ public final class Thifiell extends Quest implements ScriptFile {
 	// Quest NPCs
 	private static final int THIFIELL = 30358;
 
-	public Thifiell(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Thifiell(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 		addStartNpc(THIFIELL);
 		addTalkId(THIFIELL);
 	}
 
 	public static void onLoad() {
-		new Thifiell(-1, "Thifiell", "vmasters");
+		new Thifiell(-1, "Thifiell", "", "vmasters");
 	}
 
 	@Override

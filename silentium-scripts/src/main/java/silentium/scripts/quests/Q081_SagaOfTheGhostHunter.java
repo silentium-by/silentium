@@ -11,12 +11,13 @@ package silentium.scripts.quests;
  * @author Emperorc
  */
 public class Q081_SagaOfTheGhostHunter extends SagasSuperClass {
-	public static final String qn1 = "Q081_SagaOfTheGhostHunter";
-	public static final int qnu = 81;
-	public static final String qna = "quests";
+	private static final String name = "Q081_SagaOfTheGhostHunter";
+	private static final int scriptId = 81;
+	private static final String dname = "";
+	private static final String path = "quests";
 
 	public Q081_SagaOfTheGhostHunter() {
-		super(qnu, qn1, qna);
+		super(scriptId, name, dname, path);
 
 		NPC = new int[] { 31603, 31624, 31286, 31615, 31617, 31646, 31649, 31653, 31654, 31655, 31656, 31616 };
 
@@ -24,7 +25,7 @@ public class Q081_SagaOfTheGhostHunter extends SagasSuperClass {
 
 		Mob = new int[] { 27301, 27230, 27304 };
 
-		qn = qn1;
+		qn = name;
 		classid = 108;
 		prevclass = 0x24;
 

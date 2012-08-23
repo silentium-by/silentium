@@ -22,8 +22,8 @@ public class Q649_ALooterAndARailroadMan extends Quest implements ScriptFile {
 	// NPC
 	private static final int OBI = 32052;
 
-	public Q649_ALooterAndARailroadMan(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q649_ALooterAndARailroadMan(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { THIEF_GUILD_MARK };
 
@@ -34,7 +34,7 @@ public class Q649_ALooterAndARailroadMan extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q649_ALooterAndARailroadMan(649, "Q649_ALooterAndARailroadMan", "quests");
+		new Q649_ALooterAndARailroadMan(649, "Q649_ALooterAndARailroadMan", "", "quests");
 	}
 
 	@Override

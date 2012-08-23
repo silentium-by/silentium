@@ -38,8 +38,8 @@ public class Q242_PossessorOfAPreciousSoul extends Quest implements ScriptFile {
 	private static final int ORB_OF_BINDING = 7595;
 	private static final int CARADINE_LETTER_2 = 7678;
 
-	public Q242_PossessorOfAPreciousSoul(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q242_PossessorOfAPreciousSoul(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { GOLDEN_HAIR, SORCERY_INGREDIENT, ORB_OF_BINDING };
 
@@ -53,7 +53,7 @@ public class Q242_PossessorOfAPreciousSoul extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q242_PossessorOfAPreciousSoul(242, "Q242_PossessorOfAPreciousSoul", "quests");
+		new Q242_PossessorOfAPreciousSoul(242, "Q242_PossessorOfAPreciousSoul", "", "quests");
 	}
 
 	@Override

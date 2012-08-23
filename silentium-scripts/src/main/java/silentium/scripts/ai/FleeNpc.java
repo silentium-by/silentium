@@ -20,11 +20,11 @@ public class FleeNpc extends DefaultMonsterAI implements ScriptFile {
 	private final int[] _npcId = { 18150, 18151, 18152, 18153, 18154, 18155, 18156, 18157, 20432 };
 
 	public static void onLoad() {
-		new FleeNpc(-1, "FleeNpc", "Ai for Flee Npcs");
+		new FleeNpc(-1, "FleeNpc", "", "Ai for Flee Npcs");
 	}
 
-	public FleeNpc(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public FleeNpc(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		for (final int element : _npcId)
 			addEventId(element, QuestEventType.ON_ATTACK);

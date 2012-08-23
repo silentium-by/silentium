@@ -27,8 +27,8 @@ public class Q161_FruitOfTheMotherTree extends Quest implements ScriptFile {
 	// Reward
 	private static final int ADENA = 57;
 
-	public Q161_FruitOfTheMotherTree(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q161_FruitOfTheMotherTree(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { ANDELLIA_LETTER, MOTHERTREE_FRUIT };
 
@@ -37,7 +37,7 @@ public class Q161_FruitOfTheMotherTree extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q161_FruitOfTheMotherTree(161, "Q161_FruitOfTheMotherTree", "quests");
+		new Q161_FruitOfTheMotherTree(161, "Q161_FruitOfTheMotherTree", "", "quests");
 	}
 
 	@Override

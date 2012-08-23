@@ -30,8 +30,8 @@ public class Q103_SpiritOfCraftsman extends Quest implements ScriptFile {
 	private static final int STEELBENDERS_HEAD_ID = 974;
 	private static final int BLOODSABER_ID = 975;
 
-	public Q103_SpiritOfCraftsman(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q103_SpiritOfCraftsman(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 		addStartNpc(30307);
 		addTalkId(30307, 30132, 30144);
 		addKillId(20015, 20020, 20455, 20517, 20518);
@@ -39,7 +39,7 @@ public class Q103_SpiritOfCraftsman extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q103_SpiritOfCraftsman(103, "Q103_SpiritOfCraftsman", "quests");
+		new Q103_SpiritOfCraftsman(103, "Q103_SpiritOfCraftsman", "", "quests");
 	}
 
 	@Override

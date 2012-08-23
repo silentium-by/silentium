@@ -103,11 +103,11 @@ public class FeedableBeasts extends DefaultMonsterAI implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new FeedableBeasts(-1, "FeedableBeasts", "ai");
+		new FeedableBeasts(-1, "FeedableBeasts", "", "ai");
 	}
 
-	public FeedableBeasts(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public FeedableBeasts(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 		registerMobs(FEEDABLE_BEASTS, QuestEventType.ON_KILL, QuestEventType.ON_SKILL_SEE);
 
 		GrowthCapableMob temp;

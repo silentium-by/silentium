@@ -37,8 +37,8 @@ public class Q646_SignsOfRevolt extends Quest implements ScriptFile {
 		Rewards.put("4", new int[] { 57, 21600 });
 	}
 
-	public Q646_SignsOfRevolt(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q646_SignsOfRevolt(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { CURSED_DOLL };
 
@@ -49,7 +49,7 @@ public class Q646_SignsOfRevolt extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q646_SignsOfRevolt(646, "Q646_SignsOfRevolt", "quests");
+		new Q646_SignsOfRevolt(646, "Q646_SignsOfRevolt", "", "quests");
 	}
 
 	@Override

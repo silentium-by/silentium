@@ -26,15 +26,15 @@ public class Q016_TheComingDarkness extends Quest {
 	// Item
 	private static final int CRYSTAL_OF_SEAL = 7167;
 
-	public Q016_TheComingDarkness(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q016_TheComingDarkness(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		addStartNpc(HIERARCH);
 		addTalkId(HIERARCH, EVIL_ALTAR_1, EVIL_ALTAR_2, EVIL_ALTAR_3, EVIL_ALTAR_4, EVIL_ALTAR_5);
 	}
 
 	public static void main(final String... args) {
-		new Q016_TheComingDarkness(16, "Q016_TheComingDarkness", "quests");
+		new Q016_TheComingDarkness(16, "Q016_TheComingDarkness", "", "quests");
 	}
 
 	@Override

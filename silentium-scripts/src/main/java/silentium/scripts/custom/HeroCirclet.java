@@ -15,11 +15,11 @@ import silentium.gameserver.scripting.ScriptFile;
 
 public class HeroCirclet extends Quest implements ScriptFile {
 	public static void onLoad() {
-		new HeroCirclet(-1, "HeroCirclet", "custom");
+		new HeroCirclet(-1, "HeroCirclet", "", "custom");
 	}
 
-	public HeroCirclet(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public HeroCirclet(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		addStartNpc(31690, 31769, 31770, 31771, 31772);
 		addTalkId(31690, 31769, 31770, 31771, 31772);

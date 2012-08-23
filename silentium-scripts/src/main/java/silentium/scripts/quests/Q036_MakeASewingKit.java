@@ -30,8 +30,8 @@ public class Q036_MakeASewingKit extends Quest implements ScriptFile {
 	// Reward
 	private static final int SEWING_KIT = 7078;
 
-	public Q036_MakeASewingKit(final int id, final String name, final String descr) {
-		super(id, name, descr);
+	public Q036_MakeASewingKit(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 		questItemIds = new int[] { REINFORCED_STEEL };
 
 		addStartNpc(FERRIS);
@@ -41,7 +41,7 @@ public class Q036_MakeASewingKit extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q036_MakeASewingKit(36, "Q036_MakeASewingKit", "quests");
+		new Q036_MakeASewingKit(36, "Q036_MakeASewingKit", "", "quests");
 	}
 
 	@Override

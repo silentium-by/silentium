@@ -27,8 +27,8 @@ public class Q291_RevengeOfTheRedbonnet extends Quest implements ScriptFile {
 	private static final int GrandmasNecklace = 1504;
 	private static final int GrandmasHairpin = 1505;
 
-	public Q291_RevengeOfTheRedbonnet(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q291_RevengeOfTheRedbonnet(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { BlackWolfPelt };
 
@@ -39,7 +39,7 @@ public class Q291_RevengeOfTheRedbonnet extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q291_RevengeOfTheRedbonnet(291, "Q291_RevengeOfTheRedbonnet", "quests");
+		new Q291_RevengeOfTheRedbonnet(291, "Q291_RevengeOfTheRedbonnet", "", "quests");
 	}
 
 	@Override

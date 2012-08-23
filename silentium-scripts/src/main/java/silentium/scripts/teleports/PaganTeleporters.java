@@ -21,11 +21,11 @@ public class PaganTeleporters extends Quest implements ScriptFile {
 	private static final int PAGAN_MARK = 8067;
 
 	public static void onLoad() {
-		new PaganTeleporters(-1, "PaganTeleporters", "teleports");
+		new PaganTeleporters(-1, "PaganTeleporters", "", "teleports");
 	}
 
-	public PaganTeleporters(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public PaganTeleporters(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		addStartNpc(32034, 32035, 32036, 32037, 32039, 32040);
 		addTalkId(32034, 32035, 32036, 32037, 32039, 32040);

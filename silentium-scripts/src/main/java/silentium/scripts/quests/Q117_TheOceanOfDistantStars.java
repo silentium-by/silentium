@@ -32,8 +32,8 @@ public class Q117_TheOceanOfDistantStars extends Quest implements ScriptFile {
 	private static final int BANDIT_WARRIOR = 22023;
 	private static final int BANDIT_INSPECTOR = 22024;
 
-	public Q117_TheOceanOfDistantStars(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q117_TheOceanOfDistantStars(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { GREY_STAR, ENGRAVED_HAMMER };
 
@@ -43,7 +43,7 @@ public class Q117_TheOceanOfDistantStars extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q117_TheOceanOfDistantStars(117, "Q117_TheOceanOfDistantStars", "quests");
+		new Q117_TheOceanOfDistantStars(117, "Q117_TheOceanOfDistantStars", "", "quests");
 	}
 
 	@Override

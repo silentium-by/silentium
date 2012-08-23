@@ -23,8 +23,8 @@ public class Q626_ADarkTwilight extends Quest implements ScriptFile {
 	// NPC
 	private static final int Hierarch = 31517;
 
-	public Q626_ADarkTwilight(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q626_ADarkTwilight(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { BloodOfSaint };
 
@@ -35,7 +35,7 @@ public class Q626_ADarkTwilight extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q626_ADarkTwilight(626, "Q626_ADarkTwilight", "quests");
+		new Q626_ADarkTwilight(626, "Q626_ADarkTwilight", "", "quests");
 	}
 
 	@Override

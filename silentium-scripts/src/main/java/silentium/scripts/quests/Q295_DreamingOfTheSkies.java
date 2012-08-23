@@ -28,8 +28,8 @@ public class Q295_DreamingOfTheSkies extends Quest implements ScriptFile {
 	// Monster
 	private static final int MAGICAL_WEAVER = 20153;
 
-	public Q295_DreamingOfTheSkies(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q295_DreamingOfTheSkies(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { FLOATING_STONE };
 
@@ -39,7 +39,7 @@ public class Q295_DreamingOfTheSkies extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q295_DreamingOfTheSkies(295, "Q295_DreamingOfTheSkies", "quests");
+		new Q295_DreamingOfTheSkies(295, "Q295_DreamingOfTheSkies", "", "quests");
 	}
 
 	@Override

@@ -33,8 +33,8 @@ public class Q023_LidiasHeart extends Quest {
 	private static final int LidiaDiary = 7064;
 	private static final int SilverSpear = 7150;
 
-	public Q023_LidiasHeart(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q023_LidiasHeart(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { MapForestofDeadman, SilverKey, LidiaDiary, SilverSpear };
 
@@ -43,7 +43,7 @@ public class Q023_LidiasHeart extends Quest {
 	}
 
 	public static void main(final String... args) {
-		new Q023_LidiasHeart(23, "Q023_LidiasHeart", "quests");
+		new Q023_LidiasHeart(23, "Q023_LidiasHeart", "", "quests");
 	}
 
 	@Override

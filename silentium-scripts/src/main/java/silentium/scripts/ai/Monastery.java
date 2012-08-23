@@ -31,11 +31,11 @@ public class Monastery extends DefaultMonsterAI implements ScriptFile {
 	private static final int[] mobs2 = { 22134, 22135 };
 
 	public static void onLoad() {
-		new Monastery(-1, "Monastery", "ai");
+		new Monastery(-1, "Monastery", "", "ai");
 	}
 
-	public Monastery(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Monastery(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 		registerMobs(mobs1, QuestEventType.ON_AGGRO_RANGE_ENTER, QuestEventType.ON_SPAWN, QuestEventType.ON_SPELL_FINISHED);
 		registerMobs(mobs2, QuestEventType.ON_SKILL_SEE);
 	}

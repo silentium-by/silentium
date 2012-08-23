@@ -25,8 +25,8 @@ public class Q017_LightAndDarkness extends Quest {
 	private static final int AltarOfSaints3 = 31510;
 	private static final int AltarOfSaints4 = 31511;
 
-	public Q017_LightAndDarkness(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q017_LightAndDarkness(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { BloodOfSaint };
 
@@ -35,7 +35,7 @@ public class Q017_LightAndDarkness extends Quest {
 	}
 
 	public static void main(final String... args) {
-		new Q017_LightAndDarkness(17, "Q017_LightAndDarkness", "quests");
+		new Q017_LightAndDarkness(17, "Q017_LightAndDarkness", "", "quests");
 	}
 
 	@Override

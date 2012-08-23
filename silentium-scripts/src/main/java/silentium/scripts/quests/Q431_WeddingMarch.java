@@ -27,8 +27,8 @@ public class Q431_WeddingMarch extends Quest implements ScriptFile {
 	// Reward
 	private static final int WEDDING_ECHO_CRYSTAL = 7062;
 
-	public Q431_WeddingMarch(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q431_WeddingMarch(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { SILVER_CRYSTAL };
 
@@ -39,7 +39,7 @@ public class Q431_WeddingMarch extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q431_WeddingMarch(431, "Q431_WeddingMarch", "quests");
+		new Q431_WeddingMarch(431, "Q431_WeddingMarch", "", "quests");
 	}
 
 	@Override

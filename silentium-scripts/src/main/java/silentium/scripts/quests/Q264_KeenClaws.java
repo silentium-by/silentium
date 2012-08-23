@@ -35,8 +35,8 @@ public class Q264_KeenClaws extends Quest implements ScriptFile {
 	private static final int ShortGloves = 48;
 	private static final int ClothShoes = 35;
 
-	public Q264_KeenClaws(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q264_KeenClaws(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { WOLF_CLAW };
 
@@ -47,7 +47,7 @@ public class Q264_KeenClaws extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q264_KeenClaws(264, "Q264_KeenClaws", "quests");
+		new Q264_KeenClaws(264, "Q264_KeenClaws", "", "quests");
 	}
 
 	@Override

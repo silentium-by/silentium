@@ -48,11 +48,11 @@ public class FortuneTelling extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new FortuneTelling(-1, "FortuneTelling", "custom");
+		new FortuneTelling(-1, "FortuneTelling", "", "custom");
 	}
 
-	public FortuneTelling(final int id, final String name, final String desc) {
-		super(id, name, desc);
+	public FortuneTelling(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 		addStartNpc(32616);
 		addTalkId(32616);
 	}

@@ -23,8 +23,8 @@ public class Q366_SilverHairedShaman extends Quest implements ScriptFile {
 	// Item
 	private static final int HAIR = 5874;
 
-	public Q366_SilverHairedShaman(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q366_SilverHairedShaman(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { HAIR };
 
@@ -35,7 +35,7 @@ public class Q366_SilverHairedShaman extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q366_SilverHairedShaman(366, "Q366_SilverHairedShaman", "quests");
+		new Q366_SilverHairedShaman(366, "Q366_SilverHairedShaman", "", "quests");
 	}
 
 	@Override

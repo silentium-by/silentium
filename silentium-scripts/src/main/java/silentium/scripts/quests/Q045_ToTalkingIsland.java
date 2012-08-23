@@ -32,8 +32,8 @@ public class Q045_ToTalkingIsland extends Quest implements ScriptFile {
 	private static final int MARK_OF_TRAVELER = 7570;
 	private static final int SCROLL_OF_ESCAPE_SPECIAL = 7554;
 
-	public Q045_ToTalkingIsland(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q045_ToTalkingIsland(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { ORDER_DOCUMENT_1, ORDER_DOCUMENT_2, ORDER_DOCUMENT_3, MAGIC_SWORD_HILT, GEMSTONE_POWDER, PURIFIED_MAGIC_NECKLACE };
 
@@ -42,7 +42,7 @@ public class Q045_ToTalkingIsland extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q045_ToTalkingIsland(45, "Q045_ToTalkingIsland", "quests");
+		new Q045_ToTalkingIsland(45, "Q045_ToTalkingIsland", "", "quests");
 	}
 
 	@Override

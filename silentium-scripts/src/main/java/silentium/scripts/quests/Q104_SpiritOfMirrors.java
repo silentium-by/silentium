@@ -39,8 +39,8 @@ public class Q104_SpiritOfMirrors extends Quest implements ScriptFile {
 	private static final int JOHNSTONE = 30043;
 	private static final int KENYOS = 30045;
 
-	public Q104_SpiritOfMirrors(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q104_SpiritOfMirrors(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { GALLINS_OAK_WAND, WAND_SPIRITBOUND1, WAND_SPIRITBOUND2, WAND_SPIRITBOUND3 };
 
@@ -51,7 +51,7 @@ public class Q104_SpiritOfMirrors extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q104_SpiritOfMirrors(104, "Q104_SpiritOfMirrors", "quests");
+		new Q104_SpiritOfMirrors(104, "Q104_SpiritOfMirrors", "", "quests");
 	}
 
 	@Override

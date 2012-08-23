@@ -22,8 +22,8 @@ public class Q303_CollectArrowheads extends Quest implements ScriptFile {
 	// Item
 	private static final int ORCISH_ARROWHEAD = 963;
 
-	public Q303_CollectArrowheads(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q303_CollectArrowheads(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { ORCISH_ARROWHEAD };
 
@@ -34,7 +34,7 @@ public class Q303_CollectArrowheads extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q303_CollectArrowheads(303, "Q303_CollectArrowheads", "quests");
+		new Q303_CollectArrowheads(303, "Q303_CollectArrowheads", "", "quests");
 	}
 
 	@Override

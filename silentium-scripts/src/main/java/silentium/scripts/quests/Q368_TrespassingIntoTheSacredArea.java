@@ -24,8 +24,8 @@ public class Q368_TrespassingIntoTheSacredArea extends Quest implements ScriptFi
 	// Item
 	private static final int FANG = 5881;
 
-	public Q368_TrespassingIntoTheSacredArea(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q368_TrespassingIntoTheSacredArea(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { FANG };
 
@@ -35,7 +35,7 @@ public class Q368_TrespassingIntoTheSacredArea extends Quest implements ScriptFi
 	}
 
 	public static void onLoad() {
-		new Q368_TrespassingIntoTheSacredArea(368, "Q368_TrespassingIntoTheSacredArea", "quests");
+		new Q368_TrespassingIntoTheSacredArea(368, "Q368_TrespassingIntoTheSacredArea", "", "quests");
 	}
 
 	@Override

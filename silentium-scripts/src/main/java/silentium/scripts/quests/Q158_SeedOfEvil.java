@@ -28,8 +28,8 @@ public class Q158_SeedOfEvil extends Quest implements ScriptFile {
 	// Reward
 	private static final int ENCHANT_ARMOR_D = 956;
 
-	public Q158_SeedOfEvil(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q158_SeedOfEvil(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { CLAY_TABLET };
 
@@ -40,7 +40,7 @@ public class Q158_SeedOfEvil extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q158_SeedOfEvil(158, "Q158_SeedOfEvil", "quests");
+		new Q158_SeedOfEvil(158, "Q158_SeedOfEvil", "", "quests");
 	}
 
 	@Override

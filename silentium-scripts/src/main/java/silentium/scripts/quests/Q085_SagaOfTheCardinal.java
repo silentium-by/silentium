@@ -11,12 +11,13 @@ package silentium.scripts.quests;
  * @author Emperorc
  */
 public class Q085_SagaOfTheCardinal extends SagasSuperClass {
-	public static final String qn1 = "Q085_SagaOfTheCardinal";
-	public static final int qnu = 85;
-	public static final String qna = "quests";
+	private static final String name = "Q085_SagaOfTheCardinal";
+	private static final int scriptId = 85;
+	private static final String dname = "";
+	private static final String path = "quests";
 
 	public Q085_SagaOfTheCardinal() {
-		super(qnu, qn1, qna);
+		super(scriptId, name, dname, path);
 
 		NPC = new int[] { 30191, 31626, 31588, 31280, 31644, 31646, 31647, 31651, 31654, 31655, 31658, 31280 };
 
@@ -24,7 +25,7 @@ public class Q085_SagaOfTheCardinal extends SagasSuperClass {
 
 		Mob = new int[] { 27267, 27234, 27274 };
 
-		qn = qn1;
+		qn = name;
 		classid = 97;
 		prevclass = 0x10;
 

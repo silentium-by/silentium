@@ -30,8 +30,8 @@ public class Q043_HelpTheSister extends Quest implements ScriptFile {
 	private static final int SPECTER = 20171;
 	private static final int SORROW_MAIDEN = 20197;
 
-	public Q043_HelpTheSister(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q043_HelpTheSister(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { MAP_PIECE, MAP };
 
@@ -42,7 +42,7 @@ public class Q043_HelpTheSister extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q043_HelpTheSister(43, "Q043_HelpTheSister", "quests");
+		new Q043_HelpTheSister(43, "Q043_HelpTheSister", "", "quests");
 	}
 
 	@Override

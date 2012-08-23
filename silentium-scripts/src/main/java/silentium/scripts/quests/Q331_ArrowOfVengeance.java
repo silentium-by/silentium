@@ -25,8 +25,8 @@ public class Q331_ArrowOfVengeance extends Quest implements ScriptFile {
 	private static final int MEDUSA_VENOM = 1453;
 	private static final int WYRMS_TOOTH = 1454;
 
-	public Q331_ArrowOfVengeance(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q331_ArrowOfVengeance(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { HARPY_FEATHER, MEDUSA_VENOM, WYRMS_TOOTH };
 
@@ -37,7 +37,7 @@ public class Q331_ArrowOfVengeance extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q331_ArrowOfVengeance(331, "Q331_ArrowOfVengeance", "quests");
+		new Q331_ArrowOfVengeance(331, "Q331_ArrowOfVengeance", "", "quests");
 	}
 
 	@Override

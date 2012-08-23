@@ -11,12 +11,13 @@ package silentium.scripts.quests;
  * @author Emperorc
  */
 public class Q075_SagaOfTheTitan extends SagasSuperClass {
-	public static final String qn1 = "Q075_SagaOfTheTitan";
-	public static final int qnu = 75;
-	public static final String qna = "quests";
+	private static final String name = "Q075_SagaOfTheTitan";
+	private static final int scriptId = 75;
+	private static final String dname = "";
+	private static final String path = "quests";
 
 	public Q075_SagaOfTheTitan() {
-		super(qnu, qn1, qna);
+		super(scriptId, name, dname, path);
 
 		NPC = new int[] { 31327, 31624, 31289, 31290, 31607, 31646, 31649, 31651, 31654, 31655, 31658, 31290 };
 
@@ -24,7 +25,7 @@ public class Q075_SagaOfTheTitan extends SagasSuperClass {
 
 		Mob = new int[] { 27292, 27224, 27283 };
 
-		qn = qn1;
+		qn = name;
 		classid = 113;
 		prevclass = 0x2e;
 

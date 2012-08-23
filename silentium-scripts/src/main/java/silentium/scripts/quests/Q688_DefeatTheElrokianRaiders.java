@@ -27,8 +27,8 @@ public class Q688_DefeatTheElrokianRaiders extends Quest implements ScriptFile {
 	// Monster
 	private static final int ELROKI = 22214;
 
-	public Q688_DefeatTheElrokianRaiders(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q688_DefeatTheElrokianRaiders(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { DINOSAUR_FANG_NECKLACE };
 
@@ -39,7 +39,7 @@ public class Q688_DefeatTheElrokianRaiders extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q688_DefeatTheElrokianRaiders(688, "Q688_DefeatTheElrokianRaiders", "quests");
+		new Q688_DefeatTheElrokianRaiders(688, "Q688_DefeatTheElrokianRaiders", "", "quests");
 	}
 
 	@Override

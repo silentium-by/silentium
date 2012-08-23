@@ -45,8 +45,8 @@ public class Q620_FourGoblets extends Quest implements ScriptFile {
 	private static final int ANTIQUE_BROOCH = 7262;
 	private static final int[] RCP_REWARDS = { 6881, 6883, 6885, 6887, 6891, 6893, 6895, 6897, 6899, 7580 };
 
-	public Q620_FourGoblets(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q620_FourGoblets(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { SEALED_BOX, GRAVE_PASS, 7256, 7257, 7258, 7259 };
 
@@ -73,7 +73,7 @@ public class Q620_FourGoblets extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q620_FourGoblets(620, "Q620_FourGoblets", "quests");
+		new Q620_FourGoblets(620, "Q620_FourGoblets", "", "quests");
 	}
 
 	@Override

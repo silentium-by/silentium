@@ -15,11 +15,11 @@ import silentium.gameserver.scripting.ScriptFile;
 
 public class NoblesseTeleport extends Quest implements ScriptFile {
 	public static void onLoad() {
-		new NoblesseTeleport(-1, "NoblesseTeleport", "teleports");
+		new NoblesseTeleport(-1, "NoblesseTeleport", "", "teleports");
 	}
 
-	public NoblesseTeleport(final int questid, final String name, final String descr) {
-		super(questid, name, descr);
+	public NoblesseTeleport(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		addStartNpc(30006, 30059, 30080, 30134, 30146, 30177, 30233, 30256, 30320, 30540, 30576, 30836, 30848, 30878, 30899, 31275, 31320, 31964);
 		addTalkId(30006, 30059, 30080, 30134, 30146, 30177, 30233, 30256, 30320, 30540, 30576, 30836, 30848, 30878, 30899, 31275, 31320, 31964);

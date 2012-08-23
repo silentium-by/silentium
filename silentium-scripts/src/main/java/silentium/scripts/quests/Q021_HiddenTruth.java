@@ -42,8 +42,8 @@ public class Q021_HiddenTruth extends Quest {
 		}
 	}
 
-	public Q021_HiddenTruth(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q021_HiddenTruth(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { CROSS_OF_EINHASAD };
 
@@ -52,7 +52,7 @@ public class Q021_HiddenTruth extends Quest {
 	}
 
 	public static void main(final String... args) {
-		new Q021_HiddenTruth(21, "Q021_HiddenTruth", "quests");
+		new Q021_HiddenTruth(21, "Q021_HiddenTruth", "", "quests");
 	}
 
 	@Override

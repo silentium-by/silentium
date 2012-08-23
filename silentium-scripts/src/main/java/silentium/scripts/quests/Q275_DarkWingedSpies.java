@@ -31,8 +31,8 @@ public class Q275_DarkWingedSpies extends Quest implements ScriptFile {
 	// Reward
 	private static final int ADENA = 57;
 
-	public Q275_DarkWingedSpies(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q275_DarkWingedSpies(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { DARKWING_BAT_FANG, VARANGKAS_PARASITE };
 
@@ -43,7 +43,7 @@ public class Q275_DarkWingedSpies extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q275_DarkWingedSpies(275, "Q275_DarkWingedSpies", "quests");
+		new Q275_DarkWingedSpies(275, "Q275_DarkWingedSpies", "", "quests");
 	}
 
 	@Override

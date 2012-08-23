@@ -26,8 +26,8 @@ public class Q370_AnElderSowsSeeds extends Quest implements ScriptFile {
 	private static final int CHAPTER_OF_WIND = 5919;
 	private static final int CHAPTER_OF_EARTH = 5920;
 
-	public Q370_AnElderSowsSeeds(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q370_AnElderSowsSeeds(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { SPELLBOOK_PAGE, CHAPTER_OF_FIRE, CHAPTER_OF_WATER, CHAPTER_OF_WIND, CHAPTER_OF_EARTH };
 
@@ -38,7 +38,7 @@ public class Q370_AnElderSowsSeeds extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q370_AnElderSowsSeeds(370, "Q370_AnElderSowsSeeds", "quests");
+		new Q370_AnElderSowsSeeds(370, "Q370_AnElderSowsSeeds", "", "quests");
 	}
 
 	@Override

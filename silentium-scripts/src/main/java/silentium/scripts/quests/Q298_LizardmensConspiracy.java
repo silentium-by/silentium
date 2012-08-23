@@ -26,8 +26,8 @@ public class Q298_LizardmensConspiracy extends Quest implements ScriptFile {
 	private static final int WHITE_GEM = 7183;
 	private static final int RED_GEM = 7184;
 
-	public Q298_LizardmensConspiracy(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q298_LizardmensConspiracy(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { PATROL_REPORT, WHITE_GEM, RED_GEM };
 
@@ -38,7 +38,7 @@ public class Q298_LizardmensConspiracy extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q298_LizardmensConspiracy(298, "Q298_LizardmensConspiracy", "quests");
+		new Q298_LizardmensConspiracy(298, "Q298_LizardmensConspiracy", "", "quests");
 	}
 
 	@Override

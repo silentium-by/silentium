@@ -28,8 +28,8 @@ public class Q010_IntoTheWorld extends Quest implements ScriptFile {
 	private static final int Balanki = 30533;
 	private static final int Gerald = 30650;
 
-	public Q010_IntoTheWorld(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q010_IntoTheWorld(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { VeryExpensiveNecklace };
 
@@ -38,7 +38,7 @@ public class Q010_IntoTheWorld extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q010_IntoTheWorld(10, "Q010_IntoTheWorld", "quests");
+		new Q010_IntoTheWorld(10, "Q010_IntoTheWorld", "", "quests");
 	}
 
 	@Override

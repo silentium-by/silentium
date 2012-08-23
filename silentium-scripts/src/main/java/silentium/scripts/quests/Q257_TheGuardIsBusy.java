@@ -30,8 +30,8 @@ public class Q257_TheGuardIsBusy extends Quest implements ScriptFile {
 	private static final int SPIRITSHOT_FOR_BEGINNERS = 5790;
 	private static final int SOULSHOT_FOR_BEGINNERS = 5789;
 
-	public Q257_TheGuardIsBusy(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q257_TheGuardIsBusy(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { ORC_AMULET, ORC_NECKLACE, WEREWOLF_FANG, GLUDIO_LORDS_MARK };
 
@@ -42,7 +42,7 @@ public class Q257_TheGuardIsBusy extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q257_TheGuardIsBusy(257, "Q257_TheGuardIsBusy", "quests");
+		new Q257_TheGuardIsBusy(257, "Q257_TheGuardIsBusy", "", "quests");
 	}
 
 	@Override

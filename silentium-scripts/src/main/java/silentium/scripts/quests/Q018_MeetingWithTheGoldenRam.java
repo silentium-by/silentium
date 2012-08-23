@@ -24,8 +24,8 @@ public class Q018_MeetingWithTheGoldenRam extends Quest {
 	private static final int Daisy = 31315;
 	private static final int Abercrombie = 31555;
 
-	public Q018_MeetingWithTheGoldenRam(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q018_MeetingWithTheGoldenRam(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { SupplyBox };
 
@@ -34,7 +34,7 @@ public class Q018_MeetingWithTheGoldenRam extends Quest {
 	}
 
 	public static void main(final String... args) {
-		new Q018_MeetingWithTheGoldenRam(18, "Q018_MeetingWithTheGoldenRam", "quests");
+		new Q018_MeetingWithTheGoldenRam(18, "Q018_MeetingWithTheGoldenRam", "", "quests");
 	}
 
 	@Override

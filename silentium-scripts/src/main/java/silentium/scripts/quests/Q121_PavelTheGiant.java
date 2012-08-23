@@ -20,15 +20,15 @@ public class Q121_PavelTheGiant extends Quest implements ScriptFile {
 	private static final int NEWYEAR = 31961;
 	private static final int YUMI = 32041;
 
-	public Q121_PavelTheGiant(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q121_PavelTheGiant(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		addStartNpc(NEWYEAR);
 		addTalkId(NEWYEAR, YUMI);
 	}
 
 	public static void onLoad() {
-		new Q121_PavelTheGiant(121, "Q121_PavelTheGiant", "quests");
+		new Q121_PavelTheGiant(121, "Q121_PavelTheGiant", "", "quests");
 	}
 
 	@Override

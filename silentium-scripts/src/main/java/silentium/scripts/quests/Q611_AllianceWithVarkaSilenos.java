@@ -83,8 +83,8 @@ public class Q611_AllianceWithVarkaSilenos extends Quest implements ScriptFile {
 
 	private static final int Molar = 7234;
 
-	public Q611_AllianceWithVarkaSilenos(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q611_AllianceWithVarkaSilenos(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { Ketra_Badge_Soldier, Ketra_Badge_Officer, Ketra_Badge_Captain };
 
@@ -96,7 +96,7 @@ public class Q611_AllianceWithVarkaSilenos extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q611_AllianceWithVarkaSilenos(611, "Q611_AllianceWithVarkaSilenos", "quests");
+		new Q611_AllianceWithVarkaSilenos(611, "Q611_AllianceWithVarkaSilenos", "", "quests");
 	}
 
 	@Override

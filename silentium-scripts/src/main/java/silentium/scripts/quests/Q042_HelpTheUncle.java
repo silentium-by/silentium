@@ -30,8 +30,8 @@ public class Q042_HelpTheUncle extends Quest implements ScriptFile {
 	private static final int MONSTER_EYE_DESTROYER = 20068;
 	private static final int MONSTER_EYE_GAZER = 20266;
 
-	public Q042_HelpTheUncle(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q042_HelpTheUncle(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { MAP_PIECE, MAP };
 
@@ -42,7 +42,7 @@ public class Q042_HelpTheUncle extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q042_HelpTheUncle(42, "Q042_HelpTheUncle", "quests");
+		new Q042_HelpTheUncle(42, "Q042_HelpTheUncle", "", "quests");
 	}
 
 	@Override

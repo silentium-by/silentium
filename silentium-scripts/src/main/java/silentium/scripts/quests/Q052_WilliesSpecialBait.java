@@ -28,8 +28,8 @@ public class Q052_WilliesSpecialBait extends Quest implements ScriptFile {
 	// Monster
 	private static final int TARLK_BASILISK = 20573;
 
-	public Q052_WilliesSpecialBait(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q052_WilliesSpecialBait(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { TARLK_EYE };
 
@@ -40,7 +40,7 @@ public class Q052_WilliesSpecialBait extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q052_WilliesSpecialBait(52, "Q052_WilliesSpecialBait", "quests");
+		new Q052_WilliesSpecialBait(52, "Q052_WilliesSpecialBait", "", "quests");
 	}
 
 	@Override

@@ -23,15 +23,15 @@ public class Q124_MeetingTheElroki extends Quest implements ScriptFile {
 	private static final int KARAKAWEI = 32117;
 	private static final int MANTARASA = 32118;
 
-	public Q124_MeetingTheElroki(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q124_MeetingTheElroki(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		addStartNpc(MARQUEZ);
 		addTalkId(MARQUEZ, MUSHIKA, ASAMAH, KARAKAWEI, MANTARASA);
 	}
 
 	public static void onLoad() {
-		new Q124_MeetingTheElroki(124, "Q124_MeetingTheElroki", "quests");
+		new Q124_MeetingTheElroki(124, "Q124_MeetingTheElroki", "", "quests");
 	}
 
 	@Override

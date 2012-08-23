@@ -23,15 +23,15 @@ public class Q636_TruthBeyondTheGate extends Quest implements ScriptFile {
 	// Reward
 	private static final int MARK = 8064;
 
-	public Q636_TruthBeyondTheGate(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q636_TruthBeyondTheGate(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		addStartNpc(ELIYAH);
 		addTalkId(ELIYAH, FLAURON);
 	}
 
 	public static void onLoad() {
-		new Q636_TruthBeyondTheGate(636, "Q636_TruthBeyondTheGate", "quests");
+		new Q636_TruthBeyondTheGate(636, "Q636_TruthBeyondTheGate", "", "quests");
 	}
 
 	@Override

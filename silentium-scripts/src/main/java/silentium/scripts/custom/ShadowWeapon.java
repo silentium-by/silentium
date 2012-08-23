@@ -24,11 +24,11 @@ public class ShadowWeapon extends Quest implements ScriptFile {
 	private static final int C_COUPON = 8870;
 
 	public static void onLoad() {
-		new ShadowWeapon(-1, "ShadowWeapon", "custom");
+		new ShadowWeapon(-1, "ShadowWeapon", "", "custom");
 	}
 
-	public ShadowWeapon(final int id, final String name, final String descr) {
-		super(id, name, descr);
+	public ShadowWeapon(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		addStartNpc(30026, 30037, 30066, 30070, 30109, 30115, 30120, 30174, 30175, 30176, 30187, 30191, 30195, 30288, 30289, 30290, 30297, 30373, 30462, 30474, 30498, 30499, 30500, 30503, 30504, 30505, 30511, 30512, 30513, 30676, 30677, 30681, 30685, 30687, 30689, 30694, 30699, 30704, 30845, 30847, 30849, 30854, 30857, 30862, 30865, 30894, 30897, 30900, 30905, 30910, 30913, 31269, 31272, 31288, 31314, 31317, 31321, 31324, 31326, 31328, 31331, 31334, 31336, 31965, 31974, 31276, 31285, 31996, 32094, 32096, 32098);
 

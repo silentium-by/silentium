@@ -11,12 +11,13 @@ package silentium.scripts.quests;
  * @author Emperorc
  */
 public class Q070_SagaOfThePhoenixKnight extends SagasSuperClass {
-	public static final String qn1 = "Q070_SagaOfThePhoenixKnight";
-	public static final int qnu = 70;
-	public static final String qna = "quests";
+	private static final String name = "Q070_SagaOfThePhoenixKnight";
+	private static final int scriptId = 70;
+	private static final String dname = "";
+	private static final String path = "quests";
 
 	public Q070_SagaOfThePhoenixKnight() {
-		super(qnu, qn1, qna);
+		super(scriptId, name, dname, path);
 
 		NPC = new int[] { 30849, 31624, 31277, 30849, 31631, 31646, 31647, 31650, 31654, 31655, 31657, 31277 };
 
@@ -24,7 +25,7 @@ public class Q070_SagaOfThePhoenixKnight extends SagasSuperClass {
 
 		Mob = new int[] { 27286, 27219, 27278 };
 
-		qn = qn1;
+		qn = name;
 		classid = 90;
 		prevclass = 0x05;
 

@@ -45,8 +45,8 @@ public class Q235_MimirsElixir extends Quest implements ScriptFile {
 		droplist.put(21090, new int[] { 6, BLOOD_FIRE });
 	}
 
-	public Q235_MimirsElixir(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q235_MimirsElixir(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { PURE_SILVER, TRUE_GOLD, SAGES_STONE, BLOOD_FIRE, MAGISTER_MIXING_STONE, MIMIRS_ELIXIR };
 
@@ -57,7 +57,7 @@ public class Q235_MimirsElixir extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q235_MimirsElixir(235, "Q235_MimirsElixir", "quests");
+		new Q235_MimirsElixir(235, "Q235_MimirsElixir", "", "quests");
 	}
 
 	@Override

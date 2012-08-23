@@ -24,8 +24,8 @@ public class Q155_FindSirWindawood extends Quest implements ScriptFile {
 	private static final int ABELLOS = 30042;
 	private static final int WINDAWOOD = 30311;
 
-	public Q155_FindSirWindawood(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q155_FindSirWindawood(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { OFFICIAL_LETTER };
 
@@ -34,7 +34,7 @@ public class Q155_FindSirWindawood extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q155_FindSirWindawood(155, "Q155_FindSirWindawood", "quests");
+		new Q155_FindSirWindawood(155, "Q155_FindSirWindawood", "", "quests");
 	}
 
 	@Override

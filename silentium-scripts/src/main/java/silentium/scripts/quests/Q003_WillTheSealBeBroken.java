@@ -24,8 +24,8 @@ public class Q003_WillTheSealBeBroken extends Quest implements ScriptFile {
 	private static final int SUCCUBUS_BLOOD = 1083;
 	private static final int SCROLL_ENCHANT_ARMOR_D = 956;
 
-	public Q003_WillTheSealBeBroken(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q003_WillTheSealBeBroken(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { ONYX_BEAST_EYE, TAINT_STONE, SUCCUBUS_BLOOD };
 		addStartNpc(TALLOTH);
@@ -36,7 +36,7 @@ public class Q003_WillTheSealBeBroken extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q003_WillTheSealBeBroken(3, "Q003_WillTheSealBeBroken", "quests");
+		new Q003_WillTheSealBeBroken(3, "Q003_WillTheSealBeBroken", "", "quests");
 	}
 
 	@Override

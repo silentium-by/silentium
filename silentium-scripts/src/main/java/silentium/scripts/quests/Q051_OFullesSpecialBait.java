@@ -28,8 +28,8 @@ public class Q051_OFullesSpecialBait extends Quest implements ScriptFile {
 	// Monster
 	private static final int FETTERED_SOUL = 20552;
 
-	public Q051_OFullesSpecialBait(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q051_OFullesSpecialBait(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { LOST_BAIT };
 
@@ -40,7 +40,7 @@ public class Q051_OFullesSpecialBait extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q051_OFullesSpecialBait(51, "Q051_OFullesSpecialBait", "quests");
+		new Q051_OFullesSpecialBait(51, "Q051_OFullesSpecialBait", "", "quests");
 	}
 
 	@Override

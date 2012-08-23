@@ -32,8 +32,8 @@ public class Q024_InhabitantsOfTheForrestOfTheDead extends Quest {
 	private static final int BrokenSilverCross = 7154;
 	private static final int SuspiciousTotem = 7156;
 
-	public Q024_InhabitantsOfTheForrestOfTheDead(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q024_InhabitantsOfTheForrestOfTheDead(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 		addStartNpc(Dorian);
 		addTalkId(Dorian, Tombstone, MaidOfLidia, Wizard);
 		addKillId(21557, 21558, 21560, 21563, 21564, 21565, 21566, 21567);
@@ -42,7 +42,7 @@ public class Q024_InhabitantsOfTheForrestOfTheDead extends Quest {
 	}
 
 	public static void main(final String... args) {
-		new Q024_InhabitantsOfTheForrestOfTheDead(-1, "Q024_InhabitantsOfTheForrestOfTheDead", "quests");
+		new Q024_InhabitantsOfTheForrestOfTheDead(-1, "Q024_InhabitantsOfTheForrestOfTheDead", "", "quests");
 	}
 
 	@Override

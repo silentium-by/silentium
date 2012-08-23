@@ -26,8 +26,8 @@ public class Q629_CleanUpTheSwampOfScreams extends Quest implements ScriptFile {
 	// MOBS / CHANCES
 	private static final int[][] CHANCE = { { 21508, 500000 }, { 21509, 430000 }, { 21510, 520000 }, { 21511, 570000 }, { 21512, 740000 }, { 21513, 530000 }, { 21514, 530000 }, { 21515, 540000 }, { 21516, 550000 }, { 21517, 560000 } };
 
-	public Q629_CleanUpTheSwampOfScreams(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q629_CleanUpTheSwampOfScreams(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { CLAWS, COIN };
 
@@ -39,7 +39,7 @@ public class Q629_CleanUpTheSwampOfScreams extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q629_CleanUpTheSwampOfScreams(629, "Q629_CleanUpTheSwampOfScreams", "quests");
+		new Q629_CleanUpTheSwampOfScreams(629, "Q629_CleanUpTheSwampOfScreams", "", "quests");
 	}
 
 	@Override

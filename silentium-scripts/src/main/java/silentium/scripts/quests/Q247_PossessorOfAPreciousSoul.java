@@ -24,15 +24,15 @@ public class Q247_PossessorOfAPreciousSoul extends Quest implements ScriptFile {
 	private static final int CARADINE_LETTER_3 = 7679;
 	private static final int NOBLESS_TIARA = 7694;
 
-	public Q247_PossessorOfAPreciousSoul(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q247_PossessorOfAPreciousSoul(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		addStartNpc(CARADINE);
 		addTalkId(CARADINE, LADY_OF_THE_LAKE);
 	}
 
 	public static void onLoad() {
-		new Q247_PossessorOfAPreciousSoul(247, "Q247_PossessorOfAPreciousSoul", "quests");
+		new Q247_PossessorOfAPreciousSoul(247, "Q247_PossessorOfAPreciousSoul", "", "quests");
 	}
 
 	@Override

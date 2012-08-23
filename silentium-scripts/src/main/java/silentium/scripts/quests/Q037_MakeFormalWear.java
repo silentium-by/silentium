@@ -34,8 +34,8 @@ public class Q037_MakeFormalWear extends Quest implements ScriptFile {
 	// Reward
 	private static final int FORMAL_WEAR = 6408;
 
-	public Q037_MakeFormalWear(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q037_MakeFormalWear(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { SIGNET_RING, ICE_WINE, BOX_OF_COOKIES };
 
@@ -44,7 +44,7 @@ public class Q037_MakeFormalWear extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q037_MakeFormalWear(37, "Q037_MakeFormalWear", "quests");
+		new Q037_MakeFormalWear(37, "Q037_MakeFormalWear", "", "quests");
 	}
 
 	@Override

@@ -22,8 +22,8 @@ public class Q608_SlayTheEnemyCommander extends Quest implements ScriptFile {
 	private static final int Wisdom_Totem = 7220;
 	private static final int Ketra_Alliance_Four = 7214;
 
-	public Q608_SlayTheEnemyCommander(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q608_SlayTheEnemyCommander(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { Mos_Head };
 
@@ -34,7 +34,7 @@ public class Q608_SlayTheEnemyCommander extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q608_SlayTheEnemyCommander(608, "Q608_SlayTheEnemyCommander", "quests");
+		new Q608_SlayTheEnemyCommander(608, "Q608_SlayTheEnemyCommander", "", "quests");
 	}
 
 	@Override

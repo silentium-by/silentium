@@ -34,8 +34,8 @@ public class Q005_MinersFavor extends Quest implements ScriptFile {
 	// Reward
 	private static final int NECKLACE = 906;
 
-	public Q005_MinersFavor(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q005_MinersFavor(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { BOLTERS_LIST, MINING_BOOTS, MINERS_PICK, BOOMBOOM_POWDER, REDSTONE_BEER, BOLTERS_SMELLY_SOCKS };
 
@@ -44,7 +44,7 @@ public class Q005_MinersFavor extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q005_MinersFavor(5, "Q005_MinersFavor", "quests");
+		new Q005_MinersFavor(5, "Q005_MinersFavor", "", "quests");
 	}
 
 	@Override

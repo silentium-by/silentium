@@ -44,8 +44,8 @@ public class Q422_RepentYourSins extends Quest implements ScriptFile {
 	private static final int JOAN = 30718;
 	private static final int PUSHKIN = 30300;
 
-	public Q422_RepentYourSins(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q422_RepentYourSins(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { SCAVENGER_WERERAT_SKULL, TUREK_WARHOUND_TAIL, TYRANT_KINGPIN_HEART, TRISALIM_TARANTULAS_VENOM_SAC, MANUAL_OF_MANACLES, PENITENTS_MANACLES, QITEM_PENITENTS_MANACLES };
 
@@ -56,7 +56,7 @@ public class Q422_RepentYourSins extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q422_RepentYourSins(422, "Q422_RepentYourSins", "quests");
+		new Q422_RepentYourSins(422, "Q422_RepentYourSins", "", "quests");
 	}
 
 	@Override

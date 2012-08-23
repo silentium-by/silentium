@@ -29,8 +29,8 @@ public class Q618_IntoTheFlame extends Quest implements ScriptFile {
 	// Reward
 	private static final int FLOATING_STONE = 7267;
 
-	public Q618_IntoTheFlame(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q618_IntoTheFlame(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { VACUALITE_ORE, VACUALITE };
 
@@ -42,7 +42,7 @@ public class Q618_IntoTheFlame extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q618_IntoTheFlame(618, "Q618_IntoTheFlame", "quests");
+		new Q618_IntoTheFlame(618, "Q618_IntoTheFlame", "", "quests");
 	}
 
 	@Override

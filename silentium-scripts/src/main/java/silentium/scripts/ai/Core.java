@@ -46,11 +46,11 @@ public class Core extends DefaultMonsterAI implements ScriptFile {
 	final List<L2Attackable> Minions = new FastList<>();
 
 	public static void onLoad() {
-		new Core(-1, "core", "ai");
+		new Core(-1, "core", "", "ai");
 	}
 
-	public Core(final int id, final String name, final String descr) {
-		super(id, name, descr);
+	public Core(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		final int[] mobs = { CORE, DEATH_KNIGHT, DOOM_WRAITH, SUSCEPTOR };
 		registerMobs(mobs);

@@ -11,12 +11,13 @@ package silentium.scripts.quests;
  * @author Emperorc
  */
 public class Q071_SagaOfEvasTemplar extends SagasSuperClass {
-	public static final String qn1 = "Q071_SagaOfEvasTemplar";
-	public static final int qnu = 71;
-	public static final String qna = "quests";
+	private static final String name = "Q071_SagaOfEvasTemplar";
+	private static final int scriptId = 71;
+	private static final String dname = "";
+	private static final String path = "quests";
 
 	public Q071_SagaOfEvasTemplar() {
-		super(qnu, qn1, qna);
+		super(scriptId, name, dname, path);
 
 		NPC = new int[] { 30852, 31624, 31278, 30852, 31638, 31646, 31648, 31651, 31654, 31655, 31658, 31281 };
 
@@ -24,7 +25,7 @@ public class Q071_SagaOfEvasTemplar extends SagasSuperClass {
 
 		Mob = new int[] { 27287, 27220, 27279 };
 
-		qn = qn1;
+		qn = name;
 		classid = 99;
 		prevclass = 0x14;
 

@@ -45,8 +45,8 @@ public class Q509_TheClansPrestige extends Quest implements ScriptFile {
 	// Radar
 	private static final int[][] radar = { { 186320, -43904, -3175 }, { 134672, -115600, -1216 }, { 170000, -59900, -3848 }, { 93296, -75104, -1824 }, { 79635, -55612, -5980 } };
 
-	public Q509_TheClansPrestige(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q509_TheClansPrestige(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { DAIMONS_EYES, HESTIAS_FAIRY_STONE, NUCLEUS_OF_LESSER_GOLEM, FALSTON_FANG, SHAIDS_TALON };
 
@@ -57,7 +57,7 @@ public class Q509_TheClansPrestige extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q509_TheClansPrestige(509, "Q509_TheClansPrestige", "quests");
+		new Q509_TheClansPrestige(509, "Q509_TheClansPrestige", "", "quests");
 	}
 
 	@Override

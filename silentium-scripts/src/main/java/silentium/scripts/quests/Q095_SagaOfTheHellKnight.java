@@ -11,12 +11,13 @@ package silentium.scripts.quests;
  * @author Emperorc
  */
 public class Q095_SagaOfTheHellKnight extends SagasSuperClass {
-	public static final String qn1 = "Q095_SagaOfTheHellKnight";
-	public static final int qnu = 95;
-	public static final String qna = "quests";
+	private static final String name = "Q095_SagaOfTheHellKnight";
+	private static final int scriptId = 95;
+	private static final String dname = "";
+	private static final String path = "quests";
 
 	public Q095_SagaOfTheHellKnight() {
-		super(qnu, qn1, qna);
+		super(scriptId, name, dname, path);
 
 		NPC = new int[] { 31582, 31623, 31297, 31297, 31599, 31646, 31647, 31653, 31654, 31655, 31656, 31297 };
 
@@ -24,7 +25,7 @@ public class Q095_SagaOfTheHellKnight extends SagasSuperClass {
 
 		Mob = new int[] { 27258, 27244, 27263 };
 
-		qn = qn1;
+		qn = name;
 		classid = 91;
 		prevclass = 0x06;
 

@@ -22,8 +22,8 @@ public class Q607_ProveYourCourage extends Quest implements ScriptFile {
 	private static final int Valor_Totem = 7219;
 	private static final int Ketra_Alliance_Three = 7213;
 
-	public Q607_ProveYourCourage(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q607_ProveYourCourage(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { Shadith_Head };
 
@@ -34,7 +34,7 @@ public class Q607_ProveYourCourage extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q607_ProveYourCourage(607, "Q607_ProveYourCourage", "quests");
+		new Q607_ProveYourCourage(607, "Q607_ProveYourCourage", "", "quests");
 	}
 
 	@Override

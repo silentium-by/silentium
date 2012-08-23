@@ -28,8 +28,8 @@ public class Q297_GatekeepersFavor extends Quest implements ScriptFile {
 	// Monster
 	private static final int WHINSTONE_GOLEM = 20521;
 
-	public Q297_GatekeepersFavor(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q297_GatekeepersFavor(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { STARSTONE };
 
@@ -39,7 +39,7 @@ public class Q297_GatekeepersFavor extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q297_GatekeepersFavor(297, "Q297_GatekeepersFavor", "quests");
+		new Q297_GatekeepersFavor(297, "Q297_GatekeepersFavor", "", "quests");
 	}
 
 	@Override

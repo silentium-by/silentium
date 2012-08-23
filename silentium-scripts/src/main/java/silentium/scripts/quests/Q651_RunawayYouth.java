@@ -31,8 +31,8 @@ public class Q651_RunawayYouth extends Quest implements ScriptFile {
 	// Current position
 	private int _currentPosition = 0;
 
-	public Q651_RunawayYouth(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q651_RunawayYouth(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		addStartNpc(IVAN);
 		addTalkId(IVAN, BATIDAE);
@@ -41,7 +41,7 @@ public class Q651_RunawayYouth extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q651_RunawayYouth(651, "Q651_RunawayYouth", "quests");
+		new Q651_RunawayYouth(651, "Q651_RunawayYouth", "", "quests");
 	}
 
 	@Override

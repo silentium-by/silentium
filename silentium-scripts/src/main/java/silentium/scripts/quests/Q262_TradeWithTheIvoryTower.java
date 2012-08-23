@@ -23,8 +23,8 @@ public class Q262_TradeWithTheIvoryTower extends Quest implements ScriptFile {
 	// Item
 	private static final int FUNGUS_SAC = 707;
 
-	public Q262_TradeWithTheIvoryTower(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q262_TradeWithTheIvoryTower(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { FUNGUS_SAC };
 
@@ -35,7 +35,7 @@ public class Q262_TradeWithTheIvoryTower extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q262_TradeWithTheIvoryTower(262, "Q262_TradeWithTheIvoryTower", "quests");
+		new Q262_TradeWithTheIvoryTower(262, "Q262_TradeWithTheIvoryTower", "", "quests");
 	}
 
 	@Override

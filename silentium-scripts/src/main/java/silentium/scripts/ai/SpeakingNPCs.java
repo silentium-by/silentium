@@ -68,11 +68,11 @@ public class SpeakingNPCs extends DefaultMonsterAI implements ScriptFile {
 			27249 };
 
 	public static void onLoad() {
-		new SpeakingNPCs(-1, "SpeakingNPCs", "ai");
+		new SpeakingNPCs(-1, "SpeakingNPCs", "", "ai");
 	}
 
-	public SpeakingNPCs(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public SpeakingNPCs(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 		registerMobs(NPC_IDS, QuestEventType.ON_ATTACK, QuestEventType.ON_KILL);
 	}
 

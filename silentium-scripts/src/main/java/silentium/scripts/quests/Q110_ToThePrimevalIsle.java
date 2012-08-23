@@ -26,8 +26,8 @@ public class Q110_ToThePrimevalIsle extends Quest implements ScriptFile {
 	// Reward
 	private static final int ADENA = 57;
 
-	public Q110_ToThePrimevalIsle(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q110_ToThePrimevalIsle(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { ANCIENT_BOOK };
 
@@ -36,7 +36,7 @@ public class Q110_ToThePrimevalIsle extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q110_ToThePrimevalIsle(110, "Q110_ToThePrimevalIsle", "quests");
+		new Q110_ToThePrimevalIsle(110, "Q110_ToThePrimevalIsle", "", "quests");
 	}
 
 	@Override

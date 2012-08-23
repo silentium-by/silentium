@@ -32,8 +32,8 @@ public class Q375_WhisperOfDreams_Part2 extends Quest implements ScriptFile {
 	// Rewards : A grade robe recipes
 	private static final int[] REWARDS = { 5346, 5348, 5350, 5352, 5354 };
 
-	public Q375_WhisperOfDreams_Part2(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q375_WhisperOfDreams_Part2(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { KARIK_HORN, CAVE_HOWLER_SKULL };
 
@@ -44,7 +44,7 @@ public class Q375_WhisperOfDreams_Part2 extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q375_WhisperOfDreams_Part2(375, "Q375_WhisperOfDreams_Part2", "quests");
+		new Q375_WhisperOfDreams_Part2(375, "Q375_WhisperOfDreams_Part2", "", "quests");
 	}
 
 	@Override

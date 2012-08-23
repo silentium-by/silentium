@@ -25,8 +25,8 @@ public class Q169_OffspringOfNightmares extends Quest implements ScriptFile {
 	// NPC
 	private static final int VLASTY = 30145;
 
-	public Q169_OffspringOfNightmares(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q169_OffspringOfNightmares(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { CRACKED_SKULL, PERFECT_SKULL };
 
@@ -37,7 +37,7 @@ public class Q169_OffspringOfNightmares extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q169_OffspringOfNightmares(169, "Q169_OffspringOfNightmares", "quests");
+		new Q169_OffspringOfNightmares(169, "Q169_OffspringOfNightmares", "", "quests");
 	}
 
 	@Override

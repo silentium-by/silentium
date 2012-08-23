@@ -30,8 +30,8 @@ public class Q623_TheFinestFood extends Quest implements ScriptFile {
 	private static final int BUFFALO = 21315;
 	private static final int ANTELOPE = 21318;
 
-	public Q623_TheFinestFood(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q623_TheFinestFood(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { LEAF, MEAT, HORN };
 
@@ -42,7 +42,7 @@ public class Q623_TheFinestFood extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q623_TheFinestFood(623, "Q623_TheFinestFood", "quests");
+		new Q623_TheFinestFood(623, "Q623_TheFinestFood", "", "quests");
 	}
 
 	@Override

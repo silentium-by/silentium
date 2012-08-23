@@ -27,8 +27,8 @@ public class Q266_PleasOfPixies extends Quest implements ScriptFile {
 	private static final int BLUE_ONYX = 1338;
 	private static final int ONYX = 1339;
 
-	public Q266_PleasOfPixies(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q266_PleasOfPixies(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { PREDATORS_FANG };
 
@@ -39,7 +39,7 @@ public class Q266_PleasOfPixies extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q266_PleasOfPixies(266, "Q266_PleasOfPixies", "quests");
+		new Q266_PleasOfPixies(266, "Q266_PleasOfPixies", "", "quests");
 	}
 
 	@Override

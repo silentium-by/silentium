@@ -47,15 +47,15 @@ public class Q378_MagnificentFeast extends Quest implements ScriptFile {
 		Reward_list.put("36", new int[] { 848, 1, 2200 });
 	}
 
-	public Q378_MagnificentFeast(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q378_MagnificentFeast(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		addStartNpc(RANSPO);
 		addTalkId(RANSPO);
 	}
 
 	public static void onLoad() {
-		new Q378_MagnificentFeast(378, "Q378_MagnificentFeast", "quests");
+		new Q378_MagnificentFeast(378, "Q378_MagnificentFeast", "", "quests");
 	}
 
 	@Override

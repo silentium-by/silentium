@@ -67,8 +67,8 @@ public class Q234_FatesWhisper extends Quest implements ScriptFile {
 		Weapons.put(7901, "Star Buster");
 	}
 
-	public Q234_FatesWhisper(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q234_FatesWhisper(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { PIPETTE_KNIFE, RED_PIPETTE_KNIFE };
 
@@ -83,7 +83,7 @@ public class Q234_FatesWhisper extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q234_FatesWhisper(234, "Q234_FatesWhisper", "quests");
+		new Q234_FatesWhisper(234, "Q234_FatesWhisper", "", "quests");
 	}
 
 	@Override

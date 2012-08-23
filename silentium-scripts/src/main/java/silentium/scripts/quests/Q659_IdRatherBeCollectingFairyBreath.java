@@ -28,8 +28,8 @@ public class Q659_IdRatherBeCollectingFairyBreath extends Quest implements Scrip
 	private static final int BABBLING_WIND = 21024;
 	private static final int GIGGLING_WIND = 21025;
 
-	public Q659_IdRatherBeCollectingFairyBreath(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q659_IdRatherBeCollectingFairyBreath(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { FAIRY_BREATH };
 
@@ -39,7 +39,7 @@ public class Q659_IdRatherBeCollectingFairyBreath extends Quest implements Scrip
 	}
 
 	public static void onLoad() {
-		new Q659_IdRatherBeCollectingFairyBreath(659, "Q659_IdRatherBeCollectingFairyBreath", "quests");
+		new Q659_IdRatherBeCollectingFairyBreath(659, "Q659_IdRatherBeCollectingFairyBreath", "", "quests");
 	}
 
 	@Override

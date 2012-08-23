@@ -23,8 +23,8 @@ public class Q612_WarWithKetraOrcs extends Quest implements ScriptFile {
 	private static final int Seed = 7187;
 	private static final int Molar = 7234;
 
-	public Q612_WarWithKetraOrcs(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q612_WarWithKetraOrcs(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { Molar };
 
@@ -33,7 +33,7 @@ public class Q612_WarWithKetraOrcs extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q612_WarWithKetraOrcs(612, "Q612_WarWithKetraOrcs", "quests");
+		new Q612_WarWithKetraOrcs(612, "Q612_WarWithKetraOrcs", "", "quests");
 	}
 
 	@Override

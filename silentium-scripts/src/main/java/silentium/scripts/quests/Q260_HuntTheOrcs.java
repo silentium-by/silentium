@@ -32,8 +32,8 @@ public class Q260_HuntTheOrcs extends Quest implements ScriptFile {
 	private static final int KABOO_ORC_FIGHTER_LEADER = 20472;
 	private static final int KABOO_ORC_FIGHTER_LIEUTENANT = 20473;
 
-	public Q260_HuntTheOrcs(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q260_HuntTheOrcs(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { ORC_AMULET, ORCS_NECKLACE };
 
@@ -44,7 +44,7 @@ public class Q260_HuntTheOrcs extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q260_HuntTheOrcs(260, "Q260_HuntTheOrcs", "quests");
+		new Q260_HuntTheOrcs(260, "Q260_HuntTheOrcs", "", "quests");
 	}
 
 	@Override

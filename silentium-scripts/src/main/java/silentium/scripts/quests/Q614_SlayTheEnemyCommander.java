@@ -22,8 +22,8 @@ public class Q614_SlayTheEnemyCommander extends Quest implements ScriptFile {
 	private static final int Wisdom_Feather = 7230;
 	private static final int Varka_Alliance_Four = 7224;
 
-	public Q614_SlayTheEnemyCommander(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q614_SlayTheEnemyCommander(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { Tayr_Head };
 
@@ -34,7 +34,7 @@ public class Q614_SlayTheEnemyCommander extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q614_SlayTheEnemyCommander(614, "Q614_SlayTheEnemyCommander", "quests");
+		new Q614_SlayTheEnemyCommander(614, "Q614_SlayTheEnemyCommander", "", "quests");
 	}
 
 	@Override

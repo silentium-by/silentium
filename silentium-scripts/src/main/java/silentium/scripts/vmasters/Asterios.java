@@ -16,14 +16,14 @@ public final class Asterios extends Quest implements ScriptFile {
 	// Quest NPCs
 	private static final int ASTERIOS = 30154;
 
-	public Asterios(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Asterios(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 		addStartNpc(ASTERIOS);
 		addTalkId(ASTERIOS);
 	}
 
 	public static void onLoad() {
-		new Asterios(-1, "Asterios", "vmasters");
+		new Asterios(-1, "Asterios", "", "vmasters");
 	}
 
 	@Override

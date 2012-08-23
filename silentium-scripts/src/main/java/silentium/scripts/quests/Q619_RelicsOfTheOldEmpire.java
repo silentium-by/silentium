@@ -28,8 +28,8 @@ public class Q619_RelicsOfTheOldEmpire extends Quest implements ScriptFile {
 	// Rewards ; all S grade weapons recipe (60%)
 	private static final int[] RCP_REWARDS = { 6881, 6883, 6885, 6887, 6891, 6893, 6895, 6897, 6899, 7580 };
 
-	public Q619_RelicsOfTheOldEmpire(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q619_RelicsOfTheOldEmpire(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { RELICS };
 
@@ -49,7 +49,7 @@ public class Q619_RelicsOfTheOldEmpire extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q619_RelicsOfTheOldEmpire(619, "Q619_RelicsOfTheOldEmpire", "quests");
+		new Q619_RelicsOfTheOldEmpire(619, "Q619_RelicsOfTheOldEmpire", "", "quests");
 	}
 
 	@Override

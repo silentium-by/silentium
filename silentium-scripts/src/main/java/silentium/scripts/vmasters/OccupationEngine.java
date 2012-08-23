@@ -18,8 +18,8 @@ import java.util.HashMap;
 public class OccupationEngine extends Quest implements ScriptFile {
 	public final HashMap<String, Classes> classList = new HashMap<>();
 
-	public OccupationEngine(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public OccupationEngine(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 		classList.put("1", new Classes(1, 0, 0, "26", "27", "28", "29", new int[] { 1145 }, true));
 		classList.put("11", new Classes(11, 10, 0, "23", "24", "25", "26", new int[] { 1292 }, true));
 		classList.put("12", new Classes(12, 11, 0, "26", "27", "28", "29", new int[] { 2674, 2734, 2840 }, false));
@@ -68,7 +68,7 @@ public class OccupationEngine extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new OccupationEngine(-1, "OccupationEngine", "vmasters");
+		new OccupationEngine(-1, "OccupationEngine", "", "vmasters");
 	}
 
 	public class Classes {

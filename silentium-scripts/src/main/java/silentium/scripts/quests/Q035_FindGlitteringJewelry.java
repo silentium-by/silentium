@@ -32,8 +32,8 @@ public class Q035_FindGlitteringJewelry extends Quest implements ScriptFile {
 	// Reward
 	private static final int JEWEL_BOX = 7077;
 
-	public Q035_FindGlitteringJewelry(final int id, final String name, final String descr) {
-		super(id, name, descr);
+	public Q035_FindGlitteringJewelry(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 		questItemIds = new int[] { ROUGH_JEWEL };
 
 		addStartNpc(ELLIE);
@@ -43,7 +43,7 @@ public class Q035_FindGlitteringJewelry extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q035_FindGlitteringJewelry(35, "Q035_FindGlitteringJewelry", "quests");
+		new Q035_FindGlitteringJewelry(35, "Q035_FindGlitteringJewelry", "", "quests");
 	}
 
 	@Override

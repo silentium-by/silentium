@@ -23,8 +23,8 @@ public class Q317_CatchTheWind extends Quest implements ScriptFile {
 	// Item
 	private static final int WIND_SHARD = 1078;
 
-	public Q317_CatchTheWind(final int questId, final String name, final String descr) {
-		super(questId, name, descr);
+	public Q317_CatchTheWind(final int scriptId, final String name, final String dname, final String path) {
+		super(scriptId, name, dname, path);
 
 		questItemIds = new int[] { WIND_SHARD };
 
@@ -34,7 +34,7 @@ public class Q317_CatchTheWind extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q317_CatchTheWind(317, "Q317_CatchTheWind", "quests");
+		new Q317_CatchTheWind(317, "Q317_CatchTheWind", "", "quests");
 	}
 
 	@Override
