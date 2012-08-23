@@ -1953,11 +1953,8 @@ public class Quest extends ManagedScript
 	 */
 	public String getHtm(String fileName)
 	{
-		String content = HtmCache.getInstance().getHtm(StaticHtmPath.ScriptsHtmPath + getDescr().toLowerCase() + "/" + getName() + "/" + fileName);
-		return content;
+		return HtmCache.getInstance().getHtm(StaticHtmPath.ScriptsHtmPath + getDescr().toLowerCase() + "/" + getName() + "/" + fileName);
 	}
-
-	// Method - Public
 
 	/**
 	 * Add a temporary (quest) spawn on the location of a character.
