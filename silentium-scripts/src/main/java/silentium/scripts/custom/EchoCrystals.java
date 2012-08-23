@@ -93,7 +93,7 @@ public class EchoCrystals extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new EchoCrystals(-1, "EchoCrystals", "", "custom");
+		new EchoCrystals(-1, "EchoCrystals", "Echo Crystals", "custom");
 	}
 
 	public EchoCrystals(final int scriptId, final String name, final String dname, final String path) {

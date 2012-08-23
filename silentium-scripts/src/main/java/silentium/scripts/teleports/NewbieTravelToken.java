@@ -30,7 +30,7 @@ public class NewbieTravelToken extends Quest implements ScriptFile {
 	private static final int TOKEN = 8542;
 
 	public static void onLoad() {
-		new NewbieTravelToken(-1, "NewbieTravelToken", "", "teleports");
+		new NewbieTravelToken(-1, "NewbieTravelToken", "Newbie Travel Token", "teleports");
 	}
 
 	public NewbieTravelToken(final int scriptId, final String name, final String dname, final String path) {

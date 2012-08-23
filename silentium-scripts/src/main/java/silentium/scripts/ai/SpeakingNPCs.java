@@ -68,7 +68,7 @@ public class SpeakingNPCs extends DefaultMonsterAI implements ScriptFile {
 			27249 };
 
 	public static void onLoad() {
-		new SpeakingNPCs(-1, "SpeakingNPCs", "", "ai");
+		new SpeakingNPCs(-1, "SpeakingNPCs", "SpeakingNPCs", "ai");
 	}
 
 	public SpeakingNPCs(final int scriptId, final String name, final String dname, final String path) {

@@ -15,7 +15,7 @@ import silentium.gameserver.scripting.ScriptFile;
 
 public class NoblesseTeleport extends Quest implements ScriptFile {
 	public static void onLoad() {
-		new NoblesseTeleport(-1, "NoblesseTeleport", "", "teleports");
+		new NoblesseTeleport(-1, "NoblesseTeleport", "Noblesse Teleport", "teleports");
 	}
 
 	public NoblesseTeleport(final int scriptId, final String name, final String dname, final String path) {

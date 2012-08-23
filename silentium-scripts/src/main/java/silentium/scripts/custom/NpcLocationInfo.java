@@ -232,7 +232,7 @@ public class NpcLocationInfo extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new NpcLocationInfo(-1, "NpcLocationInfo", "", "custom");
+		new NpcLocationInfo(-1, "NpcLocationInfo", "Npc Location Info", "custom");
 	}
 
 	public NpcLocationInfo(final int scriptId, final String name, final String dname, final String path) {

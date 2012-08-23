@@ -21,7 +21,7 @@ public class TeleportWithCharm extends Quest implements ScriptFile {
 	private static final int DWARF_GATEKEEPER_TOKEN = 1659;
 
 	public static void onLoad() {
-		new TeleportWithCharm(-1, "TeleportWithCharm", "", "teleports");
+		new TeleportWithCharm(-1, "TeleportWithCharm", "Teleport With Charm", "teleports");
 	}
 
 	public TeleportWithCharm(final int scriptId, final String name, final String dname, final String path) {

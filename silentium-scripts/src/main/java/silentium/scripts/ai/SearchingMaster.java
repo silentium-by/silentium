@@ -18,7 +18,7 @@ public class SearchingMaster extends DefaultMonsterAI implements ScriptFile {
 	private static final int[] mobs = { 20965, 20966, 20967, 20968, 20969, 20970, 20971, 20972, 20973 };
 
 	public static void onLoad() {
-		new SearchingMaster(-1, "SearchingMaster", "", "ai");
+		new SearchingMaster(-1, "SearchingMaster", "SearchingMaster", "ai");
 	}
 
 	public SearchingMaster(final int scriptId, final String name, final String dname, final String path) {

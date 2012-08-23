@@ -23,7 +23,7 @@ public final class Reed extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Reed(-1, "Reed", "", "vmasters");
+		new Reed(-1, "Reed", "Reed", "vmasters");
 	}
 
 	@Override

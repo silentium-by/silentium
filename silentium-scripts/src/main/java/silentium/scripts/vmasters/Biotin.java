@@ -23,7 +23,7 @@ public final class Biotin extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Biotin(-1, "Biotin", "", "vmasters");
+		new Biotin(-1, "Biotin", "Biotin", "vmasters");
 	}
 
 	@Override

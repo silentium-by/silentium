@@ -103,7 +103,7 @@ public class FeedableBeasts extends DefaultMonsterAI implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new FeedableBeasts(-1, "FeedableBeasts", "", "ai");
+		new FeedableBeasts(-1, "FeedableBeasts", "FeedableBeasts", "ai");
 	}
 
 	public FeedableBeasts(final int scriptId, final String name, final String dname, final String path) {

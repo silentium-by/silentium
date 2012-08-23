@@ -31,7 +31,7 @@ public class Monastery extends DefaultMonsterAI implements ScriptFile {
 	private static final int[] mobs2 = { 22134, 22135 };
 
 	public static void onLoad() {
-		new Monastery(-1, "Monastery", "", "ai");
+		new Monastery(-1, "Monastery", "Monastery", "ai");
 	}
 
 	public Monastery(final int scriptId, final String name, final String dname, final String path) {

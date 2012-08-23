@@ -39,7 +39,7 @@ public class PrimevalIsle extends DefaultMonsterAI implements ScriptFile {
 	private static final L2Skill POISON = SkillTable.getInstance().getInfo(5086, 1);
 
 	public static void onLoad() {
-		new PrimevalIsle(-1, "PrimevalIsle", "", "ai/group");
+		new PrimevalIsle(-1, "PrimevalIsle", "PrimevalIsle", "ai");
 	}
 
 	public PrimevalIsle(final int scriptId, final String name, final String dname, final String path) {

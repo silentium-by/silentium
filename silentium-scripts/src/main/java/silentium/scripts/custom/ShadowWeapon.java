@@ -24,7 +24,7 @@ public class ShadowWeapon extends Quest implements ScriptFile {
 	private static final int C_COUPON = 8870;
 
 	public static void onLoad() {
-		new ShadowWeapon(-1, "ShadowWeapon", "", "custom");
+		new ShadowWeapon(-1, "ShadowWeapon", "Shadow Weapon", "custom");
 	}
 
 	public ShadowWeapon(final int scriptId, final String name, final String dname, final String path) {

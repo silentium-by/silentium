@@ -21,7 +21,7 @@ public class OrcOccupationChange1 extends OccupationEngine {
 	}
 
 	public static void onLoad() {
-		new OrcOccupationChange1(-1, "OrcOccupationChange1", "", "vmasters");
+		new OrcOccupationChange1(-1, "OrcOccupationChange1", "Orc Occupation Change 1", "vmasters");
 	}
 
 	@Override

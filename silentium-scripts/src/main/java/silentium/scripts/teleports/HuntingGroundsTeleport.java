@@ -20,7 +20,7 @@ public class HuntingGroundsTeleport extends Quest implements ScriptFile {
 	private static final int[] DAWN_NPCS = { 31078, 31079, 31080, 31081, 31082, 31083, 31084, 31168, 31692, 31694, 31997 };
 
 	public static void onLoad() {
-		new HuntingGroundsTeleport(-1, "HuntingGroundsTeleport", "", "teleports");
+		new HuntingGroundsTeleport(-1, "HuntingGroundsTeleport", "Hunting Grounds Teleport", "teleports");
 	}
 
 	public HuntingGroundsTeleport(final int scriptId, final String name, final String dname, final String path) {

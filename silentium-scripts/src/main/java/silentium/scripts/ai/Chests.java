@@ -39,7 +39,7 @@ public class Chests extends DefaultMonsterAI implements ScriptFile {
 	private static final int[] NPC_IDS = { 18265, 18266, 18267, 18268, 18269, 18270, 18271, 18272, 18273, 18274, 18275, 18276, 18277, 18278, 18279, 18280, 18281, 18282, 18283, 18284, 18285, 18286, 18287, 18288, 18289, 18290, 18291, 18292, 18293, 18294, 18295, 18296, 18297, 18298, 21671, 21694, 21717, 21740, 21763, 21786, 21801, 21802, 21803, 21804, 21805, 21806, 21807, 21808, 21809, 21810, 21811, 21812, 21813, 21814, 21815, 21816, 21817, 21818, 21819, 21820, 21821, 21822 };
 
 	public static void onLoad() {
-		new Chests(-1, "chests", "", "ai");
+		new Chests(-1, "Chests", "Chests", "ai");
 	}
 
 	public Chests(final int scriptId, final String name, final String dname, final String path) {

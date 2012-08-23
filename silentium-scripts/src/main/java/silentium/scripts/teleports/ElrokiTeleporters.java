@@ -15,7 +15,7 @@ import silentium.gameserver.scripting.ScriptFile;
 
 public class ElrokiTeleporters extends Quest implements ScriptFile {
 	public static void onLoad() {
-		new ElrokiTeleporters(-1, "ElrokiTeleporters", "", "teleports");
+		new ElrokiTeleporters(-1, "ElrokiTeleporters", "Elroki Teleporters", "teleports");
 	}
 
 	public ElrokiTeleporters(final int scriptId, final String name, final String dname, final String path) {

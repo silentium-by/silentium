@@ -32,7 +32,7 @@ public class HotSpringDisease extends DefaultMonsterAI implements ScriptFile {
 	private static final int DISEASE_CHANCE = 1;
 
 	public static void onLoad() {
-		new HotSpringDisease(-1, "HotSpringDisease", "", "ai");
+		new HotSpringDisease(-1, "HotSpringDisease", "HotSpringDisease", "ai");
 	}
 
 	public HotSpringDisease(final int scriptId, final String name, final String dname, final String path) {

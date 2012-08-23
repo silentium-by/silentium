@@ -24,7 +24,7 @@ public class Alliance extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Alliance(-1, "Alliance", "", "vmasters");
+		new Alliance(-1, "Alliance", "Alliance", "vmasters");
 	}
 
 	@Override

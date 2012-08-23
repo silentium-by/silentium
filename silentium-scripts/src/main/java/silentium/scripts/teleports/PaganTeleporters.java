@@ -21,7 +21,7 @@ public class PaganTeleporters extends Quest implements ScriptFile {
 	private static final int PAGAN_MARK = 8067;
 
 	public static void onLoad() {
-		new PaganTeleporters(-1, "PaganTeleporters", "", "teleports");
+		new PaganTeleporters(-1, "PaganTeleporters", "Pagan Teleporters", "teleports");
 	}
 
 	public PaganTeleporters(final int scriptId, final String name, final String dname, final String path) {

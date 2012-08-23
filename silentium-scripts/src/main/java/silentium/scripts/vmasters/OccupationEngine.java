@@ -68,7 +68,7 @@ public class OccupationEngine extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new OccupationEngine(-1, "OccupationEngine", "", "vmasters");
+		new OccupationEngine(-1, "OccupationEngine", "OccupationEngine", "vmasters");
 	}
 
 	public class Classes {

@@ -48,7 +48,7 @@ public class FortuneTelling extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new FortuneTelling(-1, "FortuneTelling", "", "custom");
+		new FortuneTelling(-1, "FortuneTelling", "Fortune Telling", "custom");
 	}
 
 	public FortuneTelling(final int scriptId, final String name, final String dname, final String path) {

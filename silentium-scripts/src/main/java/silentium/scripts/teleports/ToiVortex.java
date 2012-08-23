@@ -28,7 +28,7 @@ public class ToiVortex extends Quest implements ScriptFile {
 	private static final int RED_DIMENSION_STONE = 4403;
 
 	public static void onLoad() {
-		new ToiVortex(-1, "ToiVortex", "", "teleports");
+		new ToiVortex(-1, "ToiVortex", "Toi Vortex", "teleports");
 	}
 
 	public ToiVortex(final int scriptId, final String name, final String dname, final String path) {

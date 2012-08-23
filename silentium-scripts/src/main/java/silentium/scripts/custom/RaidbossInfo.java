@@ -60,7 +60,7 @@ public class RaidbossInfo extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new RaidbossInfo(-1, "RaidbossInfo", "", "custom");
+		new RaidbossInfo(-1, "RaidbossInfo", "Raidboss Info", "custom");
 	}
 
 	public RaidbossInfo(final int scriptId, final String name, final String dname, final String path) {

@@ -23,7 +23,7 @@ public final class Bronk extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Bronk(-1, "Bronk", "", "vmasters");
+		new Bronk(-1, "Bronk", "Bronk", "vmasters");
 	}
 
 	@Override

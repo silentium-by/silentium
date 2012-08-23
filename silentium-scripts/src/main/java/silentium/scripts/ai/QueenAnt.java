@@ -59,7 +59,7 @@ public class QueenAnt extends DefaultMonsterAI implements ScriptFile {
 	private final List<L2MonsterInstance> _nurses = new FastList<>(5);
 
 	public static void onLoad() {
-		new QueenAnt(-1, "queen_ant", "", "ai");
+		new QueenAnt(-1, "QueenAnt", "QueenAnt", "ai");
 	}
 
 	public QueenAnt(final int scriptId, final String name, final String dname, final String path) {

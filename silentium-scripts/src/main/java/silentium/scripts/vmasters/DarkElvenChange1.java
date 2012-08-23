@@ -21,7 +21,7 @@ public class DarkElvenChange1 extends OccupationEngine {
 	}
 
 	public static void onLoad() {
-		new DarkElvenChange1(-1, "DarkElvenChange1", "", "vmasters");
+		new DarkElvenChange1(-1, "DarkElvenChange1", "Dark Elven Change 1", "vmasters");
 	}
 
 	@Override

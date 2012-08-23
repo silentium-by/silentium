@@ -23,7 +23,7 @@ public final class Thifiell extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Thifiell(-1, "Thifiell", "", "vmasters");
+		new Thifiell(-1, "Thifiell", "Thifiell", "vmasters");
 	}
 
 	@Override

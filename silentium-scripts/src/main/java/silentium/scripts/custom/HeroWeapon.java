@@ -18,7 +18,7 @@ public class HeroWeapon extends Quest implements ScriptFile {
 	private static final int[] weaponIds = { 6611, 6612, 6613, 6614, 6615, 6616, 6617, 6618, 6619, 6620, 6621 };
 
 	public static void onLoad() {
-		new HeroWeapon(-1, "HeroWeapon", "", "custom");
+		new HeroWeapon(-1, "HeroWeapon", "Hero Weapon", "custom");
 	}
 
 	public HeroWeapon(final int scriptId, final String name, final String dname, final String path) {

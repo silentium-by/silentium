@@ -44,7 +44,7 @@ public class RaceTrack extends Quest implements ScriptFile {
 			{ 43835, -47749, -792 }, { 147930, -55281, -2728 }, { 87386, -143246, -1293 }, { 12882, 181053, -3560 } };
 
 	public static void onLoad() {
-		new RaceTrack(-1, "RaceTrack", "", "teleports");
+		new RaceTrack(-1, "RaceTrack", "Race Track", "teleports");
 	}
 
 	public RaceTrack(final int scriptId, final String name, final String dname, final String path) {

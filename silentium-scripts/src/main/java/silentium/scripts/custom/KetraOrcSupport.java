@@ -73,7 +73,7 @@ public class KetraOrcSupport extends Quest implements ScriptFile {
 	private static final String[] ketraMissions = { "Q605_AllianceWithKetraOrcs", "Q606_WarWithVarkaSilenos", "Q607_ProveYourCourage", "Q608_SlayTheEnemyCommander", "Q609_MagicalPowerOfWater_Part1", "Q610_MagicalPowerOfWater_Part2" };
 
 	public static void onLoad() {
-		new KetraOrcSupport(-1, "KetraOrcSupport", "", "custom");
+		new KetraOrcSupport(-1, "KetraOrcSupport", "Ketra Orc Support", "custom");
 	}
 
 	public KetraOrcSupport(final int scriptId, final String name, final String dname, final String path) {

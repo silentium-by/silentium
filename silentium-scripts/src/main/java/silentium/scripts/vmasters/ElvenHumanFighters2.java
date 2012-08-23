@@ -20,7 +20,7 @@ public class ElvenHumanFighters2 extends OccupationEngine {
 	}
 
 	public static void onLoad() {
-		new ElvenHumanFighters2(-1, "ElvenHumanFighters2", "", "vmasters");
+		new ElvenHumanFighters2(-1, "ElvenHumanFighters2", "Elven Human Fighters 2", "vmasters");
 	}
 
 	@Override

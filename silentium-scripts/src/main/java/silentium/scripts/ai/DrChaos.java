@@ -51,7 +51,7 @@ public class DrChaos extends Quest implements ScriptFile {
 	private static final byte DEAD = 2; // Dr. Chaos has been killed and has not yet spawned.
 
 	public static void onLoad() {
-		new DrChaos(-1, "drchaos", "", "ai");
+		new DrChaos(-1, "DrChaos", "DrChaos", "ai");
 	}
 
 	public DrChaos(final int scriptId, final String name, final String dname, final String path) {

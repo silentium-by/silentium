@@ -24,7 +24,7 @@ public class Clan extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Clan(-1, "Clan", "", "vmasters");
+		new Clan(-1, "Clan", "Clan", "vmasters");
 	}
 
 	@Override

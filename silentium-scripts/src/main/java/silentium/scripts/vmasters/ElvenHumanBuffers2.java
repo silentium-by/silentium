@@ -20,7 +20,7 @@ public class ElvenHumanBuffers2 extends OccupationEngine {
 	}
 
 	public static void onLoad() {
-		new ElvenHumanBuffers2(-1, "ElvenHumanBuffers2", "", "vmasters");
+		new ElvenHumanBuffers2(-1, "ElvenHumanBuffers2", "Elven Human Buffers 2", "vmasters");
 	}
 
 	@Override

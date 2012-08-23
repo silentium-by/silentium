@@ -21,7 +21,7 @@ public class ElvenHumanMystics1 extends OccupationEngine {
 	}
 
 	public static void onLoad() {
-		new ElvenHumanMystics1(-1, "ElvenHumanMystics1", "", "vmasters");
+		new ElvenHumanMystics1(-1, "ElvenHumanMystics1", "Elven Human Mystics 1", "vmasters");
 	}
 
 	@Override

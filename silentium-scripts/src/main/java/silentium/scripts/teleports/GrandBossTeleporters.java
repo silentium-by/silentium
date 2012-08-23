@@ -41,7 +41,7 @@ public class GrandBossTeleporters extends Quest implements ScriptFile {
 	private static final String qn = "GrandBossTeleporters";
 
 	public static void onLoad() {
-		new GrandBossTeleporters(-1, "GrandBossTeleporters", "", "teleports");
+		new GrandBossTeleporters(-1, "GrandBossTeleporters", "Grand Boss Teleporters", "teleports");
 	}
 
 	public GrandBossTeleporters(final int scriptId, final String name, final String dname, final String path) {

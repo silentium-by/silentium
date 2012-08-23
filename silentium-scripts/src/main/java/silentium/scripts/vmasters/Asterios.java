@@ -23,7 +23,7 @@ public final class Asterios extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Asterios(-1, "Asterios", "", "vmasters");
+		new Asterios(-1, "Asterios", "Asterios", "vmasters");
 	}
 
 	@Override

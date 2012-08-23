@@ -24,7 +24,7 @@ public class GatekeeperSpirit extends Quest implements ScriptFile {
 	private static final int Anakim = 25286;
 
 	public static void onLoad() {
-		new GatekeeperSpirit(-1, "GatekeeperSpirit", "", "teleports");
+		new GatekeeperSpirit(-1, "GatekeeperSpirit", "Gatekeeper Spirit", "teleports");
 	}
 
 	public GatekeeperSpirit(final int scriptId, final String name, final String dname, final String path) {

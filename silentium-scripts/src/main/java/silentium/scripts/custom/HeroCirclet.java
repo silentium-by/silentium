@@ -15,7 +15,7 @@ import silentium.gameserver.scripting.ScriptFile;
 
 public class HeroCirclet extends Quest implements ScriptFile {
 	public static void onLoad() {
-		new HeroCirclet(-1, "HeroCirclet", "", "custom");
+		new HeroCirclet(-1, "HeroCirclet", "Hero Circlet", "custom");
 	}
 
 	public HeroCirclet(final int scriptId, final String name, final String dname, final String path) {

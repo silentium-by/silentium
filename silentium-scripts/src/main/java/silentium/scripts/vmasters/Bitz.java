@@ -23,7 +23,7 @@ public final class Bitz extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Bitz(-1, "Bitz", "", "vmasters");
+		new Bitz(-1, "Bitz", "Bitz", "vmasters");
 	}
 
 	@Override

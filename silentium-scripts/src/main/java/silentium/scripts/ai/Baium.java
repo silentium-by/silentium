@@ -68,7 +68,7 @@ public class Baium extends DefaultMonsterAI implements ScriptFile {
 	private L2BossZone _Zone;
 
 	public static void onLoad() {
-		new Baium(-1, "baium", "", "ai");
+		new Baium(-1, "Baium", "Baium", "ai");
 	}
 
 	public Baium(final int scriptId, final String name, final String dname, final String path) {

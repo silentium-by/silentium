@@ -52,7 +52,7 @@ public class Orfen extends DefaultMonsterAI implements ScriptFile {
 	private static final byte DEAD = 1;
 
 	public static void onLoad() {
-		new Orfen(-1, "orfen", "", "ai");
+		new Orfen(-1, "Orfen", "Orfen", "ai");
 	}
 
 	public Orfen(final int scriptId, final String name, final String dname, final String path) {

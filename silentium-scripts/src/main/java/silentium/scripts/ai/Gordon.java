@@ -44,7 +44,7 @@ public class Gordon extends DefaultMonsterAI implements ScriptFile {
 	private static boolean _isSpawned = false;
 
 	public static void onLoad() {
-		new Gordon(-1, "gordon", "", "ai");
+		new Gordon(-1, "Gordon", "Gordon", "ai");
 	}
 
 	public Gordon(final int scriptId, final String name, final String dname, final String path) {

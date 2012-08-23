@@ -23,7 +23,7 @@ public final class Kakai extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Kakai(-1, "Kakai", "", "vmasters");
+		new Kakai(-1, "Kakai", "Kakai", "vmasters");
 	}
 
 	@Override

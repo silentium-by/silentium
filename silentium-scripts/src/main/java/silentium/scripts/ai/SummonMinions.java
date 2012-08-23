@@ -38,7 +38,7 @@ public class SummonMinions extends DefaultMonsterAI implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new SummonMinions(-1, "SummonMinions", "", "ai");
+		new SummonMinions(-1, "SummonMinions", "SummonMinions", "ai");
 	}
 
 	public SummonMinions(final int scriptId, final String name, final String dname, final String path) {
