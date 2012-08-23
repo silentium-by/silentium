@@ -10,12 +10,13 @@ package silentium.gameserver.configs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import silentium.commons.configuration.PropertiesParser;
+
 public class ConfigEngine
 {
 	protected static final Logger log = LoggerFactory.getLogger(ConfigEngine.class.getName());
 
 	public static final String CHAT_FILTER_FILE = "./config/chatfilter.txt";
-	public static final String CLANS_FILE = "./config/clans.properties";
 	public static final String CUSTOM_FILE = "./config/custom.properties";
 	public static final String EVENTS_FILE = "./config/events.properties";
 	public static final String FLOOD_PROTECTOR_FILE = "./config/floodprotector.properties";
@@ -28,9 +29,9 @@ public class ConfigEngine
 
 	public static void init()
 	{
+		PropertiesParser.parse();
 		log.info("Initialize config system...");
 		ChatFilterConfig.load();
-		ClansConfig.load();
 		CustomConfig.load();
 		EventsConfig.load();
 		FProtectorConfig.load();

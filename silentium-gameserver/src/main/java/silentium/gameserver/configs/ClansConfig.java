@@ -7,166 +7,213 @@
  */
 package silentium.gameserver.configs;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.util.Properties;
+import silentium.commons.configuration.annotations.PropertiesFile;
+import silentium.commons.configuration.annotations.Property;
 
+@PropertiesFile(propertiesPatch = "./config/clans.properties")
 public final class ClansConfig extends ConfigEngine
 {
+	@Property(key = "AltManorSaveAllActions", defaultValue = "False")
 	public static boolean ALT_MANOR_SAVE_ALL_ACTIONS;
+		
+	@Property(key = "AltMembersCanWithdrawFromClanWH", defaultValue = "False")
 	public static boolean ALT_MEMBERS_CAN_WITHDRAW_FROM_CLANWH;
+		
+	@Property(key = "RemoveCastleCirclets", defaultValue = "True")
 	public static boolean REMOVE_CASTLE_CIRCLETS;
+		
+	@Property(key = "DaysBeforeAcceptNewClanWhenDismissed", defaultValue = "1")
 	public static int ALT_ACCEPT_CLAN_DAYS_WHEN_DISMISSED;
+		
+	@Property(key = "DaysBeforeJoinAllyWhenDismissed", defaultValue = "1")
 	public static int ALT_ALLY_JOIN_DAYS_WHEN_DISMISSED;
+		
+	@Property(key = "DaysBeforeJoinAllyWhenLeaved", defaultValue = "1")
 	public static int ALT_ALLY_JOIN_DAYS_WHEN_LEAVED;
+		
+	@Property(key = "DaysBeforeCreateAClan", defaultValue = "10")
 	public static int ALT_CLAN_CREATE_DAYS;
+		
+	@Property(key = "DaysToPassToDissolveAClan", defaultValue = "7")
 	public static int ALT_CLAN_DISSOLVE_DAYS;
+		
+	@Property(key = "DaysBeforeJoinAClan", defaultValue = "5")
 	public static int ALT_CLAN_JOIN_DAYS;
+		
+	@Property(key = "AltClanMembersForWar", defaultValue = "15")
 	public static int ALT_CLAN_MEMBERS_FOR_WAR;
+		
+	@Property(key = "DaysBeforeCreateNewAllyWhenDissolved", defaultValue = "10")
 	public static int ALT_CREATE_ALLY_DAYS_WHEN_DISSOLVED;
+		
+	@Property(key = "AltManorApproveMin", defaultValue = "00")
 	public static int ALT_MANOR_APPROVE_MIN;
+		
+	@Property(key = "AltManorApproveTime", defaultValue = "6")
 	public static int ALT_MANOR_APPROVE_TIME;
+		
+	@Property(key = "AltManorMaintenancePeriod", defaultValue = "360000")
 	public static int ALT_MANOR_MAINTENANCE_PERIOD;
+		
+	@Property(key = "AltManorRefreshMin", defaultValue = "00")
 	public static int ALT_MANOR_REFRESH_MIN;
+		
+	@Property(key = "AltManorRefreshTime", defaultValue = "20")
 	public static int ALT_MANOR_REFRESH_TIME;
+		
+	@Property(key = "AltManorSavePeriodRate", defaultValue = "2")
 	public static int ALT_MANOR_SAVE_PERIOD_RATE;
+		
+	@Property(key = "AltMaxNumOfClansInAlly", defaultValue = "3")
 	public static int ALT_MAX_NUM_OF_CLANS_IN_ALLY;
+		
+	@Property(key = "ClanHallCurtainFunctionFeeLvl1", defaultValue = "86400000")
 	public static int CH_CURTAIN1_FEE;
+		
+	@Property(key = "ClanHallCurtainFunctionFeeLvl2", defaultValue = "86400000")
 	public static int CH_CURTAIN2_FEE;
+		
+	@Property(key = "ClanHallExpRegenerationFeeLvl1", defaultValue = "86400000")
 	public static int CH_EXPREG1_FEE;
+		
+	@Property(key = "ClanHallExpRegenerationFeeLvl2", defaultValue = "86400000")
 	public static int CH_EXPREG2_FEE;
+		
+	@Property(key = "ClanHallExpRegenerationFeeLvl3", defaultValue = "86400000")
 	public static int CH_EXPREG3_FEE;
+		
+	@Property(key = "ClanHallExpRegenerationFeeLvl4", defaultValue = "86400000")
 	public static int CH_EXPREG4_FEE;
+		
+	@Property(key = "ClanHallExpRegenerationFeeLvl5", defaultValue = "86400000")
 	public static int CH_EXPREG5_FEE;
+		
+	@Property(key = "ClanHallExpRegenerationFeeLvl6", defaultValue = "86400000")
 	public static int CH_EXPREG6_FEE;
+		
+	@Property(key = "ClanHallExpRegenerationFeeLvl7", defaultValue = "86400000")
 	public static int CH_EXPREG7_FEE;
+		
+	@Property(key = "ClanHallFrontPlatformFunctionFeeLvl1", defaultValue = "86400000")
 	public static int CH_FRONT1_FEE;
+		
+	@Property(key = "ClanHallFrontPlatformFunctionFeeLvl2", defaultValue = "86400000")
 	public static int CH_FRONT2_FEE;
+		
+	@Property(key = "ClanHallHpRegenerationFeeLvl1", defaultValue = "86400000")
 	public static int CH_HPREG1_FEE;
+		
+	@Property(key = "ClanHallHpRegenerationFeeLvl10", defaultValue = "86400000")
 	public static int CH_HPREG10_FEE;
+		
+	@Property(key = "ClanHallHpRegenerationFeeLvl11", defaultValue = "86400000")
 	public static int CH_HPREG11_FEE;
+		
+	@Property(key = "ClanHallHpRegenerationFeeLvl12", defaultValue = "86400000")
 	public static int CH_HPREG12_FEE;
+		
+	@Property(key = "ClanHallHpRegenerationFeeLvl13", defaultValue = "86400000")
 	public static int CH_HPREG13_FEE;
+		
+	@Property(key = "ClanHallHpRegenerationFeeLvl2", defaultValue = "86400000")
 	public static int CH_HPREG2_FEE;
+		
+	@Property(key = "ClanHallHpRegenerationFeeLvl3", defaultValue = "86400000")
 	public static int CH_HPREG3_FEE;
+		
+	@Property(key = "ClanHallHpRegenerationFeeLvl4", defaultValue = "86400000")
 	public static int CH_HPREG4_FEE;
+		
+	@Property(key = "ClanHallHpRegenerationFeeLvl5", defaultValue = "86400000")
 	public static int CH_HPREG5_FEE;
+		
+	@Property(key = "ClanHallHpRegenerationFeeLvl6", defaultValue = "86400000")
 	public static int CH_HPREG6_FEE;
+		
+	@Property(key = "ClanHallHpRegenerationFeeLvl7", defaultValue = "86400000")
 	public static int CH_HPREG7_FEE;
+		
+	@Property(key = "ClanHallHpRegenerationFeeLvl8", defaultValue = "86400000")
 	public static int CH_HPREG8_FEE;
+		
+	@Property(key = "ClanHallHpRegenerationFeeLvl9", defaultValue = "86400000")
 	public static int CH_HPREG9_FEE;
+		
+	@Property(key = "ClanHallItemCreationFunctionFeeLvl1", defaultValue = "86400000")
 	public static int CH_ITEM1_FEE;
+		
+	@Property(key = "ClanHallItemCreationFunctionFeeLvl2", defaultValue = "86400000")
 	public static int CH_ITEM2_FEE;
+		
+	@Property(key = "ClanHallItemCreationFunctionFeeLvl3", defaultValue = "86400000")
 	public static int CH_ITEM3_FEE;
+		
+	@Property(key = "ClanHallMpRegenerationFeeLvl1", defaultValue = "86400000")
 	public static int CH_MPREG1_FEE;
+		
+	@Property(key = "ClanHallMpRegenerationFeeLvl2", defaultValue = "86400000")
 	public static int CH_MPREG2_FEE;
+		
+	@Property(key = "ClanHallMpRegenerationFeeLvl3", defaultValue = "86400000")
 	public static int CH_MPREG3_FEE;
+		
+	@Property(key = "ClanHallMpRegenerationFeeLvl4", defaultValue = "86400000")
 	public static int CH_MPREG4_FEE;
+		
+	@Property(key = "ClanHallMpRegenerationFeeLvl5", defaultValue = "86400000")
 	public static int CH_MPREG5_FEE;
+		
+	@Property(key = "ClanHallSupportFeeLvl1", defaultValue = "86400000")
 	public static int CH_SUPPORT1_FEE;
+		
+	@Property(key = "ClanHallSupportFeeLvl2", defaultValue = "86400000")
 	public static int CH_SUPPORT2_FEE;
+		
+	@Property(key = "ClanHallSupportFeeLvl3", defaultValue = "86400000")
 	public static int CH_SUPPORT3_FEE;
+		
+	@Property(key = "ClanHallSupportFeeLvl4", defaultValue = "86400000")
 	public static int CH_SUPPORT4_FEE;
+		
+	@Property(key = "ClanHallSupportFeeLvl5", defaultValue = "86400000")
 	public static int CH_SUPPORT5_FEE;
+		
+	@Property(key = "ClanHallSupportFeeLvl6", defaultValue = "86400000")
 	public static int CH_SUPPORT6_FEE;
+		
+	@Property(key = "ClanHallSupportFeeLvl7", defaultValue = "86400000")
 	public static int CH_SUPPORT7_FEE;
+		
+	@Property(key = "ClanHallSupportFeeLvl8", defaultValue = "86400000")
 	public static int CH_SUPPORT8_FEE;
+		
+	@Property(key = "ClanHallTeleportFunctionFeeLvl1", defaultValue = "86400000")
 	public static int CH_TELE1_FEE;
+		
+	@Property(key = "ClanHallTeleportFunctionFeeLvl2", defaultValue = "86400000")
 	public static int CH_TELE2_FEE;
+		
+	@Property(key = "ClanHallCurtainFunctionFeeRation", defaultValue = "86400000")
 	public static long CH_CURTAIN_FEE_RATIO;
+		
+	@Property(key = "ClanHallExpRegenerationFunctionFeeRation", defaultValue = "86400000")
 	public static long CH_EXPREG_FEE_RATIO;
+		
+	@Property(key = "ClanHallFrontPlatformFunctionFeeRation", defaultValue = "86400000")
 	public static long CH_FRONT_FEE_RATIO;
+		
+	@Property(key = "ClanHallHpRegenerationFunctionFeeRation", defaultValue = "86400000")
 	public static long CH_HPREG_FEE_RATIO;
+		
+	@Property(key = "ClanHallItemCreationFunctionFeeRation", defaultValue = "86400000")
 	public static long CH_ITEM_FEE_RATIO;
+		
+	@Property(key = "ClanHallMpRegenerationFunctionFeeRation", defaultValue = "86400000")
 	public static long CH_MPREG_FEE_RATIO;
+		
+	@Property(key = "ClanHallSupportFunctionFeeRation", defaultValue = "86400000")
 	public static long CH_SUPPORT_FEE_RATIO;
+		
+	@Property(key = "ClanHallTeleportFunctionFeeRation", defaultValue = "86400000")
 	public static long CH_TELE_FEE_RATIO;
-
-	public static void load()
-	{
-		try (InputStream is = new FileInputStream(new File(CLANS_FILE)))
-		{
-			Properties clans = new Properties();
-			clans.load(is);
-			is.close();
-
-			ALT_ACCEPT_CLAN_DAYS_WHEN_DISMISSED = Integer.parseInt(clans.getProperty("DaysBeforeAcceptNewClanWhenDismissed", "1"));
-			ALT_ALLY_JOIN_DAYS_WHEN_DISMISSED = Integer.parseInt(clans.getProperty("DaysBeforeJoinAllyWhenDismissed", "1"));
-			ALT_ALLY_JOIN_DAYS_WHEN_LEAVED = Integer.parseInt(clans.getProperty("DaysBeforeJoinAllyWhenLeaved", "1"));
-			ALT_CLAN_CREATE_DAYS = Integer.parseInt(clans.getProperty("DaysBeforeCreateAClan", "10"));
-			ALT_CLAN_DISSOLVE_DAYS = Integer.parseInt(clans.getProperty("DaysToPassToDissolveAClan", "7"));
-			ALT_CLAN_JOIN_DAYS = Integer.parseInt(clans.getProperty("DaysBeforeJoinAClan", "5"));
-			ALT_CLAN_MEMBERS_FOR_WAR = Integer.parseInt(clans.getProperty("AltClanMembersForWar", "15"));
-			ALT_CREATE_ALLY_DAYS_WHEN_DISSOLVED = Integer.parseInt(clans.getProperty("DaysBeforeCreateNewAllyWhenDissolved", "10"));
-			ALT_MAX_NUM_OF_CLANS_IN_ALLY = Integer.parseInt(clans.getProperty("AltMaxNumOfClansInAlly", "3"));
-			ALT_MEMBERS_CAN_WITHDRAW_FROM_CLANWH = Boolean.parseBoolean(clans.getProperty("AltMembersCanWithdrawFromClanWH", "False"));
-
-			ALT_MANOR_APPROVE_MIN = Integer.parseInt(clans.getProperty("AltManorApproveMin", "00"));
-			ALT_MANOR_APPROVE_TIME = Integer.parseInt(clans.getProperty("AltManorApproveTime", "6"));
-			ALT_MANOR_MAINTENANCE_PERIOD = Integer.parseInt(clans.getProperty("AltManorMaintenancePeriod", "360000"));
-			ALT_MANOR_REFRESH_MIN = Integer.parseInt(clans.getProperty("AltManorRefreshMin", "00"));
-			ALT_MANOR_REFRESH_TIME = Integer.parseInt(clans.getProperty("AltManorRefreshTime", "20"));
-			ALT_MANOR_SAVE_ALL_ACTIONS = Boolean.parseBoolean(clans.getProperty("AltManorSaveAllActions", "False"));
-			ALT_MANOR_SAVE_PERIOD_RATE = Integer.parseInt(clans.getProperty("AltManorSavePeriodRate", "2"));
-
-			CH_CURTAIN_FEE_RATIO = Long.parseLong(clans.getProperty("ClanHallCurtainFunctionFeeRation", "86400000"));
-			CH_CURTAIN1_FEE = Integer.parseInt(clans.getProperty("ClanHallCurtainFunctionFeeLvl1", "86400000"));
-			CH_CURTAIN2_FEE = Integer.parseInt(clans.getProperty("ClanHallCurtainFunctionFeeLvl2", "86400000"));
-			CH_EXPREG_FEE_RATIO = Long.parseLong(clans.getProperty("ClanHallExpRegenerationFunctionFeeRation", "86400000"));
-			CH_EXPREG1_FEE = Integer.parseInt(clans.getProperty("ClanHallExpRegenerationFeeLvl1", "86400000"));
-			CH_EXPREG2_FEE = Integer.parseInt(clans.getProperty("ClanHallExpRegenerationFeeLvl2", "86400000"));
-			CH_EXPREG3_FEE = Integer.parseInt(clans.getProperty("ClanHallExpRegenerationFeeLvl3", "86400000"));
-			CH_EXPREG4_FEE = Integer.parseInt(clans.getProperty("ClanHallExpRegenerationFeeLvl4", "86400000"));
-			CH_EXPREG5_FEE = Integer.parseInt(clans.getProperty("ClanHallExpRegenerationFeeLvl5", "86400000"));
-			CH_EXPREG6_FEE = Integer.parseInt(clans.getProperty("ClanHallExpRegenerationFeeLvl6", "86400000"));
-			CH_EXPREG7_FEE = Integer.parseInt(clans.getProperty("ClanHallExpRegenerationFeeLvl7", "86400000"));
-			CH_FRONT_FEE_RATIO = Long.parseLong(clans.getProperty("ClanHallFrontPlatformFunctionFeeRation", "86400000"));
-			CH_FRONT1_FEE = Integer.parseInt(clans.getProperty("ClanHallFrontPlatformFunctionFeeLvl1", "86400000"));
-			CH_FRONT2_FEE = Integer.parseInt(clans.getProperty("ClanHallFrontPlatformFunctionFeeLvl2", "86400000"));
-			CH_HPREG_FEE_RATIO = Long.parseLong(clans.getProperty("ClanHallHpRegenerationFunctionFeeRation", "86400000"));
-			CH_HPREG1_FEE = Integer.parseInt(clans.getProperty("ClanHallHpRegenerationFeeLvl1", "86400000"));
-			CH_HPREG10_FEE = Integer.parseInt(clans.getProperty("ClanHallHpRegenerationFeeLvl10", "86400000"));
-			CH_HPREG11_FEE = Integer.parseInt(clans.getProperty("ClanHallHpRegenerationFeeLvl11", "86400000"));
-			CH_HPREG12_FEE = Integer.parseInt(clans.getProperty("ClanHallHpRegenerationFeeLvl12", "86400000"));
-			CH_HPREG13_FEE = Integer.parseInt(clans.getProperty("ClanHallHpRegenerationFeeLvl13", "86400000"));
-			CH_HPREG2_FEE = Integer.parseInt(clans.getProperty("ClanHallHpRegenerationFeeLvl2", "86400000"));
-			CH_HPREG3_FEE = Integer.parseInt(clans.getProperty("ClanHallHpRegenerationFeeLvl3", "86400000"));
-			CH_HPREG4_FEE = Integer.parseInt(clans.getProperty("ClanHallHpRegenerationFeeLvl4", "86400000"));
-			CH_HPREG5_FEE = Integer.parseInt(clans.getProperty("ClanHallHpRegenerationFeeLvl5", "86400000"));
-			CH_HPREG6_FEE = Integer.parseInt(clans.getProperty("ClanHallHpRegenerationFeeLvl6", "86400000"));
-			CH_HPREG7_FEE = Integer.parseInt(clans.getProperty("ClanHallHpRegenerationFeeLvl7", "86400000"));
-			CH_HPREG8_FEE = Integer.parseInt(clans.getProperty("ClanHallHpRegenerationFeeLvl8", "86400000"));
-			CH_HPREG9_FEE = Integer.parseInt(clans.getProperty("ClanHallHpRegenerationFeeLvl9", "86400000"));
-			CH_ITEM_FEE_RATIO = Long.parseLong(clans.getProperty("ClanHallItemCreationFunctionFeeRation", "86400000"));
-			CH_ITEM1_FEE = Integer.parseInt(clans.getProperty("ClanHallItemCreationFunctionFeeLvl1", "86400000"));
-			CH_ITEM2_FEE = Integer.parseInt(clans.getProperty("ClanHallItemCreationFunctionFeeLvl2", "86400000"));
-			CH_ITEM3_FEE = Integer.parseInt(clans.getProperty("ClanHallItemCreationFunctionFeeLvl3", "86400000"));
-			CH_MPREG_FEE_RATIO = Long.parseLong(clans.getProperty("ClanHallMpRegenerationFunctionFeeRation", "86400000"));
-			CH_MPREG1_FEE = Integer.parseInt(clans.getProperty("ClanHallMpRegenerationFeeLvl1", "86400000"));
-			CH_MPREG2_FEE = Integer.parseInt(clans.getProperty("ClanHallMpRegenerationFeeLvl2", "86400000"));
-			CH_MPREG3_FEE = Integer.parseInt(clans.getProperty("ClanHallMpRegenerationFeeLvl3", "86400000"));
-			CH_MPREG4_FEE = Integer.parseInt(clans.getProperty("ClanHallMpRegenerationFeeLvl4", "86400000"));
-			CH_MPREG5_FEE = Integer.parseInt(clans.getProperty("ClanHallMpRegenerationFeeLvl5", "86400000"));
-			CH_SUPPORT_FEE_RATIO = Long.parseLong(clans.getProperty("ClanHallSupportFunctionFeeRation", "86400000"));
-			CH_SUPPORT1_FEE = Integer.parseInt(clans.getProperty("ClanHallSupportFeeLvl1", "86400000"));
-			CH_SUPPORT2_FEE = Integer.parseInt(clans.getProperty("ClanHallSupportFeeLvl2", "86400000"));
-			CH_SUPPORT3_FEE = Integer.parseInt(clans.getProperty("ClanHallSupportFeeLvl3", "86400000"));
-			CH_SUPPORT4_FEE = Integer.parseInt(clans.getProperty("ClanHallSupportFeeLvl4", "86400000"));
-			CH_SUPPORT5_FEE = Integer.parseInt(clans.getProperty("ClanHallSupportFeeLvl5", "86400000"));
-			CH_SUPPORT6_FEE = Integer.parseInt(clans.getProperty("ClanHallSupportFeeLvl6", "86400000"));
-			CH_SUPPORT7_FEE = Integer.parseInt(clans.getProperty("ClanHallSupportFeeLvl7", "86400000"));
-			CH_SUPPORT8_FEE = Integer.parseInt(clans.getProperty("ClanHallSupportFeeLvl8", "86400000"));
-			CH_TELE_FEE_RATIO = Long.parseLong(clans.getProperty("ClanHallTeleportFunctionFeeRation", "86400000"));
-			CH_TELE1_FEE = Integer.parseInt(clans.getProperty("ClanHallTeleportFunctionFeeLvl1", "86400000"));
-			CH_TELE2_FEE = Integer.parseInt(clans.getProperty("ClanHallTeleportFunctionFeeLvl2", "86400000"));
-
-			REMOVE_CASTLE_CIRCLETS = Boolean.parseBoolean(clans.getProperty("RemoveCastleCirclets", "True"));
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-			throw new Error("Server failed to load " + CLANS_FILE + " file.");
-		}
-	}
 }
