@@ -13,7 +13,7 @@ package silentium.scripts.quests;
 public class Q070_SagaOfThePhoenixKnight extends SagasSuperClass {
 	private static final String name = "Q070_SagaOfThePhoenixKnight";
 	private static final int scriptId = 70;
-	private static final String dname = "";
+	private static final String dname = "Saga Of The Phoenix Knight";
 	private static final String path = "quests";
 
 	public Q070_SagaOfThePhoenixKnight() {

@@ -38,7 +38,7 @@ public class Q007_ATripBegins extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q007_ATripBegins(7, "Q007_ATripBegins", "", "quests");
+		new Q007_ATripBegins(7, "Q007_ATripBegins", "A Trip Begins", "quests");
 	}
 
 	@Override

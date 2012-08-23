@@ -14,8 +14,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q022_TragedyInVonHellmannForest extends Quest {
+public class Q022_TragedyInVonHellmannForest extends Quest implements ScriptFile {
 	private static final String qn = "Q022_TragedyInVonHellmannForest";
 
 	// NPCs
@@ -52,8 +53,8 @@ public class Q022_TragedyInVonHellmannForest extends Quest {
 		addKillId(SoulOfWell, 21553, 21554, 21555, 21556, 21561);
 	}
 
-	public static void main(final String... args) {
-		new Q022_TragedyInVonHellmannForest(22, "Q022_TragedyInVonHellmannForest", "", "quests");
+	public static void onLoad() {
+		new Q022_TragedyInVonHellmannForest(22, "Q022_TragedyInVonHellmannForest", "Tragedy In Von Hellmann Forest", "quests");
 	}
 
 	@Override

@@ -11,12 +11,13 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
 /**
  * @author Demon
  */
 
-public class Q024_InhabitantsOfTheForrestOfTheDead extends Quest {
+public class Q024_InhabitantsOfTheForrestOfTheDead extends Quest implements ScriptFile {
 	private static final String qn = "Q024_InhabitantsOfTheForrestOfTheDead";
 
 	private static final int Dorian = 31389;
@@ -41,8 +42,8 @@ public class Q024_InhabitantsOfTheForrestOfTheDead extends Quest {
 		questItemIds = new int[] { Flower, SilverCross, BrokenSilverCross, Letter, Hairpin, Totem };
 	}
 
-	public static void main(final String... args) {
-		new Q024_InhabitantsOfTheForrestOfTheDead(-1, "Q024_InhabitantsOfTheForrestOfTheDead", "", "quests");
+	public static void onLoad() {
+		new Q024_InhabitantsOfTheForrestOfTheDead(-1, "Q024_InhabitantsOfTheForrestOfTheDead", "Inhabitants Of The Forrest Of The Dead", "quests");
 	}
 
 	@Override

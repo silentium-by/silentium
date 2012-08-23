@@ -11,8 +11,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q016_TheComingDarkness extends Quest {
+public class Q016_TheComingDarkness extends Quest implements ScriptFile {
 	private static final String qn = "Q016_TheComingDarkness";
 
 	// NPCs
@@ -33,8 +34,8 @@ public class Q016_TheComingDarkness extends Quest {
 		addTalkId(HIERARCH, EVIL_ALTAR_1, EVIL_ALTAR_2, EVIL_ALTAR_3, EVIL_ALTAR_4, EVIL_ALTAR_5);
 	}
 
-	public static void main(final String... args) {
-		new Q016_TheComingDarkness(16, "Q016_TheComingDarkness", "", "quests");
+	public static void onLoad() {
+		new Q016_TheComingDarkness(16, "Q016_TheComingDarkness", "The Coming Darkness", "quests");
 	}
 
 	@Override

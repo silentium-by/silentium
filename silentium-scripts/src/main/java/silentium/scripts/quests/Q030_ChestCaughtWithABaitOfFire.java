@@ -35,7 +35,7 @@ public class Q030_ChestCaughtWithABaitOfFire extends Quest implements ScriptFile
 	}
 
 	public static void onLoad() {
-		new Q030_ChestCaughtWithABaitOfFire(30, "Q030_ChestCaughtWithABaitOfFire", "", "quests");
+		new Q030_ChestCaughtWithABaitOfFire(30, "Q030_ChestCaughtWithABaitOfFire", "Chest Caught With A Bait Of Fire", "quests");
 	}
 
 	@Override

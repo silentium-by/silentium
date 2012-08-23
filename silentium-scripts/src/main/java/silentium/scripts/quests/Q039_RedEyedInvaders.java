@@ -72,7 +72,7 @@ public class Q039_RedEyedInvaders extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q039_RedEyedInvaders(39, "Q039_RedEyedInvaders", "", "quests");
+		new Q039_RedEyedInvaders(39, "Q039_RedEyedInvaders", "Red Eyed Invaders", "quests");
 	}
 
 	@Override

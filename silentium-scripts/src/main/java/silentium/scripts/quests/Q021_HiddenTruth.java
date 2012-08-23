@@ -13,8 +13,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q021_HiddenTruth extends Quest {
+public class Q021_HiddenTruth extends Quest implements ScriptFile {
 	private static final String qn = "Q021_HiddenTruth";
 
 	// NPCs
@@ -51,8 +52,8 @@ public class Q021_HiddenTruth extends Quest {
 		addTalkId(MYSTERIOUS_WIZARD, TOMBSTONE, VON_HELLMAN, VON_HELLMAN_PAGE, BROKEN_BOOKSHELF, AGRIPEL, DOMINIC, BENEDICT, INNOCENTIN);
 	}
 
-	public static void main(final String... args) {
-		new Q021_HiddenTruth(21, "Q021_HiddenTruth", "", "quests");
+	public static void onLoad() {
+		new Q021_HiddenTruth(21, "Q021_HiddenTruth", "Hidden Truth", "quests");
 	}
 
 	@Override

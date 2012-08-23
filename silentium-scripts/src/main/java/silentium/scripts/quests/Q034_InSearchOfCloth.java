@@ -46,7 +46,7 @@ public class Q034_InSearchOfCloth extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q034_InSearchOfCloth(34, "Q034_InSearchOfCloth", "", "quests");
+		new Q034_InSearchOfCloth(34, "Q034_InSearchOfCloth", "In Search Of Cloth", "quests");
 	}
 
 	@Override

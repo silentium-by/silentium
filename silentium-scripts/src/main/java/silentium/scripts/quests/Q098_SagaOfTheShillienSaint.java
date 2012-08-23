@@ -13,7 +13,7 @@ package silentium.scripts.quests;
 public class Q098_SagaOfTheShillienSaint extends SagasSuperClass {
 	private static final String name = "Q098_SagaOfTheShillienSaint";
 	private static final int scriptId = 98;
-	private static final String dname = "";
+	private static final String dname = "Saga Of The Shillien Saint";
 	private static final String path = "quests";
 
 	public Q098_SagaOfTheShillienSaint() {

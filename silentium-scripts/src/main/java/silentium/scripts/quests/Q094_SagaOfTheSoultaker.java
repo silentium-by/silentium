@@ -13,7 +13,7 @@ package silentium.scripts.quests;
 public class Q094_SagaOfTheSoultaker extends SagasSuperClass {
 	private static final String name = "Q094_SagaOfTheSoultaker";
 	private static final int scriptId = 94;
-	private static final String dname = "";
+	private static final String dname = "Saga Of The Soultaker";
 	private static final String path = "quests";
 
 	public Q094_SagaOfTheSoultaker() {

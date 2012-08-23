@@ -13,7 +13,7 @@ package silentium.scripts.quests;
 public class Q074_SagaOfTheDreadnought extends SagasSuperClass {
 	private static final String name = "Q074_SagaOfTheDreadnought";
 	private static final int scriptId = 74;
-	private static final String dname = "";
+	private static final String dname = "Saga Of The Dreadnought";
 	private static final String path = "quests";
 
 	public Q074_SagaOfTheDreadnought() {

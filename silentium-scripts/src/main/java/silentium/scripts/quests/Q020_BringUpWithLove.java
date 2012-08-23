@@ -11,8 +11,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q020_BringUpWithLove extends Quest {
+public class Q020_BringUpWithLove extends Quest implements ScriptFile {
 	private static final String qn = "Q020_BringUpWithLove";
 
 	// Item
@@ -33,8 +34,8 @@ public class Q020_BringUpWithLove extends Quest {
 		addTalkId(TUNATUN);
 	}
 
-	public static void main(final String... args) {
-		new Q020_BringUpWithLove(20, "Q020_BringUpWithLove", "", "quests");
+	public static void onLoad() {
+		new Q020_BringUpWithLove(20, "Q020_BringUpWithLove", "Bring Up With Love", "quests");
 	}
 
 	@Override

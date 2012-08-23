@@ -38,7 +38,7 @@ public class Q048_ToTheImmortalPlateau extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q048_ToTheImmortalPlateau(48, "Q048_ToTheImmortalPlateau", "", "quests");
+		new Q048_ToTheImmortalPlateau(48, "Q048_ToTheImmortalPlateau", "To The Immortal Plateau", "quests");
 	}
 
 	@Override

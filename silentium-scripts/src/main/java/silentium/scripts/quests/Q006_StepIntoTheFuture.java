@@ -38,7 +38,7 @@ public class Q006_StepIntoTheFuture extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q006_StepIntoTheFuture(6, "Q006_StepIntoTheFuture", "", "quests");
+		new Q006_StepIntoTheFuture(6, "Q006_StepIntoTheFuture", "Step Into The Future", "quests");
 	}
 
 	@Override

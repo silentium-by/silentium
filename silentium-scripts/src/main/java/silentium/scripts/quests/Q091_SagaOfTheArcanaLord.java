@@ -13,7 +13,7 @@ package silentium.scripts.quests;
 public class Q091_SagaOfTheArcanaLord extends SagasSuperClass {
 	private static final String name = "Q091_SagaOfTheArcanaLord";
 	private static final int scriptId = 91;
-	private static final String dname = "";
+	private static final String dname = "Saga Of The Arcana Lord";
 	private static final String path = "quests";
 
 	public Q091_SagaOfTheArcanaLord() {

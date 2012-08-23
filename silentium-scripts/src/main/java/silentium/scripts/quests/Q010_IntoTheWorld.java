@@ -38,7 +38,7 @@ public class Q010_IntoTheWorld extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q010_IntoTheWorld(10, "Q010_IntoTheWorld", "", "quests");
+		new Q010_IntoTheWorld(10, "Q010_IntoTheWorld", "Into The World", "quests");
 	}
 
 	@Override

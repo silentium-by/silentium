@@ -11,8 +11,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q014_WhereaboutsOfTheArchaeologist extends Quest {
+public class Q014_WhereaboutsOfTheArchaeologist extends Quest implements ScriptFile {
 	private static final String qn = "Q014_WhereaboutsOfTheArchaeologist";
 
 	// NPCs
@@ -31,8 +32,8 @@ public class Q014_WhereaboutsOfTheArchaeologist extends Quest {
 		addTalkId(LIESEL, GHOST_OF_ADVENTURER);
 	}
 
-	public static void main(final String... args) {
-		new Q014_WhereaboutsOfTheArchaeologist(14, "Q014_WhereaboutsOfTheArchaeologist", "", "quests");
+	public static void onLoad() {
+		new Q014_WhereaboutsOfTheArchaeologist(14, "Q014_WhereaboutsOfTheArchaeologist", "Whereabouts Of The Archaeologist", "quests");
 	}
 
 	@Override

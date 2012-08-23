@@ -13,7 +13,7 @@ package silentium.scripts.quests;
 public class Q078_SagaOfTheDoomcryer extends SagasSuperClass {
 	private static final String name = "Q078_SagaOfTheDoomcryer";
 	private static final int scriptId = 78;
-	private static final String dname = "";
+	private static final String dname = "Saga Of The Doomcryer";
 	private static final String path = "quests";
 
 	public Q078_SagaOfTheDoomcryer() {

@@ -13,7 +13,7 @@ package silentium.scripts.quests;
 public class Q075_SagaOfTheTitan extends SagasSuperClass {
 	private static final String name = "Q075_SagaOfTheTitan";
 	private static final int scriptId = 75;
-	private static final String dname = "";
+	private static final String dname = "Saga Of The Titan";
 	private static final String path = "quests";
 
 	public Q075_SagaOfTheTitan() {

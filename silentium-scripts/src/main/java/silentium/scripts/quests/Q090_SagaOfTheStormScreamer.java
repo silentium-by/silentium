@@ -13,7 +13,7 @@ package silentium.scripts.quests;
 public class Q090_SagaOfTheStormScreamer extends SagasSuperClass {
 	private static final String name = "Q090_SagaOfTheStormScreamer";
 	private static final int scriptId = 90;
-	private static final String dname = "";
+	private static final String dname = "Saga Of The Storm Screamer";
 	private static final String path = "quests";
 
 	public Q090_SagaOfTheStormScreamer() {

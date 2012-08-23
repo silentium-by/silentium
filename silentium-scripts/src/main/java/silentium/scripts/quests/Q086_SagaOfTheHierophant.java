@@ -13,7 +13,7 @@ package silentium.scripts.quests;
 public class Q086_SagaOfTheHierophant extends SagasSuperClass {
 	private static final String name = "Q086_SagaOfTheHierophant";
 	private static final int scriptId = 86;
-	private static final String dname = "";
+	private static final String dname = "Saga Of The Hierophant";
 	private static final String path = "quests";
 
 	public Q086_SagaOfTheHierophant() {

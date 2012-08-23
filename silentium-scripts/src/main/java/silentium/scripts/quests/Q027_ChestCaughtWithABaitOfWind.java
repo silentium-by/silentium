@@ -11,8 +11,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q027_ChestCaughtWithABaitOfWind extends Quest {
+public class Q027_ChestCaughtWithABaitOfWind extends Quest implements ScriptFile {
 	private static final String qn = "Q027_ChestCaughtWithABaitOfWind";
 
 	// NPCs
@@ -33,8 +34,8 @@ public class Q027_ChestCaughtWithABaitOfWind extends Quest {
 		addTalkId(Lanosco, Shaling);
 	}
 
-	public static void main(final String... args) {
-		new Q027_ChestCaughtWithABaitOfWind(27, "Q027_ChestCaughtWithABaitOfWind", "", "quests");
+	public static void onLoad() {
+		new Q027_ChestCaughtWithABaitOfWind(27, "Q027_ChestCaughtWithABaitOfWind", "Ches tCaught With A Bait Of Wind", "quests");
 	}
 
 	@Override

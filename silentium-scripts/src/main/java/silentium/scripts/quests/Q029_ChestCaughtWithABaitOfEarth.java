@@ -35,7 +35,7 @@ public class Q029_ChestCaughtWithABaitOfEarth extends Quest implements ScriptFil
 	}
 
 	public static void onLoad() {
-		new Q029_ChestCaughtWithABaitOfEarth(29, "Q029_ChestCaughtWithABaitOfEarth", "", "quests");
+		new Q029_ChestCaughtWithABaitOfEarth(29, "Q029_ChestCaughtWithABaitOfEarth", "Chest Caught With A Bait Of Earth", "quests");
 	}
 
 	@Override

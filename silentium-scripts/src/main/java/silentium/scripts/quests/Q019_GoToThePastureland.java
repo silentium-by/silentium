@@ -11,8 +11,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q019_GoToThePastureland extends Quest {
+public class Q019_GoToThePastureland extends Quest implements ScriptFile {
 	private static final String qn = "Q019_GoToThePastureland";
 
 	// Items
@@ -32,8 +33,8 @@ public class Q019_GoToThePastureland extends Quest {
 		addTalkId(Vladimir, Tunatun);
 	}
 
-	public static void main(final String... args) {
-		new Q019_GoToThePastureland(19, "Q019_GoToThePastureland", "", "quests");
+	public static void onLoad() {
+		new Q019_GoToThePastureland(19, "Q019_GoToThePastureland", "Go To The Pastureland", "quests");
 	}
 
 	@Override

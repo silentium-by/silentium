@@ -58,7 +58,7 @@ public class Q038_DragonFangs extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q038_DragonFangs(38, "Q038_DragonFangs", "", "quests");
+		new Q038_DragonFangs(38, "Q038_DragonFangs", "Dragon Fangs", "quests");
 	}
 
 	@Override

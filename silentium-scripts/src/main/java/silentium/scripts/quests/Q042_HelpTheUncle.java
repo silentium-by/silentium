@@ -42,7 +42,7 @@ public class Q042_HelpTheUncle extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q042_HelpTheUncle(42, "Q042_HelpTheUncle", "", "quests");
+		new Q042_HelpTheUncle(42, "Q042_HelpTheUncle", "Help The Uncle", "quests");
 	}
 
 	@Override

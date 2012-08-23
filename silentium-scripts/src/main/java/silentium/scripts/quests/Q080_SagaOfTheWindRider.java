@@ -13,7 +13,7 @@ package silentium.scripts.quests;
 public class Q080_SagaOfTheWindRider extends SagasSuperClass {
 	private static final String name = "Q080_SagaOfTheWindRider";
 	private static final int scriptId = 80;
-	private static final String dname = "";
+	private static final String dname = "Saga Of The Wind Rider";
 	private static final String path = "quests";
 
 	public Q080_SagaOfTheWindRider() {

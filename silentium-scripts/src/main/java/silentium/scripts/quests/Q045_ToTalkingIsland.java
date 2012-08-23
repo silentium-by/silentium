@@ -42,7 +42,7 @@ public class Q045_ToTalkingIsland extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q045_ToTalkingIsland(45, "Q045_ToTalkingIsland", "", "quests");
+		new Q045_ToTalkingIsland(45, "Q045_ToTalkingIsland", "To Talking Island", "quests");
 	}
 
 	@Override

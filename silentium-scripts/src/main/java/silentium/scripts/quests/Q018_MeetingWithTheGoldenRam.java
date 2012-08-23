@@ -11,8 +11,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q018_MeetingWithTheGoldenRam extends Quest {
+public class Q018_MeetingWithTheGoldenRam extends Quest implements ScriptFile {
 	private static final String qn = "Q018_MeetingWithTheGoldenRam";
 
 	// Items
@@ -33,8 +34,8 @@ public class Q018_MeetingWithTheGoldenRam extends Quest {
 		addTalkId(Donal, Daisy, Abercrombie);
 	}
 
-	public static void main(final String... args) {
-		new Q018_MeetingWithTheGoldenRam(18, "Q018_MeetingWithTheGoldenRam", "", "quests");
+	public static void onLoad() {
+		new Q018_MeetingWithTheGoldenRam(18, "Q018_MeetingWithTheGoldenRam", "Meeting With The Golden Ram", "quests");
 	}
 
 	@Override

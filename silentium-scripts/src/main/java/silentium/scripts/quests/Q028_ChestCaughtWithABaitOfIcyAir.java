@@ -11,8 +11,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q028_ChestCaughtWithABaitOfIcyAir extends Quest {
+public class Q028_ChestCaughtWithABaitOfIcyAir extends Quest implements ScriptFile {
 	private static final String qn = "Q028_ChestCaughtWithABaitOfIcyAir";
 
 	// NPCs
@@ -33,8 +34,8 @@ public class Q028_ChestCaughtWithABaitOfIcyAir extends Quest {
 		addTalkId(OFulle, Kiki);
 	}
 
-	public static void main(final String... args) {
-		new Q028_ChestCaughtWithABaitOfIcyAir(28, "Q028_ChestCaughtWithABaitOfIcyAir", "", "quests");
+	public static void onLoad() {
+		new Q028_ChestCaughtWithABaitOfIcyAir(28, "Q028_ChestCaughtWithABaitOfIcyAir", "Chest Caught With A Bait Of Icy Air", "quests");
 	}
 
 	@Override

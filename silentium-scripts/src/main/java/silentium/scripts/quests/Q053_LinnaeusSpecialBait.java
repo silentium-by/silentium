@@ -40,7 +40,7 @@ public class Q053_LinnaeusSpecialBait extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q053_LinnaeusSpecialBait(53, "Q053_LinnaeusSpecialBait", "", "quests");
+		new Q053_LinnaeusSpecialBait(53, "Q053_LinnaeusSpecialBait", "Linnaeus Special Bait", "quests");
 	}
 
 	@Override

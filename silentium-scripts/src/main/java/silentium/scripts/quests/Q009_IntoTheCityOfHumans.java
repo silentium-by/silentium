@@ -33,7 +33,7 @@ public class Q009_IntoTheCityOfHumans extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q009_IntoTheCityOfHumans(9, "Q009_IntoTheCityOfHumans", "", "quests");
+		new Q009_IntoTheCityOfHumans(9, "Q009_IntoTheCityOfHumans", "Into The City Of Humans", "quests");
 	}
 
 	@Override

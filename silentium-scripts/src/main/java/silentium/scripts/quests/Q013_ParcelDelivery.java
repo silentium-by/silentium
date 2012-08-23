@@ -11,8 +11,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q013_ParcelDelivery extends Quest {
+public class Q013_ParcelDelivery extends Quest implements ScriptFile {
 	private static final String qn = "Q013_ParcelDelivery";
 
 	// NPCs
@@ -31,8 +32,8 @@ public class Q013_ParcelDelivery extends Quest {
 		addTalkId(FUNDIN, VULCAN);
 	}
 
-	public static void main(final String... args) {
-		new Q013_ParcelDelivery(13, "Q013_ParcelDelivery", "", "quests");
+	public static void onLoad() {
+		new Q013_ParcelDelivery(13, "Q013_ParcelDelivery", "Parcel Delivery", "quests");
 	}
 
 	@Override

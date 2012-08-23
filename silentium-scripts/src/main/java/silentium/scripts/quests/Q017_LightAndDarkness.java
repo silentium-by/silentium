@@ -11,8 +11,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q017_LightAndDarkness extends Quest {
+public class Q017_LightAndDarkness extends Quest implements ScriptFile {
 	private static final String qn = "Q017_LightAndDarkness";
 
 	// Items
@@ -34,8 +35,8 @@ public class Q017_LightAndDarkness extends Quest {
 		addTalkId(Hierarch, AltarOfSaints1, AltarOfSaints2, AltarOfSaints3, AltarOfSaints4);
 	}
 
-	public static void main(final String... args) {
-		new Q017_LightAndDarkness(17, "Q017_LightAndDarkness", "", "quests");
+	public static void onLoad() {
+		new Q017_LightAndDarkness(17, "Q017_LightAndDarkness", "Light And Darkness", "quests");
 	}
 
 	@Override

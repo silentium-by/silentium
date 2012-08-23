@@ -13,7 +13,7 @@ package silentium.scripts.quests;
 public class Q100_SagaOfTheMaestro extends SagasSuperClass {
 	private static final String name = "Q100_SagaOfTheMaestro";
 	private static final int scriptId = 100;
-	private static final String dname = "";
+	private static final String dname = "Saga Of The Maestro";
 	private static final String path = "quests";
 
 	public Q100_SagaOfTheMaestro() {

@@ -13,7 +13,7 @@ package silentium.scripts.quests;
 public class Q072_SagaOfTheSwordMuse extends SagasSuperClass {
 	private static final String name = "Q072_SagaOfTheSwordMuse";
 	private static final int scriptId = 72;
-	private static final String dname = "";
+	private static final String dname = "Saga Of The Sword Muse";
 	private static final String path = "quests";
 
 	public Q072_SagaOfTheSwordMuse() {

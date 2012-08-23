@@ -13,7 +13,7 @@ package silentium.scripts.quests;
 public class Q083_SagaOfTheMoonlightSentinel extends SagasSuperClass {
 	private static final String name = "Q083_SagaOfTheMoonlightSentinel";
 	private static final int scriptId = 83;
-	private static final String dname = "";
+	private static final String dname = "Saga Of The Moonlight Sentinel";
 	private static final String path = "quests";
 
 	public Q083_SagaOfTheMoonlightSentinel() {

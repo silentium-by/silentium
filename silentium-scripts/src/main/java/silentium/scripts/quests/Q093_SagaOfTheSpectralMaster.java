@@ -13,7 +13,7 @@ package silentium.scripts.quests;
 public class Q093_SagaOfTheSpectralMaster extends SagasSuperClass {
 	private static final String name = "Q093_SagaOfTheSpectralMaster";
 	private static final int scriptId = 93;
-	private static final String dname = "";
+	private static final String dname = "Saga Of The Spectral Master";
 	private static final String path = "quests";
 
 	public Q093_SagaOfTheSpectralMaster() {

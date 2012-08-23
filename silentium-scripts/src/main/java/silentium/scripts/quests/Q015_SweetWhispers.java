@@ -11,8 +11,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q015_SweetWhispers extends Quest {
+public class Q015_SweetWhispers extends Quest implements ScriptFile {
 	private static final String qn = "Q015_SweetWhispers";
 
 	// NPCs
@@ -27,8 +28,8 @@ public class Q015_SweetWhispers extends Quest {
 		addTalkId(Vladimir, Hierarch, MysteriousNecromancer);
 	}
 
-	public static void main(final String... args) {
-		new Q015_SweetWhispers(15, "Q015_SweetWhispers", "", "quests");
+	public static void onLoad() {
+		new Q015_SweetWhispers(15, "Q015_SweetWhispers", "Sweet Whispers", "quests");
 	}
 
 	@Override

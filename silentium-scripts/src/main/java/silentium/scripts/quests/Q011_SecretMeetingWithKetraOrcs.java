@@ -34,7 +34,7 @@ public class Q011_SecretMeetingWithKetraOrcs extends Quest implements ScriptFile
 	}
 
 	public static void onLoad() {
-		new Q011_SecretMeetingWithKetraOrcs(11, "Q011_SecretMeetingWithKetraOrcs", "", "quests");
+		new Q011_SecretMeetingWithKetraOrcs(11, "Q011_SecretMeetingWithKetraOrcs", "Secret Meeting With Ketra Orcs", "quests");
 	}
 
 	@Override

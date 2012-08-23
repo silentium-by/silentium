@@ -13,7 +13,7 @@ package silentium.scripts.quests;
 public class Q076_SagaOfTheGrandKhavatari extends SagasSuperClass {
 	private static final String name = "Q076_SagaOfTheGrandKhavatari";
 	private static final int scriptId = 76;
-	private static final String dname = "";
+	private static final String dname = "Saga Of The Grand Khavatari";
 	private static final String path = "quests";
 
 	public Q076_SagaOfTheGrandKhavatari() {

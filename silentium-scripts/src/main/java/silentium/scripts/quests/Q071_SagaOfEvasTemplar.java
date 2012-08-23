@@ -13,7 +13,7 @@ package silentium.scripts.quests;
 public class Q071_SagaOfEvasTemplar extends SagasSuperClass {
 	private static final String name = "Q071_SagaOfEvasTemplar";
 	private static final int scriptId = 71;
-	private static final String dname = "";
+	private static final String dname = "Saga Of Evas Templar";
 	private static final String path = "quests";
 
 	public Q071_SagaOfEvasTemplar() {

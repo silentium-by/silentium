@@ -11,8 +11,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q023_LidiasHeart extends Quest {
+public class Q023_LidiasHeart extends Quest implements ScriptFile {
 	private static final String qn = "Q023_LidiasHeart";
 
 	// NPCs
@@ -42,8 +43,8 @@ public class Q023_LidiasHeart extends Quest {
 		addTalkId(Innocentin, BrokenBookshelf, GhostofvonHellmann, Violet, Box, Tombstone);
 	}
 
-	public static void main(final String... args) {
-		new Q023_LidiasHeart(23, "Q023_LidiasHeart", "", "quests");
+	public static void onLoad() {
+		new Q023_LidiasHeart(23, "Q023_LidiasHeart", "Lidias Heart", "quests");
 	}
 
 	@Override

@@ -11,8 +11,9 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.quest.Quest;
 import silentium.gameserver.model.quest.QuestState;
+import silentium.gameserver.scripting.ScriptFile;
 
-public class Q012_SecretMeetingWithVarkaSilenos extends Quest {
+public class Q012_SecretMeetingWithVarkaSilenos extends Quest implements ScriptFile {
 	private static final String qn = "Q012_SecretMeetingWithVarkaSilenos";
 
 	// NPCs
@@ -32,8 +33,8 @@ public class Q012_SecretMeetingWithVarkaSilenos extends Quest {
 		addTalkId(CADMON, HELMUT, NARAN_ASHANUK);
 	}
 
-	public static void main(final String... args) {
-		new Q012_SecretMeetingWithVarkaSilenos(12, "Q012_SecretMeetingWithVarkaSilenos", "", "quests");
+	public static void onLoad() {
+		new Q012_SecretMeetingWithVarkaSilenos(12, "Q012_SecretMeetingWithVarkaSilenos", "Secret Meeting With Varka Silenos", "quests");
 	}
 
 	@Override

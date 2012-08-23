@@ -13,7 +13,7 @@ package silentium.scripts.quests;
 public class Q089_SagaOfTheMysticMuse extends SagasSuperClass {
 	private static final String name = "Q089_SagaOfTheMysticMuse";
 	private static final int scriptId = 89;
-	private static final String dname = "";
+	private static final String dname = "Saga Of The Mystic Muse";
 	private static final String path = "quests";
 
 	public Q089_SagaOfTheMysticMuse() {

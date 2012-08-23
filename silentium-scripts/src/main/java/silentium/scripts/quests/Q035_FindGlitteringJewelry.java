@@ -43,7 +43,7 @@ public class Q035_FindGlitteringJewelry extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q035_FindGlitteringJewelry(35, "Q035_FindGlitteringJewelry", "", "quests");
+		new Q035_FindGlitteringJewelry(35, "Q035_FindGlitteringJewelry", "Find Glittering Jewelry", "quests");
 	}
 
 	@Override

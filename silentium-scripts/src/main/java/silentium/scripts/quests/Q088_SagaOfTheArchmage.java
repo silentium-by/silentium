@@ -13,7 +13,7 @@ package silentium.scripts.quests;
 public class Q088_SagaOfTheArchmage extends SagasSuperClass {
 	private static final String name = "Q088_SagaOfTheArchmage";
 	private static final int scriptId = 88;
-	private static final String dname = "";
+	private static final String dname = "Saga Of The Archmage";
 	private static final String path = "quests";
 
 	public Q088_SagaOfTheArchmage() {

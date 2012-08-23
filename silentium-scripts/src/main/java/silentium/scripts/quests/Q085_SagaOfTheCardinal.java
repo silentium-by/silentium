@@ -13,7 +13,7 @@ package silentium.scripts.quests;
 public class Q085_SagaOfTheCardinal extends SagasSuperClass {
 	private static final String name = "Q085_SagaOfTheCardinal";
 	private static final int scriptId = 85;
-	private static final String dname = "";
+	private static final String dname = "Saga Of The Cardinal";
 	private static final String path = "quests";
 
 	public Q085_SagaOfTheCardinal() {

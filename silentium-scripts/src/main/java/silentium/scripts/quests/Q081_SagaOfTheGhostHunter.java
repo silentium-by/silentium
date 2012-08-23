@@ -13,7 +13,7 @@ package silentium.scripts.quests;
 public class Q081_SagaOfTheGhostHunter extends SagasSuperClass {
 	private static final String name = "Q081_SagaOfTheGhostHunter";
 	private static final int scriptId = 81;
-	private static final String dname = "";
+	private static final String dname = "Saga Of The Ghost Hunter";
 	private static final String path = "quests";
 
 	public Q081_SagaOfTheGhostHunter() {
