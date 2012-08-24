@@ -7,6 +7,7 @@
  */
 package silentium.tools.accountmanager;
 
+import silentium.commons.ServerType;
 import silentium.commons.configuration.PropertiesParser;
 import silentium.commons.crypt.Base64;
 import silentium.commons.database.DatabaseFactory;
@@ -33,7 +34,8 @@ public class SQLAccountManager {
 	private static String _mode = "";
 
 	public static void main(final String... args) throws SQLException, IOException, NoSuchAlgorithmException {
-        PropertiesParser.parse();
+		ServerType.SERVER_TYPE = ServerType.AUTHSERVER;
+		PropertiesParser.parse();
 		DatabaseFactory.init();
 
 		System.out.println("Please choose an option:");
