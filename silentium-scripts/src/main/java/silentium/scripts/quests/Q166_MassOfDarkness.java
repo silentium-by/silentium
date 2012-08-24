@@ -39,7 +39,7 @@ public class Q166_MassOfDarkness extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q166_MassOfDarkness(166, "Q166_MassOfDarkness", "", "quests");
+		new Q166_MassOfDarkness(166, "Q166_MassOfDarkness", "Mass Of Darkness", "quests");
 	}
 
 	@Override

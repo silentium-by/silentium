@@ -39,7 +39,7 @@ public class Q291_RevengeOfTheRedbonnet extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q291_RevengeOfTheRedbonnet(291, "Q291_RevengeOfTheRedbonnet", "", "quests");
+		new Q291_RevengeOfTheRedbonnet(291, "Q291_RevengeOfTheRedbonnet", "Revenge Of The Redbonnet", "quests");
 	}
 
 	@Override

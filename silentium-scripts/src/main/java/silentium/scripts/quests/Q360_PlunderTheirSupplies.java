@@ -37,7 +37,7 @@ public class Q360_PlunderTheirSupplies extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q360_PlunderTheirSupplies(360, "Q360_PlunderTheirSupplies", "", "quests");
+		new Q360_PlunderTheirSupplies(360, "Q360_PlunderTheirSupplies", "Plunder Their Supplies", "quests");
 	}
 
 	@Override

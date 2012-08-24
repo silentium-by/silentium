@@ -28,7 +28,7 @@ public class Q121_PavelTheGiant extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q121_PavelTheGiant(121, "Q121_PavelTheGiant", "", "quests");
+		new Q121_PavelTheGiant(121, "Q121_PavelTheGiant", "Pavel The Giant", "quests");
 	}
 
 	@Override

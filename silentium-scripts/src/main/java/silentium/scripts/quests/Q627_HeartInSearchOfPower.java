@@ -51,7 +51,7 @@ public class Q627_HeartInSearchOfPower extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q627_HeartInSearchOfPower(627, "Q627_HeartInSearchOfPower", "", "quests");
+		new Q627_HeartInSearchOfPower(627, "Q627_HeartInSearchOfPower", "Heart In Search Of Power", "quests");
 	}
 
 	@Override

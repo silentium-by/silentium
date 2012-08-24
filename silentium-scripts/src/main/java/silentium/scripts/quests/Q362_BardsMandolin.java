@@ -36,7 +36,7 @@ public class Q362_BardsMandolin extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q362_BardsMandolin(362, "Q362_BardsMandolin", "", "quests");
+		new Q362_BardsMandolin(362, "Q362_BardsMandolin", "Bards Mandolin", "quests");
 	}
 
 	@Override

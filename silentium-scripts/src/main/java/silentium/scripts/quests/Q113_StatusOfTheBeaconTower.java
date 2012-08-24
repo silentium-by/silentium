@@ -33,7 +33,7 @@ public class Q113_StatusOfTheBeaconTower extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q113_StatusOfTheBeaconTower(113, "Q113_StatusOfTheBeaconTower", "", "quests");
+		new Q113_StatusOfTheBeaconTower(113, "Q113_StatusOfTheBeaconTower", "Status Of The Beacon Tower", "quests");
 	}
 
 	@Override

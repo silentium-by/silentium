@@ -39,7 +39,7 @@ public class Q659_IdRatherBeCollectingFairyBreath extends Quest implements Scrip
 	}
 
 	public static void onLoad() {
-		new Q659_IdRatherBeCollectingFairyBreath(659, "Q659_IdRatherBeCollectingFairyBreath", "", "quests");
+		new Q659_IdRatherBeCollectingFairyBreath(659, "Q659_IdRatherBeCollectingFairyBreath", "Id Rather Be Collecting Fairy Breath", "quests");
 	}
 
 	@Override

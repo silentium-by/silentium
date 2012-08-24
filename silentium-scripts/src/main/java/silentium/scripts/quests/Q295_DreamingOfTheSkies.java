@@ -39,7 +39,7 @@ public class Q295_DreamingOfTheSkies extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q295_DreamingOfTheSkies(295, "Q295_DreamingOfTheSkies", "", "quests");
+		new Q295_DreamingOfTheSkies(295, "Q295_DreamingOfTheSkies", "Dreaming Of The Skies", "quests");
 	}
 
 	@Override

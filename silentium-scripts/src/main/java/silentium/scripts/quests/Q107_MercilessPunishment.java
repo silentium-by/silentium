@@ -44,7 +44,7 @@ public class Q107_MercilessPunishment extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q107_MercilessPunishment(-1, "Q107_MercilessPunishment", "", "quests");
+		new Q107_MercilessPunishment(-1, "Q107_MercilessPunishment", "Merciless Punishment", "quests");
 	}
 
 	@Override

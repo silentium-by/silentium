@@ -31,7 +31,7 @@ public class Q636_TruthBeyondTheGate extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q636_TruthBeyondTheGate(636, "Q636_TruthBeyondTheGate", "", "quests");
+		new Q636_TruthBeyondTheGate(636, "Q636_TruthBeyondTheGate", "Truth Beyond The Gate", "quests");
 	}
 
 	@Override

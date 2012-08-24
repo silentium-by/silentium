@@ -34,7 +34,7 @@ public class Q313_CollectSpores extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q313_CollectSpores(313, "Q313_CollectSpores", "", "quests");
+		new Q313_CollectSpores(313, "Q313_CollectSpores", "Collect Spores", "quests");
 	}
 
 	@Override

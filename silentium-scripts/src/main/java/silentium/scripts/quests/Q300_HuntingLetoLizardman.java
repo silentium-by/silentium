@@ -35,7 +35,7 @@ public class Q300_HuntingLetoLizardman extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q300_HuntingLetoLizardman(300, "Q300_HuntingLetoLizardman", "", "quests");
+		new Q300_HuntingLetoLizardman(300, "Q300_HuntingLetoLizardman", "Hunting Leto Lizardman", "quests");
 	}
 
 	@Override

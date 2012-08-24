@@ -40,7 +40,7 @@ public class Q351_BlackSwan extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q351_BlackSwan(351, "Q351_BlackSwan", "", "quests");
+		new Q351_BlackSwan(351, "Q351_BlackSwan", "Black Swan", "quests");
 	}
 
 	@Override

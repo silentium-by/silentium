@@ -39,7 +39,7 @@ public class Q642_APowerfulPrimevalCreature extends Quest implements ScriptFile 
 	}
 
 	public static void onLoad() {
-		new Q642_APowerfulPrimevalCreature(642, "Q642_APowerfulPrimevalCreature", "", "quests");
+		new Q642_APowerfulPrimevalCreature(642, "Q642_APowerfulPrimevalCreature", "A Powerful Primeval Creature", "quests");
 	}
 
 	@Override

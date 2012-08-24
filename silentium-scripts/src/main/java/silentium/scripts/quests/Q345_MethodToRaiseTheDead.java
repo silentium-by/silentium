@@ -50,7 +50,7 @@ public class Q345_MethodToRaiseTheDead extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q345_MethodToRaiseTheDead(345, "Q345_MethodToRaiseTheDead", "", "quests");
+		new Q345_MethodToRaiseTheDead(345, "Q345_MethodToRaiseTheDead", "Method To Raise The Dead", "quests");
 	}
 
 	@Override

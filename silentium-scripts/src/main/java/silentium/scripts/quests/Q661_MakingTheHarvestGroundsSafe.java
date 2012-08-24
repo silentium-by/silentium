@@ -45,7 +45,7 @@ public class Q661_MakingTheHarvestGroundsSafe extends Quest implements ScriptFil
 	}
 
 	public static void onLoad() {
-		new Q661_MakingTheHarvestGroundsSafe(661, "Q661_MakingTheHarvestGroundsSafe", "", "quests");
+		new Q661_MakingTheHarvestGroundsSafe(661, "Q661_MakingTheHarvestGroundsSafe", "Making The Harvest Grounds Safe", "quests");
 	}
 
 	@Override

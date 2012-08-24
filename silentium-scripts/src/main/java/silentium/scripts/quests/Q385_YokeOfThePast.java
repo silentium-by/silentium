@@ -88,7 +88,7 @@ public class Q385_YokeOfThePast extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q385_YokeOfThePast(385, "Q385_YokeOfThePast", "", "quests");
+		new Q385_YokeOfThePast(385, "Q385_YokeOfThePast", "Yoke Of The Past", "quests");
 	}
 
 	@Override

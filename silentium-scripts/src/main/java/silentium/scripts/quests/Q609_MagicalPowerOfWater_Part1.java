@@ -41,7 +41,7 @@ public class Q609_MagicalPowerOfWater_Part1 extends Quest implements ScriptFile 
 	}
 
 	public static void onLoad() {
-		new Q609_MagicalPowerOfWater_Part1(609, "Q609_MagicalPowerOfWater_Part1", "", "quests");
+		new Q609_MagicalPowerOfWater_Part1(609, "Q609_MagicalPowerOfWater_Part1", "Magical Power Of Water 1", "quests");
 	}
 
 	@Override

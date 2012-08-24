@@ -49,7 +49,7 @@ public class Q644_GraveRobberAnnihilation extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q644_GraveRobberAnnihilation(644, "Q644_GraveRobberAnnihilation", "", "quests");
+		new Q644_GraveRobberAnnihilation(644, "Q644_GraveRobberAnnihilation", "Grave Robber Annihilation", "quests");
 	}
 
 	@Override

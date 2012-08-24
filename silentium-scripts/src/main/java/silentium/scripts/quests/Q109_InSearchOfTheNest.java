@@ -39,7 +39,7 @@ public class Q109_InSearchOfTheNest extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q109_InSearchOfTheNest(109, "Q109_InSearchOfTheNest", "", "quests");
+		new Q109_InSearchOfTheNest(109, "Q109_InSearchOfTheNest", "In Search Of The Nest", "quests");
 	}
 
 	@Override

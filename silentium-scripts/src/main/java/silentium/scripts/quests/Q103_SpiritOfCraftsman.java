@@ -39,7 +39,7 @@ public class Q103_SpiritOfCraftsman extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q103_SpiritOfCraftsman(103, "Q103_SpiritOfCraftsman", "", "quests");
+		new Q103_SpiritOfCraftsman(103, "Q103_SpiritOfCraftsman", "Spirit Of Craftsman", "quests");
 	}
 
 	@Override

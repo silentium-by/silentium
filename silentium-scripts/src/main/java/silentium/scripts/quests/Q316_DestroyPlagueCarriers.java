@@ -38,7 +38,7 @@ public class Q316_DestroyPlagueCarriers extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q316_DestroyPlagueCarriers(316, "Q316_DestroyPlagueCarriers", "", "quests");
+		new Q316_DestroyPlagueCarriers(316, "Q316_DestroyPlagueCarriers", "Destroy Plague Carriers", "quests");
 	}
 
 	@Override

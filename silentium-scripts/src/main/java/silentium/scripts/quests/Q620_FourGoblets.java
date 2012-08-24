@@ -73,7 +73,7 @@ public class Q620_FourGoblets extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q620_FourGoblets(620, "Q620_FourGoblets", "", "quests");
+		new Q620_FourGoblets(620, "Q620_FourGoblets", "Four Goblets", "quests");
 	}
 
 	@Override

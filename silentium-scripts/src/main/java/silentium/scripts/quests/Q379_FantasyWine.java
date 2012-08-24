@@ -40,7 +40,7 @@ public class Q379_FantasyWine extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q379_FantasyWine(379, "Q379_FantasyWine", "", "quests");
+		new Q379_FantasyWine(379, "Q379_FantasyWine", "Fantasy Wine", "quests");
 	}
 
 	@Override

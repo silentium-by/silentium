@@ -41,7 +41,7 @@ public class Q163_LegacyOfThePoet extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q163_LegacyOfThePoet(163, "Q163_LegacyOfThePoet", "", "quests");
+		new Q163_LegacyOfThePoet(163, "Q163_LegacyOfThePoet", "Legacy Of The Poet", "quests");
 	}
 
 	@Override

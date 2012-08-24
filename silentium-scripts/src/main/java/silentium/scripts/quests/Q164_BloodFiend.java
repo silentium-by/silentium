@@ -34,7 +34,7 @@ public class Q164_BloodFiend extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q164_BloodFiend(164, "Q164_BloodFiend", "", "quests");
+		new Q164_BloodFiend(164, "Q164_BloodFiend", "Blood Fiend", "quests");
 	}
 
 	@Override

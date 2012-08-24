@@ -41,7 +41,7 @@ public class Q160_NerupasRequest extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q160_NerupasRequest(160, "Q160_NerupasRequest", "", "quests");
+		new Q160_NerupasRequest(160, "Q160_NerupasRequest", "Nerupas Request", "quests");
 	}
 
 	@Override

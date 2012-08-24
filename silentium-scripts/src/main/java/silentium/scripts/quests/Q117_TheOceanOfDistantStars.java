@@ -43,7 +43,7 @@ public class Q117_TheOceanOfDistantStars extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q117_TheOceanOfDistantStars(117, "Q117_TheOceanOfDistantStars", "", "quests");
+		new Q117_TheOceanOfDistantStars(117, "Q117_TheOceanOfDistantStars", "The Ocean Of Distant Stars", "quests");
 	}
 
 	@Override

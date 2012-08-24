@@ -37,7 +37,7 @@ public class Q328_SenseForBusiness extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q328_SenseForBusiness(328, "Q328_SenseForBusiness", "", "quests");
+		new Q328_SenseForBusiness(328, "Q328_SenseForBusiness", "Sense For Business", "quests");
 	}
 
 	@Override

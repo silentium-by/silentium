@@ -47,7 +47,7 @@ public class Q264_KeenClaws extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q264_KeenClaws(264, "Q264_KeenClaws", "", "quests");
+		new Q264_KeenClaws(264, "Q264_KeenClaws", "Keen Claws", "quests");
 	}
 
 	@Override

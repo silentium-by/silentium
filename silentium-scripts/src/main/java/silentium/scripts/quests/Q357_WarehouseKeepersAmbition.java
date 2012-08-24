@@ -39,7 +39,7 @@ public class Q357_WarehouseKeepersAmbition extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q357_WarehouseKeepersAmbition(357, "Q357_WarehouseKeepersAmbition", "", "quests");
+		new Q357_WarehouseKeepersAmbition(357, "Q357_WarehouseKeepersAmbition", "Warehouse Keepers Ambition", "quests");
 	}
 
 	@Override

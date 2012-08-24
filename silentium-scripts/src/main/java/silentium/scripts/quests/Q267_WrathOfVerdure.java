@@ -41,7 +41,7 @@ public class Q267_WrathOfVerdure extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q267_WrathOfVerdure(267, "Q267_WrathOfVerdure", "", "quests");
+		new Q267_WrathOfVerdure(267, "Q267_WrathOfVerdure", "Wrath Of Verdure", "quests");
 	}
 
 	@Override

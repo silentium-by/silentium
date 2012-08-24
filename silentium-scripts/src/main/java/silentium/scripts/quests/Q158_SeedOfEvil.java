@@ -40,7 +40,7 @@ public class Q158_SeedOfEvil extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q158_SeedOfEvil(158, "Q158_SeedOfEvil", "", "quests");
+		new Q158_SeedOfEvil(158, "Q158_SeedOfEvil", "Seed Of Evil", "quests");
 	}
 
 	@Override

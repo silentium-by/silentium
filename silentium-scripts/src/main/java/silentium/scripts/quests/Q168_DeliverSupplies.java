@@ -40,7 +40,7 @@ public class Q168_DeliverSupplies extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q168_DeliverSupplies(168, "Q168_DeliverSupplies", "", "quests");
+		new Q168_DeliverSupplies(168, "Q168_DeliverSupplies", "Deliver Supplies", "quests");
 	}
 
 	@Override

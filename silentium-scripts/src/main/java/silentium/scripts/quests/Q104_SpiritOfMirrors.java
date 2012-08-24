@@ -51,7 +51,7 @@ public class Q104_SpiritOfMirrors extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q104_SpiritOfMirrors(104, "Q104_SpiritOfMirrors", "", "quests");
+		new Q104_SpiritOfMirrors(104, "Q104_SpiritOfMirrors", "Spirit Of Mirrors", "quests");
 	}
 
 	@Override

@@ -44,7 +44,7 @@ public class Q260_HuntTheOrcs extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q260_HuntTheOrcs(260, "Q260_HuntTheOrcs", "", "quests");
+		new Q260_HuntTheOrcs(260, "Q260_HuntTheOrcs", "Hunt The Orcs", "quests");
 	}
 
 	@Override

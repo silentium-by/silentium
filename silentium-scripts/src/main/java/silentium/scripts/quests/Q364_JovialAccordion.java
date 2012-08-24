@@ -42,7 +42,7 @@ public class Q364_JovialAccordion extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q364_JovialAccordion(364, "Q364_JovialAccordion", "", "quests");
+		new Q364_JovialAccordion(364, "Q364_JovialAccordion", "Jovial Accordion", "quests");
 	}
 
 	@Override

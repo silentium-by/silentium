@@ -51,7 +51,7 @@ public class Q640_TheZeroHour extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q640_TheZeroHour(640, "Q640_TheZeroHour", "", "quests");
+		new Q640_TheZeroHour(640, "Q640_TheZeroHour", "The Zero Hour", "quests");
 	}
 
 	@Override

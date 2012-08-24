@@ -42,7 +42,7 @@ public class Q257_TheGuardIsBusy extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q257_TheGuardIsBusy(257, "Q257_TheGuardIsBusy", "", "quests");
+		new Q257_TheGuardIsBusy(257, "Q257_TheGuardIsBusy", "The Guard Is Busy", "quests");
 	}
 
 	@Override

@@ -34,7 +34,7 @@ public class Q329_CuriosityOfADwarf extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q329_CuriosityOfADwarf(329, "Q329_CuriosityOfADwarf", "", "quests");
+		new Q329_CuriosityOfADwarf(329, "Q329_CuriosityOfADwarf", "Curiosity Of A Dwarf", "quests");
 	}
 
 	@Override

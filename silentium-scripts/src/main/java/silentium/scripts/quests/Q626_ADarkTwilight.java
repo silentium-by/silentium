@@ -35,7 +35,7 @@ public class Q626_ADarkTwilight extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q626_ADarkTwilight(626, "Q626_ADarkTwilight", "", "quests");
+		new Q626_ADarkTwilight(626, "Q626_ADarkTwilight", "A Dark Twilight", "quests");
 	}
 
 	@Override

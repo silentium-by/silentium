@@ -41,7 +41,7 @@ public class Q271_ProofOfValor extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q271_ProofOfValor(271, "Q271_ProofOfValor", "", "quests");
+		new Q271_ProofOfValor(271, "Q271_ProofOfValor", "Proof Of Valor", "quests");
 	}
 
 	@Override

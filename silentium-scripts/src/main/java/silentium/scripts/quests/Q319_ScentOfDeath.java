@@ -34,7 +34,7 @@ public class Q319_ScentOfDeath extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q319_ScentOfDeath(319, "Q319_ScentOfDeath", "", "quests");
+		new Q319_ScentOfDeath(319, "Q319_ScentOfDeath", "Scent Of Death", "quests");
 	}
 
 	@Override

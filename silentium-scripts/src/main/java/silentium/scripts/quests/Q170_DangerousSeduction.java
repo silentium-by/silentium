@@ -37,7 +37,7 @@ public class Q170_DangerousSeduction extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q170_DangerousSeduction(170, "Q170_DangerousSeduction", "", "quests");
+		new Q170_DangerousSeduction(170, "Q170_DangerousSeduction", "Dangerous Seduction", "quests");
 	}
 
 	@Override

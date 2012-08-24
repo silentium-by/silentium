@@ -46,7 +46,7 @@ public class Q325_GrimCollector extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q325_GrimCollector(325, "Q325_GrimCollector", "", "quests");
+		new Q325_GrimCollector(325, "Q325_GrimCollector", "Grim Collector", "quests");
 	}
 
 	private int getNumberOfPieces(final QuestState st) {

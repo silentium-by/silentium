@@ -34,7 +34,7 @@ public class Q613_ProveYourCourage extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q613_ProveYourCourage(613, "Q613_ProveYourCourage", "", "quests");
+		new Q613_ProveYourCourage(613, "Q613_ProveYourCourage", "Prove Your Courage", "quests");
 	}
 
 	@Override

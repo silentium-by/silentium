@@ -44,7 +44,7 @@ public class Q621_EggDelivery extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q621_EggDelivery(621, "Q621_EggDelivery", "", "quests");
+		new Q621_EggDelivery(621, "Q621_EggDelivery", "Egg Delivery", "quests");
 	}
 
 	@Override

@@ -38,7 +38,7 @@ public class Q338_AlligatorHunter extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q338_AlligatorHunter(338, "Q338_AlligatorHunter", "", "quests");
+		new Q338_AlligatorHunter(338, "Q338_AlligatorHunter", "Alligator Hunter", "quests");
 	}
 
 	@Override

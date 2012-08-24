@@ -36,7 +36,7 @@ public class Q110_ToThePrimevalIsle extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q110_ToThePrimevalIsle(110, "Q110_ToThePrimevalIsle", "", "quests");
+		new Q110_ToThePrimevalIsle(110, "Q110_ToThePrimevalIsle", "To The Primeval Isle", "quests");
 	}
 
 	@Override

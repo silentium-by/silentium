@@ -32,7 +32,7 @@ public class Q320_BonesTellTheFuture extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q320_BonesTellTheFuture(320, "Q320_BonesTellTheFuture", "", "quests");
+		new Q320_BonesTellTheFuture(320, "Q320_BonesTellTheFuture", "Bones Tell The Future", "quests");
 	}
 
 	@Override

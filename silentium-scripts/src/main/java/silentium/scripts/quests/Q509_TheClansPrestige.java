@@ -57,7 +57,7 @@ public class Q509_TheClansPrestige extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q509_TheClansPrestige(509, "Q509_TheClansPrestige", "", "quests");
+		new Q509_TheClansPrestige(509, "Q509_TheClansPrestige", "The Clans Prestige", "quests");
 	}
 
 	@Override

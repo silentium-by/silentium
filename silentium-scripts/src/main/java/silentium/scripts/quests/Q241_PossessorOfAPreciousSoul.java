@@ -62,7 +62,7 @@ public class Q241_PossessorOfAPreciousSoul extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q241_PossessorOfAPreciousSoul(241, "Q241_PossessorOfAPreciousSoul", "", "quests");
+		new Q241_PossessorOfAPreciousSoul(241, "Q241_PossessorOfAPreciousSoul", "Possessor Of A Precious Soul 1", "quests");
 	}
 
 	@Override

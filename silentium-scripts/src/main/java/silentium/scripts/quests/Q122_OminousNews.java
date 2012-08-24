@@ -28,7 +28,7 @@ public class Q122_OminousNews extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q122_OminousNews(122, "Q122_OminousNews", "", "quests");
+		new Q122_OminousNews(122, "Q122_OminousNews", "Ominous News", "quests");
 	}
 
 	@Override

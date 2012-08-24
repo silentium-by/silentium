@@ -35,7 +35,7 @@ public class Q368_TrespassingIntoTheSacredArea extends Quest implements ScriptFi
 	}
 
 	public static void onLoad() {
-		new Q368_TrespassingIntoTheSacredArea(368, "Q368_TrespassingIntoTheSacredArea", "", "quests");
+		new Q368_TrespassingIntoTheSacredArea(368, "Q368_TrespassingIntoTheSacredArea", "Trespassing Into The Sacred Area", "quests");
 	}
 
 	@Override

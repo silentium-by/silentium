@@ -39,7 +39,7 @@ public class Q688_DefeatTheElrokianRaiders extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q688_DefeatTheElrokianRaiders(688, "Q688_DefeatTheElrokianRaiders", "", "quests");
+		new Q688_DefeatTheElrokianRaiders(688, "Q688_DefeatTheElrokianRaiders", "Defeat The Elrokian Raiders", "quests");
 	}
 
 	@Override

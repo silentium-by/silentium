@@ -34,7 +34,7 @@ public class Q432_BirthdayPartySong extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q432_BirthdayPartySong(432, "Q432_BirthdayPartySong", "", "quests");
+		new Q432_BirthdayPartySong(432, "Q432_BirthdayPartySong", "Birthday Party Song", "quests");
 	}
 
 	@Override

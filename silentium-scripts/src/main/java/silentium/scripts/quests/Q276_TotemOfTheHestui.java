@@ -38,7 +38,7 @@ public class Q276_TotemOfTheHestui extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q276_TotemOfTheHestui(276, "Q276_TotemOfTheHestui", "", "quests");
+		new Q276_TotemOfTheHestui(276, "Q276_TotemOfTheHestui", "Totem Of The Hestui", "quests");
 	}
 
 	@Override

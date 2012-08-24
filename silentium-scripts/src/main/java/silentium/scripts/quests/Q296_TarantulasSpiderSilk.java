@@ -44,7 +44,7 @@ public class Q296_TarantulasSpiderSilk extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q296_TarantulasSpiderSilk(296, "Q296_TarantulasSpiderSilk", "", "quests");
+		new Q296_TarantulasSpiderSilk(296, "Q296_TarantulasSpiderSilk", "Tarantulas Spider Silk", "quests");
 	}
 
 	@Override

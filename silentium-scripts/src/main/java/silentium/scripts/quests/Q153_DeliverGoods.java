@@ -45,7 +45,7 @@ public class Q153_DeliverGoods extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q153_DeliverGoods(153, "Q153_DeliverGoods", "", "quests");
+		new Q153_DeliverGoods(153, "Q153_DeliverGoods", "Deliver Goods", "quests");
 	}
 
 	@Override

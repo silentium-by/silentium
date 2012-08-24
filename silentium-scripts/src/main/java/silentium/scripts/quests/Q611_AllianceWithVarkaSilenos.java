@@ -96,7 +96,7 @@ public class Q611_AllianceWithVarkaSilenos extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q611_AllianceWithVarkaSilenos(611, "Q611_AllianceWithVarkaSilenos", "", "quests");
+		new Q611_AllianceWithVarkaSilenos(611, "Q611_AllianceWithVarkaSilenos", "Alliance With Varka Silenos", "quests");
 	}
 
 	@Override

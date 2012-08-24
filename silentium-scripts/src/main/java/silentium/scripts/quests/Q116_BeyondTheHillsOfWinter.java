@@ -39,7 +39,7 @@ public class Q116_BeyondTheHillsOfWinter extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q116_BeyondTheHillsOfWinter(116, "Q116_BeyondTheHillsOfWinter", "", "quests");
+		new Q116_BeyondTheHillsOfWinter(116, "Q116_BeyondTheHillsOfWinter", "Beyond The Hills Of Winter", "quests");
 	}
 
 	@Override

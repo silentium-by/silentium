@@ -41,7 +41,7 @@ public class Q651_RunawayYouth extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q651_RunawayYouth(651, "Q651_RunawayYouth", "", "quests");
+		new Q651_RunawayYouth(651, "Q651_RunawayYouth", "Runaway Youth", "quests");
 	}
 
 	@Override

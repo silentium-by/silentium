@@ -42,7 +42,7 @@ public class Q299_GatherIngredientsForPie extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q299_GatherIngredientsForPie(299, "Q299_GatherIngredientsForPie", "", "quests");
+		new Q299_GatherIngredientsForPie(299, "Q299_GatherIngredientsForPie", "Gather Ingredients For Pie", "quests");
 	}
 
 	@Override

@@ -33,7 +33,7 @@ public class Q612_WarWithKetraOrcs extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q612_WarWithKetraOrcs(612, "Q612_WarWithKetraOrcs", "", "quests");
+		new Q612_WarWithKetraOrcs(612, "Q612_WarWithKetraOrcs", "War With Ketra Orcs", "quests");
 	}
 
 	@Override

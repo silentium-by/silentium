@@ -36,7 +36,7 @@ public class Q352_HelpRoodRaiseANewPet extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q352_HelpRoodRaiseANewPet(352, "Q352_HelpRoodRaiseANewPet", "", "quests");
+		new Q352_HelpRoodRaiseANewPet(352, "Q352_HelpRoodRaiseANewPet", "Help Rood Raise A New Pet", "quests");
 	}
 
 	@Override

@@ -34,7 +34,7 @@ public class Q303_CollectArrowheads extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q303_CollectArrowheads(303, "Q303_CollectArrowheads", "", "quests");
+		new Q303_CollectArrowheads(303, "Q303_CollectArrowheads", "Collect Arrowheads", "quests");
 	}
 
 	@Override

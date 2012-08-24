@@ -78,7 +78,7 @@ public class Q617_GatherTheFlames extends Quest implements ScriptFile {
 	}
 
 	public static void onLoad() {
-		new Q617_GatherTheFlames(617, "Q617_GatherTheFlames", "", "quests");
+		new Q617_GatherTheFlames(617, "Q617_GatherTheFlames", "Gather The Flames", "quests");
 	}
 
 	@Override
