@@ -266,9 +266,12 @@ public class GameServer {
 		final File logFolder = new File("./log");
 		logFolder.mkdir();
 
-		Util.printSection("L2J");
+		Util.printSection("Main");
+		_log.info("Developers: Silentium");
+		_log.info("https://silentium.by");
 
-		// Initialize config
+
+		Util.printSection("Configuration");
 		ConfigEngine.init();
 
 		// Factories

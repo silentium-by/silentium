@@ -7,11 +7,9 @@
  */
 package silentium.gameserver.network.clientpackets;
 
-import silentium.gameserver.configs.CustomConfig;
 import silentium.gameserver.configs.MainConfig;
 import silentium.gameserver.network.serverpackets.KeyPacket;
 import silentium.gameserver.network.serverpackets.L2GameServerPacket;
-import silentium.gameserver.network.serverpackets.SendStatus;
 
 public final class ProtocolVersion extends L2GameClientPacket
 {
@@ -26,14 +24,8 @@ public final class ProtocolVersion extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-		if (_version == 65534 || _version == -2)
+		if (_version == -2)
 			getClient().close((L2GameServerPacket) null);
-		else if (_version == 65533 || _version == -3) // RWHO
-		{
-			if (CustomConfig.RWHO_LOG)
-				log.info(getClient().toString() + " RWHO received");
-			getClient().getConnection().close(new SendStatus());
-		}
 		else if (_version < MainConfig.MIN_PROTOCOL_REVISION || _version > MainConfig.MAX_PROTOCOL_REVISION)
 		{
 			log.warn("Client: " + getClient().toString() + " -> Protocol Revision: " + _version + " is invalid. Minimum and maximum allowed are: " + MainConfig.MIN_PROTOCOL_REVISION + " and " + MainConfig.MAX_PROTOCOL_REVISION + ". Closing connection.");

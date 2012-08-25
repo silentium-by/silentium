@@ -32,7 +32,6 @@ public class ConfigEngine
 		PropertiesParser.parse();
 		log.info("Initialize config system...");
 		ChatFilterConfig.load();
-		CustomConfig.load();
 		EventsConfig.load();
 		FProtectorConfig.load();
 		HexidConfig.load();
