@@ -7,77 +7,78 @@
  */
 package silentium.gameserver.configs;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.util.Properties;
-import java.util.Random;
+import silentium.commons.configuration.annotations.PropertiesFile;
+import silentium.commons.configuration.annotations.Property;
 
-public final class CustomConfig extends ConfigEngine
+@PropertiesFile(propertiesPatch = "./config/custom.properties")
+public final class CustomConfig
 {
+	@Property(key = "UnlimitedPetShots", defaultValue = "False")
 	public static boolean UNLIM_SHOTS;
+	
+	@Property(key = "UnlimitedCharacterShots", defaultValue = "False")
 	public static boolean UNLIM_SSHOTS;
+	
+	@Property(key = "StartSubclassLevel", defaultValue = "40")
 	public static int START_SUBCLASS_LEVEL;
+	
+	@Property(key = "AnnounceBanChat", defaultValue = "False")
 	public static boolean ANNOUNCE_BAN_CHAT;
+	
+	@Property(key = "AnnounceUnbanChat", defaultValue = "False")
 	public static boolean ANNOUNCE_UNBAN_CHAT;
+	
+	@Property(key = "AnnounceBanAccount", defaultValue = "False")
 	public static boolean ANNOUNCE_BAN_ACC;
+	
+	@Property(key = "AnnounceUnbanAccount", defaultValue = "False")
 	public static boolean ANNOUNCE_UNBAN_ACC;
+	
+	@Property(key = "AnnounceJail", defaultValue = "False")
 	public static boolean ANNOUNCE_JAIL;
+	
+	@Property(key = "AnnounceUnjail", defaultValue = "False")
 	public static boolean ANNOUNCE_UNJAIL;
+	
+	@Property(key = "UsePremiumServices", defaultValue = "False")
 	public static boolean USE_PREMIUMSERVICE;
+	
+	@Property(key = "PremiumRateXp", defaultValue = "2")
 	public static float PREMIUM_RATE_XP;
+	
+	@Property(key = "PremiumRateSp", defaultValue = "2")
 	public static float PREMIUM_RATE_SP;
+	
+	@Property(key = "PremiumRateDropSpoil", defaultValue = "2")
 	public static float PREMIUM_RATE_DROP_SPOIL;
+	
+	@Property(key = "PremiumRateDropItems", defaultValue = "2")
 	public static float PREMIUM_RATE_DROP_ITEMS;
+	
+	@Property(key = "PremiumRateDropQuest", defaultValue = "2")
 	public static float PREMIUM_RATE_DROP_QUEST;
+	
+	@Property(key = "PremiumRateRaidDropItems", defaultValue = "2")
 	public static float PREMIUM_RATE_DROP_ITEMS_BY_RAID;
+	
+	@Property(key = "PremiumRateDropAdena", defaultValue = "2")
 	public static float PREMIUM_RATE_DROP_ADENA;
+	
+	@Property(key = "CustomSpawn", defaultValue = "False")
 	public static boolean SPAWN_CHAR;
+	
+	@Property(key = "SpawnX", defaultValue = "")
 	public static int SPAWN_X;
+	
+	@Property(key = "SpawnY", defaultValue = "")
 	public static int SPAWN_Y;
+	
+	@Property(key = "SpawnZ", defaultValue = "")
 	public static int SPAWN_Z;
+	
+	@Property(key = "UseChatFilter", defaultValue = "False")
 	public static boolean USE_SAY_FILTER;
+	
+	@Property(key = "ChatFilterChars", defaultValue = "[censored]")
 	public static String CHAT_FILTER_CHARS;
-
-	public static void load()
-	{
-		try (InputStream is = new FileInputStream(CUSTOM_FILE))
-		{
-			Properties custom = new Properties();
-			custom.load(is);
-			is.close();
-
-			UNLIM_SHOTS = Boolean.parseBoolean(custom.getProperty("UnlimitedPetShots", "False"));
-			UNLIM_SSHOTS = Boolean.parseBoolean(custom.getProperty("UnlimitedCharacterShots", "False"));
-
-			START_SUBCLASS_LEVEL = Integer.parseInt(custom.getProperty("StartSubclassLevel", "40"));
-
-			ANNOUNCE_BAN_CHAT = Boolean.parseBoolean(custom.getProperty("AnnounceBanChat", "false"));
-			ANNOUNCE_UNBAN_CHAT = Boolean.parseBoolean(custom.getProperty("AnnounceUnbanChat", "false"));
-			ANNOUNCE_BAN_ACC = Boolean.parseBoolean(custom.getProperty("AnnounceBanAccount", "false"));
-			ANNOUNCE_UNBAN_ACC = Boolean.parseBoolean(custom.getProperty("AnnounceUnbanAccount", "false"));
-			ANNOUNCE_JAIL = Boolean.parseBoolean(custom.getProperty("AnnounceJail", "false"));
-			ANNOUNCE_UNJAIL = Boolean.parseBoolean(custom.getProperty("AnnounceUnjail", "false"));
-
-			USE_PREMIUMSERVICE = Boolean.parseBoolean(custom.getProperty("UsePremiumServices", "False"));
-			PREMIUM_RATE_XP = Float.parseFloat(custom.getProperty("PremiumRateXp", "2"));
-			PREMIUM_RATE_SP = Float.parseFloat(custom.getProperty("PremiumRateSp", "2"));
-			PREMIUM_RATE_DROP_SPOIL = Float.parseFloat(custom.getProperty("PremiumRateDropSpoil", "2"));
-			PREMIUM_RATE_DROP_ITEMS = Float.parseFloat(custom.getProperty("PremiumRateDropItems", "2"));
-			PREMIUM_RATE_DROP_QUEST = Float.parseFloat(custom.getProperty("PremiumRateDropQuest", "2"));
-			PREMIUM_RATE_DROP_ITEMS_BY_RAID = Float.parseFloat(custom.getProperty("PremiumRateRaidDropItems", "2"));
-			PREMIUM_RATE_DROP_ADENA = Float.parseFloat(custom.getProperty("PremiumRateDropAdena", "2"));
-
-			SPAWN_CHAR = Boolean.parseBoolean(custom.getProperty("CustomSpawn", "false"));
-			SPAWN_X = Integer.parseInt(custom.getProperty("SpawnX", ""));
-			SPAWN_Y = Integer.parseInt(custom.getProperty("SpawnY", ""));
-			SPAWN_Z = Integer.parseInt(custom.getProperty("SpawnZ", ""));
-
-			USE_SAY_FILTER = Boolean.parseBoolean(custom.getProperty("UseChatFilter", "False"));
-			CHAT_FILTER_CHARS = custom.getProperty("ChatFilterChars", "[censored]");
-		}
-		catch (Exception e)
-		{
-			log.warn("Server failed to load " + CUSTOM_FILE + " file.");
-		}
-	}
 }

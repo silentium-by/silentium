@@ -11,7 +11,7 @@ import silentium.commons.configuration.annotations.PropertiesFile;
 import silentium.commons.configuration.annotations.Property;
 
 @PropertiesFile(propertiesPatch = "./config/clans.properties")
-public final class ClansConfig extends ConfigEngine
+public final class ClansConfig
 {
 	@Property(key = "AltManorSaveAllActions", defaultValue = "False")
 	public static boolean ALT_MANOR_SAVE_ALL_ACTIONS;
