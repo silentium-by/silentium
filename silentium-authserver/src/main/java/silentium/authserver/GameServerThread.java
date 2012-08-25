@@ -225,6 +225,7 @@ public class GameServerThread extends Thread {
 	private void onReceiveServerStatus(final byte... data) {
 		if (isAuthed()) {
 			_log.debug("ServerStatus received");
+			ServerStatus ss = new ServerStatus(data, getServerId());
 		} else
 			forceClose(LoginServerFail.NOT_AUTHED);
 	}
