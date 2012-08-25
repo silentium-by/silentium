@@ -37,14 +37,6 @@ public final class CustomConfig extends ConfigEngine
 	public static int SPAWN_Z;
 	public static boolean USE_SAY_FILTER;
 	public static String CHAT_FILTER_CHARS;
-	public static boolean RWHO_LOG;
-	public static int RWHO_FORCE_INC;
-	public static int RWHO_KEEP_STAT;
-	public static int RWHO_MAX_ONLINE;
-	public static boolean RWHO_SEND_TRASH;
-	public static int RWHO_ONLINE_INCREMENT;
-	public static float RWHO_PRIV_STORE_FACTOR;
-	public static int RWHO_ARRAY[] = new int[13];
 
 	public static void load()
 	{
@@ -82,32 +74,6 @@ public final class CustomConfig extends ConfigEngine
 
 			USE_SAY_FILTER = Boolean.parseBoolean(custom.getProperty("UseChatFilter", "False"));
 			CHAT_FILTER_CHARS = custom.getProperty("ChatFilterChars", "[censored]");
-
-			Random ppc = new Random();
-			int z = ppc.nextInt(6);
-			if (z == 0)
-				z += 2;
-			for (int x = 0; x < 8; x++)
-			{
-				if (x == 4)
-					RWHO_ARRAY[x] = 44;
-				else
-					RWHO_ARRAY[x] = 51 + ppc.nextInt(z);
-			}
-			RWHO_ARRAY[11] = 37265 + ppc.nextInt(z * 2 + 3);
-			RWHO_ARRAY[8] = 51 + ppc.nextInt(z);
-			z = 36224 + ppc.nextInt(z * 2);
-			RWHO_ARRAY[9] = z;
-			RWHO_ARRAY[10] = z;
-			RWHO_ARRAY[12] = 1;
-			RWHO_LOG = Boolean.parseBoolean(custom.getProperty("RemoteWhoLog", "False"));
-			RWHO_SEND_TRASH = Boolean.parseBoolean(custom.getProperty("RemoteWhoSendTrash", "False"));
-			RWHO_MAX_ONLINE = Integer.parseInt(custom.getProperty("RemoteWhoMaxOnline", "0"));
-			RWHO_KEEP_STAT = Integer.parseInt(custom.getProperty("RemoteOnlineKeepStat", "5"));
-			RWHO_ONLINE_INCREMENT = Integer.parseInt(custom.getProperty("RemoteOnlineIncrement", "0"));
-			RWHO_PRIV_STORE_FACTOR = Float.parseFloat(custom.getProperty("RemotePrivStoreFactor", "0"));
-			RWHO_FORCE_INC = Integer.parseInt(custom.getProperty("RemoteWhoForceInc", "0"));
-
 		}
 		catch (Exception e)
 		{
