@@ -7,34 +7,35 @@
  */
 package silentium.authserver.network.gameserverpackets;
 
-import javolution.util.FastList;
+import silentium.authserver.GameServerTable;
+import silentium.authserver.GameServerThread;
+import silentium.authserver.configs.MainConfig;
 import silentium.authserver.network.clientpackets.ClientBasePacket;
 
-import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author -Wooden-
+ * @rework Ashe
  */
 public class PlayerInGame extends ClientBasePacket {
-	private final List<String> _accounts;
+	protected static final Logger _log = LoggerFactory.getLogger(PlayerInGame.class.getName());
 
 	/**
 	 * @param decrypt
+	 * @param server
 	 */
-	public PlayerInGame(final byte... decrypt) {
+	public PlayerInGame(byte[] decrypt, GameServerThread server) {
 		super(decrypt);
-		_accounts = new FastList<>();
-		final int size = readH();
+		int size = readH();
 		for (int i = 0; i < size; i++) {
-			_accounts.add(readS());
+			String account = readS();
+			server.addAccountOnGameServer(account);
+			if (MainConfig.PACKET_HANDLER_DEBUG) {
+				_log.info("Account " + account + " logged in GameServer: [" + server.getServerId() + "] " + GameServerTable.getInstance().getServerNameById(server.getServerId()));
+			}
 		}
-	}
-
-	/**
-	 * @return Returns the accounts.
-	 */
-	public List<String> getAccounts() {
-		return _accounts;
 	}
 
 }

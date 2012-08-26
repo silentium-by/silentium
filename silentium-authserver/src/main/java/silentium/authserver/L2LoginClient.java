@@ -7,9 +7,14 @@
  */
 package silentium.authserver;
 
+import java.io.IOException;
+import java.net.InetAddress;
+import java.nio.ByteBuffer;
+import java.security.interfaces.RSAPrivateKey;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import silentium.authserver.configs.MainConfig;
+
 import silentium.authserver.network.serverpackets.L2LoginServerPacket;
 import silentium.authserver.network.serverpackets.LoginFail;
 import silentium.authserver.network.serverpackets.LoginFail.LoginFailReason;
@@ -21,11 +26,6 @@ import silentium.commons.network.mmocore.MMOClient;
 import silentium.commons.network.mmocore.MMOConnection;
 import silentium.commons.network.mmocore.SendablePacket;
 import silentium.commons.utils.Rnd;
-
-import java.io.IOException;
-import java.net.InetAddress;
-import java.nio.ByteBuffer;
-import java.security.interfaces.RSAPrivateKey;
 
 /**
  * Represents a client connected into the LoginServer

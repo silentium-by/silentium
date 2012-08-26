@@ -7,37 +7,30 @@
  */
 package silentium.authserver.network.gameserverpackets;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import silentium.authserver.GameServerThread;
+import silentium.authserver.LoginController;
 import silentium.authserver.network.clientpackets.ClientBasePacket;
 
 /**
  * @author -Wooden-
+ * @rework Ashe
  */
 public class ChangeAccessLevel extends ClientBasePacket {
-
-	private final int _level;
-	private final String _account;
+	protected static final Logger _log = LoggerFactory.getLogger(ChangeAccessLevel.class.getName());
 
 	/**
 	 * @param decrypt
+	 * @param server
 	 */
-	public ChangeAccessLevel(final byte... decrypt) {
+	public ChangeAccessLevel(final byte[] decrypt, GameServerThread server)
+	{
 		super(decrypt);
-		_level = readD();
-		_account = readS();
+		int level = readD();
+		String account = readS();
+		LoginController.getInstance().setAccountAccessLevel(account, level);
+		_log.info("Changed " + account + " access level to " + level);
 	}
-
-	/**
-	 * @return Returns the account.
-	 */
-	public String getAccount() {
-		return _account;
-	}
-
-	/**
-	 * @return Returns the level.
-	 */
-	public int getLevel() {
-		return _level;
-	}
-
 }

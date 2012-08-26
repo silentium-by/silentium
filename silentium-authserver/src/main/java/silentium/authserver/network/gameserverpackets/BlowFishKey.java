@@ -7,55 +7,52 @@
  */
 package silentium.authserver.network.gameserverpackets;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import silentium.authserver.network.clientpackets.ClientBasePacket;
+import java.security.GeneralSecurityException;
 
 import javax.crypto.Cipher;
-import java.security.GeneralSecurityException;
-import java.security.interfaces.RSAPrivateKey;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import silentium.authserver.GameServerThread;
+import silentium.authserver.network.GameServerPacketHandler.GameServerState;
+import silentium.authserver.network.clientpackets.ClientBasePacket;
+import silentium.commons.crypt.NewCrypt;
 
 /**
  * @author -Wooden-
+ * @reworked Ashe
  */
 public class BlowFishKey extends ClientBasePacket {
-	byte[] _key;
 	protected static final Logger _log = LoggerFactory.getLogger(BlowFishKey.class.getName());
 
 	/**
 	 * @param decrypt
-	 * @param privateKey
+	 * @param server
 	 */
-	public BlowFishKey(final byte[] decrypt, final RSAPrivateKey privateKey) {
+	public BlowFishKey(final byte[] decrypt, final GameServerThread server) {
 		super(decrypt);
-		final int size = readD();
-		final byte[] tempKey = readB(size);
+		int size = readD();
+		byte[] tempKey = readB(size);
 		try {
-			final byte[] tempDecryptKey;
-			final Cipher rsaCipher = Cipher.getInstance("RSA/ECB/nopadding");
-			rsaCipher.init(Cipher.DECRYPT_MODE, privateKey);
+			byte[] tempDecryptKey;
+			Cipher rsaCipher = Cipher.getInstance("RSA/ECB/nopadding");
+			rsaCipher.init(Cipher.DECRYPT_MODE, server.getPrivateKey());
 			tempDecryptKey = rsaCipher.doFinal(tempKey);
 			// there are nulls before the key we must remove them
 			int i = 0;
-			final int len = tempDecryptKey.length;
+			int len = tempDecryptKey.length;
 			for (; i < len; i++) {
-				if (tempDecryptKey[i] != 0)
+				if (tempDecryptKey[i] != 0) {
 					break;
+				}
 			}
-			_key = new byte[len - i];
-			System.arraycopy(tempDecryptKey, i, _key, 0, len - i);
+			byte[] key = new byte[len - i];
+			System.arraycopy(tempDecryptKey, i, key, 0, len - i);
+			server.SetBlowFish(new NewCrypt(key));
+			server.setLoginConnectionState(GameServerState.BF_CONNECTED);
 		} catch (GeneralSecurityException e) {
-			_log.error("Error While decrypting blowfish key (RSA)");
-			e.printStackTrace();
+			_log.error("Error While decrypting blowfish key (RSA): "+ e.getMessage(), e);
 		}
-		/*
-		 * catch(IOException ioe) { //TODO: manage }
-		 */
-
 	}
-
-	public byte[] getKey() {
-		return _key;
-	}
-
 }

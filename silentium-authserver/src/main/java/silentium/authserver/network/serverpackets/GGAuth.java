@@ -9,7 +9,6 @@ package silentium.authserver.network.serverpackets;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import silentium.authserver.configs.MainConfig;
 
 /**
  * Fromat: d d: response

@@ -11,10 +11,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import silentium.authserver.GameServerTable;
 import silentium.authserver.GameServerTable.GameServerInfo;
+import silentium.authserver.GameServerThread;
 import silentium.authserver.network.clientpackets.ClientBasePacket;
 
 /**
  * @author -Wooden-
+ * @rework Ashe
  */
 public class ServerStatus extends ClientBasePacket {
 	protected static Logger _log = LoggerFactory.getLogger(ServerStatus.class.getName());
@@ -37,31 +39,30 @@ public class ServerStatus extends ClientBasePacket {
 	public static final int ON = 0x01;
 	public static final int OFF = 0x00;
 
-	public ServerStatus(final byte[] decrypt, final int serverId) {
+	public ServerStatus(final byte[] decrypt, final GameServerThread server) {
 		super(decrypt);
-
-		final GameServerInfo gsi = GameServerTable.getInstance().getRegisteredGameServerById(serverId);
+		final GameServerInfo gsi = GameServerTable.getInstance().getRegisteredGameServerById(server.getServerId());
 		if (gsi != null) {
 			final int size = readD();
 			for (int i = 0; i < size; i++) {
 				final int type = readD();
 				final int value = readD();
 				switch (type) {
-					case SERVER_LIST_STATUS:
-						gsi.setStatus(value);
-						break;
-					case SERVER_LIST_CLOCK:
-						gsi.setShowingClock(value == ON);
-						break;
-					case SERVER_LIST_SQUARE_BRACKET:
-						gsi.setShowingBrackets(value == ON);
-						break;
-					case TEST_SERVER:
-						gsi.setTestServer(value == ON);
-						break;
-					case MAX_PLAYERS:
-						gsi.setMaxPlayers(value);
-						break;
+				case SERVER_LIST_STATUS:
+					gsi.setStatus(value);
+					break;
+				case SERVER_LIST_CLOCK:
+					gsi.setShowingClock(value == ON);
+					break;
+				case SERVER_LIST_SQUARE_BRACKET:
+					gsi.setShowingBrackets(value == ON);
+					break;
+				case TEST_SERVER:
+					gsi.setTestServer(value == ON);
+					break;
+				case MAX_PLAYERS:
+					gsi.setMaxPlayers(value);
+					break;
 				}
 			}
 		}

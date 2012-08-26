@@ -7,16 +7,6 @@
  */
 package silentium.authserver;
 
-import javolution.io.UTF8StreamReader;
-import javolution.util.FastMap;
-import javolution.xml.stream.XMLStreamConstants;
-import javolution.xml.stream.XMLStreamReaderImpl;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import silentium.authserver.network.gameserverpackets.ServerStatus;
-import silentium.commons.database.DatabaseFactory;
-import silentium.commons.utils.Rnd;
-
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -28,8 +18,21 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import javolution.io.UTF8StreamReader;
+import javolution.util.FastMap;
+import javolution.xml.stream.XMLStreamConstants;
+import javolution.xml.stream.XMLStreamReaderImpl;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import silentium.authserver.network.gameserverpackets.ServerStatus;
+import silentium.commons.database.DatabaseFactory;
+import silentium.commons.utils.Rnd;
 
 /**
  * @author KenM
@@ -70,12 +73,13 @@ public class GameServerTable {
 			_log.error(getClass().getSimpleName() + ": Error loading RSA keys for Game Server communication!", e);
 		}
 	}
-
+	
 	private static void loadServerNames() {
-		try (InputStream in = new FileInputStream("./config/servername.xml"); InputStream bis =
-				new BufferedInputStream(in)) {
+		try (InputStream in = new FileInputStream("./config/servername.xml");
+				InputStream bis = new BufferedInputStream(in);
+				UTF8StreamReader utf8 = new UTF8StreamReader()) {
 			final XMLStreamReaderImpl xpp = new XMLStreamReaderImpl();
-			xpp.setInput(new UTF8StreamReader().setInput(bis));
+			xpp.setInput(utf8.setInput(bis));
 			for (int e = xpp.getEventType(); e != XMLStreamConstants.END_DOCUMENT; e = xpp.next()) {
 				if (e == XMLStreamConstants.START_ELEMENT) {
 					if ("server".equals(xpp.getLocalName().toString())) {
@@ -92,17 +96,15 @@ public class GameServerTable {
 	}
 
 	private void loadRegisteredGameServers() {
-		try (Connection con = DatabaseFactory.getConnection()) {
-			final PreparedStatement statement = con.prepareStatement("SELECT * FROM gameservers");
-			final ResultSet rset = statement.executeQuery();
+		try (Connection con = DatabaseFactory.getConnection();
+				final Statement statement = con.createStatement();
+				final ResultSet rset = statement.executeQuery("SELECT * FROM gameservers")) {
 
 			int id;
 			while (rset.next()) {
 				id = rset.getInt("server_id");
 				_gameServerTable.put(id, new GameServerInfo(id, stringToHex(rset.getString("hexid"))));
 			}
-			rset.close();
-			statement.close();
 		} catch (Exception e) {
 			_log.error(getClass().getSimpleName() + ": Error loading registered game servers!", e);
 		}
@@ -151,13 +153,12 @@ public class GameServerTable {
 	}
 
 	public void registerServerOnDB(final byte[] hexId, final int id, final String externalHost) {
-		try (Connection con = DatabaseFactory.getConnection()) {
-			final PreparedStatement statement = con.prepareStatement("INSERT INTO gameservers (hexid,server_id,host) values (?,?,?)");
+		try (Connection con = DatabaseFactory.getConnection();
+				final PreparedStatement statement = con.prepareStatement("INSERT INTO gameservers (hexid,server_id,host) values (?,?,?)");) {
 			statement.setString(1, hexToString(hexId));
 			statement.setInt(2, id);
 			statement.setString(3, externalHost);
 			statement.executeUpdate();
-			statement.close();
 		} catch (SQLException e) {
 			_log.warn("SQL error while saving gameserver: " + e);
 		}

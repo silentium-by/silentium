@@ -16,7 +16,7 @@ import java.io.IOException;
  * @version $Revision: 1.2.4.1 $ $Date: 2005/03/27 15:30:11 $
  */
 public abstract class ServerBasePacket {
-	ByteArrayOutputStream _bao;
+	private final ByteArrayOutputStream _bao;
 
 	protected ServerBasePacket() {
 		_bao = new ByteArrayOutputStream();

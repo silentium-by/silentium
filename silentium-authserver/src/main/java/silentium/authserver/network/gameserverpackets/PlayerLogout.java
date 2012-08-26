@@ -7,28 +7,32 @@
  */
 package silentium.authserver.network.gameserverpackets;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import silentium.authserver.GameServerTable;
+import silentium.authserver.GameServerThread;
+import silentium.authserver.configs.MainConfig;
 import silentium.authserver.network.clientpackets.ClientBasePacket;
 
 /**
  * @author -Wooden-
  */
 public class PlayerLogout extends ClientBasePacket {
-
-	private final String _account;
+	protected static final Logger _log = LoggerFactory.getLogger(PlayerLogout.class.getName());
 
 	/**
 	 * @param decrypt
+	 * @param server
 	 */
-	public PlayerLogout(final byte... decrypt) {
+	public PlayerLogout(final byte[] decrypt, GameServerThread server)
+	{
 		super(decrypt);
-		_account = readS();
+		String account = readS();
+		server.removeAccountOnGameServer(account);
+		if (MainConfig.PACKET_HANDLER_DEBUG)
+		{
+			_log.info("Player " + account + " logged out from gameserver [" + server.getServerId() + "] " + GameServerTable.getInstance().getServerNameById(server.getServerId()));
+		}
 	}
-
-	/**
-	 * @return Returns the account.
-	 */
-	public String getAccount() {
-		return _account;
-	}
-
 }
