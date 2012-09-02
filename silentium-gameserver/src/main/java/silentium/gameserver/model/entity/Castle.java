@@ -466,27 +466,25 @@ public class Castle
 	 */
 	public void spawnDoor(boolean isDoorWeak)
 	{
-		for (int i = 0; i < getDoors().size(); i++)
+		for (L2DoorInstance door : _doors)
 		{
-			L2DoorInstance door = getDoors().get(i);
-			int doorId = door.getDoorId();
-
-			if (door.getCurrentHp() <= 0)
+			if (door.isDead())
 			{
-				door.decayMe(); // Kill current if not killed already
-				door = DoorData.getInstance().getDoor(doorId); // Pickup the template of the door
-				DoorData.getInstance().putDoor(door);
-
-				if (isDoorWeak) // Setup HPs
+				door.doRevive();
+				if (isDoorWeak)
+				{
 					door.setCurrentHp(door.getMaxHp() / 2);
-
-				door.spawnMe(door.getX(), door.getY(), door.getZ());
-
-				// Register doors in castle doors lists.
-				getDoors().set(i, door);
+				}
+				else
+				{
+					door.setCurrentHp(door.getMaxHp());
+				}
 			}
-			else if (door.getOpen())
+			
+			if (door.getOpen())
+			{
 				door.closeMe();
+			}
 		}
 		loadDoorUpgrade(); // Check for any upgrade the doors may have
 	}
