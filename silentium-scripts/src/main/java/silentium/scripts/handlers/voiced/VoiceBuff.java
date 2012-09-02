@@ -168,7 +168,6 @@ public class VoiceBuff implements IVoicedCommandHandler {
 				activeChar.broadcastUserInfo();
 			}
 		} else if ("petbuff".equalsIgnoreCase(command)) {
-			// L2PcInstance player;
 			final L2Summon summon = activeChar.getPet();
 			if (activeChar.isInCombat() || activeChar.isInOlympiadMode() || activeChar.isInDuel() || activeChar.isInSiege()) {
 				activeChar.sendMessage("You can't use this command in PvP, Duel, Olympiad or Siege mods.");

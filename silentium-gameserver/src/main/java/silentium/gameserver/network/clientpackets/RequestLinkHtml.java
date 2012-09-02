@@ -35,7 +35,7 @@ public final class RequestLinkHtml extends L2GameClientPacket
 			return;
 
 		NpcHtmlMessage msg = new NpcHtmlMessage(0);
-		msg.setFile(_link);
+		msg.setFile(_link, actor);
 
 		sendPacket(msg);
 	}

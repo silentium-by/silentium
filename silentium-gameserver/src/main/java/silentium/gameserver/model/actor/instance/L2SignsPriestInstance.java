@@ -887,7 +887,7 @@ public class L2SignsPriestInstance extends L2NpcInstance
 
 		// Send a Server->Client NpcHtmlMessage containing the text of the L2Npc to the L2PcInstance
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-		html.setFile(filename);
+		html.setFile(filename, player);
 		html.replace("%objectId%", String.valueOf(getObjectId()));
 		player.sendPacket(html);
 

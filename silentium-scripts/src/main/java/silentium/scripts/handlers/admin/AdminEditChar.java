@@ -481,7 +481,7 @@ public class AdminEditChar implements IAdminCommandHandler {
 			CharactersEnd = CharactersStart + MaxCharactersPerPage;
 
 		final NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
-		adminReply.setFile(StaticHtmPath.AdminHtmPath + "charlist.htm");
+		adminReply.setFile(StaticHtmPath.AdminHtmPath + "charlist.htm", activeChar);
 		final TextBuilder replyMSG = new TextBuilder();
 		for (int x = 0; x < MaxPages; x++) {
 			final int pagenr = x + 1;
@@ -527,7 +527,7 @@ public class AdminEditChar implements IAdminCommandHandler {
 		}
 
 		final NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
-		adminReply.setFile(StaticHtmPath.AdminHtmPath + filename);
+		adminReply.setFile(StaticHtmPath.AdminHtmPath + filename, activeChar);
 		adminReply.replace("%name%", player.getName());
 		adminReply.replace("%level%", String.valueOf(player.getLevel()));
 		adminReply.replace("%clan%", String.valueOf(player.getClan() != null ? "<a action=\"bypass -h admin_clan_info " + player.getName() + "\">" + player.getClan().getName() + "</a>" : "none"));
@@ -616,7 +616,7 @@ public class AdminEditChar implements IAdminCommandHandler {
 		final L2PcInstance[] players = allPlayers.toArray(new L2PcInstance[allPlayers.size()]);
 
 		final NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
-		adminReply.setFile(StaticHtmPath.AdminHtmPath + "charfind.htm");
+		adminReply.setFile(StaticHtmPath.AdminHtmPath + "charfind.htm", activeChar);
 		final TextBuilder replyMSG = new TextBuilder();
 		for (final L2PcInstance player : players) { // Add player info into new Table row
 			name = player.getName();
@@ -666,7 +666,7 @@ public class AdminEditChar implements IAdminCommandHandler {
 		String name, ip = "0.0.0.0";
 		final StringBuilder replyMSG = new StringBuilder(1000);
 		final NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
-		adminReply.setFile(StaticHtmPath.AdminHtmPath + "ipfind.htm");
+		adminReply.setFile(StaticHtmPath.AdminHtmPath + "ipfind.htm", activeChar);
 
 		for (final L2PcInstance player : players) {
 			client = player.getClient();
@@ -725,7 +725,7 @@ public class AdminEditChar implements IAdminCommandHandler {
 			final TextBuilder replyMSG = new TextBuilder();
 			final NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
 
-			adminReply.setFile(StaticHtmPath.AdminHtmPath + "accountinfo.htm");
+			adminReply.setFile(StaticHtmPath.AdminHtmPath + "accountinfo.htm", activeChar);
 
 			for (final String charname : chars.values())
 				replyMSG.append(charname).append("<br1>");
@@ -787,7 +787,7 @@ public class AdminEditChar implements IAdminCommandHandler {
 			StringUtil.append(results, "<a action=\"bypass -h admin_find_ip " + dualboxIP + "\">" + dualboxIP + " (" + dualboxIPs.get(dualboxIP) + ")</a><br1>");
 
 		final NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
-		adminReply.setFile(StaticHtmPath.AdminHtmPath + "dualbox.htm");
+		adminReply.setFile(StaticHtmPath.AdminHtmPath + "dualbox.htm", activeChar);
 		adminReply.replace("%multibox%", String.valueOf(multibox));
 		adminReply.replace("%results%", results.toString());
 		adminReply.replace("%strict%", "");
@@ -796,7 +796,7 @@ public class AdminEditChar implements IAdminCommandHandler {
 
 	private static void gatherSummonInfo(final L2Summon target, final L2PcInstance activeChar) {
 		final NpcHtmlMessage html = new NpcHtmlMessage(0);
-		html.setFile(StaticHtmPath.AdminHtmPath + "petinfo.htm");
+		html.setFile(StaticHtmPath.AdminHtmPath + "petinfo.htm", activeChar);
 		final String name = target.getName();
 		html.replace("%name%", name == null ? "N/A" : name);
 		html.replace("%level%", Integer.toString(target.getLevel()));
@@ -828,7 +828,7 @@ public class AdminEditChar implements IAdminCommandHandler {
 
 	private static void gatherPartyInfo(final L2PcInstance target, final L2PcInstance activeChar) {
 		final NpcHtmlMessage html = new NpcHtmlMessage(0);
-		html.setFile(StaticHtmPath.AdminHtmPath + "partyinfo.htm");
+		html.setFile(StaticHtmPath.AdminHtmPath + "partyinfo.htm", activeChar);
 		final StringBuilder text = new StringBuilder(400);
 		for (final L2PcInstance member : target.getParty().getPartyMembers()) {
 			if (member.getParty().getPartyLeaderOID() != member.getObjectId()) {

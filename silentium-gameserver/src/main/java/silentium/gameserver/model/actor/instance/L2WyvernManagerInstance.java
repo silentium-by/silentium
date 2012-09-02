@@ -117,7 +117,7 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
 	private void sendHtm(L2PcInstance player, String val)
 	{
 		NpcHtmlMessage html = new NpcHtmlMessage(1);
-		html.setFile(StaticHtmPath.WyvernManagerHtmPath + "wyvernmanager-" + val + ".htm");
+		html.setFile(StaticHtmPath.WyvernManagerHtmPath + "wyvernmanager-" + val + ".htm", player);
 		html.replace("%objectId%", String.valueOf(getObjectId()));
 		html.replace("%npcname%", getName());
 		html.replace("%wyvern_level%", String.valueOf(requiredLevel));

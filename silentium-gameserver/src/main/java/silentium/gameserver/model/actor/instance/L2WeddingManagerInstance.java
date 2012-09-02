@@ -270,7 +270,7 @@ public class L2WeddingManagerInstance extends L2NpcInstance
 	private void sendHtmlMessage(L2PcInstance player, String file)
 	{
 		NpcHtmlMessage html = new NpcHtmlMessage(1);
-		html.setFile(file);
+		html.setFile(file, player);
 		html.replace("%objectId%", String.valueOf(getObjectId()));
 		html.replace("%adenasCost%", String.valueOf(EventsConfig.WEDDING_PRICE));
 		html.replace("%needOrNot%", EventsConfig.WEDDING_FORMALWEAR ? "will" : "won't");

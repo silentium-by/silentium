@@ -255,7 +255,7 @@ public abstract class L2Summon extends L2Playable
 			player.sendPacket(new MyTargetSelected(getObjectId(), player.getLevel()));
 
 			NpcHtmlMessage html = new NpcHtmlMessage(0);
-			html.setFile(StaticHtmPath.AdminHtmPath + "petinfo.htm");
+			html.setFile(StaticHtmPath.AdminHtmPath + "petinfo.htm", player);
 			String name = getName();
 			html.replace("%name%", name == null ? "N/A" : name);
 			html.replace("%level%", Integer.toString(getLevel()));

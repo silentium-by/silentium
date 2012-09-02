@@ -45,7 +45,7 @@ public final class L2ClassMasterInstance extends L2NpcInstance
 
 		// Send a Server->Client NpcHtmlMessage containing the text of the L2Npc to the L2PcInstance
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-		html.setFile(filename);
+		html.setFile(filename, player);
 		html.replace("%objectId%", String.valueOf(getObjectId()));
 		player.sendPacket(html);
 	}
@@ -72,7 +72,7 @@ public final class L2ClassMasterInstance extends L2NpcInstance
 				player.broadcastPacket(new MagicSkillUse(player, player, 5103, 1, 0, 0));
 
 				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-				html.setFile(StaticHtmPath.ClassmasterHtmPath + "ok.htm");
+				html.setFile(StaticHtmPath.ClassmasterHtmPath + "ok.htm", player);
 				html.replace("%name%", CharTemplateData.getInstance().getClassNameById(val));
 				player.sendPacket(html);
 			}
@@ -85,12 +85,12 @@ public final class L2ClassMasterInstance extends L2NpcInstance
 			{
 				player.setNoble(true, true);
 				player.sendPacket(new UserInfo(player));
-				html.setFile(StaticHtmPath.ClassmasterHtmPath + "nobleok.htm");
+				html.setFile(StaticHtmPath.ClassmasterHtmPath + "nobleok.htm", player);
 				player.sendPacket(html);
 			}
 			else
 			{
-				html.setFile(StaticHtmPath.ClassmasterHtmPath + "alreadynoble.htm");
+				html.setFile(StaticHtmPath.ClassmasterHtmPath + "alreadynoble.htm", player);
 				player.sendPacket(html);
 			}
 		}
@@ -149,7 +149,7 @@ public final class L2ClassMasterInstance extends L2NpcInstance
 		{
 			final ClassId currentClassId = player.getClassId();
 			if (currentClassId.level() >= level)
-				html.setFile(StaticHtmPath.ClassmasterHtmPath + "nomore.htm");
+				html.setFile(StaticHtmPath.ClassmasterHtmPath + "nomore.htm", player);
 			else
 			{
 				final int minLevel = getMinLevel(currentClassId.level());
@@ -164,13 +164,13 @@ public final class L2ClassMasterInstance extends L2NpcInstance
 
 					if (menu.length() > 0)
 					{
-						html.setFile(StaticHtmPath.ClassmasterHtmPath + "template.htm");
+						html.setFile(StaticHtmPath.ClassmasterHtmPath + "template.htm", player);
 						html.replace("%name%", CharTemplateData.getInstance().getClassNameById(currentClassId.getId()));
 						html.replace("%menu%", menu.toString());
 					}
 					else
 					{
-						html.setFile(StaticHtmPath.ClassmasterHtmPath + "comebacklater.htm");
+						html.setFile(StaticHtmPath.ClassmasterHtmPath + "comebacklater.htm", player);
 						html.replace("%level%", String.valueOf(getMinLevel(level - 1)));
 					}
 				}
@@ -178,11 +178,11 @@ public final class L2ClassMasterInstance extends L2NpcInstance
 				{
 					if (minLevel < Integer.MAX_VALUE)
 					{
-						html.setFile(StaticHtmPath.ClassmasterHtmPath + "comebacklater.htm");
+						html.setFile(StaticHtmPath.ClassmasterHtmPath + "comebacklater.htm", player);
 						html.replace("%level%", String.valueOf(minLevel));
 					}
 					else
-						html.setFile(StaticHtmPath.ClassmasterHtmPath + "nomore.htm");
+						html.setFile(StaticHtmPath.ClassmasterHtmPath + "nomore.htm", player);
 				}
 			}
 		}

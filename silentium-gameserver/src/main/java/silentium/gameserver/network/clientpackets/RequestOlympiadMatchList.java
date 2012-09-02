@@ -37,7 +37,7 @@ public final class RequestOlympiadMatchList extends L2GameClientPacket
 		StringBuilder list = new StringBuilder(1500);
 		OlympiadGameTask task;
 
-		message.setFile(StaticHtmPath.OlympiadHtmPath + "olympiad_arena_observe_list.htm");
+		message.setFile(StaticHtmPath.OlympiadHtmPath + "olympiad_arena_observe_list.htm", activeChar);
 		for (int i = 0; i <= 21; i++)
 		{
 			task = OlympiadGameManager.getInstance().getOlympiadTask(i);

@@ -20,7 +20,7 @@ public class Info implements IVoicedCommandHandler {
 
 		if (command.startsWith("info")) {
 			final NpcHtmlMessage html = new NpcHtmlMessage(activeChar.getObjectId());
-			html.setFile(StaticHtmPath.NpcHtmPath + "info.htm");
+			html.setFile(StaticHtmPath.NpcHtmPath + "info.htm", activeChar);
 			html.replace("%name%", activeChar.getName());
 			activeChar.sendPacket(html);
 		}

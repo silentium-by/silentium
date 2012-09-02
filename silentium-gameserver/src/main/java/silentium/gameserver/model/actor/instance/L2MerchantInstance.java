@@ -134,13 +134,13 @@ public class L2MerchantInstance extends L2NpcInstance
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 
 			if (player.getLevel() < 40)
-				html.setFile(StaticHtmPath.CommonHtmPath + "shadow_item-lowlevel.htm");
+				html.setFile(StaticHtmPath.CommonHtmPath + "shadow_item-lowlevel.htm", player);
 			else if (player.getLevel() >= 40 && player.getLevel() < 46)
-				html.setFile(StaticHtmPath.CommonHtmPath + "shadow_item_mi_c.htm");
+				html.setFile(StaticHtmPath.CommonHtmPath + "shadow_item_mi_c.htm", player);
 			else if (player.getLevel() >= 46 && player.getLevel() < 52)
-				html.setFile(StaticHtmPath.CommonHtmPath + "shadow_item_hi_c.htm");
+				html.setFile(StaticHtmPath.CommonHtmPath + "shadow_item_hi_c.htm", player);
 			else if (player.getLevel() >= 52)
-				html.setFile(StaticHtmPath.CommonHtmPath + "shadow_item_b.htm");
+				html.setFile(StaticHtmPath.CommonHtmPath + "shadow_item_b.htm", player);
 
 			html.replace("%objectId%", String.valueOf(getObjectId()));
 			player.sendPacket(html);

@@ -37,20 +37,20 @@ public class L2ClanHallDoormenInstance extends L2DoormenInstance
 			L2Clan owner = ClanTable.getInstance().getClan(getClanHall().getOwnerId());
 			if (isOwnerClan(player))
 			{
-				html.setFile(StaticHtmPath.ClanHallDoormenHtmPath + "doormen.htm");
+				html.setFile(StaticHtmPath.ClanHallDoormenHtmPath + "doormen.htm", player);
 				html.replace("%clanname%", owner.getName());
 			}
 			else
 			{
 				if (owner != null && owner.getLeader() != null)
 				{
-					html.setFile(StaticHtmPath.ClanHallDoormenHtmPath + "doormen-no.htm");
+					html.setFile(StaticHtmPath.ClanHallDoormenHtmPath + "doormen-no.htm", player);
 					html.replace("%leadername%", owner.getLeaderName());
 					html.replace("%clanname%", owner.getName());
 				}
 				else
 				{
-					html.setFile(StaticHtmPath.ClanHallDoormenHtmPath + "emptyowner.htm");
+					html.setFile(StaticHtmPath.ClanHallDoormenHtmPath + "emptyowner.htm", player);
 					html.replace("%hallname%", getClanHall().getName());
 				}
 			}
@@ -67,7 +67,7 @@ public class L2ClanHallDoormenInstance extends L2DoormenInstance
 	{
 		getClanHall().openCloseDoors(true);
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-		html.setFile(StaticHtmPath.ClanHallDoormenHtmPath + "doormen-opened.htm");
+		html.setFile(StaticHtmPath.ClanHallDoormenHtmPath + "doormen-opened.htm", player);
 		html.replace("%objectId%", String.valueOf(getObjectId()));
 		player.sendPacket(html);
 	}
@@ -77,7 +77,7 @@ public class L2ClanHallDoormenInstance extends L2DoormenInstance
 	{
 		getClanHall().openCloseDoors(false);
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-		html.setFile(StaticHtmPath.ClanHallDoormenHtmPath + "doormen-closed.htm");
+		html.setFile(StaticHtmPath.ClanHallDoormenHtmPath + "doormen-closed.htm", player);
 		html.replace("%objectId%", String.valueOf(getObjectId()));
 		player.sendPacket(html);
 	}

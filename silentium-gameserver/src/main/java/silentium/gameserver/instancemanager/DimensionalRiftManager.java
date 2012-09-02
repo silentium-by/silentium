@@ -266,7 +266,7 @@ public class DimensionalRiftManager
 		if (party.getMemberCount() < EventsConfig.RIFT_MIN_PARTY_SIZE)
 		{
 			NpcHtmlMessage html = new NpcHtmlMessage(npc.getObjectId());
-			html.setFile(StaticHtmPath.SevenSignsHtmPath + "rift/SmallParty.htm");
+			html.setFile(StaticHtmPath.SevenSignsHtmPath + "rift/SmallParty.htm", player);
 			html.replace("%npc_name%", npc.getName());
 			html.replace("%count%", Integer.toString(EventsConfig.RIFT_MIN_PARTY_SIZE));
 			player.sendPacket(html);
@@ -296,7 +296,7 @@ public class DimensionalRiftManager
 			if (i == null || !p.destroyItem("RiftEntrance", i, count, null, true))
 			{
 				NpcHtmlMessage html = new NpcHtmlMessage(npc.getObjectId());
-				html.setFile(StaticHtmPath.SevenSignsHtmPath + "rift/NoFragments.htm");
+				html.setFile(StaticHtmPath.SevenSignsHtmPath + "rift/NoFragments.htm", player);
 				html.replace("%npc_name%", npc.getName());
 				html.replace("%count%", Integer.toString(count));
 				player.sendPacket(html);
@@ -465,7 +465,7 @@ public class DimensionalRiftManager
 	public void showHtmlFile(L2PcInstance player, String file, L2Npc npc)
 	{
 		NpcHtmlMessage html = new NpcHtmlMessage(npc.getObjectId());
-		html.setFile(file);
+		html.setFile(file, player);
 		html.replace("%npc_name%", npc.getName());
 		player.sendPacket(html);
 	}

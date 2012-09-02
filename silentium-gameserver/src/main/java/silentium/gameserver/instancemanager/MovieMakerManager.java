@@ -46,11 +46,11 @@ public class MovieMakerManager
 			for (Sequence s : _sequence.values())
 				sb.append("<tr><td>Id: ").append(s._sequenceId).append("</td></tr>");
 
-			html.setFile(StaticHtmPath.AdminHtmPath + "movie/main_notempty.htm");
+			html.setFile(StaticHtmPath.AdminHtmPath + "movie/main_notempty.htm", player);
 			html.replace("%sequences%", sb.toString());
 		}
 		else
-			html.setFile(StaticHtmPath.AdminHtmPath + "movie/main_empty.htm");
+			html.setFile(StaticHtmPath.AdminHtmPath + "movie/main_empty.htm", player);
 
 		player.sendPacket(html);
 	}
@@ -118,7 +118,7 @@ public class MovieMakerManager
 	public void addSequence(L2PcInstance player)
 	{
 		NpcHtmlMessage html = new NpcHtmlMessage(5);
-		html.setFile(StaticHtmPath.AdminHtmPath + "movie/add_sequence.htm");
+		html.setFile(StaticHtmPath.AdminHtmPath + "movie/add_sequence.htm", player);
 		player.sendPacket(html);
 	}
 
@@ -130,7 +130,7 @@ public class MovieMakerManager
 			s = _sequence.get(id);
 
 			NpcHtmlMessage html = new NpcHtmlMessage(5);
-			html.setFile(StaticHtmPath.AdminHtmPath + "movie/edit_sequence.htm");
+			html.setFile(StaticHtmPath.AdminHtmPath + "movie/edit_sequence.htm", player);
 			html.replace("%sId%", String.valueOf(s._sequenceId));
 			html.replace("%sDist%", String.valueOf(s._dist));
 			html.replace("%sYaw%", String.valueOf(s._yaw));

@@ -306,7 +306,7 @@ public class OlympiadManager
 		if (points <= 0)
 		{
 			NpcHtmlMessage message = new NpcHtmlMessage(0);
-			message.setFile(StaticHtmPath.OlympiadHtmPath + "noble_nopoints1.htm");
+			message.setFile(StaticHtmPath.OlympiadHtmPath + "noble_nopoints1.htm", player);
 			message.replace("%objectId%", String.valueOf(player.getTargetId()));
 			player.sendPacket(message);
 			return false;

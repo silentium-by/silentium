@@ -51,7 +51,7 @@ public class L2CastleMagicianInstance extends L2NpcInstance
 		}
 
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-		html.setFile(filename);
+		html.setFile(filename, player);
 		html.replace("%objectId%", String.valueOf(getObjectId()));
 		player.sendPacket(html);
 	}

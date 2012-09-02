@@ -208,7 +208,7 @@ public final class RequestBypassToServer extends L2GameClientPacket
 		else
 			html = new NpcHtmlMessage(1);
 
-		html.setFile(StaticHtmPath.HelpHtmPath + cmd[0]);
+		html.setFile(StaticHtmPath.HelpHtmPath + cmd[0], activeChar);
 		html.disableValidation();
 		activeChar.sendPacket(html);
 	}

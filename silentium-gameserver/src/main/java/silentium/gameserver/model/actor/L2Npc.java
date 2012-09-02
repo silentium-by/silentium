@@ -914,7 +914,7 @@ public class L2Npc extends L2Character
 			}
 
 			NpcHtmlMessage html = new NpcHtmlMessage(0);
-			html.setFile(StaticHtmPath.AdminHtmPath + "npcinfo.htm");
+			html.setFile(StaticHtmPath.AdminHtmPath + "npcinfo.htm", player);
 
 			html.replace("%objid%", String.valueOf(getObjectId()));
 			html.replace("%class%", getClass().getSimpleName());
@@ -1052,7 +1052,7 @@ public class L2Npc extends L2Character
 				player.sendPacket(ActionFailed.STATIC_PACKET);
 
 				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-				html.setFile(StaticHtmPath.NpcHtmPath + "npcbusy.htm");
+				html.setFile(StaticHtmPath.NpcHtmPath + "npcbusy.htm", player);
 				html.replace("%busymessage%", getBusyMessage());
 				html.replace("%npcname%", getName());
 				html.replace("%playername%", player.getName());
@@ -1064,13 +1064,13 @@ public class L2Npc extends L2Character
 
 				if (getCastle().getOwnerId() > 0)
 				{
-					html.setFile(StaticHtmPath.NpcHtmPath + "territorystatus.htm");
+					html.setFile(StaticHtmPath.NpcHtmPath + "territorystatus.htm", player);
 					L2Clan clan = ClanTable.getInstance().getClan(getCastle().getOwnerId());
 					html.replace("%clanname%", clan.getName());
 					html.replace("%clanleadername%", clan.getLeaderName());
 				}
 				else
-					html.setFile(StaticHtmPath.NpcHtmPath + "territorynoclan.htm");
+					html.setFile(StaticHtmPath.NpcHtmPath + "territorynoclan.htm", player);
 
 				html.replace("%castlename%", getCastle().getName());
 				html.replace("%taxpercent%", "" + getCastle().getTaxPercent());
@@ -1122,7 +1122,7 @@ public class L2Npc extends L2Character
 					return;
 				String filename = StaticHtmPath.NpcHtmPath + path;
 				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-				html.setFile(filename);
+				html.setFile(filename, player);
 				html.replace("%objectId%", String.valueOf(getObjectId()));
 				player.sendPacket(html);
 			}
@@ -1314,8 +1314,7 @@ public class L2Npc extends L2Character
 
 		if (HtmCache.isLoadable(temp))
 			return temp;
-
-		// If the file is not found, the standard message "I have nothing to say to you" is returned
+		
 		return StaticHtmPath.NpcHtmPath + "npcdefault.htm";
 	}
 
@@ -1543,7 +1542,7 @@ public class L2Npc extends L2Character
 		if (val == 0) // 0 - first buy lottery ticket window
 		{
 			filename = (getHtmlPath(npcId, 1));
-			html.setFile(filename);
+			html.setFile(filename, player);
 		}
 		else if (val >= 1 && val <= 21) // 1-20 - buttons, 21 - second buy lottery ticket window
 		{
@@ -1561,7 +1560,7 @@ public class L2Npc extends L2Character
 			}
 
 			filename = (getHtmlPath(npcId, 5));
-			html.setFile(filename);
+			html.setFile(filename, player);
 
 			int count = 0;
 			int found = 0;
@@ -1669,17 +1668,17 @@ public class L2Npc extends L2Character
 			player.sendPacket(iu);
 
 			filename = (getHtmlPath(npcId, 3));
-			html.setFile(filename);
+			html.setFile(filename, player);
 		}
 		else if (val == 23) // 23 - current lottery jackpot
 		{
 			filename = (getHtmlPath(npcId, 3));
-			html.setFile(filename);
+			html.setFile(filename, player);
 		}
 		else if (val == 24) // 24 - Previous winning numbers/Prize claim
 		{
 			filename = (getHtmlPath(npcId, 4));
-			html.setFile(filename);
+			html.setFile(filename, player);
 
 			int lotonumber = Lottery.getInstance().getId();
 			String message = "";
@@ -1931,17 +1930,13 @@ public class L2Npc extends L2Character
 
 		// Send a Server->Client NpcHtmlMessage containing the text of the L2Npc to the L2PcInstance
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-		html.setFile(filename);
+		html.setFile(filename, player);
 
 		html.replace("%objectId%", String.valueOf(getObjectId()));
 		player.sendPacket(html);
 
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
 		player.sendPacket(ActionFailed.STATIC_PACKET);
-
-		// Show htmpath in chat (only for gm)
-		if (player.isGM())
-			player.sendChatMessage(0, Say2.ALL, "HTML", filename);
 	}
 
 	/**
@@ -1959,7 +1954,7 @@ public class L2Npc extends L2Character
 	{
 		// Send a Server->Client NpcHtmlMessage containing the text of the L2Npc to the L2PcInstance
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-		html.setFile(filename);
+		html.setFile(filename, player);
 		html.replace("%objectId%", String.valueOf(getObjectId()));
 		player.sendPacket(html);
 

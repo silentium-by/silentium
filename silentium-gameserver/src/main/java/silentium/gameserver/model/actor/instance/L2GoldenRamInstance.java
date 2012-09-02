@@ -80,7 +80,7 @@ public class L2GoldenRamInstance extends L2NpcInstance
 		}
 
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-		html.setFile(filename);
+		html.setFile(filename, player);
 		html.replace("%objectId%", String.valueOf(getObjectId()));
 		player.sendPacket(html);
 		player.sendPacket(ActionFailed.STATIC_PACKET);
@@ -113,7 +113,7 @@ public class L2GoldenRamInstance extends L2NpcInstance
 			}
 
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-			html.setFile(StaticHtmPath.DefaultHtmPath + "31556-" + val + ".htm");
+			html.setFile(StaticHtmPath.DefaultHtmPath + "31556-" + val + ".htm", player);
 			player.sendPacket(html);
 			return;
 		}

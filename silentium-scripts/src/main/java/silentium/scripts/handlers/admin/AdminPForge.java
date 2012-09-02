@@ -109,7 +109,7 @@ public class AdminPForge implements IAdminCommandHandler {
 
 	private static void showPage2(final L2PcInstance activeChar, final String format) {
 		final NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
-		adminReply.setFile(StaticHtmPath.AdminHtmPath + "pforge2.htm");
+		adminReply.setFile(StaticHtmPath.AdminHtmPath + "pforge2.htm", activeChar);
 		adminReply.replace("%format%", format);
 		final TextBuilder replyMSG = new TextBuilder();
 		for (int i = 0; i < format.length(); i++)
@@ -124,7 +124,7 @@ public class AdminPForge implements IAdminCommandHandler {
 
 	private static void showPage3(final L2PcInstance activeChar, final String format, final String command) {
 		final NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
-		adminReply.setFile(StaticHtmPath.AdminHtmPath + "pforge3.htm");
+		adminReply.setFile(StaticHtmPath.AdminHtmPath + "pforge3.htm", activeChar);
 		adminReply.replace("%format%", format);
 		adminReply.replace("%command%", command);
 		activeChar.sendPacket(adminReply);

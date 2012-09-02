@@ -118,7 +118,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 				if (player.isClanLeader())
 				{
 					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-					html.setFile(StaticHtmPath.ChamberlainHtmPath + "chamberlain-report.htm");
+					html.setFile(StaticHtmPath.ChamberlainHtmPath + "chamberlain-report.htm", player);
 					html.replace("%objectId%", String.valueOf(getObjectId()));
 					L2Clan clan = ClanTable.getInstance().getClan(getCastle().getOwnerId());
 					html.replace("%clanname%", clan.getName());
@@ -266,7 +266,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 						}
 					}
 					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-					html.setFile(filename);
+					html.setFile(filename, player);
 					html.replace("%objectId%", String.valueOf(getObjectId()));
 					html.replace("%npcname%", getName());
 					html.replace("%tax_income%", Util.formatAdena(getCastle().getTreasury()));
@@ -292,14 +292,14 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 						String file = StaticHtmPath.ChamberlainHtmPath + "doors-close.htm";
 						if (open)
 							file = StaticHtmPath.ChamberlainHtmPath + "doors-open.htm";
-						html.setFile(file);
+						html.setFile(file, player);
 						html.replace("%objectId%", String.valueOf(getObjectId()));
 						player.sendPacket(html);
 						return;
 					}
 
 					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-					html.setFile(StaticHtmPath.ChamberlainHtmPath + getTemplate().getNpcId() + "-d.htm");
+					html.setFile(StaticHtmPath.ChamberlainHtmPath + getTemplate().getNpcId() + "-d.htm", player);
 					html.replace("%objectId%", String.valueOf(getObjectId()));
 					html.replace("%npcname%", getName());
 					player.sendPacket(html);
@@ -323,7 +323,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 				}
 
 				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-				html.setFile(StaticHtmPath.ChamberlainHtmPath + "chamberlain-tax.htm");
+				html.setFile(StaticHtmPath.ChamberlainHtmPath + "chamberlain-tax.htm", player);
 				html.replace("%objectId%", String.valueOf(getObjectId()));
 				html.replace("%tax%", String.valueOf(getCastle().getTaxPercent()));
 				player.sendPacket(html);
@@ -355,7 +355,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 				if (filename.length() != 0)
 				{
 					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-					html.setFile(filename);
+					html.setFile(filename, player);
 					html.replace("%objectId%", String.valueOf(getObjectId()));
 					html.replace("%npcname%", getName());
 					player.sendPacket(html);
@@ -472,15 +472,15 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 						ms.addItemName(6841);
 						player.sendPacket(ms);
 
-						html.setFile(StaticHtmPath.ChamberlainHtmPath + "chamberlain-gavecrown.htm");
+						html.setFile(StaticHtmPath.ChamberlainHtmPath + "chamberlain-gavecrown.htm", player);
 						html.replace("%CharName%", String.valueOf(player.getName()));
 						html.replace("%FeudName%", String.valueOf(getCastle().getName()));
 					}
 					else
-						html.setFile(StaticHtmPath.ChamberlainHtmPath + "chamberlain-hascrown.htm");
+						html.setFile(StaticHtmPath.ChamberlainHtmPath + "chamberlain-hascrown.htm", player);
 				}
 				else
-					html.setFile(StaticHtmPath.ChamberlainHtmPath + "chamberlain-noprivs.htm");
+					html.setFile(StaticHtmPath.ChamberlainHtmPath + "chamberlain-noprivs.htm", player);
 
 				player.sendPacket(html);
 				return;
@@ -506,7 +506,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 		}
 
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-		html.setFile(filename);
+		html.setFile(filename, player);
 		html.replace("%objectId%", String.valueOf(getObjectId()));
 		html.replace("%npcname%", getName());
 		player.sendPacket(html);
@@ -537,7 +537,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 		if ((player.getClanPrivileges() & privilege) != privilege)
 		{
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-			html.setFile(StaticHtmPath.ChamberlainHtmPath + "chamberlain-noprivs.htm");
+			html.setFile(StaticHtmPath.ChamberlainHtmPath + "chamberlain-noprivs.htm", player);
 			player.sendPacket(html);
 			return false;
 		}
@@ -549,7 +549,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 		if (getCastle().getSiege().getIsInProgress())
 		{
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-			html.setFile(StaticHtmPath.ChamberlainHtmPath + "chamberlain-busy.htm");
+			html.setFile(StaticHtmPath.ChamberlainHtmPath + "chamberlain-busy.htm", player);
 			html.replace("%npcname%", String.valueOf(getName()));
 			player.sendPacket(html);
 			return true;
@@ -560,7 +560,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 	private void sendFileMessage(L2PcInstance player, String htmlMessage)
 	{
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-		html.setFile(htmlMessage);
+		html.setFile(htmlMessage, player);
 		html.replace("%objectId%", String.valueOf(getObjectId()));
 		html.replace("%npcname%", getName());
 		html.replace("%npcId%", String.valueOf(getNpcId()));

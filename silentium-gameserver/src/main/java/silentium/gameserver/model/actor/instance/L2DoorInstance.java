@@ -469,7 +469,7 @@ public class L2DoorInstance extends L2Character
 				player.sendPacket(new DoorStatusUpdate(this));
 
 			NpcHtmlMessage html = new NpcHtmlMessage(0);
-			html.setFile(StaticHtmPath.AdminHtmPath + "infos/doorinfo.htm");
+			html.setFile(StaticHtmPath.AdminHtmPath + "infos/doorinfo.htm", player);
 
 			html.replace("%class%", getClass().getSimpleName());
 			html.replace("%hp%", String.valueOf((int) getCurrentHp()));

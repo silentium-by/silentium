@@ -43,6 +43,7 @@ import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2MonsterInstance;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.zone.L2ZoneType;
+import silentium.gameserver.network.clientpackets.Say2;
 import silentium.gameserver.network.serverpackets.ActionFailed;
 import silentium.gameserver.network.serverpackets.NpcHtmlMessage;
 import silentium.gameserver.scripting.ManagedScript;
@@ -1925,7 +1926,7 @@ public class Quest extends ManagedScript
 			questwindow = false;
 		int questId = getQuestIntId();
 		// Create handler to file linked to the quest
-		String content = getHtm(fileName);
+		String content = getHtm(player, fileName);
 
 		if (player.getTarget() != null)
 			content = content.replaceAll("%objectId%", String.valueOf(player.getTarget().getObjectId()));
@@ -1959,9 +1960,15 @@ public class Quest extends ManagedScript
 	 * @param fileName
 	 * @return
 	 */
-	public String getHtm(String fileName)
+	public String getHtm(L2PcInstance player, String fileName)
 	{
-		return HtmCache.getInstance().getHtm(StaticHtmPath.ScriptsHtmPath + getScriptPath().toLowerCase() + "/" + getName() + "/" + fileName);
+		String path = StaticHtmPath.ScriptsHtmPath + getScriptPath().toLowerCase() + "/" + getName() + "/" + fileName;
+
+		// Show htmpath in chat (only for gm)
+		if (player.isGM())
+			player.sendChatMessage(0, Say2.ALL, "HTML", path);
+
+		return HtmCache.getInstance().getHtm(path);
 	}
 
 	/**

@@ -138,7 +138,7 @@ public class AdminSiege implements IAdminCommandHandler {
 	private static void showCastleSelectPage(final L2PcInstance activeChar) {
 		int i = 0;
 		final NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
-		adminReply.setFile(StaticHtmPath.AdminHtmPath + "castles.htm");
+		adminReply.setFile(StaticHtmPath.AdminHtmPath + "castles.htm", activeChar);
 		final TextBuilder cList = new TextBuilder();
 		for (final Castle castle : CastleManager.getInstance().getCastles()) {
 			if (castle != null) {
@@ -185,14 +185,14 @@ public class AdminSiege implements IAdminCommandHandler {
 
 	private static void showSiegePage(final L2PcInstance activeChar, final String castleName) {
 		final NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
-		adminReply.setFile(StaticHtmPath.AdminHtmPath + "castle.htm");
+		adminReply.setFile(StaticHtmPath.AdminHtmPath + "castle.htm", activeChar);
 		adminReply.replace("%castleName%", castleName);
 		activeChar.sendPacket(adminReply);
 	}
 
 	private static void showClanHallPage(final L2PcInstance activeChar, final ClanHall clanhall) {
 		final NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
-		adminReply.setFile(StaticHtmPath.AdminHtmPath + "clanhall.htm");
+		adminReply.setFile(StaticHtmPath.AdminHtmPath + "clanhall.htm", activeChar);
 		adminReply.replace("%clanhallName%", clanhall.getName());
 		adminReply.replace("%clanhallId%", String.valueOf(clanhall.getId()));
 		final L2Clan owner = ClanTable.getInstance().getClan(clanhall.getOwnerId());

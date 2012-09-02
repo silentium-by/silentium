@@ -53,7 +53,7 @@ public class L2CastleTeleporterInstance extends L2NpcInstance
 			}
 
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-			html.setFile(StaticHtmPath.CastleTeleporterHtmPath + "/MassGK-1.htm");
+			html.setFile(StaticHtmPath.CastleTeleporterHtmPath + "/MassGK-1.htm", player);
 			html.replace("%delay%", String.valueOf(getDelayInSeconds()));
 			player.sendPacket(html);
 			return;
@@ -76,7 +76,7 @@ public class L2CastleTeleporterInstance extends L2NpcInstance
 			filename = StaticHtmPath.CastleTeleporterHtmPath + "/MassGK-1.htm";
 
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-		html.setFile(filename);
+		html.setFile(filename, player);
 		html.replace("%objectId%", String.valueOf(getObjectId()));
 		player.sendPacket(html);
 	}

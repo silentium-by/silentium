@@ -80,7 +80,7 @@ public class L2OlympiadManagerInstance extends L2NpcInstance
 
 		// Send a Server->Client NpcHtmlMessage containing the text of the L2Npc to the L2PcInstance
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-		html.setFile(StaticHtmPath.OlympiadHtmPath + filename);
+		html.setFile(StaticHtmPath.OlympiadHtmPath + filename, player);
 
 		// Hidden option for players who are in inactive mode.
 		if (filename == "hero_main.htm")
@@ -107,14 +107,14 @@ public class L2OlympiadManagerInstance extends L2NpcInstance
 			final NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 			if (player.isCursedWeaponEquipped())
 			{
-				html.setFile(StaticHtmPath.OlympiadHtmPath + "noble_cant_cw.htm");
+				html.setFile(StaticHtmPath.OlympiadHtmPath + "noble_cant_cw.htm", player);
 				player.sendPacket(html);
 				return;
 			}
 
 			if (player.getClassIndex() != 0)
 			{
-				html.setFile(StaticHtmPath.OlympiadHtmPath + "noble_cant_sub.htm");
+				html.setFile(StaticHtmPath.OlympiadHtmPath + "noble_cant_sub.htm", player);
 				html.replace("%objectId%", String.valueOf(getObjectId()));
 				player.sendPacket(html);
 				return;
@@ -122,7 +122,7 @@ public class L2OlympiadManagerInstance extends L2NpcInstance
 
 			if (!player.isNoble() || (player.getClassId().level() < 3))
 			{
-				html.setFile(StaticHtmPath.OlympiadHtmPath + "noble_cant_thirdclass.htm");
+				html.setFile(StaticHtmPath.OlympiadHtmPath + "noble_cant_thirdclass.htm", player);
 				html.replace("%objectId%", String.valueOf(getObjectId()));
 				player.sendPacket(html);
 				return;
@@ -140,7 +140,7 @@ public class L2OlympiadManagerInstance extends L2NpcInstance
 					final int nonClassed = OlympiadManager.getInstance().getRegisteredNonClassBased().size();
 					final int classed = OlympiadManager.getInstance().getRegisteredClassBased().size();
 
-					html.setFile(StaticHtmPath.OlympiadHtmPath + "noble_registered.htm");
+					html.setFile(StaticHtmPath.OlympiadHtmPath + "noble_registered.htm", player);
 					html.replace("%listClassed%", String.valueOf(classed));
 					html.replace("%listNonClassed%", String.valueOf(nonClassed));
 					html.replace("%objectId%", String.valueOf(getObjectId()));
@@ -149,7 +149,7 @@ public class L2OlympiadManagerInstance extends L2NpcInstance
 
 				case 3: // There are %points% Grand Olympiad points granted for this event.
 					int points = Olympiad.getInstance().getNoblePoints(player.getObjectId());
-					html.setFile(StaticHtmPath.OlympiadHtmPath + "noble_points1.htm");
+					html.setFile(StaticHtmPath.OlympiadHtmPath + "noble_points1.htm", player);
 					html.replace("%points%", String.valueOf(points));
 					html.replace("%objectId%", String.valueOf(getObjectId()));
 					player.sendPacket(html);
@@ -167,13 +167,13 @@ public class L2OlympiadManagerInstance extends L2NpcInstance
 					passes = Olympiad.getInstance().getNoblessePasses(player, false);
 					if (passes > 0)
 					{
-						html.setFile(StaticHtmPath.OlympiadHtmPath + "noble_settle.htm");
+						html.setFile(StaticHtmPath.OlympiadHtmPath + "noble_settle.htm", player);
 						html.replace("%objectId%", String.valueOf(getObjectId()));
 						player.sendPacket(html);
 					}
 					else
 					{
-						html.setFile(StaticHtmPath.OlympiadHtmPath + "noble_nopoints2.htm");
+						html.setFile(StaticHtmPath.OlympiadHtmPath + "noble_nopoints2.htm", player);
 						html.replace("%objectId%", String.valueOf(getObjectId()));
 						player.sendPacket(html);
 					}
@@ -213,7 +213,7 @@ public class L2OlympiadManagerInstance extends L2NpcInstance
 					if (classId >= 88 && classId <= 118)
 					{
 						List<String> names = Olympiad.getInstance().getClassLeaderBoard(classId);
-						reply.setFile(StaticHtmPath.OlympiadHtmPath + "noble_ranking.htm");
+						reply.setFile(StaticHtmPath.OlympiadHtmPath + "noble_ranking.htm", player);
 
 						int index = 1;
 						for (String name : names)
@@ -241,7 +241,7 @@ public class L2OlympiadManagerInstance extends L2NpcInstance
 					StringBuilder list = new StringBuilder(2000);
 					OlympiadGameTask task;
 
-					reply.setFile(StaticHtmPath.OlympiadHtmPath + "olympiad_observe_list.htm");
+					reply.setFile(StaticHtmPath.OlympiadHtmPath + "olympiad_observe_list.htm", player);
 					for (int i = 0; i <= 21; i++)
 					{
 						task = OlympiadGameManager.getInstance().getOlympiadTask(i);
@@ -278,7 +278,7 @@ public class L2OlympiadManagerInstance extends L2NpcInstance
 				case 5: // Hero pending state.
 					if (Hero.getInstance().isInactiveHero(player.getObjectId()))
 					{
-						reply.setFile(StaticHtmPath.OlympiadHtmPath + "hero_confirm.htm");
+						reply.setFile(StaticHtmPath.OlympiadHtmPath + "hero_confirm.htm", player);
 						reply.replace("%objectId%", String.valueOf(getObjectId()));
 						player.sendPacket(reply);
 					}
@@ -298,7 +298,7 @@ public class L2OlympiadManagerInstance extends L2NpcInstance
 					break;
 
 				case 7: // Main panel
-					reply.setFile(StaticHtmPath.OlympiadHtmPath + "hero_main.htm");
+					reply.setFile(StaticHtmPath.OlympiadHtmPath + "hero_main.htm", player);
 
 					String hiddenText = "";
 					if (Hero.getInstance().isInactiveHero(player.getObjectId()))

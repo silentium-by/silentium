@@ -85,7 +85,7 @@ public class AdminMaintenance implements IAdminCommandHandler {
 		final Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.HOUR_OF_DAY, h);
 		cal.set(Calendar.MINUTE, m);
-		adminReply.setFile(StaticHtmPath.AdminHtmPath + "maintenance.htm");
+		adminReply.setFile(StaticHtmPath.AdminHtmPath + "maintenance.htm", activeChar);
 		adminReply.replace("%count%", String.valueOf(L2World.getInstance().getAllPlayersCount()));
 		adminReply.replace("%used%", String.valueOf(Math.round((int) ((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1048576))));
 		adminReply.replace("%server_name%", LoginServerThread.getInstance().getServerName());

@@ -9,6 +9,7 @@ package silentium.gameserver.network.serverpackets;
 
 import silentium.gameserver.data.html.HtmCache;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
+import silentium.gameserver.network.clientpackets.Say2;
 
 /**
  * the HTML parser in the client knowns these standard and non-standard tags and attributes VOLUMN UNKNOWN UL U TT TR TITLE TEXTCODE TEXTAREA TD
@@ -24,7 +25,7 @@ public final class NpcHtmlMessage extends L2GameServerPacket
 	private int _itemId = 0;
 	private boolean _validate = true;
 
-	public NpcHtmlMessage(int npcObjId, int itemId)
+    public NpcHtmlMessage(int npcObjId, int itemId)
 	{
 		_npcObjId = npcObjId;
 		_itemId = itemId;
@@ -67,9 +68,12 @@ public final class NpcHtmlMessage extends L2GameServerPacket
 		_html = text; // html code must not exceed 8192 bytes
 	}
 
-	public boolean setFile(String path)
+	public boolean setFile(String path, L2PcInstance player)
 	{
 		String content = HtmCache.getInstance().getHtm(path);
+		
+		if (player.isGM())
+			player.sendChatMessage(0, Say2.ALL, "HTML", path);
 
 		if (content == null)
 		{

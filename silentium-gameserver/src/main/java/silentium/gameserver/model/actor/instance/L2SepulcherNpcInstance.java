@@ -256,7 +256,7 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
 	{
 		String filename = getHtmlPath(getNpcId(), val);
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-		html.setFile(filename);
+		html.setFile(filename, player);
 		html.replace("%objectId%", String.valueOf(getObjectId()));
 		player.sendPacket(html);
 		player.sendPacket(ActionFailed.STATIC_PACKET);
@@ -268,7 +268,7 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
 		if (isBusy())
 		{
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-			html.setFile(StaticHtmPath.NpcHtmPath + "npcbusy.htm");
+			html.setFile(StaticHtmPath.NpcHtmPath + "npcbusy.htm", player);
 			html.replace("%busymessage%", getBusyMessage());
 			html.replace("%npcname%", getName());
 			html.replace("%playername%", player.getName());
@@ -421,7 +421,7 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
 	public void showHtmlFile(L2PcInstance player, String file)
 	{
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-		html.setFile(StaticHtmPath.SepulchersHtmPath + file);
+		html.setFile(StaticHtmPath.SepulchersHtmPath + file, player);
 		html.replace("%npcname%", getName());
 		player.sendPacket(html);
 	}
