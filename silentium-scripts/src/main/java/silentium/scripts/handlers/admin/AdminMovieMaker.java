@@ -10,6 +10,7 @@ package silentium.scripts.handlers.admin;
 import silentium.gameserver.handler.IAdminCommandHandler;
 import silentium.gameserver.instancemanager.MovieMakerManager;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
+import silentium.gameserver.network.clientpackets.Say2;
 
 /**
  * @author KKnD
@@ -25,7 +26,7 @@ public class AdminMovieMaker implements IAdminCommandHandler {
 			try {
 				MovieMakerManager.getInstance().playSequence(Integer.parseInt(command.substring(15)), activeChar);
 			} catch (Exception e) {
-				activeChar.sendMessage("You entered an invalid sequence id.");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "You entered an invalid sequence id.");
 				MovieMakerManager.getInstance().mainHtm(activeChar);
 				return false;
 			}
@@ -35,7 +36,7 @@ public class AdminMovieMaker implements IAdminCommandHandler {
 			try {
 				MovieMakerManager.getInstance().deleteSequence(Integer.parseInt(command.substring(18)), activeChar);
 			} catch (Exception e) {
-				activeChar.sendMessage("You entered an invalid sequence id.");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "You entered an invalid sequence id.");
 				MovieMakerManager.getInstance().mainHtm(activeChar);
 				return false;
 			}
@@ -43,7 +44,7 @@ public class AdminMovieMaker implements IAdminCommandHandler {
 			try {
 				MovieMakerManager.getInstance().broadcastSequence(Integer.parseInt(command.substring(16)), activeChar);
 			} catch (Exception e) {
-				activeChar.sendMessage("You entered an invalid sequence id.");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "You entered an invalid sequence id.");
 				MovieMakerManager.getInstance().mainHtm(activeChar);
 				return false;
 			}
@@ -55,14 +56,14 @@ public class AdminMovieMaker implements IAdminCommandHandler {
 			try {
 				MovieMakerManager.getInstance().editSequence(Integer.parseInt(command.substring(19)), activeChar);
 			} catch (Exception e) {
-				activeChar.sendMessage("You entered an invalid sequence id.");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "You entered an invalid sequence id.");
 				MovieMakerManager.getInstance().mainHtm(activeChar);
 				return false;
 			}
 		} else {
 			final String[] args = command.split(" ");
 			if (args.length < 10) {
-				activeChar.sendMessage("Some arguments are missing.");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Some arguments are missing.");
 				return false;
 			}
 
@@ -70,7 +71,7 @@ public class AdminMovieMaker implements IAdminCommandHandler {
 			if (activeChar.getTarget() != null)
 				targ = activeChar.getTarget().getObjectId();
 			else {
-				activeChar.sendMessage("Target for camera is missing.");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Target for camera is missing.");
 				MovieMakerManager.getInstance().mainHtm(activeChar);
 				return false;
 			}

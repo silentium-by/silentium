@@ -16,6 +16,7 @@ import silentium.gameserver.model.L2Object;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.itemcontainer.Inventory;
 import silentium.gameserver.network.SystemMessageId;
+import silentium.gameserver.network.clientpackets.Say2;
 import silentium.gameserver.network.serverpackets.ItemList;
 
 /**
@@ -82,17 +83,17 @@ public class AdminEnchant implements IAdminCommandHandler {
 
 					// check value
 					if (ench < 0 || ench > 65535)
-						activeChar.sendMessage("You must set the enchant level to be between 0-65535.");
+						activeChar.sendChatMessage(0, Say2.ALL, "SYS", "You must set the enchant level to be between 0-65535.");
 					else
 						setEnchant(activeChar, ench, armorType);
 				} catch (StringIndexOutOfBoundsException e) {
 					if (MainConfig.DEVELOPER)
 						_log.warn("Set enchant error: " + e);
-					activeChar.sendMessage("Please specify a new enchant value.");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Please specify a new enchant value.");
 				} catch (NumberFormatException e) {
 					if (MainConfig.DEVELOPER)
 						_log.warn("Set enchant error: " + e);
-					activeChar.sendMessage("Please specify a valid new enchant value.");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Please specify a valid new enchant value.");
 				}
 			}
 
@@ -138,7 +139,7 @@ public class AdminEnchant implements IAdminCommandHandler {
 			player.broadcastUserInfo();
 
 			// informations
-			activeChar.sendMessage("Changed enchantment of " + player.getName() + "'s " + itemInstance.getItem().getName() + " from " + curEnchant + " to " + ench + '.');
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Changed enchantment of " + player.getName() + "'s " + itemInstance.getItem().getName() + " from " + curEnchant + " to " + ench + '.');
 			if (player != activeChar)
 				player.sendMessage("A GM has changed the enchantment of your " + itemInstance.getItem().getName() + " from " + curEnchant + " to " + ench + '.');
 		}

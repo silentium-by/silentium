@@ -15,6 +15,7 @@ import silentium.gameserver.data.html.StaticHtmPath;
 import silentium.gameserver.handler.IAdminCommandHandler;
 import silentium.gameserver.model.L2World;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
+import silentium.gameserver.network.clientpackets.Say2;
 import silentium.gameserver.network.gameserverpackets.ServerStatus;
 import silentium.gameserver.network.serverpackets.NpcHtmlMessage;
 
@@ -51,11 +52,11 @@ public class AdminMaintenance implements IAdminCommandHandler {
 			serverAbort(activeChar);
 		} else if ("admin_server_gm_only".equals(command)) {
 			gmOnly();
-			activeChar.sendMessage("Server is now GMonly");
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Server is now GMonly");
 			sendHtmlForm(activeChar);
 		} else if ("admin_server_all".equals(command)) {
 			allowToAll();
-			activeChar.sendMessage("Server isn't GMonly anymore");
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Server isn't GMonly anymore");
 			sendHtmlForm(activeChar);
 		} else if (command.startsWith("admin_server_max_player")) {
 			final StringTokenizer st = new StringTokenizer(command);
@@ -64,13 +65,13 @@ public class AdminMaintenance implements IAdminCommandHandler {
 				final String number = st.nextToken();
 				try {
 					LoginServerThread.getInstance().setMaxPlayer(Integer.parseInt(number));
-					activeChar.sendMessage("maxPlayer set to " + number);
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "maxPlayer set to " + number);
 					sendHtmlForm(activeChar);
 				} catch (NumberFormatException e) {
-					activeChar.sendMessage("Max players must be a number.");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Max players must be a number.");
 				}
 			} else
-				activeChar.sendMessage("Format is server_max_player <max>");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Format is server_max_player <max>");
 		}
 		return true;
 	}

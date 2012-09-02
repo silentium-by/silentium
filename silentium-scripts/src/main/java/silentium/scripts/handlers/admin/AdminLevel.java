@@ -13,6 +13,7 @@ import silentium.gameserver.model.actor.L2Playable;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.base.Experience;
 import silentium.gameserver.network.SystemMessageId;
+import silentium.gameserver.network.clientpackets.Say2;
 
 import java.util.StringTokenizer;
 
@@ -38,7 +39,7 @@ public class AdminLevel implements IAdminCommandHandler {
 				if (targetChar instanceof L2Playable)
 					((L2Playable) targetChar).getStat().addLevel(Byte.parseByte(val));
 			} catch (NumberFormatException e) {
-				activeChar.sendMessage("Wrong number format.");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Wrong number format.");
 				return false;
 			}
 		} else if ("admin_setlevel".equalsIgnoreCase(actualCommand)) {
@@ -59,11 +60,11 @@ public class AdminLevel implements IAdminCommandHandler {
 					else if (pXp < tXp)
 						targetPlayer.addExpAndSp(tXp - pXp, 0);
 				} else {
-					activeChar.sendMessage("You must specify level between 1 and " + Experience.MAX_LEVEL + '.');
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "You must specify level between 1 and " + Experience.MAX_LEVEL + '.');
 					return false;
 				}
 			} catch (NumberFormatException e) {
-				activeChar.sendMessage("You must specify level between 1 and " + Experience.MAX_LEVEL + '.');
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "You must specify level between 1 and " + Experience.MAX_LEVEL + '.');
 				return false;
 			}
 		}

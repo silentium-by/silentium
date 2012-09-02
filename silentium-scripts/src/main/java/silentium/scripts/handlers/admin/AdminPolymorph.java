@@ -11,6 +11,7 @@ import silentium.gameserver.handler.IAdminCommandHandler;
 import silentium.gameserver.model.L2Object;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.network.SystemMessageId;
+import silentium.gameserver.network.clientpackets.Say2;
 
 import java.util.StringTokenizer;
 
@@ -37,7 +38,7 @@ public class AdminPolymorph implements IAdminCommandHandler {
 				} else
 					doPolymorph(activeChar, target, p1, "npc");
 			} catch (Exception e) {
-				activeChar.sendMessage("Usage: //polymorph [type] <id>");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Usage: //polymorph [type] <id>");
 			}
 
 			if (command.contains("menu"))
@@ -62,7 +63,7 @@ public class AdminPolymorph implements IAdminCommandHandler {
 			return;
 		}
 
-		activeChar.sendMessage("You polymorphed " + target.getName() + " into a " + type + " with id: " + id + '.');
+		activeChar.sendChatMessage(0, Say2.ALL, "SYS", "You polymorphed " + target.getName() + " into a " + type + " with id: " + id + '.');
 	}
 
 	private static void doUnpoly(final L2PcInstance activeChar, L2Object target) {
@@ -77,7 +78,7 @@ public class AdminPolymorph implements IAdminCommandHandler {
 
 		target.getPoly().setPolyInfo(null, "1");
 
-		activeChar.sendMessage("You successfully unpolymorphed " + target.getName() + '.');
+		activeChar.sendChatMessage(0, Say2.ALL, "SYS", "You successfully unpolymorphed " + target.getName() + '.');
 	}
 
 	private static void showMainPage(final L2PcInstance activeChar) {

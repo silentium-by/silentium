@@ -11,6 +11,7 @@ import silentium.gameserver.configs.MainConfig;
 import silentium.gameserver.geo.GeoData;
 import silentium.gameserver.handler.IAdminCommandHandler;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
+import silentium.gameserver.network.clientpackets.Say2;
 
 /**
  * @author -Nemesiss-
@@ -21,17 +22,17 @@ public class AdminGeodata implements IAdminCommandHandler {
 	@Override
 	public boolean useAdminCommand(final String command, final L2PcInstance activeChar) {
 		if (MainConfig.GEODATA < 1) {
-			activeChar.sendMessage("GeoEngine is actually turned off.");
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "GeoEngine is actually turned off.");
 			return true;
 		}
 
 		if ("admin_geo_z".equals(command))
-			activeChar.sendMessage("GeoEngine: Geo_Z = " + GeoData.getInstance().getHeight(activeChar.getX(), activeChar.getY(), activeChar.getZ()) + " Loc_Z = " + activeChar.getZ());
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "GeoEngine: Geo_Z = " + GeoData.getInstance().getHeight(activeChar.getX(), activeChar.getY(), activeChar.getZ()) + " Loc_Z = " + activeChar.getZ());
 		else if ("admin_geo_type".equals(command)) {
 			final short type = GeoData.getInstance().getType(activeChar.getX(), activeChar.getY());
-			activeChar.sendMessage("GeoEngine: Geo_Type = " + type);
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "GeoEngine: Geo_Type = " + type);
 			final short height = GeoData.getInstance().getHeight(activeChar.getX(), activeChar.getY(), activeChar.getZ());
-			activeChar.sendMessage("GeoEngine: height = " + height);
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "GeoEngine: height = " + height);
 		} else if ("admin_geo_nswe".equals(command)) {
 			String result = "";
 			final short nswe = GeoData.getInstance().getNSWE(activeChar.getX(), activeChar.getY(), activeChar.getZ());
@@ -43,23 +44,23 @@ public class AdminGeodata implements IAdminCommandHandler {
 				result += " W";
 			if ((nswe & 1) == 0)
 				result += " E";
-			activeChar.sendMessage("GeoEngine: Geo_NSWE -> " + nswe + "->" + result);
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "GeoEngine: Geo_NSWE -> " + nswe + "->" + result);
 		} else if ("admin_geo_los".equals(command)) {
 			if (activeChar.getTarget() != null) {
 				if (GeoData.getInstance().canSeeTargetDebug(activeChar, activeChar.getTarget()))
-					activeChar.sendMessage("GeoEngine: Can See Target");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "GeoEngine: Can See Target");
 				else
-					activeChar.sendMessage("GeoEngine: Can't See Target");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "GeoEngine: Can't See Target");
 			} else
-				activeChar.sendMessage("None Target!");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "None Target!");
 		} else if ("admin_geo_position".equals(command)) {
-			activeChar.sendMessage("GeoEngine: Your current position: ");
-			activeChar.sendMessage(".... world coords: x: " + activeChar.getX() + " y: " + activeChar.getY() + " z: " + activeChar.getZ());
-			activeChar.sendMessage(".... geo position: " + GeoData.getInstance().geoPosition(activeChar.getX(), activeChar.getY()));
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "GeoEngine: Your current position: ");
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", ".... world coords: x: " + activeChar.getX() + " y: " + activeChar.getY() + " z: " + activeChar.getZ());
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", ".... geo position: " + GeoData.getInstance().geoPosition(activeChar.getX(), activeChar.getY()));
 		} else if (command.startsWith("admin_geo_load")) {
 			final String[] v = command.substring(15).split(" ");
 			if (v.length != 2)
-				activeChar.sendMessage("Usage: //admin_geo_load <regionX> <regionY>");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Usage: //admin_geo_load <regionX> <regionY>");
 			else {
 				try {
 					final byte rx = Byte.parseByte(v[0]);
@@ -68,26 +69,26 @@ public class AdminGeodata implements IAdminCommandHandler {
 					final boolean result = GeoData.loadGeodataFile(rx, ry);
 
 					if (result)
-						activeChar.sendMessage("GeoEngine: File for region [" + rx + ',' + ry + "] loaded succesfuly");
+						activeChar.sendChatMessage(0, Say2.ALL, "SYS", "GeoEngine: File for region [" + rx + ',' + ry + "] loaded succesfuly");
 					else
-						activeChar.sendMessage("GeoEngine: File for region [" + rx + ',' + ry + "] couldn't be loaded");
+						activeChar.sendChatMessage(0, Say2.ALL, "SYS", "GeoEngine: File for region [" + rx + ',' + ry + "] couldn't be loaded");
 				} catch (Exception e) {
-					activeChar.sendMessage("You have to write numbers of regions <regionX> <regionY>");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "You have to write numbers of regions <regionX> <regionY>");
 				}
 			}
 		} else if (command.startsWith("admin_geo_unload")) {
 			final String[] v = command.substring(17).split(" ");
 			if (v.length != 2)
-				activeChar.sendMessage("Usage: //admin_geo_unload <regionX> <regionY>");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Usage: //admin_geo_unload <regionX> <regionY>");
 			else {
 				try {
 					final byte rx = Byte.parseByte(v[0]);
 					final byte ry = Byte.parseByte(v[1]);
 
 					GeoData.unloadGeodata(rx, ry);
-					activeChar.sendMessage("GeoEngine: File for region [" + rx + ',' + ry + "] unloaded.");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "GeoEngine: File for region [" + rx + ',' + ry + "] unloaded.");
 				} catch (Exception e) {
-					activeChar.sendMessage("You have to write numbers of regions <regionX> <regionY>");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "You have to write numbers of regions <regionX> <regionY>");
 				}
 			}
 		} else if (command.startsWith("admin_geo_bug")) {
@@ -95,7 +96,7 @@ public class AdminGeodata implements IAdminCommandHandler {
 				final String comment = command.substring(14);
 				GeoData.getInstance().addGeoDataBug(activeChar, comment);
 			} catch (StringIndexOutOfBoundsException e) {
-				activeChar.sendMessage("Usage: //admin_geo_bug you coments here");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Usage: //admin_geo_bug you coments here");
 			}
 		}
 		return true;

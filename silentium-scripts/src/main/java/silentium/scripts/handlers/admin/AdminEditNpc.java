@@ -26,6 +26,7 @@ import silentium.gameserver.model.L2TradeList.L2TradeItem;
 import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2MerchantInstance;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
+import silentium.gameserver.network.clientpackets.Say2;
 import silentium.gameserver.network.serverpackets.NpcHtmlMessage;
 import silentium.gameserver.tables.ItemTable;
 import silentium.gameserver.tables.NpcTable;
@@ -67,7 +68,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
 				final L2NpcTemplate npc = NpcTable.getInstance().getTemplate(npcId);
 				showNpcProperty(activeChar, npc);
 			} catch (Exception e) {
-				activeChar.sendMessage("Wrong usage: //edit_npc <npcId>");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Wrong usage: //edit_npc <npcId>");
 			}
 		} else if (command.startsWith("admin_show_droplist ")) {
 			final StringTokenizer st = new StringTokenizer(command, " ");
@@ -79,7 +80,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
 					page = Integer.parseInt(st.nextToken());
 				showNpcDropList(activeChar, npcId, page);
 			} catch (Exception e) {
-				activeChar.sendMessage("Usage: //show_droplist <npc_id> [<page>]");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Usage: //show_droplist <npc_id> [<page>]");
 			}
 		} else if (command.startsWith("admin_addShopItem ")) {
 			final String[] args = command.split(" ");
@@ -124,9 +125,9 @@ public class AdminEditNpc implements IAdminCommandHandler {
 						_log.debug("admin_edit_drop parements error: " + command);
 					}
 				} else
-					activeChar.sendMessage("Usage: //edit_drop <npc_id> <item_id> <category> [<min> <max> <chance>]");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Usage: //edit_drop <npc_id> <item_id> <category> [<min> <max> <chance>]");
 			} catch (StringIndexOutOfBoundsException e) {
-				activeChar.sendMessage("Usage: //edit_drop <npc_id> <item_id> <category> [<min> <max> <chance>]");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Usage: //edit_drop <npc_id> <item_id> <category> [<min> <max> <chance>]");
 			}
 		} else if (command.startsWith("admin_add_drop ")) {
 			int npcId = -1;
@@ -159,9 +160,9 @@ public class AdminEditNpc implements IAdminCommandHandler {
 						_log.debug("admin_add_drop parements error: " + command);
 					}
 				} else
-					activeChar.sendMessage("Usage: //add_drop <npc_id> [<item_id> <category> <min> <max> <chance>]");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Usage: //add_drop <npc_id> [<item_id> <category> <min> <max> <chance>]");
 			} catch (StringIndexOutOfBoundsException e) {
-				activeChar.sendMessage("Usage: //add_drop <npc_id> [<item_id> <category> <min> <max> <chance>]");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Usage: //add_drop <npc_id> [<item_id> <category> <min> <max> <chance>]");
 			}
 		} else if (command.startsWith("admin_del_drop ")) {
 			int npcId = -1, itemId = -1, category = -1000;
@@ -178,7 +179,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
 			if (npcId > 0)
 				deleteDropData(activeChar, npcId, itemId, category);
 			else
-				activeChar.sendMessage("Usage: //del_drop <npc_id> <item_id> <category>");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Usage: //del_drop <npc_id> <item_id> <category>");
 		} else if (command.startsWith("admin_show_skilllist_npc ")) {
 			final StringTokenizer st = new StringTokenizer(command, " ");
 			st.nextToken();
@@ -189,7 +190,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
 					page = Integer.parseInt(st.nextToken());
 				showNpcSkillList(activeChar, npcId, page);
 			} catch (Exception e) {
-				activeChar.sendMessage("Usage: //show_skilllist_npc <npc_id> <page>");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Usage: //show_skilllist_npc <npc_id> <page>");
 			}
 		} else if (command.startsWith("admin_edit_skill_npc ")) {
 			try {
@@ -204,7 +205,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
 					updateNpcSkillData(activeChar, npcId, skillId, level);
 				}
 			} catch (Exception e) {
-				activeChar.sendMessage("Usage: //edit_skill_npc <npc_id> <item_id> [<level>]");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Usage: //edit_skill_npc <npc_id> <item_id> [<level>]");
 			}
 		} else if (command.startsWith("admin_add_skill_npc ")) {
 			try {
@@ -219,7 +220,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
 					addNpcSkillData(activeChar, npcId, skillId, level);
 				}
 			} catch (Exception e) {
-				activeChar.sendMessage("Usage: //add_skill_npc <npc_id> [<skill_id> <level>]");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Usage: //add_skill_npc <npc_id> [<skill_id> <level>]");
 			}
 		} else if (command.startsWith("admin_del_skill_npc ")) {
 			try {
@@ -229,7 +230,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
 				final int skillId = Integer.parseInt(st.nextToken());
 				deleteNpcSkillData(activeChar, npcId, skillId);
 			} catch (Exception e) {
-				activeChar.sendMessage("Usage: //del_skill_npc <npc_id> <skill_id>");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Usage: //del_skill_npc <npc_id> <skill_id>");
 			}
 		}
 
@@ -252,7 +253,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
 			tradeList.replaceItem(itemID, Integer.parseInt(args[3]));
 			updateTradeList(itemID, price, tradeListID, order);
 
-			activeChar.sendMessage("Updated price for " + item.getName() + " in Trade List " + tradeListID);
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Updated price for " + item.getName() + " in Trade List " + tradeListID);
 			showShopList(activeChar, tradeListID, 1);
 			return;
 		}
@@ -279,7 +280,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
 			tradeList.removeItem(itemID);
 			deleteTradeList(tradeListID, order);
 
-			activeChar.sendMessage("Deleted " + ItemTable.getInstance().getTemplate(itemID).getName() + " from Trade List " + tradeListID);
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Deleted " + ItemTable.getInstance().getTemplate(itemID).getName() + " from Trade List " + tradeListID);
 			showShopList(activeChar, tradeListID, 1);
 			return;
 		}
@@ -297,7 +298,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
 
 		final L2TradeList tradeList = TradeController.getInstance().getBuyList(tradeListID);
 		if (tradeList == null) {
-			activeChar.sendMessage("TradeList not found!");
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "TradeList not found!");
 			return;
 		}
 
@@ -313,9 +314,9 @@ public class AdminEditNpc implements IAdminCommandHandler {
 			final boolean stored = storeTradeList(itemID, price, tradeListID, order);
 
 			if (stored)
-				activeChar.sendMessage("Added " + ItemTable.getInstance().getTemplate(itemID).getName() + " to Trade List " + tradeList.getListId());
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Added " + ItemTable.getInstance().getTemplate(itemID).getName() + " to Trade List " + tradeList.getListId());
 			else
-				activeChar.sendMessage("Could not add " + ItemTable.getInstance().getTemplate(itemID).getName() + " to Trade List " + tradeList.getListId() + '!');
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Could not add " + ItemTable.getInstance().getTemplate(itemID).getName() + " to Trade List " + tradeList.getListId() + '!');
 
 			showShopList(activeChar, tradeListID, 1);
 			return;
@@ -384,7 +385,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
 	private static void showShop(final L2PcInstance activeChar, final int merchantID) {
 		final List<L2TradeList> tradeLists = TradeController.getInstance().getBuyListByNpcId(merchantID);
 		if (tradeLists == null) {
-			activeChar.sendMessage("Unknown npc template Id: " + merchantID);
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Unknown npc template Id: " + merchantID);
 			return;
 		}
 
@@ -667,7 +668,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
 	private static void showNpcDropList(final L2PcInstance activeChar, final int npcId, final int page) {
 		final L2NpcTemplate npcData = NpcTable.getInstance().getTemplate(npcId);
 		if (npcData == null) {
-			activeChar.sendMessage("Unknown npc template id " + npcId);
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Unknown npc template id " + npcId);
 			return;
 		}
 
@@ -771,13 +772,13 @@ public class AdminEditNpc implements IAdminCommandHandler {
 	private static void showEditDropData(final L2PcInstance activeChar, final int npcId, final int itemId, final int category) {
 		final L2NpcTemplate npcData = NpcTable.getInstance().getTemplate(npcId);
 		if (npcData == null) {
-			activeChar.sendMessage("Unknown npc template id " + npcId);
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Unknown npc template id " + npcId);
 			return;
 		}
 
 		final L2Item itemData = ItemTable.getInstance().getTemplate(itemId);
 		if (itemData == null) {
-			activeChar.sendMessage("Unknown item template id " + itemId);
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Unknown item template id " + itemId);
 			return;
 		}
 
@@ -889,7 +890,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
 				adminReply.setHtml(replyMSG.toString());
 				activeChar.sendPacket(adminReply);
 			} else
-				activeChar.sendMessage("unknown error!");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "unknown error!");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -985,7 +986,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
 	private static void showNpcSkillList(final L2PcInstance activeChar, final int npcId, int page) {
 		final L2NpcTemplate npcData = NpcTable.getInstance().getTemplate(npcId);
 		if (npcData == null) {
-			activeChar.sendMessage("Template id unknown: " + npcId);
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Template id unknown: " + npcId);
 			return;
 		}
 
@@ -1081,7 +1082,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
 
 			final L2NpcTemplate npcData = NpcTable.getInstance().getTemplate(npcId);
 			if (npcData == null) {
-				activeChar.sendMessage("Template id unknown: " + npcId);
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Template id unknown: " + npcId);
 				return;
 			}
 			if (npcData.getSkills() == null)
@@ -1115,7 +1116,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
 			adminReply.setHtml(replyMSG.toString());
 			activeChar.sendPacket(adminReply);
 		} catch (Exception e) {
-			activeChar.sendMessage("Could not edit npc skills!");
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Could not edit npc skills!");
 			_log.warn("Error while editing npc skills (" + npcId + ", " + skillId + "): " + e);
 		}
 	}
@@ -1123,13 +1124,13 @@ public class AdminEditNpc implements IAdminCommandHandler {
 	private static void updateNpcSkillData(final L2PcInstance activeChar, final int npcId, final int skillId, final int level) {
 		final L2Skill skillData = SkillTable.getInstance().getInfo(skillId, level);
 		if (skillData == null) {
-			activeChar.sendMessage("Could not update npc skill: not existing skill id with that level!");
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Could not update npc skill: not existing skill id with that level!");
 			showNpcSkillEdit(activeChar, npcId, skillId);
 			return;
 		}
 
 		if (skillData.getLevel() != level) {
-			activeChar.sendMessage("Skill id with requested level doesn't exist! Skill level not changed.");
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Skill id with requested level doesn't exist! Skill level not changed.");
 			showNpcSkillEdit(activeChar, npcId, skillId);
 			return;
 		}
@@ -1146,9 +1147,9 @@ public class AdminEditNpc implements IAdminCommandHandler {
 			reloadNpcSkillList(npcId);
 
 			showNpcSkillList(activeChar, npcId, 0);
-			activeChar.sendMessage("Updated skill id " + skillId + " for npc id " + npcId + " to level " + level + '.');
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Updated skill id " + skillId + " for npc id " + npcId + " to level " + level + '.');
 		} catch (Exception e) {
-			activeChar.sendMessage("Could not update npc skill!");
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Could not update npc skill!");
 			_log.warn("Error while updating npc skill (" + npcId + ", " + skillId + ", " + level + "): " + e);
 		}
 	}
@@ -1175,7 +1176,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
 		// skill check
 		final L2Skill skillData = SkillTable.getInstance().getInfo(skillId, level);
 		if (skillData == null) {
-			activeChar.sendMessage("Could not add npc skill: not existing skill id with that level!");
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Could not add npc skill: not existing skill id with that level!");
 			showNpcSkillAdd(activeChar, npcId);
 			return;
 		}
@@ -1191,9 +1192,9 @@ public class AdminEditNpc implements IAdminCommandHandler {
 			reloadNpcSkillList(npcId);
 
 			showNpcSkillList(activeChar, npcId, 0);
-			activeChar.sendMessage("Added skill " + skillId + '-' + level + " to npc id " + npcId + '.');
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Added skill " + skillId + '-' + level + " to npc id " + npcId + '.');
 		} catch (Exception e) {
-			activeChar.sendMessage("Could not add npc skill!");
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Could not add npc skill!");
 			_log.warn("Error while adding a npc skill (" + npcId + ", " + skillId + ", " + level + "): " + e);
 		}
 	}
@@ -1210,10 +1211,10 @@ public class AdminEditNpc implements IAdminCommandHandler {
 				reloadNpcSkillList(npcId);
 
 				showNpcSkillList(activeChar, npcId, 0);
-				activeChar.sendMessage("Deleted skill id " + skillId + " from npc id " + npcId + '.');
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Deleted skill id " + skillId + " from npc id " + npcId + '.');
 			}
 		} catch (Exception e) {
-			activeChar.sendMessage("Could not delete npc skill!");
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Could not delete npc skill!");
 			_log.warn("Error while deleting npc skill (" + npcId + ", " + skillId + "): " + e);
 		}
 	}

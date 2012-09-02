@@ -16,6 +16,7 @@ import silentium.gameserver.model.L2World;
 import silentium.gameserver.model.actor.L2Character;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.network.SystemMessageId;
+import silentium.gameserver.network.clientpackets.Say2;
 
 /**
  * This class handles following admin commands: - heal = restores HP/MP/CP on target, name or radius
@@ -35,7 +36,7 @@ public class AdminHeal implements IAdminCommandHandler {
 			} catch (StringIndexOutOfBoundsException e) {
 				if (MainConfig.DEVELOPER)
 					System.out.println("Heal error: " + e);
-				activeChar.sendMessage("Incorrect target/radius specified.");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Incorrect target/radius specified.");
 			}
 		}
 		return true;
@@ -68,7 +69,7 @@ public class AdminHeal implements IAdminCommandHandler {
 								character.setCurrentCp(character.getMaxCp());
 						}
 					}
-					activeChar.sendMessage("Healed within " + radius + " unit radius.");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Healed within " + radius + " unit radius.");
 					return;
 				} catch (NumberFormatException nbe) {
 				}

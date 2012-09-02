@@ -20,6 +20,7 @@ import silentium.gameserver.model.entity.Castle;
 import silentium.gameserver.model.entity.ClanHall;
 import silentium.gameserver.model.zone.type.L2ClanHallZone;
 import silentium.gameserver.network.SystemMessageId;
+import silentium.gameserver.network.clientpackets.Say2;
 import silentium.gameserver.network.serverpackets.NpcHtmlMessage;
 import silentium.gameserver.network.serverpackets.SystemMessage;
 import silentium.gameserver.tables.ClanTable;
@@ -72,7 +73,7 @@ public class AdminSiege implements IAdminCommandHandler {
 					final int npcId = Integer.parseInt(st.nextToken());
 					castle.getSiege().getSiegeGuardManager().addSiegeGuard(activeChar, npcId);
 				} catch (Exception e) {
-					activeChar.sendMessage("Usage: //add_guard npcId");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Usage: //add_guard npcId");
 				}
 			} else if ("admin_clear_siege_list".equalsIgnoreCase(command)) {
 				castle.getSiege().clearSiegeClan();
@@ -87,7 +88,7 @@ public class AdminSiege implements IAdminCommandHandler {
 				if (player == null || player.getClan() == null)
 					activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 				else if (player.getClan().hasCastle())
-					activeChar.sendMessage(player.getName() + "'s clan already owns a castle.");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", player.getName() + "'s clan already owns a castle.");
 				else
 					castle.setOwner(player.getClan());
 			} else if ("admin_removecastle".equalsIgnoreCase(command)) {
@@ -95,7 +96,7 @@ public class AdminSiege implements IAdminCommandHandler {
 				if (clan != null)
 					castle.removeOwner(clan);
 				else
-					activeChar.sendMessage("Unable to remove castle for this clan.");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Unable to remove castle for this clan.");
 			} else if ("admin_spawn_doors".equalsIgnoreCase(command)) {
 				castle.spawnDoor();
 			} else if ("admin_startsiege".equalsIgnoreCase(command)) {
@@ -107,19 +108,19 @@ public class AdminSiege implements IAdminCommandHandler {
 				if (player == null || player.getClan() == null)
 					activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 				else if (!ClanHallManager.getInstance().isFree(clanhall.getId()))
-					activeChar.sendMessage("This ClanHall isn't free!");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "This ClanHall isn't free!");
 				else if (!player.getClan().hasHideout()) {
 					ClanHallManager.getInstance().setOwner(clanhall.getId(), player.getClan());
 					if (AuctionManager.getInstance().getAuction(clanhall.getId()) != null)
 						AuctionManager.getInstance().getAuction(clanhall.getId()).deleteAuctionFromDB();
 				} else
-					activeChar.sendMessage("You have already a ClanHall!");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "You have already a ClanHall!");
 			} else if ("admin_clanhalldel".equalsIgnoreCase(command)) {
 				if (!ClanHallManager.getInstance().isFree(clanhall.getId())) {
 					ClanHallManager.getInstance().setFree(clanhall.getId());
 					AuctionManager.getInstance().initNPC(clanhall.getId());
 				} else
-					activeChar.sendMessage("This ClanHall is already Free!");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "This ClanHall is already Free!");
 			} else if ("admin_clanhallopendoors".equalsIgnoreCase(command)) {
 				clanhall.openCloseDoors(true);
 			} else if ("admin_clanhallclosedoors".equalsIgnoreCase(command)) {

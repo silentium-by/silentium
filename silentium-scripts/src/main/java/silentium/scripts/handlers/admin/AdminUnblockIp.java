@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import silentium.gameserver.handler.IAdminCommandHandler;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
+import silentium.gameserver.network.clientpackets.Say2;
 
 /**
  * This class handles following admin commands:
@@ -28,10 +29,10 @@ public class AdminUnblockIp implements IAdminCommandHandler {
 			try {
 				final String ipAddress = command.substring(16);
 				if (unblockIp(ipAddress, activeChar))
-					activeChar.sendMessage("Removed IP " + ipAddress + " from blocklist!");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Removed IP " + ipAddress + " from blocklist!");
 			} catch (StringIndexOutOfBoundsException e) {
 				// Send syntax to the user
-				activeChar.sendMessage("Usage mode: //unblockip <ip>");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Usage mode: //unblockip <ip>");
 			}
 		}
 

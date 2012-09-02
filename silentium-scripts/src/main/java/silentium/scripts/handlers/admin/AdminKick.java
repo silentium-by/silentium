@@ -11,6 +11,7 @@ import silentium.gameserver.handler.IAdminCommandHandler;
 import silentium.gameserver.model.L2Object;
 import silentium.gameserver.model.L2World;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
+import silentium.gameserver.network.clientpackets.Say2;
 
 import java.util.Collection;
 import java.util.StringTokenizer;
@@ -31,7 +32,7 @@ public class AdminKick implements IAdminCommandHandler {
 				final L2PcInstance plyr = L2World.getInstance().getPlayer(player);
 				if (plyr != null) {
 					plyr.logout();
-					activeChar.sendMessage(plyr.getName() + " have been kicked from server.");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", plyr.getName() + " have been kicked from server.");
 				}
 			}
 		}
@@ -46,7 +47,7 @@ public class AdminKick implements IAdminCommandHandler {
 					player.logout();
 				}
 			}
-			activeChar.sendMessage("A total of " + counter + " players have been kicked.");
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "A total of " + counter + " players have been kicked.");
 		}
 		return true;
 	}
@@ -61,9 +62,9 @@ public class AdminKick implements IAdminCommandHandler {
 			return;
 
 		if (player == activeChar)
-			activeChar.sendMessage("You cannot disconnect your own character.");
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "You cannot disconnect your own character.");
 		else {
-			activeChar.sendMessage(player.getName() + " have been kicked from server.");
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", player.getName() + " have been kicked from server.");
 			player.logout();
 		}
 	}

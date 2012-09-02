@@ -19,6 +19,7 @@ import silentium.gameserver.instancemanager.ZoneManager;
 import silentium.gameserver.model.L2Multisell;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.network.SystemMessageId;
+import silentium.gameserver.network.clientpackets.Say2;
 import silentium.gameserver.tables.GmListTable;
 import silentium.gameserver.tables.ItemTable;
 import silentium.gameserver.tables.NpcTable;
@@ -47,10 +48,10 @@ public class AdminAdmin implements IAdminCommandHandler {
 			showMainPage(activeChar, command);
 		else if (command.startsWith("admin_gmliston")) {
 			GmListTable.getInstance().showGm(activeChar);
-			activeChar.sendMessage("Registered into GMList.");
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Registered into GMList.");
 		} else if (command.startsWith("admin_gmlistoff")) {
 			GmListTable.getInstance().hideGm(activeChar);
-			activeChar.sendMessage("Removed from GMList.");
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Removed from GMList.");
 		} else if (command.startsWith("admin_silence")) {
 			if (activeChar.isInRefusalMode()) // already in message refusal mode
 			{
@@ -65,18 +66,18 @@ public class AdminAdmin implements IAdminCommandHandler {
 				final String mode = command.substring(15);
 				if ("on".equalsIgnoreCase(mode)) {
 					activeChar.setTradeRefusal(true);
-					activeChar.sendMessage("Trade refusal enabled");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Trade refusal enabled");
 				} else if ("off".equalsIgnoreCase(mode)) {
 					activeChar.setTradeRefusal(false);
-					activeChar.sendMessage("Trade refusal disabled");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Trade refusal disabled");
 				}
 			} catch (Exception ex) {
 				if (activeChar.getTradeRefusal()) {
 					activeChar.setTradeRefusal(false);
-					activeChar.sendMessage("Trade refusal disabled");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Trade refusal disabled");
 				} else {
 					activeChar.setTradeRefusal(true);
-					activeChar.sendMessage("Trade refusal enabled");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Trade refusal enabled");
 				}
 			}
 		} else if (command.startsWith("admin_reload")) {
@@ -86,44 +87,44 @@ public class AdminAdmin implements IAdminCommandHandler {
 				final String type = st.nextToken();
 				if (type.startsWith("acar")) {
 					AdminCommandAccessRightsData.getInstance().reload();
-					activeChar.sendMessage("Admin commands rights have been reloaded.");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Admin commands rights have been reloaded.");
 				} else if (type.startsWith("config")) {
 					ConfigEngine.init();
-					activeChar.sendMessage("Configs files have been reloaded.");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Configs files have been reloaded.");
 				} else if (type.startsWith("crest")) {
 					CrestCache.load();
-					activeChar.sendMessage("Crests have been reloaded.");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Crests have been reloaded.");
 				} else if (type.startsWith("door")) {
 					DoorData.getInstance().reload();
-					activeChar.sendMessage("Doors instance has been reloaded.");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Doors instance has been reloaded.");
 				} else if (type.startsWith("htm")) {
 					HtmCache.getInstance().reload();
-					activeChar.sendMessage("The HTM cache has been reloaded.");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "The HTM cache has been reloaded.");
 				} else if (type.startsWith("item")) {
 					ItemTable.getInstance().reload();
-					activeChar.sendMessage("Items' templates have been reloaded.");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Items' templates have been reloaded.");
 				} else if ("multisell".equals(type)) {
 					L2Multisell.getInstance().reload();
-					activeChar.sendMessage("The multisell instance has been reloaded.");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "The multisell instance has been reloaded.");
 				} else if ("npc".equals(type)) {
 					NpcTable.getInstance().reloadAllNpc();
-					activeChar.sendMessage("NPCs templates have been reloaded.");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "NPCs templates have been reloaded.");
 				} else if (type.startsWith("npcwalker")) {
 					NpcWalkerRoutesData.getInstance().reload();
-					activeChar.sendMessage("NPCwalkers' routes have been reloaded.");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "NPCwalkers' routes have been reloaded.");
 				} else if (type.startsWith("skill")) {
 					SkillTable.getInstance().reload();
-					activeChar.sendMessage("Skills' XMLs have been reloaded.");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Skills' XMLs have been reloaded.");
 				} else if (type.startsWith("teleport")) {
 					TeleportLocationData.getInstance().reload();
-					activeChar.sendMessage("The teleport location table has been reloaded.");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "The teleport location table has been reloaded.");
 				} else if (type.startsWith("zone")) {
 					ZoneManager.getInstance().reload();
-					activeChar.sendMessage("Zones have been reloaded.");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Zones have been reloaded.");
 				}
 			} catch (Exception e) {
-				activeChar.sendMessage("Usage : //reload <acar|config|crest|door|htm|item|multisell>");
-				activeChar.sendMessage("Usage : //reload <npc|npcwalker|quest|scripts|skill|teleport|zone>");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Usage : //reload <acar|config|crest|door|htm|item|multisell>");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Usage : //reload <npc|npcwalker|quest|scripts|skill|teleport|zone>");
 			}
 		}
 

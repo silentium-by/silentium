@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import silentium.commons.database.DatabaseFactory;
 import silentium.gameserver.handler.IAdminCommandHandler;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
+import silentium.gameserver.network.clientpackets.Say2;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -32,21 +33,21 @@ public class AdminPremium implements IAdminCommandHandler {
 				final String val = command.substring(19);
 				addPremiumServices(1, val);
 			} catch (StringIndexOutOfBoundsException e) {
-				activeChar.sendMessage("Err");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Err");
 			}
 		} else if (command.startsWith("admin_premium_add2")) {
 			try {
 				final String val = command.substring(19);
 				addPremiumServices(2, val);
 			} catch (StringIndexOutOfBoundsException e) {
-				activeChar.sendMessage("Err");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Err");
 			}
 		} else if (command.startsWith("admin_premium_add3")) {
 			try {
 				final String val = command.substring(19);
 				addPremiumServices(3, val);
 			} catch (StringIndexOutOfBoundsException e) {
-				activeChar.sendMessage("Err");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Err");
 			}
 		}
 		return true;

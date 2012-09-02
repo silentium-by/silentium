@@ -10,6 +10,7 @@ package silentium.scripts.handlers.admin;
 import silentium.gameserver.handler.IAdminCommandHandler;
 import silentium.gameserver.model.L2World;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
+import silentium.gameserver.network.clientpackets.Say2;
 import silentium.gameserver.tables.ItemTable;
 import silentium.gameserver.templates.item.L2Item;
 
@@ -58,7 +59,7 @@ public class AdminCreateItem implements IAdminCommandHandler {
 					createItem(activeChar, target, idval, 1);
 				}
 			} catch (Exception e) {
-				activeChar.sendMessage("Usage: //create_item <itemId> [amount] [radius]");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Usage: //create_item <itemId> [amount] [radius]");
 			}
 			AdminHelpPage.showHelpPage(activeChar, "itemcreation.htm");
 		} else if (command.startsWith("admin_create_coin")) {
@@ -82,7 +83,7 @@ public class AdminCreateItem implements IAdminCommandHandler {
 					createItem(activeChar, target, idval, 1);
 				}
 			} catch (Exception e) {
-				activeChar.sendMessage("Usage: //create_coin <name> [amount]");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Usage: //create_coin <name> [amount]");
 			}
 			AdminHelpPage.showHelpPage(activeChar, "itemcreation.htm");
 		} else if (command.startsWith("admin_reward_all")) {
@@ -105,12 +106,12 @@ public class AdminCreateItem implements IAdminCommandHandler {
 				int counter = 0;
 				final L2Item template = ItemTable.getInstance().getTemplate(idval);
 				if (template == null) {
-					activeChar.sendMessage("This item doesn't exist.");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "This item doesn't exist.");
 					return false;
 				}
 
 				if (numval > 1 && !template.isStackable()) {
-					activeChar.sendMessage("This item doesn't stack - Creation aborted.");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "This item doesn't stack - Creation aborted.");
 					return false;
 				}
 
@@ -122,9 +123,9 @@ public class AdminCreateItem implements IAdminCommandHandler {
 						counter++;
 					}
 				}
-				activeChar.sendMessage(counter + " players rewarded with " + template.getName());
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", counter + " players rewarded with " + template.getName());
 			} catch (Exception e) {
-				activeChar.sendMessage("Usage: //reward_all <itemId> [amount]");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Usage: //reward_all <itemId> [amount]");
 			}
 			AdminHelpPage.showHelpPage(activeChar, "itemcreation.htm");
 		}
@@ -138,12 +139,12 @@ public class AdminCreateItem implements IAdminCommandHandler {
 	private static void createItem(final L2PcInstance activeChar, final L2PcInstance target, final int id, final int num, final int radius) {
 		final L2Item template = ItemTable.getInstance().getTemplate(id);
 		if (template == null) {
-			activeChar.sendMessage("This item doesn't exist.");
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "This item doesn't exist.");
 			return;
 		}
 
 		if (num > 1 && !template.isStackable()) {
-			activeChar.sendMessage("This item doesn't stack - Creation aborted.");
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "This item doesn't stack - Creation aborted.");
 			return;
 		}
 
@@ -158,13 +159,13 @@ public class AdminCreateItem implements IAdminCommandHandler {
 					counter++;
 				}
 			}
-			activeChar.sendMessage(counter + " players rewarded with " + num + ' ' + template.getName() + " in a " + radius + " radius.");
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", counter + " players rewarded with " + num + ' ' + template.getName() + " in a " + radius + " radius.");
 		} else {
 			target.getInventory().addItem("Admin", id, num, target, activeChar);
 			if (activeChar != target)
 				target.sendMessage("A GM spawned " + num + ' ' + template.getName() + " in your inventory.");
 
-			activeChar.sendMessage("You have spawned " + num + ' ' + template.getName() + " in " + target.getName() + " inventory.");
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "You have spawned " + num + ' ' + template.getName() + " in " + target.getName() + " inventory.");
 		}
 	}
 

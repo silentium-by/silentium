@@ -14,6 +14,7 @@ import silentium.gameserver.model.L2Object;
 import silentium.gameserver.model.actor.instance.L2DoorInstance;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.entity.Castle;
+import silentium.gameserver.network.clientpackets.Say2;
 
 /**
  * This class handles following admin commands: - open1 = open coloseum door 24190001 - open2 = open coloseum door 24190002 - open3 = open
@@ -74,7 +75,7 @@ public class AdminDoorControl implements IAdminCommandHandler {
 				if (target instanceof L2DoorInstance)
 					((L2DoorInstance) target).openMe();
 				else
-					activeChar.sendMessage("Incorrect target.");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Incorrect target.");
 			}
 
 			if ("admin_close".equals(command)) {
@@ -83,7 +84,7 @@ public class AdminDoorControl implements IAdminCommandHandler {
 				if (target instanceof L2DoorInstance)
 					((L2DoorInstance) target).closeMe();
 				else
-					activeChar.sendMessage("Incorrect target.");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Incorrect target.");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -16,6 +16,7 @@ import silentium.gameserver.model.L2World;
 import silentium.gameserver.model.actor.L2Character;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.network.SystemMessageId;
+import silentium.gameserver.network.clientpackets.Say2;
 
 import java.util.StringTokenizer;
 
@@ -48,10 +49,10 @@ public class AdminKill implements IAdminCommandHandler {
 								kill(activeChar, knownChar);
 							}
 
-							activeChar.sendMessage("Killed all characters within a " + radius + " unit radius.");
+							activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Killed all characters within a " + radius + " unit radius.");
 							return true;
 						} catch (NumberFormatException e) {
-							activeChar.sendMessage("Invalid radius.");
+							activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Invalid radius.");
 							return false;
 						}
 					}
@@ -66,10 +67,10 @@ public class AdminKill implements IAdminCommandHandler {
 							kill(activeChar, knownChar);
 						}
 
-						activeChar.sendMessage("Killed all characters within a " + radius + " unit radius.");
+						activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Killed all characters within a " + radius + " unit radius.");
 						return true;
 					} catch (NumberFormatException e) {
-						activeChar.sendMessage("Usage: //kill <player_name | radius>");
+						activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Usage: //kill <player_name | radius>");
 						return false;
 					}
 				}

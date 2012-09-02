@@ -9,6 +9,7 @@ package silentium.scripts.handlers.admin;
 
 import silentium.gameserver.handler.IAdminCommandHandler;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
+import silentium.gameserver.network.clientpackets.Say2;
 
 import java.util.StringTokenizer;
 
@@ -22,7 +23,7 @@ public class AdminRideWyvern implements IAdminCommandHandler {
 		if (command.startsWith("admin_ride")) {
 			// command disabled if CW is worn. Warn user.
 			if (activeChar.isCursedWeaponEquipped()) {
-				activeChar.sendMessage("You can't use //ride owning a Cursed Weapon.");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "You can't use //ride owning a Cursed Weapon.");
 				return false;
 			}
 
@@ -43,11 +44,11 @@ public class AdminRideWyvern implements IAdminCommandHandler {
 						_petRideId = 12526;
 						break;
 					default:
-						activeChar.sendMessage("Parameter '" + mount + "' isn't recognized for that command.");
+						activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Parameter '" + mount + "' isn't recognized for that command.");
 						return false;
 				}
 			} else {
-				activeChar.sendMessage("You must enter a parameter for that command.");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "You must enter a parameter for that command.");
 				return false;
 			}
 

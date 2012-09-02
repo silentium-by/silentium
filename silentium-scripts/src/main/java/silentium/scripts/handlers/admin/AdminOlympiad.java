@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import silentium.gameserver.handler.IAdminCommandHandler;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.olympiad.Olympiad;
+import silentium.gameserver.network.clientpackets.Say2;
 
 public class AdminOlympiad implements IAdminCommandHandler {
 	private static final Logger _log = LoggerFactory.getLogger(AdminOlympiad.class.getName());
@@ -25,23 +26,23 @@ public class AdminOlympiad implements IAdminCommandHandler {
 			} catch (Exception e) {
 				_log.warn("An error occured while ending olympiad: " + e);
 			}
-			activeChar.sendMessage("Heroes have been formed.");
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Heroes have been formed.");
 		} else if (command.startsWith("admin_manualhero") || command.startsWith("admin_sethero")) {
 			L2PcInstance target = null;
 			target = activeChar.getTarget() instanceof L2PcInstance ? (L2PcInstance) activeChar.getTarget() : activeChar;
 
 			target.setHero(!target.isHero());
 			target.broadcastUserInfo();
-			activeChar.sendMessage("You have modified " + target.getName() + "'s hero status.");
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "You have modified " + target.getName() + "'s hero status.");
 		} else if (command.startsWith("admin_saveoly")) {
 			Olympiad.getInstance().saveOlympiadStatus();
-			activeChar.sendMessage("Olympiad stats have been saved.");
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Olympiad stats have been saved.");
 		} else if (command.startsWith("admin_setnoble")) {
 			L2PcInstance target = null;
 			target = activeChar.getTarget() instanceof L2PcInstance ? (L2PcInstance) activeChar.getTarget() : activeChar;
 
 			target.setNoble(!target.isNoble(), true);
-			activeChar.sendMessage("You have modified " + target.getName() + "'s noble status.");
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "You have modified " + target.getName() + "'s noble status.");
 		}
 		return true;
 	}

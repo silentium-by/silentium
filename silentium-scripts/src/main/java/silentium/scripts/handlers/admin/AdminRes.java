@@ -15,6 +15,7 @@ import silentium.gameserver.model.L2World;
 import silentium.gameserver.model.actor.L2Character;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.network.SystemMessageId;
+import silentium.gameserver.network.clientpackets.Say2;
 import silentium.gameserver.taskmanager.DecayTaskManager;
 
 /**
@@ -66,10 +67,10 @@ public class AdminRes implements IAdminCommandHandler {
 					for (final L2PcInstance knownPlayer : activeChar.getKnownList().getKnownPlayersInRadius(radius))
 						doResurrect(knownPlayer);
 
-					activeChar.sendMessage("Resurrected all players within a " + radius + " unit radius.");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Resurrected all players within a " + radius + " unit radius.");
 					return;
 				} catch (NumberFormatException e) {
-					activeChar.sendMessage("Enter a valid player name or radius.");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Enter a valid player name or radius.");
 					return;
 				}
 			}
@@ -100,10 +101,10 @@ public class AdminRes implements IAdminCommandHandler {
 					if (!(knownChar instanceof L2PcInstance))
 						doResurrect(knownChar);
 
-				activeChar.sendMessage("Resurrected all non-players within a " + radius + " unit radius.");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Resurrected all non-players within a " + radius + " unit radius.");
 			}
 		} catch (NumberFormatException e) {
-			activeChar.sendMessage("Enter a valid radius.");
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Enter a valid radius.");
 			return;
 		}
 

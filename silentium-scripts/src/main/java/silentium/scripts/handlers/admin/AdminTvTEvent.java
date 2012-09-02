@@ -14,6 +14,7 @@ import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.entity.TvTEvent;
 import silentium.gameserver.model.entity.TvTEventTeleporter;
 import silentium.gameserver.model.entity.TvTManager;
+import silentium.gameserver.network.clientpackets.Say2;
 
 /**
  * @author FBIagent
@@ -28,7 +29,7 @@ public class AdminTvTEvent implements IAdminCommandHandler {
 				final L2Object target = activeChar.getTarget();
 
 				if (!(target instanceof L2PcInstance)) {
-					activeChar.sendMessage("You should select a player!");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "You should select a player!");
 					return true;
 				}
 
@@ -39,7 +40,7 @@ public class AdminTvTEvent implements IAdminCommandHandler {
 				final L2Object target = activeChar.getTarget();
 
 				if (!(target instanceof L2PcInstance)) {
-					activeChar.sendMessage("You should select a player!");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "You should select a player!");
 					return true;
 				}
 
@@ -60,12 +61,12 @@ public class AdminTvTEvent implements IAdminCommandHandler {
 
 	private void add(final L2PcInstance activeChar, final L2PcInstance playerInstance) {
 		if (TvTEvent.isPlayerParticipant(playerInstance.getObjectId())) {
-			activeChar.sendMessage("Player already participated in the event!");
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Player already participated in the event!");
 			return;
 		}
 
 		if (!TvTEvent.addParticipant(playerInstance)) {
-			activeChar.sendMessage("Player instance could not be added, it seems to be null!");
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Player instance could not be added, it seems to be null!");
 			return;
 		}
 
@@ -76,7 +77,7 @@ public class AdminTvTEvent implements IAdminCommandHandler {
 
 	private void remove(final L2PcInstance activeChar, final L2PcInstance playerInstance) {
 		if (!TvTEvent.removeParticipant(playerInstance.getObjectId())) {
-			activeChar.sendMessage("Player is not part of the event!");
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Player is not part of the event!");
 			return;
 		}
 

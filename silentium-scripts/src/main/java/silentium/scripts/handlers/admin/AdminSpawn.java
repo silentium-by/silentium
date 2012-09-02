@@ -19,6 +19,7 @@ import silentium.gameserver.model.L2World;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.entity.sevensigns.SevenSigns;
 import silentium.gameserver.network.SystemMessageId;
+import silentium.gameserver.network.clientpackets.Say2;
 import silentium.gameserver.network.serverpackets.NpcHtmlMessage;
 import silentium.gameserver.network.serverpackets.SystemMessage;
 import silentium.gameserver.tables.GmListTable;
@@ -145,7 +146,7 @@ public class AdminSpawn implements IAdminCommandHandler {
 
 			if (RaidBossSpawnManager.getInstance().getValidTemplate(spawn.getNpcId()) != null) {
 				if (RaidBossSpawnManager.getInstance().isDefined(spawn.getNpcId())) {
-					activeChar.sendMessage("You cannot spawn another instance of " + template.getName() + '.');
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "You cannot spawn another instance of " + template.getName() + '.');
 					return;
 				}
 
@@ -160,7 +161,7 @@ public class AdminSpawn implements IAdminCommandHandler {
 			if (!permanent)
 				spawn.stopRespawn();
 
-			activeChar.sendMessage("Spawned " + template.getName() + '.');
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Spawned " + template.getName() + '.');
 
 		} catch (Exception e) {
 			activeChar.sendPacket(SystemMessageId.APPLICANT_INFORMATION_INCORRECT);

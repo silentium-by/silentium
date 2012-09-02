@@ -13,6 +13,7 @@ import silentium.gameserver.TradeController;
 import silentium.gameserver.handler.IAdminCommandHandler;
 import silentium.gameserver.model.L2TradeList;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
+import silentium.gameserver.network.clientpackets.Say2;
 import silentium.gameserver.network.serverpackets.ActionFailed;
 import silentium.gameserver.network.serverpackets.BuyList;
 
@@ -30,7 +31,7 @@ public class AdminShop implements IAdminCommandHandler {
 			try {
 				handleBuyRequest(activeChar, command.substring(10));
 			} catch (IndexOutOfBoundsException e) {
-				activeChar.sendMessage("Please specify buylist.");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Please specify buylist.");
 			}
 		} else if ("admin_gmshop".equals(command))
 			AdminHelpPage.showHelpPage(activeChar, "gmshops.htm");

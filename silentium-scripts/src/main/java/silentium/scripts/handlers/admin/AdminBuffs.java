@@ -8,6 +8,7 @@ import silentium.gameserver.model.L2World;
 import silentium.gameserver.model.actor.L2Character;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.network.SystemMessageId;
+import silentium.gameserver.network.clientpackets.Say2;
 import silentium.gameserver.network.serverpackets.NpcHtmlMessage;
 import silentium.gameserver.network.serverpackets.SkillCoolTime;
 import silentium.gameserver.utils.GMAudit;
@@ -57,8 +58,8 @@ public class AdminBuffs implements IAdminCommandHandler {
 				removeBuff(activeChar, objectId, skillId);
 				return true;
 			} catch (Exception e) {
-				activeChar.sendMessage("Failed removing effect: " + e.getMessage());
-				activeChar.sendMessage("Usage: //stopbuff <objectId> <skillId>");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Failed removing effect: " + e.getMessage());
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Usage: //stopbuff <objectId> <skillId>");
 				return false;
 			}
 		} else if (command.startsWith("admin_stopallbuffs")) {
@@ -69,8 +70,8 @@ public class AdminBuffs implements IAdminCommandHandler {
 				removeAllBuffs(activeChar, objectId);
 				return true;
 			} catch (Exception e) {
-				activeChar.sendMessage("Failed removing all effects: " + e.getMessage());
-				activeChar.sendMessage("Usage: //stopallbuffs <objectId>");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Failed removing all effects: " + e.getMessage());
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Usage: //stopallbuffs <objectId>");
 				return false;
 			}
 		} else if (command.startsWith("admin_areacancel")) {
@@ -85,10 +86,10 @@ public class AdminBuffs implements IAdminCommandHandler {
 						knownChar.stopAllEffects();
 				}
 
-				activeChar.sendMessage("All effects canceled within radius " + radius + '.');
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "All effects canceled within radius " + radius + '.');
 				return true;
 			} catch (Exception e) {
-				activeChar.sendMessage("Usage: //areacancel <radius>");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Usage: //areacancel <radius>");
 				return false;
 			}
 		} else if (command.startsWith("admin_removereuse")) {
@@ -105,7 +106,7 @@ public class AdminBuffs implements IAdminCommandHandler {
 				}
 
 				if (player == null) {
-					activeChar.sendMessage("The player " + playername + " is not online.");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "The player " + playername + " is not online.");
 					return false;
 				}
 			} else if (activeChar.getTarget() instanceof L2PcInstance)
@@ -119,7 +120,7 @@ public class AdminBuffs implements IAdminCommandHandler {
 				player.getReuseTimeStamp().clear();
 				player.getDisabledSkills().clear();
 				player.sendPacket(new SkillCoolTime(player));
-				activeChar.sendMessage(player.getName() + "'s skills reuse time is now cleaned.");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", player.getName() + "'s skills reuse time is now cleaned.");
 				return true;
 			} catch (NullPointerException e) {
 				return false;
@@ -198,7 +199,7 @@ public class AdminBuffs implements IAdminCommandHandler {
 			for (final L2Effect e : effects) {
 				if (e != null && e.getSkill().getId() == skillId) {
 					e.exit();
-					activeChar.sendMessage("Removed " + e.getSkill().getName() + " level " + e.getSkill().getLevel() + " from " + target.getName() + " (" + objId + ')');
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Removed " + e.getSkill().getName() + " level " + e.getSkill().getLevel() + " from " + target.getName() + " (" + objId + ')');
 				}
 			}
 			showBuffs(activeChar, target, 1);
@@ -216,7 +217,7 @@ public class AdminBuffs implements IAdminCommandHandler {
 
 		if (target != null) {
 			target.stopAllEffects();
-			activeChar.sendMessage("Removed all effects from " + target.getName() + " (" + objId + ')');
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Removed all effects from " + target.getName() + " (" + objId + ')');
 			showBuffs(activeChar, target, 1);
 			if (MainConfig.GMAUDIT)
 				GMAudit.auditGMAction(activeChar.getName() + " [" + activeChar.getObjectId() + ']', "stopallbuffs", target.getName() + " (" + objId + ')', "");

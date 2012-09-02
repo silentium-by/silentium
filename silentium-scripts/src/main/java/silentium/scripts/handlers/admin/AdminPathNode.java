@@ -12,6 +12,7 @@ import silentium.gameserver.geo.pathfinding.AbstractNodeLoc;
 import silentium.gameserver.geo.pathfinding.PathFinding;
 import silentium.gameserver.handler.IAdminCommandHandler;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
+import silentium.gameserver.network.clientpackets.Say2;
 
 import java.util.List;
 
@@ -24,10 +25,10 @@ public class AdminPathNode implements IAdminCommandHandler {
 			case "admin_pn_info":
 				final String[] info = PathFinding.getInstance().getStat();
 				if (info == null)
-					activeChar.sendMessage("Not supported");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Not supported");
 				else
 					for (final String msg : info)
-						activeChar.sendMessage(msg);
+						activeChar.sendChatMessage(0, Say2.ALL, "SYS", msg);
 				break;
 			case "admin_show_path":
 
@@ -40,21 +41,21 @@ public class AdminPathNode implements IAdminCommandHandler {
 				break;
 			case "admin_find_path":
 				if (MainConfig.GEODATA < 2) {
-					activeChar.sendMessage("PathFinding has not been enabled.");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "PathFinding has not been enabled.");
 					return true;
 				}
 
 				if (activeChar.getTarget() != null) {
 					final List<AbstractNodeLoc> path = PathFinding.getInstance().findPath(activeChar.getX(), activeChar.getY(), (short) activeChar.getZ(), activeChar.getTarget().getX(), activeChar.getTarget().getY(), (short) activeChar.getTarget().getZ(), true);
 					if (path == null) {
-						activeChar.sendMessage("No Route!");
+						activeChar.sendChatMessage(0, Say2.ALL, "SYS", "No Route!");
 						return true;
 					}
 
 					for (final AbstractNodeLoc a : path)
-						activeChar.sendMessage("x:" + a.getX() + " y:" + a.getY() + " z:" + a.getZ());
+						activeChar.sendChatMessage(0, Say2.ALL, "SYS", "x:" + a.getX() + " y:" + a.getY() + " z:" + a.getZ());
 				} else
-					activeChar.sendMessage("No Target!");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "No Target!");
 				break;
 		}
 		return true;

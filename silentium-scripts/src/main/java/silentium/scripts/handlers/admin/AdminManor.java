@@ -17,6 +17,7 @@ import silentium.gameserver.instancemanager.CastleManorManager.CropProcure;
 import silentium.gameserver.instancemanager.CastleManorManager.SeedProduction;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.model.entity.Castle;
+import silentium.gameserver.network.clientpackets.Say2;
 import silentium.gameserver.network.serverpackets.NpcHtmlMessage;
 
 import java.util.StringTokenizer;
@@ -45,14 +46,14 @@ public class AdminManor implements IAdminCommandHandler {
 				CastleManorManager.getInstance().setNextPeriod();
 				CastleManorManager.getInstance().setNewManorRefresh();
 				CastleManorManager.getInstance().updateManorRefresh();
-				activeChar.sendMessage("Manor System: set to next period");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Manor System: set to next period");
 				showMainPage(activeChar);
 				break;
 			case "admin_manor_approve":
 				CastleManorManager.getInstance().approveNextPeriod();
 				CastleManorManager.getInstance().setNewPeriodApprove();
 				CastleManorManager.getInstance().updatePeriodApprove();
-				activeChar.sendMessage("Manor System: next period approved");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Manor System: next period approved");
 				showMainPage(activeChar);
 				break;
 			case "admin_manor_reset":
@@ -72,7 +73,7 @@ public class AdminManor implements IAdminCommandHandler {
 						castle.saveCropData();
 						castle.saveSeedData();
 					}
-					activeChar.sendMessage("Manor data for " + castle.getName() + " was nulled");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Manor data for " + castle.getName() + " was nulled");
 				} else {
 					for (final Castle castle : CastleManager.getInstance().getCastles()) {
 						castle.setCropProcure(new FastList<CropProcure>(), CastleManorManager.PERIOD_CURRENT);
@@ -84,7 +85,7 @@ public class AdminManor implements IAdminCommandHandler {
 							castle.saveSeedData();
 						}
 					}
-					activeChar.sendMessage("Manor data was nulled");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Manor data was nulled");
 				}
 				showMainPage(activeChar);
 				break;
@@ -92,24 +93,24 @@ public class AdminManor implements IAdminCommandHandler {
 				final boolean mode = CastleManorManager.getInstance().isUnderMaintenance();
 				CastleManorManager.getInstance().setUnderMaintenance(!mode);
 				if (mode)
-					activeChar.sendMessage("Manor System: not under maintenance");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Manor System: not under maintenance");
 				else
-					activeChar.sendMessage("Manor System: under maintenance");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Manor System: under maintenance");
 				showMainPage(activeChar);
 				break;
 			}
 			case "admin_manor_save":
 				CastleManorManager.getInstance().save();
-				activeChar.sendMessage("Manor System: all data saved");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Manor System: all data saved");
 				showMainPage(activeChar);
 				break;
 			case "admin_manor_disable":
 				final boolean mode = CastleManorManager.getInstance().isDisabled();
 				CastleManorManager.getInstance().setDisabled(!mode);
 				if (mode)
-					activeChar.sendMessage("Manor System: enabled");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Manor System: enabled");
 				else
-					activeChar.sendMessage("Manor System: disabled");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Manor System: disabled");
 				showMainPage(activeChar);
 				break;
 		}

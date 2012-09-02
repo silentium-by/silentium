@@ -11,6 +11,7 @@ import javolution.text.TextBuilder;
 import silentium.gameserver.data.html.StaticHtmPath;
 import silentium.gameserver.handler.IAdminCommandHandler;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
+import silentium.gameserver.network.clientpackets.Say2;
 import silentium.gameserver.network.serverpackets.AdminForgePacket;
 import silentium.gameserver.network.serverpackets.NpcHtmlMessage;
 
@@ -35,7 +36,7 @@ public class AdminPForge implements IAdminCommandHandler {
 				final String format = st.nextToken();
 				showPage2(activeChar, format);
 			} catch (Exception ex) {
-				activeChar.sendMessage("Usage: //forge2 format");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Usage: //forge2 format");
 			}
 		} else if (command.startsWith("admin_forge3")) {
 			try {
@@ -96,7 +97,7 @@ public class AdminPForge implements IAdminCommandHandler {
 
 				showPage3(activeChar, format, command);
 			} catch (Exception ex) {
-				activeChar.sendMessage("Usage: //forge or //forge2 format");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Usage: //forge or //forge2 format");
 			}
 		}
 		return true;

@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import silentium.gameserver.handler.IAdminCommandHandler;
 import silentium.gameserver.model.L2Object;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
+import silentium.gameserver.network.clientpackets.Say2;
 
 /**
  * This class handles following admin commands: - invul = turns invulnerability on/off
@@ -50,6 +51,6 @@ public class AdminInvul implements IAdminCommandHandler {
 
 			_log.info("GM: Gm activated invul mode for character " + activeChar.getName() + '(' + activeChar.getObjectId() + ')');
 		}
-		activeChar.sendMessage(text);
+		activeChar.sendChatMessage(0, Say2.ALL, "SYS", text);
 	}
 }

@@ -12,6 +12,7 @@ import silentium.gameserver.handler.IAdminCommandHandler;
 import silentium.gameserver.model.L2World;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.network.SystemMessageId;
+import silentium.gameserver.network.clientpackets.Say2;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -52,7 +53,7 @@ public class AdminChangeAccessLevel implements IAdminCommandHandler {
 				else
 					activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 			} catch (Exception e) {
-				activeChar.sendMessage("Usage: //changelvl <target_new_level> | <player_name> <new_level>");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Usage: //changelvl <target_new_level> | <player_name> <new_level>");
 			}
 		} else if (parts.length == 3) {
 			final String name = parts[1];
@@ -69,11 +70,11 @@ public class AdminChangeAccessLevel implements IAdminCommandHandler {
 					final int count = statement.getUpdateCount();
 					statement.close();
 					if (count == 0)
-						activeChar.sendMessage("Character not found or access level unaltered.");
+						activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Character not found or access level unaltered.");
 					else
-						activeChar.sendMessage("Character's access level is now set to " + lvl);
+						activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Character's access level is now set to " + lvl);
 				} catch (SQLException se) {
-					activeChar.sendMessage("SQLException while changing character's access level");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "SQLException while changing character's access level");
 
 					se.printStackTrace();
 				}
@@ -94,6 +95,6 @@ public class AdminChangeAccessLevel implements IAdminCommandHandler {
 			player.sendMessage("Your character has been banned.");
 			player.logout();
 		}
-		activeChar.sendMessage("Character's access level is now set to " + lvl + ". Effects won't be noticeable until next session.");
+		activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Character's access level is now set to " + lvl + ". Effects won't be noticeable until next session.");
 	}
 }

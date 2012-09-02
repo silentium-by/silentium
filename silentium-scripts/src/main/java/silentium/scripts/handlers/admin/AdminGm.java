@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import silentium.gameserver.data.xml.AccessLevelsData;
 import silentium.gameserver.handler.IAdminCommandHandler;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
+import silentium.gameserver.network.clientpackets.Say2;
 import silentium.gameserver.tables.GmListTable;
 
 /**
@@ -38,7 +39,7 @@ public class AdminGm implements IAdminCommandHandler {
 		if (activeChar.isGM()) {
 			GmListTable.getInstance().deleteGm(activeChar);
 			activeChar.setAccessLevel(AccessLevelsData._userAccessLevelNum);
-			activeChar.sendMessage("You no longer have GM status.");
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "You no longer have GM status.");
 
 			_log.info("GM: " + activeChar.getName() + " (" + activeChar.getObjectId() + ") turned his GM status off" + '.');
 		}

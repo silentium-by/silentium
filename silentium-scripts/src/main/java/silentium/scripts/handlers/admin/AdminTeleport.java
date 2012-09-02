@@ -15,6 +15,7 @@ import silentium.gameserver.model.L2Object;
 import silentium.gameserver.model.L2World;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.network.SystemMessageId;
+import silentium.gameserver.network.clientpackets.Say2;
 
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
@@ -81,9 +82,9 @@ public class AdminTeleport implements IAdminCommandHandler {
 					for (final L2PcInstance pm : player.getParty().getPartyMembers())
 						teleportCharacter(pm, activeChar.getX(), activeChar.getY(), activeChar.getZ());
 
-					activeChar.sendMessage("You recall " + player.getName() + "'s party.");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "You recall " + player.getName() + "'s party.");
 				} else {
-					activeChar.sendMessage("You recall " + player.getName() + ", but he isn't in a party.");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "You recall " + player.getName() + ", but he isn't in a party.");
 					teleportCharacter(player, activeChar.getX(), activeChar.getY(), activeChar.getZ());
 				}
 			} catch (StringIndexOutOfBoundsException e) {
@@ -103,9 +104,9 @@ public class AdminTeleport implements IAdminCommandHandler {
 					for (final L2PcInstance member : members)
 						teleportCharacter(member, activeChar.getX(), activeChar.getY(), activeChar.getZ());
 
-					activeChar.sendMessage("You recall " + player.getName() + "'s clan.");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "You recall " + player.getName() + "'s clan.");
 				} else {
-					activeChar.sendMessage("You recall " + player.getName() + ", but he isn't a clan member.");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "You recall " + player.getName() + ", but he isn't a clan member.");
 					teleportCharacter(player, activeChar.getX(), activeChar.getY(), activeChar.getZ());
 				}
 			} catch (StringIndexOutOfBoundsException e) {
@@ -162,9 +163,9 @@ public class AdminTeleport implements IAdminCommandHandler {
 			activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 			activeChar.teleToLocation(x, y, z, false);
 
-			activeChar.sendMessage("You have been teleported to " + Cords + '.');
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "You have been teleported to " + Cords + '.');
 		} catch (NoSuchElementException nsee) {
-			activeChar.sendMessage("Coordinates you entered as parameter [" + Cords + "] are wrong.");
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Coordinates you entered as parameter [" + Cords + "] are wrong.");
 		}
 	}
 
@@ -184,7 +185,7 @@ public class AdminTeleport implements IAdminCommandHandler {
 
 			activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 			activeChar.teleToLocation(x, y, z, true);
-			activeChar.sendMessage("You have teleported to " + target.getName() + '.');
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "You have teleported to " + target.getName() + '.');
 		}
 	}
 

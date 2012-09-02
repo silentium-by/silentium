@@ -14,6 +14,7 @@ import silentium.gameserver.model.L2Spawn;
 import silentium.gameserver.model.actor.L2Npc;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.network.SystemMessageId;
+import silentium.gameserver.network.clientpackets.Say2;
 import silentium.gameserver.tables.SpawnTable;
 
 /**
@@ -51,7 +52,7 @@ public class AdminDelete implements IAdminCommandHandler {
 					SpawnTable.getInstance().deleteSpawn(spawn, true);
 			}
 
-			activeChar.sendMessage("Deleted " + target.getName() + " from " + target.getObjectId() + '.');
+			activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Deleted " + target.getName() + " from " + target.getObjectId() + '.');
 		} else
 			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 	}

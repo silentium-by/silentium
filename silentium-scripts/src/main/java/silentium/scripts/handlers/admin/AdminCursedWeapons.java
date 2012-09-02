@@ -15,6 +15,7 @@ import silentium.gameserver.model.CursedWeapon;
 import silentium.gameserver.model.L2Object;
 import silentium.gameserver.model.actor.instance.L2PcInstance;
 import silentium.gameserver.network.SystemMessageId;
+import silentium.gameserver.network.clientpackets.Say2;
 import silentium.gameserver.network.serverpackets.NpcHtmlMessage;
 
 import java.util.Collection;
@@ -40,21 +41,21 @@ public class AdminCursedWeapons implements IAdminCommandHandler {
 
 		if (command.startsWith("admin_cw_info")) {
 			if (!command.contains("menu")) {
-				activeChar.sendMessage("====== Cursed Weapons: ======");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "====== Cursed Weapons: ======");
 				for (final CursedWeapon cw : cwm.getCursedWeapons()) {
-					activeChar.sendMessage("> " + cw.getName() + " (" + cw.getItemId() + ')');
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "> " + cw.getName() + " (" + cw.getItemId() + ')');
 					if (cw.isActivated()) {
 						final L2PcInstance pl = cw.getPlayer();
-						activeChar.sendMessage("  Player holding: " + (pl == null ? "null" : pl.getName()));
-						activeChar.sendMessage("    Player karma: " + cw.getPlayerKarma());
-						activeChar.sendMessage("    Time Remaining: " + cw.getTimeLeft() / 60000 + " min.");
-						activeChar.sendMessage("    Kills : " + cw.getNbKills());
+						activeChar.sendChatMessage(0, Say2.ALL, "SYS", "  Player holding: " + (pl == null ? "null" : pl.getName()));
+						activeChar.sendChatMessage(0, Say2.ALL, "SYS", "    Player karma: " + cw.getPlayerKarma());
+						activeChar.sendChatMessage(0, Say2.ALL, "SYS", "    Time Remaining: " + cw.getTimeLeft() / 60000 + " min.");
+						activeChar.sendChatMessage(0, Say2.ALL, "SYS", "    Kills : " + cw.getNbKills());
 					} else if (cw.isDropped()) {
-						activeChar.sendMessage("  Lying on the ground.");
-						activeChar.sendMessage("    Time Remaining: " + cw.getTimeLeft() / 60000 + " min.");
-						activeChar.sendMessage("    Kills : " + cw.getNbKills());
+						activeChar.sendChatMessage(0, Say2.ALL, "SYS", "  Lying on the ground.");
+						activeChar.sendChatMessage(0, Say2.ALL, "SYS", "    Time Remaining: " + cw.getTimeLeft() / 60000 + " min.");
+						activeChar.sendChatMessage(0, Say2.ALL, "SYS", "    Kills : " + cw.getNbKills());
 					} else
-						activeChar.sendMessage("  Don't exist in the world.");
+						activeChar.sendChatMessage(0, Say2.ALL, "SYS", "  Don't exist in the world.");
 
 					activeChar.sendPacket(SystemMessageId.FRIEND_LIST_FOOTER);
 				}
@@ -102,7 +103,7 @@ public class AdminCursedWeapons implements IAdminCommandHandler {
 				}
 				cw = cwm.getCursedWeapon(id);
 				if (cw == null) {
-					activeChar.sendMessage("Unknown cursed weapon ID.");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Unknown cursed weapon ID.");
 					return false;
 				}
 
@@ -112,7 +113,7 @@ public class AdminCursedWeapons implements IAdminCommandHandler {
 					cw.goTo(activeChar);
 				else if (command.startsWith("admin_cw_add")) {
 					if (cw.isActive())
-						activeChar.sendMessage("This cursed weapon is already active.");
+						activeChar.sendChatMessage(0, Say2.ALL, "SYS", "This cursed weapon is already active.");
 					else {
 						final L2Object target = activeChar.getTarget();
 						if (target instanceof L2PcInstance)
@@ -125,9 +126,9 @@ public class AdminCursedWeapons implements IAdminCommandHandler {
 						cw.reActivate(false);
 					}
 				} else
-					activeChar.sendMessage("Unknown command.");
+					activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Unknown command.");
 			} catch (Exception e) {
-				activeChar.sendMessage("Usage: //cw_remove|//cw_goto|//cw_add <itemid|name>");
+				activeChar.sendChatMessage(0, Say2.ALL, "SYS", "Usage: //cw_remove|//cw_goto|//cw_add <itemid|name>");
 			}
 		}
 		return true;
